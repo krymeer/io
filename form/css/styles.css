@@ -1,0 +1,270 @@
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  font-size: 16px;
+}
+
+body {
+  background: #c1beb5;
+  margin: 0;
+  padding: 0;
+}
+
+body, #form input, .input span {
+  font-family: "Roboto", Verdana, Tahoma, sans-serif;
+}
+
+.tooltip-inner {
+  white-space: pre-wrap;
+  max-width: 300px;
+  text-align: left;
+}
+
+.tooltip.top .tooltip-inner {
+  max-width: 550px;
+}
+
+.tooltip > .tooltip-inner {
+  background: #252323;
+}
+
+.tooltip.right > .tooltip-arrow {
+  border-right-color: #252323;
+}
+
+.tooltip.top > .tooltip-arrow {
+  border-top-color: #252323;
+}
+
+.myClass {
+  background: red;
+}
+
+#container1 {
+  display: table;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+
+#container2 {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+#form {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  background: #fefdff;
+  padding: 1.25rem 0;
+}
+
+#form h2 {
+  margin: 0 0 1.25rem 2.8125rem;
+  font-weight: normal;
+  font-size: 1.5rem;
+}
+
+#form input, .input span {
+  font-size: .8125rem;
+}
+
+#form input[type="submit"] {
+  display: block;
+  margin: 0 auto .5rem auto;
+  font-size: 1.0625rem;
+  font-weight: 500;
+  color: #fefdff;
+  height: 30px;
+  border: 0;
+}
+
+#form input[type="submit"], .input, #check {
+  width: 90%;
+}
+
+#form input[type="submit"]:hover {
+  cursor: pointer;
+}
+
+#form input[type="submit"]:focus {
+  outline: none;
+}
+
+#check {
+  font-size: .75rem;
+  margin: 2rem auto 0 auto;
+  height: 30px;
+}
+
+#check label {
+  cursor: pointer;
+  font-weight: normal;
+  color: #252323;
+}
+
+#check input[type="checkbox"] {
+  display: none;
+}
+
+#check input[type="checkbox"] + label:before {
+  content: "\00a0";
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  font-size: 1em;
+  text-align: center;
+  margin: 0 .25rem 0 0;
+  background: #fefdff;
+  border: 1px solid #c1bfb5;
+}
+
+#check input[type="checkbox"]:checked + label:before {
+  border: 1px solid #e0532c;
+  background: #e0532c;
+  color: #fefdff;
+  content: "\2713";
+}
+
+.input {
+  display: block;
+  height: 30px;
+  padding: .1rem .25rem;
+  margin: 0 auto 30px auto;
+  color: #252323;
+  border: 1px solid #c1bfb5;
+}
+
+.input .material-icons, .input input, .input span {
+  display: inline-block;
+  vertical-align: middle;
+  border: 0;
+}
+
+.input span {
+  color: #c1bfb5;
+  width: 0;
+}
+
+.input input {
+  color: #252323;
+  padding-left: .5rem;
+  width: 85%;
+  border: 0;
+  background: #fefdff;
+}
+
+.input input[name="email"] {
+  width: 75px;
+}
+
+.input input:focus {
+  outline: none;
+  background: #fefdff;
+}
+
+.input input::-webkit-input-placeholder {
+  color: #c1bfb5;
+}
+.input input::-moz-placeholder {
+  color: #c1bfb5;
+}
+.input input:-ms-input-placeholder {
+  color: #c1bfb5;
+}
+.input input:-moz-placeholder {
+  color: #c1bfb5;
+}
+
+#loginForm .input:hover {
+  border: 1px solid #e0532c;
+}
+
+#signUpForm .input:hover {
+  border: 1px solid #439892;
+}
+
+#loginForm, #signUpForm {
+  overflow: hidden;
+  display: block;
+  width: 100%;
+}
+
+#signUpForm {
+  margin-top: 1.5rem;
+}
+
+#loginForm h2 {
+  color: #e0532c;
+}
+
+#signUpForm h2 {
+  color: #439892;
+}
+
+#loginForm input[type="submit"] {
+  background: #e0532c;
+}
+
+#loginForm input[type="submit"]:hover {
+  background: #d64f2a;
+}
+
+#signUpForm input[type="submit"] {
+  background: #439892;
+}
+
+#signUpForm input[type="submit"]:hover {
+  background: #3e8e87;
+}
+
+@media screen and (min-width: 721px) {
+  #form {
+    width: 590px;
+    box-shadow: 10px 10px 50px #706f6c;
+  }
+
+  #form h2 {
+    margin: 0 0 1.25rem 1.875rem;
+  }
+
+  #form input[type="submit"], .input, #check {
+    width: 235px;
+  }
+
+  .input input {
+    width: 200px;
+  }
+
+  #loginForm, #signUpForm {
+    display: inline-block;
+    vertical-align: top;
+    width: 50%;
+  }
+
+  #signUpForm {
+    margin: 0;
+    border-left: 2px solid #b9b9b9;
+  }
+}
+
+/*
+
+Boostrap colors:
+
+.alert-success {
+  background: #3c763d;
+  color: #dff0d8;
+  border-color: #d6e9c6;
+}
+
+.alert-danger {
+  background: #f2dede;
+  color: #a94442;
+  border-color: #ebccd1;
+}
+
+*/
