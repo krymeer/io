@@ -1,6 +1,12 @@
+var err = 0;
+
 var resetTooltip = function(param) {
   $(param[0]).css({'background': '#fefdff', 'color': '#252323'});
   $(param[0].children[1]).css({'background': '#fefdff', 'color': '#252323'});
+  if ($(param[0].children[2]).length > 0) {
+    $(param[0].children[2]).css('color', '#252323');
+    err = 0;
+  }
   $('#' + param[0].id + ' + .tooltip > .tooltip-inner').css('background', '#252323');
   $('#' + param[0].id + ' + .tooltip.right > .tooltip-arrow').css('border-right-color', '#252323');
   $('#' + param[0].id + ' + .tooltip.top > .tooltip-arrow').css('border-top-color', '#252323');
@@ -9,6 +15,14 @@ var resetTooltip = function(param) {
 var tooltipError = function(param) {
   $(param[0]).css({'background': '#f2dede', 'color': '#a94442'});
   $(param[0].children[1]).css({'background': '#f2dede', 'color': '#a94442'});
+  if ($(param[0].children[2]).length > 0) {
+    if ($(param[0].children[1]).val().length > 0) {
+      $(param[0].children[2]).css('color', '#a94442');
+    } else {
+      $(param[0].children[2]).css('color', '#c1bfb5');
+    }
+    err = 1;
+  }
   $('#' + param[0].id + ' + .tooltip > .tooltip-inner').css('background', '#a94442');
   $('#' + param[0].id + ' + .tooltip.right > .tooltip-arrow').css('border-right-color', '#a94442');
   $('#' + param[0].id + ' + .tooltip.top > .tooltip-arrow').css('border-top-color', '#a94442');
@@ -16,7 +30,6 @@ var tooltipError = function(param) {
 
 $(document).ready(function() {
   if ($(window).width() <= 720) {
-    console.log("coś")
     $('.input').attr('data-placement', 'top');
     $('.tooltip-inner').css('max-width', '500px');
   }
@@ -32,9 +45,11 @@ $(document).ready(function() {
   });
   $('#mail').on('input', function() {
     $(this).val($(this).val().replace(/[^0-9]/g, ''));
-    if($(this).val().length > 0) {
+    if($(this).val().length > 0 && err == 0) {
       $('.input span').css('color', '#252323');
-    } else {
+    } else if($(this).val().length > 0 && err > 0) {
+      $('.input span').css('color', '#a94442');
+    } else if($(this).val().length == 0) {
       $('.input span').css('color', '#c1bfb5');
     }
   });

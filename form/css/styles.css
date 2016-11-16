@@ -159,11 +159,29 @@ body, #form input, .input span {
 
 .input input[name="email"] {
   width: 75px;
+  text-align: right;
 }
 
 .input input:focus {
   outline: none;
   background: #fefdff;
+}
+
+.input input:-webkit-autofill {
+  -webkit-text-fill-color: #252323;
+  -webkit-box-shadow: 0 0 0px 1000px #fefdff inset;
+}
+.input input:-moz-autofill {
+  -moz-text-fill-color: #252323;
+  -moz-box-shadow: 0 0 0px 1000px #fefdff inset;
+}
+.input input:-o-autofill {
+  -o-text-fill-color: #252323;
+  -o-box-shadow: 0 0 0px 1000px #fefdff inset;
+}
+.input input:-khtml-autofill {
+  -khtml-text-fill-color: #252323;
+  -khtml-box-shadow: 0 0 0px 1000px #fefdff inset;
 }
 
 .input input::-webkit-input-placeholder {
