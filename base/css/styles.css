@@ -20,6 +20,15 @@ body {
 	position: relative;
 }
 
+#horizontalBar, #moreButton {
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
 .popover {
 	padding: 0;
 	border: 3px solid #c1bfb5;
@@ -30,10 +39,10 @@ body {
   border-bottom-color: #fefdff;
 }
 
-.popover.bottom>.arrow {
-  margin-left:-3px;
+.popover.bottom > .arrow {
+  margin-left: -3px;
   border-bottom-color: #c1bfb5;
-  margin-top:-3px;
+  margin-top: -3px;
 }
 
 .popover > .arrow {
@@ -77,17 +86,17 @@ body {
 	border-bottom: 2px solid #c1bfb5;
 }
 
-#verticalBar {
+#horizontalBar {
 	position: fixed;
 	left: 0;
 	top: 0;
 	width: 100%;
-	height: 45px;
-	background: #439892;
+	height: 90px;
+	background: #6db9b4;
 	z-index: 100;
 }
 
-#verticalBar h2, #verticalBar #menu, #verticalBar #menu ul, #verticalBar #menu li a, #verticalBar #menu li a i {
+#horizontalBar h2, #horizontalBar #menu, #horizontalBar #menu ul, #horizontalBar #menu li a, #horizontalBar #menu li a i {
 	display: inline-block;
 	margin: 0;
 	padding: 0;
@@ -95,60 +104,73 @@ body {
 	height: 45px;
 }
 
-#verticalBar h2 {
+#horizontalBar h2 {
 	font-family: "Comfortaa";
 	font-weight: bold;
 	color: #fefdff;
-	width: 250px;
+	width: 100%;
 	font-size: 26px;
 	padding: 0;
 	text-align: center;
 	text-shadow: .5px .5px 5px #000;	
+	cursor: default;
 }
 
-#verticalBar h2 span {
+#horizontalBar h2 span {
 	color: #e0532c;
 }
 
-#verticalBar #menu {
+#horizontalBar #menu {
+	width: 100%;
+	background: #439892;
 	text-align: center;
 	font-size: 1.0625rem;
-	float: right;
 }
 
-#verticalBar #menu ul {
-	display: flex;
+#horizontalBar #menu ul {
 	list-style-type: none;
 	padding: 0;
 	margin: 0;
+	display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-#verticalBar #menu li {
+#horizontalBar #menu li {
 	cursor: pointer;
 	border-right: 1px solid #d0e4e4;
 }
 
-#verticalBar #menu li:first-child {
-	border-left: 1px solid #d0e4e4;
-}
-
-#verticalBar #menu li:last-child {
+#horizontalBar #menu li:last-child {
 	border: 0;
 }
 
-#verticalBar #menu li a {
+#horizontalBar #menu li a {
 	color: #fefdff;
 	text-decoration: none;
 	padding: 0 1rem;
 }
 
-#verticalBar #menu li a:hover {
+#horizontalBar #menu li a span {
+	display: none;
+}
+
+#horizontalBar #menu li a:hover {
 	background: #3e8e87;
 }
 
-#verticalBar #menu li a:first-child {
+#horizontalBar #menu li a:first-child {
 	padding: 0 .75rem;
 	position: relative;
+}
+
+#horizontalBar #menu li a i {
+	font-size: 1.75rem;
+	vertical-align: middle;
+}
+
+#horizontalBar #menu li:first-child a i {
+	padding: 0
 }
 
 #alertSquare {
@@ -164,42 +186,40 @@ body {
 	display: none;
 }
 
-#verticalBar #menu li a i {
-	font-size: 1.75rem;
-	padding-left: .625rem;
-	vertical-align: middle;
-}
-
-#verticalBar #menu li:first-child a i {
-	padding: 0
-}
-
-#verticalBar #menu li:nth-child(2) a i {
-	padding-left: .5rem;
-}
-
-#horizontalBar, #main #content {
-	margin-top: 45px;
-	height: 100%;
-	display: inline-block;
-}
-
-#horizontalBar {
+#verticalBar {
+	display: none;
 	position: fixed;
-	height: 100%;
-	width: 250px;
+	top: 128px;
+	width: 100%;
+	margin: 0;
 	background: #252323;
 	text-decoration: none;
 	z-index: 90;
 }
 
-#horizontalBar ul {
+#moreButton {
+	position: fixed;
+	margin-top: 90px;
+	width: 100%;
+	height: 38px;
+	background: #e0532c;
+	color: #fefdff;
+	padding: .5rem;
+	cursor: pointer;
+}
+
+#moreButton span {
+	padding-top: 1px;
+	float: right;
+}
+
+#verticalBar ul {
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
 }
 
-#horizontalBar li {
+#verticalBar li {
 	border-top: 1px solid #6c6a65;
 }
 
@@ -213,11 +233,11 @@ body {
   border-right: 10px solid #fefdff;
 }
 
-#horizontalBar li:last-child {
+#verticalBar li:last-child {
 	border-bottom: 1px solid #6c6a65;
 }
 
-#horizontalBar li a {
+#verticalBar li a {
 	position: relative;	
 	display: block;
 	padding: .75rem 1rem .75rem 1.5rem;
@@ -226,11 +246,11 @@ body {
 	text-decoration: none;
 }
 
-#horizontalBar li a:hover {
+#verticalBar li a:hover {
 	background: #e0532c;
 }
 
-#horizontalBar #inputWrapper {
+#verticalBar #inputWrapper {
 	position: relative;
 	color: #b2b0a7;
 	display: block;
@@ -248,7 +268,7 @@ body {
 	font-size: 1rem;
 }
 
-#horizontalBar input {
+#verticalBar input {
 	background: #252323;
 	width: 175px;
 	border: 0;
@@ -256,26 +276,87 @@ body {
 	bottom: 0;
 }
 
-#horizontalBar input:focus {
+#verticalBar input:focus {
 	outline: none;
 }
 
-#horizontalBar input::-webkit-input-placeholder {
+#verticalBar input::-webkit-input-placeholder {
 	color: #b2b0a7;
 }
-#horizontalBar input::-moz-placeholder { /* Firefox 19+ */
+#verticalBar input::-moz-placeholder {
 	color: #b2b0a7;
 }
-#horizontalBar input:-ms-input-placeholder { /* IE 10+ */
+#verticalBar input:-ms-input-placeholder {
   color: #b2b0a7;
 }
-#horizontalBar input:-moz-placeholder { /* Firefox 18- */
+#verticalBar input:-moz-placeholder {
   color: #b2b0a7;
 }
 
 #main #content {
-	margin-left: 250px;
+	margin: 128px 0 0 0;
+	height: 100%;
+	display: inline-block;
 	padding: .5rem;
 	text-align: justify;
 	text-justify: inter-word;
+}
+
+@media screen and (min-width: 721px) {
+	#horizontalBar h2 {
+		width: 250px;
+	}
+
+	#horizontalBar {
+		height: 45px;
+		background: #439892;
+	}
+
+	#horizontalBar #menu {
+		width: auto;
+		background: #439892;
+		float: right;
+	}
+
+	#horizontalBar #menu li {
+		border-right: 1px solid #d0e4e4;
+	}
+
+	#horizontalBar #menu li:first-child {
+		border-left: 1px solid #d0e4e4;
+	}
+
+	#horizontalBar #menu li:last-child {
+		border: 0;
+	}
+
+	#horizontalBar #menu li a span {
+		display: inline;
+	}
+
+	#horizontalBar #menu li a i {
+		padding-left: .625rem;
+	}
+
+	#horizontalBar #menu li:nth-child(2) a i {
+		padding-left: .5rem;
+	}
+
+	#verticalBar {
+		top: auto;
+		margin-top: 45px;
+		display: inline-block;
+		position: fixed;
+		height: 100%;
+		width: 250px;		
+	}
+
+	#moreButton {
+		display: none;
+	}
+
+	#main #content {
+		margin-top: 45px;
+		margin-left: 250px;
+	}
 }
