@@ -68,18 +68,18 @@ var detectScroll = function() {
     console.log($('body').width())
     $(window).scroll(function() {
       if ($(this).scrollTop() > 0) {
-        $('#horizontalBar').animate({'height': '45px'}, 'slow');
-        $('#horizontalBar #menu').fadeOut('slow');
-        $('#moreButton').animate({'top': '-45px'}, 'slow').css('z-index', '110');
-        $('#verticalBar').animate({'top': '83px'}, 'slow');
-        $('#main #content').animate({'margin-top': '83px'}, 'slow');
+        $('#horizontalBar').css('height', '45px');
+        $('#horizontalBar #menu').hide();
+        $('#moreButton').css('top', '-45px').css('z-index', '110');
+        $('#verticalBar').css('top', '83px');
+        $('#main #content').css('margin-top', '83px');
+        $('[data-toggle="popover"]').popover('hide').data('bs.popover').inState.click = false;       
       } else {
-        $('div').finish();
-        $('#horizontalBar').animate({'height': '90px'}, 'slow');
-        $('#horizontalBar #menu').fadeIn('slow');
-        $('#moreButton').animate({'top': '0'}, 'slow');
-        $('#verticalBar').animate({'top': '128px'}, 'slow');
-        $('#main #content').animate({'margin-top': '128px'}, 'slow');
+        $('#horizontalBar').css('height', '90px');
+        $('#horizontalBar #menu').show();
+        $('#moreButton').css('top', '0').css('z-index', '80');
+        $('#verticalBar').css('top', '128px');
+        $('#main #content').css('margin-top', '128px');
       }
     });
   }
