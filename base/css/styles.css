@@ -105,7 +105,7 @@ body {
 }
 
 #horizontalBar h2 {
-	font-family: "Comfortaa";
+
 	font-weight: bold;
 	color: #fefdff;
 	width: 100%;
@@ -118,6 +118,7 @@ body {
 }
 
 #horizontalBar h2 a {
+	font-family: "Comfortaa";	
 	text-decoration: none;
 	color: #fefdff;
 }
