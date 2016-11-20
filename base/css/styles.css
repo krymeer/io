@@ -111,9 +111,15 @@ body {
 	width: 100%;
 	font-size: 26px;
 	padding: 0;
+	text-decoration: none;
 	text-align: center;
 	text-shadow: .5px .5px 5px #000;	
 	cursor: default;
+}
+
+#horizontalBar h2 a {
+	text-decoration: none;
+	color: #fefdff;
 }
 
 #horizontalBar h2 span {
