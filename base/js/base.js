@@ -63,7 +63,7 @@ var toggleMenu = function() {
 };
 
 var detectScroll = function() {
-  var attr = $('#horizontalBar #menu').width();
+  var attr = $('body').width();
   console.log(attr)
   if (attr < 720) {
     $(window).scroll(function() {
