@@ -245,7 +245,8 @@ body, #form input, .input span {
   display: none;
   background: #a94442;
   color: #fefdff;
-  top: 1rem;
+  width: 100%;
+  top: 0;
   right: 50%;
   text-align: center;
   padding: .5rem;
@@ -292,5 +293,9 @@ body, #form input, .input span {
   #signUpForm {
     margin: 0;
     border-left: 2px solid #b9b9b9;
+  }
+
+  #errorPanel {
+    width: auto;
   }
 }
