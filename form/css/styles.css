@@ -242,10 +242,10 @@ body, #form input, .input span {
 #errorPanel {
   max-width: 500px;
   position: fixed;
-  display: inline;
+  display: none;
   background: #a94442;
   color: #fefdff;
-  top: 100px;
+  top: 1rem;
   right: 50%;
   text-align: center;
   padding: .5rem;

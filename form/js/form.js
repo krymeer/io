@@ -34,12 +34,20 @@ $(document).ready(function() {
     $('.tooltip-inner').css('max-width', '500px');
   }
 
+  console.log();
+
 //  if (jakiśBłądWystąpi_albo_jestJakieśCiastko) {
     $('#errorPanel span').html('Treść błędu');
     $('#errorPanel').css({
-   //   'display': 'inline',
+      'display': 'inline',
       'margin-right': -$('#errorPanel').width()/2
     });
+    if ($(window).width() > 720) {
+      $('#errorPanel').css({
+        'top': $('#form').position().top/2,
+        'margin-top': -$('#errorPanel').height()
+      });
+    }
 //  }
 
   $('#errorPanel i').click(function() {
