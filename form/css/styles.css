@@ -240,7 +240,6 @@ body, #form input, .input span {
 }
 
 #errorPanel {
-  max-width: 500px;
   position: fixed;
   display: none;
   background: #a94442;
