@@ -34,6 +34,18 @@ $(document).ready(function() {
     $('.tooltip-inner').css('max-width', '500px');
   }
 
+//  if (jakiśBłądWystąpi_albo_jestJakieśCiastko) {
+    $('#errorPanel span').html('Treść błędu');
+    $('#errorPanel').css({
+   //   'display': 'inline',
+      'margin-right': -$('#errorPanel').width()/2
+    });
+//  }
+
+  $('#errorPanel i').click(function() {
+    $('#errorPanel').fadeOut('fast');
+  });
+
   var loginMsg = $('#loginInput').attr('title'),
       passOneMsg = $('#passOne').attr('title'),
       passTwoMsg = $('#passTwo').attr('title'),

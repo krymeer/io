@@ -239,6 +239,28 @@ body, #form input, .input span {
   background: #3e8e87;
 }
 
+#errorPanel {
+  max-width: 500px;
+  position: fixed;
+  display: inline;
+  background: #a94442;
+  color: #fefdff;
+  top: 100px;
+  right: 50%;
+  text-align: center;
+  padding: .5rem;
+}
+
+#errorPanel i {
+  padding-left: .25rem;
+  vertical-align: bottom;
+  cursor: pointer;
+}
+
+#errorPanel i:hover {
+  color: #f2dede;
+}
+
 @media screen and (min-width: 721px) {
   #form {
     width: 590px;
@@ -272,21 +294,3 @@ body, #form input, .input span {
     border-left: 2px solid #b9b9b9;
   }
 }
-
-/*
-
-Boostrap colors:
-
-.alert-success {
-  background: #3c763d;
-  color: #dff0d8;
-  border-color: #d6e9c6;
-}
-
-.alert-danger {
-  background: #f2dede;
-  color: #a94442;
-  border-color: #ebccd1;
-}
-
-*/
