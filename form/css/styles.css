@@ -299,7 +299,6 @@ body, #form input, .input span {
 
   #errorPanel {
     width: auto;
-    right: 50%;
   }
 
   #errorPanel i {

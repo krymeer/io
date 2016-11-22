@@ -40,12 +40,13 @@ $(document).ready(function() {
     $('#errorPanel span').html('Treść błędu');
     $('#errorPanel').css({
       'display': 'inline',
-      'margin-right': -$('#errorPanel').width()/2
     });
     if ($(window).width() > 720) {
       $('#errorPanel').css({
         'top': $('#form').position().top/2,
-        'margin-top': -$('#errorPanel').height()
+        'right': '50%'
+        'margin-top': -$('#errorPanel').height(),
+        'margin-right': -$('#errorPanel').width()/2,
       });
     }
 //  }
