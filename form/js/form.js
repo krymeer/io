@@ -47,8 +47,14 @@ $(document).ready(function() {
       });
     }
     if (numberOfErrors > 1) {
+      var w = 0;
       for (var i = 1; i < numberOfErrors; i++) {
-        $('#errorPanel' + i).css('margin-top', $('[id^=errorPanel]').height()*1.5);
+        if ($(window).width() > 720) {
+          w = 1;
+        } else {
+          w = 2;
+        }
+        $('#errorPanel' + i).css('margin-top', $('[id^=errorPanel]').height()*w);
       }
     }
     $('[id^=errorPanel] i').click(function() {
