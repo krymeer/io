@@ -247,7 +247,7 @@ body, #form input, .input span {
   color: #fefdff;
   width: 100%;
   top: 0;
-  right: 50%;
+  right: 0;
   text-align: center;
   padding: .5rem;
 }
@@ -256,6 +256,9 @@ body, #form input, .input span {
   padding-left: .25rem;
   vertical-align: bottom;
   cursor: pointer;
+  position: absolute;
+  top: .5rem;
+  right: .5rem;
 }
 
 #errorPanel i:hover {
@@ -297,5 +300,11 @@ body, #form input, .input span {
 
   #errorPanel {
     width: auto;
+    right: 50%;
+  }
+
+  #errorPanel i {
+    position: static;
+    top: auto;
   }
 }
