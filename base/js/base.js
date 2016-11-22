@@ -63,9 +63,7 @@ var toggleMenu = function() {
 };
 
 var detectScroll = function() {
-  var attr = $('body').width();
-  console.log(attr)
-  if (attr < 720) {
+  if (!$('#moreButton').is(':visible')) {
     $(window).scroll(function() {
       if ($(this).scrollTop() > 0) {
         $('#horizontalBar').css('height', '45px');
