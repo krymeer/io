@@ -239,9 +239,8 @@ body, #form input, .input span {
   background: #3e8e87;
 }
 
-#errorPanel {
+[id^=errorPanel] {
   position: fixed;
-  display: none;
   background: #a94442;
   color: #fefdff;
   width: 100%;
@@ -251,7 +250,7 @@ body, #form input, .input span {
   padding: .5rem;
 }
 
-#errorPanel i {
+[id^=errorPanel] i {
   padding-left: .25rem;
   vertical-align: bottom;
   cursor: pointer;
@@ -260,7 +259,7 @@ body, #form input, .input span {
   right: .5rem;
 }
 
-#errorPanel i:hover {
+[id^=errorPanel] i:hover {
   color: #f2dede;
 }
 
@@ -297,11 +296,11 @@ body, #form input, .input span {
     border-left: 2px solid #b9b9b9;
   }
 
-  #errorPanel {
+  [id^=errorPanel] {
     width: auto;
   }
 
-  #errorPanel i {
+  [id^=errorPanel] i {
     position: static;
     top: auto;
   }

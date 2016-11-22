@@ -32,28 +32,31 @@ $(document).ready(function() {
   if ($(window).width() <= 720) {
     $('.input').attr('data-placement', 'top');
     $('.tooltip-inner').css('max-width', '500px');
+  } else {
+
   }
 
-  console.log();
-
-//  if (jakiśBłądWystąpi_albo_jestJakieśCiastko) {
-    $('#errorPanel span').html('Treść błędu');
-    $('#errorPanel').css({
-      'display': 'inline',
-    });
+  var numberOfErrors = $('[id^=errorPanel]').length;
+  if (numberOfErrors > 0) {
     if ($(window).width() > 720) {
-      $('#errorPanel').css({
+      $('[id^=errorPanel]').css({
         'top': $('#form').position().top/2,
         'right': '50%',
-        'margin-top': -$('#errorPanel').height(),
-        'margin-right': -$('#errorPanel').width()/2,
+        'margin-top': -$('[id^=errorPanel]').height(),
+        'margin-right': -$('[id^=errorPanel]').width()/2,
       });
     }
-//  }
-
-  $('#errorPanel i').click(function() {
-    $('#errorPanel').fadeOut('fast');
-  });
+    if (numberOfErrors > 1) {
+      for (var i = 1; i < numberOfErrors; i++) {
+        $('#errorPanel' + i).css('margin-top', $('[id^=errorPanel]').height()*1.5);
+      }
+    }
+    $('[id^=errorPanel] i').click(function() {
+      var name = $(this).parent()[0].id;
+      var n = name.substring(10, name.length);
+      $('#errorPanel' + n).fadeOut('fast');
+    });
+  }
 
   var loginMsg = $('#loginInput').attr('title'),
       passOneMsg = $('#passOne').attr('title'),
