@@ -44,7 +44,7 @@ $(document).ready(function() {
     if ($(window).width() > 720) {
       $('#errorPanel').css({
         'top': $('#form').position().top/2,
-        'right': '50%'
+        'right': '50%',
         'margin-top': -$('#errorPanel').height(),
         'margin-right': -$('#errorPanel').width()/2,
       });
