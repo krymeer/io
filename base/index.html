@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta charset="UTF-8">
+		<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="css/styles.css">
+		<link rel="stylesheet" type="text/css" href="css/index.css">
+		<script src="js/jquery-3.1.1.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/base.js"></script>
+		<title>AGreg - panel użytkownika</title>
+	</head>
+	<body>
+		<div id="main">
+			<div id="horizontalBar">
+				<h2><a href="/"><span>A</span>Greg</a></h2>
+				<div id="menu">
+					<ul>
+						<li><a><div id="alertSquare"></div><i class="material-icons">notifications_active</i></a></li>
+						<li><a><span>dodaj</span><i class="material-icons">add</i></a></li>
+						<li><a><span>subskrypcje</span><i class="material-icons">playlist_add_check</i></a></li>
+						<li><a data-toggle="popover" data-html="true" data-placement="bottom" data-content="<div>edytuj profil <i class='material-icons'>settings</i></div><div>wyloguj się <i class='material-icons'>power_settings_new</i></div>"><span>login</span><i class="material-icons">arrow_drop_down_circle</i></a></li>
+					</ul>
+				</div>
+			</div>
+			<div id="moreButton">Twoje grupy<span>&#9776;</span></div>
+			<div id="verticalBar">
+				<div id="inputWrapper">
+					<input type="text" name="search" id="search" placeholder="Szukaj przedmiotu"><i class="material-icons" id="searchIcon">search</i>
+				</div>
+				<ul>
+					<li><a href="index.html">Języki formalne i teoria translacji</a></li>
+					<li><a href="#2">Kryptografia i bezpieczeństwo</a></li>
+					<li><a href="#3">Obliczenia naukowe</a></li>
+					<li><a href="#4">Środowisko programisty</a></li>
+				</ul>
+			</div>
+			<div id="content">
+				<div id="panelOne">
+					<h1>Nowości</h1>
+						<div class="header"><h3>Hello World!</h3><div class="date">1.10.2016 0:00</div></div>
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus viverra purus quis ornare convallis. Suspendisse commodo rutrum lectus, id imperdiet dolor fringilla eu. Pellentesque dignissim mi non finibus viverra. Nullam posuere tellus id sapien consequat porttitor. Ut nunc tellus, scelerisque porttitor metus et, efficitur maximus lectus. Nulla magna magna, maximus convallis vehicula a, egestas id neque. Curabitur hendrerit orci ultricies nunc tempus, et cursus massa tempus.
+						<hr>
+						<div class="header"><h3>Zmiany, zmiany</h3><div class="date">22.11.2016 7:01</div></div>
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ac mi pharetra diam finibus pulvinar. Donec et egestas turpis. Nullam efficitur cursus lorem, ultrices elementum dui congue eget. Cras aliquet bibendum aliquam. Cras dictum lorem in nisi pulvinar venenatis. Nulla luctus venenatis semper. In turpis nibh, imperdiet sed dui id, viverra scelerisque elit. Aliquam et volutpat turpis. Curabitur at est quis nibh molestie vulputate ac nec urna.
+				</div><div id="panelTwo">
+					<h1>Ważne terminy</h1>
+					<h3>Listopad</h3>
+						<div class="event">Poniedziałek 25<br/>
+						kolokwium z czegoś tam</div><hr>
+						<div class="event">Czwartek 28<br/>
+						oddać listę 3 z lab czegoś tam</div><hr>
+					<h3>Grudzień</h3>
+						<div class="event">Wtorek 1<br/>
+						bla bla</div><hr>
+						<div class="event">Czwartek 3<br/>
+						oddać listę 3 z lab czegoś tam</div><hr>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

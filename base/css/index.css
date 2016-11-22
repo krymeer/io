@@ -1,0 +1,94 @@
+body {
+	background: #c1bfb5;
+}
+
+#main #content {
+	background: #c1bfb5;
+	text-align: center;
+}
+
+#panelOne, #panelTwo {
+	width: auto;
+	display: block;
+	background: #fefdff;
+	vertical-align: top;
+	padding: 3rem;
+	margin: 2.5rem;
+	text-align: justify;
+	text-justify: inter-word;
+	box-shadow: 10px 10px 50px #706f6c;
+	overflow: hidden;
+}
+
+#panelTwo {
+	width: 440px;
+}
+
+#panelOne h1, #panelTwo h1 {
+	margin: 0 0 1.75rem 0;
+	padding: 0;
+}
+
+.header {
+	display: block;
+	position: relative;
+}
+
+#panelOne h3, .date {
+	display: inline-block;
+}
+
+#panelTwo h3 {
+	padding-left: .25rem;
+	border-bottom: 1px solid #e0532c;
+	margin: 1.5rem 0 1rem 0;
+	width: 200px;
+}
+
+.event {
+	padding-left: .25rem;
+	text-align: left;
+}
+
+.date {
+	position: absolute;
+	right: 0;
+	bottom: .75rem;
+	font-size: .9rem;
+	color: #b9b9b9;
+}
+
+#panelOne h3 {
+	color: #60a8a3;
+	margin: 1.5rem 0 .75rem 0;
+}
+
+#panelOne hr {
+	background: #cdcbc3;
+	height: 1px;
+}
+
+#panelTwo hr {
+	background: #c4c2b8;
+	height: 1px;
+	width: 200px;
+	margin: .5rem 0;
+}
+
+#panelTwo h1 {
+	color: #e0532c;
+}
+
+@media screen and (min-width: 1351px) {
+	#panelOne, #panelTwo {
+		display: inline-block;
+		margin: 2.5rem 2.5%;
+	}
+	#panelOne {
+		width: 60%;
+	}
+	#panelTwo {
+		width: 28%;
+	}
+}
+

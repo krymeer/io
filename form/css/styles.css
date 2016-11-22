@@ -263,6 +263,10 @@ body, #form input, .input span {
     width: 50%;
   }
 
+  #loginForm {
+  	float: left;
+  }
+
   #signUpForm {
     margin: 0;
     border-left: 2px solid #b9b9b9;

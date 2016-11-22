@@ -105,7 +105,6 @@ body {
 }
 
 #horizontalBar h2 {
-
 	font-weight: bold;
 	color: #fefdff;
 	width: 100%;
@@ -152,31 +151,37 @@ body {
 	border: 0;
 }
 
-#horizontalBar #menu li a {
+#horizontalBar #menu li > a {
 	color: #fefdff;
 	text-decoration: none;
 	padding: 0 1rem;
 }
 
-#horizontalBar #menu li a span {
+#horizontalBar #menu li > a span {
 	display: none;
 }
 
-#horizontalBar #menu li a:hover {
+#horizontalBar #menu li > a:hover {
 	background: #3e8e87;
 }
 
-#horizontalBar #menu li a:first-child {
+#horizontalBar #menu li > a:first-child {
 	padding: 0 .75rem;
 	position: relative;
 }
 
-#horizontalBar #menu li a i {
+#horizontalBar #menu li > a i {
 	font-size: 1.75rem;
 	vertical-align: middle;
 }
 
-#horizontalBar #menu li:first-child a i {
+#horizontalBar #menu li div a {
+	text-decoration: none;
+	line-height: normal;
+	color: #c1bfb5;
+}
+
+#horizontalBar #menu li:first-child > a i {
 	padding: 0
 }
 
