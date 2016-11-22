@@ -13,7 +13,7 @@ body {
 	display: block;
 	background: #fefdff;
 	vertical-align: top;
-	padding: 3rem;
+	padding: 3rem 1.5rem;
 	text-align: justify;
 	text-justify: inter-word;
 	overflow: hidden;
@@ -24,8 +24,8 @@ body {
 	padding: 0;
 }
 
-#panelTwo {
-	padding-top: 0;
+#panelOne h1 {
+	margin: 0;
 }
 
 .header {
@@ -96,13 +96,16 @@ body {
 	#panelOne, #panelTwo {
 		display: inline-block;
 		margin: 2.5rem 2.5%;
+		padding: 3rem;	
 	}
 	#panelOne {
 		width: 60%;
 	}
 	#panelTwo {
 		width: 28%;
-		padding: 3rem;
+	}
+	#panelOne h1 {
+		margin: 0 0 1.75rem 0;
 	}
 }
 
