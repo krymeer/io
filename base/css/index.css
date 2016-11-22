@@ -5,28 +5,27 @@ body {
 #main #content {
 	background: #c1bfb5;
 	text-align: center;
+	padding: 0;
 }
 
 #panelOne, #panelTwo {
-	width: auto;
+	width: 100%;
 	display: block;
 	background: #fefdff;
 	vertical-align: top;
 	padding: 3rem;
-	margin: 2.5rem;
 	text-align: justify;
 	text-justify: inter-word;
-	box-shadow: 10px 10px 50px #706f6c;
 	overflow: hidden;
-}
-
-#panelTwo {
-	width: 440px;
 }
 
 #panelOne h1, #panelTwo h1 {
 	margin: 0 0 1.75rem 0;
 	padding: 0;
+}
+
+#panelTwo {
+	padding-top: 0;
 }
 
 .header {
@@ -79,7 +78,21 @@ body {
 	color: #e0532c;
 }
 
+@media screen and (min-width: 721px) {
+	#panelOne, #panelTwo {
+		width: auto;
+		margin: 2.5rem;
+		box-shadow: 10px 10px 50px #706f6c;
+	}
+	#panelTwo {
+		width: 440px;
+	}
+}
+
 @media screen and (min-width: 1351px) {
+	#main #content {
+		padding: .5rem;
+	}
 	#panelOne, #panelTwo {
 		display: inline-block;
 		margin: 2.5rem 2.5%;
@@ -89,6 +102,7 @@ body {
 	}
 	#panelTwo {
 		width: 28%;
+		padding: 3rem;
 	}
 }
 
