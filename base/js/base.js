@@ -57,9 +57,6 @@ var toggleMenu = function() {
   $('#moreButton').click(function() {
     $('#verticalBar').toggle("slide");
   });
-  $('#verticalBar').click(function() {
-    $('#verticalBar').toggle("slide");
-  });
 };
 
 var detectScroll = function() {
