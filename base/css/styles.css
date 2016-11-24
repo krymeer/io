@@ -20,7 +20,7 @@ body {
 	position: relative;
 }
 
-#horizontalBar, #moreButton {
+#horizontalBar, #moreButton, #verticalBar {
 	-webkit-touch-callout: none;
 	-webkit-user-select: none;
 	-khtml-user-select: none;
@@ -198,6 +198,17 @@ body {
 	display: none;
 }
 
+#returnArrow {
+	position: absolute;
+	top: 5px;
+	right: 0;
+	display: none;
+	z-index: 300;
+	color: #b2b0a7;
+	cursor: pointer;
+	font-size: 2rem;
+}
+
 #verticalBar {
 	display: none;
 	position: fixed;
@@ -207,7 +218,7 @@ body {
 	margin: 0;
 	background: #252323;
 	text-decoration: none;
-	z-index: 190;
+	z-index: 210;
 }
 
 #moreButton {

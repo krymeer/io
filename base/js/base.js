@@ -1,5 +1,3 @@
-$.mobile.autoInitializePage = false;
-
 var checkWhichPage = function() {
   var addr = window.location.href;
   addr = addr.substring(addr.lastIndexOf('/')+1, addr.length);
@@ -55,20 +53,13 @@ var activeSearch = function() {
 };
 
 var toggleMenu = function() {
-  if ($('#moreButton').is(':visible')) {
-    $('#moreButton').click(function() {
-      $('#verticalBar').toggle('slide');
-    });
-    if (!$('#verticalBar').is(':visible')) {
-      $('body').on('swiperight', function() {
-        $('#verticalBar').toggle('slide');
-      });
-    } else {
-      $('body').on('swipeleft', function() {
-        $('#verticalBar').toggle('slide');
-      });
-    }
-  }
+  $('#returnArrow').css('display', 'inline');
+  $('#moreButton').click(function() {
+    $('#verticalBar').toggle("slide");
+  });
+  $('#verticalBar').click(function() {
+    $('#verticalBar').toggle("slide");
+  });
 };
 
 var detectScroll = function() {
@@ -103,9 +94,11 @@ $(document).ready(function() {
   checkWhichPage();
   addLineBreaks();
   activeSearch();
-  toggleMenu();
-  detectScroll();
   closePopover();
+  if ($('#moreButton').is(':visible')) {
+    toggleMenu();
+    detectScroll();
+  }
   var numberOfNotifications = Math.floor((Math.random()*100));
   /* Liczba powiadomień dla danego użytkownika; na razie to jakaś losowa wartość. */
   if (numberOfNotifications > 0) {
