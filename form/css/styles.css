@@ -16,6 +16,45 @@ body, #form input, .input span {
   font-family: "Roboto", Verdana, Tahoma, sans-serif;
 }
 
+#logo {
+  display: block;
+  overflow: hidden;
+  font-family: "Comfortaa";  
+  color: #fefdff;
+  background: #439892;
+  line-height: 45px;
+  margin: -1.25rem 0 1.25rem 0;
+  padding: 0;
+  height: 45px;
+  width: 100%;
+  text-align: center;  
+}
+
+#logo a {
+  font-weight: bold;
+  font-size: 26px;
+  padding: 0;
+  text-shadow: .5px .5px 5px #000;
+}
+
+#logo a, #logo a:hover {
+  color: #fefdff;
+  text-decoration: none;
+}
+
+#logo span {
+  color: #e0532c;
+}
+
+#logo, #form, input {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
 .tooltip-inner {
   white-space: pre-wrap;
   max-width: 300px;
@@ -62,7 +101,7 @@ body, #form input, .input span {
   padding: 1.25rem 0;
 }
 
-#form h2 {
+#loginForm h2, #signUpForm h2 {
   margin: 0 0 1.25rem 2.8125rem;
   font-weight: normal;
   font-size: 1.5rem;
@@ -269,7 +308,7 @@ body, #form input, .input span {
     box-shadow: 10px 10px 50px #706f6c;
   }
 
-  #form h2 {
+  #loginForm h2, #signUpForm h2 {
     margin: 0 0 1.25rem 1.875rem;
   }
 
