@@ -56,6 +56,9 @@ var toggleMenu = function() {
   $('#returnArrow').css('display', 'inline');
   $('#moreButton').click(function() {
     $('#verticalBar').toggle("slide");
+  });  
+  $('#returnArrow').click(function() {
+    $('#verticalBar').toggle("slide");
   });
 };
 
