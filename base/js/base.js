@@ -55,13 +55,14 @@ var activeSearch = function () {
 var mask = function () {
     if (!$('#mask').is(':visible')) {
         $('#mask').fadeIn('fast');
+        $('#content').addClass('noscroll');
     } else {
         $('#mask').fadeOut('fast');
+        $('#content').removeClass('noscroll');
     }
 }
 
 var toggleMenu = function () {
-
     $('#returnArrow').css('display', 'inline');
     $('#moreButton').click(function () {
         $('#verticalBar').toggle("slide", mask());

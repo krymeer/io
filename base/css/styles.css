@@ -16,6 +16,11 @@ body {
     padding: 0;
 }
 
+.noscroll { 
+    position: fixed; 
+    overflow: hidden;
+}
+
 #mask {
     display: none;
     z-index: 205;
