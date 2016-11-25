@@ -62,7 +62,14 @@ var mask = function () {
     }
 }
 
+var swipe = function () {
+    
+    
+
+}
+
 var toggleMenu = function () {
+    swipe();
     $('#returnArrow').css('display', 'inline');
     $('#moreButton').click(function () {
         $('#verticalBar').toggle("slide", mask());
@@ -70,6 +77,17 @@ var toggleMenu = function () {
     $('#returnArrow').click(function () {
         $('#verticalBar').toggle("slide", mask());
     });
+    var body = document.body;
+    Hammer(body).on("swiperight", function() {
+        if (!$('#verticalBar').is(':visible')) {
+            $('#verticalBar').toggle("slide", mask());
+        }
+    });
+    Hammer(body).on("swipeleft", function() {
+        if ($('#verticalBar').is(':visible')) {
+            $('#verticalBar').toggle("slide", mask());
+        }
+    });   
     setHorizontalMenuHeight();
 };
 
