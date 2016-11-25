@@ -57,7 +57,7 @@ var mask = function () {
         $('#mask').fadeIn('fast');
         $('#content').addClass('noscroll');
     } else {
-        $('#mask').fadeOut('fast');
+        $('#mask').fadeOut('slow');
         $('#content').removeClass('noscroll');
     }
 }
