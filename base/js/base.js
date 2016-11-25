@@ -55,21 +55,14 @@ var activeSearch = function () {
 var mask = function () {
     if (!$('#mask').is(':visible')) {
         $('#mask').fadeIn('fast');
-        $('#content').addClass('noscroll');
+        $('body').addClass('noscroll');
     } else {
         $('#mask').fadeOut('slow');
-        $('#content').removeClass('noscroll');
+        $('body').removeClass('noscroll');
     }
 }
 
-var swipe = function () {
-    
-    
-
-}
-
 var toggleMenu = function () {
-    swipe();
     $('#returnArrow').css('display', 'inline');
     $('#moreButton').click(function () {
         $('#verticalBar').toggle("slide", "slow", mask());
