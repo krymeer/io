@@ -62,25 +62,30 @@ var mask = function () {
     }
 }
 
+var flag = 0;
+
 var toggleMenu = function () {
-    $('#returnArrow').css('display', 'inline');
-    $('#moreButton').click(function () {
-        $('#verticalBar').toggle("slide", "slow", mask());
-    });
-    $('#returnArrow').click(function () {
-        $('#verticalBar').toggle("slide", "slow", mask());
-    });
-    var body = document.body;
-    Hammer(body).on("swiperight", function() {
-        if (!$('#verticalBar').is(':visible')) {
+    if (flag == 0) {
+        flag = 1;
+        $('#returnArrow').css('display', 'inline');
+        $('#moreButton').click(function () {
             $('#verticalBar').toggle("slide", "slow", mask());
-        }
-    });
-    Hammer(body).on("swipeleft", function() {
-        if ($('#verticalBar').is(':visible')) {
+        });
+        $('#returnArrow').click(function () {
             $('#verticalBar').toggle("slide", "slow", mask());
-        }
-    });   
+        });
+        var body = document.body;
+        Hammer(body).on("swiperight", function() {
+            if (!$('#verticalBar').is(':visible')) {
+                $('#verticalBar').toggle("slide", "slow", mask());
+            }
+        });
+        Hammer(body).on("swipeleft", function() {
+            if ($('#verticalBar').is(':visible')) {
+                $('#verticalBar').toggle("slide", "slow", mask());
+            }
+        });
+    }   
     setHorizontalMenuHeight();
 };
 
@@ -90,7 +95,7 @@ var detectScroll = function () {
             if ($(this).scrollTop() > 0) {
                 $('#horizontalBar').css('height', '45px');
                 $('#horizontalBar #menu').hide();
-                $('#main #content').css('margin-top', '83px');
+                $('#main #content').css('margin-top', '90px');
                 $('[data-toggle="popover"]').popover('hide').data('bs.popover').inState.click = false;
             } else {
                 $('#horizontalBar').css('height', '90px');
@@ -114,10 +119,24 @@ var closePopover = function () {
 var setHorizontalMenuHeight = function () {
     if ($('#moreButton').is(':visible')) {
         $('#verticalBar #sideMenu').css('height', ($(window).outerHeight(true)) - $('#inputWrapper').outerHeight(true));
-    } else {
+    } else if (!('#moreButton').is(':visible')) {
+        $('#verticalBar').css('display', 'inline');
         $('#verticalBar #sideMenu').css('height', ($(window).outerHeight(true)) - $('#horizontalBar').outerHeight(true) - $('#inputWrapper').outerHeight(true));
     }
+    detectScroll();
 };
+
+var mobileFeatures = function () {
+    if ($('#moreButton').is(':visible')) {
+        toggleMenu();
+        detectScroll();
+    }
+}
+
+$(window).resize(function () {
+    mobileFeatures();
+    setHorizontalMenuHeight();
+});
 
 $(document).ready(function () {
     $('[data-toggle="popover"]').popover();
@@ -126,10 +145,7 @@ $(document).ready(function () {
     addLineBreaks();
     activeSearch();
     closePopover();
-    if ($('#moreButton').is(':visible')) {
-        toggleMenu();
-        detectScroll();
-    }
+    mobileFeatures();
     var numberOfNotifications = Math.floor((Math.random() * 100));
     /* Liczba powiadomień dla danego użytkownika; na razie to jakaś losowa wartość. */
     if (numberOfNotifications > 0) {
