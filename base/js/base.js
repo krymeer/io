@@ -52,13 +52,22 @@ var activeSearch = function () {
     });
 };
 
+var mask = function () {
+    if (!$('#mask').is(':visible')) {
+        $('#mask').fadeIn('fast');
+    } else {
+        $('#mask').fadeOut('fast');
+    }
+}
+
 var toggleMenu = function () {
+
     $('#returnArrow').css('display', 'inline');
     $('#moreButton').click(function () {
-        $('#verticalBar').toggle("slide");
+        $('#verticalBar').toggle("slide", mask());
     });
     $('#returnArrow').click(function () {
-        $('#verticalBar').toggle("slide");
+        $('#verticalBar').toggle("slide", mask());
     });
     setHorizontalMenuHeight();
 };
