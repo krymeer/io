@@ -126,6 +126,7 @@ var setHorizontalMenuHeight = function () {
 var mobileFeatures = function () {
     if ($('#moreButton').css('display') == 'block') {
         $('#verticalBar').css('display', 'none');
+        $('#main #content').css('margin-top', '90px');
         toggleMenu();
         detectScroll();
     } else {
