@@ -221,7 +221,7 @@ body {
     position: absolute;
     top: 5px;
     right: 0;
-    display: none;
+    display: inline;
     z-index: 300;
     color: #b2b0a7;
     cursor: pointer;
@@ -401,7 +401,7 @@ body {
         height: 100%;
     }
 
-    #moreButton {
+    #moreButton, #returnArrow {
         display: none;
     }
 
