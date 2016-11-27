@@ -126,12 +126,15 @@ var setHorizontalMenuHeight = function () {
 var mobileFeatures = function () {
     if ($('#moreButton').css('display') == 'block') {
         $('#verticalBar').css('display', 'none');
-        $('#mask').css('display', 'none');
+        if ($('#mask').css('display') == 'block') {
+            $('#verticalBar').css('display', 'block');
+        }
         $('#main #content').css('margin-top', '90px');
         toggleMenu();
         detectScroll();
     } else {
         $(window).unbind('scroll');
+        $('#mask').css('display', 'none');
         $('#verticalBar').css('display', 'inline');
         $('#horizontalBar').css('height', '45px');
         $('#horizontalBar #menu').show();
