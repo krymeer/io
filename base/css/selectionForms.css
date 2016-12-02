@@ -1,0 +1,122 @@
+.selectionForms {
+	display: table;
+	margin: 0 auto;
+	color: #252323;	
+}
+
+.selectionForms .dropdown-menu>li>a {
+	color: #252323;
+	padding: .5rem;
+}
+
+.selectionForms .dropdown-menu>li>a:hover {
+	background: #e0532c;
+	color: #fefdff;
+}
+
+.selectionForms .dropdown-menu>li>a:focus {
+	background: #439892;
+	color: #fefdff;
+}
+
+.selectionForms span.title {
+	font-size: 17px;
+	display: block;
+	margin-top: 1rem;
+}
+
+.selectionForms:first-of-type span.title {
+	margin-top: 0;
+}
+
+.selectionForms .bootstrap-select.btn-group .dropdown-toggle .caret:before {
+	font-family: "Material Icons";
+	font-size: 32px;
+	content: "\E313";
+	position: relative;
+	top: -4px;
+}
+
+.selectionForms .bootstrap-select.btn-group .dropdown-toggle .caret {
+	width: 32px;
+	height: 32px;
+	position: absolute;
+	top: 2px;
+	right: 0;
+	background: #c1bfb5;
+	color: #fefdff;	
+	border: 0;
+}
+
+.selectionForms .btn-group.bootstrap-select.open .caret {
+	background: #e0532c;
+}
+
+.selectionForms .btn.dropdown-toggle.btn-primary {
+	box-shadow: none;
+	background: #fefdff;
+	border: 2px solid #c1bfb5;
+	border-radius: 0;
+	color: #252323;
+	outline: none;
+}
+
+.selectionForms .btn.dropdown-toggle.btn-primary {
+	height: 36px;
+	padding: .5rem;
+}
+
+.selectionForms .dropdown-menu.open a, .selectionForms .btn:focus, .selectionForms .btn:active {
+	outline: none !important;
+}
+
+.selectionForms .dropdown-menu.open {
+	margin-top: -2px;
+	border-radius: 0;
+	border: 2px solid #c1bfb5;
+	width: 300px;
+	height: 200px;
+	padding: 0;
+}
+
+.selectionForms .dropdown-menu.inner {
+	height: 100%;
+}
+
+.noOverflow {
+	overflow: hidden !important;
+}
+
+.selectionForms .dropdown-menu.inner::-webkit-scrollbar {
+  width: .5rem;
+}
+
+.selectionForms .dropdown-menu.inner::-webkit-scrollbar-track-piece {
+	background: #c1bfb5;
+}
+
+.selectionForms .dropdown-menu.inner::-webkit-scrollbar-thumb {
+  background: #252323;
+  border-radius: 8px;
+  outline: 1px solid #252323;
+}
+
+#searchResults {
+	margin-top: 2rem;
+}
+
+@media screen and (min-width: 1081px) {
+	.selectionForms {
+		display: inline-block;
+		margin-right: 50px;
+	}
+	.selectionForms:nth-of-type(2) span.title {
+		margin-top: 0;
+	}
+}
+
+@media screen and (min-width: 1481px) {
+	.selectionForms span.title {
+		margin-top: 0;
+	}
+}

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/css/bootstrap-select.min.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <link rel="stylesheet" type="text/css" href="css/selectionForms.css">
+    <script src="js/jquery-3.1.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/base.js"></script>
+    <script src="js/hammer.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/js/bootstrap-select.min.js"></script>
+    <script src="js/subscribe.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+    <title>AGreg - panel użytkownika</title>
+  </head>
+  <body>
+    <div id="mask"></div>
+    <div id="main">
+      <div id="horizontalBar">
+        <h2><a href="/"><span>A</span>Greg</a></h2>
+        <div id="menu">
+          <ul>
+            <li><a><div id="alertSquare"></div><i class="material-icons">notifications_active</i></a></li>
+            <li><a><span>dodaj</span><i class="material-icons">add</i></a></li>
+            <li><a><span>subskrypcje</span><i class="material-icons">playlist_add_check</i></a></li>
+            <li><a data-toggle="popover" data-html="true" data-placement="bottom" data-content="<div>edytuj profil <i class='material-icons'>settings</i></div><div>wyloguj się <i class='material-icons'>power_settings_new</i></div>"><span>login</span><i class="material-icons">arrow_drop_down_circle</i></a></li>
+          </ul>
+        </div>
+      </div>
+      <div id="moreButton"><i class="material-icons">list</i></div>
+      <div id="verticalBar">
+        <i class="material-icons" id="returnArrow">keyboard_arrow_left</i>
+        <div id="inputWrapper">
+          <input type="text" name="search" id="search" placeholder="Szukaj przedmiotu"><i class="material-icons" id="searchIcon">search</i>
+        </div>
+                <div id="sideMenu">
+                    <ul>
+                        <li><a href="index.html">Języki formalne i teoria translacji</a></li>
+                        <li><a href="#2">Kryptografia i bezpieczeństwo</a></li>
+                        <li><a href="#3">Obliczenia naukowe</a></li>
+                        <li><a href="#4">Środowisko programisty 1</a></li>
+                        <li><a href="#4">Środowisko programisty 2</a></li>
+                        <li><a href="#4">Środowisko programisty 3</a></li>
+                        <li><a href="#4">Środowisko programisty 4</a></li>
+                        <li><a href="#4">Środowisko programisty 5</a></li>
+                        <li><a href="#4">Środowisko programisty 6</a></li>
+                        <li><a href="#4">Środowisko programisty 7</a></li>
+                        <li><a href="#4">Środowisko programisty 8</a></li>
+                        <li><a href="#4">Środowisko programisty 9</a></li>
+                    </ul>
+                </div>
+      </div>
+      <div id="content">
+        <div id="panelOneOnly">
+          <div id="selectionPanel">
+            <div class="selectionForms" id="selectUni">
+              <span class="title">Uczelnia</span>
+              <select class="selectpicker" data-width="300px" data-style="btn-primary"  title=" ">
+                <option id="pwr">Politechnika Wrocławska</option>
+                <option id="uwr">Uniwersytet Wrocławski</option>
+                <option id="um_wr">Uniwersytet Medyczny we Wrocławiu</option>
+                <option id="agh">Akademia Górniczo-Hutnicza w Krakowie</option>
+                <option id="sgh">Szkoła Główna Handlowa w Warszawie</option>
+                <option id="prz">Politechnika Rzeszowska</option>
+                <option id="po">Politechnika Opolska</option>
+              </select>
+            </div>
+            <div class="selectionForms" id="selectDep">
+              <span class="title">Wydział</span>
+              <select class="selectpicker" data-width="300px" data-style="btn-primary" title=" ">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+              </select>
+            </div>
+            <div class="selectionForms" id="selectFld">
+              <span class="title">Kierunek</span>
+              <select class="selectpicker" data-width="300px" data-style="btn-primary" title=" ">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+              </select>
+            </div>
+          </div>
+          <div id="searchResults">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus viverra purus quis ornare convallis. Suspendisse commodo rutrum lectus, id imperdiet dolor fringilla eu. Pellentesque dignissim mi non finibus viverra. Nullam posuere tellus id sapien consequat porttitor. Ut nunc tellus, scelerisque porttitor metus et, efficitur maximus lectus. Nulla magna magna, maximus convallis vehicula a, egestas id neque. Curabitur hendrerit orci ultricies nunc tempus, et cursus massa tempus
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -8,7 +8,7 @@ html, body {
 	padding: 0;
 }
 
-#panelOne, #panelTwo {
+#panelOne, #panelTwo, #panelOneOnly {
 	width: 100%;
 	display: block;
 	background: #fefdff;
@@ -79,7 +79,7 @@ html, body {
 }
 
 @media screen and (min-width: 721px) {
-	#panelOne, #panelTwo {
+	#panelOneOnly, #panelOne, #panelTwo {
 		width: auto;
 		margin: 2.5rem;
 		box-shadow: 10px 10px 50px #706f6c;
@@ -87,13 +87,17 @@ html, body {
 	#panelTwo {
 		width: 440px;
 	}
+
+	#panelOneOnly {
+		min-height: 400px;
+	}
 }
 
 @media screen and (min-width: 1351px) {
 	#main #content {
 		padding: .5rem;
 	}
-	#panelOne, #panelTwo {
+	#panelOneOnly, #panelOne, #panelTwo {
 		display: inline-block;
 		margin: 2.5rem 2.5%;
 		padding: 3rem;	
