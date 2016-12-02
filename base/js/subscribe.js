@@ -74,4 +74,10 @@ $(window).on('load', function() {
 	setProperHeight();
 	enableClicks();
 	filterResults();
+	$('select').on('change', function() {
+		var span = $('.filter-option.pull-left', $(this).parent().parent());
+		if (span.html() !== ' ') {
+			$('.btn-group.bootstrap-select.open .caret', $(this).parent().parent()).css('background', '#e0532c');
+		}
+	})
 });
