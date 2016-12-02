@@ -15,6 +15,38 @@ var setProperHeight = function() {
 	}
 };
 
+var filterResults = function() {
+	$('#searchFilter input').on('input', function() {
+		$(this).val($(this).val().replace(regExtended, ''))
+		var content = $(this).val().toLowerCase();
+		$('.titleOfCourse').each(function() {
+			var name = $(this)[0].outerText.toLowerCase();
+			name = name.replace('expand_more', '');
+			var tmp = $(this).next('.courseDetails').children().children();
+			var details = '';
+			for (var i = 1; i < tmp.length; i++) {
+				if (tmp == undefined) {
+					break;
+				}
+				details += tmp[i].innerText;
+				details = details.replace('check_box_outline_blank', '');
+				details = details.replace('check_box', '');
+			}
+			details = details.toLowerCase();
+			if (name.indexOf(content) !== -1 || details.indexOf(content) !== -1) {
+				$(this).css('display', 'block').parent().css('border-bottom', '2px solid #c1bfb5');;
+			} else {
+				$(this).css('display', 'none').parent().css('border', '0');
+			}
+		});
+		if (content === '') {
+			$('.titleOfCourse').parent().each(function() {
+				$(this).css('border-bottom', '2px solid #c1bfb5');
+			});
+		}
+	});
+};
+
 var enableClicks = function() {
 	$('.titleOfCourse').click(function() {
 		$('.titleOfCourse span').remove();
@@ -41,4 +73,5 @@ var enableClicks = function() {
 $(window).on('load', function() {
 	setProperHeight();
 	enableClicks();
+	filterResults();
 });

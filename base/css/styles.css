@@ -3,6 +3,29 @@
     font-family: "Roboto", Verdana, Tahoma, sans-serif;
 }
 
+*::-webkit-scrollbar {
+  width: .5rem;
+}
+
+*::-webkit-scrollbar-track-piece {
+    background: #252323;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: #e0532c;
+  border-radius: 8px;
+  outline: 1px solid #e0532c;
+}
+
+#searchResults::-webkit-scrollbar-track-piece, .selectionForms .dropdown-menu.inner::-webkit-scrollbar-track-piece {
+    background: #c1bfb5;
+}
+
+#searchResults::-webkit-scrollbar-thumb, .selectionForms .dropdown-menu.inner::-webkit-scrollbar-thumb {
+  background: #252323;
+  outline: 1px solid #252323;
+}
+
 html, body {
     font-size: 16px;
     background: #fefdff;

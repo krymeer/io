@@ -1,3 +1,4 @@
+var regExtended = /[^A-Za-z0-9ĄĆĘŁŃÓŚŻŹąćęłńóśżź., -]/g;
 var checkWhichPage = function () {
     var addr = window.location.href;
     addr = addr.substring(addr.lastIndexOf('/') + 1, addr.length);
@@ -35,6 +36,7 @@ var addLineBreaks = function () {
 
 var activeSearch = function () {
     $('#verticalBar #inputWrapper input').on('input', function () {
+        $(this).val($(this).val().replace(regExtended, ''));
         $('#verticalBar li').css({'border-top': '1px solid #6c6a65', 'border-bottom': '0'});
         $('#verticalBar li:last-child').css('border-bottom', '1px solid #6c6a65');
         var content = $(this).val().toLowerCase();
