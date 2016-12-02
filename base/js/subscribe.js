@@ -17,6 +17,7 @@ var setProperHeight = function() {
 
 $(window).on('load', function() {
 	setProperHeight();
+});
 /* OBSŁUGA ZAPYTAŃ GET
 	$('#selectDep').hide();
 	$('#selectFld').hide();
@@ -53,5 +54,4 @@ $(window).on('load', function() {
 				console.error('Problem with getting a list of faculties!')
 			})
 	});
-*/	
-});
+*/
