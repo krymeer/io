@@ -87,10 +87,6 @@ html, body {
 	#panelTwo {
 		width: 440px;
 	}
-
-	#panelOneOnly {
-		min-height: 400px;
-	}
 }
 
 @media screen and (min-width: 1351px) {
