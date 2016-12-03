@@ -219,7 +219,7 @@
 }
 @media screen and (max-width: 720px) {
 	.titleOfCourse td:first-child {
-		padding-right: 30px;
+		margin-right: 40px;
 	}
 	.courseDetails tr td:nth-child(5) {
 		padding-bottom: 1rem;
