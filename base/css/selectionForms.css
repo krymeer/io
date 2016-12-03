@@ -158,9 +158,9 @@
 }
 .titleOfCourse {	
 	color: #439892;
+	width: 100%;
 	position: relative;
 	cursor: pointer;
-	width: calc(100% - 30px);
 }
 .titleOfCourse td {
 	padding: .5rem 1rem;	
@@ -218,6 +218,9 @@
 	padding: 3rem 0;
 }
 @media screen and (max-width: 720px) {
+	.titleOfCourse td:first-child {
+		padding-right: 30px;
+	}
 	.courseDetails tr td:nth-child(5) {
 		padding-bottom: 1rem;
 		border-bottom: 1px solid #c1bfb5;
@@ -244,9 +247,6 @@
 	}
 }
 @media screen and (min-width: 721px) {
-	.titleOfCourse {
-		width: 100%;
-	}
 	.courseDetails td {
 		padding: .5rem 1rem 0 1rem;
 	}
