@@ -17,6 +17,8 @@ var setProperHeight = function() {
 
 var filterResults = function() {
 	$('#searchFilter input').on('input', function() {
+		$('.courseDetails').hide();
+		$('.titleOfCourse span').remove();
 		$(this).val($(this).val().replace(regExtended, ''))
 		var content = $(this).val().toLowerCase();
 		$('.titleOfCourse').each(function() {
@@ -57,6 +59,7 @@ var enableClicks = function() {
 			$(this).children('tbody').children('tr').children('td:last').append('<span class="chosen"></span>');
 			$(this).next().show();
 		}
+		checkIfAnyChosen();
 	});
 	$('.courseDetails i').click(function() {
 		var tr = $(this).closest('tr');
@@ -67,10 +70,24 @@ var enableClicks = function() {
 			tr.addClass('chosenGroup');
 			tr.children('td').children('i').html('check_box');
 		}
+		checkIfAnyChosen();
 	});
 };
 
+var checkIfAnyChosen = function() {
+	$('.titleOfCourse').each(function() {
+		if ($(this).next().children().children('tr').hasClass('chosenGroup')) {
+			$(this).parent().removeClass('ordinary');
+			$(this).parent().addClass('bold');
+		} else {
+			$(this).parent().removeClass('bold');
+			$(this).parent().addClass('ordinary');			
+		}
+	})
+}
+
 $(window).on('load', function() {
+	checkIfAnyChosen();	
 	setProperHeight();
 	enableClicks();
 	filterResults();
