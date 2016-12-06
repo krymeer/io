@@ -244,6 +244,7 @@
 	}
 }
 @media screen and (min-width: 721px) {
+
 	.titleOfCourse i:hover {
 		color: #e0532c;
 	}
@@ -290,6 +291,9 @@
 		display: inline-block;
 		margin-right: 50px;
 	}
+	.selectionForms, .selectionForms .btn.dropdown-toggle.btn-primary, .btn-group.bootstrap-select.open {
+		width: 175px !important;
+	}
 	.selectionForms:nth-of-type(2) span.title {
 		margin-top: 0;
 	}
@@ -298,6 +302,9 @@
 	}
 }
 @media screen and (min-width: 1300px) {
+	.selectionForms, .selectionForms .btn.dropdown-toggle.btn-primary, .btn-group.bootstrap-select.open {
+		width: 250px !important;
+	}	
 	.titleOfCourse .chosen {
 		top: 10px;
 	}
@@ -316,6 +323,9 @@
 	}	
 }
 @media screen and (min-width: 1500px) {
+	.selectionForms, .selectionForms .btn.dropdown-toggle.btn-primary, .btn-group.bootstrap-select.open {
+		width: 300px !important;
+	}
 	#searchResults {
 		height: calc(100% - 132px);
 	}
