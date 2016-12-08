@@ -21,7 +21,7 @@ html, body {
 }
 
 body {
-  background: #c1beb5;
+  background: #fefdff;
   margin: 0;
   padding: 0;
 }
@@ -317,6 +317,10 @@ body, #form input, .input span {
 }
 
 @media screen and (min-width: 721px) {
+  body {
+    background: #c1beb5;
+  }
+
   #form {
     width: 590px;
     box-shadow: 10px 10px 50px #706f6c;
