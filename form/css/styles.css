@@ -2,6 +2,20 @@
   box-sizing: border-box;
 }
 
+*::-webkit-scrollbar {
+  width: .5rem;
+}
+
+*::-webkit-scrollbar-track-piece {
+    background: #252323;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: #e0532c;
+  border-radius: 8px;
+  outline: 1px solid #e0532c;
+}
+
 html, body {
   font-size: 16px;
 }

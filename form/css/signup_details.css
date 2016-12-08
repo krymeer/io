@@ -1,0 +1,116 @@
+#loginForm p {
+  text-align: justify;
+  text-justify: inter-word;
+  padding: 0 1.25rem;
+  color: #252323;
+}
+.nice-select {
+  cursor: pointer;
+  outline: none;
+  position: relative;
+  text-align: left !important;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  white-space: nowrap;
+  width: 90%;
+  font-size: 14px;
+}
+#signUpForm {
+  overflow: visible;
+}
+.nice-select .option {
+  cursor: pointer;
+  line-height: 40px;
+  list-style: none;
+  min-height: 40px;
+  outline: none;
+  padding: 0 .5rem;
+  text-align: left;
+}
+.nice-select .option.selected {
+  font-weight: bold;
+  color: #439892;
+}
+.nice-select .option:hover {
+  color: #e0532c;
+}
+.nice-select.open .list {
+  opacity: 1;
+  pointer-events: auto;
+  -webkit-transform: scale(1) translateY(0);
+      -ms-transform: scale(1) translateY(0);
+          transform: scale(1) translateY(0); 
+}
+.nice-select .list {
+  min-width: 100%;
+  max-height: 300px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  position: absolute;
+  background-color: #fefdff;
+  color: #252323;
+  border: 1px solid #c1bfb5;
+  opacity: 0;
+  margin-left: -1px;
+  padding: 0;
+  pointer-events: none;
+  top: 100%;
+  left: 0;
+  -webkit-transform-origin: 50% 0;
+      -ms-transform-origin: 50% 0;
+          transform-origin: 50% 0;
+  -webkit-transform: scale(0.75) translateY(-21px);
+      -ms-transform: scale(0.75) translateY(-21px);
+          transform: scale(0.75) translateY(-21px);
+  z-index: 9;
+  box-shadow: 0 6px 12px rgba(0,0,0,.175)
+}
+.nice-select .list li:not(:last-child) {
+  border-bottom: 1px solid #c1bfb5;
+}
+span.current {
+  padding: 3px 3px 0 3px;
+  width: 200px;
+  overflow: hidden;
+}
+.myBloodyCaret {
+  background: #c1bfb5;
+  width: 28px;
+  height: 28px;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+.myBloodyCaret i {
+  color: #fefdff;
+  position: absolute;
+  right: 1.5px;
+  bottom: 2px;
+  font-size: 24px;
+}
+.input:hover .list {
+  border-top-color: #439892;
+}
+.input:hover .myBloodyCaret {
+  background: #439892;
+}
+.nice-select.open .myBloodyCaret {
+  background: #e0532c;
+}
+.no-csspointerevents .nice-select .list {
+  display: none; 
+}
+.no-csspointerevents .nice-select.open .list {
+  display: block; 
+}
+
+@media screen and (min-width: 721px) {
+  .nice-select {
+    width: 235px;
+  }
+  .nice-select .list {
+    min-width: 235px;
+  }
+}
