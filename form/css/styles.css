@@ -21,7 +21,7 @@ html, body {
 }
 
 body {
-  background: #fefdff;
+  background: #c1beb5;
   margin: 0;
   padding: 0;
 }
@@ -93,18 +93,6 @@ body, #form input, .input span {
 
 .myClass {
   background: red;
-}
-
-#container1 {
-  display: table;
-  position: absolute;
-  height: 100%;
-  width: 100%;
-}
-
-#container2 {
-  display: table-cell;
-  vertical-align: middle;
 }
 
 #form {
@@ -317,10 +305,17 @@ body, #form input, .input span {
 }
 
 @media screen and (min-width: 721px) {
-  body {
-    background: #c1beb5;
+  #container1 {
+    display: table;
+    position: absolute;
+    height: 100%;
+    width: 100%;
   }
 
+  #container2 {
+    display: table-cell;
+    vertical-align: middle;
+  }
   #form {
     width: 590px;
     box-shadow: 10px 10px 50px #706f6c;
