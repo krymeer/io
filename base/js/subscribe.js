@@ -182,26 +182,7 @@ var caretBackground = function() {
 	});	
 }
 
-var fieldsWidth = function() {
-	var wrapperWidth = $('#selectionPanel').width()/3-58;
-	if ($(window).width() < 1081) {
-		wrapperWidth = 300;
-	}
-	if (wrapperWidth <= 300) {
-		$('.selectionForms').css('width', wrapperWidth);
-	} else {
-		$('.selectionForms').css('width', 300);
-	}
-	var width = 'width: ' + $('.selectionForms').css('width') + ' !important';
-	$('.selectionForms .btn.dropdown-toggle.btn-primary, .btn-group.bootstrap-select').attr('style', width);
-}
-
-$(window).resize(function() {
-	fieldsWidth();
-})
-
 $(window).on('load', function() {
-	fieldsWidth();
 	caretBackground();
 	checkIfAnyChosen();	
 	setProperHeight();
