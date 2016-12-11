@@ -8,6 +8,7 @@ $(document).ready(function() {
     flag = 1;
   }
   $(window).resize(function() {
+    alert('coś')
     if (window.innerWidth >= 720) {
       $(content4).replaceWith(content3);
       $('.coursePanel:nth-of-type(3)').after(content4);
