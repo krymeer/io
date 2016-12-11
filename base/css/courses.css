@@ -194,9 +194,6 @@ i.reportError:hover {
   color: #e0532c;
 }
 @media screen and (max-width: 720px) {
-  .coursePanel {
-    border-top: 1px solid #252323;
-  }
   .coursePanel .summary {
     right: 4rem;
   }
