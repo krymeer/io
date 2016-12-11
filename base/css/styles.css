@@ -57,7 +57,7 @@ body {
     position: relative;
 }
 
-#horizontalBar, #moreButton, #verticalBar {
+#horizontalBar, #moreButton, #verticalBar, .groupInfo h4 i.toggle {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;

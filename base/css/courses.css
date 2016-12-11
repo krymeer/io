@@ -6,12 +6,21 @@
 .notFirstRow {
 	margin-top: 1rem;
 }
+.courseName {
+	background: #fefdff;
+	margin: -8px -8px 16px -8px;
+	height: 48px;
+	line-height: 48px;
+	text-align: left;
+	padding-left: 1.5rem;
+}
 .coursePanel {
 	position: relative;
 	padding: .75rem 1.5rem;
 	display: inline-block;
 	box-shadow: 5px 5px 25px #706f6c;
 	min-height: 150px;
+	overflow: visible;
 }
 .coursePanel .summary {
 	color: #c3c1b8;
@@ -81,8 +90,45 @@ h3.underlined + .event {
 }
 .groupInfo {
 	margin-top: 1rem;
+}
+.groupInfo h4 {
+	margin-left: 2rem;
+	font-weight: bold;
+	color: #439892;
+	position: relative;
+}
+.groupInfo h4 i.toggle:hover {
+	color: #e0532c;
+}
+.groupInfo h4 i.toggle {
+	display: inline-block;
+	font-size: 40px;
+	position: absolute;
+	top: -10px;
+	margin-left: 10px;
+	cursor: pointer;
+}
+.groupInfo.width100 {
 	margin-left: -1.5rem;
 	margin-right: -1.5rem;
+}
+.groupInfo hr {
+	border-color: #c3c1b8;
+	margin: 1rem 0;
+}
+.groupInfo hr:first-of-type {
+	margin-top: 0;
+}
+.groupInfo h4 .toggleTriangle {
+	display: none;
+  position: absolute;
+  bottom: -11px;
+  left: 57.5px;
+  width: 0;
+  height: 0;
+  border-right: 10px solid transparent;
+  border-left: 10px solid transparent;
+  border-bottom: 10px solid #439892;
 }
 .panelWrapper {
 	display: inline-block;
@@ -98,14 +144,45 @@ h3.underlined + .event {
 	font-size: 16px;
 	position: relative;
 }
-.groupInfo hr {
-	border-color: #c3c1b8;
-	margin: 1rem 0;
+.msgBlock .popover {
+	border: none;
+}
+.msgBlock .popover.right > .arrow, .msgBlock .popover.right > .arrow:after {
+	border-right-color: #e0532c !important;
+}
+.msgBlock .popover-content {
+	background: #e0532c;
+	color: #fefdff;
+	width: 180px;
+	height: 40px;
+	text-align: center;
+	padding: 10px 8px 6px 8px;
 }
 i.reportError {
 	position: absolute;
-	cursor: default;
+	cursor: pointer;
 	top: 0;
 	right: .75rem;
 	color: #c3c1b8;
+}
+i.reportError:hover {
+	color: #439892;
+}
+.hiddenList {
+	display: none;
+	padding: 1rem 2.5rem;
+	background: #439892;
+	color: #fefdff;
+	font-weight: bold;
+	columns: 2;
+  -webkit-columns: 2;
+  -moz-columns: 2;
+  column-gap: 20px;
+}
+.hiddenList a {
+	text-decoration: none;
+	color: #fefdff;
+}
+.hiddenList a:hover {
+	color: #e0532c;
 }
