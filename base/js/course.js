@@ -14,6 +14,9 @@ $(document).ready(function() {
 		$(this).popover('hide');
 	});
 	$('i.mobileHeader').click(function() {
+		$('html, body').animate({
+			scrollTop: $(this).offset().top
+		}, 2000);
 		var content = $(this).parent().next('.panelContent');
 		if (content.css('display') === 'none') {
 			$('.panelContent').css('display', 'none');
