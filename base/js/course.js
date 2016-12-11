@@ -23,7 +23,7 @@ $(document).ready(function() {
 		}
 	});
 	$(window).resize(function() {
-		if ($('i.mobileHeader').css('display') === 'none') {
+		if ($('i.mobileHeader').css('display') === 'none' && $(window).width() > 720) {
 			$('.panelContent').css('display', 'block');
 		} else {
 			$('.panelContent').css('display', 'none');
