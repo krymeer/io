@@ -14,6 +14,7 @@ $(document).ready(function() {
 		$(this).popover('hide');
 	});
 	$('i.mobileHeader').click(function() {
+		$(this).ScrollTo();
 		var content = $(this).parent().next('.panelContent');
 		if (content.css('display') === 'none') {
 			$('.panelContent').css('display', 'none');
@@ -22,13 +23,6 @@ $(document).ready(function() {
 			content.css('display', 'none');
 		}
 	});
-	$(window).resize(function() {
-		if ($('i.mobileHeader').css('display') === 'none') {
-			$('.panelContent').css('display', 'block');
-		} else if ($('i.mobileHeader').css('display') === 'block') {
-			$('.panelContent').css('display', 'none');
-		}
-	}); 
 	$('.groupInfo h4 i.toggle').click(function() {
 		var hiddenList = $(this).parent().next('.hiddenList');
 		var toggle = $(this).prev('span.toggleTriangle');
