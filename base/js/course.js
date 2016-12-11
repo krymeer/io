@@ -7,7 +7,15 @@ $(document).ready(function() {
 	}, function() {
 		$(this).popover('hide');
 	});
-	$('.titleOfCourse span').remove();
+	$('i.mobileHeader').click(function() {
+		var content = $(this).parent().next('.panelContent');
+		if (content.css('display') === 'none') {
+			$('.panelContent').css('display', 'none');
+			content.css('display', 'block');
+		} else {
+			content.css('display', 'none');
+		}
+	});
 	$('.groupInfo h4 i.toggle').click(function() {
 		var hiddenList = $(this).parent().next('.hiddenList');
 		var toggle = $(this).prev('span.toggleTriangle');

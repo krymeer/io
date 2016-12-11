@@ -4,20 +4,29 @@
   margin-top: 1rem;
   overflow-x: hidden;
 }
+.toggleContent {
+  position: relative;
+}
+.toggleContent i.mobileHeader {
+  position: absolute;
+  cursor: pointer;
+  top: -8px;
+  right: -10px;
+  font-size: 40px;
+}
+.panelContent {
+  display: none;
+}
 .courseName {
   background: #fefdff;
-  margin: -8px -8px 16px -8px;
-  height: 48px;
-  line-height: 48px;
-  text-align: left;
-  padding-left: 1.5rem;
+  font-size: 24px;
+  padding: .5rem .25rem;
 }
 .coursePanel, .panelWrapper.wide_2-2_right {
   width: 100%;
   position: relative;
   padding: .75rem 1.5rem;
   display: inline-block;
-  min-height: 150px;
   overflow: visible;
 }
 .panelWrapper.wide_2-2_right {
@@ -40,10 +49,7 @@
 .coursePanel h2.fixed {
   color: #e0532c;
 }
-.coursePanel.wide_1-3, .coursePanel.wide_3-1 {
-  height: 350px;
-  overflow-y: auto;
-}
+
 .coursePanel.wide_1-3 hr {
   width: 200px;
   margin: .75rem 0;
@@ -175,19 +181,37 @@ i.reportError:hover {
   .coursePanel {
     border-top: 1px solid #252323;
   }
+  .coursePanel .summary {
+    right: 4rem;
+  }
 }
 @media screen and (max-width: 1351px) {
   .courseName {
     margin: 0;
   }
 }
-@media screen and (max-width: 1200px) {
-  .monthWrap {
-    width: 50%;
-    display: inline-block;
-  }
-}
 @media screen and (min-width: 721px) {
+  .toggleContent i.mobileHeader {
+    display: none;
+  }
+  .panelContent {
+    display: inline;
+  }
+  .coursePanel, .panelWrapper.wide_2-2_right {
+    min-height: 150px;
+  }
+  .coursePanel.wide_1-3, .coursePanel.wide_3-1 {
+    height: 350px;
+    overflow-y: auto;
+  }
+  .courseName {
+    font-size: 30px;
+    margin: -8px -8px 16px -8px;
+    height: 48px;
+    line-height: 48px;
+    text-align: left;
+    padding: 0 0 0 1.5rem;
+  }
   .contentWrapper {
     margin: .5rem;
   }
@@ -201,8 +225,17 @@ i.reportError:hover {
     .coursePanel:not(:first-of-type), .panelWrapper.wide_2-2_right .coursePanel {
       margin-top: 1rem;
     }
+    .monthWrap {
+      width: 50%;
+      display: inline-block;
+    }
   }
   @media screen and (max-width: 1351px) {
+    .courseName {
+      padding-top: 4px;
+      line-height: 56px;
+      height: 56px;
+    }
     .coursePanel:first-of-type {
       margin-top: .5rem;
     }
