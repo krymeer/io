@@ -1,4 +1,10 @@
 $(document).ready(function() {
+	if ($('i.mobileHeader').css('display') !== 'none') {
+		var content3 = $('.coursePanel:nth-of-type(3)'),
+				content4 = $('.coursePanel:nth-of-type(4)');
+		$(content3).replaceWith(content4);
+		$('.coursePanel:nth-of-type(3)').after(content3);
+	}
 	$('.reportError').click(function() {
 		alert($(this).parent().children('h4').html())
 	})
