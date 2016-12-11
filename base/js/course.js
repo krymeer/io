@@ -17,6 +17,7 @@ $(document).ready(function() {
       $(content4).replaceWith(content3);
       $('.coursePanel:nth-of-type(3)').after(content4);
       $('.panelContent').css('display', 'block');
+      alert(window.innerWidth)
     } else {
       $('.panelContent').css('display', 'none');
     }
