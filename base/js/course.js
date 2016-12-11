@@ -8,19 +8,11 @@ $(document).ready(function() {
     flag = 1;
   }
   $(window).resize(function() {
-  /*  if ($('i.mobileHeader').css('display') !== 'none' && flag == 1) {
-      $(content4).replaceWith(content3);
-      $('.coursePanel:nth-of-type(3)').after(content4);
-      flag = 0;
-    } */
     if (window.innerWidth >= 720) {
       $(content4).replaceWith(content3);
       $('.coursePanel:nth-of-type(3)').after(content4);
       $('.panelContent').css('display', 'block');
-      alert(window.innerWidth)
-    } else {
-      $('.panelContent').css('display', 'none');
-    }
+    };
   })
   $('.reportError').click(function() {
     alert($(this).parent().children('h4').html())
