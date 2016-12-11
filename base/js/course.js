@@ -13,8 +13,7 @@ $(document).ready(function() {
       $('.coursePanel:nth-of-type(3)').after(content4);
       flag = 0;
     }
-    console.log($('i.mobileHeader').css('display'))
-    if ($('i.mobileHeader').css('display') === 'none') {
+    if ($('#moreButton').css('display') === 'none') {
       $('.panelContent').css('display', 'block');
     } else {
       $('.panelContent').css('display', 'none');
