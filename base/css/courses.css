@@ -21,7 +21,7 @@
   position: relative;
   background: #fefdff;
   font-size: 24px;
-  padding: .5rem .25rem;
+  padding: .5rem 1rem .5rem .25rem;
 }
 .courseName a {
   position: absolute;
@@ -224,12 +224,12 @@ i.reportError:hover {
     overflow-y: auto;
   }
   .courseName {
+    height: auto;
     font-size: 30px;
     margin: -8px -8px 16px -8px;
-    height: 48px;
     line-height: 48px;
     text-align: left;
-    padding: 0 0 0 1.5rem;
+    padding: 0 2.5rem 0 1.5rem;
   }
   .contentWrapper {
     margin: .5rem;
@@ -252,8 +252,6 @@ i.reportError:hover {
   @media screen and (max-width: 1351px) {
     .courseName {
       padding-top: 4px;
-      line-height: 56px;
-      height: 56px;
     }
     .coursePanel:first-of-type {
       margin-top: .5rem;
