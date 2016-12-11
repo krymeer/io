@@ -18,9 +18,20 @@
   display: none;
 }
 .courseName {
+  position: relative;
   background: #fefdff;
   font-size: 24px;
   padding: .5rem .25rem;
+}
+.courseName a {
+  position: absolute;
+  font-size: 28px;
+  bottom: 8px; right: 8px;
+  color: #252323;
+  text-decoration: none;
+}
+.courseName a:hover {
+  color: #e0532c;
 }
 .coursePanel, .panelWrapper.wide_2-2_right {
   width: 100%;
@@ -133,19 +144,27 @@ h3.underlined + .event {
   font-size: 16px;
   position: relative;
 }
-.msgBlock .popover {
+.msgBlock .popover, .courseName .popover {
   border: none;
+}
+.courseName .popover.bottom > .arrow, .courseName .popover.bottom > .arrow:after {
+  border-bottom-color: #439892 !important;
 }
 .msgBlock .popover.top > .arrow, .msgBlock .popover.top > .arrow:after {
   border-top-color: #e0532c !important;
 }
-.msgBlock .popover-content {
+.courseName .popover-content, .msgBlock .popover-content {
   background: #e0532c;
   color: #fefdff;
   width: 180px;
   height: 40px;
   text-align: center;
   padding: 10px 8px 6px 8px;
+}
+.courseName .popover-content {
+  background: #439892;
+  margin-top: -2px;
+  width: 150px;
 }
 i.reportError {
   position: absolute;

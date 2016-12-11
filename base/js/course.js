@@ -8,7 +8,7 @@ $(document).ready(function() {
 	$('.reportError').click(function() {
 		alert($(this).parent().children('h4').html())
 	})
-	$('.reportError').hover(function() {
+	$('.reportError, .courseName a').hover(function() {
 		$(this).popover('show');
 	}, function() {
 		$(this).popover('hide');
@@ -22,6 +22,13 @@ $(document).ready(function() {
 			content.css('display', 'none');
 		}
 	});
+	$(window).resize(function() {
+		if ($('i.mobileHeader').css('display') === 'none') {
+			$('.panelContent').css('display', 'block');
+		} else {
+			$('.panelContent').css('display', 'none');
+		}
+	}); 
 	$('.groupInfo h4 i.toggle').click(function() {
 		var hiddenList = $(this).parent().next('.hiddenList');
 		var toggle = $(this).prev('span.toggleTriangle');
