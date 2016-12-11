@@ -13,7 +13,7 @@ $(document).ready(function() {
       $('.coursePanel:nth-of-type(3)').after(content4);
       flag = 0;
     }
-    if ($('#moreButton').css('display') === 'none') {
+    if (window.innerWidth >= 720) {
       $('.panelContent').css('display', 'block');
     } else {
       $('.panelContent').css('display', 'none');
