@@ -34,11 +34,8 @@
 }
 .coursePanel .summary {
   color: #c3c1b8;
-  position: absolute;
   text-align: right;
-  top: .75rem;
-  right: 1.5rem;
-  margin-bottom: 1rem;
+
 }
 .coursePanel h2 {
   color: #439892;
@@ -191,6 +188,12 @@ i.reportError:hover {
   }
 }
 @media screen and (min-width: 721px) {
+  .coursePanel .summary {
+    position: absolute;
+    top: .75rem;
+    right: 1.5rem;
+    margin-bottom: 1rem;
+  }
   .toggleContent i.mobileHeader {
     display: none;
   }
