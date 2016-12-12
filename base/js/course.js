@@ -1,6 +1,5 @@
 var handleResize = function() {
   if ($('a.mobileHeader').css('display') !== 'none') {
-    flag = 1;
     var content3 = $('.coursePanel:nth-of-type(3)'),
         content4 = $('.coursePanel:nth-of-type(4)');
     $(content3).replaceWith(content4);
