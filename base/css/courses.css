@@ -39,14 +39,14 @@
 .courseName a:hover {
   color: #e0532c;
 }
-.coursePanel, .panelWrapper.wide_2-2_right {
+.coursePanel, .panelWrapper {
   width: 100%;
   position: relative;
   padding: .75rem 1.5rem;
   display: inline-block;
   overflow: visible;
 }
-.panelWrapper.wide_2-2_right {
+.panelWrapper {
   padding: 0;
 }
 .coursePanel .summary {
@@ -136,9 +136,6 @@ h3.underlined + .event {
   border-left: 10px solid transparent;
   border-bottom: 10px solid #439892;
 }
-.panelWrapper {
-  display: inline-block;
-}
 .msgBlock {
   position: relative;
   padding: 0 1.5rem;
@@ -222,7 +219,7 @@ i.reportError:hover {
   .panelContent {
     display: inline;
   }
-  .coursePanel, .panelWrapper.wide_2-2_right {
+  .coursePanel, .panelWrapper {
     min-height: 150px;
   }
   .coursePanel.wide_1-3, .coursePanel.wide_3-1 {
@@ -240,14 +237,14 @@ i.reportError:hover {
   .contentWrapper {
     margin: .5rem;
   }
-  .coursePanel, .panelWrapper.wide_2-2_right {
+  .coursePanel {
     box-shadow: 5px 5px 25px #706f6c;
   }
   #content {
     width: calc(100% - 250px);
   }
   @media screen and (max-width: 1200px) {
-    .coursePanel:not(:first-of-type), .panelWrapper.wide_2-2_right .coursePanel {
+    .coursePanel:not(:first-of-type), .panelWrapper.wide_2-2_left .coursePanel, .panelWrapper.wide_2-2_right .coursePanel {
       margin-top: 1rem;
     }
     .monthWrap {
@@ -262,10 +259,13 @@ i.reportError:hover {
   }
 }
 @media screen and (min-width: 1201px) {
+  .panelWrapper {
+    vertical-align: top;
+  }
   .notFirstRow {
     margin-top: 1rem;
   }
-  .coursePanel.wide_2-2_left {
+  .coursePanel.wide_2-2_left, .panelWrapper.wide_2-2_left {
     width: 48%;
     margin-right: .5rem;
   }
@@ -278,9 +278,6 @@ i.reportError:hover {
     margin-right: 1rem;
   }
   .coursePanel.wide_1-3 {
-    width: 23%;
-  }  
-  .panelWrapper.coursePanel.wide_1-3 {
     width: 23%;
   }
 }
