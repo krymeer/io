@@ -1,8 +1,10 @@
+body {
+  overflow-x: hidden;
+}
 #content {
   width: 100%;
   display: block;
   margin-top: 1rem;
-  overflow-x: hidden;
 }
 .toggleContent {
   position: relative;
@@ -44,7 +46,6 @@
   position: relative;
   padding: .75rem 1.5rem;
   display: inline-block;
-  overflow: visible;
 }
 .panelWrapper {
   padding: 0;
@@ -52,7 +53,6 @@
 .coursePanel .summary {
   color: #c3c1b8;
   text-align: right;
-
 }
 .coursePanel h2 {
   color: #439892;
@@ -63,7 +63,18 @@
 .coursePanel h2.fixed {
   color: #e0532c;
 }
-
+.coursePanel a, .coursePanel a:hover {
+  color: inherit;
+}
+a.url {
+  font-weight: normal;
+  text-decoration: none;
+  color: #c3c1b8;
+  font-size: 0.8rem;
+}
+a.url:hover {
+  color: #439892;
+}
 .coursePanel.wide_1-3 hr {
   width: 200px;
   margin: .75rem 0;
@@ -164,6 +175,9 @@ h3.underlined + .event {
   text-align: center;
   padding: 10px 8px 6px 8px;
 }
+.msgBlock .popover-content {
+  margin-left: -140px;
+}
 .courseName .popover-content {
   background: #439892;
   margin-top: -2px;
@@ -224,7 +238,6 @@ i.reportError:hover {
   }
   .coursePanel.wide_1-3, .coursePanel.wide_3-1 {
     height: 350px;
-    overflow-y: auto;
   }
   .courseName {
     height: auto;
@@ -239,6 +252,7 @@ i.reportError:hover {
   }
   .coursePanel {
     box-shadow: 5px 5px 25px #706f6c;
+    overflow-y: auto;
   }
   #content {
     width: calc(100% - 250px);
@@ -279,5 +293,8 @@ i.reportError:hover {
   }
   .coursePanel.wide_1-3 {
     width: 23%;
+  }
+  .coursePanel.wide_1-1 {
+    width: 97.5%;
   }
 }

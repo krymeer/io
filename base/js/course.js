@@ -1,21 +1,20 @@
-var handleResize = function() {
-  if ($('a.mobileHeader').css('display') !== 'none') {
-    var content3 = $('.coursePanel:nth-of-type(3)'),
-        content4 = $('.coursePanel:nth-of-type(4)');
-    $(content3).replaceWith(content4);
-    $('.coursePanel:nth-of-type(3)').after(content3);
+var swapPanels = function() {
+  var content_left, content_right, title;
+  content_left = $('.coursePanel:nth-of-type(3)');
+  content_right = $('.coursePanel:nth-of-type(4)');
+  title = content_left.children('h2').text();
+  if (title.indexOf('Kontakt') < 0 && window.innerWidth <= 1200) {
+    content_left.replaceWith(content_right);
+    content_right.after(content_left);
+  } else if (title.indexOf('Kontakt') >= 0 && window.innerWidth > 1200) {
+    content_left.replaceWith(content_right);
+    content_right.after(content_left);
   }
-  $(window).resize(function() {
-    if (window.innerWidth >= 720) {
-      $(content4).replaceWith(content3);
-      $('.coursePanel:nth-of-type(3)').after(content4);
-      $('.panelContent').css('display', 'block');
-    }
-  });
+  showContent();
 };
 
 var reportErrors = function() {
-  $('.reportError').click(function() {
+  $('.reportError').unbind().click(function() {
     alert($(this).parent().children('h4').html())
   })
   $('.reportError, .courseName a').hover(function() {
@@ -26,11 +25,11 @@ var reportErrors = function() {
 };
 
 var showContent = function() {
-  $('a.mobileHeader').click(function(event) {
+  $('a.mobileHeader').unbind().click(function() {
     var content = $(this).parent().next('.panelContent');
-    overrideAnchorBehaviour(content, this, event);
     if (content.css('display') === 'none') {
       $('.panelContent').css('display', 'none');
+      overrideAnchorBehaviour(content, this, event);
       content.css('display', 'block');
     } else {
       content.css('display', 'none');
@@ -39,7 +38,7 @@ var showContent = function() {
 };
 
 var listsOfTasks = function() {
-  $('.groupInfo h4 i.toggle').click(function() {
+  $('.groupInfo h4 i.toggle').unbind().click(function() {
     var hiddenList = $(this).parent().next('.hiddenList');
     var toggle = $(this).prev('span.toggleTriangle');
     if (hiddenList.css('display') === 'none') {
@@ -62,8 +61,17 @@ var overrideAnchorBehaviour = function(content, that, event) {
 }
 
 $(document).ready(function() {
-  handleResize();
+  swapPanels();
   reportErrors();
   showContent();
   listsOfTasks();
+  $(window).resize(function() {
+    swapPanels();
+    if (window.innerWidth > 720 && $('.panelContent').css('display') === 'none') {
+      $('.panelContent').css('display', 'inline');
+    }
+    if ($('.mobileHeader').css('display') !== 'none') {
+      $('.panelContent').css('display', 'none');
+    }
+  });  
 });
