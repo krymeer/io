@@ -25,13 +25,14 @@ var reportErrors = function() {
 };
 
 var showContent = function() {
-  $('a.mobileHeader').unbind().click(function() {
+  $('a.mobileHeader').unbind().click(function(event) {
     var content = $(this).parent().next('.panelContent');
     if (content.css('display') === 'none') {
       $('.panelContent').css('display', 'none');
       overrideAnchorBehaviour(content, this, event);
       content.css('display', 'block');
     } else {
+      overrideAnchorBehaviour(content, this, event);
       content.css('display', 'none');
     }
   });
@@ -52,8 +53,8 @@ var listsOfTasks = function() {
 };
 
 var overrideAnchorBehaviour = function(content, that, event) {
+  event.preventDefault();
   if (that.hash !== '') {
-    event.preventDefault();
     if (content.css('display') === 'none') {
       $('html, body').animate({scrollTop: $(that.hash).offset().top-52}, 'slow');
     }

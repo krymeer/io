@@ -41,6 +41,15 @@ body {
 .courseName a:hover {
   color: #e0532c;
 }
+@media screen and (max-width: 720px) {
+  .courseName {
+    text-align: left;
+    padding-left: 1.5rem;
+  }
+  .courseName > span {
+    padding-right: 1.5rem;
+  }
+}
 .coursePanel, .panelWrapper {
   width: 100%;
   position: relative;
