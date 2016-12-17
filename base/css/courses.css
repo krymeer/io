@@ -22,7 +22,7 @@ body {
   background: #e0532c;
   color: #fefdff;
   position: fixed;
-  top: 0;
+  top: 45px;
   right: 0; left: 0;
   margin: 0 auto;
   width: 300px;
@@ -251,9 +251,6 @@ i.reportError:hover {
   }
 }
 @media screen and (min-width: 721px) {
-  .msgStatus {
-    top: 45px;
-  }
   .coursePanel .summary {
     position: absolute;
     top: .75rem;
