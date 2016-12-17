@@ -14,27 +14,11 @@ var swapPanels = function() {
 };
 
 var reportErrors = function() {
-  $('.reportError').unbind().click(function() {
-    $('.reportError').popover('hide');
-    if ($('.msgStatus').css('display') === 'none') {
-      var id = $(this).parent().attr('id');
-      id = id.substring(id.indexOf('_')+1);
-      var msgCode = Math.floor(Math.random()*3);
-      $('.msgStatus').removeClass('error').removeClass('alreadyAdded').removeClass('success');
-      if (msgCode == 0) {
-        $('.msgStatus').addClass('success').text('Pomyślnie zgłoszono informację.').fadeIn('slow').delay(2000).fadeOut('slow');
-      } else if (msgCode == 1) {
-       $('.msgStatus').addClass('error').text('Nie udało się zgłosić informacji. Spróbuj ponownie lub skontaktuj się z administratorem.').fadeIn('slow').delay(2000).fadeOut('slow');
-      } else if (msgCode == 2) {
-        $('.msgStatus').addClass('alreadyAdded').text('Już zgłaszałeś tę informację. Każdy użytkownik może to zrobić tylko raz.').fadeIn('slow').delay(2000).fadeOut('slow');
-      }
-    }
-  });
   $('.reportError, .courseName a').hover(function() {
     $(this).popover('show');
   }, function() {
     $(this).popover('hide');
-  });  
+  });
 };
 
 var showContent = function() {
