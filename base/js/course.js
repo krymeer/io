@@ -15,6 +15,7 @@ var swapPanels = function() {
 
 var reportErrors = function() {
   $('.reportError').unbind().click(function() {
+    $('.reportError').popover('hide');
     if ($('.msgStatus').css('display') === 'none') {
       var id = $(this).parent().attr('id');
       id = id.substring(id.indexOf('_')+1);
