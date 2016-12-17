@@ -220,9 +220,6 @@ i.reportError {
   right: .75rem;
   color: #c3c1b8;
 }
-i.reportError:hover {
-  color: #439892;
-}
 .hiddenList {
   display: none;
   padding: 1rem 2.5rem;
@@ -251,6 +248,9 @@ i.reportError:hover {
   }
 }
 @media screen and (min-width: 721px) {
+  i.reportError:hover {
+    color: #439892;
+  }
   .coursePanel .summary {
     position: absolute;
     top: .75rem;
