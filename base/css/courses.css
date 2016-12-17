@@ -93,24 +93,23 @@ body {
 .coursePanel h2.fixed {
   color: #e0532c;
 }
-.coursePanel a {
+.coursePanel a, .coursePanel a:hover {
   color: inherit;
-  background: #e0e0e0;
   text-decoration: none;
-}
-.coursePanel a:hover {
-  color: inherit;
-  background: #f27554;
 }
 a.url {
-  background: #fefdff;
+  color: #4d4949;
   font-weight: normal;
-  text-decoration: none;
+  text-decoration: none;  
+}
+a.url:hover {
+  color: #e0532c;
+}
+a.url.small {
   color: #c3c1b8;
   font-size: 0.8rem;
 }
-a.url:hover {
-  background: #fefdff; 
+a.url.small:hover {
   color: #439892;
 }
 .coursePanel.wide_1-3 hr {
