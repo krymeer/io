@@ -22,6 +22,7 @@
 </head>
 <body>
 <div id="mask"></div>
+
 <div id="main">
     <div id="horizontalBar">
         <h2><a href="/"><span>A</span>Greg</a></h2>
@@ -43,8 +44,7 @@
     <div id="verticalBar">
         <i class="material-icons" id="returnArrow">keyboard_arrow_left</i>
         <div id="inputWrapper">
-            <input type="text" name="search" id="search" placeholder="Szukaj przedmiotu"><i class="material-icons"
-                                                                                            id="searchIcon">search</i>
+            <input type="text" name="search" id="search" placeholder="Szukaj przedmiotu"><i class="material-icons" id="searchIcon">search</i>
         </div>
         <div id="sideMenu">
             <ul id="sideMenuList">
@@ -61,9 +61,10 @@
         <div class="coursePanel wide_3-1">
             <h2 id="section1" class="fixed toggleContent">Informacje<a class="material-icons mobileHeader" href="#section1">expand_more</a></h2>
             <div class="panelContent">
+                <div class="msgStatus"></div>
                 <div class="groupInfo width100">
                     <hr>
-                    <div class="msgBlock">
+                    <div class="msgBlock" id="msg_1">
                         <h4>Informacja 1</h4><i
                             class="material-icons reportError" data-toggle="popover" data-html="true"
                             data-placement="top"
@@ -71,7 +72,7 @@
                         Lorem ipsum cokolwiek, coś innego, no to tego by była informacja.
                     </div>
                     <hr>
-                    <div class="msgBlock">
+                    <div class="msgBlock" id="msg_102">
                         <h4>Czw, 22 grudnia 2016 - Dodatkowy wykład <a href="#" class="url">blah</a></h4><i
                             class="material-icons reportError" data-toggle="popover" data-html="true"
                             data-placement="top"
