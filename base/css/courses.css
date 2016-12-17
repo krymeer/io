@@ -93,16 +93,24 @@ body {
 .coursePanel h2.fixed {
   color: #e0532c;
 }
-.coursePanel a, .coursePanel a:hover {
+.coursePanel a {
   color: inherit;
+  background: #e0e0e0;
+  text-decoration: none;
+}
+.coursePanel a:hover {
+  color: inherit;
+  background: #f27554;
 }
 a.url {
+  background: #fefdff;
   font-weight: normal;
   text-decoration: none;
   color: #c3c1b8;
   font-size: 0.8rem;
 }
 a.url:hover {
+  background: #fefdff; 
   color: #439892;
 }
 .coursePanel.wide_1-3 hr {
