@@ -1,3 +1,16 @@
+.msgStatus {
+  background: #e0532c;
+  color: #fefdff;
+  position: fixed;
+  top: 45px;
+  right: 0; left: 0;
+  margin: 0 auto;
+  width: 300px;
+  text-align: center;
+  z-index: 1000;
+  padding: .5rem 1rem;
+  display: none;
+}
 .popup {
   position: fixed;
   color: #fefdff;
@@ -7,18 +20,6 @@
   right: 0;
   text-align: center;
   padding: .5rem;
-}
-.popup.popup_error {
-  background: #a94442;
-}
-.popup.popup_success {
-  background: #3c763d;
-}
-.popup.popup_info {
-  background: #31708f;
-}
-.popup.popup_warning {
-  background: #8a6d3b;
 }
 .popup i {
   padding-left: .25rem;
@@ -39,6 +40,18 @@
 }
 .popup.popup_warning i:hover {
   color: #fcf8e3;
+}
+.popup_error {
+  background: #a94442;
+}
+.popup_success {
+  background: #3c763d;
+}
+.popup_info {
+  background: #31708f;
+}
+.popup_warning {
+  background: #8a6d3b;
 }
 @media screen and (min-width: 721px) {
   .popup {

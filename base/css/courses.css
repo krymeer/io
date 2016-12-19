@@ -18,28 +18,6 @@ body {
   text-decoration: none;
   color: #439892;
 }
-.msgStatus {
-  background: #e0532c;
-  color: #fefdff;
-  position: fixed;
-  top: 45px;
-  right: 0; left: 0;
-  margin: 0 auto;
-  width: 300px;
-  text-align: center;
-  z-index: 1000;
-  padding: .5rem 1rem;
-  display: none;
-}
-.msgStatus.success {
-  background: #61a711;
-}
-.msgStatus.error {
-  background: #a94442;
-}
-.msgStatus.alreadyAdded {
-  background: #e08c2c;
-}
 .fixed.toggleContent a.mobileHeader {
   color: #e0532c;
 }
