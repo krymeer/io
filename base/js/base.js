@@ -76,13 +76,13 @@ var toggleMenu = function () {
         $('#returnArrow').click(function () {
             $('#verticalBar').toggle("slide", "slow", mask());
         });
-        Hammer(document.body).on("swiperight", function() {
-            if ($('#moreButton').css('display') == 'block' && !$('#verticalBar').is(':visible')) {
+        Hammer(document.body).on("swiperight", function(e) {
+            if ($('.msgDetails').css('display') !== 'block' && $('#moreButton').css('display') === 'block' && !$('#verticalBar').is(':visible')) {
                 $('#verticalBar').toggle("slide", "slow", mask());
             }
         });
         Hammer(document.body).on("swipeleft", function() {
-            if ($('#moreButton').css('display') == 'block' && $('#verticalBar').is(':visible')) {
+            if ($('.msgDetails').css('display') !== 'block' && $('#moreButton').css('display') === 'block' && $('#verticalBar').is(':visible')) {
                 $('#verticalBar').toggle("slide", "slow", mask());
             }
         });

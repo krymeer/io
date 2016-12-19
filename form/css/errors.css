@@ -1,4 +1,4 @@
-.msgStatus {
+.msgStatus, .msgDetails {
   background: #e0532c;
   color: #fefdff;
   position: fixed;
@@ -10,6 +10,39 @@
   z-index: 1000;
   padding: .5rem 1rem;
   display: none;
+}
+.msgDetails {
+  width: 100%;
+  text-align: justify;
+  text-justify: inter-word;
+  top: 0;
+  padding: 0;
+  max-height: 100%;
+  overflow-y: auto;
+}
+.msgDetails h1 {
+  position: relative;
+  background: #439892;
+  margin: 0;
+  font-size: 24px;
+  line-height: 30px;
+  height: 45px;
+  padding: .5rem 1rem;
+}
+.msgDetails h1 i {
+  position: absolute;
+  top: 5.5px;
+  right: 11px;
+  font-size: 32px;
+  cursor: pointer;
+}
+.msgDetails h1 i:hover {
+  color: #e0532c;
+}
+.msgDetails .msgContent {
+  padding: 1rem;
+  background: #fefdff;
+  color: #252323;
 }
 .popup {
   position: fixed;
@@ -54,6 +87,9 @@
   background: #8a6d3b;
 }
 @media screen and (min-width: 721px) {
+  .msgDetails {
+    width: 80%;
+  }
   .popup {
     width: auto;
   }

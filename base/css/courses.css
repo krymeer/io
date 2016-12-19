@@ -83,11 +83,12 @@ a.url {
 a.url:hover {
   color: #e0532c;
 }
-a.url.small {
+.url.small {
   color: #c3c1b8;
   font-size: 0.8rem;
+  cursor: pointer;
 }
-a.url.small:hover {
+.url.small:hover {
   color: #439892;
 }
 .coursePanel.wide_1-3 hr {

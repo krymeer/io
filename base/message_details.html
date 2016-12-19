@@ -12,7 +12,7 @@
         <link rel="stylesheet" type="text/css" href="css/styles.css">
         <link rel="stylesheet" type="text/css" href="css/index.css">
         <link rel="stylesheet" type="text/css" href="css/courses.css">
-        <link rel="stylesheet" type="text/css" href="../form/css/courses.css">
+        <link rel="stylesheet" type="text/css" href="../form/css/errors.css">
         <script src="js/jquery-3.1.1.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <script src="js/base.js"></script>
@@ -23,6 +23,17 @@
 </head>
 <body>
 <div id="mask"></div>
+<div class="msgDetails"><h1><span id="title">Tytuł tejże wiadomości</span><i class="material-icons">clear</i></h1><div class="msgContent">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In a tristique turpis, a eleifend turpis. Vivamus at mauris ex. Nunc condimentum vehicula tortor, ut blandit turpis pellentesque sed. Etiam id metus turpis. Curabitur interdum vulputate risus non pulvinar. Nulla non dolor massa. Curabitur ac purus ipsum. Ut pharetra vulputate tincidunt. Morbi nec turpis id lorem aliquet commodo vitae sed dui. Vivamus sodales mattis purus, eget lobortis dui efficitur et. Cras lectus diam, molestie non sapien in, blandit auctor orci. Ut non quam at velit faucibus mattis. Pellentesque et mauris varius, congue odio eu, iaculis lorem. Integer lacinia urna eget fermentum facilisis.
+
+Aliquam congue est sit amet risus congue placerat. Phasellus mattis, quam in consectetur lobortis, ligula dolor vestibulum tellus, ut faucibus ex lorem vel felis. Mauris in bibendum nibh. Sed nunc urna, maximus sagittis est mollis, ultricies imperdiet ligula. Mauris nec turpis nisi. Pellentesque pulvinar sit amet purus vitae suscipit. Proin bibendum quam vitae tellus gravida, nec faucibus nisl lobortis. Phasellus interdum, eros sit amet varius semper, odio lorem consequat elit, at placerat lectus libero quis lacus. Quisque feugiat nisi commodo nisl ultrices vehicula. Ut scelerisque dignissim dolor, a porttitor ex volutpat eu. Mauris maximus arcu at lectus rutrum, quis vestibulum purus laoreet. Fusce at justo purus. Vestibulum vel pulvinar odio. In viverra, lorem eu feugiat tincidunt, ante metus pharetra nibh, in hendrerit diam lacus eget sem. Integer et suscipit dolor, et hendrerit ligula. Quisque luctus turpis auctor lacus fermentum, sit amet suscipit est porta.
+
+Sed eu lacus vel metus feugiat placerat vitae nec est. Integer vulputate, nibh at semper tempor, lorem orci malesuada sem, eget tempor ex ipsum sit amet diam. Nulla auctor nibh erat, sit amet feugiat risus efficitur ut. Fusce scelerisque nisi ac commodo vehicula. Mauris et accumsan mauris. Pellentesque eu feugiat neque. Aliquam sed justo id ex ultricies luctus. Suspendisse sed mi eget sem efficitur luctus.
+
+Phasellus vulputate, lectus at egestas laoreet, dolor diam venenatis libero, vitae consectetur mauris massa non dolor. Aenean nisl nulla, placerat sed nunc non, iaculis sollicitudin mauris. Integer convallis semper suscipit. Nulla sed diam velit. Sed elementum purus varius aliquam dapibus. Quisque luctus ante dolor. Mauris quis nunc malesuada metus hendrerit suscipit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Pellentesque placerat dui sit amet tellus pretium vulputate. Integer blandit turpis nec libero maximus, eget finibus mi accumsan. Cras ornare porttitor nulla, ac fermentum neque cursus a. Ut in turpis luctus, cursus neque ut, mattis justo. Donec fringilla ornare luctus. In quis quam at urna finibus aliquam sit amet ut tortor. Proin et tincidunt velit.
+
+Etiam sapien est, placerat non est at, tristique tempus metus. Praesent placerat gravida nisl nec lobortis. Ut volutpat mi diam, vel imperdiet turpis euismod vel. Integer malesuada, libero at iaculis rhoncus, mauris justo consequat odio, eget ultrices massa sapien hendrerit elit. In at malesuada augue. Phasellus vulputate lorem nec tellus efficitur auctor id in neque. Quisque nibh nunc, bibendum sit amet lobortis sed, finibus sit amet tellus. Curabitur sodales turpis id metus venenatis fringilla. Integer ut metus sit amet dolor ornare tincidunt eu eu nulla. Pellentesque ultricies id lorem quis laoreet. Sed condimentum interdum erat eu aliquet. Mauris lobortis malesuada turpis et lobortis. Integer maximus velit sit amet sem scelerisque, eu rutrum mauris venenatis. Nullam non commodo nisi, at vulputate elit.
+</div>
+</div>
 <div class="msgStatus"></div>
 <div id="main">
     <div id="horizontalBar">
@@ -65,7 +76,7 @@
                 <div class="groupInfo width100">
                     <hr>
                     <div class="msgBlock" id="msg_1">
-                        <h4>Informacja 1</h4><i
+                        <h4>Informacja 1 <span href="#" class="url small">więcej</span></h4><i
                             class="material-icons reportError" data-toggle="popover" data-html="true"
                             data-placement="top"
                             data-content="<span>Zgłoś nieprawdziwe dane</span>">error</i>
@@ -73,7 +84,7 @@
                     </div>
                     <hr>
                     <div class="msgBlock" id="msg_102">
-                        <h4>Czw, 22 grudnia 2016 - Dodatkowy wykład <a href="#" class="url small">blah</a></h4><i
+                        <h4>Czw, 22 grudnia 2016 - Dodatkowy wykład <span class="url small">więcej</span></h4><i
                             class="material-icons reportError" data-toggle="popover" data-html="true"
                             data-placement="top"
                             data-content="<span>Zgłoś nieprawdziwe dane</span>">error</i>
