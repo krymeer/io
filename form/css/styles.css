@@ -280,30 +280,6 @@ body, #form input, .input span {
   background: #3e8e87;
 }
 
-[id^=errorPanel] {
-  position: fixed;
-  background: #a94442;
-  color: #fefdff;
-  width: 100%;
-  top: 0;
-  right: 0;
-  text-align: center;
-  padding: .5rem;
-}
-
-[id^=errorPanel] i {
-  padding-left: .25rem;
-  vertical-align: bottom;
-  cursor: pointer;
-  position: absolute;
-  top: .5rem;
-  right: .5rem;
-}
-
-[id^=errorPanel] i:hover {
-  color: #f2dede;
-}
-
 @media screen and (min-width: 721px) {
   #container1 {
     display: table;
@@ -346,14 +322,5 @@ body, #form input, .input span {
   #signUpForm {
     margin: 0;
     border-left: 2px solid #b9b9b9;
-  }
-
-  [id^=errorPanel] {
-    width: auto;
-  }
-
-  [id^=errorPanel] i {
-    position: static;
-    top: auto;
   }
 }

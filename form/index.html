@@ -8,6 +8,7 @@
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="css/styles.css">
+		<link rel="stylesheet" type="text/css" href="css/errors.css">
 		<script src="js/jquery-3.1.1.min.js"></script>
 		<script src="js/bootstrap.min.js"></script>
 		<script src="js/form.js"></script>
@@ -38,8 +39,12 @@
 							</form>
 					</div>
 				</div>
-				<div id="errorPanel0"><span>Błąd 1</span><i class="material-icons">clear</i></div>
-				<div id="errorPanel1"><span>Błąd 2</span><i class="material-icons">clear</i></div>
+				<div class="popupWrapper">
+					<div class="popup popup_error" id="1"><span>Error</span><i class="material-icons">clear</i></div>
+					<div class="popup popup_info" id="2"><span>Info</span><i class="material-icons">clear</i></div>
+					<div class="popup popup_success" id="3"><span>Success</span><i class="material-icons">clear</i></div>
+					<div class="popup popup_warning" id="4"><span>Warning</span><i class="material-icons">clear</i></div>
+				</div>
 			</div>
 		</div>
 	</body>
