@@ -1,13 +1,34 @@
 html, body {
 	background: #c1bfb5;
 }
-
+a {
+	color: inherit;
+}
+a:hover {
+	color: inherit;
+	text-decoration: underline;
+}
+a.url {
+  color: #4d4949;
+  font-weight: normal;
+  text-decoration: none;  
+}
+a.url:hover {
+  color: #e0532c;
+}
+.url.small {
+  color: #c3c1b8;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+.url.small:hover {
+  color: #439892;
+}
 #main #content {
 	background: #c1bfb5;
 	text-align: center;
 	padding: 0;
 }
-
 #panelOne, #panelTwo, #panelOneOnly, .coursePanel {
 	width: 100%;
 	display: block;
@@ -18,37 +39,30 @@ html, body {
 	text-justify: inter-word;
 	overflow: hidden;
 }
-
 #panelOne h1, #panelTwo h1 {
 	margin: 0 0 1.75rem 0;
 	padding: 0;
 }
-
 #panelOne h1 {
 	margin: 0;
 }
-
 .header {
 	display: block;
 	position: relative;
 }
-
 #panelOne h3, .date {
 	display: inline-block;
 }
-
 #panelTwo h3, .underlined {
 	padding-left: .25rem;
 	border-bottom: 1px solid #e0532c;
 	margin: 1.5rem 0 1rem 0;
 	width: 200px;
 }
-
 .event {
 	padding-left: .25rem;
 	text-align: left;
 }
-
 .date {
 	position: absolute;
 	right: 0;
@@ -56,28 +70,23 @@ html, body {
 	font-size: .9rem;
 	color: #b9b9b9;
 }
-
 #panelOne h3 {
 	color: #60a8a3;
 	margin: 1.5rem 0 .75rem 0;
 }
-
 #panelOne hr {
 	background: #cdcbc3;
 	height: 1px;
 }
-
 #panelTwo hr {
 	background: #c4c2b8;
 	height: 1px;
 	width: 200px;
 	margin: .5rem 0;
 }
-
 #panelTwo h1 {
 	color: #e0532c;
 }
-
 @media screen and (min-width: 721px) {
 	#panelOneOnly, #panelOne, #panelTwo {
 		width: auto;
@@ -88,7 +97,6 @@ html, body {
 		width: 440px;
 	}
 }
-
 @media screen and (min-width: 1351px) {
 	#main #content {
 		padding: .5rem;
@@ -108,4 +116,3 @@ html, body {
 		margin: 0 0 1.75rem 0;
 	}
 }
-
