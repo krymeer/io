@@ -41,12 +41,7 @@
   background: #439892;
 }
 .nice-select, input.input {
-  width: 52%;
-}
-@media screen and (min-width: 550px) {
-  .nice-select, input.input {
-    width: calc(100% - 275px);
-  }
+  width: 100%;
 }
 .nice-select ul {
   width: 100%;

@@ -4,6 +4,7 @@ var addCaret = function() {
   });
 }
 
+/*
 webshim.setOptions('forms-ext', {
   replaceUI: 'auto',
   types: 'date',
@@ -15,8 +16,11 @@ webshim.setOptions('forms-ext', {
 });
 webshim.activeLang('pl');
 webshim.polyfill('forms forms-ext');
+*/
+
 
 $(document).ready(function() {
+  $('.info_calendar').hide();
   $('select').niceSelect();
   addCaret();
 });
