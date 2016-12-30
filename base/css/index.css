@@ -11,7 +11,7 @@ a:hover {
 a.url {
   color: #4d4949;
   font-weight: normal;
-  text-decoration: none;  
+  text-decoration: none;
 }
 a.url:hover {
   color: #e0532c;
@@ -25,6 +25,7 @@ a.url:hover {
   color: #439892;
 }
 #main #content {
+  width: 100%;
 	background: #c1bfb5;
 	text-align: center;
 	padding: 0;
@@ -97,6 +98,11 @@ a.url:hover {
 		width: 440px;
 	}
 }
+@media screen and (min-width: 1025px) {
+	#main #content {
+		width: calc(100% - 250px);
+	}
+}
 @media screen and (min-width: 1351px) {
 	#main #content {
 		padding: .5rem;
@@ -104,7 +110,7 @@ a.url:hover {
 	#panelOneOnly, #panelOne, #panelTwo {
 		display: inline-block;
 		margin: 2.5rem 2.5%;
-		padding: 3rem;	
+		padding: 3rem;
 	}
 	#panelOne {
 		width: 60%;

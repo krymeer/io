@@ -20,9 +20,10 @@ var addLineBreaks = function () {
         if (text.length >= 25) {
             var words = text.split(' '), formattedText = '';
             for (var i = 0; i < words.length; i++) {
-                formattedText += words[i] + ' ';
-                if ((formattedText.length + words[i].length >= 25) && i != words.length - 1) {
-                    formattedText += '<br/>';
+                if ((formattedText.length + words[i].length >= 25) && i != words.length-1 && i != 0 && words[i].length == 1) {
+                    formattedText += words[i] + '&nbsp;';
+                } else {
+                    formattedText += words[i] + ' ';
                 }
             }
             if ($(this)[0].lastElementChild != null && $(this)[0].lastChild.className === "chosen") {
@@ -35,6 +36,9 @@ var addLineBreaks = function () {
 };
 
 var activeSearch = function () {
+    $('#searchIcon').on('click', function() {
+        $('#verticalBar #inputWrapper input').focus();
+    });
     $('#verticalBar #inputWrapper input').on('input', function () {
         $(this).val($(this).val().replace(regExtended, ''));
         $('#verticalBar li').css({'border-top': '1px solid #6c6a65', 'border-bottom': '0'});
@@ -90,7 +94,7 @@ var toggleMenu = function () {
 };
 
 var detectScroll = function () {
-    if ($('#moreButton').css('display') == 'block') {
+    if ($('#moreButton').css('display') == 'block' && $('#horizontalBar #menu').css('float') !== 'right') {
         $(window).scroll(function () {
             if ($(this).scrollTop() > 0) {
                 $('#horizontalBar').css('height', '45px');
@@ -140,6 +144,10 @@ var mobileFeatures = function () {
         $('#verticalBar').css('display', 'inline');
         $('#horizontalBar').css('height', '45px');
         $('#horizontalBar #menu').show();
+        $('#main #content').css('margin-top', '45px');
+    }
+    if ($('#horizontalBar #menu').css('float') === 'right') {
+        $('#horizontalBar').css('height', '45px');
         $('#main #content').css('margin-top', '45px');
     }
 }
