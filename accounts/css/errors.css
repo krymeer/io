@@ -1,0 +1,100 @@
+.msgStatus, .msgDetails {
+  background: #e0532c;
+  color: #fefdff;
+  position: fixed;
+  top: 45px;
+  right: 0; left: 0;
+  margin: 0 auto;
+  width: 300px;
+  text-align: center;
+  z-index: 1000;
+  padding: .5rem 1rem;
+  display: none;
+}
+.msgDetails {
+  width: 100%;
+  text-align: justify;
+  text-justify: inter-word;
+  top: 0;
+  padding: 0;
+  max-height: 100%;
+  overflow-y: auto;
+}
+.msgDetails h1 {
+  position: relative;
+  background: #439892;
+  margin: 0;
+  font-size: 24px;
+  line-height: 30px;
+  height: 45px;
+  padding: .5rem 1rem;
+}
+.msgDetails h1 i {
+  position: absolute;
+  top: 5.5px;
+  right: 11px;
+  font-size: 32px;
+  cursor: pointer;
+}
+.msgDetails h1 i:hover {
+  color: #e0532c;
+}
+.msgDetails .msgContent {
+  padding: 1rem;
+  background: #fefdff;
+  color: #252323;
+}
+.popup {
+  position: fixed;
+  color: #fefdff;
+  background: #252323;
+  width: 100%;
+  top: 0;
+  right: 0;
+  text-align: center;
+  padding: .5rem;
+}
+.popup i {
+  padding-left: .25rem;
+  vertical-align: bottom;
+  cursor: pointer;
+  position: absolute;
+  top: .5rem;
+  right: .5rem;
+}
+.popup.popup_error i:hover {
+  color: #f2dede;
+}
+.popup.popup_success i:hover {
+  color: #dff0d8;
+}
+.popup.popup_info i:hover {
+  color: #d9edf7;
+}
+.popup.popup_warning i:hover {
+  color: #fcf8e3;
+}
+.popup_error {
+  background: #a94442;
+}
+.popup_success {
+  background: #3c763d;
+}
+.popup_info {
+  background: #31708f;
+}
+.popup_warning {
+  background: #8a6d3b;
+}
+@media screen and (min-width: 721px) {
+  .msgDetails {
+    width: 80%;
+  }
+  .popup {
+    width: auto;
+  }
+  .popup i {
+    position: static;
+    top: auto;
+  }
+}

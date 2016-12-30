@@ -1,0 +1,191 @@
+#panelOne.addingPanel {
+  width: 100%;
+  overflow: visible;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+#panelOne.addingPanel form {
+  width: 100%;
+}
+#panelOne.addingPanel h2 {
+  font-size: 27.5px;
+  color: #439892;
+  margin: -.5rem 0 1.5rem 0;
+}
+.input {
+  display: block;
+  height: 30px;
+  padding: .1rem .25rem;
+  margin: 0 auto 30px 0;
+  color: #252323;
+  border: 1px solid #c1bfb5;
+}
+.option_name.locked, .input.locked {
+  color: #c1bfb5;
+}
+.input.locked {
+  cursor: default;
+  overflow: hidden;
+}
+.input.locked .myBloodyCaret {
+  background: #c1bfb5;
+}
+.input.tofill .myBloodyCaret {
+  background: #e0532c;
+}
+.input.tofill:hover .myBloodyCaret {
+  background: #439892;
+}
+.nice-select, input.input {
+  width: 52%;
+}
+@media screen and (min-width: 550px) {
+  .nice-select, input.input {
+    width: calc(100% - 275px);
+  }
+}
+.nice-select ul {
+  width: 100%;
+}
+span.current {
+  width: 100%;
+  display: block;
+  font-size: .85rem;
+  padding-left: .5rem;
+  padding-top: .2rem;
+}
+.info_form {
+  display: block;
+}
+.info_form.part2 {
+  position: relative;
+}
+.info_calendar {
+  position: absolute;
+  top: -66px;
+  width: 200px;
+  overflow: hidden;
+  right: 0;
+}
+.input.textfield, textarea.input {
+  font-size: .85rem;
+}
+#infoSave {
+  background: #e0532c;
+  color: #fefdff;
+  border: 0;
+  padding: .375rem 1.5rem;
+  float: right;
+}
+#infoSave:hover {
+  background: #439892;
+}
+textarea.input {
+  resize: none;
+  width: 100%;
+  height: 112px;
+}
+.input:focus, input:focus{
+  outline: none;
+}
+.input:hover .list {
+  border-top-color: #c1bfb5;
+}
+.ws-button-row, .ws-date.ws-inputreplace.hide-inputbtns {
+  display: none !important;
+}
+.input-picker .picker-grid {
+  margin-top: -8px;
+  font-size: 11.5px;
+}
+.input-picker .picker-grid abbr[title] {
+  text-decoration: none;
+}
+.ws-inline-picker.date-popover.input-picker.ws-size-1, .input-picker .ws-po-box {
+  width: 200px;
+}
+.input-picker .picker-list {
+  margin: 0;
+}
+.input-picker .ws-po-box {
+  padding-top: 10px;
+  border-color: #c1bfb5;
+  height: 200px;
+}
+.input-picker .ws-picker-controls {
+  margin-top: -6px;
+}
+.input-picker .ws-picker-controls>button {
+  background: #fefdff;
+  border: none;
+}
+.input-picker .ws-picker-header button {
+  text-decoration: none !important;
+}
+.input-picker .prev-controls>button:before {
+  border-color: transparent #252323 transparent transparent;
+}
+.input-picker .next-controls>button:before {
+  border-color: transparent transparent transparent #252323;
+}
+.input-picker .prev-controls>button:hover:before {
+  border-color: transparent #e0532c transparent transparent;
+}
+.input-picker .next-controls>button:hover:before {
+  border-color: transparent transparent transparent #e0532c;
+}
+.input-picker .picker-list.day-list td>button {
+  padding: .25rem 0;
+}
+.input-picker button, .input-picker button:focus {
+  outline: none;
+}
+.ws-po-box, .ws-po-box * {
+  background: #fefdff;
+  color: #252323;
+}
+.input-picker .picker-list td>button.checked-value, .input-picker .picker-list td>button.checked-value *, .input-picker .picker-list td>button:hover, .input-picker .picker-list td>button:hover * {
+  background: #e0532c;
+  color: #fefdff;
+}
+
+@media screen and (min-width: 721px) {
+  #panelOne.addingPanel {
+    width: calc(100% - 5rem);
+    margin-top: 1rem;
+  }
+  textarea.input {
+    width: 100%;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .nice-select, input.input {
+    width: 275px;
+  }
+  .info_calendar {
+    top: -34px;
+  }
+  textarea.input {
+    width: 500px;
+  }
+  .info_form {
+    display: inline-block;
+    vertical-align: top;
+  }
+  .info_form.part1 {
+    width: 300px;
+  }
+  .info_form.part2 {
+    float: right;
+  }
+}
+@media screen and (min-width: 1275px) {
+  #panelOne.addingPanel {
+    width: 950px;
+  }
+}
