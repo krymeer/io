@@ -21,6 +21,7 @@
 
     <link rel="stylesheet" type="text/css" href="../accounts/css/errors.css">
     <link rel="stylesheet" type="text/css" href="../accounts/css/signup_details.css">
+    <link rel="stylesheet" type="text/css" href="css/datepicker.min.css">
     <link rel="stylesheet" type="text/css" href="css/add_page.css">
     
     <script
@@ -45,6 +46,8 @@
     <script src="../accounts/js/errors.js"></script>
     <script src="../accounts/js/jquery.nice-select.min.js"></script>
     <script src="js/add_page.js"></script>
+    <script src="js/datepicker.min.js"></script>
+    <script src="js/datepicker.pl.min.js"></script>
     
     <title>AGreg</title>
 </head>
@@ -134,13 +137,14 @@
                             <option>Sprawozdanie</option>
                             <option>Prezentacja</option>
                         </select>
-                        <div class="info_calendar"><input type="date"/></div>
                         <span class="option_name">Nagłówek</span>
                         <input class="input textfield" type="text" name="heading" maxlength="60">
+                        <div class="calendar" id="datepicker"></div>
+                        <input type="hidden" id="hiddenInput">
                         <span class="option_name">Opis</span>
                         <textarea class="input" name="infoDescr" form="add_info_details"></textarea>
                         <span class="option_name">Link URL</span>
-                        <input class="input textfield" type="text" name="infoURL" maxlength="60">
+                        <input class="input textfield last" type="text" name="infoURL" maxlength="60">
                         <input type="submit" id="infoSave" value="Zapisz">
                     </div>
                 </form>

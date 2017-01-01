@@ -59,12 +59,40 @@ span.current {
 .info_form.part2 {
   position: relative;
 }
-.info_calendar {
-  position: absolute;
-  top: -66px;
+.calendar {
+  margin-left: calc(50% - 100px);
+  margin-bottom: 30px;
+  background: #fefdff;
+}
+.datepicker, .table-condensed {
   width: 200px;
+  height: 194px;
+  font-size: .8rem;
   overflow: hidden;
-  right: 0;
+}
+.datepicker {
+  border: 1px solid #c1bfb5;
+}
+.datepicker table tr td, .datepicker table tr th {
+  height: 25px;
+  padding: 2.5px 5px;
+}
+.datepicker table tr td span {
+  width: 50px;
+}
+.table-condensed>tbody>tr>td {
+  height: 24px;
+  padding: 0;
+}
+.datepicker table tr td, .datepicker table tr th {
+  width: 28px !important;
+}
+.datepicker .datepicker-switch:hover, .datepicker .next:hover, .datepicker .prev:hover, .datepicker tfoot tr th:hover , .datepicker table tr td span.focused, .datepicker table tr td span:hover, .datepicker table tr td.day:hover, .datepicker table tr td.focused {
+  background: #439892;
+  color: #fefdff;
+}
+.datepicker table tr td span.month:hover, .datepicker table tr td span.year:hover {
+  background: #4caea7;
 }
 .input.textfield, textarea.input {
   font-size: .85rem;
@@ -81,8 +109,10 @@ span.current {
 }
 textarea.input {
   resize: none;
-  width: 100%;
   height: 112px;
+}
+.input.textfield.last, textarea.input {
+  width: 100%;
 }
 .input:focus, input:focus{
   outline: none;
@@ -90,80 +120,26 @@ textarea.input {
 .input:hover .list {
   border-top-color: #c1bfb5;
 }
-.ws-button-row, .ws-date.ws-inputreplace.hide-inputbtns {
-  display: none !important;
+@media screen and (min-width: 500px) {
+  .calendar {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    margin: 0;
+  }
+  .input.textfield.last, textarea.input {
+    width: calc(100% - 230px);
+  }  
 }
-.input-picker .picker-grid {
-  margin-top: -8px;
-  font-size: 11.5px;
-}
-.input-picker .picker-grid abbr[title] {
-  text-decoration: none;
-}
-.ws-inline-picker.date-popover.input-picker.ws-size-1, .input-picker .ws-po-box {
-  width: 200px;
-}
-.input-picker .picker-list {
-  margin: 0;
-}
-.input-picker .ws-po-box {
-  padding-top: 10px;
-  border-color: #c1bfb5;
-  height: 200px;
-}
-.input-picker .ws-picker-controls {
-  margin-top: -6px;
-}
-.input-picker .ws-picker-controls>button {
-  background: #fefdff;
-  border: none;
-}
-.input-picker .ws-picker-header button {
-  text-decoration: none !important;
-}
-.input-picker .prev-controls>button:before {
-  border-color: transparent #252323 transparent transparent;
-}
-.input-picker .next-controls>button:before {
-  border-color: transparent transparent transparent #252323;
-}
-.input-picker .prev-controls>button:hover:before {
-  border-color: transparent #e0532c transparent transparent;
-}
-.input-picker .next-controls>button:hover:before {
-  border-color: transparent transparent transparent #e0532c;
-}
-.input-picker .picker-list.day-list td>button {
-  padding: .25rem 0;
-}
-.input-picker button, .input-picker button:focus {
-  outline: none;
-}
-.ws-po-box, .ws-po-box * {
-  background: #fefdff;
-  color: #252323;
-}
-.input-picker .picker-list td>button.checked-value, .input-picker .picker-list td>button.checked-value *, .input-picker .picker-list td>button:hover, .input-picker .picker-list td>button:hover * {
-  background: #e0532c;
-  color: #fefdff;
-}
-
 @media screen and (min-width: 721px) {
   #panelOne.addingPanel {
     width: calc(100% - 5rem);
     margin-top: 1rem;
   }
-  textarea.input {
-    width: 100%;
-  }
 }
-
 @media screen and (min-width: 1200px) {
   .nice-select, input.input {
     width: 275px;
-  }
-  .info_calendar {
-    top: -34px;
   }
   textarea.input {
     width: 500px;
@@ -177,6 +153,10 @@ textarea.input {
   }
   .info_form.part2 {
     float: right;
+  }
+  .calendar {
+    top: -32px;
+    bottom: auto;
   }
 }
 @media screen and (min-width: 1275px) {
