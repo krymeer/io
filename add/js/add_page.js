@@ -12,7 +12,11 @@ $(document).ready(function() {
     'language': 'pl',
     'startDate': '-1y',
     'endDate': '+2y',
-    'format': 'd MM yyyy'
+    'format': 'd MM yyyy',
+    'templates': {
+      'leftArrow': '<i class="material-icons">arrow_back</i>',
+      'rightArrow': '<i class="material-icons">arrow_forward</i>'
+    }
   });
   $('#datepicker').on('changeDate', function() {
     var date = $('#datepicker').datepicker('getFormattedDate'),

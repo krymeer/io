@@ -74,7 +74,7 @@ span.current {
   border: 1px solid #c1bfb5;
 }
 .datepicker table tr td, .datepicker table tr th {
-  height: 25px;
+  height: 20px;
   padding: 2.5px 5px;
 }
 .datepicker table tr td span {
@@ -83,6 +83,11 @@ span.current {
 .table-condensed>tbody>tr>td {
   height: 24px;
   padding: 0;
+}
+.table-condensed i.material-icons {
+  position: relative;
+  font-size: 16px;
+  top: 2px;
 }
 .datepicker table tr td, .datepicker table tr th {
   width: 28px !important;
