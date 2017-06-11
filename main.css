@@ -1,0 +1,22 @@
+body {
+  font-family: 'Lato', Verdana, sans-serif;
+  margin: 0;
+  background: #dad4ef;
+}
+
+#main_footer {
+  background: #b9a394;
+  margin-top: 1rem;
+  height: 60px;
+  text-align: center;
+}
+
+#main_footer svg {
+  margin: 5px;
+}
+
+#main_footer svg:hover {
+  margin: 0;
+  cursor: pointer;
+  border: 5px solid #586a6a;
+}
