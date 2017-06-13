@@ -29,10 +29,7 @@ footer {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr;
-}
-
-.grid_wrapper section {
-  justify-self: center;
+  align-items: center;
 }
 
 .container {
