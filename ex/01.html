@@ -3,6 +3,43 @@
   <head>
     <title>Grid examples ‒ grid-column / grid-row</title>
     <link href="https://fonts.googleapis.com/css?family=Nova+Mono" rel="stylesheet">
+    <style>
+      .container1 .item1 {
+        grid-row: 1 / 4;
+        grid-column: 1 / 2;
+      }
+
+      .container1 .item2 {
+        grid-column: 2 / span 2;
+        grid-row: 1 / span 2;
+      }
+
+      .container1 .item3 {
+        grid-column: 2 / 4;
+        grid-row: 3 / 4;
+      }
+
+      .container2 .item1 {
+        grid-row-start: 1;
+        grid-row-end: 2;
+        grid-column-start: 1;
+        grid-column-end: 4;
+      }
+
+      .container2 .item2 {
+        grid-row-start: 2;
+        grid-row-end: 3;
+        grid-column-start: 1;
+        grid-column-end: 4;
+      }
+
+      .container2 .item3 {
+        grid-row-start: 3;
+        grid-row-end: 4;
+        grid-column-start: 1;
+        grid-column-end: 4;
+      }
+    </style>
     <link rel="stylesheet" type="text/css" href="../css/ex.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
@@ -15,55 +52,51 @@
       </header>
 
       <div class="grid_wrapper">
-        <section>
-          <h2>example 1</h2>
-          <div class="container container1">
-            <div class="ex01 item item1">
-              <span>grid-row: 1 / 4;<br/>
-              grid-column: 1 / 2;</span>
-
+        <div class="container container1">
+          <div class="item item1">
+            <div class="text">
+              grid-row:<br/>1 / 4;<br/>
+              grid-column:<br/>1 / 2;
             </div>
-            <div class="ex01 item item2">
-              <span>
-                grid-column: 2 / span 2;<br/>
-                grid-row: 1 / span 2;
-              </span>
+          </div>
+          <div class="item item2">
+            <div class="text">
+              grid-column: 2 / span 2;<br/>
+              grid-row: 1 / span 2;
             </div>
-            <div class="ex01 item item3">
+          </div>
+          <div class="item item3">
+            <div class="text">
               grid-column: 2 / 4;<br/>
               grid-row: 3 / 4;
             </div>
           </div>
-        </section>
-
-        <section>
-          <h2>example 2</h2>
-          <div class="container container2">
-            <div class="ex01 item item1">
-              <span>
-                grid-column-start: 1;<br/>
-                grid-column-end: span 2;<br/>
-                grid-row-start: 2;<br/>
-                grid-row-end: span 2;<br/>
-              </span>
-            </div>
-            <div class="item item4 ex01">
-                grid-column-start: 1;<br/>
-                grid-column-end: span 3;<br/>
-                grid-row-start: 1;<br/>
-                grid-row-end: 2;<br/>
-
-            </div>
-            <div class="item item3 ex01">
-              <span>
-                grid-column-start: 3;<br/>
-                grid-column-end: 4;<br/>
-                grid-row-start: 2;<br/>
-                grid-row-end: 4;<br/>
-              </span>
+        </div> <div class="container container2">
+          <div class="item item1">
+            <div class="text">
+              grid-row-start: 1;<br/>
+              grid-row-end: 2;<br/>
+              grid-column-start: 1;<br/>
+              grid-column-end: 4;
             </div>
           </div>
-        </section>
+          <div class="item item2">
+            <div class="text">
+              grid-row-start: 2;<br/>
+              grid-row-end: 3;<br/>
+              grid-column-start: 1;<br/>
+              grid-column-end: 4;
+            </div>
+          </div>
+          <div class="item item3">
+            <div class="text">
+              grid-row-start: 3;<br/>
+              grid-row-end: 4;<br/>
+              grid-column-start: 1;<br/>
+              grid-column-end: 4;
+            </div>
+          </div>
+        </div>
       </div>
 
       <footer>
