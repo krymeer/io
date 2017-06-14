@@ -25,6 +25,13 @@ footer {
   text-align: center;
 }
 
+.note {
+  padding: .5rem 0;
+  margin-top: 2rem;
+  background: #ffe19a;
+  text-align: center;
+}
+
 .grid_wrapper {
   text-align: center;
 }
