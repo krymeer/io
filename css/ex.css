@@ -38,8 +38,8 @@ footer {
   grid-template-rows: 1fr 1fr 1fr;
 }
 
-.grid_wrapper .container:first-of-type {
-  margin-right: 3rem;
+.grid_wrapper .container:not(:first-of-type) {
+  margin-left: 3rem;
 }
 
 .item .text {
