@@ -60,3 +60,7 @@ section p:first-of-type {
   line-height: 45px;
   text-align: center;
 }
+
+.menu_newline {
+  height: .5rem;
+}
