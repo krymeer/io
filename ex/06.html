@@ -9,13 +9,14 @@
         grid-template-rows: [hline1] 1fr [hline2] 1fr [hline3] 1fr [hline4];
       }
       .container.container2 {
-        grid-template-columns: repeat(3, 1fr, [col-start]);
+        grid-template-columns: repeat(4, [col-start] 100px [col-end]);
+        grid-template-rows: repeat(4, [col-start] 100px [col-end]);
       }
       .item.item1 {
         grid-area: hline1 / vline1 / hline4 / vline4;
       }
       .item.item2 {
-        grid-area: 1 / 1 / 4 / 4;
+        grid-area: 1 / 1 / 5 / 5;
       }
     </style>
     <link rel="stylesheet" type="text/css" href="../css/ex.css">
@@ -40,13 +41,14 @@
         </div><div class="container container2">
           <div class="item item2">
             <div class="text">
-              grid-area: hline1 / vline1 / hline4 / vline4;
+              grid-template-columns:<br/>repeat(4, [col-start] 100px [col-end]);<br/><br/>
+              grid-template-rows:<br/>repeat(4, [col-start] 100px [col-end]);
             </div>
           </div>
         </div>
       </div>
 
-      <div class="note">Due to unknown reasons the <b>repeat()</b> does not work for <b>grid-template-rows</b>.</div>
+      <div class="note"><b>Note</b> the inner lines in the second grid have more than one name.</div>
 
       <footer>
         <a href="https://validator.w3.org/nu/?doc=https%3A%2F%2Fkrymeer.github.io%2Fex%2F06.html" target="blank">HTML5</a> | <a href="https://jigsaw.w3.org/css-validator/validator?uri=https%3A%2F%2Fkrymeer.github.io%2Fex%2F06.html&profile=css3&usermedium=all&warning=1&vextwarning=&lang=en" target="blank">CSS3</a> | <a href="../index.html">main page</a>
