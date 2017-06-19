@@ -32,8 +32,16 @@ footer {
   text-align: center;
 }
 
-.grid_wrapper {
+.grid_wrapper, .wrapper {
   text-align: center;
+}
+
+.more_code {
+  padding: .5rem;
+  display: inline-block;
+  margin: 2rem auto 0 auto;
+  background: #7aca92;
+  text-align: left;
 }
 
 .container {
