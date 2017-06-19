@@ -21,7 +21,7 @@ header h1 {
 }
 
 footer {
-  margin-top: 2rem;
+  margin: 2rem 0;
   text-align: center;
 }
 
@@ -45,7 +45,7 @@ footer {
   grid-template-rows: 1fr 1fr 1fr;
 }
 
-.grid_wrapper .container:not(:first-of-type) {
+.container:not(:first-of-type) {
   margin-left: 3rem;
 }
 
