@@ -18,6 +18,10 @@ a:hover {
   color: #fff;
 }
 
+.grid_examples_list a {
+  line-height: 1.5rem;
+}
+
 header {
   padding: 1rem;
   background: #004e89;
