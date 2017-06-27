@@ -78,8 +78,8 @@ pre {
 
 .container {
   border: 10px solid #ccc;
-  width: 25rem;
-  height: 25rem;
+  width: 300px;
+  height: 300px;
   display: grid;
   margin: 0 auto;
   grid-template-columns: 1fr 1fr 1fr;
@@ -88,6 +88,8 @@ pre {
 
 @media screen and (max-width: 720px) {
   .container:not(:first-of-type) {
+    width: 400px;
+    height: 400px;
     margin-top: 3rem;
   }
 }
