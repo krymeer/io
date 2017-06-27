@@ -22,6 +22,10 @@ a:hover {
   line-height: 1.5rem;
 }
 
+.grid_examples_list a:first-of-type {
+  margin-left: -.25rem;
+}
+
 header {
   padding: 1rem;
   background: #004e89;
