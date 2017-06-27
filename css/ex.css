@@ -1,4 +1,4 @@
-body, a {
+body, a, code {
   font-family: 'Nova Mono', monospace, Verdana;
   color: #090302;
 }
@@ -36,12 +36,16 @@ footer {
   text-align: center;
 }
 
-.more_code {
+.more_code, code {
+  font-size: 16px;
   padding: .5rem;
   display: inline-block;
   margin: 2rem auto 0 auto;
   background: #7aca92;
   text-align: left;
+}
+
+code {
 }
 
 .container {
@@ -78,4 +82,12 @@ footer {
 
 .item4 {
   background: #7fd1b9;
+}
+
+.item5 {
+  background: #6e44ff;
+}
+
+.item6 {
+  background: #f6ae2d;
 }
