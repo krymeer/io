@@ -138,26 +138,29 @@
       </div>
 
       <div class="wrapper">
-        <div class="more_code">
-        .item1 {<br/>
-        &nbsp; grid-area: 1 / 1 / 4 / 2;<br/>
-        }<br/><br/>
-        .item3 {<br/>
-        &nbsp; grid-area: 2 / 2 / 4 / 4;<br/>
-        }<br/><br/>
-        .container1 {<br/>
-        &nbsp; grid-auto-flow: row;<br/>
-        }<br/><br/>
-        .container2 {<br/>
-        &nbsp; grid-auto-flow: column;<br/>
-        }<br/><br/>
-        .container3 {<br/>
-        &nbsp; grid-auto-flow: row dense;<br/>
-        }<br/><br/>
-        .container3 > .item {<br/>
-        &nbsp; grid-row: auto;<br/>
-        }
-        </div>
+<pre><code>.item1 {
+  grid-area: 1 / 1 / 4 / 2;
+}
+
+.item3 {
+  grid-area: 2 / 2 / 4 / 4;
+}
+
+.container1 {
+  grid-auto-flow: row;
+}
+
+.container2 {
+  grid-auto-flow: column;
+}
+
+.container3 {
+  grid-auto-flow: row dense;
+}
+
+.container3 > .item {
+  grid-row: auto;
+}</code></pre>
       </div>
 
       <div class="note">But for the 'dense' keyword for the third container, items 4 and 5 would have appeared in the last row, just before the sixth item.</div>

@@ -36,16 +36,13 @@ footer {
   text-align: center;
 }
 
-.more_code, code {
+pre {
   font-size: 16px;
   padding: .5rem;
   display: inline-block;
   margin: 2rem auto 0 auto;
   background: #7aca92;
   text-align: left;
-}
-
-code {
 }
 
 .container {

@@ -123,24 +123,26 @@
       </div>
 
       <div class="wrapper">
-        <div class="more_code">
-          .grid_wrapper .container {<br/>
-          &nbsp; grid-template: repeat(3, 100px) / repeat(3, 100px);<br/>
-          &nbsp; width: 400px;<br/>
-          }<br/><br/>
-          .container1 /* top left */ {<br/>
-          &nbsp; justify-content: space-around;<br/>
-          }<br/><br/>
-          .container2 /* top right */ {<br/>
-          &nbsp; justify-content: space-evenly;<br/>
-          }<br/><br/>
-          .container3 /* bottom left */ {<br/>
-          &nbsp; justify-content: space-between;<br/>
-          }<br/><br/>
-          .container4 /* bottom right */ {<br/>
-          &nbsp; justify-content: center;<br/>
-          }
-        </div>
+        <pre><code>.grid_wrapper .container {
+  grid-template: repeat(3, 100px) / repeat(3, 100px);
+  width: 400px;
+}
+
+.container1 /* top left */ {
+  justify-content: space-around;
+}
+
+.container2 /* top right */ {
+  justify-content: space-evenly;
+}
+
+.container3 /* bottom left */ {
+  justify-content: space-between;
+}
+
+.container4 /* bottom right */ {
+  justify-content: center;
+}</code></pre>
       </div>
 
       <div class="note">The keyword 'stretch' does not work for the 'justify-content' property despite no reasonable explanation.<br/>What is more, W3 CSS Validator does not recognise the 'space-evenly' value.</div>
