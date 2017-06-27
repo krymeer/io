@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Grid examples ‒ grid-auto-flow</title>
+    <link href="https://fonts.googleapis.com/css?family=Nova+Mono" rel="stylesheet">
+    <style>
+      .item1 {
+        grid-area: 1 / 1 / 4 / 2;
+      }
+
+      .item3 {
+        grid-area: 2 / 2 / 4 / 4;
+      }
+
+      .item5 {
+        background: #6e44ff;
+      }
+
+      .item6 {
+        background: #3f292b;
+      }
+
+      .container1 {
+        grid-auto-flow: row;
+      }
+
+      .container2 {
+        grid-auto-flow: column;
+      }
+
+      .container3 {
+        grid-auto-flow: row dense;
+      }
+
+      /* Immediate children */ 
+      .container3 > .item {
+        grid-row: auto;
+      }
+    </style>
+    <link rel="stylesheet" type="text/css" href="../css/ex.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+  <body>
+    <div id="main_box">
+      <header>
+        <h1>
+          grid-auto-flow
+        </h1>
+      </header>
+
+      <div class="grid_wrapper">
+        <div class="container container1">
+          <div class="item item1">
+            <div class="text">
+              item1
+            </div>
+          </div>
+          <div class="item item2">
+            <div class="text">
+              item2
+            </div>
+          </div>
+          <div class="item item3">
+            <div class="text">
+              item3
+            </div>
+          </div>
+          <div class="item item4">
+            <div class="text">
+              item4
+            </div>
+          </div>
+          <div class="item item5">
+            <div class="text">
+              item5
+            </div>
+          </div>
+          <div class="item item6">
+            <div class="text">
+              item6
+            </div>
+          </div>
+        </div><div class="container container2">
+          <div class="item item1">
+            <div class="text">
+              item1
+            </div>
+          </div>
+          <div class="item item2">
+            <div class="text">
+              item2
+            </div>
+          </div>
+          <div class="item item3">
+            <div class="text">
+              item3
+            </div>
+          </div>
+          <div class="item item4">
+            <div class="text">
+              item4
+            </div>
+          </div>
+          <div class="item item5">
+            <div class="text">
+              item5
+            </div>
+          </div>
+          <div class="item item6">
+            <div class="text">
+              item6
+            </div>
+          </div>
+        </div><div class="container container3">
+          <div class="item item1">
+            <div class="text">
+              item1
+            </div>
+          </div>
+          <div class="item item2">
+            <div class="text">
+              item2
+            </div>
+          </div>
+          <div class="item item3">
+            <div class="text">
+              item3
+            </div>
+          </div>
+          <div class="item item4">
+            <div class="text">
+              item4
+            </div>
+          </div>
+          <div class="item item5">
+            <div class="text">
+              item5
+            </div>
+          </div>
+          <div class="item item6">
+            <div class="text">
+              item6
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="wrapper">
+        <div class="more_code">
+        .item1 {<br/>
+        &nbsp; grid-area: 1 / 1 / 4 / 2;<br/>
+        }<br/><br/>
+        .item3 {<br/>
+        &nbsp; grid-area: 2 / 2 / 4 / 4;<br/>
+        }<br/><br/>
+        .container1 {<br/>
+        &nbsp; grid-auto-flow: row;<br/>
+        }<br/><br/>
+        .container2 {<br/>
+        &nbsp; grid-auto-flow: column;<br/>
+        }<br/><br/>
+        .container3 {<br/>
+        &nbsp; grid-auto-flow: row dense;<br/>
+        }<br/><br/>
+        .container3 > .item {<br/>
+        &nbsp; grid-row: auto;<br/>
+        }
+        </div>
+      </div>
+
+      <div class="note">But for the 'dense' keyword for the third container, items 4 and 5 would have appeared in the last row, just before the sixth item.</div>
+
+
+      <footer>
+        <a href="https://validator.w3.org/nu/?doc=https%3A%2F%2Fkrymeer.github.io%2Fex%2F14.html" target="blank">HTML5</a> | <a href="https://jigsaw.w3.org/css-validator/validator?uri=https%3A%2F%2Fkrymeer.github.io%2Fex%2F14.html&profile=css3&usermedium=all&warning=1&vextwarning=&lang=en" target="blank">CSS3</a> | <a href="../index.html">main page</a>
+      </footer>
+    </div>
+  </body>
+</html>
