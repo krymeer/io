@@ -45,19 +45,6 @@ pre {
   text-align: left;
 }
 
-.container {
-  border: 10px solid #ccc;
-  width: 400px;
-  height: 400px;
-  display: inline-grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr;
-}
-
-.container:not(:first-of-type) {
-  margin-left: 3rem;
-}
-
 .item .text {
   position: relative;
   top: 50%;
@@ -87,4 +74,30 @@ pre {
 
 .item6 {
   background: #f6ae2d;
+}
+
+.container {
+  border: 10px solid #ccc;
+  width: 400px;
+  height: 400px;
+  display: grid;
+  margin: 0 auto;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+}
+
+@media screen and (max-width: 720px) {
+  .container:not(:first-of-type) {
+    margin-top: 3rem;
+  }
+}
+
+@media screen and (min-width: 721px) {
+  .container {
+    display: inline-grid;
+  }
+  
+  .container:not(:first-of-type) {
+    margin-left: 3rem;
+  }
 }
