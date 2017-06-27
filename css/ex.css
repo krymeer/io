@@ -78,8 +78,8 @@ pre {
 
 .container {
   border: 10px solid #ccc;
-  width: 25rem;
-  height: 25rem;
+  width: 12.5rem;
+  height: 12.5rem;
   display: grid;
   margin: 0 auto;
   grid-template-columns: 1fr 1fr 1fr;
