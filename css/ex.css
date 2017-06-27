@@ -88,14 +88,14 @@ pre {
 
 @media screen and (max-width: 720px) {
   .container:not(:first-of-type) {
-    width: 400px;
-    height: 400px;
     margin-top: 3rem;
   }
 }
 
 @media screen and (min-width: 721px) {
   .container {
+    width: 400px;
+    height: 400px;
     display: inline-grid;
   }
   
