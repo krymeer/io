@@ -6,12 +6,12 @@
     <style>
       .grid_wrapper .container.container1 {
         grid-template-columns: 50px 50px;
-        grid-auto-columns: 150px;
+        grid-auto-columns: 100px;
       }
 
       .grid_wrapper .container.container2 {
         grid-template-rows: 60px;
-        grid-auto-rows: 170px;
+        grid-auto-rows: 120px;
       }
 
       .item1 {
@@ -29,6 +29,15 @@
         grid-column: 1 / 3;
       }
 
+      @media screen and (min-width: 721px) {
+        .grid_wrapper .container.container1 {
+          grid-auto-columns: 150px;
+        }
+
+        .grid_wrapper .container.container2 {
+          grid-auto-rows: 170px;
+        }
+      }
     </style>
     <link rel="stylesheet" type="text/css" href="../css/ex.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
