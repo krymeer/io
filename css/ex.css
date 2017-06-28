@@ -49,8 +49,6 @@ pre {
   position: relative;
   top: 50%;
   transform: translateY(-50%);
-  padding-left: .5rem;
-  padding-right: .5rem;
 }
 
 .item1 {
@@ -90,6 +88,7 @@ pre {
 @media screen and (max-width: 720px) {
   .item .text {
     width: calc(100% - 1rem);
+    padding: 0 .5rem;
   }
 
   .container:not(:first-of-type) {
