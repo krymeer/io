@@ -43,6 +43,11 @@ pre {
   margin: 2rem auto 0 auto;
   background: #7aca92;
   text-align: left;
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
 }
 
 .item .text {
@@ -94,6 +99,7 @@ pre {
   .container:not(:first-of-type) {
     margin-top: 3rem;
   }
+
 }
 
 @media screen and (min-width: 721px) {
