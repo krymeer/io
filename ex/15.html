@@ -13,8 +13,8 @@
 
       .grid_wrapper .container.container1 {
         grid: [row1_start] "grid_header grid_header grid_header" 1fr [row1_end]
-              [row2_start] "grid_body grid_body grid_body" 250px [row2_end]
-              [row3_start] "grid_footer grid_footer grid_footer" 50px [row3_end]
+              [row2_start] "grid_body grid_body grid_body" 187.5px [row2_end]
+              [row3_start] "grid_footer grid_footer grid_footer" 37.5px [row3_end]
               / 1fr 1fr 1fr;
       }
 
@@ -23,7 +23,7 @@
       }
 
       .grid_wrapper .container.container3 {
-        grid: 100px 300px / 1fr 1fr 1fr;
+        grid: 75px 225px / 1fr 1fr 1fr;
       }
 
       .container1 .item1 {
@@ -51,6 +51,18 @@
         grid-column: 3 / 4;
       }
 
+      @media screen and (min-width: 721px) {
+        .grid_wrapper .container.container3 {
+          grid: 100px 300px / 1fr 1fr 1fr;
+        }
+
+        .grid_wrapper .container.container1 {
+          grid: [row1_start] "grid_header grid_header grid_header" 1fr [row1_end]
+                [row2_start] "grid_body grid_body grid_body" 250px [row2_end]
+                [row3_start] "grid_footer grid_footer grid_footer" 50px [row3_end]
+                / 1fr 1fr 1fr;
+        }
+      }
     </style>
     <link rel="stylesheet" type="text/css" href="../css/ex.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
