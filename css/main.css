@@ -18,12 +18,22 @@ a:hover {
   color: #fff;
 }
 
-.grid_examples_list a {
+.examples_list a {
   line-height: 1.5rem;
 }
 
-.grid_examples_list a:first-of-type {
+.examples_list a:first-of-type {
   margin-left: -.25rem;
+}
+
+.examples_list ul {
+  list-style-type: none;
+  margin: .5rem 0;
+  padding: 0;
+}
+
+.examples_list ul li {
+  display: inline;
 }
 
 header {
