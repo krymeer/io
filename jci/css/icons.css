@@ -1,0 +1,100 @@
+@font-face {
+  font-family: "myIcons";
+  src: url("../fonts/icons.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
+
+[data-icon]:before {
+  font-family: "myIcons" !important;
+  content: attr(data-icon);
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+[class^="icon-"]:before,
+[class*=" icon-"]:before {
+  font-family: "myIcons" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-calendar:before {
+  content: "\61";
+}
+
+.icon-letter-mail:before {
+  content: "\62";
+}
+
+.icon-study:before {
+  content: "\63";
+}
+
+.icon-pandora:before {
+  content: "\65";
+}
+
+.icon-eye:before {
+  content: "\66";
+}
+
+.icon-bars:before {
+  content: "\67";
+}
+
+.icon-arrow-right:before {
+  content: "\68";
+}
+
+.icon-arrow-left:before {
+  content: "\69";
+}
+
+.icon-arrow-up:before {
+  content: "\6a";
+}
+
+.icon-arrow-down:before {
+  content: "\6b";
+}
+
+.icon-calendar-1:before {
+  content: "\6c";
+}
+
+.icon-flask:before {
+  content: "\6d";
+}
+
+.icon-heart-o:before {
+  content: "\6e";
+}
+
+.icon-th-list:before {
+  content: "\6f";
+}
+
+.icon-book:before {
+  content: "\71";
+}
+
+.icon-graduation-cap:before {
+  content: "\64";
+}
+
+.icon-male:before {
+  content: "\70";
+}

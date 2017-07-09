@@ -1,0 +1,167 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  line-height: 1.25;
+  margin: 0;
+  padding: 0;
+  background: #f0f6ff;
+  font-family: "Roboto", sans-serif;
+}
+
+#main_content {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+header {
+  background: #518ec4;
+  color: #fff;
+  overflow: hidden;
+}
+
+header #text, header #logo {
+  float: left;
+}
+
+header #text h1 {
+  margin: 0;
+  font-size: 3.5em;
+  color: #10416d;
+  text-shadow: 1px 1px 1px #777;
+}
+
+header #text {
+  padding: .5rem;
+}
+
+header #text #subtitle {
+  font-size: 1.2rem;
+  padding-left: 0.8rem;
+  line-height: 1;
+}
+
+header #logo img {
+  width: 100%;
+  height: auto;
+}
+
+nav {
+  margin: 1.5rem 0;
+}
+
+nav a.item {
+  color: #10416d;
+  display: block;
+  background: #7bafde;
+  border-radius: .25rem;
+  text-decoration: none;
+  text-align: center;
+  padding: .75rem .5rem;
+}
+
+nav a.item:hover {
+  background: #518ec4;
+  color: #fff;
+}
+
+nav a.item .icon {
+  float: left;
+  margin-left: .625rem;
+}
+
+nav a.item .title {
+  font-size: 2.5rem;
+}
+
+nav a.item .description {
+  font-size: 1.3rem;
+  padding: 0.25rem 0.5rem;
+}
+
+footer {
+  background: #518ec4;
+}
+
+footer ul {
+  padding: 1.3rem 0;
+  margin: 0;
+}
+
+footer ul li {
+  list-style-type: none;
+}
+
+footer a {
+  font-weight: bold;
+  font-size: 1.75rem;
+  text-decoration: none;
+  color: #111;
+  text-shadow: 1px 1px 1px #777;
+}
+
+footer a:hover {
+  color: #fff;
+}
+
+#sub_footer {
+  margin: 1.5rem 0 0 0;
+  text-align: center;
+}
+
+#sub_footer a {
+  padding: .25rem;
+  color: #111;
+  text-decoration: none;
+}
+
+#sub_footer a:hover {
+  background: #EE6352;
+  color: #fff;
+}
+
+@media screen and (max-width: 640px) {
+  nav a:not(:last-of-type) {
+    margin-bottom: 1rem;
+  }
+
+  header #logo img {
+    display: none;
+  }
+
+  footer ul li {
+    padding-left: 1rem;
+  }
+}
+
+@media screen and (min-width: 641px) {
+  nav {
+    display: grid;
+    grid: auto auto auto / 1fr 1fr;
+    grid-gap: 1.5rem .5625rem;
+  }
+
+  header #logo {
+    padding: 1rem;
+    width: 15%;
+  }
+
+  header #text {
+    width: 85%;
+  }
+
+  footer ul {
+    margin-right: 1.6rem;
+  }
+
+  footer ul li {
+    padding-left: 2rem;
+    display: inline;
+  }
+
+  footer {
+    text-align: right;
+  }
+}
