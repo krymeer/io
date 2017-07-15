@@ -113,3 +113,18 @@ pre {
     margin-left: 3rem;
   }
 }
+
+@media screen and (max-width: 902px) {
+  .container2, .container4 {
+    display: grid !important;
+    margin: 3rem auto 0 auto !important;
+  }
+}
+
+
+@media screen and (max-width: 1370px) {
+  .container3 {
+    display: grid;
+    margin: 3rem auto 0 auto !important;
+  }
+}

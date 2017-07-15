@@ -22,10 +22,3 @@
 .container3 > .item {
   grid-row: auto;
 }
-
-@media screen and (max-width: 1370px) {
-  .container3 {
-    display: grid;
-    margin: 3rem auto 0 auto !important;
-  }
-}

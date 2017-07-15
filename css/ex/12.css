@@ -1,7 +1,7 @@
 .grid_wrapper.block .container  {
   margin: 0 auto;
   display: grid;
-  grid-template: repeat(3, 100px) / 1fr 1fr 1fr;
+  grid-template: repeat(3, 75px) / 1fr 1fr 1fr;
 }
 
 .grid_wrapper.block .container:not(:first-of-type) {
@@ -38,4 +38,10 @@
 
 .container3, .container4 {
   margin-top: 3rem;
+}
+
+@media screen and (min-width: 720px) {
+  .grid_wrapper.block .container  {
+    grid-template: repeat(3, 100px) / 1fr 1fr 1fr;
+  }  
 }
