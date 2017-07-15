@@ -1,0 +1,31 @@
+.item1 {
+  grid-area: 1 / 1 / 4 / 2;
+}
+
+.item3 {
+  grid-area: 2 / 2 / 4 / 4;
+}
+
+.container1 {
+  grid-auto-flow: row;
+}
+
+.container2 {
+  grid-auto-flow: column;
+}
+
+.container3 {
+  grid-auto-flow: row dense;
+}
+
+/* Immediate children */ 
+.container3 > .item {
+  grid-row: auto;
+}
+
+@media screen and (max-width: 1370px) {
+  .container3 {
+    display: grid;
+    margin: 3rem auto 0 auto !important;
+  }
+}

@@ -3,32 +3,7 @@
   <head>
     <title>Grid examples ‒ grid-template-columns / grid-template-rows</title>
     <link href="https://fonts.googleapis.com/css?family=Nova+Mono" rel="stylesheet">
-    <style>
-      .container.container1 {
-        grid-template-columns: [vline1] 1fr [vline2] 1fr [vline3] 1fr [vline4];
-        grid-template-rows: [hline1] 1fr [hline2] 1fr [hline3] 1fr [hline4];
-      }
-      
-      .container.container2 {
-        grid-template-columns: repeat(4, [col-start] 75px [col-end]);
-        grid-template-rows: repeat(4, [row-start] 75px [row-end]);
-      }
-      
-      .item.item1 {
-        grid-area: hline1 / vline1 / hline4 / vline4;
-      }
-      
-      .item.item2 {
-        grid-area: 1 / 1 / 5 / 5;
-      }
-
-      @media screen and (min-width: 721px) {
-        .container.container2 {
-          grid-template-columns: repeat(4, [col-start] 100px [col-end]);
-          grid-template-rows: repeat(4, [row-start] 100px [row-end]);
-        }
-      }
-    </style>
+    <link rel="stylesheet" type="text/css" href="../css/ex/06.css">
     <link rel="stylesheet" type="text/css" href="../css/ex.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
