@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Minifying CSS</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i&subset=latin-ext">
+    <link rel="stylesheet" type="text/css" href="css/minCSS.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script>
+      $(document).ready(function() {
+        var table_width = $('#main_container table').outerWidth();
+        $('#main_container').css('width', table_width*1.5);
+      });
+    </script>
+  </head>
+  <body>
+    <div id="main_container">
+      <header>
+        <h1>Minifying CSS</h1>
+      </header>
+      <article>
+        <p>Time is extremely valuable. In order to prevent the user from getting bored while the web page is loading, we have to use everything that is at hand so as to reduce waiting time. Minifying scripts and stylesheets is one of many useful ideas connected with the given topic. There are lots of different tools, e.g. <a href="https://cssminifier.com/" target="blank">cssminifier.com</a>, that could help save some resources...</p>
+        <table cellpadding="0" cellspacing="0">
+          <tr>
+            <td>Filename</td> <td>Before</td> <td>After</td> <td>Saving</td>
+          </tr>
+          <tr>
+            <td>ex.css</td>
+            <td>1808 B</td>
+            <td>1370 B</td>
+            <td>24.2%</td>
+          </tr>
+          <tr>
+            <td>main.css</td>
+            <td>1065 B</td>
+            <td>818 B</td>
+            <td>23.2%</td>
+          </tr>
+          <tr>
+            <td>/jci/basics.css</td>
+            <td>1051 B</td>
+            <td>807 B</td>
+            <td>23.2%</td>
+          </tr>
+          <tr>
+            <td>/jci/icons.css</td>
+            <td>1554 B</td>
+            <td>1047 B</td>
+            <td>32.6%</td>
+          </tr>
+          <tr>
+            <td>/jci/lecture.css</td>
+            <td>2897 B</td>
+            <td>2264 B</td>
+            <td>21.9%</td>
+          </tr>
+          <tr>
+            <td>/jci/main.css</td>
+            <td>1170 B</td>
+            <td>882 B</td>
+            <td>24.6%</td>
+          </tr>
+          <tr>
+            <td>/ex/01.css</td>
+            <td>533 B</td>
+            <td>402 B</td>
+            <td>24.6%</td>
+          </tr>
+          <tr>
+            <td>/ex/02.css</td>
+            <td>614 B</td>
+            <td>461 B</td>
+            <td>24.9%</td>
+          </tr>
+          <tr>
+            <td>/ex/03.css</td>
+            <td>461 B</td>
+            <td>354 B</td>
+            <td>23.2%</td>
+          </tr>
+          <tr>
+            <td>/ex/04.css</td>
+            <td>464 B</td>
+            <td>357 B</td>
+            <td>23.1%</td>
+          </tr>
+          <tr>
+            <td>/ex/05.css</td>
+            <td>217 B</td>
+            <td>173 B</td>
+            <td>20.2%</td>
+          </tr>
+          <tr>
+            <td>/ex/06.css</td>
+            <td>635 B</td>
+            <td>552 B</td>
+            <td>13.1%</td>
+          </tr>
+          <tr>
+            <td>/ex/07.css</td>
+            <td>713 B</td>
+            <td>614 B</td>
+            <td>13.9%</td>
+          </tr>
+          <tr>
+            <td>/ex/08.css</td>
+            <td>516 B</td>
+            <td>376 B</td>
+            <td>27.1%</td>
+          </tr>
+          <tr>
+            <td>/ex/09.css</td>
+            <td>390 B</td>
+            <td>282 B</td>
+            <td>27.7%</td>
+          </tr>
+          <tr>
+            <td>/ex/10.css</td>
+            <td>263 B</td>
+            <td>178 B</td>
+            <td>32.3%</td>
+          </tr>
+          <tr>
+            <td>/ex/11.css</td>
+            <td>664 B</td>
+            <td>504 B</td>
+            <td>24.1%</td>
+          </tr>
+          <tr>
+            <td>/ex/12.css</td>
+            <td>686 B</td>
+            <td>526 B</td>
+            <td>23.3%</td>
+          </tr>
+          <tr>
+            <td>/ex/13.css</td>
+            <td>544 B</td>
+            <td>435 B</td>
+            <td>20.0%</td>
+          </tr>
+          <tr>
+            <td>/ex/14.css</td>
+            <td>276 B</td>
+            <td>184 B</td>
+            <td>33.3%</td>
+          </tr>
+          <tr>
+            <td>/ex/15.css</td>
+            <td>1387 B</td>
+            <td>972 B</td>
+            <td>29.9%</td>
+          </tr>
+          <tr>
+            <td style="text-align: right">Total:</td>
+            <td>17908</td>
+            <td>13558</td>
+            <td>24.3%</td>
+          </tr>
+        </table>  
+      </article>
+      <div class="margin_fix">&nbsp;</div>
+      <footer>
+        <a href="https://validator.w3.org/nu/?doc=https%3A%2F%2Fkrymeer.github.io%2FminCSS.html" target="blank">HTML5</a>
+        <a href="https://jigsaw.w3.org/css-validator/validator?uri=https%3A%2F%2Fkrymeer.github.io%2FminCSS.html&profile=css3&usermedium=all&warning=1&vextwarning=&lang=en" target="blank">CSS3</a>
+        <a href="index.html">main page</a> 
+      </footer>
+    </div>
+  </body>
+</html>
