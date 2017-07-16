@@ -33,7 +33,7 @@ body {
 
 #main_content {
   text-align: justify;
-  justify-content: inter-word;
+  text-justify: inter-word;
 }
 
 #main_content p:first-of-type {
