@@ -20,6 +20,7 @@ a:hover {
 
 .examples_list a {
   line-height: 1.5rem;
+  margin: 0 .25rem;
 }
 
 .examples_list a:first-of-type {
@@ -27,9 +28,18 @@ a:hover {
 }
 
 .examples_list ul {
+  display: block;
   list-style-type: none;
-  margin: .5rem 0;
+  margin: 0;
   padding: 0;
+}
+
+.examples_list p + ul {
+  margin-top: .5rem;
+}
+
+.examples_list h1 + p {
+  margin-top: 0;
 }
 
 .examples_list ul li {
