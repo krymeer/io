@@ -8,8 +8,20 @@
     <script src="js/jquery-3.2.1.min.js"></script>
     <script>
       $(document).ready(function() {
-        var table_width = $('#main_container table').outerWidth();
-        $('#main_container').css('width', table_width*1.5);
+        var set_div_width = function() {
+          var table_width = $('#main_container table').outerWidth(),
+              window_width = $(window).outerWidth();
+          console.log(window_width + " " + table_width);
+          if (window_width > 1.5*table_width) {
+            $('#main_container').css('width', table_width*1.5);
+          } else {
+            $('#main_container').css('width', '100%');
+          }
+        };
+        set_div_width();
+        $(window).resize(function() {
+          set_div_width();
+        })
       });
     </script>
   </head>
