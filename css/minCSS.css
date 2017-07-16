@@ -31,25 +31,25 @@ body {
   border-radius: .5rem;
 }
 
-section {
+#main_content {
   text-align: justify;
   justify-content: inter-word;
 }
 
-section p:first-of-type {
+#main_content p:first-of-type {
   margin-top: 0;
 }
 
-section p {
+#main_content p {
   padding-left: .5rem;
   padding-right: .5rem;
 }
 
-section a {
+#main_content a {
   font-weight: bold;
 }
 
-section a:hover {
+#main_content a:hover {
   background: #a23b72;
   padding: .25rem .5rem;
   margin: -.25rem -.5rem;
