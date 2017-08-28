@@ -51,7 +51,7 @@ body #page_wrapper * {
   text-align: center;
 }
 
-#main_content section {
+#main_content section, #main_content aside {
   margin: 20px 0;
 }
 
