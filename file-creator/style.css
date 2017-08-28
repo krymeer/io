@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Ubuntu+Condensed');
-@import url('https://fonts.googleapis.com/css?family=Ubuntu+Mono');
+/*
+  @import url('https://fonts.googleapis.com/css?family=Ubuntu+Mono');
+*/
 
 body {
   color: #fff;
@@ -14,21 +16,7 @@ body {
   box-sizing: border-box;
 }
 
-body #wrapper * {
-  font-family: 'Ubuntu Condensed', Verdana, sans-serif;
-  outline: none !important;  
-}
-
-.centered_block {
-  display: block;
-  margin: 0 auto;
-}
-
-.text_centered {
-  text-align: center;
-}
-
-#wrapper {
+body #page_wrapper {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -39,6 +27,30 @@ body #wrapper * {
   padding: 16px;
   background: #5386e4;
 }
+
+body #page_wrapper * {
+  font-family: 'Ubuntu Condensed', Verdana, sans-serif;
+  outline: none !important;  
+}
+
+.centered_block {
+  display: block;
+  margin: 0 auto;
+}
+
+.centered_inline_block {
+  display: inline-block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+}
+
+.text_centered {
+  text-align: center;
+}
+
 
 #main_content section {
   margin: 20px 0;
@@ -71,7 +83,12 @@ body #wrapper * {
   resize: none;
 }
 
-#main_content button#create_file {
+#main_content #btns {
+  position: relative;
+  height: 40px;
+}
+
+#main_content #btns button {
   font-size: 20px;
   background: #1152c9;
   color: #fff;
@@ -82,8 +99,16 @@ body #wrapper * {
   transition: all .2s;
 }
 
-#main_content button#create_file:hover {
+#main_content #btns button:hover {
   background: #ff6c00;
+}
+
+#main_content #btns button#clear_data {
+  background: #a94442;
+}
+
+#main_content #btns button#clear_data:hover {
+  background: #913a38;
 }
 
 #hello {
