@@ -13,11 +13,11 @@ body, h1, h2, h3, h4, h5, h6 {
 a {
   text-decoration: none;
   color: inherit;
-  transition: all .2s ease-out;
 }
 
 * {
   box-sizing: border-box;
+  transition: all .2s ease-out;
 }
 
 .text_align_right {
@@ -40,7 +40,7 @@ a {
 
 #main_content {
   display: grid;
-  background: #EBD4CB;
+  background: #ebd4cb;
   color: #32292f;
   height: 100%;
   grid-template: 1fr 1fr 1fr / auto;
@@ -51,27 +51,40 @@ header h1 {
 }
 
 .template {
-  border-top: .25rem solid #705d56;
+  border: 1px solid #ebd4cb;
   position: relative;
   display: grid;
 }
 
 .template h2 {
-  margin: -1px 0;
   position: absolute;
-  top: 0;
-  left: 0;
   background: #705d56;
   width: auto;
   color: #fff;
   padding: .25rem .5rem 0 .5rem;
+}
+
+.template.header h2 {
   border-radius: 0 0 16px 0;
+  top: -1px;
+  left: -1px;  
 }
 
 .template.main_part h2 {
-  border-radius: 0 0 0 16px;
-  right: 0;
+  border-radius: 16px 0 0 16px;
+  right: -1px;
   left: auto;
+}
+
+.template.footer h2 {
+  border-radius: 0 16px 0 0;
+  left: -1px;
+  bottom: -1px;
+}
+
+.template:hover {
+  border-color: #705d56;
+  cursor: pointer;
 }
 
 .template .grid {
