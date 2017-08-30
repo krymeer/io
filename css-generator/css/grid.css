@@ -84,5 +84,8 @@
 .template h2, header h1,
 .template .grid .add_item_msg,
 .template .grid .add_item_icon {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
   user-select: none;
 }
