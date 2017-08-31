@@ -10,24 +10,13 @@
   width: auto;
   color: #fff;
   padding: .25rem .5rem 0 .5rem;
+  top: 0;
+  left: 0;
+  border-radius: 0 16px 16px 0;
 }
 
 .template.header h2 {
   border-radius: 0 0 16px 0;
-  top: -1px;
-  left: -1px;  
-}
-
-.template.main_part h2 {
-  border-radius: 16px 0 0 16px;
-  right: -1px;
-  left: auto;
-}
-
-.template.footer h2 {
-  border-radius: 0 16px 0 0;
-  left: -1px;
-  bottom: -1px;
 }
 
 .template:hover {
@@ -51,41 +40,52 @@
   color: #705d56;
 }
 
-.template .grid.not_empty .add_item_msg {
-  display: none;
-}
-
-.template .grid i.add_item_icon {
+.template .grid i.icon_add_item {
   display: block;
   color: #705d56;
   font-size: 2.5rem;
 }
 
-.template .grid.not_empty i.add_item_icon {
-  border-radius: 2.5rem;
-  position: absolute;
-  top: 0;
-  left: 0;
-  color: #fff;
-  background: #705d56;
-}
-
-.template .grid.not_empty i.add_item_icon:hover {
-/*  
-  background: #4f71aa;
-*/
-}
-
-.template.header .grid.not_empty i.add_item_icon {
-  left: auto;
-  right: 0;
+.template .grid.not_empty i.icon_add_item,
+.template .grid.not_empty .add_item_msg {
+  display: none;
 }
 
 .template h2, header h1,
 .template .grid .add_item_msg,
-.template .grid .add_item_icon {
+.icon_add_item {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+}
+
+.template .control_panel {
+  background: #705d56;
+  font-size: 2.5rem;
+  color: #fff;
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
+  padding: 0;
+  line-height: 1;
+  padding: 0 .5rem;
+  border-radius: 16px 0 0 16px;
+}
+
+.template .control_panel i.icon_settings {
+  padding-right: .5rem;
+}
+
+.template.header .control_panel {
+  border-radius: 0 0 0 16px;
+}
+
+.template .grid:not(.not_empty) + .control_panel {
+  display: none;
+}
+
+.template .control_panel i:hover {
+  color: #ebd4cb;
 }

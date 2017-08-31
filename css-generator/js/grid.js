@@ -22,16 +22,17 @@ function add_new_item(grid) {
 
 $(document).ready(function() {
   $('.grid').each(function() {
-    var parent = $(this);
-    $(this).click(function() {
-      if (!parent.hasClass('not_empty')) {
-        parent.addClass('not_empty');
-        add_new_item(parent);
+    var grid = $(this),
+        parent = grid.parent();
+    grid.click(function() {
+      if (!grid.hasClass('not_empty')) {
+        grid.addClass('not_empty');
+        add_new_item(grid);
       }
     });
-    $('.add_item_icon', this).click(function() {
-      if (parent.hasClass('not_empty')) {
-        add_new_item(parent);
+    $('.control_panel .icon_add_item', parent).click(function() {
+      if (grid.hasClass('not_empty')) {
+        add_new_item(grid);
       }
     });
   });
