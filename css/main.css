@@ -92,3 +92,22 @@ section p:first-of-type {
 .menu_newline {
   height: .5rem;
 }
+
+.polish_flag {
+  margin-left: 3px;
+  position: relative;
+  display: inline-block;
+  background: red;
+  top: 2.5px;
+  width: 10px;
+  height: 10px;
+}
+
+.polish_flag #white {
+  background: #fff;
+  width: 10px;
+  height: 5px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
