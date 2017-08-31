@@ -13,7 +13,6 @@ function get_random_color() {
   return rgb;
 }
 
-
 function add_new_item(grid) {
   var color = get_random_color();
   grid.append('<div class="new" id=item_'+id+'></div>');
