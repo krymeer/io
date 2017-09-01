@@ -2,6 +2,9 @@ body {
   background: #f0f7f4;
   color: #32292f;
   font-size: 16px;
+}
+
+body, button, input {
   font-family: 'Saira Semi Condensed', sans-serif;
 }
 
@@ -17,6 +20,9 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+footer a, .template, i, #save_file {
   transition: all .2s ease-out;
 }
 
@@ -44,6 +50,7 @@ a {
   color: #32292f;
   height: 100%;
   grid-template: 1fr 1fr 1fr / auto;
+  position: relative;
 }
 
 header h1 {
@@ -59,4 +66,114 @@ footer {
 footer a:hover {
   background: #419f95;
   color: #fff;
+}
+
+button {
+  display: block;
+}
+
+.block.wrapper {
+  display: block;
+}
+
+#next_step {
+  border: none;
+  cursor: pointer;
+  display: none;
+  position: absolute;
+  bottom: 1px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 16px 16px 0 0;
+  transition: none;
+  background: #32292f;
+  color: #fff;
+  padding: 0 .5rem;
+  height: 35px;
+  line-height: 35px;
+}
+
+#next_step:hover {
+  background: #453841;
+}
+
+#next_step.visible {
+  transition: all .2s ease-out;
+}
+
+#next_step i {
+  vertical-align: middle;
+  font-size: 18px;
+}
+
+#mask {
+  display: none;
+  background: rgba(0, 0, 0, 0.8);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 99;
+  top: 0;
+  left: 0;
+}
+
+#file_creator_popup {
+  z-index: 100;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #2274a5;
+  color: #fff;
+  display: none;
+  width: 220px;
+  padding: .5rem;
+  background: #444;
+}
+
+#file_creator_popup h2 {
+  margin-bottom: .5rem;
+}
+
+#file_creator_popup,
+#file_creator_popup * {
+  border-radius: 2.5px;
+}
+
+#file_creator_popup input {
+  background: #acbdba;
+  font-weight: bold;
+  border: none;
+  outline: none;
+  padding: .25rem;
+  margin-right: .25rem;
+  color: #051014;
+}
+
+#save_file {
+  display: inline-block;
+  text-align: center;
+  margin-top: 1rem;
+  text-align: center;
+  background: #355691;
+  cursor: pointer;
+  padding: .125rem .5rem;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+#save_file:hover {
+  background: #3a5d9d;
+}
+
+#file_creator_popup i {
+  position: absolute;
+  right: .25rem;
+  top: .25rem;
+  cursor: pointer;
+}
+
+#file_creator_popup i:hover {
+  color: #a3b8dd;
 }

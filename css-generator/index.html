@@ -10,44 +10,58 @@
     <link href="https://fonts.googleapis.com/css?family=Saira+Semi+Condensed" rel="stylesheet">
     <script type="text/javascript" src="../js/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="../js/w3.js"></script>
+    <script type="text/javascript" src="../js/validate_filename.js"></script>
     <script type="text/javascript" src="js/grid.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
   </head>
   <body>
+    <div id="mask"></div>
+    <div id="file_creator_popup">
+      <i class="material-icons">close</i>
+      <h2>Nazwa pliku</h2>
+      <div class="wrapper block">  
+        <input type="text" id="filename" maxlength="24" onkeypress="return validate_filename(event)"><span>.html</span>
+      </div>
+      <div id="save_file">Zapisz</div>
+    </div>
     <div id="page_container">
       <header>
         <h1>Generator CSS</h1>
       </header>
       <div id="main_content">
-          <div class="template header">
-            <h2>nagłówek</h2><div class="grid">
-              <i class="icon_add_item material-icons">add_circle_outline</i>
-              <div class="add_item_msg">
-                <span>Dodaj element</span>
-              </div>
-            </div>
-            <div class="control_panel">
-              <i title="Ustawienia" class="icon_settings material-icons">settings</i><i title="Dodaj element" class="icon_add_item material-icons">add_circle</i>
+        <div class="template header">
+          <h2>nagłówek</h2><div class="grid">
+            <i class="icon_add_item material-icons">add_circle_outline</i>
+            <div class="add_item_msg">
+              <span>Dodaj element</span>
             </div>
           </div>
-          <div class="template main_part">
-            <h2>główna treść</h2><div class="grid">
-              <i class="icon_add_item material-icons">add_circle_outline</i>
-              <div class="add_item_msg">Dodaj element</div>
-            </div>
-            <div class="control_panel">
-              <i title="Ustawienia" class="icon_settings material-icons">settings</i><i title="Dodaj element" class="icon_add_item material-icons">add_circle</i>
-            </div>            
+          <div class="control_panel">
+            <i title="Ustawienia" class="icon_settings material-icons">settings</i><i title="Dodaj element" class="icon_add_item material-icons">add_circle</i>
           </div>
-          <div class="template footer">
-            <h2>stopka</h2><div class="grid">
-              <i class="icon_add_item material-icons">add_circle_outline</i>
-              <div class="add_item_msg">Dodaj element</div>
-            </div>
-            <div class="control_panel">
-              <i title="Ustawienia" class="icon_settings material-icons">settings</i><i title="Dodaj element" class="icon_add_item material-icons">add_circle</i>
-            </div>
+        </div>
+        <div class="template main_part">
+          <h2>główna treść</h2><div class="grid">
+            <i class="icon_add_item material-icons">add_circle_outline</i>
+            <div class="add_item_msg">Dodaj element</div>
           </div>
+          <div class="control_panel">
+            <i title="Ustawienia" class="icon_settings material-icons">settings</i><i title="Dodaj element" class="icon_add_item material-icons">add_circle</i>
+          </div>            
+        </div>
+        <div class="template footer">
+          <h2>stopka</h2><div class="grid">
+            <i class="icon_add_item material-icons">add_circle_outline</i>
+            <div class="add_item_msg">Dodaj element</div>
+          </div>
+          <div class="control_panel">
+            <i title="Ustawienia" class="icon_settings material-icons">settings</i><i title="Dodaj element" class="icon_add_item material-icons">add_circle</i>
+          </div>
+        </div>
+        <div id="next_step">
+          <span>Gotowe!</span>
+          <i class="material-icons">arrow_forward</i>
+        </div>
       </div>
       <footer>
         <div>
