@@ -37,15 +37,17 @@ footer a, .template, i, #save_file {
   padding: 1rem;
   margin: 0 auto;
   height: 100vh;
+/*  
   display: grid;
   grid-template: auto 1fr auto / auto;
+*/
 }
 
 #main_content {
   display: grid;
   background: #ebd4cb;
   color: #32292f;
-  height: 100%;
+  height: 80%;
   grid-template: 1fr 1fr 1fr / auto;
   position: relative;
 }
