@@ -53,6 +53,25 @@ footer a, .template, i, #save_file {
   position: relative;
 }
 
+header {
+  position: relative;
+}
+
+#restart {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 2.5rem;
+  cursor: pointer;
+  background: #32292f;
+  color: #fff;
+  border-radius: 32px;
+}
+
+#restart:hover {
+  background: #735f6c;
+}
+
 header h1 {
   padding-bottom: .5rem;
 }
@@ -81,7 +100,7 @@ button {
   cursor: pointer;
   display: none;
   position: absolute;
-  bottom: 1px;
+  bottom: 2px;
   left: 50%;
   transform: translateX(-50%);
   border-radius: 16px 16px 0 0;
@@ -91,6 +110,7 @@ button {
   padding: 0 .5rem;
   height: 35px;
   line-height: 35px;
+  z-index: 3;
 }
 
 #next_step:hover {
@@ -117,7 +137,7 @@ button {
   left: 0;
 }
 
-#file_creator_popup {
+.tiny_popup {
   z-index: 100;
   position: absolute;
   top: 50%;
@@ -131,16 +151,16 @@ button {
   background: #444;
 }
 
-#file_creator_popup h2 {
+.tiny_popup h2 {
   margin-bottom: .5rem;
 }
 
-#file_creator_popup,
-#file_creator_popup * {
+.tiny_popup,
+.tiny_popup * {
   border-radius: 2.5px;
 }
 
-#file_creator_popup input {
+.tiny_popup input {
   background: #acbdba;
   font-weight: bold;
   border: none;
@@ -150,7 +170,7 @@ button {
   color: #051014;
 }
 
-#save_file {
+.tiny_popup .btn {
   display: inline-block;
   text-align: center;
   margin-top: 1rem;
@@ -163,17 +183,35 @@ button {
   transform: translateX(-50%);
 }
 
-#save_file:hover {
+.tiny_popup .btn:hover {
   background: #3a5d9d;
 }
 
-#file_creator_popup i {
+.tiny_popup i {
   position: absolute;
   right: .25rem;
   top: .25rem;
   cursor: pointer;
 }
 
-#file_creator_popup i:hover {
+.tiny_popup i:hover {
   color: #a3b8dd;
+}
+
+.no_val_err {
+  display: none;
+  font-size: .875rem;
+  background: #db2b39;
+  color: #fff;
+  text-align: center;
+  max-width: 95%;
+  margin: 0 auto;  
+}
+
+.tiny_popup .no_val_err {
+  margin-top: 1rem;
+}
+
+#file_save_success span {
+  display: block;
 }

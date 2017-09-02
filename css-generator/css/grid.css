@@ -1,11 +1,12 @@
 .template {
-  border: 1px solid #ebd4cb;
+  border: 1px solid #99e1d9;
   position: relative;
   display: grid;
 }
 
 .template h2 {
   position: absolute;
+  z-index: 3;
   background: #705d56;
   width: auto;
   color: #fff;
@@ -26,6 +27,7 @@
 
 .template .grid {
   display: grid;
+  z-index: 2;
 }
 
 .template .grid:not(.not_empty) {
@@ -34,20 +36,28 @@
   justify-items: center;
 }
 
-.template .grid .add_item_msg {
+.no_content_panel {
+  text-align: center;
+  display: inline-block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.no_content_panel .add_item_msg {
   text-align: center;
   font-size: 1.25rem;
   color: #705d56;
 }
 
-.template .grid i.icon_add_item {
+.no_content_panel i.icon_add_item {
   display: block;
   color: #705d56;
   font-size: 2.5rem;
 }
 
-.template .grid.not_empty i.icon_add_item,
-.template .grid.not_empty .add_item_msg {
+.template .grid.not_empty + .no_content_panel {
   display: none;
 }
 
@@ -61,6 +71,7 @@
 }
 
 .template .control_panel {
+  z-index: 3;
   background: #705d56;
   font-size: 2.5rem;
   color: #fff;
@@ -72,6 +83,7 @@
   line-height: 1;
   padding: 0 .5rem;
   border-radius: 16px 0 0 16px;
+  display: none;
 }
 
 .template .control_panel i.icon_settings {
@@ -82,9 +94,11 @@
   border-radius: 0 0 0 16px;
 }
 
-.template .grid:not(.not_empty) + .control_panel {
+/*
+.template .grid:not(.not_empty) ~ .control_panel {
   display: none;
 }
+*/
 
 .template .control_panel i:hover {
   color: #ebd4cb;

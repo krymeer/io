@@ -11,26 +11,50 @@
     <script type="text/javascript" src="../js/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="../js/w3.js"></script>
     <script type="text/javascript" src="../js/validate_filename.js"></script>
+    <script type="text/javascript" src="../js/create_file.js"></script>
     <script type="text/javascript" src="js/grid.js"></script>
+    <script type="text/javascript" src="js/html.js"></script>
+    <script type="text/javascript" src="js/css.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="js/popups.js"></script>
+    <script type="text/javascript" src="js/appendix.js"></script>
   </head>
   <body>
     <div id="mask"></div>
-    <div id="file_creator_popup">
+
+    <div class="tiny_popup" id="restart_popup">
+      <h2>Od nowa</h2>
+      <span>Czy na pewno chcesz odrzucić wszystkie zmiany?</span>
+      <div class="btn" id="yes_btn">Tak</div>
+      <div class="btn" id="no_btn">Nie</div>
+    </div>
+
+    <div class="tiny_popup" id="file_creator_popup">
       <i class="material-icons">close</i>
       <h2>Nazwa pliku</h2>
-      <div class="wrapper block">  
+      <div class="wrapper block">
         <input type="text" id="filename" maxlength="24" onkeypress="return validate_filename(event)"><span>.html</span>
       </div>
-      <div id="save_file">Zapisz</div>
+      <div class="no_val_err">To pole nie może pozostać puste.</div>
+      <div class="btn" id="save_file">Zapisz</div>
     </div>
+    
+    <div class="tiny_popup" id="file_save_success">
+      <h2>Sukces</h2>
+      <span>Plik został zapisany!</span>
+      <div class="btn" id="ok_btn">OK!</div>
+    </div>
+
     <div id="page_container">
       <header>
+        <i class="material-icons" id="restart">refresh</i>
         <h1>Generator CSS</h1>
       </header>
       <div id="main_content">
         <div class="template header">
-          <h2>nagłówek</h2><div class="grid">
+          <h2>nagłówek</h2>
+          <div class="grid"></div>
+          <div class="no_content_panel">
             <i class="icon_add_item material-icons">add_circle_outline</i>
             <div class="add_item_msg">
               <span>Dodaj element</span>
@@ -41,7 +65,9 @@
           </div>
         </div>
         <div class="template main_part">
-          <h2>główna treść</h2><div class="grid">
+          <h2>główna treść</h2>
+          <div class="grid"></div>
+          <div class="no_content_panel">
             <i class="icon_add_item material-icons">add_circle_outline</i>
             <div class="add_item_msg">Dodaj element</div>
           </div>
@@ -50,7 +76,9 @@
           </div>            
         </div>
         <div class="template footer">
-          <h2>stopka</h2><div class="grid">
+          <h2>stopka</h2>
+          <div class="grid"></div>
+          <div class="no_content_panel">
             <i class="icon_add_item material-icons">add_circle_outline</i>
             <div class="add_item_msg">Dodaj element</div>
           </div>
