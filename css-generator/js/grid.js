@@ -5,22 +5,18 @@ function add_new_item(grid) {
   grid.append(get_item_basic_content(id));
   $('#item_'+id, grid).css('background', color);
   id += 1;
-
-  var testitem = $('#item_'+(id-1));
-  $('.item_panel', testitem).remove();
-  console.log(testitem);
 }
 
 function save_file() {
-  var header = $('.template.header .grid').html(),
-      main_part = $('.template.main_part .grid').html(),
-      footer = $('.template.footer .grid').html();
+  var header = $('.template.header .grid'),
+      main_part = $('.template.main_part .grid'),
+      footer = $('.template.footer .grid');
 
   $('.item_panel', header).remove();
   $('.item_panel', main_part).remove();
   $('.item_panel', footer).remove();
   
-  var html = create_html_template(header, main_part, footer);
+  var html = create_html_template(header.html(), main_part.html(), footer.html());
 
   var filename = $('#filename').val();
   if (filename === '') {
