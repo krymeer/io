@@ -22,6 +22,23 @@ var template = ' \
       </body> \n\
     </html>';
 
+var item_template = '\
+<div class="item" id=item_{{id}}> \n\
+  <div class="item_panel">  \n\
+    <i class="material-icons" id="item_{{id}}_text">text_fields</i> \n\
+    <i class="material-icons" id="item_{{id}}_style">palette</i>\n\
+  </div> \n\
+  <div class="item_content"></div> \n\
+</div>';
+
+/*
+  <div class="item_mask"></div> \n\ 
+*/
+
+
+function get_item_basic_content(id) {
+  return item_template.replace(/{{id}}/g, id);
+}
 
 function create_html_template(header, main_content, footer) {
   return  template.replace('{{header}}', header)

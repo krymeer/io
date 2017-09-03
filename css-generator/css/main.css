@@ -22,7 +22,7 @@ a {
   box-sizing: border-box;
 }
 
-footer a, .template, i, #save_file {
+footer a, .template, i, #save_file, .btn {
   transition: all .2s ease-out;
 }
 
@@ -195,7 +195,7 @@ button {
   color: #a3b8dd;
 }
 
-.no_val_err {
+.popup_err {
   display: none;
   font-size: .875rem;
   background: #db2b39;
@@ -205,10 +205,40 @@ button {
   margin: 0 auto;  
 }
 
-.tiny_popup .no_val_err {
+.tiny_popup .popup_err {
   margin-top: 1rem;
 }
 
 #file_save_success span {
   display: block;
+}
+
+#item_select_bg > div {
+  display: inline-grid;
+  grid-template: auto / 1fr 1fr 1fr;
+  grid-column-gap: 5px;
+  width: 100px;
+}
+
+input.item_bg {
+  width: 100%;
+  text-align: center;
+}
+
+#item_bg_sq {
+  width: 15px;
+  height: 15px;
+  background: red;
+  display: inline-block;
+}
+
+#item_select_bg {
+  display: grid !important;
+  grid-template: auto / auto auto auto;
+  justify-items: center;
+  align-items: center;
+}
+
+#save_item_style {
+  margin-top: 1.25rem;
 }

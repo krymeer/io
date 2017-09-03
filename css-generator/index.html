@@ -22,20 +22,13 @@
   <body>
     <div id="mask"></div>
 
-    <div class="tiny_popup" id="restart_popup">
-      <h2>Od nowa</h2>
-      <span>Czy na pewno chcesz odrzucić wszystkie zmiany?</span>
-      <div class="btn" id="yes_btn">Tak</div>
-      <div class="btn" id="no_btn">Nie</div>
-    </div>
-
     <div class="tiny_popup" id="file_creator_popup">
-      <i class="material-icons">close</i>
+      <i class="material-icons close_popup">close</i>
       <h2>Nazwa pliku</h2>
       <div class="wrapper block">
         <input type="text" id="filename" maxlength="24" onkeypress="return validate_filename(event)"><span>.html</span>
       </div>
-      <div class="no_val_err">To pole nie może pozostać puste.</div>
+      <div class="popup_err">To pole nie może pozostać puste.</div>
       <div class="btn" id="save_file">Zapisz</div>
     </div>
     
@@ -43,6 +36,22 @@
       <h2>Sukces</h2>
       <span>Plik został zapisany!</span>
       <div class="btn" id="ok_btn">OK!</div>
+    </div>
+
+    <div class="tiny_popup" id="item_style_popup">
+      <i class="material-icons close_popup">close</i>
+      <h2>Styl</h2>
+      <div class="wrapper block" id="item_select_bg">
+        <span>Kolor tła</span>
+        <span id="item_bg_sq">&nbsp;</span>
+        <div>
+          <input type="text" class="item_bg" id="item_bg_0" maxlength="3" onkeypress="return check_if_digit(event)">
+          <input type="text" class="item_bg" id="item_bg_1" maxlength="3" onkeypress="return check_if_digit(event)">
+          <input type="text" class="item_bg" id="item_bg_2" maxlength="3" onkeypress="return check_if_digit(event)">
+        </div>
+      </div>
+      <div class="popup_err"></div>
+      <div class="btn" id="save_item_style">Zapisz</div>
     </div>
 
     <div id="page_container">

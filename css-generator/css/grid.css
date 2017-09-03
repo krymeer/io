@@ -1,4 +1,5 @@
 .template {
+  overflow: hidden;
   border: 1px solid #99e1d9;
   position: relative;
   display: grid;
@@ -100,6 +101,50 @@
 }
 */
 
+.item_panel i:hover,
 .template .control_panel i:hover {
   color: #ebd4cb;
+}
+
+.grid .item {
+  position: relative;
+  display: grid;
+}
+
+/*
+.grid .item:hover .item_mask {
+  background: rgba(0, 0, 0, 0);
+  height: 0;
+}
+
+.item_mask {
+  background: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  transition: all 0.2s ease-out;
+}
+*/
+
+.item_panel {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #705d56;
+  color: #fff;
+  border-radius: 4px;
+  padding: .125rem;
+}
+
+.item_panel i {
+  vertical-align: middle;
+}
+
+.control_panel, .template h2, .item_panel, #next_step {
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
 }

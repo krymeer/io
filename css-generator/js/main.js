@@ -1,6 +1,6 @@
 function restart() {
   $('#filename').val();
-  $('#file_creator_popup .no_val_err').hide();
+  $('#file_creator_popup .popup_err').hide();
   grids_ok = 0;
   id = 0;
   $('.grid').each(function() {
