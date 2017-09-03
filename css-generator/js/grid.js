@@ -1,4 +1,4 @@
-var id = 0, grids_ok = 0;
+var id = 0, grids_ok = 0, number_of_columns = [1, 1, 1];
 
 function add_new_item(grid) {
   grid.append(get_item_basic_content(id));
@@ -17,9 +17,9 @@ function save_file() {
   $('.item_panel', main_part).remove();
   $('.item_panel', footer).remove();
 
-  header = move_css(header);
-  main_part = move_css(main_part);
-  footer = move_css(footer);
+  header = move_css(header, 'header');
+  main_part = move_css(main_part, '#main_content');
+  footer = move_css(footer, '.footer');
   
   var html = create_html_template(header.html(), main_part.html(), footer.html());
 
@@ -74,6 +74,10 @@ $(document).ready(function() {
         show_popup('#item_text_popup');
         change_item_contents(id);
       }
+    });
+    $('.control_panel .icon_settings', parent).click(function() {
+      show_popup($('#grid_settings_popup'));
+      change_grid_settings(parent);
     });
     $('.control_panel .icon_add_item', parent).click(function() {
       if (grid.hasClass('not_empty')) {

@@ -86,3 +86,34 @@ function change_item_contents(id) {
     close_popup('#item_text_popup');
   });
 }
+
+function change_grid_settings(e) {
+  var heading = $('h2', e).text();
+  heading = heading.charAt(0).toUpperCase() + heading.slice(1);
+  $('#grid_settings_popup h2').text(heading);
+  var k = e.attr('id').slice(4),
+      n = number_of_columns[k];
+  $('.grid_n').text(n);
+  $('#grid_rows_number .minus').click(function() {
+    if (n-1 > 0) {
+      n--;
+      $('.grid_n').text(n);
+    }
+  });
+  $('#grid_rows_number .plus').click(function() {
+    if (n+1 < 11) {
+      n++;
+      $('.grid_n').text(n);
+    }
+  });
+  $('#grid_settings_popup .btn').click(function() {
+    number_of_columns[k] = n;
+    var rule = '';
+    for (i = 0; i < n; i++) {
+      rule += 'auto ';
+    }
+    rule = rule.substring(0, rule.length-1);
+    $('.grid', e).css('grid-template-columns', rule);
+    close_popup('#grid_settings_popup');
+  });
+}

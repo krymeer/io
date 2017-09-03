@@ -4,6 +4,10 @@ function restart() {
   grids_ok = 0;
   id = 0;
   $('.grid').each(function() {
+    $(this).removeAttr('style');
+    $('.item', this).each(function() {
+      $(this).removeAttr('style');
+    });
     if ($(this).hasClass('not_empty')) {
       $(this).fadeOut('fast', function() { 
         $(this).show().removeClass('not_empty').html(''); 

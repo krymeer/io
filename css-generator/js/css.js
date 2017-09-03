@@ -31,11 +31,15 @@ div.item { \n\
   display: grid; \n\
 }';
 
-function move_css(grid) {
+function move_css(grid, name) {
+  var style = grid.attr('style');
+  if (style !== undefined) {
+    basic_css += '\n' + name + ' {\n  ' + grid.attr('style') + '\n} ';
+    grid.removeAttr('style');
+  }
   $('.item', grid).each(function() {
-    var style = $(this).attr('style');
-    basic_css += 
-      '\n#' + $(this).attr('id') + ' {\n  ' + style + '\n} ';
+    style = $(this).attr('style');
+    basic_css += '\n#' + $(this).attr('id') + ' {\n  ' + style + '\n} ';
     $(this).removeAttr('style');
   });
   return grid;

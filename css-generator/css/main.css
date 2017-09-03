@@ -26,7 +26,7 @@ a {
   box-sizing: border-box;
 }
 
-footer a, .template, i, #save_file, .btn {
+footer a, .template, i, #save_file, .btn, .grid_math_btn {
   transition: all .2s ease-out;
 }
 
@@ -92,7 +92,7 @@ button {
   display: block;
 }
 
-.block.wrapper {
+.block. {
   display: block;
 }
 
@@ -160,6 +160,7 @@ button {
   border-radius: 2.5px;
 }
 
+.tiny_popup .grid_n,
 .tiny_popup input,
 .tiny_popup textarea {
   background: #acbdba;
@@ -226,6 +227,7 @@ button {
   line-height: 1.25;  
   color: #32292f;
   background: #ffe1c6;
+  max-width: 300px;
 }
 
 .tiny_popup .popup_err {
@@ -273,11 +275,46 @@ input.item_bg {
   resize: none;
 }
 
-#item_style_popup {
-  width: 250px;
-}
 
 #item_style_popup,
 #item_text_popup {
   width: 330px;
+}
+
+#grid_settings_popup {
+  width: 300px;
+}
+
+.grid_number {
+  align-items: center;
+  display: grid !important;
+  grid-template: auto / auto auto auto auto;
+}
+
+.grid_math_btn {
+  font-size: 40px;
+  display: inline-block;
+  cursor: pointer;
+  line-height: 1;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.grid_math_btn:hover {
+  color: #a3b8dd;
+}
+
+.grid_n {
+  width: 30px;
+  height: 30px;
+  margin: 0 .25rem;
+  text-align: center;
+  line-height: 27.5px;
+  font-size: 22px;
+}
+
+.grid_math_btn.plus {
+  margin-left: .5rem;
 }
