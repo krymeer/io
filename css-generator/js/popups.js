@@ -21,16 +21,22 @@ $(document).ready(function() {
   });
 });
 
-function change_item_background(id) {
+function change_item_colors(id) {
   var curr_bg = $(id).css('background-color'),
-      rgb = curr_bg.replace(/[^\d,]/g, '').split(','),
-      valid_rgb = true,
-      new_rgb;
+      curr_col = $(id).css('color'),
+      rgb_bg = curr_bg.replace(/[^\d,]/g, '').split(','),
+      rgb_col = curr_col.replace(/[^\d,]/g, '').split(','),
+      valid_bg_rgb = true,
+      valid_col_rgb = true,
+      new_bg_rgb = curr_bg,
+      new_col_rgb = curr_col;
   $('#item_bg_sq').css('background', curr_bg);
+  $('#item_color_sq').css('background', curr_col);
   for (var k = 0; k < 3; k++) {
-    $('#item_bg_'+k).val(rgb[k]);
+    $('#item_bg_'+k).val(rgb_bg[k]);
+    $('#item_color_'+k).val(rgb_col[k]);
   }
-  $('.item_bg').change(function() {
+  $('.item_bg, .item_color').change(function() {
     var r = parseInt($('#item_bg_0').val()),
         g = parseInt($('#item_bg_1').val()),
         b = parseInt($('#item_bg_2').val());
@@ -39,19 +45,44 @@ function change_item_background(id) {
       $('#item_bg_0').val(r);
       $('#item_bg_1').val(g);
       $('#item_bg_2').val(b);
-      new_rgb = 'rgb('+r+','+g+','+b+')';
-      $('#item_bg_sq').css('background', new_rgb);
-      valid_rgb = true;
+      new_bg_rgb = 'rgb('+r+','+g+','+b+')';
+      $('#item_bg_sq').css('background', new_bg_rgb);
+      valid_bg_rgb = true;
     } else {
-      valid_rgb = false;
+      valid_bg_rgb = false;
+    }
+
+    r = parseInt($('#item_color_0').val()),
+    g = parseInt($('#item_color_1').val()),
+    b = parseInt($('#item_color_2').val());
+
+    if (r >= 0 && r <= 255 && g >= 0 && g <= 255 && b >= 0 && b <= 255) {
+      $('#item_color_0').val(r);
+      $('#item_color_1').val(g);
+      $('#item_color_2').val(b);
+      new_col_rgb = 'rgb('+r+','+g+','+b+')';
+      $('#item_color_sq').css('background', new_col_rgb);
+      valid_col_rgb = true;
+    } else {
+      valid_col_rgb = false;
     }
   });
   $('#item_style_popup .btn').click(function() {
-    if (valid_rgb) {
-      $(id).css('background', new_rgb);
+    if (valid_bg_rgb && valid_col_rgb) {
+      $(id).css({"background": new_bg_rgb, "color": new_col_rgb});
       close_popup('#item_style_popup');
     } else {
       $('#item_style_popup .popup_err').html('Nieprawidłowa wartość koloru.').slideDown('fast');
     }
+  });
+}
+
+function change_item_contents(id) {
+  $('#item_contents').val($(id+' .item_contents').text());
+  $('#item_text_popup .btn').click(function() {
+    var str = $('#item_contents').val();
+    text = $('<textarea/>').text(str).html();
+    $(id+' .item_contents').text(text);
+    close_popup('#item_text_popup');
   });
 }

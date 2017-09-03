@@ -8,7 +8,9 @@ var basic_css = 'html, body { \n\
 } \n\
 \n\
 #main_container { \n\
-  width: 990px; \n\
+  font-family: Verdana, Tahoma, sans-serif;\n\
+  max-width: 1024px; \n\
+  width: 90%; \n\
   height: 840px; \n\
   position: absolute; \n\
   top: 50%; \n\
@@ -19,6 +21,22 @@ var basic_css = 'html, body { \n\
 #main_container, header, #main_content, footer { \n\
   display: grid; \n\
 } \n\
+#main_container { \n\
+  grid-template: 1fr 1fr 1fr / auto; \n\
+}\n\
 div.item { \n\
   height: 100%; \n\
+  padding: .25rem; \n\
+  align-items: center; \n\
+  display: grid; \n\
 }';
+
+function move_css(grid) {
+  $('.item', grid).each(function() {
+    var style = $(this).attr('style');
+    basic_css += 
+      '\n#' + $(this).attr('id') + ' {\n  ' + style + '\n} ';
+    $(this).removeAttr('style');
+  });
+  return grid;
+}

@@ -111,6 +111,12 @@
   display: grid;
 }
 
+.item_contents {
+  padding: .25rem;
+  align-items: center;
+  display: grid;
+}
+
 /*
 .grid .item:hover .item_mask {
   background: rgba(0, 0, 0, 0);

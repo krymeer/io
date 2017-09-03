@@ -31,6 +31,14 @@
       <div class="popup_err">To pole nie może pozostać puste.</div>
       <div class="btn" id="save_file">Zapisz</div>
     </div>
+
+    <div class="tiny_popup" id="item_text_popup" >
+      <i class="material-icons close_popup">close</i>
+      <h2>Zawartość</h2>
+      <textarea id="item_contents"></textarea>
+      <div class="popup_err alert visible">Uwaga: tagi <b>HTML</b> występujące w polu tekstowym zostaną zamienione na swoją "bezpieczną" postać.</div>
+      <div class="btn">Zapisz</div>
+    </div>
     
     <div class="tiny_popup" id="file_save_success">
       <h2>Sukces</h2>
@@ -41,13 +49,20 @@
     <div class="tiny_popup" id="item_style_popup">
       <i class="material-icons close_popup">close</i>
       <h2>Styl</h2>
-      <div class="wrapper block" id="item_select_bg">
+      <div class="wrapper block" id="item_select_colors">
         <span>Kolor tła</span>
         <span id="item_bg_sq">&nbsp;</span>
         <div>
           <input type="text" class="item_bg" id="item_bg_0" maxlength="3" onkeypress="return check_if_digit(event)">
           <input type="text" class="item_bg" id="item_bg_1" maxlength="3" onkeypress="return check_if_digit(event)">
           <input type="text" class="item_bg" id="item_bg_2" maxlength="3" onkeypress="return check_if_digit(event)">
+        </div>
+        <span>Kolor tekstu</span>
+        <span id="item_color_sq">&nbsp;</span>
+        <div>
+          <input type="text" class="item_color" id="item_color_0" maxlength="3" onkeypress="return check_if_digit(event)">
+          <input type="text" class="item_color" id="item_color_1" maxlength="3" onkeypress="return check_if_digit(event)">
+          <input type="text" class="item_color" id="item_color_2" maxlength="3" onkeypress="return check_if_digit(event)">
         </div>
       </div>
       <div class="popup_err"></div>
