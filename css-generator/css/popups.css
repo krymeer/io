@@ -20,6 +20,7 @@
   border-radius: 2.5px;
 }
 
+.tiny_popup .nice-select,
 .tiny_popup .grid_n,
 .tiny_popup input,
 .tiny_popup textarea {
@@ -124,7 +125,7 @@ input.item_bg {
   grid-template: auto / auto auto auto;
   justify-items: center;
   align-items: center;
-  grid-row-gap: 10px;
+  grid-row-gap: 12px;
 }
 
 #save_item_style {

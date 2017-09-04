@@ -21,7 +21,7 @@ $(document).ready(function() {
   });
 });
 
-function change_item_colors(id) {
+function change_item_style(id) {
   var curr_bg = $(id).css('background-color'),
       curr_col = $(id).css('color'),
       rgb_bg = curr_bg.replace(/[^\d,]/g, '').split(','),
@@ -29,7 +29,20 @@ function change_item_colors(id) {
       valid_bg_rgb = true,
       valid_col_rgb = true,
       new_bg_rgb = curr_bg,
-      new_col_rgb = curr_col;
+      new_col_rgb = curr_col,
+      font_family = $(id).css('font-family').replace(/, /g, ',').replace(/\"/g, '').split(','),
+      current_font = font_family;
+  
+  if (font_family.length > 1) {
+    current_font = font_family[0];
+  }
+  $('#select_font + div.nice-select > ul > li[data-value="'+current_font+'"]').trigger('click');
+  $('#select_font + div.nice-select > span.current').attr('data-value', current_font);
+
+  $('#select_font + div.nice-select > ul > li').click(function() {
+    $('#select_font + div.nice-select > span.current').attr('data-value', $(this).attr('data-value'));
+  });
+  
   $('#item_bg_sq').css('background', curr_bg);
   $('#item_color_sq').css('background', curr_col);
   for (var k = 0; k < 3; k++) {
@@ -69,8 +82,14 @@ function change_item_colors(id) {
   });
   $('#item_style_popup .btn').click(function() {
     if (valid_bg_rgb && valid_col_rgb) {
-      $(id).css({"background": new_bg_rgb, "color": new_col_rgb});
+      current_font = $('#select_font + div.nice-select > span.current').attr('data-value');
+      font_family = current_font;
+      if (current_font !== 'sans-serif' && current_font !== 'serif') {
+        font_family = '"'+current_font+'"' + ', sans-serif';
+      }
+      $(id).css({"background": new_bg_rgb, "color": new_col_rgb, "font-family": font_family});
       close_popup('#item_style_popup');
+      $(this).off('click');
     } else {
       $('#item_style_popup .popup_err').html('Nieprawidłowa wartość koloru.').slideDown('fast');
     }
@@ -84,6 +103,7 @@ function change_item_contents(id) {
     text = $('<textarea/>').text(str).html();
     $(id+' .item_contents').text(text);
     close_popup('#item_text_popup');
+    $(this).off('click');
   });
 }
 
@@ -115,5 +135,6 @@ function change_grid_settings(e) {
     rule = rule.substring(0, rule.length-1);
     $('.grid', e).css('grid-template-columns', rule);
     close_popup('#grid_settings_popup');
+    $(this).off('click');
   });
 }

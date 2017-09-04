@@ -43,5 +43,5 @@ function create_html_template(header, main_content, footer) {
   return  template.replace('{{header}}', header)
                   .replace('{{main_content}}', main_content)
                   .replace('{{footer}}', footer)
-                  .replace('{{style}}', basic_css);
+                  .replace('{{style}}', basic_css+'\n');
 }

@@ -1,6 +1,7 @@
 function restart() {
   $('#filename').val();
   $('#file_creator_popup .popup_err').hide();
+  number_of_columns = [1, 1, 1];
   grids_ok = 0;
   id = 0;
   $('.grid').each(function() {
@@ -24,5 +25,6 @@ $(document).ready(function() {
   $('#restart').click(function() {
     restart();
   });
+  $('#select_font').niceSelect();
 });
 

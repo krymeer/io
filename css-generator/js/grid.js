@@ -66,11 +66,13 @@ $(document).ready(function() {
           e.target.id.indexOf('item')+5,
           e.target.id.indexOf('style')-1);
         show_popup('#item_style_popup');
-        change_item_colors(id);
+        $('#select_font').niceSelect();
+        change_item_style(id);
       } else if (e.target.id.indexOf('item') !== -1 && e.target.id.indexOf('text') !== -1) {
         var id = '#item_' + e.target.id.substring(
           e.target.id.indexOf('item')+5,
           e.target.id.indexOf('text')-1);
+        $('#item_text_popup .popup_err').show();
         show_popup('#item_text_popup');
         change_item_contents(id);
       }
