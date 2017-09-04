@@ -110,7 +110,7 @@ function change_grid_settings(e) {
     number_of_columns[k] = n;
     var rule = '';
     for (i = 0; i < n; i++) {
-      rule += 'auto ';
+      rule += '1fr ';
     }
     rule = rule.substring(0, rule.length-1);
     $('.grid', e).css('grid-template-columns', rule);
