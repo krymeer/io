@@ -25,6 +25,6 @@ $(document).ready(function() {
   $('#restart').click(function() {
     restart();
   });
-  $('#select_font').niceSelect();
+  $('#select_font, #text_alignment').niceSelect();
 });
 

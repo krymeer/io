@@ -1,4 +1,4 @@
-var basic_css = '@import url("https://fonts.googleapis.com/css?family=Saira+Semi+Condensed"); \n\
+var basic_css = '\n@import url("https://fonts.googleapis.com/css?family=Saira+Semi+Condensed"); \n\
 html, body { \n\
   padding: 0; \n\
   margin: 0; \n\

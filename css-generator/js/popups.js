@@ -31,18 +31,24 @@ function change_item_style(id) {
       new_bg_rgb = curr_bg,
       new_col_rgb = curr_col,
       font_family = $(id).css('font-family').replace(/, /g, ',').replace(/\"/g, '').split(','),
-      current_font = font_family;
-  
+      current_font = font_family,
+      alignment = $(id).css('align-items');
+
   if (font_family.length > 1) {
     current_font = font_family[0];
   }
   $('#select_font + div.nice-select > ul > li[data-value="'+current_font+'"]').trigger('click');
   $('#select_font + div.nice-select > span.current').attr('data-value', current_font);
-
   $('#select_font + div.nice-select > ul > li').click(function() {
     $('#select_font + div.nice-select > span.current').attr('data-value', $(this).attr('data-value'));
   });
-  
+
+  $('#text_alignment + div.nice-select > ul > li[data-value="'+alignment+'"]').trigger('click');
+  $('#text_alignment + div.nice-select > span.current').attr('data-value', alignment);
+  $('#text_alignment + div.nice-select > ul > li').click(function() {
+    $('#text_alignment + div.nice-select > span.current').attr('data-value', $(this).attr('data-value'));
+  });
+
   $('#item_bg_sq').css('background', curr_bg);
   $('#item_color_sq').css('background', curr_col);
   for (var k = 0; k < 3; k++) {
@@ -82,12 +88,13 @@ function change_item_style(id) {
   });
   $('#item_style_popup .btn').click(function() {
     if (valid_bg_rgb && valid_col_rgb) {
+      alignment = $('#text_alignment + div.nice-select > span.current').attr('data-value');
       current_font = $('#select_font + div.nice-select > span.current').attr('data-value');
       font_family = current_font;
       if (current_font !== 'sans-serif' && current_font !== 'serif') {
         font_family = '"'+current_font+'"' + ', sans-serif';
       }
-      $(id).css({"background": new_bg_rgb, "color": new_col_rgb, "font-family": font_family});
+      $(id).css({"background": new_bg_rgb, "color": new_col_rgb, "font-family": font_family, "align-items": alignment});
       close_popup('#item_style_popup');
       $(this).off('click');
     } else {

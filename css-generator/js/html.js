@@ -31,10 +31,6 @@ var item_template = '\
   <div class="item_contents"></div> \n\
 </div>';
 
-/*
-  <div class="item_mask"></div> \n\ 
-*/
-
 function get_item_basic_content(id) {
   return item_template.replace(/{{id}}/g, id);
 }
