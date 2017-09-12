@@ -9,10 +9,15 @@
   width: 220px;
   padding: .5rem;
   background: #444;
+  text-align: center;
 }
 
 .tiny_popup h2 {
   margin-bottom: .5rem;
+}
+
+.tiny_popup * {
+  text-align: left;
 }
 
 .tiny_popup,
@@ -45,13 +50,9 @@
   display: inline-block;
   text-align: center;
   margin-top: 1rem;
-  text-align: center;
   background: #355691;
   cursor: pointer;
   padding: .125rem .5rem;
-  position: relative;
-  left: 50%;
-  transform: translateX(-50%);
 }
 
 .tiny_popup .btn:hover {
