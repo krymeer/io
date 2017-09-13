@@ -1,7 +1,11 @@
 var id = 0, grids_ok = 0, number_of_columns = [1, 1, 1];
 
 function add_new_item(grid) {
-  grid.append(get_item_basic_content(id));
+  var br = '';
+  if (grid.find('.item').length > 0) {
+    br = '\n';
+  }
+  grid.append(br+get_item_basic_content(id));
   $('#item_'+id, grid)
     .css('background', get_random_color())
     .css('color', get_random_color());
@@ -17,15 +21,10 @@ function save_file() {
   $('.item_panel', main_part).remove();
   $('.item_panel', footer).remove();
 
+  basic_css = basic_css_org;
   header = move_css(header, 'header');
   main_part = move_css(main_part, '#main_content');
   footer = move_css(footer, '.footer');
-  
-  basic_css = basic_css
-                .replace(/\n/g, '\n'+tab.repeat(3))
-                .replace(/}/g, '}\n')
-                .replace(/\n$/, '');
-
 
   var html = create_html_template(header.html(), main_part.html(), footer.html());
 

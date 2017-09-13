@@ -37,6 +37,18 @@ function get_item_basic_content(id) {
 }
 
 function create_html_template(header, main_content, footer) {
+  basic_css = basic_css
+              .replace(/\n/g, '\n'+tab.repeat(3))
+              .replace(/}/g, '}\n')
+              .replace(/\n$/, '');
+
+  header = header.replace(/\n\s+\n/g, '\n').replace(/\n\s+\n/g, '\n')
+                 .replace(/\n/g, '\n'+tab.repeat(4));
+  footer = footer.replace(/\n\s+\n/g, '\n')
+                 .replace(/\n/g, '\n'+tab.repeat(4));
+  main_content = main_content.replace(/\n\s+\n/g, '\n')
+                 .replace(/\n/g, '\n'+tab.repeat(4));
+
   return  template.replace('{{header}}', header)
                   .replace('{{main_content}}', main_content)
                   .replace('{{footer}}', footer)

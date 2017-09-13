@@ -1,4 +1,4 @@
-var basic_css = '\n\
+var basic_css_org = '\n\
 @import url("https://fonts.googleapis.com/css?family=Saira+Semi+Condensed");\n\
 \n\
 html, body { \n\
@@ -30,7 +30,7 @@ div.item { \n\
   display: grid; \n\
 }';
 
-var no_lato = true, no_roboto = true, tab = '  ';
+var no_lato = true, no_roboto = true, tab = '  ', basic_css = '';
 
 function move_css(grid, name) {
   var style = grid.attr('style');
