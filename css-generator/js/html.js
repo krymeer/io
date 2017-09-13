@@ -32,6 +32,31 @@ var item_template = '\
   <div class="item_contents"></div> \n\
 </div>';
 
+function convert_to_one_line(elem) {
+  elem.html(elem.html().replace(/>\s+</g, '><').replace('\n', ''));  
+}
+
+function beautify_html(elem, k) {
+  if (elem.hasClass('grid')) {
+    convert_to_one_line(elem);
+  }
+
+  elem.children().each(function() {
+    beautify_html($(this), k+1);
+  });
+
+  if (elem.html() !== '') {
+    elem.html(elem.html() + '\n' + tab.repeat(k-1))
+        .html(elem.html().replace(/><(?=[A-Za-z])/g, '>\n' + tab.repeat(k) +'<'))
+        .html('\n' + tab.repeat(k) + elem.html());
+    
+    if (elem.hasClass('grid')) {
+      elem.html(elem.html().trim().replace(/^\n|\n$/g, ''));
+    }
+  }
+}
+
+
 function get_item_basic_content(id) {
   return item_template.replace(/{{id}}/g, id);
 }
@@ -42,15 +67,21 @@ function create_html_template(header, main_content, footer) {
               .replace(/}/g, '}\n')
               .replace(/\n$/, '');
 
+  beautify_html(header, 4);
+  beautify_html(main_content, 4);
+  beautify_html(footer, 4);
+
+  return  template.replace('{{header}}', header.html())
+                  .replace('{{main_content}}', main_content.html())
+                  .replace('{{footer}}', footer.html())
+                  .replace('{{style}}', basic_css+'\n');
+}
+
+/*
   header = header.replace(/\n\s+\n/g, '\n').replace(/\n\s+\n/g, '\n')
                  .replace(/\n/g, '\n'+tab.repeat(4));
   footer = footer.replace(/\n\s+\n/g, '\n')
                  .replace(/\n/g, '\n'+tab.repeat(4));
   main_content = main_content.replace(/\n\s+\n/g, '\n')
                  .replace(/\n/g, '\n'+tab.repeat(4));
-
-  return  template.replace('{{header}}', header)
-                  .replace('{{main_content}}', main_content)
-                  .replace('{{footer}}', footer)
-                  .replace('{{style}}', basic_css+'\n');
-}
+*/

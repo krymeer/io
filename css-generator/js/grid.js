@@ -26,7 +26,7 @@ function save_file() {
   main_part = move_css(main_part, '#main_content');
   footer = move_css(footer, '.footer');
 
-  var html = create_html_template(header.html(), main_part.html(), footer.html());
+  var html = create_html_template(header, main_part, footer);
 
   var filename = $('#filename').val();
   if (filename === '') {
