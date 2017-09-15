@@ -106,9 +106,7 @@ function change_item_style(id) {
 function change_item_contents(id) {
   $('#item_contents').val($(id+' .item_contents').text());
   $('#item_text_popup .btn').click(function() {
-    var str = $('#item_contents').val();
-    text = $('<textarea/>').text(str).html();
-    $(id+' .item_contents').text(text);
+    $(id+' .item_contents').text($('#item_contents').val());
     close_popup('#item_text_popup');
     $(this).off('click');
   });

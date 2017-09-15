@@ -35,13 +35,13 @@ var no_lato = true, no_roboto = true, tab = '  ', basic_css = '';
 function move_css(grid, name) {
   var style = grid.attr('style');
   if (style !== undefined) {
-    basic_css += '\n' + name + tab + '{\n' + tab + grid.attr('style') + '\n}';
+    basic_css += '\n' + name + ' {\n' + tab + grid.attr('style') + '\n}';
     grid.removeAttr('style');
   }
   $('.item', grid).each(function() {
     style = $(this).attr('style');
     style = style.replace(/; /g, ';\n  ');
-    basic_css += '\n#' + $(this).attr('id') + tab + '{\n' + tab + style + '\n}';
+    basic_css += '\n#' + $(this).attr('id') + ' {\n' + tab + style + '\n}';
     if (style.indexOf('Roboto') >= 0 && no_roboto) {
       basic_css = '\n@import url("https://fonts.googleapis.com/css?family=Roboto");' + basic_css;
     }

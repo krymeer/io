@@ -10,3 +10,18 @@ function get_random_color() {
 
   return rgb;
 }
+
+// Escaping harmful HTML characters - their selection based on:
+// https://www.owasp.org/index.php/XSS_%28Cross_Site_Scripting%29_Prevention_Cheat_Sheet#RULE_.231_-_HTML_Escape_Before_Inserting_Untrusted_Data_into_HTML_Element_Content
+// http://wonko.com/post/html-escaping
+// The interesting fact is that the jQuery escapes '&', '>' and '<' itself.
+
+function escape_characters(str) {
+  return str.replace(/{{"}}/g, '&quot;')
+            .replace(/{{'}}/g, '&#x27;')
+            .replace(/{{\/}}/g, '&#x2F;');
+            //.replace(/</g, '&lt;')
+            //.replace(/>/g, '&gt;')
+            //.replace(/&/g, '&amp;')
+}
+
