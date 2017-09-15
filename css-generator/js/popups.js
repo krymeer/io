@@ -103,10 +103,13 @@ function change_item_style(id) {
   });
 }
 
+
+// Changing contents of one of the grid items.
+// Note that all the newlines (\n) are converted into line breaks (<br>).
 function change_item_contents(id) {
-  $('#item_contents').val($(id+' .item_contents').text());
+  $('#item_contents').val($(id+' .item_contents').html().replace(/<br>/g, '\n'));
   $('#item_text_popup .btn').click(function() {
-    $(id+' .item_contents').text($('#item_contents').val());
+    $(id+' .item_contents').html($('#item_contents').val().replace(/\n/g, '<br>'));
     close_popup('#item_text_popup');
     $(this).off('click');
   });
