@@ -34,8 +34,8 @@ var no_lato = true, no_roboto = true, tab = '  ', basic_css = '';
 
 function move_css(grid, name) {
   var style = grid.attr('style');
-  if (style !== undefined) {
-    basic_css += '\n' + name + ' {\n' + tab + grid.attr('style') + '\n}';
+  if (style !== '' && style !== undefined) {
+    basic_css += '\n' + name + ' {\n' + tab + style + '\n}';
     grid.removeAttr('style');
   }
   $('.item', grid).each(function() {
