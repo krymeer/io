@@ -1,9 +1,12 @@
+var current_popup = '';
+
 function close_popup(popup_id) {
   if ($(popup_id+' .popup_err').css('display') === 'block') {
     $(popup_id+' .popup_err').slideUp('fast');
   }
   $(popup_id).fadeOut('fast', function() {
     $('#mask').fadeOut('fast');
+    current_popup = '';
   });
 //  $(popup_id + ', #mask').fadeOut('fast');
 }
@@ -11,6 +14,7 @@ function close_popup(popup_id) {
 function show_popup(popup_id) {
   $('#mask').fadeIn('fast', function() {
     $(popup_id).fadeIn('fast');
+    current_popup = popup_id;
 //  $(popup_id + ', #mask').fadeIn('fast');
   });
 }
@@ -18,6 +22,19 @@ function show_popup(popup_id) {
 $(document).ready(function() {
   $('.close_popup').click(function() {
     close_popup('#'+$(this).parent().attr('id'));
+  });
+
+  $(document).keydown(function(key) {
+    if (key.which === 13) {
+      if (current_popup !== '' && current_popup !== '#item_text_popup' && $(current_popup + ' .btn_save').length > 0) {
+        $(current_popup + ' .btn_save').trigger('click');
+      }
+    }
+    if (key.which === 27) {
+      if (current_popup !== '' && $(current_popup + ' .btn_cancel').length > 0) {
+        $(current_popup + ' .btn_cancel').trigger('click');
+      }
+    }
   });
 });
 
@@ -55,7 +72,8 @@ function change_item_style(id) {
     $('#item_bg_'+k).val(rgb_bg[k]);
     $('#item_color_'+k).val(rgb_col[k]);
   }
-  $('.item_bg, .item_color').change(function() {
+  
+  var check_colors = function() {
     var r = parseInt($('#item_bg_0').val()),
         g = parseInt($('#item_bg_1').val()),
         b = parseInt($('#item_bg_2').val());
@@ -85,7 +103,14 @@ function change_item_style(id) {
     } else {
       valid_col_rgb = false;
     }
-  });
+  }
+  $('.item_bg, .item_color').change(check_colors);
+  $(document).keydown(function(key) {
+    if (key.which === 13) {
+      check_colors();
+    }
+  })
+
   $('#item_style_popup .btn').click(function() {
     if (valid_bg_rgb && valid_col_rgb) {
       alignment = $('#text_alignment + div.nice-select > span.current').attr('data-value');

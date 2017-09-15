@@ -28,17 +28,17 @@
     <div id="mask"></div>
 
     <div class="tiny_popup" id="file_creator_popup">
-      <i class="material-icons close_popup">close</i>
+      <i class="material-icons close_popup btn_cancel">close</i>
       <h2>Nazwa pliku</h2>
       <div class="wrapper block">
         <input type="text" id="filename" maxlength="24" onkeypress="return validate_filename(event)"><span>.html</span>
       </div>
       <div class="popup_err">To pole nie może pozostać puste.</div>
-      <div class="btn" id="save_file">Zapisz</div>
+      <div class="btn btn_save" id="save_file">Zapisz</div>
     </div>
 
     <div class="tiny_popup" id="grid_settings_popup">
-      <i class="material-icons close_popup">close</i>
+      <i class="material-icons close_popup btn_cancel">close</i>
       <h2>&nbsp;</h2>
       <div class="wrapper block grid_number" id="grid_rows_number">
         <span>Ilość elementów w&nbsp;wierszu</span>
@@ -46,25 +46,25 @@
         <span class="grid_n">1</span>
         <span class="grid_math_btn minus">-</span>
       </div>
-      <div class="btn">Zapisz</div>
+      <div class="btn btn_save">Zapisz</div>
     </div>
 
     <div class="tiny_popup" id="item_text_popup" >
-      <i class="material-icons close_popup">close</i>
+      <i class="material-icons close_popup btn_cancel">close</i>
       <h2>Zawartość</h2>
       <textarea id="item_contents"></textarea>
       <div class="popup_err alert visible">Uwaga: tagi <b>HTML</b> występujące w polu tekstowym zostaną zamienione na swoją "bezpieczną" postać.</div>
-      <div class="btn">Zapisz</div>
+      <div class="btn btn_save">Zapisz</div>
     </div>
     
     <div class="tiny_popup" id="file_save_success">
       <h2>Sukces</h2>
       <span>Plik został zapisany!</span>
-      <div class="btn" id="ok_btn">OK!</div>
+      <div class="btn btn_save" id="ok_btn">OK!</div>
     </div>
 
     <div class="tiny_popup" id="item_style_popup">
-      <i class="material-icons close_popup">close</i>
+      <i class="material-icons close_popup btn_cancel">close</i>
       <h2>Styl</h2>
       <div class="wrapper block" id="item_select_colors">
         <span>Kolor tła</span>
@@ -98,7 +98,7 @@
       </div>
 
       <div class="popup_err"></div>
-      <div class="btn" id="save_item_style">Zapisz</div>
+      <div class="btn btn_save" id="save_item_style">Zapisz</div>
     </div>
 
     <div id="page_container">

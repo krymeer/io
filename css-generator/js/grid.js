@@ -34,7 +34,7 @@ function save_file() {
   } else {
     $('#file_creator_popup').fadeOut('fast', function() {
       create_file(html, filename);
-      $('#file_save_success').fadeIn('fast');
+      show_popup('#file_save_success');
     });
   }
 }
@@ -83,7 +83,7 @@ $(document).ready(function() {
       }
     });
     $('.control_panel .icon_settings', parent).click(function() {
-      show_popup($('#grid_settings_popup'));
+      show_popup('#grid_settings_popup');
       change_grid_settings(parent);
     });
     $('.control_panel .icon_add_item', parent).click(function() {

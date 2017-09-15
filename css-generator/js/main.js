@@ -1,5 +1,5 @@
 function restart() {
-  $('#filename').val();
+  $('input').val('');
   $('#file_creator_popup .popup_err').hide();
   number_of_columns = [1, 1, 1];
   grids_ok = 0;
