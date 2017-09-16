@@ -148,13 +148,13 @@ function insert_html_tag(t) {
   }
 }
 
-var tags_allowed = ['b', 'i', 'u'],
+var tags_allowed = ['b', 'i', 'u', 's'],
     regexp_text_start = new RegExp('\\[(' + tags_allowed.join('|') + ')\\]', 'g'),
     regexp_text_end = new RegExp('\\[\/(' + tags_allowed.join('|') + ')\\]', 'g'),
     regexp_html_start = new RegExp('<(' + tags_allowed.join('|') + ')>', 'g'),
-    regexp_html_end = new RegExp('<\/(' + tags_allowed.join('|') + ')>', 'g'),
-    regexp_forbidden_html_start = new RegExp('<[^' + tags_allowed.join('') + ']>', 'g'),
-    regexp_forbidden_html_end = new RegExp('<\/[^' + tags_allowed.join('') + ']>', 'g');
+    regexp_html_end = new RegExp('<\/(' + tags_allowed.join('|') + ')>', 'g');
+    regexp_forbidden_html_start = new RegExp('<[^' + tags_allowed.join('') + ']+ [^<' + tags_allowed.join('') + ']*>', 'g'),
+    regexp_forbidden_html_end = new RegExp('<\/[^' + tags_allowed.join('') + ']+>', 'g');
 
 function convert_tag(match, offset, string) {
   if (match.indexOf('[') !== -1) {
@@ -182,11 +182,15 @@ function change_item_contents(id) {
   );
   $('#item_text_popup .btn').click(function() {
     $(id+' .item_contents').html($('#item_contents').val()
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
       .replace(/\n/g, '<br>')
       .replace(regexp_text_start, convert_tag)
       .replace(regexp_text_end, convert_tag)
+/*
       .replace(regexp_forbidden_html_start, escape_tag)
       .replace(regexp_forbidden_html_end, escape_tag)
+*/
     );
     close_popup('#item_text_popup');
     $(this).off('click');
