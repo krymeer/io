@@ -26,7 +26,6 @@
   </head>
   <body>
     <div id="mask"></div>
-
     <div class="tiny_popup" id="file_creator_popup">
       <i class="material-icons close_popup btn_cancel">close</i>
       <h2>Nazwa pliku</h2>
@@ -53,7 +52,13 @@
       <i class="material-icons close_popup btn_cancel">close</i>
       <h2>Zawartość</h2>
       <textarea id="item_contents"></textarea>
-      <div class="popup_err alert visible">Uwaga: tagi <b>HTML</b> występujące w polu tekstowym zostaną zamienione na swoją "bezpieczną" postać.</div>
+      <div id="item_tags">
+        <h3>Tagi</h3>
+        <div class="sq_btn" id="tag_b">b</div>
+        <div class="sq_btn" id="tag_i">i</div>
+        <div class="sq_btn" id="tag_u">u</div>
+      </div>
+      <div class="popup_err alert visible">Uwaga: inne tagi (także te w postaci znaczników <b>HTML</b>) zostaną zinterpretowane jako tekst.</div>
       <div class="btn btn_save">Zapisz</div>
     </div>
     

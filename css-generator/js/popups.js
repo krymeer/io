@@ -26,7 +26,7 @@ $(document).ready(function() {
 
   $(document).keydown(function(key) {
     if (key.which === 13) {
-      if (current_popup !== '' && current_popup !== '#item_text_popup' && $(current_popup + ' .btn_save').length > 0) {
+      if ((current_popup === '#file_creator_popup' || current_popup === '#file_save_success') && $(current_popup + ' .btn_save').length > 0) {
         $(current_popup + ' .btn_save').trigger('click');
       }
     }
@@ -105,11 +105,6 @@ function change_item_style(id) {
     }
   }
   $('.item_bg, .item_color').change(check_colors);
-  $(document).keydown(function(key) {
-    if (key.which === 13) {
-      check_colors();
-    }
-  })
 
   $('#item_style_popup .btn').click(function() {
     if (valid_bg_rgb && valid_col_rgb) {
@@ -128,15 +123,76 @@ function change_item_style(id) {
   });
 }
 
+// Inserting HTML tags.
+// If any text is highlighted by the user, it is wrapped with a chosen tag.
+// Otherwise the tag is appended to the rest of the contents of the text area.
+function insert_html_tag(t) {
+  if ($('#item_text_popup').css('display') !== 'none') {
+    var textarea = document.getElementById('item_contents'),
+        tag_start = '['+t+']',
+        tag_end = '[/'+t+']',
+        contents = textarea.value;
+
+    if (textarea.selectionStart !== undefined) {
+      var start_pos = textarea.selectionStart,
+          end_pos = textarea.selectionEnd,
+          selected_text = contents.substring(start_pos, end_pos),
+          text_before = contents.substring(0, start_pos),
+          text_after = contents.substring(end_pos, contents.length);
+
+      contents = text_before + tag_start + selected_text + tag_end + text_after;
+    } else {
+      contents += tag_start + tag_end;    
+    } 
+    $('#item_contents').val(contents);
+  }
+}
+
+var tags_allowed = ['b', 'i', 'u'],
+    regexp_text_start = new RegExp('\\[(' + tags_allowed.join('|') + ')\\]', 'g'),
+    regexp_text_end = new RegExp('\\[\/(' + tags_allowed.join('|') + ')\\]', 'g'),
+    regexp_html_start = new RegExp('<(' + tags_allowed.join('|') + ')>', 'g'),
+    regexp_html_end = new RegExp('<\/(' + tags_allowed.join('|') + ')>', 'g'),
+    regexp_forbidden_html_start = new RegExp('<[^' + tags_allowed.join('') + ']>', 'g'),
+    regexp_forbidden_html_end = new RegExp('<\/[^' + tags_allowed.join('') + ']>', 'g');
+
+function convert_tag(match, offset, string) {
+  if (match.indexOf('[') !== -1) {
+    return '<' + match.substring(1, match.length-1) + '>';
+  }
+  return '[' + match.substring(1, match.length-1) + ']';
+}
+
+function escape_tag(match, offset, string) {
+  return '&lt;' + match.substring(1, match.length-1) + '&gt;';
+}
 
 // Changing contents of one of the grid items.
 // Note that all the newlines (\n) are converted into line breaks (<br>).
 function change_item_contents(id) {
-  $('#item_contents').val($(id+' .item_contents').html().replace(/<br>/g, '\n'));
+  $('#item_tags .sq_btn').click(function() {
+    insert_html_tag($(this).attr('id').substring(4));
+  });
+  $('#item_contents').val($(id+' .item_contents').html()
+    .replace(/<br>/g, '\n')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(regexp_html_start, convert_tag)
+    .replace(regexp_html_end, convert_tag)
+  );
   $('#item_text_popup .btn').click(function() {
-    $(id+' .item_contents').html($('#item_contents').val().replace(/\n/g, '<br>'));
+    $(id+' .item_contents').html($('#item_contents').val()
+      .replace(/\n/g, '<br>')
+      .replace(regexp_text_start, convert_tag)
+      .replace(regexp_text_end, convert_tag)
+      .replace(regexp_forbidden_html_start, escape_tag)
+      .replace(regexp_forbidden_html_end, escape_tag)
+    );
     close_popup('#item_text_popup');
     $(this).off('click');
+    $('#item_tags .sq_btn').each(function() {
+      $(this).off('click');
+    })
   });
 }
 
