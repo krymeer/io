@@ -86,6 +86,22 @@
   margin-bottom: .25rem;
 }
 
+#tag_b {
+  font-weight: bold;
+}
+
+#tag_i {
+  font-style: italic;
+}
+
+#tag_u {
+  text-decoration: underline;
+}
+
+#tag_s {
+  text-decoration: line-through;
+}
+
 .tiny_popup i {
   position: absolute;
   right: .25rem;
