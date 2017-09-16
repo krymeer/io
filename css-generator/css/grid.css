@@ -110,7 +110,7 @@
 
 .item_contents {
   padding: .25rem;
-  display: grid;
+  /*display: grid;*/
 }
 
 .item_panel {
