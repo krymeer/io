@@ -41,18 +41,22 @@ function beautify_html(elem, k) {
     convert_to_one_line(elem);
   }
 
-  elem.children().each(function() {
-    beautify_html($(this), k+1);
-  });
+  if (!elem.hasClass('item_contents')) {
+    elem.children().each(function() {
+      beautify_html($(this), k+1);
+    });
+  }
 
   if (elem.html() !== '') {
     elem.html(elem.html() + '\n' + tab.repeat(k-1))
         .html(elem.html().replace(/><(?=[A-Za-z])/g, '>\n' + tab.repeat(k) +'<'))
         .html('\n' + tab.repeat(k) + elem.html());
 
+/*
     if (elem.hasClass('item_contents')) {
       elem.html(elem.html().replace(/'|"|\//g, '{{$&}}'));
     }
+*/
 
     if (elem.hasClass('grid')) {
       elem.html(elem.html().trim().replace(/^\n|\n$/g, ''));
@@ -75,9 +79,16 @@ function create_html_template(header, main_content, footer) {
   beautify_html(main_content, 4);
   beautify_html(footer, 4);
 
+/*
   return  template.replace('{{header}}', escape_characters(header.html()))
                   .replace('{{main_content}}', escape_characters(main_content.html()))
                   .replace('{{footer}}', escape_characters(footer.html()))
+                  .replace('{{style}}', basic_css+'\n');
+*/
+
+  return  template.replace('{{header}}', header.html())
+                  .replace('{{main_content}}', main_content.html())
+                  .replace('{{footer}}', footer.html())
                   .replace('{{style}}', basic_css+'\n');
 }
 
