@@ -172,7 +172,7 @@ input.item_bg {
   grid-row-gap: 12px;
 }
 
-#save_item_style {
+#item_style_popup .btn_save {
   margin-top: 1.25rem;
 }
 

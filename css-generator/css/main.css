@@ -26,7 +26,7 @@ a {
   box-sizing: border-box;
 }
 
-footer a, .template, i, #save_file, .btn, .sq_btn, .grid_math_btn {
+footer a, .template, i, .btn, .sq_btn, .grid_math_btn {
   transition: all .2s ease-out;
 }
 
