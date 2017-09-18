@@ -1,5 +1,6 @@
 var current_popup = '';
 
+// Function that closes a selected popup window
 function close_popup(popup_id) {
   if ($(popup_id+' .popup_err').css('display') === 'block') {
     $(popup_id+' .popup_err').slideUp('fast');
@@ -11,6 +12,7 @@ function close_popup(popup_id) {
 //  $(popup_id + ', #mask').fadeOut('fast');
 }
 
+// Function that opens a selected popup window
 function show_popup(popup_id) {
   $('#mask').fadeIn('fast', function() {
     $(popup_id).fadeIn('fast');
@@ -24,6 +26,7 @@ $(document).ready(function() {
     close_popup('#'+$(this).parent().attr('id'));
   });
 
+  // Hitting the Enter and Esc buttons fires particular events
   $(document).keydown(function(key) {
     if (key.which === 13) {
       if ((current_popup === '#file_creator_popup' || current_popup === '#file_save_success') && $(current_popup + ' .btn_save').length > 0) {
@@ -38,6 +41,8 @@ $(document).ready(function() {
   });
 });
 
+// Changing CSS styling of the grid items.
+// Supported features: background-color, font-family, font-color, a few HTML tags, a vertical alignment of the text
 function change_item_style(id) {
   var curr_bg = $(id).css('background-color'),
       curr_col = $(id).css('color'),
@@ -148,6 +153,8 @@ function insert_html_tag(t) {
   }
 }
 
+// HTML tags that are allowed inside the grid items.
+// Below there are regular expressions for allowed and forbidden tags
 var tags_allowed = ['b', 'i', 'u', 's'],
     regexp_text_start = new RegExp('\\[(' + tags_allowed.join('|') + ')\\]', 'g'),
     regexp_text_end = new RegExp('\\[\/(' + tags_allowed.join('|') + ')\\]', 'g'),
@@ -156,6 +163,7 @@ var tags_allowed = ['b', 'i', 'u', 's'],
     regexp_forbidden_html_start = new RegExp('<[^' + tags_allowed.join('') + ']+ [^<' + tags_allowed.join('') + ']*>', 'g'),
     regexp_forbidden_html_end = new RegExp('<\/[^' + tags_allowed.join('') + ']+>', 'g');
 
+// Function that converts the allowed HTML tags into their counterparts
 function convert_tag(match, offset, string) {
   if (match.indexOf('[') !== -1) {
     return '<' + match.substring(1, match.length-1) + '>';
@@ -163,6 +171,7 @@ function convert_tag(match, offset, string) {
   return '[' + match.substring(1, match.length-1) + ']';
 }
 
+// Function that escapes any not allowed HTML tags
 function escape_tag(match, offset, string) {
   return '&lt;' + match.substring(1, match.length-1) + '&gt;';
 }
@@ -200,6 +209,8 @@ function change_item_contents(id) {
   });
 }
 
+// Changing setting of the grid container.
+// Supported feature: number of grid items in one row
 function change_grid_settings(e) {
   var heading = $('h2', e).text();
   heading = heading.charAt(0).toUpperCase() + heading.slice(1);

@@ -1,3 +1,4 @@
+// Very basic styling of the generated document
 var basic_css_org = '\n\
 @import url("https://fonts.googleapis.com/css?family=Saira+Semi+Condensed");\n\
 \n\
@@ -30,8 +31,10 @@ div.item { \n\
   display: grid; \n\
 }';
 
+// Flags indicating if any custom fonts are used
 var no_lato = true, no_roboto = true, tab = '  ', basic_css = '';
 
+// Converting the inlined styling into one section between <head> and </head> tags
 function move_css(grid, name) {
   var style = grid.attr('style');
   if (style !== '' && style !== undefined) {
