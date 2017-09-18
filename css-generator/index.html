@@ -23,88 +23,15 @@
     <script type="text/javascript" src="js/main.js"></script>
     <script type="text/javascript" src="js/popups.js"></script>
     <script type="text/javascript" src="js/appendix.js"></script>
+    <script type="text/javascript" src="js/popup_body.js"></script>
   </head>
   <body>
     <div id="mask"></div>
-    <div class="tiny_popup" id="file_creator_popup">
+    <div class="tiny_popup">
       <i class="material-icons close_popup btn_cancel">close</i>
-      <h2>Nazwa pliku</h2>
-      <div class="wrapper block">
-        <input type="text" id="filename" maxlength="24" onkeypress="return validate_filename(event)"><span>.html</span>
-      </div>
-      <div class="popup_err">To pole nie może pozostać puste.</div>
-      <div class="btn btn_save" id="save_file">Zapisz</div>
-    </div>
-
-    <div class="tiny_popup" id="grid_settings_popup">
-      <i class="material-icons close_popup btn_cancel">close</i>
-      <h2>&nbsp;</h2>
-      <div class="wrapper block grid_number" id="grid_rows_number">
-        <span>Ilość elementów w&nbsp;wierszu</span>
-        <span class="grid_math_btn plus">+</span>
-        <span class="grid_n">1</span>
-        <span class="grid_math_btn minus">-</span>
-      </div>
-      <div class="btn btn_save">Zapisz</div>
-    </div>
-
-    <div class="tiny_popup" id="item_text_popup" >
-      <i class="material-icons close_popup btn_cancel">close</i>
-      <h2>Zawartość</h2>
-      <textarea id="item_contents"></textarea>
-      <div id="item_tags">
-        <h3>Tagi</h3>
-        <div class="sq_btn" id="tag_b">b</div>
-        <div class="sq_btn" id="tag_i">i</div>
-        <div class="sq_btn" id="tag_u">u</div>
-        <div class="sq_btn" id="tag_s">s</div>
-      </div>
-      <div class="popup_err alert visible">Uwaga: inne tagi (także te w postaci znaczników <b>HTML</b>) zostaną zinterpretowane jako tekst.</div>
-      <div class="btn btn_save">Zapisz</div>
-    </div>
-    
-    <div class="tiny_popup" id="file_save_success">
-      <h2>Sukces</h2>
-      <span>Plik został zapisany!</span>
-      <div class="btn btn_save" id="ok_btn">OK!</div>
-    </div>
-
-    <div class="tiny_popup" id="item_style_popup">
-      <i class="material-icons close_popup btn_cancel">close</i>
-      <h2>Styl</h2>
-      <div class="wrapper block" id="item_select_colors">
-        <span>Kolor tła</span>
-        <span id="item_bg_sq">&nbsp;</span>
-        <div>
-          <input type="text" class="item_bg" id="item_bg_0" maxlength="3" onkeypress="return check_if_digit(event)">
-          <input type="text" class="item_bg" id="item_bg_1" maxlength="3" onkeypress="return check_if_digit(event)">
-          <input type="text" class="item_bg" id="item_bg_2" maxlength="3" onkeypress="return check_if_digit(event)">
-        </div>
-        <span>Kolor tekstu</span>
-        <span id="item_color_sq">&nbsp;</span>
-        <div>
-          <input type="text" class="item_color" id="item_color_0" maxlength="3" onkeypress="return check_if_digit(event)">
-          <input type="text" class="item_color" id="item_color_1" maxlength="3" onkeypress="return check_if_digit(event)">
-          <input type="text" class="item_color" id="item_color_2" maxlength="3" onkeypress="return check_if_digit(event)">
-        </div>
-        <span>Czcionka</span>
-        <select id="select_font">
-          <option value="Saira Semi Condensed">Saira Semi Condensed</option>
-          <option value="Roboto">Roboto</option>
-          <option value="Lato">Lato</option>
-          <option value="sans_serif">bezszeryfowa</option>
-          <option value="serif">szeryfowa</option>
-        </select>
-        <span>Wyrównanie tekstu</span>
-        <select id="text_alignment">
-          <option value="start">góra</option>
-          <option value="center">środek</option>
-          <option value="end">dół</option>
-        </select>
-      </div>
-
-      <div class="popup_err"></div>
-      <div class="btn btn_save" id="save_item_style">Zapisz</div>
+      <h2 id="popup_title"></h2>
+      <div id="popup_contents"></div>
+      <div class="btn btn_save"></div>
     </div>
 
     <div id="page_container">

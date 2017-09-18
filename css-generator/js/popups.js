@@ -1,4 +1,4 @@
-var current_popup = '';
+var current_popup = '', last_popup_id = '';
 
 // Function that closes a selected popup window
 function close_popup(popup_id) {
@@ -7,6 +7,7 @@ function close_popup(popup_id) {
   }
   $(popup_id).fadeOut('fast', function() {
     $('#mask').fadeOut('fast');
+    last_popup_id = popup_id.substring(1);
     current_popup = '';
   });
 //  $(popup_id + ', #mask').fadeOut('fast');

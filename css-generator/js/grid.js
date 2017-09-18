@@ -36,22 +36,22 @@ function save_file() {
   } else {
     $('#file_creator_popup').fadeOut('fast', function() {
       create_file(html, filename);
-      show_popup('#file_save_success');
+      get_popup('file_save_success');
+      $('#file_save_success .btn_save').click(function() {
+        close_popup('#file_save_success');
+        restart();
+      });
     });
   }
 }
 
 // Handling click events
 $(document).ready(function() {
-  $('#ok_btn').click(function() {
-    close_popup('#file_save_success');
-    restart();
-  });
-  $('#save_file').click(function() {
-    save_file();
-  });
   $('#next_step').click(function() {
-    show_popup('#file_creator_popup');
+    get_popup('file_creator_popup');
+    $('#file_creator_popup .btn_save').click(function() {
+      save_file();
+    });
   });
   $('.grid').each(function() {
     var grid = $(this),
@@ -73,20 +73,20 @@ $(document).ready(function() {
         var id = '#item_' + e.target.id.substring(
           e.target.id.indexOf('item')+5,
           e.target.id.indexOf('style')-1);
-        show_popup('#item_style_popup');
-        $('#select_font').niceSelect();
+        get_popup('item_style_popup');
+        $('#select_font, #text_alignment').niceSelect();
         change_item_style(id);
       } else if (e.target.id.indexOf('item') !== -1 && e.target.id.indexOf('text') !== -1) {
         var id = '#item_' + e.target.id.substring(
           e.target.id.indexOf('item')+5,
           e.target.id.indexOf('text')-1);
         $('#item_text_popup .popup_err').show();
-        show_popup('#item_text_popup');
+        get_popup('item_text_popup');
         change_item_contents(id);
       }
     });
     $('.control_panel .icon_settings', parent).click(function() {
-      show_popup('#grid_settings_popup');
+      get_popup('grid_settings_popup');
       change_grid_settings(parent);
     });
     $('.control_panel .icon_add_item', parent).click(function() {
