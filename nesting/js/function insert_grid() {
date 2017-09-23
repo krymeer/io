@@ -1,0 +1,7 @@
+function insert_grid() {
+  alert("Hello there!");
+}
+
+$(document).ready(function() {
+  insert_grid();
+});
