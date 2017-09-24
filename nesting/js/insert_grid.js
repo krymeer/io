@@ -1,17 +1,19 @@
 var parent, hits = 0, timeout, timing = 500;
 
-function insert_grid() {
+function insert_grid(with_lipsum) {
   var width = parent.width() / 2,
       grid = $('<div/>');
 
   grid.css({
-    'background': get_random_color(),
-    'width': width+'px',
-    'height': width+'px'
+    'background': get_random_color()
   });
 
   grid.addClass('grid');
-  grid.html('<div class="lipsum">' + lipsum[get_random_int(0, lipsum_length-1)] + '</div>')
+/*
+  if (with_lipsum) {
+    grid.html('<div class="lipsum">' + lipsum[get_random_int(0, lipsum_length-1)] + '</div>');
+  }
+*/
 
   parent.append(grid);
   if (width > 0) {
@@ -42,24 +44,3 @@ function auto_adding() {
     auto_adding();
   }, timing);
 }
-
-$(document).ready(function() {
-  set_w3_urls();
-  parent = $('#big_grid');
-  $('button#insert').click(function() {
-    insert_grid(parent);
-    $('#stats').slideDown();
-  });
-  $('button#auto').click(function() {
-    auto_adding();
-  });
-  $('button#reset').click(function() {
-    reset();
-  });
-  $('button#turbo').click(function() {
-    timing = 1;
-    if (hits === 0) {
-      auto_adding();
-    }
-  });
-});
