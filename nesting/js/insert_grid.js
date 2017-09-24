@@ -10,7 +10,8 @@ function insert_grid() {
     'height': width+'px'
   });
 
-  grid.addClass('grid')
+  grid.addClass('grid');
+  grid.html('<div class="lipsum">' + lipsum[get_random_int(0, lipsum_length-1)] + '</div>')
 
   parent.append(grid);
   if (width > 0) {

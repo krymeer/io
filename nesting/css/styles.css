@@ -24,13 +24,19 @@ body, button {
   margin: 0 auto;
   overflow: hidden;
   border-radius: 5px;
+  align-items: center;
+  color: #fff;
+
 }
 
-.grid:not(#big_grid) {
+.lipsum {
+  padding: .25rem;
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);  
+  transform: translate(-50%, -50%);
+  text-align: justify;
+  justify-content: inter-word;
 }
 
 .grid#big_grid {
