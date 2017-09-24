@@ -24,7 +24,7 @@ body, button {
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: justify;
-  justify-content: inter-word;
+  text-justify: inter-word;
 }
 
 #control_panel {
