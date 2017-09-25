@@ -189,6 +189,9 @@ function escape_tag(match, offset, string) {
 // Changing contents of one of the grid items.
 // Note that all the newlines (\n) are converted into line breaks (<br>).
 function change_item_contents(id) {
+  $('#item_additions #lipsum').click(function() {
+    $('#item_contents').val($('#item_contents').val() + lipsum[get_random_int(0, lipsum_length-1)]);
+  });
   $('#item_tags .sq_btn').click(function() {
     insert_html_tag($(this).attr('id').substring(4));
   });

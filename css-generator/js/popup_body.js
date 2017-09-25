@@ -70,6 +70,10 @@ function get_contents(id) {
         <div class="sq_btn" id="tag_u">u</div> \
         <div class="sq_btn" id="tag_s">s</div> \
       </div> \
+      <div id="item_additions"> \
+        <h3>Dodatki</h3>\
+        <div class="sq_btn" id="lipsum">Lorem ipsum</div> \
+      </div> \
       <div class="popup_err alert visible">Uwaga: inne tagi (także te w postaci znaczników <b>HTML</b>) zostaną zinterpretowane jako tekst.</div>';
   } else if (id === 'item_style_popup') {
     return '\
