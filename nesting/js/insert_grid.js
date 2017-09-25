@@ -1,6 +1,6 @@
 var parent, hits = 0, timeout, timing = 500;
 
-function insert_grid(with_lipsum) {
+function insert_grid() {
   var width = parent.width() / 2,
       grid = $('<div/>');
 
@@ -9,11 +9,6 @@ function insert_grid(with_lipsum) {
   });
 
   grid.addClass('grid');
-/*
-  if (with_lipsum) {
-    grid.html('<div class="lipsum">' + lipsum[get_random_int(0, lipsum_length-1)] + '</div>');
-  }
-*/
 
   parent.append(grid);
   if (width > 0) {
