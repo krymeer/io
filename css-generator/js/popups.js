@@ -43,7 +43,7 @@ $(document).ready(function() {
 });
 
 // Changing CSS styling of the grid items.
-// Supported features: background-color, font-family, font-color, a few HTML tags, a vertical alignment of the text
+// Supported features: background-color, font-family, font-color, a few HTML tags, a vertical and horizontal alignment of the text
 function change_item_style(id) {
   var curr_bg = $(id).css('background-color'),
       curr_col = $(id).css('color'),
@@ -55,7 +55,9 @@ function change_item_style(id) {
       new_col_rgb = curr_col,
       font_family = $(id).css('font-family').replace(/, /g, ',').replace(/\"/g, '').split(','),
       current_font = font_family,
-      alignment = $(id).css('align-items');
+      vertical_alignment = $(id).css('align-items'),
+      horizontal_alignment = $(id).css('text-align');
+      console.log(horizontal_alignment)
 
   if (font_family.length > 1) {
     current_font = font_family[0];
@@ -66,10 +68,16 @@ function change_item_style(id) {
     $('#select_font + div.nice-select > span.current').attr('data-value', $(this).attr('data-value'));
   });
 
-  $('#text_alignment + div.nice-select > ul > li[data-value="'+alignment+'"]').trigger('click');
-  $('#text_alignment + div.nice-select > span.current').attr('data-value', alignment);
-  $('#text_alignment + div.nice-select > ul > li').click(function() {
-    $('#text_alignment + div.nice-select > span.current').attr('data-value', $(this).attr('data-value'));
+  $('#vertical_alignment + div.nice-select > ul > li[data-value="'+vertical_alignment+'"]').trigger('click');
+  $('#vertical_alignment + div.nice-select > span.current').attr('data-value', vertical_alignment);
+  $('#vertical_alignment + div.nice-select > ul > li').click(function() {
+    $('#vertical_alignment + div.nice-select > span.current').attr('data-value', $(this).attr('data-value'));
+  });
+
+  $('#horizontal_alignment + div.nice-select > ul > li[data-value="'+horizontal_alignment+'"]').trigger('click');
+  $('#horizontal_alignment + div.nice-select > span.current').attr('data-value', horizontal_alignment);
+  $('#horizontal_alignment + div.nice-select > ul > li').click(function() {
+    $('#horizontal_alignment + div.nice-select > span.current').attr('data-value', $(this).attr('data-value'));
   });
 
   $('#item_bg_sq').css('background', curr_bg);
@@ -114,13 +122,14 @@ function change_item_style(id) {
 
   $('#item_style_popup .btn').click(function() {
     if (valid_bg_rgb && valid_col_rgb) {
-      alignment = $('#text_alignment + div.nice-select > span.current').attr('data-value');
+      vertical_alignment = $('#vertical_alignment + div.nice-select > span.current').attr('data-value');
+      horizontal_alignment = $('#horizontal_alignment + div.nice-select > span.current').attr('data-value');
       current_font = $('#select_font + div.nice-select > span.current').attr('data-value');
       font_family = current_font;
       if (current_font !== 'sans-serif' && current_font !== 'serif') {
         font_family = '"'+current_font+'"' + ', sans-serif';
       }
-      $(id).css({"background": new_bg_rgb, "color": new_col_rgb, "font-family": font_family, "align-items": alignment});
+      $(id).css({"background": new_bg_rgb, "color": new_col_rgb, "font-family": font_family, "align-items": vertical_alignment, "text-align": horizontal_alignment});
       close_popup('#item_style_popup');
       $(this).off('click');
     } else {

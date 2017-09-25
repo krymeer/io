@@ -96,11 +96,18 @@ function get_contents(id) {
           <option value="sans_serif">bezszeryfowa</option> \
           <option value="serif">szeryfowa</option> \
         </select> \
-        <span>Wyrównanie tekstu</span> \
-        <select id="text_alignment"> \
+        <span class="line_height_one">Wyrównanie tekstu w&nbsp;pionie</span> \
+        <select id="vertical_alignment"> \
           <option value="start">góra</option> \
           <option value="center">środek</option> \
           <option value="end">dół</option> \
+        </select> \
+        <span class="line_height_one">Wyrównanie tekstu w&nbsp;poziomie</span> \
+        <select id="horizontal_alignment"> \
+          <option value="left">do lewej</option> \
+          <option value="center">do środka</option> \
+          <option value="right">do prawej</option> \
+          <option value="justify">wyjustuj</option> \
         </select> \
       </div> \
       <div class="popup_err"></div>';

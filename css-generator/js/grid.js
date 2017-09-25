@@ -74,7 +74,7 @@ $(document).ready(function() {
           e.target.id.indexOf('item')+5,
           e.target.id.indexOf('style')-1);
         get_popup('item_style_popup');
-        $('#select_font, #text_alignment').niceSelect();
+        $('#select_font, #vertical_alignment, #horizontal_alignment').niceSelect();
         change_item_style(id);
       } else if (e.target.id.indexOf('item') !== -1 && e.target.id.indexOf('text') !== -1) {
         var id = '#item_' + e.target.id.substring(

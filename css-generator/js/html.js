@@ -27,7 +27,7 @@ var template = '\
 // A skeleton of a code of a freshly generated grid item.
 // Formatted text is inserted into the "item_contents" div
 var item_template = '\
-<div class="item" id=item_{{id}}> \n\
+<div class="item" id=item_{{id}} style="text-align: left"> \n\
   <div class="item_panel">  \n\
     <i class="material-icons" id="item_{{id}}_text">text_fields</i> \n\
     <i class="material-icons" id="item_{{id}}_style">palette</i>\n\
