@@ -57,7 +57,6 @@ function change_item_style(id) {
       current_font = font_family,
       vertical_alignment = $(id).css('align-items'),
       horizontal_alignment = $(id).css('text-align');
-      console.log(horizontal_alignment)
 
   if (font_family.length > 1) {
     current_font = font_family[0];
