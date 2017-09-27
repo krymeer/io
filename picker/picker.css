@@ -81,6 +81,8 @@ table {
 }
 
 .color {
+  outline: none;
+  border: none;
   width: 200px;
   height: 50px;
   background: #ccc;

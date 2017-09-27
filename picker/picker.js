@@ -1,20 +1,58 @@
-function update_rgb(val) {
-  var hex = '#', color = 'rgb('+ val[0] +', '+ val[1] +', '+ val[2] +')';
+var rgb;
+
+function update_rgb() {
+  var color = 'rgb('+ rgb[0] +', '+ rgb[1] +', '+ rgb[2] +')';
+
+  $('#rgb').text(color);
+  $('#rect').css('background', color);
+}
+
+function update_hex() {
+  var hex = '#';
   for (var k = 0; k < 3; k++) {
-    var n = parseInt(val[k]).toString(16).toUpperCase();
+    var n = parseInt(rgb[k]).toString(16).toUpperCase();
     if (n.length === 1) {
       n = '0' + n;
     }
     hex += n;
   }
+  $('#hex').val(hex);
+}
 
-  $('#hex').text(hex);
-  $('#rgb').text(color);
-  $('#rect').css('background', color);
+function update_sliders() {
+  $('#sh_0').val(rgb[0]); $('#sh_1').val(rgb[1]); $('#sh_2').val(parseInt(rgb[2]));
+}
+
+function check_hex(hex) {
+  if (hex.length !== 7) {
+    return false;
+  }
+
+  if (hex.charAt(0) !== '#') {
+    return false;
+  }
+
+  return /^[A-Fa-f0-9]{6}$/.test(hex.substring(1));
+}
+
+function handle_hex() {
+  var hex = $('#hex').val(),
+      valid_hex = check_hex(hex),
+      j = 1;
+
+  if (valid_hex) {
+    for (var k = 0; k < 3; k++) {
+      rgb[k] = parseInt(hex.substring(j, j+2), 16).toString();
+      j += 2;
+    }
+    update_sliders();
+    update_rgb();
+  }
 }
 
 $(document).ready(function() {
-  var table_1 = '<table><tr>', table_2 = table_1, table_3 = table_2, rgb = [0, 0, 0];
+  var table_1 = '<table><tr>', table_2 = table_1, table_3 = table_2;
+  rgb = [0, 0, 0];
   for (var k = 0; k <= 255; k++) {
     table_1 += '<td style="background: rgb('+k+', 0, 0)"></td>';
     table_2 += '<td style="background: rgb(0, '+k+', 0)"></td>';
@@ -29,7 +67,9 @@ $(document).ready(function() {
         id = $(this).attr('id').substring(3);
 
     rgb[id] = val;
-    update_rgb(rgb);
+    update_rgb();
+    update_hex();
   });
 
+  $('#hex').on('input', handle_hex);
 });
