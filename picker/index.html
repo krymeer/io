@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Picker</title>
+    <link rel="stylesheet" type="text/css" href="picker.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="picker.js"></script>
+  </head>
+  <body>
+    <div id="main_container">
+      <h1>Color picker</h1>
+      <div class="grid_line">
+        <div id="rect"></div>
+        <div class="grid_line vertical">
+          <div class="color" id="rgb">rgb(0, 0, 0)</div>
+          <div class="color" id="hex">#000000</div>
+        </div>
+      </div>
+
+      <div class="strap_container">
+        <input type="range" min="0" max="255" value="0" class="strap_handler" id="sh_0">
+        <div class="strap" id="strap_1"></div>
+      </div>
+
+      <div class="strap_container">
+        <input type="range" min="0" max="255" value="0" class="strap_handler" id="sh_1">
+        <div class="strap" id="strap_2"></div>
+      </div>
+
+      <div class="strap_container">
+        <input type="range" min="0" max="255" value="0" class="strap_handler" id="sh_2">
+        <div class="strap" id="strap_3"></div>
+      </div>
+
+    </div>
+  </body>
+</html>
