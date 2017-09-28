@@ -260,7 +260,7 @@ input.item_bg {
 .tiny_popup#color_picker .grid_line.col1_row2 {
   justify-content: end;
   grid-row-gap: .5rem;
-  padding: 0 1rem;
+  padding: 0 1rem 0 .5rem;
 }
 
 .grid_line {
