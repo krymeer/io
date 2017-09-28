@@ -28,7 +28,7 @@ function check_hex(hex) {
 }
 
 function check_rgb(in_rgb) {
-  return /^rgb\((([0-9]{1,3}),[ ]*){2}([0-9]{1,3})\)$/.test(in_rgb);
+  return /^rgb\((([0-9]{1,3}),[ ]*){2}([0-9]{1,3})[ ]*\)$/.test(in_rgb);
 }
 
 function handle_rgb() {
