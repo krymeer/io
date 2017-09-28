@@ -121,7 +121,9 @@ function get_contents(id) {
   } else if (id === 'color_picker') {
     return '\
       <div class="grid_line col2_row1"> \
-        <div id="rect"></div> \
+        <div id="rect_wrap"> \
+          <div id="rect"></div> \
+        </div> \
         <div class="grid_line  col1_row2"> \
           <input class="color" id="rgb" type="text" maxlength="18" value="rgb(0, 0, 0)"> \
           <input class="color" id="hex" type="text" maxlength="7" value="#000000"> \
