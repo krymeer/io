@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -5,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Picker</title>
     <link rel="stylesheet" type="text/css" href="picker.css">
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="../js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="../js/w3.js"></script>
     <script type="text/javascript" src="picker.js"></script>
   </head>
   <body>
@@ -19,21 +21,29 @@
         </div>
       </div>
 
-      <div class="strap_container">
-        <input type="range" min="0" max="255" value="0" class="strap_handler" id="sh_0">
-        <div class="strap" id="strap_1"></div>
-      </div>
+      <div id="straps_wrapper">
+        <div class="strap_container">
+          <input type="range" min="0" max="255" value="0" class="strap_handler" id="sh_0">
+          <div class="strap" id="strap_1"></div>
+        </div>
 
-      <div class="strap_container">
-        <input type="range" min="0" max="255" value="0" class="strap_handler" id="sh_1">
-        <div class="strap" id="strap_2"></div>
-      </div>
+        <div class="strap_container">
+          <input type="range" min="0" max="255" value="0" class="strap_handler" id="sh_1">
+          <div class="strap" id="strap_2"></div>
+        </div>
 
-      <div class="strap_container">
-        <input type="range" min="0" max="255" value="0" class="strap_handler" id="sh_2">
-        <div class="strap" id="strap_3"></div>
+        <div class="strap_container">
+          <input type="range" min="0" max="255" value="0" class="strap_handler" id="sh_2">
+          <div class="strap" id="strap_3"></div>
+        </div>
       </div>
-
+      <div class="grid_line" id="foot">
+        <div><a href="../">Krzysztof Osada</a> | 2017</div>
+        <div>
+          <a id="w3_html" href="javascript:void(0)" target="blank">HTML5</a> | 
+          <a id="w3_html" href="javascript:void(0)" target="blank">CSS3</a>
+        </div>
+      </div>
     </div>
   </body>
 </html>

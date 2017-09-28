@@ -28,7 +28,7 @@ function check_hex(hex) {
 }
 
 function check_rgb(in_rgb) {
-  return /^rgb\(([0-9]{1,3}),[ ]+([0-9]{1,3}),[ ]+([0-9]{1,3})\)$/.test(in_rgb);
+  return /^rgb\((([0-9]{1,3}),[ ]*){2}([0-9]{1,3})\)$/.test(in_rgb);
 }
 
 function handle_rgb() {
@@ -40,7 +40,7 @@ function handle_rgb() {
     rgb[0] = in_rgb[0]; rgb[1] = in_rgb[1]; rgb[2] = in_rgb[2];
     update_sliders();
     update_rgb();
-
+    update_hex();
   }
 }
 

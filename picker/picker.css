@@ -1,5 +1,10 @@
+@import url('https://fonts.googleapis.com/css?family=Ubuntu');
+
+body, input {
+  font-family: 'Ubuntu', sans-serif;
+}
+
 body {
-  font-family: 'Roboto', Verdana, sans-serif;
   padding: 0;
   margin: 0;
 }
@@ -14,10 +19,16 @@ table {
   padding: 0;
 }
 
+h1 {
+  font-size: 40px;
+  color: #c84630;
+}
+
 #main_container {
   margin: 0 auto;
   width: 900px;
-  height: 600px;
+  display: grid;
+  justify-content: center;
 }
 
 .grid_line {
@@ -29,14 +40,23 @@ table {
   grid-template: auto auto / auto;
 }
 
+#rect + .grid_line {
+  justify-content: end;
+}
+
 #rect {
   width: 450px;
   height: 200px;
   background: #000;
 }
 
-.strap_container {
+#straps_wrapper {
   margin: 30px 0;
+  width: 768px;
+}
+
+.strap_container:not(:first-of-type) {
+  margin: 30px 0 0 0;
   height: 42px;
 }
 
@@ -75,7 +95,7 @@ table {
   height: 0;
   margin-top: -21px;
   background: none;
-  border-top: 12px solid #ff6600;
+  border-top: 12px solid #5386e4;
   border-left:  9px solid transparent;
   border-right: 9px solid transparent;
 }
@@ -89,4 +109,21 @@ table {
   text-align: center;
   line-height: 50px;
   font-size: 20px;
+}
+
+#foot {
+  margin-top: 30px;
+}
+
+#foot a {
+  text-decoration: none;
+  color: #000;
+}
+
+#foot a:hover {
+  color: #c84630;
+}
+
+#foot div + div {
+  text-align: right;
 }
