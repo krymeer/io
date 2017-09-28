@@ -15,6 +15,9 @@ function get_popup_title(id) {
     case 'item_style_popup':
       h2 = 'Styl';
       break;
+    case 'color_picker':
+      h2 = 'Kolor';
+      break;
     default:
       h2 = '&nbsp;';
       break;
@@ -115,5 +118,26 @@ function get_contents(id) {
         </select> \
       </div> \
       <div class="popup_err"></div>';
+  } else if (id === 'color_picker') {
+    return '\
+      <div class="grid_line col2_row1"> \
+        <div id="rect"></div> \
+        <div class="grid_line  col1_row2"> \
+          <input class="color" id="rgb" type="text" maxlength="18" value="rgb(0, 0, 0)"> \
+          <input class="color" id="hex" type="text" maxlength="7" value="#000000"> \
+        </div> \
+      </div> \
+      <div class="strap_container"> \
+        <input type="range" min="0" max="255" value="0" class="strap_handler" id="sh_0"> \
+        <div class="strap" id="strap_1"></div> \
+      </div> \
+      <div class="strap_container"> \
+        <input type="range" min="0" max="255" value="0" class="strap_handler" id="sh_1"> \
+        <div class="strap" id="strap_2"></div> \
+      </div>\
+      <div class="strap_container"> \
+        <input type="range" min="0" max="255" value="0" class="strap_handler" id="sh_2"> \
+        <div class="strap" id="strap_3"></div> \
+      </div>';
   }
 }

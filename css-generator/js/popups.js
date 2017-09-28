@@ -254,3 +254,15 @@ function change_grid_settings(e) {
     $(this).off('click');
   });
 }
+
+function pick_color() {
+  var table_1 = '<table><tr>', table_2 = table_1, table_3 = table_2, rgb = [0, 0, 0];
+  for (var k = 0; k <= 255; k++) {
+    table_1 += '<td style="background: rgb('+k+', 0, 0)"></td>';
+    table_2 += '<td style="background: rgb(0, '+k+', 0)"></td>';
+    table_3 += '<td style="background: rgb(0, 0, '+k+')"></td>';
+  }
+  table_1 += '</tr></table>'; table_2 += '</tr></table>'; table_3 += '</tr></table>';
+
+  $('#strap_1').html(table_1); $('#strap_2').html(table_2); $('#strap_3').html(table_3);
+}

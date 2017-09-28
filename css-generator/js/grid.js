@@ -47,6 +47,8 @@ function save_file() {
 
 // Handling click events
 $(document).ready(function() {
+  get_popup('color_picker');
+  pick_color();
   $('#next_step').click(function() {
     get_popup('file_creator_popup');
     $('#file_creator_popup .btn_save').click(function() {

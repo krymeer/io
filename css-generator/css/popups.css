@@ -233,3 +233,93 @@ input.item_bg {
 .line_height_one {
   line-height: 1;
 }
+
+.tiny_popup#color_picker {
+  width: 90%;
+  max-width: 400px;
+}
+
+.tiny_popup#color_picker #rect {
+  background: #000;
+  min-width: 150px;
+  height: 100%;
+}
+
+.tiny_popup#color_picker input.color {
+  max-width: 150px;
+  font-size: 1.25rem;
+}
+
+.tiny_popup#color_picker .grid_line.col2_row1 {
+  grid-column-gap: .5rem;
+  padding: 0 .5rem;
+}
+
+.tiny_popup#color_picker .grid_line.col1_row2 {
+  justify-content: end;
+  grid-row-gap: .5rem;
+}
+
+.grid_line {
+  display: grid;
+  width: 100%;
+}
+
+.grid_line.col2_row1 {
+  grid-template: auto / auto auto;
+}
+
+.grid_line.col1_row2 {
+  grid-template: auto auto / auto;
+}
+
+.tiny_popup#color_picker .strap_container {
+  margin: 1rem auto .5rem auto;
+  width: 256px;
+}
+
+.tiny_popup#color_picker .strap_handler {
+  cursor: pointer;
+  display: block;
+  margin: 0;
+  position: relative;
+  -webkit-appearance: none;
+  appearance: none;
+  width: calc(100% + 24px);
+  height: 43px;
+  margin-left: -12px;
+  background: none !important;
+  outline: none;
+}
+
+.tiny_popup#color_picker .strap_handler::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 0;
+  height: 0;
+  margin-top: -20px;
+  background: none;
+  border-top: 12px solid #fff;
+  border-left:  9px solid transparent;
+  border-right: 9px solid transparent;
+}
+
+.tiny_popup#color_picker .strap {
+  width: 100%;
+  height: 30px;
+  margin-top: -29px;
+  background: #000;
+}
+
+.tiny_popup#color_picker table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  padding: 0;
+}
+
+.tiny_popup#color_picker .strap td {
+  padding: 0;
+  margin: 0;
+  width: 1px;
+  height: 30px;
+}
