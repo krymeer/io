@@ -28,7 +28,18 @@ function check_hex(hex) {
 }
 
 function check_rgb(in_rgb) {
-  return /^rgb\((([0-9]{1,3}),[ ]*){2}([0-9]{1,3})[ ]*\)$/.test(in_rgb);
+  if (/^rgb\((([0-9]{1,3}),[ ]*){2}([0-9]{1,3})[ ]*\)$/.test(in_rgb) === false) {
+    return false;
+  }
+  
+  in_rgb = in_rgb.replace(/[^\d,]/g, '').split(',');
+  for (var k = 0; k < 3; k++) {
+    if (parseInt(in_rgb[k]) > 255) {
+      return false;
+    }
+  }
+
+  return true;
 }
 
 function handle_rgb() {
@@ -60,6 +71,7 @@ function handle_hex() {
 }
 
 $(document).ready(function() {
+  set_w3_urls();
   var table_1 = '<table><tr>', table_2 = table_1, table_3 = table_2;
   rgb = [0, 0, 0];
   for (var k = 0; k <= 255; k++) {
