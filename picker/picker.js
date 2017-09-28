@@ -3,7 +3,7 @@ var rgb;
 function update_rgb() {
   var color = 'rgb('+ rgb[0] +', '+ rgb[1] +', '+ rgb[2] +')';
 
-  $('#rgb').text(color);
+  $('#rgb').val(color);
   $('#rect').css('background', color);
 }
 
@@ -24,15 +24,24 @@ function update_sliders() {
 }
 
 function check_hex(hex) {
-  if (hex.length !== 7) {
-    return false;
-  }
+  return /^#[A-Fa-f0-9]{6}$/.test(hex);
+}
 
-  if (hex.charAt(0) !== '#') {
-    return false;
-  }
+function check_rgb(in_rgb) {
+  return /^rgb\(([0-9]{1,3}),[ ]+([0-9]{1,3}),[ ]+([0-9]{1,3})\)$/.test(in_rgb);
+}
 
-  return /^[A-Fa-f0-9]{6}$/.test(hex.substring(1));
+function handle_rgb() {
+  var in_rgb = $('#rgb').val(),
+      valid_rgb = check_rgb(in_rgb); 
+
+  if (valid_rgb) {
+    in_rgb = in_rgb.replace(/[^\d,]/g, '').split(',');
+    rgb[0] = in_rgb[0]; rgb[1] = in_rgb[1]; rgb[2] = in_rgb[2];
+    update_sliders();
+    update_rgb();
+
+  }
 }
 
 function handle_hex() {
@@ -72,4 +81,5 @@ $(document).ready(function() {
   });
 
   $('#hex').on('input', handle_hex);
+  $('#rgb').on('input', handle_rgb);
 });
