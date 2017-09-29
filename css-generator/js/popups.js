@@ -9,6 +9,10 @@ function close_popup(popup_id) {
     $('#mask').fadeOut('fast');
     last_popup_id = popup_id.substring(1);
     current_popup = '';
+    if (last_popup_id === 'item_style_popup' && $('#item_set_css').css('display') === 'none') {
+      $('#item_set_css').show();
+      $('#color_picker').hide();
+    }
   });
 //  $(popup_id + ', #mask').fadeOut('fast');
 }
@@ -24,7 +28,8 @@ function show_popup(popup_id) {
 
 $(document).ready(function() {
   $('.close_popup').click(function() {
-    close_popup('#'+$(this).parent().attr('id'));
+    var id = $(this).parent().attr('id');
+    close_popup('#'+id);
   });
 
   // Hitting the Enter and Esc buttons fires particular events
@@ -43,7 +48,7 @@ $(document).ready(function() {
 });
 
 // Changing CSS styling of the grid items.
-// Supported features: background-color, font-family, font-color, a few HTML tags, a vertical and horizontal alignment of the text
+// Supported features: background-color, font-color, font-family, font-color, a few HTML tags, a color picker, a vertical and horizontal alignment of the text
 function change_item_style(id) {
   var curr_bg = $(id).css('background-color'),
       curr_col = $(id).css('color'),
@@ -56,37 +61,98 @@ function change_item_style(id) {
       font_family = $(id).css('font-family').replace(/, /g, ',').replace(/\"/g, '').split(','),
       current_font = font_family,
       vertical_alignment = $(id).css('align-items'),
-      horizontal_alignment = $(id).css('text-align');
+      horizontal_alignment = $(id).css('text-align'),
+      sq_id, rgb;
 
-  if (font_family.length > 1) {
-    current_font = font_family[0];
+  // Getting the RGB and hexadecimal values of any color.
+  // Three color sliders are ,available as well
+  function pick_color(color) {
+    rgb = color.replace(/[^\d,]/g, '').split(',');
+
+    // Updating an input field for the RGB value
+    function update_rgb() {
+      var color = 'rgb('+ rgb[0] +', '+ rgb[1] +', '+ rgb[2] +')';
+
+      $('#rgb').val(color);
+      $('#rect').css('background', color);
+    }
+
+    // Updating an input field for the HEX value
+    function update_hex() {
+      var hex = '#';
+      for (var k = 0; k < 3; k++) {
+        var n = parseInt(rgb[k]).toString(16);
+        if (n.length === 1) {
+          n = '0' + n;
+        }
+        hex += n;
+      }
+      $('#hex').val(hex);
+    }
+
+    // Updating sliders with colors
+    function update_sliders() {
+      $('#sh_0').val(rgb[0]); $('#sh_1').val(rgb[1]); $('#sh_2').val(parseInt(rgb[2]));
+    }
+
+    // Validating RGB value of a color
+    function handle_rgb() {
+      var in_rgb = $('#rgb').val(),
+          valid_rgb = check_rgb(in_rgb); 
+
+      if (valid_rgb) {
+        in_rgb = in_rgb.replace(/[^\d,]/g, '').split(',');
+        rgb[0] = in_rgb[0]; rgb[1] = in_rgb[1]; rgb[2] = in_rgb[2];
+        update_sliders();
+        update_rgb();
+        update_hex();
+      }
+    }
+
+    // Validating hexadecimal value of a color
+    function handle_hex() {
+      var hex = $('#hex').val(),
+          valid_hex = check_hex(hex),
+          j = 1;
+
+      if (valid_hex) {
+        for (var k = 0; k < 3; k++) {
+          rgb[k] = parseInt(hex.substring(j, j+2), 16).toString();
+          j += 2;
+        }
+        update_sliders();
+        update_rgb();
+      }
+    }
+
+    var table_1 = '<table><tr>', table_2 = table_1, table_3 = table_2;
+    for (var k = 0; k <= 255; k++) {
+      table_1 += '<td style="background: rgb('+k+', 0, 0)"></td>';
+      table_2 += '<td style="background: rgb(0, '+k+', 0)"></td>';
+      table_3 += '<td style="background: rgb(0, 0, '+k+')"></td>';
+    }
+    table_1 += '</tr></table>'; table_2 += '</tr></table>'; table_3 += '</tr></table>';
+
+    $('#strap_1').html(table_1); $('#strap_2').html(table_2); $('#strap_3').html(table_3);
+
+    update_rgb();
+    update_hex();
+    update_sliders();
+
+    $('.strap_handler').on('input', function() {
+      var val = $(this).val(),
+          id = $(this).attr('id').substring(3);
+
+      rgb[id] = val;
+      update_rgb();
+      update_hex();
+    });
+
+    $('#hex').on('input', handle_hex);
+    $('#rgb').on('input', handle_rgb);
   }
-  $('#select_font + div.nice-select > ul > li[data-value="'+current_font+'"]').trigger('click');
-  $('#select_font + div.nice-select > span.current').attr('data-value', current_font);
-  $('#select_font + div.nice-select > ul > li').click(function() {
-    $('#select_font + div.nice-select > span.current').attr('data-value', $(this).attr('data-value'));
-  });
 
-  $('#vertical_alignment + div.nice-select > ul > li[data-value="'+vertical_alignment+'"]').trigger('click');
-  $('#vertical_alignment + div.nice-select > span.current').attr('data-value', vertical_alignment);
-  $('#vertical_alignment + div.nice-select > ul > li').click(function() {
-    $('#vertical_alignment + div.nice-select > span.current').attr('data-value', $(this).attr('data-value'));
-  });
-
-  $('#horizontal_alignment + div.nice-select > ul > li[data-value="'+horizontal_alignment+'"]').trigger('click');
-  $('#horizontal_alignment + div.nice-select > span.current').attr('data-value', horizontal_alignment);
-  $('#horizontal_alignment + div.nice-select > ul > li').click(function() {
-    $('#horizontal_alignment + div.nice-select > span.current').attr('data-value', $(this).attr('data-value'));
-  });
-
-  $('#item_bg_sq').css('background', curr_bg);
-  $('#item_color_sq').css('background', curr_col);
-  for (var k = 0; k < 3; k++) {
-    $('#item_bg_'+k).val(rgb_bg[k]);
-    $('#item_color_'+k).val(rgb_col[k]);
-  }
-  
-  var check_colors = function() {
+  function check_colors() {
     var r = parseInt($('#item_bg_0').val()),
         g = parseInt($('#item_bg_1').val()),
         b = parseInt($('#item_bg_2').val());
@@ -117,22 +183,87 @@ function change_item_style(id) {
       valid_col_rgb = false;
     }
   }
+
+  if (font_family.length > 1) {
+    current_font = font_family[0];
+  }
+  $('#select_font + div.nice-select > ul > li[data-value="'+current_font+'"]').trigger('click');
+  $('#select_font + div.nice-select > span.current').attr('data-value', current_font);
+  $('#select_font + div.nice-select > ul > li').click(function() {
+    $('#select_font + div.nice-select > span.current').attr('data-value', $(this).attr('data-value'));
+  });
+
+  $('#vertical_alignment + div.nice-select > ul > li[data-value="'+vertical_alignment+'"]').trigger('click');
+  $('#vertical_alignment + div.nice-select > span.current').attr('data-value', vertical_alignment);
+  $('#vertical_alignment + div.nice-select > ul > li').click(function() {
+    $('#vertical_alignment + div.nice-select > span.current').attr('data-value', $(this).attr('data-value'));
+  });
+
+  $('#horizontal_alignment + div.nice-select > ul > li[data-value="'+horizontal_alignment+'"]').trigger('click');
+  $('#horizontal_alignment + div.nice-select > span.current').attr('data-value', horizontal_alignment);
+  $('#horizontal_alignment + div.nice-select > ul > li').click(function() {
+    $('#horizontal_alignment + div.nice-select > span.current').attr('data-value', $(this).attr('data-value'));
+  });
+
+  $('#item_bg_sq').css('background', curr_bg);
+  $('#item_color_sq').css('background', curr_col);
+  for (var k = 0; k < 3; k++) {
+    $('#item_bg_'+k).val(rgb_bg[k]);
+    $('#item_color_'+k).val(rgb_col[k]);
+  }
+
   $('.item_bg, .item_color').change(check_colors);
 
+  $('#item_style_popup .color_square').click(function() {
+    var color = $(this).css('background-color');
+    sq_id = $(this).attr('id');
+    $('#item_set_css').slideUp('fast', function() {
+      window.setTimeout(function() {
+        $('#color_picker').slideDown('fast');
+        pick_color(color);
+      }, 250);
+    });
+  });
+
   $('#item_style_popup .btn').click(function() {
-    if (valid_bg_rgb && valid_col_rgb) {
-      vertical_alignment = $('#vertical_alignment + div.nice-select > span.current').attr('data-value');
-      horizontal_alignment = $('#horizontal_alignment + div.nice-select > span.current').attr('data-value');
-      current_font = $('#select_font + div.nice-select > span.current').attr('data-value');
-      font_family = current_font;
-      if (current_font !== 'sans-serif' && current_font !== 'serif') {
-        font_family = '"'+current_font+'"' + ', sans-serif';
+    if ($('#item_set_css').css('display') !== 'none') {
+      if (valid_bg_rgb && valid_col_rgb) {
+        vertical_alignment = $('#vertical_alignment + div.nice-select > span.current').attr('data-value');
+        horizontal_alignment = $('#horizontal_alignment + div.nice-select > span.current').attr('data-value');
+        current_font = $('#select_font + div.nice-select > span.current').attr('data-value');
+        font_family = current_font;
+        if (current_font !== 'sans-serif' && current_font !== 'serif') {
+          font_family = '"'+current_font+'"' + ', sans-serif';
+        }
+        $(id).css({"background": new_bg_rgb, "color": new_col_rgb, "font-family": font_family, "align-items": vertical_alignment, "text-align": horizontal_alignment});
+        close_popup('#item_style_popup');
+        $(this).off('click');
+      } else {
+        $('#item_style_popup .popup_err').html('Nieprawidłowa wartość koloru.').slideDown('fast');
       }
-      $(id).css({"background": new_bg_rgb, "color": new_col_rgb, "font-family": font_family, "align-items": vertical_alignment, "text-align": horizontal_alignment});
-      close_popup('#item_style_popup');
-      $(this).off('click');
     } else {
-      $('#item_style_popup .popup_err').html('Nieprawidłowa wartość koloru.').slideDown('fast');
+      if ($('#color_picker').css('display') !== 'none') {
+        if (!check_hex($('#hex').val()) || !check_rgb($('#rgb').val())) {
+          $('#item_style_popup .popup_err')
+            .html('Podane dane są nieprawidłowe.')
+            .slideDown('fast');
+        } else {
+          if ($('#item_style_popup .popup_err').css('display') !== 'none') {
+            $('#color_picker .popup_err').slideUp('fast', function() {
+              $('#item_style_popup .popup_err').html('');
+            });
+          }
+          $('#'+sq_id).css('background-color', 'rgb(' + rgb.join(',').replace(/,/g, ', ') +')')
+          for (var k = 0; k < 3; k++) {
+            $('#'+sq_id+'+ div input:eq('+k+')').val(rgb[k]);
+          }
+          $('#color_picker').slideUp('fast', function() {
+            $('#item_set_css').slideDown('fast');
+          });
+        }
+      }
+
+      check_colors();
     }
   });
 }
@@ -269,107 +400,23 @@ function hex_char(e) {
   return /^[A-Fa-f0-9#]$/.test(e.key);
 }
 
-// Getting the RGB and hexadecimal values of any color.
-// Three color sliders are available as well
-function pick_color() {
-  var rgb = [0, 0, 0]
+// Regex for a color value in HEX
+function check_hex(hex) {
+  return /^#[A-Fa-f0-9]{6}$/.test(hex);
+}
 
-  // Updating an input field for the RGB value
-  function update_rgb() {
-    var color = 'rgb('+ rgb[0] +', '+ rgb[1] +', '+ rgb[2] +')';
-
-    $('#rgb').val(color);
-    $('#rect').css('background', color);
+// Regex for a color value in RGB
+function check_rgb(in_rgb) {
+  if (/^rgb\((([0-9]{1,3}),[ ]*){2}([0-9]{1,3})[ ]*\)$/.test(in_rgb) === false) {
+    return false;
   }
-
-  // Updating an input field for the HEX value
-  function update_hex() {
-    var hex = '#';
-    for (var k = 0; k < 3; k++) {
-      var n = parseInt(rgb[k]).toString(16);
-      if (n.length === 1) {
-        n = '0' + n;
-      }
-      hex += n;
-    }
-    $('#hex').val(hex);
-  }
-
-  // Updating sliders with colors
-  function update_sliders() {
-    $('#sh_0').val(rgb[0]); $('#sh_1').val(rgb[1]); $('#sh_2').val(parseInt(rgb[2]));
-  }
-
-  // Regex for a color value in HEX
-  function check_hex(hex) {
-    return /^#[A-Fa-f0-9]{6}$/.test(hex);
-  }
-
-  // Regex for a color value in RGB
-  function check_rgb(in_rgb) {
-    if (/^rgb\((([0-9]{1,3}),[ ]*){2}([0-9]{1,3})[ ]*\)$/.test(in_rgb) === false) {
+  
+  in_rgb = in_rgb.replace(/[^\d,]/g, '').split(',');
+  for (var k = 0; k < 3; k++) {
+    if (parseInt(in_rgb[k]) > 255) {
       return false;
     }
-    
-    in_rgb = in_rgb.replace(/[^\d,]/g, '').split(',');
-    for (var k = 0; k < 3; k++) {
-      if (parseInt(in_rgb[k]) > 255) {
-        return false;
-      }
-    }
-
-    return true;
   }
 
-  // Validating RGB value of a color
-  function handle_rgb() {
-    var in_rgb = $('#rgb').val(),
-        valid_rgb = check_rgb(in_rgb); 
-
-    if (valid_rgb) {
-      in_rgb = in_rgb.replace(/[^\d,]/g, '').split(',');
-      rgb[0] = in_rgb[0]; rgb[1] = in_rgb[1]; rgb[2] = in_rgb[2];
-      update_sliders();
-      update_rgb();
-      update_hex();
-    }
-  }
-
-  // Validating hexadecimal value of a color
-  function handle_hex() {
-    var hex = $('#hex').val(),
-        valid_hex = check_hex(hex),
-        j = 1;
-
-    if (valid_hex) {
-      for (var k = 0; k < 3; k++) {
-        rgb[k] = parseInt(hex.substring(j, j+2), 16).toString();
-        j += 2;
-      }
-      update_sliders();
-      update_rgb();
-    }
-  }
-
-  var table_1 = '<table><tr>', table_2 = table_1, table_3 = table_2;
-  for (var k = 0; k <= 255; k++) {
-    table_1 += '<td style="background: rgb('+k+', 0, 0)"></td>';
-    table_2 += '<td style="background: rgb(0, '+k+', 0)"></td>';
-    table_3 += '<td style="background: rgb(0, 0, '+k+')"></td>';
-  }
-  table_1 += '</tr></table>'; table_2 += '</tr></table>'; table_3 += '</tr></table>';
-
-  $('#strap_1').html(table_1); $('#strap_2').html(table_2); $('#strap_3').html(table_3);
-
-   $('.strap_handler').on('input', function() {
-    var val = $(this).val(),
-        id = $(this).attr('id').substring(3);
-
-    rgb[id] = val;
-    update_rgb();
-    update_hex();
-  });
-
-  $('#hex').on('input', handle_hex);
-  $('#rgb').on('input', handle_rgb);
+  return true;
 }

@@ -36,6 +36,10 @@
   color: #051014;
 }
 
+.tiny_popup .color_square {
+  cursor: pointer;
+}
+
 .tiny_popup input {
   margin-right: .25rem;
 }
@@ -150,7 +154,7 @@
   display: block;
 }
 
-#item_select_colors > div {
+#item_set_css > div {
   display: inline-grid;
   grid-template: auto / 1fr 1fr 1fr;
   grid-column-gap: 5px;
@@ -171,8 +175,8 @@ input.item_bg {
   display: inline-block;
 }
 
-#item_select_colors {
-  display: grid !important;
+#item_set_css {
+  display: grid;
   grid-template: auto / auto auto auto;
   justify-items: center;
   align-items: center;
@@ -234,33 +238,33 @@ input.item_bg {
   line-height: 1;
 }
 
-.tiny_popup#color_picker {
-  width: 90%;
-  max-width: 400px;
+.tiny_popup #color_picker {
+  width: 100%;
+  display: none;
 }
 
-.tiny_popup#color_picker #rect_wrap {
+.tiny_popup #color_picker #rect_wrap {
   width: 100%;
   height: 100%;
 }
 
-.tiny_popup#color_picker #rect {
+.tiny_popup #color_picker #rect {
   background: #000;
   height: 100%;
   width: calc(100% - 2rem);
   margin: 0 auto;
 }
 
-.tiny_popup#color_picker input.color {
+.tiny_popup #color_picker input.color {
   width: 100%;
   font-size: 1rem;
 }
 
-.tiny_popup#color_picker input.color#hex {
+.tiny_popup #color_picker input.color#hex {
   text-transform: uppercase;
 }
 
-.tiny_popup#color_picker .grid_line.col1_row2 {
+.tiny_popup #color_picker .grid_line.col1_row2 {
   justify-content: end;
   grid-row-gap: .5rem;
   padding: 0 1rem 0 .5rem;
@@ -279,16 +283,16 @@ input.item_bg {
   grid-template: auto auto / auto;
 }
 
-.tiny_popup#color_picker .grid_line.col2_row1 {
-  grid-template-columns: 60% 40%;
+.tiny_popup #color_picker .grid_line.col2_row1 {
+  grid-template-columns: 50% 50%;
 }
 
-.tiny_popup#color_picker .strap_container {
+.tiny_popup #color_picker .strap_container {
   margin: 1rem auto .5rem auto;
   width: 256px;
 }
 
-.tiny_popup#color_picker .strap_handler {
+.tiny_popup #color_picker .strap_handler {
   cursor: pointer;
   display: block;
   margin: 0;
@@ -302,7 +306,7 @@ input.item_bg {
   outline: none;
 }
 
-.tiny_popup#color_picker .strap_handler::-webkit-slider-thumb {
+.tiny_popup #color_picker .strap_handler::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
   width: 0;
@@ -314,20 +318,20 @@ input.item_bg {
   border-right: 9px solid transparent;
 }
 
-.tiny_popup#color_picker .strap {
+.tiny_popup #color_picker .strap {
   width: 100%;
   height: 30px;
   margin-top: -29px;
   background: #000;
 }
 
-.tiny_popup#color_picker table {
+.tiny_popup #color_picker table {
   border-collapse: collapse;
   border-spacing: 0;
   padding: 0;
 }
 
-.tiny_popup#color_picker .strap td {
+.tiny_popup #color_picker .strap td {
   padding: 0;
   margin: 0;
   width: 1px;

@@ -80,16 +80,16 @@ function get_contents(id) {
       <div class="popup_err alert visible">Uwaga: inne tagi (także te w postaci znaczników <b>HTML</b>) zostaną zinterpretowane jako tekst.</div>';
   } else if (id === 'item_style_popup') {
     return '\
-      <div class="wrapper block" id="item_select_colors"> \
+      <div class="wrapper block" id="item_set_css"> \
         <span>Kolor tła</span> \
-        <span id="item_bg_sq">&nbsp;</span> \
+        <span class="color_square" id="item_bg_sq">&nbsp;</span> \
         <div> \
           <input type="text" class="item_bg" id="item_bg_0" maxlength="3" onkeypress="return check_if_digit(event)"> \
           <input type="text" class="item_bg" id="item_bg_1" maxlength="3" onkeypress="return check_if_digit(event)"> \
           <input type="text" class="item_bg" id="item_bg_2" maxlength="3" onkeypress="return check_if_digit(event)"> \
         </div> \
         <span>Kolor tekstu</span> \
-        <span id="item_color_sq">&nbsp;</span> \
+        <span class="color_square" id="item_color_sq">&nbsp;</span> \
         <div> \
           <input type="text" class="item_color" id="item_color_0" maxlength="3" onkeypress="return check_if_digit(event)"> \
           <input type="text" class="item_color" id="item_color_1" maxlength="3" onkeypress="return check_if_digit(event)"> \
@@ -117,29 +117,29 @@ function get_contents(id) {
           <option value="justify">wyjustuj</option> \
         </select> \
       </div> \
+      <div id="color_picker"> \
+        <div class="grid_line col2_row1"> \
+          <div id="rect_wrap"> \
+            <div id="rect"></div> \
+          </div> \
+          <div class="grid_line  col1_row2"> \
+            <input class="color" id="rgb" type="text" maxlength="18" value="rgb(0, 0, 0)" onkeypress="return rgb_char(event)"> \
+            <input class="color" id="hex" type="text" maxlength="7" value="#000000" onkeypress="return hex_char(event)"> \
+          </div> \
+        </div> \
+        <div class="strap_container"> \
+          <input type="range" min="0" max="255" value="0" class="strap_handler" id="sh_0"> \
+          <div class="strap" id="strap_1"></div> \
+        </div> \
+        <div class="strap_container"> \
+          <input type="range" min="0" max="255" value="0" class="strap_handler" id="sh_1"> \
+          <div class="strap" id="strap_2"></div> \
+        </div>\
+        <div class="strap_container"> \
+          <input type="range" min="0" max="255" value="0" class="strap_handler" id="sh_2"> \
+          <div class="strap" id="strap_3"></div> \
+        </div> \
+      </div> \
       <div class="popup_err"></div>';
-  } else if (id === 'color_picker') {
-    return '\
-      <div class="grid_line col2_row1"> \
-        <div id="rect_wrap"> \
-          <div id="rect"></div> \
-        </div> \
-        <div class="grid_line  col1_row2"> \
-          <input class="color" id="rgb" type="text" maxlength="18" value="rgb(0, 0, 0)" onkeypress="return rgb_char(event)"> \
-          <input class="color" id="hex" type="text" maxlength="7" value="#000000" onkeypress="return hex_char(event)"> \
-        </div> \
-      </div> \
-      <div class="strap_container"> \
-        <input type="range" min="0" max="255" value="0" class="strap_handler" id="sh_0"> \
-        <div class="strap" id="strap_1"></div> \
-      </div> \
-      <div class="strap_container"> \
-        <input type="range" min="0" max="255" value="0" class="strap_handler" id="sh_1"> \
-        <div class="strap" id="strap_2"></div> \
-      </div>\
-      <div class="strap_container"> \
-        <input type="range" min="0" max="255" value="0" class="strap_handler" id="sh_2"> \
-        <div class="strap" id="strap_3"></div> \
-      </div>';
   }
 }
