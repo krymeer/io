@@ -255,12 +255,18 @@ function change_grid_settings(e) {
   });
 }
 
-function rgb_char(e) {
 
+// Regex for 'rgb(n, n, n)' strings
+// where 0 <= n <= 9
+function rgb_char(e) {
+  return /^[rgb\(\)0-9, ]$/.test(e.key);
 }
 
+// Regex for '#xxxxxx' strings
+// where x can be a letter from A to F
+// (case insensitive)
 function hex_char(e) {
-  return /^[A-Za-z#]{1}$/.test(e);
+  return /^[A-Fa-f0-9#]$/.test(e.key);
 }
 
 // Getting the RGB and hexadecimal values of any color.
