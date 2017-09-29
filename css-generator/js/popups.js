@@ -255,8 +255,97 @@ function change_grid_settings(e) {
   });
 }
 
+function rgb_char(e) {
+
+}
+
+function hex_char(e) {
+  return /^[A-Za-z#]{1}$/.test(e);
+}
+
+// Getting the RGB and hexadecimal values of any color.
+// Three color sliders are available as well
 function pick_color() {
-  var table_1 = '<table><tr>', table_2 = table_1, table_3 = table_2, rgb = [0, 0, 0];
+  var rgb = [0, 0, 0]
+
+  // Updating an input field for the RGB value
+  function update_rgb() {
+    var color = 'rgb('+ rgb[0] +', '+ rgb[1] +', '+ rgb[2] +')';
+
+    $('#rgb').val(color);
+    $('#rect').css('background', color);
+  }
+
+  // Updating an input field for the HEX value
+  function update_hex() {
+    var hex = '#';
+    for (var k = 0; k < 3; k++) {
+      var n = parseInt(rgb[k]).toString(16);
+      if (n.length === 1) {
+        n = '0' + n;
+      }
+      hex += n;
+    }
+    $('#hex').val(hex);
+  }
+
+  // Updating sliders with colors
+  function update_sliders() {
+    $('#sh_0').val(rgb[0]); $('#sh_1').val(rgb[1]); $('#sh_2').val(parseInt(rgb[2]));
+  }
+
+  // Regex for a color value in HEX
+  function check_hex(hex) {
+    return /^#[A-Fa-f0-9]{6}$/.test(hex);
+  }
+
+  // Regex for a color value in RGB
+  function check_rgb(in_rgb) {
+    if (/^rgb\((([0-9]{1,3}),[ ]*){2}([0-9]{1,3})[ ]*\)$/.test(in_rgb) === false) {
+      return false;
+    }
+    
+    in_rgb = in_rgb.replace(/[^\d,]/g, '').split(',');
+    for (var k = 0; k < 3; k++) {
+      if (parseInt(in_rgb[k]) > 255) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  // Validating RGB value of a color
+  function handle_rgb() {
+    var in_rgb = $('#rgb').val(),
+        valid_rgb = check_rgb(in_rgb); 
+
+    if (valid_rgb) {
+      in_rgb = in_rgb.replace(/[^\d,]/g, '').split(',');
+      rgb[0] = in_rgb[0]; rgb[1] = in_rgb[1]; rgb[2] = in_rgb[2];
+      update_sliders();
+      update_rgb();
+      update_hex();
+    }
+  }
+
+  // Validating hexadecimal value of a color
+  function handle_hex() {
+    var hex = $('#hex').val(),
+        valid_hex = check_hex(hex),
+        j = 1;
+
+    if (valid_hex) {
+      for (var k = 0; k < 3; k++) {
+        rgb[k] = parseInt(hex.substring(j, j+2), 16).toString();
+        j += 2;
+      }
+      update_sliders();
+      update_rgb();
+    }
+  }
+
+  var table_1 = '<table><tr>', table_2 = table_1, table_3 = table_2;
   for (var k = 0; k <= 255; k++) {
     table_1 += '<td style="background: rgb('+k+', 0, 0)"></td>';
     table_2 += '<td style="background: rgb(0, '+k+', 0)"></td>';
@@ -265,4 +354,16 @@ function pick_color() {
   table_1 += '</tr></table>'; table_2 += '</tr></table>'; table_3 += '</tr></table>';
 
   $('#strap_1').html(table_1); $('#strap_2').html(table_2); $('#strap_3').html(table_3);
+
+   $('.strap_handler').on('input', function() {
+    var val = $(this).val(),
+        id = $(this).attr('id').substring(3);
+
+    rgb[id] = val;
+    update_rgb();
+    update_hex();
+  });
+
+  $('#hex').on('input', handle_hex);
+  $('#rgb').on('input', handle_rgb);
 }

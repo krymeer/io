@@ -256,6 +256,9 @@ input.item_bg {
   font-size: 1rem;
 }
 
+.tiny_popup#color_picker input.color#hex {
+  text-transform: uppercase;
+}
 
 .tiny_popup#color_picker .grid_line.col1_row2 {
   justify-content: end;

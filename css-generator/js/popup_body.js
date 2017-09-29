@@ -125,8 +125,8 @@ function get_contents(id) {
           <div id="rect"></div> \
         </div> \
         <div class="grid_line  col1_row2"> \
-          <input class="color" id="rgb" type="text" maxlength="18" value="rgb(0, 0, 0)"> \
-          <input class="color" id="hex" type="text" maxlength="7" value="#000000"> \
+          <input class="color" id="rgb" type="text" maxlength="18" value="rgb(0, 0, 0)" onkeypress="return rgb_char(event)"> \
+          <input class="color" id="hex" type="text" maxlength="7" value="#000000" onkeypress="return hex_char(event)"> \
         </div> \
       </div> \
       <div class="strap_container"> \
