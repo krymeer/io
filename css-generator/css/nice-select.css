@@ -113,3 +113,11 @@
 .nice-select .option.selected {
   font-weight: bold; 
 }
+
+.nice-select .list {
+  max-width: 150px;
+}
+
+.nice-select .list .option {
+  white-space: normal;
+}
