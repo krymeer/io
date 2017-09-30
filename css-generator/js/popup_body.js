@@ -81,41 +81,64 @@ function get_contents(id) {
   } else if (id === 'item_style_popup') {
     return '\
       <div class="wrapper block" id="item_set_css"> \
-        <span>Kolor tła</span> \
-        <span class="color_square" id="item_bg_sq">&nbsp;</span> \
-        <div> \
-          <input type="text" class="item_bg" id="item_bg_0" maxlength="3" onkeypress="return check_if_digit(event)"> \
-          <input type="text" class="item_bg" id="item_bg_1" maxlength="3" onkeypress="return check_if_digit(event)"> \
-          <input type="text" class="item_bg" id="item_bg_2" maxlength="3" onkeypress="return check_if_digit(event)"> \
+        <div class="grid_line color_selection"> \
+          <span>Kolor tła</span> \
+          <span class="color_square" id="item_bg_sq">&nbsp;</span> \
+          <div> \
+            <input type="text" class="item_bg" id="item_bg_0" maxlength="3" onkeypress="return check_if_digit(event)"> \
+            <input type="text" class="item_bg" id="item_bg_1" maxlength="3" onkeypress="return check_if_digit(event)"> \
+            <input type="text" class="item_bg" id="item_bg_2" maxlength="3" onkeypress="return check_if_digit(event)"> \
+          </div> \
         </div> \
-        <span>Kolor tekstu</span> \
-        <span class="color_square" id="item_color_sq">&nbsp;</span> \
-        <div> \
-          <input type="text" class="item_color" id="item_color_0" maxlength="3" onkeypress="return check_if_digit(event)"> \
-          <input type="text" class="item_color" id="item_color_1" maxlength="3" onkeypress="return check_if_digit(event)"> \
-          <input type="text" class="item_color" id="item_color_2" maxlength="3" onkeypress="return check_if_digit(event)"> \
+        <div class="grid_line color_selection"> \
+          <span>Kolor tekstu</span> \
+          <span class="color_square" id="item_color_sq">&nbsp;</span> \
+          <div> \
+            <input type="text" class="item_color" id="item_color_0" maxlength="3" onkeypress="return check_if_digit(event)"> \
+            <input type="text" class="item_color" id="item_color_1" maxlength="3" onkeypress="return check_if_digit(event)"> \
+            <input type="text" class="item_color" id="item_color_2" maxlength="3" onkeypress="return check_if_digit(event)"> \
+          </div> \
         </div> \
-        <span>Czcionka</span> \
-        <select id="select_font"> \
-          <option value="Saira Semi Condensed">Saira Semi Condensed</option> \
-          <option value="Roboto">Roboto</option> \
-          <option value="Lato">Lato</option> \
-          <option value="sans_serif">bezszeryfowa</option> \
-          <option value="serif">szeryfowa</option> \
-        </select> \
-        <span class="line_height_one">Wyrównanie tekstu w&nbsp;pionie</span> \
-        <select id="vertical_alignment"> \
-          <option value="start">góra</option> \
-          <option value="center">środek</option> \
-          <option value="end">dół</option> \
-        </select> \
-        <span class="line_height_one">Wyrównanie tekstu w&nbsp;poziomie</span> \
-        <select id="horizontal_alignment"> \
-          <option value="left">do lewej</option> \
-          <option value="center">do środka</option> \
-          <option value="right">do prawej</option> \
-          <option value="justify">wyjustuj</option> \
-        </select> \
+        <div class="grid_line"> \
+          <span>Czcionka</span> \
+          <div class="select_wrapper"> \
+            <select id="select_font"> \
+              <option value="Saira Semi Condensed">Saira Semi Condensed</option> \
+              <option value="Roboto">Roboto</option> \
+              <option value="Lato">Lato</option> \
+              <option value="sans_serif">bezszeryfowa</option> \
+              <option value="serif">szeryfowa</option> \
+            </select> \
+          </div> \
+        </div> \
+        <div class="grid_line"> \
+          <span class="line_height_one">Wyrównanie tekstu w&nbsp;pionie</span> \
+          <div class="select_wrapper"> \
+            <select id="vertical_alignment"> \
+              <option value="start">góra</option> \
+              <option value="center">środek</option> \
+              <option value="end">dół</option> \
+            </select> \
+          </div> \
+        </div> \
+        <div class="grid_line"> \
+          <span class="line_height_one">Wyrównanie tekstu w&nbsp;poziomie</span> \
+          <div class="select_wrapper"> \
+            <select id="horizontal_alignment"> \
+              <option value="left">do lewej</option> \
+              <option value="center">do środka</option> \
+              <option value="right">do prawej</option> \
+              <option value="justify">wyjustuj</option> \
+            </select> \
+          </div> \
+        </div> \
+        <div class="grid_line"> \
+          <span>Margines wewnętrzny</span> \
+          <div class="grid_line col2_row1 justify_start">\
+            <input id="padding" type="text" maxlength="2" onkeypress="return check_if_digit(event)"> \
+            <span>px</span> \
+          </div> \
+        </div> \
       </div> \
       <div id="color_picker"> \
         <div class="grid_line col2_row1"> \

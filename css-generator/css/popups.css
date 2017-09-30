@@ -154,17 +154,37 @@
   display: block;
 }
 
-#item_set_css > div {
-  display: inline-grid;
-  grid-template: auto / 1fr 1fr 1fr;
-  grid-column-gap: 5px;
-  width: 100px;
+#item_set_css > .grid_line {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  margin-bottom: .75rem;
+  align-items: center;
+}
+
+#item_set_css > .grid_line.color_selection {
+  grid-template-columns: 50% auto auto;
+}
+
+#item_set_css > .grid_line.color_selection > div {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+input#padding,
+input.item_color,
+input.item_bg {
+  width: 30px;
+  text-align: center;
 }
 
 input.item_color,
 input.item_bg {
-  width: 100%;
-  text-align: center;
+  margin-right: 0;
+}
+
+span.current {
+  margin-top: -3px;
 }
 
 #item_color_sq,
@@ -175,16 +195,7 @@ input.item_bg {
   display: inline-block;
 }
 
-#item_set_css {
-  display: grid;
-  grid-template: auto / auto auto auto;
-  justify-items: center;
-  align-items: center;
-  grid-row-gap: 12px;
-}
-
 #item_style_popup .btn_save {
-  margin-top: 1.25rem;
 }
 
 #item_contents {
@@ -283,6 +294,10 @@ input.item_bg {
   grid-template: auto auto / auto;
 }
 
+.grid_line.justify_start {
+  justify-content: start;
+}
+
 .tiny_popup #color_picker .grid_line.col2_row1 {
   grid-template-columns: 50% 50%;
 }
@@ -336,4 +351,10 @@ input.item_bg {
   margin: 0;
   width: 1px;
   height: 30px;
+}
+
+#item_padding {
+  grid-column: span 3;
+  width: 100% !important;
+  grid-template: auto / 1fr 30px !important;
 }

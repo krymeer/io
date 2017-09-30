@@ -41,10 +41,21 @@ function move_css(grid, name) {
     basic_css += '\n' + name + ' {\n' + tab + style + '\n}';
     grid.removeAttr('style');
   }
-  $('.item', grid).each(function() {
+  $('.item, .item_contents', grid).each(function() {
     style = $(this).attr('style');
+    if (style === undefined) {
+      return;
+    }
     style = style.replace(/; /g, ';\n  ');
-    basic_css += '\n#' + $(this).attr('id') + ' {\n' + tab + style + '\n}';
+    
+    var selector;
+    if ($(this).hasClass('item')) {
+      selector = $(this).attr('id');
+    } else {
+      selector = $(this).parent().attr('id') + ' .item_contents';
+    }
+
+    basic_css += '\n#' + selector + ' {\n' + tab + style + '\n}';
     if (style.indexOf('Roboto') >= 0 && no_roboto) {
       basic_css = '\n@import url("https://fonts.googleapis.com/css?family=Roboto");' + basic_css;
     }

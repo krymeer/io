@@ -205,6 +205,7 @@ function change_item_style(id) {
     $('#horizontal_alignment + div.nice-select > span.current').attr('data-value', $(this).attr('data-value'));
   });
 
+  $('#padding').val(parseInt($(id+' .item_contents').css('padding')));
   $('#item_bg_sq').css('background', curr_bg);
   $('#item_color_sq').css('background', curr_col);
   for (var k = 0; k < 3; k++) {
@@ -236,6 +237,10 @@ function change_item_style(id) {
           font_family = '"'+current_font+'"' + ', sans-serif';
         }
         $(id).css({"background": new_bg_rgb, "color": new_col_rgb, "font-family": font_family, "align-items": vertical_alignment, "text-align": horizontal_alignment});
+        var padding = parseInt($('#padding').val());
+        if (padding+'px' !== $(id+' .item_contents').css('padding') && !isNaN(padding)) {
+          $(id+' .item_contents').css('padding', padding);
+        }
         close_popup('#item_style_popup');
         $(this).off('click');
       } else {

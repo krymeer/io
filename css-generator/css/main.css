@@ -42,14 +42,13 @@ footer a, .template, i, .btn, .sq_btn, .grid_math_btn {
   margin: 0 auto;
   height: 100vh;
   display: grid;
-  grid-template: auto 1fr auto / auto;
+  grid-template: 58px calc(100% - 91px) 33px / auto;
 }
 
 #main_content {
   display: grid;
   background: #ebd4cb;
   color: #32292f;
-  height: 100%;
   grid-template: 1fr 1fr 1fr / auto;
   position: relative;
 }
