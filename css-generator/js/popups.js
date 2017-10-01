@@ -206,6 +206,7 @@ function change_item_style(id) {
   });
 
   $('#padding').val(parseInt($(id+' .item_contents').css('padding')));
+  $('#border_radius').val(parseInt($(id).css('border-radius')));
   $('#item_bg_sq').css('background', curr_bg);
   $('#item_color_sq').css('background', curr_col);
   for (var k = 0; k < 3; k++) {
@@ -240,6 +241,10 @@ function change_item_style(id) {
         var padding = parseInt($('#padding').val());
         if (padding+'px' !== $(id+' .item_contents').css('padding') && !isNaN(padding)) {
           $(id+' .item_contents').css('padding', padding);
+        }
+        var border_radius = parseInt($('#border_radius').val());
+        if (border_radius+'px' !== $(id).css('border-radius') && !isNaN(border_radius)) {
+          $(id).css('border-radius', border_radius);
         }
         close_popup('#item_style_popup');
         $(this).off('click');

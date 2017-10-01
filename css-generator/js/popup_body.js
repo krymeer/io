@@ -139,6 +139,13 @@ function get_contents(id) {
             <span>px</span> \
           </div> \
         </div> \
+        <div class="grid_line"> \
+          <span>Zaokrąglenie rogów</span> \
+          <div class="grid_line col2_row1 justify_start">\
+            <input id="border_radius" type="text" maxlength="2" onkeypress="return check_if_digit(event)"> \
+            <span>px</span> \
+          </div> \
+        </div> \
       </div> \
       <div id="color_picker"> \
         <div class="grid_line col2_row1"> \

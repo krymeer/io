@@ -171,6 +171,7 @@
   grid-template-columns: 1fr 1fr 1fr;
 }
 
+input#border_radius,
 input#padding,
 input.item_color,
 input.item_bg {
