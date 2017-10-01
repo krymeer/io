@@ -65,7 +65,7 @@ function change_item_style(id) {
       sq_id, rgb;
 
   // Getting the RGB and hexadecimal values of any color.
-  // Three color sliders are ,available as well
+  // Three color sliders are available as well
   function pick_color(color) {
     rgb = color.replace(/[^\d,]/g, '').split(',');
 
@@ -254,7 +254,7 @@ function change_item_style(id) {
             .slideDown('fast');
         } else {
           if ($('#item_style_popup .popup_err').css('display') !== 'none') {
-            $('#color_picker .popup_err').slideUp('fast', function() {
+            $('#item_style_popup .popup_err').slideUp('fast', function() {
               $('#item_style_popup .popup_err').html('');
             });
           }
