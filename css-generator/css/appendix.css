@@ -1,0 +1,7 @@
+.tiny_popup .nice-select .list .option {
+  line-height: 1;
+  display: grid;
+  padding-top: .25rem;
+  padding-bottom: .25rem;
+  align-content: center;
+}
