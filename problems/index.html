@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Problemy z CSS Grid Layout</title>
+    <meta charset="utf-8">
+    <meta content="width=device-width,initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+  </head>
+  <body>
+    <div id="main_container">
+      <header>
+        <h1>
+          <div id="subtitle">Problemy z</div>
+          <div id="title">CSS Grid Layout</div>
+        </h1>
+      </header>
+      <div id="main_content">
+        <p id="prologue">Lista kłopotów, jakie napotkałem przy implementacji rozwiązań korzystających z modułu CSS Grid Layout.<br>Ostatnia aktualizacja: <b>2 października 2017</b></p>
+        <ol>
+          <li class="grid_problem">
+            <div class="list_item_title">Przejście przez W3C CSS Validator</div>
+            <div class="list_item_contents">
+              Niektóre reguły i wartości CSS Grid Layout, mimo że są wymienione zarówno w <a href="https://www.w3.org/TR/2017/CR-css-grid-1-20170509/" target="blank">dokumentacji W3C</a>, jak i w <a href="https://css-tricks.com/snippets/css/complete-guide-grid/" target="blank">jednym z lepszych poradników do CSS Grid Layout</a>, są uznawane przez <a href="https://jigsaw.w3.org/css-validator/" target="blank">walidator W3C</a> za nieprawidłowe. Są to między innymi:
+              <code>align-self</code>,
+              <code>align-items</code>,
+              <code>justify-self</code>,
+              <code>justify-items</code>,
+              <code>justify-items</code>,
+              <code>space-evenly</code>
+              i inne.
+            </div>
+          </li>
+          <li class="grid_problem">
+            <div class="list_item_title">Marginesy a rozmiar grida</div>
+            <div class="list_item_contents">Rozważmy następującą sytuację:
+              <div class="grid" style="grid-auto-flow: column; width: 300px; height: 100px; grid-column-gap: 3px; margin: .25rem 0">
+                <div></div>
+                <div></div>
+                <div></div>
+              </div>
+              Mimo że dla powyższego elementu reguła <code>box-sizing</code> ma wartość <code>border-box</code>, marginesy między kwadratami nie są wliczane do zdefiniowanej szerokości grida.
+            </div>
+          </li>
+          <li class="grid_problem">
+            <div class="list_item_title">Podział grida kontra jego maksymalne wymiary</div>
+            <div class="list_item_contents">
+              Grid, którego wymiary są wyrażone w procentach, musi mieć wyraźnie wyznaczone szerokości i wysokości elementów ‒ w&nbsp;przeciwnym razie dojdzie do <a href="https://www.w3schools.com/cssref/pr_pos_overflow.asp" target="blank">przepełnienia</a>. Nie pomoże wtedy <code>overflow: hidden</code>! Przykład znajduje się <a href="overflow.html" target="blank">tutaj</a>.
+            </div>
+          </li>
+          <li class="grid_problem">
+            <div class="list_item_title">Domyślne ułożenie elementów</div>
+            <div class="list_item_contents">Standardowo kafle grida następują po sobie w jednej kolumnie, czyli tak jak przy... <code>display: block</code>.
+              <div class="grid">
+                <div style="height: 25px; width: 25px"></div>
+                <div style="height: 25px; width: 25px"></div>
+                <div style="height: 25px; width: 25px"></div>
+                <div style="height: 25px; width: 25px"></div>
+              </div>
+            </div>
+          </li>
+          <li class="grid_problem">
+            <div class="list_item_title">Wypełnienie grida</div>
+            <div class="list_item_contents">
+              <div class="grid" style="display: inline-grid; width: 300px; height: 100px; border: 2px dashed #990100; align-items: stretch; margin: .25rem 0 .75rem 0; color: #fff; text-align: center">
+                <div style="width: auto; height: auto; line-height: 96px">width: auto; height: auto</div>
+              </div><div class="grid" style="display: inline-grid; width: 300px; height: 100px; border: 2px dashed #990100; align-items: stretch; margin: .25rem 0 .75rem .5rem; color: #fff; text-align: center; overflow: hidden">
+                <div style="line-height: 96px">width: 100px;</div>
+              </div>
+              <p>Aby element grida wypełnił całego swojego rodzica, musi mieć niezdefiniowane (tzn. automatyczne) wymiary.</p>
+            </div>
+          </li>
+          <li class="grid_problem">
+            <div class="list_item_title">Kilka gridów w jednej linii</div>
+            <div class="list_item_contents">Nawet pozornie nieistotny szczegół, jak np. różna wartość <code>line-height</code>, może spowodować, że podobne do siebie gridy przestaną wyświetlać się w jednej linii.
+            </div>
+          </li>
+        </ol>
+      </div>
+      <footer>
+
+      </footer>
+    </div>
+  </body>
+</html>
