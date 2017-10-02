@@ -89,7 +89,7 @@ code {
   height: auto;
   color: #fff;
   text-align: justify;
-  justify-content: inter-word;
+  text-justify: inter-word;
 }
 
 .grid div:nth-of-type(2) {
