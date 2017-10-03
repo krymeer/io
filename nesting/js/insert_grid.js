@@ -1,6 +1,7 @@
 var parent, hits = 0, timeout, timing = 500;
 
 function insert_grid() {
+  var start_time = performance.now();
   var width = parent.width() / 2,
       grid = $('<div/>');
 
@@ -11,9 +12,10 @@ function insert_grid() {
   grid.addClass('grid');
 
   parent.append(grid);
-  if (width > 0) {
-    grid.hide().fadeIn();
-  }
+  grid.hide().fadeIn(400, function() {
+    var end_time = performance.now();
+    console.log((end_time-start_time) + ' ms');
+  });
 
   parent = grid;
 
