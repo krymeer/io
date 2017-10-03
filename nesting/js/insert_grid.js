@@ -21,10 +21,10 @@ function insert_grid() {
   $('#dims + div').html(width + '&times;' + width + 'px');
 
   var end_time = performance.now();
-  console.log('hits: ' + hits + '\ntime [ms]: \n' + (end_time-start_time));
+  console.log('\n  hits: ' + hits + '\n  time [ms]: \n  ' + (end_time-start_time));
   $(":animated").promise().done(function() {
     end_time = performance.now();
-    console.log('hits: ' + hits + '\ntime (w/ animations) [ms]: \n' + (end_time-start_time));
+    console.log('\n  hits: ' + hits + '\n  time (w/ animations) [ms]: \n  ' + (end_time-start_time));
   });
 }
 
