@@ -12,16 +12,20 @@ function insert_grid() {
   grid.addClass('grid');
 
   parent.append(grid);
-  grid.hide().fadeIn(400, function() {
-    var end_time = performance.now();
-    console.log((end_time-start_time) + ' ms');
-  });
+  grid.hide().fadeIn();
 
   parent = grid;
 
   hits++;
   $('#hits + div').html(hits);
   $('#dims + div').html(width + '&times;' + width + 'px');
+
+  var end_time = performance.now();
+  console.log('hits: ' + hits + '\ntime [ms]: \n' + (end_time-start_time));
+  $(":animated").promise().done(function() {
+    end_time = performance.now();
+    console.log('hits: ' + hits + '\ntime (w/ animations) [ms]: \n' + (end_time-start_time));
+  });
 }
 
 function reset() {
