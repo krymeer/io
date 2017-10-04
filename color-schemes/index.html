@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta charset="utf-8">
+    <link href="https://fonts.googleapis.com/css?family=Nova+Mono" rel="stylesheet">
+    <title>Color schemes</title>
+    <style>
+      body {
+        background: #ffe8d1;
+        color: #272932;
+        font-family: "Nova Mono", monospace;
+        padding: 0;
+        margin: 0;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      header h1 {
+        margin: 1rem 0 0 0;
+        text-align: center;
+      }
+      img {
+        display: block;
+        margin: 1rem auto;
+      }
+      #container {
+        width: 90%;
+        max-width: 960px;
+        margin: 0 auto;
+      }
+      .color {
+        width: 570px;
+        margin: 1rem auto;
+      }
+      .grid {
+        display: grid;
+        width:;
+        height: 50px;
+        grid-template: 1fr / repeat(5, 1fr);
+      }
+      .grid div {
+        background: #ccc;
+        border-bottom: 5px solid rgba(0, 0, 0, 0.2);
+      }
+      footer {
+        margin-top: 2rem;
+        text-align: center;
+      }
+      footer a {
+        color: #272932;
+      }
+      footer a:hover {
+        color: #0f7173;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <header>
+        <h1>Color schemes</h1>
+      </header>
+      <div class="color">
+        <div class="scheme_name">Blue</div>
+        <div class="grid">
+          <div style="background: #44749d"></div>
+          <div style="background: #c6d4e1"></div>
+          <div style="background: #fff"></div>
+          <div style="background: #ebe7e0"></div>
+          <div style="background: #bdb8ad"></div>
+        </div>
+      </div>
+      <div class="color">
+        <div class="scheme_name">Green</div>
+        <div class="grid">
+          <div style="background: #cff09e"></div>
+          <div style="background: #a8dba8"></div>
+          <div style="background: #79bd9a"></div>
+          <div style="background: #3b8686"></div>
+          <div style="background: #0b486b"></div>
+        </div>
+      </div>
+      <div class="color">
+        <div class="scheme_name">Monochromatic</div>
+        <div class="grid">
+          <div style="background: #f6f6f6"></div>
+          <div style="background: #e8e8e8"></div>
+          <div style="background: #333"></div>
+          <div style="background: #990100"></div>
+          <div style="background: #b90504"></div>
+        </div>
+      </div>
+      <div class="color">
+        <div class="scheme_name">Orange</div>
+        <div class="grid">
+          <div style="background: #69d2e7"></div>
+          <div style="background: #a7dbd8"></div>
+          <div style="background: #e0e4cc"></div>
+          <div style="background: #f38630"></div>
+          <div style="background: #fa6900"></div>
+        </div>      
+      </div>
+      <div class="color">
+        <div class="scheme_name">Purple</div>
+        <div class="grid">
+          <div style="background: #300030"></div>
+          <div style="background: #480048"></div>
+          <div style="background: #601848"></div>
+          <div style="background: #c04848"></div>
+          <div style="background: #f07241"></div>
+        </div>
+      </div>
+      <div class="color">
+        <div class="scheme_name">Red</div>
+        <div class="grid">
+          <div style="background: #383636"></div>
+          <div style="background: #806f66"></div>
+          <div style="background: #fff2bc"></div>
+          <div style="background: #ff5a0b"></div>
+          <div style="background: #ff0000"></div>
+        </div>
+      </div>
+      <footer>
+        <a href="/">Return to the home page</a>
+      </footer>
+    </div>
+  </body>
+</html>
