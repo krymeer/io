@@ -146,6 +146,14 @@ function get_contents(id) {
             <span>px</span> \
           </div> \
         </div> \
+        <div class="grid_line" id="line_height_wrapper"> \
+          <span>Interlinia</span> \
+          <div class="grid_line col3_row1 justify_start">\
+            <span class="grid_math_btn plus">+</span> \
+            <input id="line_height" type="text" maxlength="4" onkeypress="return (check_if_digit(event) || event.charCode === 46)"> \
+            <span class="grid_math_btn minus">-</span> \
+          </div> \
+        </div> \
       </div> \
       <div id="color_picker"> \
         <div class="grid_line col2_row1"> \

@@ -179,6 +179,11 @@ input.item_bg {
   text-align: center;
 }
 
+input#line_height {
+  width: 40px;
+  text-align: center;  
+}
+
 input.item_color,
 input.item_bg {
   margin-right: 0;
@@ -291,6 +296,10 @@ span.current {
   grid-template: auto / auto auto;
 }
 
+.grid_line.col3_row1 {
+  grid-template: auto / auto auto auto;
+}
+
 .grid_line.col1_row2 {
   grid-template: auto auto / auto;
 }
@@ -358,4 +367,13 @@ span.current {
   grid-column: span 3;
   width: 100% !important;
   grid-template: auto / 1fr 30px !important;
+}
+
+#line_height_wrapper .grid_math_btn {
+  margin: 0;
+  font-size: 30px;
+}
+
+#line_height {
+  margin: 0 .5rem;
 }

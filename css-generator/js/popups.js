@@ -214,6 +214,24 @@ function change_item_style(id) {
     $('#item_color_'+k).val(rgb_col[k]);
   }
 
+  var line_height = parseFloat($(id+' .item_contents')[0]['style']['lineHeight']);
+  if (line_height === 'normal' || isNaN(line_height)) {
+    line_height = 1;
+  }
+  $('#line_height').val(line_height);
+  $('#line_height_wrapper .plus').click(function() {
+    if (line_height <= 9.75) {
+      line_height += 0.25;
+      $('#line_height').val(parseFloat(line_height));
+    }
+  });
+  $('#line_height_wrapper .minus').click(function() {
+    if (line_height >= 0.25) {
+      line_height -= 0.25;
+      $('#line_height').val(parseFloat(line_height));
+    }
+  });
+
   $('.item_bg, .item_color').change(check_colors);
 
   $('#item_style_popup .color_square').click(function() {
@@ -238,14 +256,25 @@ function change_item_style(id) {
           font_family = '"'+current_font+'"' + ', sans-serif';
         }
         $(id).css({"background": new_bg_rgb, "color": new_col_rgb, "font-family": font_family, "align-items": vertical_alignment, "text-align": horizontal_alignment});
+        
         var padding = parseInt($('#padding').val());
         if (padding+'px' !== $(id+' .item_contents').css('padding') && !isNaN(padding)) {
           $(id+' .item_contents').css('padding', padding);
         }
+
         var border_radius = parseInt($('#border_radius').val());
         if (border_radius+'px' !== $(id).css('border-radius') && !isNaN(border_radius)) {
           $(id).css('border-radius', border_radius);
         }
+        
+        line_height = parseFloat($('#line_height').val());
+        if (isNaN(line_height)) {
+          line_height = 1;
+        }
+        if (line_height !== $(id+' .item_contents').css('line-height') && !(line_height === 1 && $(id+' .item_contents').css('line-height') === 'normal')) {
+          $(id+' .item_contents').css('line-height', line_height);
+        } 
+
         close_popup('#item_style_popup');
         $(this).off('click');
       } else {
