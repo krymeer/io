@@ -21,16 +21,18 @@ $(document).ready(function() {
   set_w3_urls();
   var k = 1;
   $('.grid').click(function() {
+    console.log('');
     var start_time = performance.now();
     nest();
     var n = $('.grid').length, d = (n+1)/2;
     $('.info#leaves .value').text(d);
     $('.info#grids .value').text(n);
     var end_time = performance.now();
-    console.log('level: ' + k + ' / time [ms]: \n' + (end_time-start_time));
+    //console.log('level: ' + k + ' / time [ms]: \n' + (end_time-start_time));
     $(":animated").promise().done(function() {
       end_time = performance.now();
-      console.log('level: ' + k + ' / time (w/ animations) [ms]: \n' + (end_time-start_time));
+      console.log('nodes = '+ n +'\nleaves = '+ d +' \ntime [ms]: \n ' + (end_time-start_time));
+      //console.log('level: ' + k + ' / time (w/ animations) [ms]: \n' + (end_time-start_time));
       k++;
     });
   });
