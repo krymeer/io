@@ -1,4 +1,9 @@
 TODO.txt
 css_min/*
+latex/*
+*.aux
+*.bbl
+*.blg
 *.log
-latex/template/*
+*.out
+*.toc
