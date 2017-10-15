@@ -34,7 +34,12 @@ div.item { \n\
 // Flags indicating if any custom fonts are used
 var no_lato = true, no_roboto = true, tab = '  ', basic_css = '';
 
-// Converting the inlined styling into one section between <head> and </head> tags
+/**
+* Converting the inlined styling into one section between <head> and </head> tags
+* @param {object} grid a grid object
+* @param {string} name name of a section of the page
+* @returns {object} a grid object without CSS inlined rules
+*/
 function move_css(grid, name) {
   var style = grid.attr('style');
   if (style !== '' && style !== undefined) {

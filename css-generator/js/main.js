@@ -1,4 +1,6 @@
-// Setting program variables to their initial values. 
+/**
+* Setting program variables to their initial values.
+*/
 function restart() {
   $('input').val('');
   $('#file_creator_popup .popup_err').hide();
