@@ -92,6 +92,13 @@ $(document).ready(function() {
     $('.control_panel .icon_add_item', parent).click(function() {
       if (grid.hasClass('not_empty')) {
         add_new_item(grid);
+        if ($('.item', grid).length == 2) { 
+          grid.sortable({
+            containment: 'parent',
+            tolerance: 'pointer'
+          });
+          grid.disableSelection();
+        }
       }
     });
   });

@@ -9,6 +9,9 @@ function restart() {
   id = 0;
   $('.grid').each(function() {
     $(this).removeAttr('style');
+    if ($('.item', this).length >= 2) {
+      $(this).sortable('destroy');      
+    }
     $('.item', this).each(function() {
       $(this).removeAttr('style');
     });
