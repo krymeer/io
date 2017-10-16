@@ -1,4 +1,5 @@
 /**
+* Returns a random number from the [min, max] range.
 * @param {number} min the minimum
 * @param {number} max the maximum
 * @returns {number} an integer that is not less than the minimum and not greater than the minimum
@@ -8,7 +9,7 @@ function get_random_int(min, max) {
 }
 
 /**
-* Getting a random color.
+* Gets a random color.
 * @returns {string} an RGB color value
 */
 function get_random_color() {
@@ -21,7 +22,7 @@ function get_random_color() {
 }
 
 /**
-* Escaping harmful HTML characters.
+* Escapes harmful HTML characters.
 * Their selection based on: <br>
 * https://www.owasp.org/index.php/XSS_%28Cross_Site_Scripting%29_Prevention_Cheat_Sheet#RULE_.231_-_HTML_Escape_Before_Inserting_Untrusted_Data_into_HTML_Element_Content <br>
 * http://wonko.com/post/html-escaping

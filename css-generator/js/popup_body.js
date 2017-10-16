@@ -1,4 +1,8 @@
-// Getting the title of the popup
+/**
+* Returns the title of the popup.
+* @param  {string} id an identifier of the popup
+* @returns {string} a title of the popup
+*/
 function get_popup_title(id) {
   var h2 = '';
 
@@ -26,7 +30,10 @@ function get_popup_title(id) {
   return h2;
 }
 
-// Getting a requested popup and setting its features
+/**
+* Finds a requested popup and sets its features.
+* @param {string} id an identifier of the popup
+*/
 function get_popup(id) {
   if (id !== last_popup_id) {
     $('.tiny_popup .btn').each(function() {
@@ -45,7 +52,11 @@ function get_popup(id) {
   show_popup('#'+id);
 }
 
-// Getting HTML contents of the popup
+/**
+* Returns HTML contents of the popup.
+* @param {string} id an identifier of the popup
+* @returns {string} contents of the popup
+*/
 function get_contents(id) {
   if (id === 'file_creator_popup') {
     return '\

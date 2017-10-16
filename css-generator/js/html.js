@@ -1,4 +1,6 @@
-// Basic contents of the generated document
+/*
+* Basic contents of the generated document
+*/
 var template = '\
 <!DOCTYPE html> \n\
 <html lang="pl"> \n\
@@ -24,8 +26,10 @@ var template = '\
   </body> \n\
 </html>';
 
-// A skeleton of a code of a freshly generated grid item.
-// Formatted text is inserted into the "item_contents" div
+/* 
+* A skeleton of a code of a freshly generated grid item.
+* Formatted text is inserted into the "item_contents" div
+*/
 var item_template = '\
 <div class="item" id=item_{{id}} style="text-align: left"> \n\
   <div class="item_panel">  \n\
@@ -35,12 +39,19 @@ var item_template = '\
   <div class="item_contents"></div> \n\
 </div>';
 
-// Removing any unwanted spacing between siblings
+/**
+* Removes any unwanted spacing between siblings.
+* @param {string} elem HTML code
+*/
 function convert_to_one_line(elem) {
   elem.html(elem.html().replace(/>\s+</g, '><').replace('\n', ''));  
 }
 
-// Beautifying HTML - taking care of a proper indentation and creating a "human-readable" output
+/**
+* Takes care of a proper indentation and creates a "human-readable" output.
+* @param {object} elem a HTML element
+* @param {number} k number of tabs
+*/
 function beautify_html(elem, k) {
   if (elem.hasClass('grid')) {
     convert_to_one_line(elem);
@@ -69,14 +80,23 @@ function beautify_html(elem, k) {
   }
 }
 
-
-// Getting a basic HTML code of the grid item
+/**
+* Gets a basic HTML code of the grid item.
+* @param {string} id id of the element
+*/
 function get_item_basic_content(id) {
   return item_template.replace(/{{id}}/g, id);
 }
 
-// Creating a template of the document.
-// The page consists of three parts: the header, the main container and the footer
+
+/**
+* Creates a template of the document.
+* The page consists of three parts: the header, the main container and the footer.
+* @param {object} header a header of the website
+* @param {object} main_content main website content
+* @param {object} footer a footer of the website
+* @returns {string} a HTML template of the website 
+*/
 function create_html_template(header, main_content, footer) {
   basic_css = basic_css
               .replace(/\n/g, '\n'+tab.repeat(3))

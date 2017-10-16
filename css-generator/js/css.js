@@ -1,4 +1,6 @@
-// Very basic styling of the generated document
+/*
+* Very basic styling of the generated document
+*/
 var basic_css_org = '\n\
 @import url("https://fonts.googleapis.com/css?family=Saira+Semi+Condensed");\n\
 \n\
@@ -31,11 +33,13 @@ div.item { \n\
   display: grid; \n\
 }';
 
-// Flags indicating if any custom fonts are used
+/*
+* Flags indicating if any custom fonts are used
+*/
 var no_lato = true, no_roboto = true, tab = '  ', basic_css = '';
 
 /**
-* Converting the inlined styling into one section between <head> and </head> tags
+* Converts the inlined styling into one section between <head> and </head> tags.
 * @param {object} grid a grid object
 * @param {string} name name of a section of the page
 * @returns {object} a grid object without CSS inlined rules

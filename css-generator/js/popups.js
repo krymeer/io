@@ -1,6 +1,9 @@
 var current_popup = '', last_popup_id = '';
 
-// Function that closes a selected popup window
+/**
+* Closes a selected popup window.
+* @param {string} popup_id an identifier of the popup
+*/
 function close_popup(popup_id) {
   if ($(popup_id+' .popup_err').css('display') === 'block') {
     $(popup_id+' .popup_err').slideUp('fast');
@@ -17,7 +20,10 @@ function close_popup(popup_id) {
 //  $(popup_id + ', #mask').fadeOut('fast');
 }
 
-// Function that opens a selected popup window
+/**
+* Opens a selected popup window.
+* @param {string} popup_id an identifier of the popup
+*/
 function show_popup(popup_id) {
   $('#mask').fadeIn('fast', function() {
     $(popup_id).fadeIn('fast');
@@ -32,7 +38,9 @@ $(document).ready(function() {
     close_popup('#'+id);
   });
 
-  // Hitting the Enter and Esc buttons fires particular events
+  /*
+  * Hitting the Enter and Esc buttons fires particular events.
+  */
   $(document).keydown(function(key) {
     if (key.which === 13) {
       if ((current_popup === '#file_creator_popup' || current_popup === '#file_save_success') && $(current_popup + ' .btn_save').length > 0) {
@@ -47,8 +55,11 @@ $(document).ready(function() {
   });
 });
 
-// Changing CSS styling of the grid items.
-// Supported features: background-color, font-color, font-family, font-color, a few HTML tags, a color picker, a vertical and horizontal alignment of the text
+/**
+* Changes CSS styling of the grid items. <br>
+* Supported features: background-color, font-color, font-family, font-color, a few HTML tags, a color picker, a vertical and horizontal alignment of the text.
+* @param {string} id an identifier of the grid item.
+*/
 function change_item_style(id) {
   var curr_bg = $(id).css('background-color'),
       curr_col = $(id).css('color'),
@@ -64,12 +75,17 @@ function change_item_style(id) {
       horizontal_alignment = $(id).css('text-align'),
       sq_id, rgb;
 
-  // Getting the RGB and hexadecimal values of any color.
-  // Three color sliders are available as well
+  /**
+  * Nested function.
+  * Opens the color picker and sets a given value of the color.
+  * @param {array} color in the RGB format
+  */
   function pick_color(color) {
     rgb = color.replace(/[^\d,]/g, '').split(',');
 
-    // Updating an input field for the RGB value
+    /**
+    * Updates an input field for the RGB value.
+    */ 
     function update_rgb() {
       var color = 'rgb('+ rgb[0] +', '+ rgb[1] +', '+ rgb[2] +')';
 
@@ -77,7 +93,9 @@ function change_item_style(id) {
       $('#rect').css('background', color);
     }
 
-    // Updating an input field for the HEX value
+    /**
+    * Updates an input field for the HEX value.
+    */ 
     function update_hex() {
       var hex = '#';
       for (var k = 0; k < 3; k++) {
@@ -90,12 +108,16 @@ function change_item_style(id) {
       $('#hex').val(hex);
     }
 
-    // Updating sliders with colors
+    /**
+    * Updates sliders with colors.
+    */
     function update_sliders() {
       $('#sh_0').val(rgb[0]); $('#sh_1').val(rgb[1]); $('#sh_2').val(parseInt(rgb[2]));
     }
 
-    // Validating RGB value of a color
+    /**
+    * Validates an RGB value of the color.
+    */
     function handle_rgb() {
       var in_rgb = $('#rgb').val(),
           valid_rgb = check_rgb(in_rgb); 
@@ -109,7 +131,9 @@ function change_item_style(id) {
       }
     }
 
-    // Validating hexadecimal value of a color
+    /**
+    * Validates a hexadecimal value of the color.
+    */
     function handle_hex() {
       var hex = $('#hex').val(),
           valid_hex = check_hex(hex),
@@ -152,6 +176,9 @@ function change_item_style(id) {
     $('#rgb').on('input', handle_rgb);
   }
 
+  /**
+  * Checks if given colors are valid.
+  */
   function check_colors() {
     var r = parseInt($('#item_bg_0').val()),
         g = parseInt($('#item_bg_1').val()),
@@ -307,9 +334,11 @@ function change_item_style(id) {
   });
 }
 
-// Inserting HTML tags.
-// If any text is highlighted by the user, it is wrapped with a chosen tag.
-// Otherwise the tag is appended to the rest of the contents of the text area.
+/**
+* Inserts HTML tags.<br>
+* If any text is highlighted by the user, it is wrapped with a chosen tag. Otherwise the tag is appended to the rest of the contents of the text area.
+* @param {string} t a chosen tag
+*/
 function insert_html_tag(t) {
   if ($('#item_text_popup').css('display') !== 'none') {
     var textarea = document.getElementById('item_contents'),
@@ -332,8 +361,10 @@ function insert_html_tag(t) {
   }
 }
 
-// HTML tags that are allowed inside the grid items.
-// Below there are regular expressions for allowed and forbidden tags
+/*
+* HTML tags that are allowed inside the grid items.
+* Below there are regular expressions for allowed and forbidden tags
+*/
 var tags_allowed = ['b', 'i', 'u', 's'],
     regexp_text_start = new RegExp('\\[(' + tags_allowed.join('|') + ')\\]', 'g'),
     regexp_text_end = new RegExp('\\[\/(' + tags_allowed.join('|') + ')\\]', 'g'),
@@ -342,7 +373,13 @@ var tags_allowed = ['b', 'i', 'u', 's'],
     regexp_forbidden_html_start = new RegExp('<[^' + tags_allowed.join('') + ']+ [^<' + tags_allowed.join('') + ']*>', 'g'),
     regexp_forbidden_html_end = new RegExp('<\/[^' + tags_allowed.join('') + ']+>', 'g');
 
-// Function that converts the allowed HTML tags into their counterparts
+/**
+* Converts the allowed HTML tags into their counterparts.
+* @param {string} match an allowed tag
+* @param {string} offset a name of a tag
+* @param {number} string a starting index
+* @returns {string} a converted tag
+*/
 function convert_tag(match, offset, string) {
   if (match.indexOf('[') !== -1) {
     return '<' + match.substring(1, match.length-1) + '>';
@@ -350,13 +387,22 @@ function convert_tag(match, offset, string) {
   return '[' + match.substring(1, match.length-1) + ']';
 }
 
-// Function that escapes any not allowed HTML tags
+/** 
+* Escapes any not allowed HTML tags.
+* @param {string} match a not allowed tag
+* @param {string} offset a name of a tag
+* @param {number} string a starting index
+* @returns {string} an escaped tag
+*/
 function escape_tag(match, offset, string) {
   return '&lt;' + match.substring(1, match.length-1) + '&gt;';
 }
 
-// Changing contents of one of the grid items.
-// Note that all the newlines (\n) are converted into line breaks (<br>).
+/**
+* Changes contents of one of the grid items.<br>
+* Note that all the newlines (\n) are converted into line breaks (&lt;br&gt;).
+* @param {string} an identifier of the grid item
+*/ 
 function change_item_contents(id) {
   $('#item_additions #lipsum').click(function() {
     $('#item_contents').val($('#item_contents').val() + lipsum[get_random_int(0, lipsum_length-1)]);
@@ -391,8 +437,11 @@ function change_item_contents(id) {
   });
 }
 
-// Changing setting of the grid container.
-// Supported feature: number of grid items in one row
+/**
+* Changes settings of the grid container.
+* Supported feature: number of grid items in one row.
+* @param {object} e a grid container
+*/
 function change_grid_settings(e) {
   var heading = $('h2', e).text();
   heading = heading.charAt(0).toUpperCase() + heading.slice(1);
@@ -425,26 +474,39 @@ function change_grid_settings(e) {
   });
 }
 
-
-// Regex for 'rgb(n, n, n)' strings
-// where 0 <= n <= 9
+/**
+* Regex for 'rgb(n, n, n)' strings where 0 <= n <= 9.
+* @param {object} e a pressed key
+* @returns {boolean} if the pressed key can be a part of the string
+*/
 function rgb_char(e) {
   return /^[rgb\(\)0-9, ]$/.test(e.key);
 }
 
-// Regex for '#xxxxxx' strings
-// where x can be a letter from A to F
-// (case insensitive)
+/**
+* Regex for '#xxxxxx' strings where x can be a letter from A to F.<br>
+* (case insensitive)
+* @param {object} e a pressed key
+* @returns {boolean} if the pressed key is a number, a '#' sign or a letter from A to F
+*/
 function hex_char(e) {
   return /^[A-Fa-f0-9#]$/.test(e.key);
 }
 
-// Regex for a color value in HEX
+/**
+* Regex for a color value in HEX.
+* @param {string} hex color in the HEX format
+* @returns {boolean} if a given string is valid
+*/
 function check_hex(hex) {
   return /^#[A-Fa-f0-9]{6}$/.test(hex);
 }
 
-// Regex for a color value in RGB
+/*
+* Regex for a color value in RGB
+* @param {string} in_rgb color in the RGB format
+* @returns {boolean} if a given string is valid
+*/
 function check_rgb(in_rgb) {
   if (/^rgb\((([0-9]{1,3}),[ ]*){2}([0-9]{1,3})[ ]*\)$/.test(in_rgb) === false) {
     return false;

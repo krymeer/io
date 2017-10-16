@@ -1,6 +1,9 @@
 var id = 0, grids_ok = 0, number_of_columns = [1, 1, 1];
 
-// Adding a new item to the grid container
+/**
+* Adds a new item to the grid container.
+* @param {object} grid the grid container
+*/
 function add_new_item(grid) {
   var br = '';
   if (grid.find('.item').length > 0) {
@@ -13,7 +16,9 @@ function add_new_item(grid) {
   id += 1;
 }
 
-// Saving contents of the document to a separate file
+/**
+* Saves contents of the document to a separate file.
+*/
 function save_file() {
   var header = $('.template.header .grid').clone(),
       main_part = $('.template.main_part .grid').clone(),
@@ -45,7 +50,9 @@ function save_file() {
   }
 }
 
-// Handling click events
+/*
+* Handling click events
+*/
 $(document).ready(function() {
   $('#next_step').click(function() {
     get_popup('file_creator_popup');

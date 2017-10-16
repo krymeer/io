@@ -1,5 +1,5 @@
 /**
-* Setting program variables to their initial values.
+* Sets program variables to their initial values.
 */
 function restart() {
   $('input').val('');
