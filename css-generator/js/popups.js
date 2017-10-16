@@ -17,7 +17,6 @@ function close_popup(popup_id) {
       $('#color_picker').hide();
     }
   });
-//  $(popup_id + ', #mask').fadeOut('fast');
 }
 
 /**
@@ -28,7 +27,6 @@ function show_popup(popup_id) {
   $('#mask').fadeIn('fast', function() {
     $(popup_id).fadeIn('fast');
     current_popup = popup_id;
-//  $(popup_id + ', #mask').fadeIn('fast');
   });
 }
 
@@ -365,7 +363,7 @@ function insert_html_tag(t) {
 * HTML tags that are allowed inside the grid items.
 * Below there are regular expressions for allowed and forbidden tags
 */
-var tags_allowed = ['b', 'i', 'u', 's'],
+var tags_allowed = ['b', 'i', 'u', 's', 'blockquote'],
     regexp_text_start = new RegExp('\\[(' + tags_allowed.join('|') + ')\\]', 'g'),
     regexp_text_end = new RegExp('\\[\/(' + tags_allowed.join('|') + ')\\]', 'g'),
     regexp_html_start = new RegExp('<(' + tags_allowed.join('|') + ')>', 'g'),
@@ -412,10 +410,10 @@ function change_item_contents(id) {
   });
   $('#item_contents').val($(id+' .item_contents').html()
     .replace(/<br>/g, '\n')
-    .replace(/&lt;/g, '<')
-    .replace(/&gt;/g, '>')
     .replace(regexp_html_start, convert_tag)
     .replace(regexp_html_end, convert_tag)
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
   );
   $('#item_text_popup .btn').click(function() {
     $(id+' .item_contents').html($('#item_contents').val()
@@ -424,10 +422,6 @@ function change_item_contents(id) {
       .replace(/\n/g, '<br>')
       .replace(regexp_text_start, convert_tag)
       .replace(regexp_text_end, convert_tag)
-/*
-      .replace(regexp_forbidden_html_start, escape_tag)
-      .replace(regexp_forbidden_html_end, escape_tag)
-*/
     );
     close_popup('#item_text_popup');
     $(this).off('click');

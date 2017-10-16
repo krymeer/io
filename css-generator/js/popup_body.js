@@ -83,6 +83,7 @@ function get_contents(id) {
         <div class="sq_btn" id="tag_i">i</div> \
         <div class="sq_btn" id="tag_u">u</div> \
         <div class="sq_btn" id="tag_s">s</div> \
+        <div class="sq_btn" id="tag_blockquote"><i class="material-icons">format_quote</i></div> \
       </div> \
       <div id="item_additions"> \
         <h3>Dodatki</h3>\
