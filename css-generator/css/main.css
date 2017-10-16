@@ -82,6 +82,10 @@ footer {
   grid-template: auto / 1fr 1fr;
 }
 
+footer a {
+  padding: 0 .125rem;
+}
+
 footer a:hover {
   background: #419f95;
   color: #fff;
