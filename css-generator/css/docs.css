@@ -1,0 +1,40 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100%;
+  overflow: hidden;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Saira Semi Condensed', sans-serif;
+}
+
+header {
+  height: 60px;
+  line-height: 60px;
+  padding: 0 1rem;
+  background: #44749d;
+  color: #fff;
+}
+
+h1 {
+  margin: 0;
+  display: inline-block;
+}
+
+header span {
+  padding-left: .5rem;
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+#docs_frame {
+  width: 100%;
+  height: calc(100% - 58px);
+  border: none;
+};
