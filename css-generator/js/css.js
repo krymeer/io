@@ -34,6 +34,25 @@ div.item { \n\
 }';
 
 /*
+*  Basic styling of the blockquote
+*/
+var blockquote_css = '\n\
+div.item blockquote { \n\
+  margin:0; \n\
+  background: rgba(0, 0, 0, .25); \n\
+  display: inline-block; \n\
+  padding: .25rem .5rem; \n\
+} \n\
+\
+div.item blockquote::before { \n\
+  content: "„"; \n\
+} \n\
+\
+div.item blockquote::after { \n\
+  content: "”"; \n\
+}';
+
+/*
 * Flags indicating if any custom fonts are used
 */
 var no_lato = true, no_roboto = true, tab = '  ', basic_css = '';
@@ -57,6 +76,10 @@ function move_css(grid, name) {
     }
     style = style.replace(/; /g, ';\n  ');
     
+    if ($(this).html().indexOf('<blockquote>') > 0 && basic_css.indexOf('<blockquote>') === -1) {
+      basic_css += blockquote_css;
+    }
+
     var selector;
     if ($(this).hasClass('item')) {
       selector = $(this).attr('id');
