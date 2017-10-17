@@ -70,24 +70,32 @@ function get_contents(id) {
     return '\
       <div class="wrapper block grid_number" id="grid_rows_number"> \
         <span>Ilość elementów w&nbsp;wierszu</span> \
-        <span class="grid_math_btn plus">+</span> \
+        <span class="clickable_button grid_math_btn plus">+</span> \
         <span class="grid_n">1</span> \
-        <span class="grid_math_btn minus">-</span> \
+        <span class="clickable_button grid_math_btn minus">-</span> \
       </div>';
   } else if (id === 'item_text_popup') {
     return '\
       <textarea id="item_contents"></textarea> \
       <div id="item_tags"> \
         <h3>Tagi</h3> \
-        <div class="sq_btn" id="tag_b">b</div> \
-        <div class="sq_btn" id="tag_i">i</div> \
-        <div class="sq_btn" id="tag_u">u</div> \
-        <div class="sq_btn" id="tag_s">s</div> \
-        <div class="sq_btn" id="tag_blockquote"><i class="material-icons">format_quote</i></div> \
+        <div class="clickable_button sq_btn" id="tag_b">b</div> \
+        <div class="clickable_button sq_btn" id="tag_i">i</div> \
+        <div class="clickable_button sq_btn" id="tag_u">u</div> \
+        <div class="clickable_button sq_btn" id="tag_s">s</div> \
+        <div class="clickable_button sq_btn" id="tag_blockquote"><i class="material-icons">format_quote</i></div> \
+        <div class="clickable_button sq_btn tag_list" id="tag_h">h*</div> \
+        <ul id="h_tags_list"> \
+          <li class="clickable_button sq_btn" id="tag_h1">h1</li> \
+          <li class="clickable_button sq_btn" id="tag_h2">h2</li> \
+          <li class="clickable_button sq_btn" id="tag_h3">h3</li> \
+          <li class="clickable_button sq_btn" id="tag_h4">h4</li> \
+          <li class="clickable_button sq_btn" id="tag_h5">h5</li> \
+        </ul>\
       </div> \
       <div id="item_additions"> \
         <h3>Dodatki</h3>\
-        <div class="sq_btn" id="lipsum">Lorem ipsum</div> \
+        <div class="clickable_button sq_btn" id="lipsum">Lorem ipsum</div> \
       </div> \
       <div class="popup_err alert visible">Uwaga: inne tagi (także te w postaci znaczników <b>HTML</b>) zostaną zinterpretowane jako tekst.</div>';
   } else if (id === 'item_style_popup') {
@@ -161,9 +169,9 @@ function get_contents(id) {
         <div class="grid_line" id="line_height_wrapper"> \
           <span>Interlinia</span> \
           <div class="grid_line col3_row1 justify_start">\
-            <span class="grid_math_btn plus">+</span> \
+            <span class="clickable_button grid_math_btn plus">+</span> \
             <input id="line_height" type="text" maxlength="4" onkeypress="return (check_if_digit(event) || event.charCode === 46)"> \
-            <span class="grid_math_btn minus">-</span> \
+            <span class="clickable_button grid_math_btn minus">-</span> \
           </div> \
         </div> \
       </div> \

@@ -82,10 +82,48 @@
   min-width: 30px;
   height: 30px;
   line-height: 27px;
+  position: relative;
 }
 
 .tiny_popup .sq_btn:hover {
   background: #4e6670;
+}
+
+.tiny_popup .tag_list + ul  {
+  display: none;
+  position: absolute;
+  z-index: 1;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.25)
+}
+
+.tiny_popup .tag_list + ul > li.sq_btn {
+  text-align: center;
+  background: #99621e;
+  width: 100%;
+  margin: 0;
+}
+
+.tiny_popup .tag_list + ul > li.sq_btn:hover {
+  background: #a76b21;
+}
+
+.tiny_popup .tag_list + ul > li.sq_btn:not(:last-of-type) {
+  border-bottom: 1px solid #6e4716;
+}
+
+.tiny_popup .tag_list + ul > li.sq_btn:not(:first-of-type):not(:last-of-type) {
+  border-radius: 0;
+}
+
+.tiny_popup .tag_list + ul > li.sq_btn:last-of-type {
+  border-radius: 0 0 2.5px 2.5px;
+}
+
+.tiny_popup .tag_list + ul > li.sq_btn:first-of-type {
+  border-radius: 2.5px 2.5px 0 0;
 }
 
 .tiny_popup #item_tags i {
@@ -234,6 +272,10 @@ span.current {
   display: inline-block;
   cursor: pointer;
   line-height: 1;
+}
+
+.grid_math_btn,
+.sq_btn {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;

@@ -5,7 +5,7 @@
   display: grid;
 }
 
-.template h2 {
+.template > h2 {
   position: absolute;
   z-index: 3;
   background: #705d56;
@@ -17,7 +17,7 @@
   border-radius: 0 16px 16px 0;
 }
 
-.template.header h2 {
+.template.header > h2 {
   border-radius: 0 0 16px 0;
 }
 
@@ -62,7 +62,7 @@
   display: none;
 }
 
-.template h2, header h1,
+.template > h2, header h1,
 .template .grid .add_item_msg,
 .icon_add_item {
   -webkit-user-select: none;
@@ -143,6 +143,6 @@
   vertical-align: middle;
 }
 
-.control_panel, .template h2, .item_panel, #next_step {
+.control_panel, .template > h2, .item_panel, #next_step {
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
 }

@@ -8,6 +8,9 @@ function close_popup(popup_id) {
   if ($(popup_id+' .popup_err').css('display') === 'block') {
     $(popup_id+' .popup_err').slideUp('fast');
   }
+  $(popup_id+' .clickable_button').each(function() {
+    $(this).off('click');
+  });
   $(popup_id).fadeOut('fast', function() {
     $('#mask').fadeOut('fast');
     last_popup_id = popup_id.substring(1);
@@ -15,6 +18,9 @@ function close_popup(popup_id) {
     if (last_popup_id === 'item_style_popup' && $('#item_set_css').css('display') === 'none') {
       $('#item_set_css').show();
       $('#color_picker').hide();
+    }
+    if ($('.tiny_popup .tag_list + ul').length > 0) {
+      $('.tiny_popup .tag_list + ul').hide();
     }
   });
 }
@@ -363,7 +369,7 @@ function insert_html_tag(t) {
 * HTML tags that are allowed inside the grid items.
 * Below there are regular expressions for allowed and forbidden tags
 */
-var tags_allowed = ['b', 'i', 'u', 's', 'blockquote'],
+var tags_allowed = ['b', 'i', 'u', 's', 'blockquote', 'h1', 'h2', 'h3', 'h4', 'h5'],
     regexp_text_start = new RegExp('\\[(' + tags_allowed.join('|') + ')\\]', 'g'),
     regexp_text_end = new RegExp('\\[\/(' + tags_allowed.join('|') + ')\\]', 'g'),
     regexp_html_start = new RegExp('<(' + tags_allowed.join('|') + ')>', 'g'),
@@ -405,8 +411,27 @@ function change_item_contents(id) {
   $('#item_additions #lipsum').click(function() {
     $('#item_contents').val($('#item_contents').val() + lipsum[get_random_int(0, lipsum_length-1)]);
   });
-  $('#item_tags .sq_btn').click(function() {
+  $('#item_tags .sq_btn:not(.tag_list)').click(function() {
     insert_html_tag($(this).attr('id').substring(4));
+    var uncle_name = $(this).parent().prev().attr('class');
+    if (uncle_name !== undefined && uncle_name.indexOf('tag_list') !== -1) {
+      $(this).parent().hide();
+    } else if ($('.tiny_popup .tag_list + ul').length > 0) {
+      $('.tiny_popup .tag_list + ul').hide();
+    }
+  });
+  $('#item_tags .tag_list').click(function() {
+    if ($(this).next().css('display') === 'none') {
+      var tp_offset = $('.tiny_popup').offset(),
+          tag_offset = $(this).offset();
+      $(this).next().css({
+        'top': tag_offset.top - tp_offset.top + 30,
+        'left': tag_offset.left - tp_offset.left,
+        'width': $(this).outerWidth()
+      }).show();
+    } else {
+      $(this).next().hide();
+    }
   });
   $('#item_contents').val($(id+' .item_contents').html()
     .replace(/<br>/g, '\n')

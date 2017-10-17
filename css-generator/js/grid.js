@@ -112,6 +112,7 @@ $(document).ready(function() {
 /*
   // Testing
   $('.template:first-of-type .grid').trigger('click');
-  $('#item_0_style').trigger('click');
-*/  
+  //$('#item_0_style').trigger('click');
+  $('#item_0_text').trigger('click');
+//*/  
 });
