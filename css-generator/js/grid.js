@@ -56,6 +56,9 @@ function save_file() {
 $(document).ready(function() {
   $('#next_step').click(function() {
     get_popup('file_creator_popup');
+    $(':animated').promise().done(function() {
+      $('input#filename').get(0).focus();
+    });
     $('#file_creator_popup .btn_save').click(function() {
       save_file();
     });
