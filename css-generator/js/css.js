@@ -38,7 +38,7 @@ div.item { \n\
 */
 var blockquote_css = '\n\
 div.item blockquote { \n\
-  margin:0; \n\
+  margin: 0; \n\
   background: rgba(0, 0, 0, .25); \n\
   display: inline-block; \n\
   padding: .25rem .5rem; \n\
@@ -50,6 +50,12 @@ div.item blockquote::before { \n\
 \
 div.item blockquote::after { \n\
   content: "”"; \n\
+}';
+
+var a_css = '\n\
+div.item a { \n\
+  text-decoration: none; \n\
+  color: inherit; \n\
 }';
 
 /*
@@ -78,6 +84,10 @@ function move_css(grid, name) {
     
     if ($(this).html().indexOf('<blockquote>') > 0 && basic_css.indexOf('<blockquote>') === -1) {
       basic_css += blockquote_css;
+    }
+
+    if ($(this).html().indexOf('<a') > 0 && basic_css.indexOf('<a') === -1) {
+      basic_css += a_css;
     }
 
     var selector;

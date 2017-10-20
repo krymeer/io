@@ -96,6 +96,7 @@ function get_contents(id) {
           <div class="clickable_button sq_btn" id="tag_ul">ul</div> \
           <div class="clickable_button sq_btn" id="tag_ol">ol</div> \
           <div class="clickable_button sq_btn" id="tag_li">li</div> \
+          <div class="clickable_button sq_btn" id="tag_a">a</div> \
         </div> \
       </div> \
       <div id="item_additions"> \

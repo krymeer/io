@@ -353,7 +353,12 @@ function insert_html_tag(t) {
 
     if (t === 'ul' || t === 'ol') {
       list_tag = true;
-    }   
+    }
+
+    if (t === 'a') {
+      tag_start = '[a href="';
+      tag_end = '"][/a]';
+    }
 
     if (!list_tag && textarea.selectionStart !== undefined) {
       var start_pos = textarea.selectionStart,
@@ -378,14 +383,17 @@ function insert_html_tag(t) {
 /*
 * HTML tags that are allowed inside the grid items.
 * Below there are regular expressions for allowed and forbidden tags
+* Regex for urls taken from:
+* https://stackoverflow.com/questions/1500260/detect-urls-in-text-with-javascript#answer-8943487
 */
-var tags_allowed = ['b', 'i', 'u', 's', 'blockquote', 'h1', 'h2', 'h3', 'h4', 'h5', 'ul', 'ol', 'li'],
-    regexp_text_start = new RegExp('\\[(' + tags_allowed.join('|') + ')\\]', 'g'),
-    regexp_text_end = new RegExp('\\[\/(' + tags_allowed.join('|') + ')\\]', 'g'),
-    regexp_html_start = new RegExp('<(' + tags_allowed.join('|') + ')>', 'g'),
-    regexp_html_end = new RegExp('<\/(' + tags_allowed.join('|') + ')>', 'g');
-    regexp_forbidden_html_start = new RegExp('<[^' + tags_allowed.join('') + ']+ [^<' + tags_allowed.join('') + ']*>', 'g'),
-    regexp_forbidden_html_end = new RegExp('<\/[^' + tags_allowed.join('') + ']+>', 'g');
+var url_regex = '|a href=(\\\'|\\\")(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|](\\\'|\\\")',
+    tags_allowed = ['b', 'i', 'u', 's', 'blockquote', 'h1', 'h2', 'h3', 'h4', 'h5', 'ul', 'ol', 'li', 'a'],
+    end_tags = tags_allowed.join('|'),
+    start_tags = end_tags.replace('|a', url_regex),
+    regexp_text_start = new RegExp('\\[(' + start_tags + ')\\]', 'ig'),
+    regexp_text_end = new RegExp('\\[\/(' + end_tags + ')\\]', 'ig'),
+    regexp_html_start = new RegExp('<(' + start_tags + ')>', 'ig'),
+    regexp_html_end = new RegExp('<\/(' + end_tags + ')>', 'ig');
 
 /**
 * Converts the allowed HTML tags into their counterparts.
