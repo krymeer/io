@@ -79,19 +79,24 @@ function get_contents(id) {
       <textarea id="item_contents"></textarea> \
       <div id="item_tags"> \
         <h3>Tagi</h3> \
-        <div class="clickable_button sq_btn" id="tag_b">b</div> \
-        <div class="clickable_button sq_btn" id="tag_i">i</div> \
-        <div class="clickable_button sq_btn" id="tag_u">u</div> \
-        <div class="clickable_button sq_btn" id="tag_s">s</div> \
-        <div class="clickable_button sq_btn" id="tag_blockquote"><i class="material-icons">format_quote</i></div> \
-        <div class="clickable_button sq_btn tag_list" id="tag_h">h*</div> \
-        <ul id="h_tags_list"> \
-          <li class="clickable_button sq_btn" id="tag_h1">h1</li> \
-          <li class="clickable_button sq_btn" id="tag_h2">h2</li> \
-          <li class="clickable_button sq_btn" id="tag_h3">h3</li> \
-          <li class="clickable_button sq_btn" id="tag_h4">h4</li> \
-          <li class="clickable_button sq_btn" id="tag_h5">h5</li> \
-        </ul>\
+        <div class="btn_grid">\
+          <div class="clickable_button sq_btn" id="tag_b">b</div> \
+          <div class="clickable_button sq_btn" id="tag_i">i</div> \
+          <div class="clickable_button sq_btn" id="tag_u">u</div> \
+          <div class="clickable_button sq_btn" id="tag_s">s</div> \
+          <div class="clickable_button sq_btn" id="tag_blockquote"><i class="material-icons">format_quote</i></div> \
+          <div class="clickable_button sq_btn tag_list" id="tag_h">h*</div> \
+          <ul id="h_tags_list"> \
+            <li class="clickable_button sq_btn" id="tag_h1">h1</li> \
+            <li class="clickable_button sq_btn" id="tag_h2">h2</li> \
+            <li class="clickable_button sq_btn" id="tag_h3">h3</li> \
+            <li class="clickable_button sq_btn" id="tag_h4">h4</li> \
+            <li class="clickable_button sq_btn" id="tag_h5">h5</li> \
+          </ul>\
+          <div class="clickable_button sq_btn" id="tag_ul">ul</div> \
+          <div class="clickable_button sq_btn" id="tag_ol">ol</div> \
+          <div class="clickable_button sq_btn" id="tag_li">li</div> \
+        </div> \
       </div> \
       <div id="item_additions"> \
         <h3>Dodatki</h3>\

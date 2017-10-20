@@ -57,11 +57,15 @@ function beautify_html(elem, k) {
     convert_to_one_line(elem);
   }
 
-  if (!elem.hasClass('item_contents')) {
-    elem.children().each(function() {
+
+  /*
+  * Handles element's children (providing they have their own descendants)
+  */
+  elem.children().each(function() {
+    if ($(this).children().length > 0) {
       beautify_html($(this), k+1);
-    });
-  }
+    }
+  });
 
   if (elem.html() !== '') {
     elem.html(elem.html() + '\n' + tab.repeat(k-1))

@@ -348,9 +348,14 @@ function insert_html_tag(t) {
     var textarea = document.getElementById('item_contents'),
         tag_start = '['+t+']',
         tag_end = '[/'+t+']',
-        contents = textarea.value;
+        contents = textarea.value,
+        list_tag = false;
 
-    if (textarea.selectionStart !== undefined) {
+    if (t === 'ul' || t === 'ol') {
+      list_tag = true;
+    }   
+
+    if (!list_tag && textarea.selectionStart !== undefined) {
       var start_pos = textarea.selectionStart,
           end_pos = textarea.selectionEnd,
           selected_text = contents.substring(start_pos, end_pos),
@@ -359,7 +364,12 @@ function insert_html_tag(t) {
 
       contents = text_before + tag_start + selected_text + tag_end + text_after;
     } else {
-      contents += tag_start + tag_end;    
+      if (list_tag) {
+        var li = '\n  [li][/li]\n';
+        contents += tag_start + li + tag_end;
+      } else {
+        contents += tag_start + tag_end;    
+      }
     } 
     $('#item_contents').val(contents);
   }
@@ -369,7 +379,7 @@ function insert_html_tag(t) {
 * HTML tags that are allowed inside the grid items.
 * Below there are regular expressions for allowed and forbidden tags
 */
-var tags_allowed = ['b', 'i', 'u', 's', 'blockquote', 'h1', 'h2', 'h3', 'h4', 'h5'],
+var tags_allowed = ['b', 'i', 'u', 's', 'blockquote', 'h1', 'h2', 'h3', 'h4', 'h5', 'ul', 'ol', 'li'],
     regexp_text_start = new RegExp('\\[(' + tags_allowed.join('|') + ')\\]', 'g'),
     regexp_text_end = new RegExp('\\[\/(' + tags_allowed.join('|') + ')\\]', 'g'),
     regexp_html_start = new RegExp('<(' + tags_allowed.join('|') + ')>', 'g'),
@@ -448,6 +458,12 @@ function change_item_contents(id) {
       .replace(regexp_text_start, convert_tag)
       .replace(regexp_text_end, convert_tag)
     );
+    /*
+    * Newlines inside the tags have to remain unchanged
+    */
+    $(id+' .item_contents').children().each(function() {
+      $(this).html($(this).html().replace(/<br>/g, '\n'));
+    });
     close_popup('#item_text_popup');
     $(this).off('click');
     $('#item_tags .sq_btn').each(function() {

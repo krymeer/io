@@ -89,6 +89,18 @@
   background: #4e6670;
 }
 
+.btn_grid {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-column-gap: .25rem;
+}
+
+.btn_grid > .sq_btn {
+  margin-right: 0;
+  display: grid;
+  justify-content: center;
+}
+
 .tiny_popup .tag_list + ul  {
   display: none;
   position: absolute;
