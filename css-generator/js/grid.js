@@ -42,7 +42,7 @@ function save_file() {
     $('#file_creator_popup').fadeOut('fast', function() {
       create_file(html, filename);
       get_popup('file_save_success');
-      $('#file_save_success .btn_save').click(function() {
+      $('#file_save_success .btn_save, #file_save_success .btn_cancel').click(function() {
         close_popup('#file_save_success');
         restart();
       });

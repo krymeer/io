@@ -123,6 +123,25 @@
   content: '”';
 }
 
+.grid .item a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.grid .item a:hover {
+  text-decoration: underline;
+}
+
+.grid .item button {
+  background: rgba(0, 0, 0, .5);
+  color: #fff;
+  font-family: inherit;
+  border: 1px solid #000;
+  border-radius: 4px;
+  outline: none;
+  cursor: pointer;
+}
+
 .item_contents {
   padding: .25rem;
   /*display: grid;*/

@@ -387,7 +387,7 @@ function insert_html_tag(t) {
 * https://stackoverflow.com/questions/1500260/detect-urls-in-text-with-javascript#answer-8943487
 */
 var url_regex = '|a href=(\\\'|\\\")(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|](\\\'|\\\")',
-    tags_allowed = ['b', 'i', 'u', 's', 'blockquote', 'h1', 'h2', 'h3', 'h4', 'h5', 'ul', 'ol', 'li', 'a'],
+    tags_allowed = ['b', 'i', 'u', 's', 'blockquote', 'h1', 'h2', 'h3', 'h4', 'h5', 'ul', 'ol', 'li', 'a', 'button', 'p', 'span'],
     end_tags = tags_allowed.join('|'),
     start_tags = end_tags.replace('|a', url_regex),
     regexp_text_start = new RegExp('\\[(' + start_tags + ')\\]', 'ig'),
@@ -469,7 +469,8 @@ function change_item_contents(id) {
     /*
     * Newlines inside the tags have to remain unchanged
     */
-    $(id+' .item_contents').children().each(function() {
+    $(id+' .item_contents *:not(p)').each(function() {
+      console.log($(this));
       $(this).html($(this).html().replace(/<br>/g, '\n'));
     });
     close_popup('#item_text_popup');

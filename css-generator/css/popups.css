@@ -101,6 +101,10 @@
   justify-content: center;
 }
 
+.btn_grid > .sq_btn.col_2 {
+  grid-column: span 2;
+}
+
 .tiny_popup .tag_list + ul  {
   display: none;
   position: absolute;

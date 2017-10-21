@@ -56,6 +56,21 @@ var a_css = '\n\
 div.item a { \n\
   text-decoration: none; \n\
   color: inherit; \n\
+}\n\
+\
+div.item a:hover { \n\
+  text-decoration: underline; \n\
+}';
+
+var button_css = '\n\
+div.item button { \n\
+  background: rgba(0, 0, 0, .5); \n\
+  color: #fff; \n\
+  font-family: inherit; \n\
+  border: 1px solid #000; \n\
+  border-radius: 4px; \n\
+  outline: none; \n\
+  cursor: pointer; \n\
 }';
 
 /*
@@ -88,6 +103,10 @@ function move_css(grid, name) {
 
     if ($(this).html().indexOf('<a') > 0 && basic_css.indexOf('<a') === -1) {
       basic_css += a_css;
+    }
+
+    if ($(this).html().indexOf('<button>') > 0 && basic_css.indexOf('<button>') === -1) {
+      basic_css += button_css;
     }
 
     var selector;
