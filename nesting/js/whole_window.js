@@ -21,6 +21,9 @@ $(document).ready(function() {
   set_w3_urls();
   var k = 1;
   $('.grid').click(function() {
+    if ($('#btn_2_1').css('display') !== 'none') {
+      $('#btn_2_1').hide()
+    }
     console.log('');
     var start_time = performance.now();
     nest();
@@ -31,9 +34,13 @@ $(document).ready(function() {
     //console.log('level: ' + k + ' / time [ms]: \n' + (end_time-start_time));
     $(":animated").promise().done(function() {
       end_time = performance.now();
-      console.log('nodes = '+ n +'\nleaves = '+ d +' \ntime [ms]: \n ' + (end_time-start_time));
+      console.log(d + '\t' + (end_time-start_time));
+      //console.log('nodes = '+ n +'\nleaves = '+ d +' \ntime [ms]: \n ' + (end_time-start_time));
       //console.log('level: ' + k + ' / time (w/ animations) [ms]: \n' + (end_time-start_time));
       k++;
     });
+  });
+  $('#btn_2_1').click(function() {
+    $('body').addClass('p_2_1');
   });
 });

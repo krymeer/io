@@ -23,15 +23,27 @@ body {
   grid-template: auto / 50% 50%;
 }
 
+body.p_2_1 .grid {
+  grid-template-columns: 2fr 1fr;
+}
+
 .grid#big_grid {
   width: 100%;
   height: 100vh;
   background: #72ad2d;
 }
 
-.info#w3_box, .info#back, #info_wrapper {
+.info#w3_box, #btn_wrapper, #info_wrapper {
   position: absolute;
   z-index: 10;
+}
+
+#btn_wrapper {
+  left: 1rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+  grid-row-gap: 1rem;
 }
 
 .info#w3_box {
@@ -40,7 +52,7 @@ body {
 }
 
 .info#w3_box a,
-.info#back {
+#btn_wrapper .btn {
   transition: all 0.2s ease-out;
 }
 
@@ -48,7 +60,7 @@ body {
   color: #f6f930;
 }
 
-.info#back, #info_wrapper {
+#btn_wrapper, #info_wrapper {
   top: 1rem;
 }
 
@@ -56,8 +68,7 @@ body {
   right: 1rem;
 }
 
-.info#back {
-  left: 1rem;
+#btn_wrapper .btn {
   cursor: pointer;
 }
 
@@ -66,7 +77,8 @@ body {
   line-height: normal;
 }
 
-.info#back:hover {
+body.p_2_1 #btn_2_1,
+#btn_wrapper .btn:hover {
   background: #f6f930;
   color: #666;
 }
