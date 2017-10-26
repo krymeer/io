@@ -466,13 +466,15 @@ function change_item_contents(id) {
       .replace(regexp_text_start, convert_tag)
       .replace(regexp_text_end, convert_tag)
     );
+
+    $(id+' .item_contents').html($(id+' .item_contents').html().replace(/<br>/g, '\n'))
     /*
-    * Newlines inside the tags have to remain unchanged
+    * Newlines inside the paragraphs have to remain unchanged
     */
-    $(id+' .item_contents *:not(p)').each(function() {
-      console.log($(this));
-      $(this).html($(this).html().replace(/<br>/g, '\n'));
+    $(id+' .item_contents > p').each(function() {
+      $(this).html($(this).html().replace(/\n/g, '<br>'));
     });
+
     close_popup('#item_text_popup');
     $(this).off('click');
     $('#item_tags .sq_btn').each(function() {

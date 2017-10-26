@@ -51,6 +51,16 @@ function save_file() {
 }
 
 /*
+* Inserts exemplary tags into the main container of the HTML template.
+*/
+function insert_samples() {
+  var item = $('.main_part .item:first-of-type .item_contents');
+  if (item.html() !== undefined) {
+    item.html(samples);
+  }
+}
+
+/*
 * Handling click events
 */
 $(document).ready(function() {
@@ -75,6 +85,7 @@ $(document).ready(function() {
           grids_ok++;
         }
         if (grids_ok == 3 && $('#next_step').css('display') === 'none') {
+          $('#samples').show();
           $('#next_step').slideDown('fast', function() {
             $('#next_step').addClass('visible');
           });
@@ -95,6 +106,10 @@ $(document).ready(function() {
         change_item_contents(id);
       }
     });
+    $('#samples').click(function() {
+      insert_samples();
+      $('#samples').hide();
+    })
     $('.control_panel .icon_settings', parent).click(function() {
       get_popup('grid_settings_popup');
       change_grid_settings(parent);

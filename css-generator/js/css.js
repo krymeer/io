@@ -19,7 +19,7 @@ html, body { \n\
   width: 90%; \n\
   height: 840px; \n\
   margin: 10px auto; \n\
-  grid-template: 1fr 1fr 1fr / auto; \n\
+  grid-template: 1fr 3fr 1fr / auto; \n\
 } \n\
 \
 #main_container, header, #main_content, footer { \n\
