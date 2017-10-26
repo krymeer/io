@@ -28,7 +28,6 @@ function restart() {
 }
 
 $(document).ready(function() {
-  set_w3_urls();
   $('#restart').click(function() {
     restart();
   });
