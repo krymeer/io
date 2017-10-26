@@ -50,7 +50,7 @@ function save_file() {
   }
 }
 
-/*
+/**
 * Inserts exemplary tags into the main container of the HTML template.
 */
 function insert_samples() {
