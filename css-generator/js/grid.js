@@ -54,9 +54,12 @@ function save_file() {
 * Inserts exemplary tags into the main container of the HTML template.
 */
 function insert_samples() {
-  var item = $('.main_part .item:first-of-type .item_contents');
-  if (item.html() !== undefined) {
-    item.html(samples);
+  var item_contents = $('.main_part .item:first-of-type .item_contents');
+  if (item_contents.html() !== undefined) {
+    item_contents.html(samples);
+    item_contents.parent().addClass('with_samples');
+    $('#samples').removeClass('visible');
+    $('#choose_colors').addClass('visible');    
   }
 }
 
@@ -85,7 +88,7 @@ $(document).ready(function() {
           grids_ok++;
         }
         if (grids_ok == 3 && $('#next_step').css('display') === 'none') {
-          $('#samples').show();
+          $('#samples').addClass('visible');
           $('#next_step').slideDown('fast', function() {
             $('#next_step').addClass('visible');
           });
@@ -108,8 +111,11 @@ $(document).ready(function() {
     });
     $('#samples').click(function() {
       insert_samples();
-      $('#samples').hide();
-    })
+    });
+    $('#choose_colors').click(function() {
+      get_popup('list_of_schemes');
+      choose_colors();
+    });
     $('.control_panel .icon_settings', parent).click(function() {
       get_popup('grid_settings_popup');
       change_grid_settings(parent);

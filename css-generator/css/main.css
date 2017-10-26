@@ -32,7 +32,7 @@ a {
   box-sizing: border-box;
 }
 
-#samples, footer a, .template, i, .btn, .sq_btn, .grid_math_btn {
+.long_button, footer a, .template, i, .btn, .sq_btn, .grid_math_btn {
   transition: all .2s ease-out;
 }
 
@@ -63,7 +63,7 @@ header {
   position: relative;
 }
 
-#samples, #restart {
+.long_button, #restart {
   position: absolute;
   top: 0;
   cursor: pointer;
@@ -77,7 +77,7 @@ header {
   font-size: 2.5rem;
 }
 
-#samples {
+.long_button {
   right: 45px;
   display: none;
   height: 40px;
@@ -86,12 +86,7 @@ header {
   line-height: 40px;
 }
 
-#samples > span {
-  margin-right: 25px;
-  vertical-align: middle;
-}
-
-#samples > i {
+.long_button > i {
   position: absolute;
   right: 0;
   font-size: 2.5rem;
@@ -116,7 +111,7 @@ footer a:hover {
   color: #fff;
 }
 
-*:not(.item_contents) > button {
+button {
   display: block;
 }
 
@@ -167,18 +162,43 @@ footer a:hover {
 }
 
 @media screen and (max-width: 720px) {
-  #samples > span {
+  .long_button > span {
     display: none;
   }
 
-  #samples:hover > span {
+  .long_button.visible {
+    display: block;
+  }
+
+  .long_button:hover > span {
     display: inline;
     width: auto;
+    margin-right: 25px;
   }
 }
 
 @media screen and (min-width: 721px) {
-  #samples:hover, #restart:hover {
+  .long_button:hover, #restart:hover {
     background: #735f6c;
+  }
+
+  #choose_colors > i {
+    font-size: 1.5rem;
+  }
+
+  #samples > i {
+    margin: 0 -.5rem 0 -.25rem;
+  }
+
+  .long_button.visible {
+    display: grid;
+    grid-template: auto / auto auto;
+    grid-column-gap: 4px;
+    align-items: center;
+  }
+
+  .long_button > i {
+    position: static;
+    font-size: 2.5rem;
   }
 }

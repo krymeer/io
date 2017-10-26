@@ -15,10 +15,10 @@ html, body { \n\
 \
 #main_container { \n\
   font-family: "Saira Semi Condensed", Verdana, Tahoma, sans-serif;\n\
-  max-width: 1024px; \n\
+  max-width: 960px; \n\
   width: 90%; \n\
-  height: 840px; \n\
-  margin: 10px auto; \n\
+  height: 100vh; \n\
+  margin: 0 auto; \n\
   grid-template: 1fr 3fr 1fr / auto; \n\
 } \n\
 \
@@ -32,6 +32,7 @@ div.item { \n\
   align-items: center; \n\
   display: grid; \n\
 }';
+
 
 /*
 *  Basic styling of the blockquote
@@ -67,7 +68,7 @@ div.item button { \n\
   background: rgba(0, 0, 0, .5); \n\
   color: #fff; \n\
   font-family: inherit; \n\
-  border: 1px solid #000; \n\
+  border: none; \n\
   border-radius: 4px; \n\
   outline: none; \n\
   cursor: pointer; \n\
@@ -85,19 +86,19 @@ var no_lato = true, no_roboto = true, tab = '  ', basic_css = '';
 * @returns {object} a grid object without CSS inlined rules
 */
 function move_css(grid, name) {
-  var style = grid.attr('style');
+  var style = grid.attr('style'), id = grid.attr('id');
   if (style !== '' && style !== undefined) {
     basic_css += '\n' + name + ' {\n' + tab + style + '\n}';
     grid.removeAttr('style');
   }
-  $('.item, .item_contents', grid).each(function() {
+  $('.item, .item_contents, .item_contents blockquote, .item_contents button', grid).each(function() {
     style = $(this).attr('style');
     if (style === undefined) {
       return;
     }
     style = style.replace(/; /g, ';\n  ');
     
-    if ($(this).html().indexOf('<blockquote>') > 0 && basic_css.indexOf('<blockquote>') === -1) {
+    if ($(this).html().indexOf('<blockquote') > 0 && basic_css.indexOf('<blockquote') === -1) {
       basic_css += blockquote_css;
     }
 
@@ -105,13 +106,16 @@ function move_css(grid, name) {
       basic_css += a_css;
     }
 
-    if ($(this).html().indexOf('<button>') > 0 && basic_css.indexOf('<button>') === -1) {
+    if ($(this).html().indexOf('<button') > 0 && basic_css.indexOf('<button') === -1) {
       basic_css += button_css;
     }
 
     var selector;
     if ($(this).hasClass('item')) {
       selector = $(this).attr('id');
+    } else if ($(this).parent().hasClass('item_contents')) {
+      var tag_name = $(this).prop('nodeName').toLowerCase();
+      selector = $(this).parent().parent().attr('id') + ' ' + tag_name;
     } else {
       selector = $(this).parent().attr('id') + ' .item_contents';
     }

@@ -2,8 +2,10 @@
 * Sets program variables to their initial values.
 */
 function restart() {
-  $('#samples').hide();
   $('input').val('');
+  $('#list_of_schemes .scheme.chosen').removeClass('chosen')
+  $('.long_button').removeClass('visible');
+  $('.item.with_samples').removeClass('with_samples');
   $('#file_creator_popup .popup_err').hide();
   number_of_columns = [1, 1, 1];
   grids_ok = 0;

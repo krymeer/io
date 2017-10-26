@@ -22,6 +22,9 @@ function get_popup_title(id) {
     case 'color_picker':
       h2 = 'Kolor';
       break;
+    case 'list_of_schemes':
+      h2 = 'Wybór kolorów'
+      break;
     default:
       h2 = '&nbsp;';
       break;
@@ -208,5 +211,25 @@ function get_contents(id) {
         </div> \
       </div> \
       <div class="popup_err"></div>';
+  } else if (id === 'list_of_schemes')  {
+    return '\
+        <div class="scheme blue"> \
+          <div></div><div></div><div></div> \
+        </div> \
+        <div class="scheme green"> \
+          <div></div><div></div><div></div> \
+        </div> \
+        <div class="scheme monochromatic"> \
+          <div></div><div></div><div></div> \
+        </div> \
+        <div class="scheme orange"> \
+          <div></div><div></div><div></div> \
+        </div> \
+        <div class="scheme purple"> \
+          <div></div><div></div><div></div> \
+        </div> \
+        <div class="scheme red"> \
+          <div></div><div></div><div></div> \
+        </div>';
   }
 }

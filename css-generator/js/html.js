@@ -36,7 +36,7 @@ var samples = '\
 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sit amet gravida purus. Nulla rhoncus a nunc sed varius. Nullam nibh tortor, pharetra eu hendrerit et, scelerisque sed sem. Fusce volutpat in metus et elementum. Sed sed scelerisque enim.</p> \n\
 <button>Przycisk 1</button> <button>Przycisk 2</button> <button>Przycisk 3</button> \n\
 <p> \n\
-  <a href="http://example.com/">Link 1</a> <a href="http://example.com">Link 2</a> \n\
+  <a href="http://example.com/">Link 1</a> <a href="http://example.com/">Link 2</a> \n\
 </p>';
 
 /* 

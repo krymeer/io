@@ -60,6 +60,40 @@ $(document).ready(function() {
 });
 
 /**
+* Sets a tiny color palette chosen by the user.
+*/
+function choose_colors() {
+  $('#list_of_schemes .scheme').click(function() {
+    $('#list_of_schemes .scheme.chosen').removeClass('chosen');
+    $(this).addClass('chosen');
+  });
+  $('#list_of_schemes .btn_save').click(function() {
+    var chosen = $('#list_of_schemes .scheme.chosen');
+    if (chosen.html() !== undefined) {
+      var col_1 = $('div:nth-of-type(1)', chosen).css('background-color'),
+          col_2 = ($('div:nth-of-type(2)', chosen).css('background-color')),
+          col_3 = ($('div:nth-of-type(3)', chosen).css('background-color'));
+
+      $('.item.with_samples').css({
+        'background': col_1,
+        'color': col_3
+      });
+      $('.item.with_samples blockquote').css({
+        'background': col_2,
+        'color': col_3
+      });
+      $('.item.with_samples .item_contents button').css({
+        'background': col_3,
+        'border-color': col_2,
+        'color': col_1
+      })
+    }
+    close_popup('#list_of_schemes');
+    $(this).off('click');
+  });
+}
+
+/**
 * Changes CSS styling of the grid items. <br>
 * Supported features: background-color, font-color, font-family, font-color, a few HTML tags, a color picker, a vertical and horizontal alignment of the text.
 * @param {string} id an identifier of the grid item.
