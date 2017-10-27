@@ -86,27 +86,27 @@ var no_lato = true, no_roboto = true, tab = '  ', basic_css = '';
 * @returns {object} a grid object without CSS inlined rules
 */
 function move_css(grid, name) {
-  var style = grid.attr('style'), id = grid.attr('id');
-  if (style !== '' && style !== undefined) {
-    basic_css += '\n' + name + ' {\n' + tab + style + '\n}';
+  var grid_style = grid.attr('style'), id = grid.attr('id');
+  if (grid_style !== '' && grid_style !== undefined) {
+    basic_css += '\n' + name + ' {\n' + tab + grid_style + '\n}';
     grid.removeAttr('style');
   }
   $('.item, .item_contents, .item_contents blockquote, .item_contents button', grid).each(function() {
-    style = $(this).attr('style');
+    var style = $(this).attr('style');
     if (style === undefined) {
       return;
     }
     style = style.replace(/; /g, ';\n  ');
     
-    if ($(this).html().indexOf('<blockquote') > 0 && basic_css.indexOf('<blockquote') === -1) {
+    if ($(this).html().indexOf('<blockquote') > 0 && basic_css.indexOf('div.item blockquote') === -1) {
       basic_css += blockquote_css;
     }
 
-    if ($(this).html().indexOf('<a') > 0 && basic_css.indexOf('<a') === -1) {
+    if ($(this).html().indexOf('<a') > 0 && basic_css.indexOf('div.item a') === -1) {
       basic_css += a_css;
     }
 
-    if ($(this).html().indexOf('<button') > 0 && basic_css.indexOf('<button') === -1) {
+    if ($(this).html().indexOf('<button') > 0 && basic_css.indexOf('div.item button') === -1) {
       basic_css += button_css;
     }
 
@@ -120,7 +120,10 @@ function move_css(grid, name) {
       selector = $(this).parent().attr('id') + ' .item_contents';
     }
 
-    basic_css += '\n#' + selector + ' {\n' + tab + style + '\n}';
+    var s = '\n#' + selector + ' {\n' + tab + style + '\n}';
+    if (basic_css.indexOf(s) === -1) {
+      basic_css += s;
+    }
     if (style.indexOf('Roboto') >= 0 && no_roboto) {
       basic_css = '\n@import url("https://fonts.googleapis.com/css?family=Roboto");' + basic_css;
     }

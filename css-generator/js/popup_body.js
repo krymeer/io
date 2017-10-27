@@ -227,9 +227,6 @@ function get_contents(id) {
         </div> \
         <div class="scheme purple"> \
           <div></div><div></div><div></div> \
-        </div> \
-        <div class="scheme red"> \
-          <div></div><div></div><div></div> \
         </div>';
   }
 }
