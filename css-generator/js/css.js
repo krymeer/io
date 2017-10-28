@@ -114,8 +114,12 @@ function move_css(grid, name) {
     if ($(this).hasClass('item')) {
       selector = $(this).attr('id');
     } else if ($(this).parent().hasClass('item_contents')) {
-      var tag_name = $(this).prop('nodeName').toLowerCase();
+      var tag_name = $(this).prop('nodeName').toLowerCase(),
+          id = $(this).attr('id');
       selector = $(this).parent().parent().attr('id') + ' ' + tag_name;
+      if (id !== undefined && id !== selector) {
+        selector += '#' + id;
+      }
     } else {
       selector = $(this).parent().attr('id') + ' .item_contents';
     }

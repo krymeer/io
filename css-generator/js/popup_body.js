@@ -214,19 +214,22 @@ function get_contents(id) {
   } else if (id === 'list_of_schemes')  {
     return '\
         <div class="scheme blue"> \
-          <div></div><div></div><div></div> \
+          <div></div><div></div><div></div><div></div><div></div> \
         </div> \
         <div class="scheme green"> \
-          <div></div><div></div><div></div> \
+          <div></div><div></div><div></div><div></div><div></div> \
         </div> \
         <div class="scheme monochromatic"> \
-          <div></div><div></div><div></div> \
+          <div></div><div></div><div></div><div></div><div></div> \
         </div> \
         <div class="scheme orange"> \
-          <div></div><div></div><div></div> \
+          <div></div><div></div><div></div><div></div><div></div> \
         </div> \
         <div class="scheme purple"> \
-          <div></div><div></div><div></div> \
+          <div></div><div></div><div></div><div></div><div></div> \
+        </div> \
+        <div class="scheme red"> \
+          <div></div><div></div><div></div><div></div><div></div> \
         </div>';
   }
 }

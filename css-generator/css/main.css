@@ -90,6 +90,12 @@ header {
   position: absolute;
   right: 0;
   font-size: 2.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+#choose_colors > i {
+  font-size: 2rem;
 }
 
 header h1 {
@@ -175,6 +181,10 @@ button {
     width: auto;
     margin-right: 25px;
   }
+  
+  #choose_colors > i {
+    right: 4px;
+  }
 }
 
 @media screen and (min-width: 721px) {
@@ -200,5 +210,7 @@ button {
   .long_button > i {
     position: static;
     font-size: 2.5rem;
+    transform: none;
+    top: auto;
   }
 }
