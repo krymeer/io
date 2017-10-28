@@ -91,7 +91,7 @@ function move_css(grid, name) {
     basic_css += '\n' + name + ' {\n' + tab + grid_style + '\n}';
     grid.removeAttr('style');
   }
-  $('.item, .item_contents, .item_contents blockquote, .item_contents button', grid).each(function() {
+  $('.item, .item_contents, .item_contents *', grid).each(function() {
     var style = $(this).attr('style');
     if (style === undefined) {
       return;
@@ -119,6 +119,11 @@ function move_css(grid, name) {
       selector = $(this).parent().parent().attr('id') + ' ' + tag_name;
       if (id !== undefined && id !== selector) {
         selector += '#' + id;
+      } else {
+        var this_type = $(this).parent().find(tag_name);
+        if (this_type.length > 1) {
+          selector += ':nth-of-type('+ (this_type.index($(this))+1) +')';
+        }
       }
     } else {
       selector = $(this).parent().attr('id') + ' .item_contents';

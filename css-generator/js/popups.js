@@ -84,15 +84,15 @@ function choose_colors() {
         'background': col_3,
         'color': col_1
       });
-      $('.item.with_samples .item_contents button#ex_1').css({
+      $('.item.with_samples .item_contents button:nth-of-type(1)').css({
         'background': col_1,
         'color': col_2
       })
-      $('.item.with_samples .item_contents button#ex_2').css({
+      $('.item.with_samples .item_contents button:nth-of-type(2)').css({
         'background': col_4,
         'color': col_1
       })
-      $('.item.with_samples .item_contents button#ex_3').css({
+      $('.item.with_samples .item_contents button:nth-of-type(3)').css({
         'background': col_5,
         'color': col_2
       })
@@ -430,13 +430,13 @@ function insert_html_tag(t) {
 * https://stackoverflow.com/questions/1500260/detect-urls-in-text-with-javascript#answer-8943487
 */
 var url_regex = '|a href=(\\\'|\\\")(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|](\\\'|\\\")',
-    style_regex = '([ ]+style=(\\\"|\\\')[ a-zA-Z0-9.,;:()-]*(\\\"|\\\'))?';
+    style_regex = '([ ]+style=(\\\"|\\\')[ a-zA-Z0-9.,;:()-]*(\\\"|\\\'))?',
     tags_allowed = ['b', 'i', 'u', 's', 'blockquote', 'h1', 'h2', 'h3', 'h4', 'h5', 'ul', 'ol', 'li', 'a', 'button', 'p', 'span'],
     end_tags = tags_allowed.join('|'),
     start_tags = end_tags.replace('|a', url_regex);
 
 var regexp_text_start = new RegExp('\\[('+ start_tags +')'+ style_regex +'\\]', 'ig'),
-    regexp_html_start = new RegExp('<(' + start_tags + ')'+ style_regex + '>', 'ig'),
+    regexp_html_start = new RegExp('<(' + start_tags + ')'+ style_regex +'>', 'ig'),
     regexp_text_end = new RegExp('\\[\/(' + end_tags + ')\\]', 'ig'),
     regexp_html_end = new RegExp('<\/(' + end_tags + ')>', 'ig');
 

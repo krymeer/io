@@ -34,7 +34,7 @@ var samples = '\
 <h2>Podtytuł</h2> \n\
 <blockquote>Fusce tempus at ex et finibus. Nullam at augue congue, vulputate risus et, varius ex.</blockquote>\n\
 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sit amet gravida purus. Nulla rhoncus a nunc sed varius. Nullam nibh tortor, pharetra eu hendrerit et, scelerisque sed sem. Fusce volutpat in metus et elementum. Sed sed scelerisque enim.</p> \n\
-<button id="ex_1">Przycisk 1</button> <button id="ex_2">Przycisk 2</button> <button id="ex_3">Przycisk 3</button> \n\
+<button>Przycisk 1</button> <button>Przycisk 2</button> <button>Przycisk 3</button> \n\
 <p><a href="http://example.com/">Link 1</a> <a href="http://example.com/">Link 2</a></p>';
 
 /* 
