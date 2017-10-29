@@ -1,0 +1,84 @@
+<!DOCTYPE HTML>
+<html lang="pl">
+  <head>
+    <title>CSS Grid Layout | testy | wyniki</title>
+    <meta content="width: device-width; initial-scale=1.0">
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto+Condensed">
+    <style>
+      body {
+        font-family: 'Roboto Condensed', sans-serif;
+      }
+
+      body, h2 {
+        margin: 0;
+        padding: 0;
+      }
+
+      #main_container {
+        max-width: 960px;
+        width: 90%;
+        margin: 0 auto;
+      }
+
+      #main_container .plot > a {
+        display: block;
+        width: 75%;
+        margin: 0 auto;
+      }
+
+      #main_container .plot > a > img {
+        max-width: 100%;
+        max-height: 100%;
+      }
+
+      #main_container .plot {
+        margin: 16px 0;
+      }
+
+      h2 {
+        margin-left: 12.5%;
+        margin-bottom: 8px;
+
+        font-size: 20px;
+        text-align: center;
+        font-weight: normal;
+      }
+
+      h2, a.text_link {
+        display: inline-block;
+        background: #b90504;
+        padding: 4px 8px;
+        color: #f6f6f6;
+        text-decoration: none;
+      }
+
+      a#go_back_link {
+        background: #333;
+      }
+
+      a#go_back_link:hover {
+        background: #b90504;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="main_container">
+      <div class="plot">
+        <h2>dodawanie gridów-wierszy</h2>
+        <a href="plots/rows.png" target="blank">
+          <img src="plots/rows.png" alt="1 | dodawanie gridów-wierszy">
+        </a>
+      </div>
+      <div class="plot">
+        <h2>dodawanie gridów-kolumn</h2>
+        <a href="plots/cols.png" target="blank">
+          <img src="plots/cols.png" alt="2 | dodawanie gridów-kolumn">
+        </a>
+      </div>
+      <div style="text-align: center; margin-bottom: 10px">
+        <a id="go_back_link" class="text_link" href="index.html">powrót do strony głównej</a>
+      </div>
+    </div>
+  </body>
+</html>
