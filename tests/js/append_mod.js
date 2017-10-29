@@ -1,11 +1,22 @@
-var i = 1;
+var i = 1, n = 500, cols;
 
 function append_grid() {
   var start_time = performance.now();
   var grid = $('<div/>');
   grid.addClass('grid').appendTo('#grid_container');
-  for (var k = 0; k < 500; k++) {
+  for (var k = 0; k < n-i+1; k++) {
     grid.append('<div style="background: '+ get_random_color() +'"></div>');
+  }
+  if (cols === undefined) {
+    $('div:first-of-type', grid).css({
+      'grid-column': 'span ' + i,
+      'width': (2*i) + 'px'
+    });
+  } else {
+    $('div:first-of-type', grid).css({
+      'grid-row': 'span ' + i,
+      'height': (2*i) + 'px'
+    });
   }
   console.log(i+'  ', (performance.now()-start_time));
   i++;
