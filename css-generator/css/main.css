@@ -47,6 +47,7 @@ a {
   padding: 1rem;
   margin: 0 auto;
   height: 100vh;
+  min-height: 500px;
   display: grid;
   grid-template: 58px calc(100% - 91px) 33px / auto;
 }
