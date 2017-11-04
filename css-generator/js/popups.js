@@ -507,12 +507,10 @@ function change_item_contents(id) {
     $(id+' .item_contents').html($('#item_contents').val()
       .replace(/</g, '&lt;')
       .replace(/>/g, '&gt;')
-      .replace(/\n/g, '<br>')
       .replace(regexp_text_start, convert_tag)
       .replace(regexp_text_end, convert_tag)
     );
 
-    $(id+' .item_contents').html($(id+' .item_contents').html().replace(/<br>/g, '\n'))
     /*
     * Newlines inside the paragraphs have to remain unchanged
     */
