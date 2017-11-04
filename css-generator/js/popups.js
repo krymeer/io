@@ -444,10 +444,10 @@ var regexp_text_start = new RegExp('\\[('+ start_tags +')'+ style_regex +'\\]', 
 * Converts the allowed HTML tags into their counterparts.
 * @param {string} match an allowed tag
 * @param {string} offset a name of a tag
-* @param {number} string a starting index
+* @param {number} k a starting index
 * @returns {string} a converted tag
 */
-function convert_tag(match, offset, string) {
+function convert_tag(match, offset, k) {
   if (match.indexOf('[') !== -1) {
     return '<' + match.substring(1, match.length-1) + '>';
   }
@@ -458,10 +458,10 @@ function convert_tag(match, offset, string) {
 * Escapes any not allowed HTML tags.
 * @param {string} match a not allowed tag
 * @param {string} offset a name of a tag
-* @param {number} string a starting index
+* @param {number} k a starting index
 * @returns {string} an escaped tag
 */
-function escape_tag(match, offset, string) {
+function escape_tag(match, offset, k) {
   return '&lt;' + match.substring(1, match.length-1) + '&gt;';
 }
 
