@@ -163,7 +163,7 @@ function change_item_style(id) {
 /**
 * Changes contents of one of the grid items.<br>
 * Note that all the newlines (\n) are converted into line breaks (&lt;br&gt;).
-* @param {string} an identifier of the grid item
+* @param {string} id an identifier of the grid item
 */ 
 function change_item_contents(id) {
   $('#item_additions #lipsum').click(function() {

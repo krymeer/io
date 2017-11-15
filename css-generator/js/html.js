@@ -80,6 +80,7 @@ function beautify_html(elem, k) {
 /**
 * Gets a basic HTML code of the grid item.
 * @param {string} id id of the element
+* @returns {string} basic contents of the grid item
 */
 function get_item_basic_content(id) {
   return item_template.replace(/{{id}}/g, id);

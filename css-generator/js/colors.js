@@ -1,5 +1,20 @@
 /**
+* Gets a random color.
+* @returns {string} an RGB color value
+*/
+function get_random_color() {
+  var r = get_random_int(0, 255),
+      g = get_random_int(0, 255),
+      b = get_random_int(0, 255),
+      rgb = 'rgb('+r+', '+g+', '+b+')';
+
+  return rgb;
+}
+
+
+/**
 * Updates an input field for the RGB value.
+* @param {array} rgb an RGB value of the color
 */ 
 function update_rgb(rgb) {
   var color = 'rgb('+ rgb[0] +', '+ rgb[1] +', '+ rgb[2] +')';
@@ -10,6 +25,7 @@ function update_rgb(rgb) {
 
 /**
 * Updates an input field for the HEX value.
+* @param {array} arr an RGB value of the color
 */ 
 function update_hex(arr) {
   var hex = '#';
@@ -25,6 +41,7 @@ function update_hex(arr) {
 
 /**
 * Updates sliders with colors.
+* @param {array} rgb an RGB value of the color
 */
 function update_sliders(rgb) {
   $('#sh_0').val(rgb[0]); $('#sh_1').val(rgb[1]); $('#sh_2').val(parseInt(rgb[2]));
@@ -71,7 +88,6 @@ function handle_hex() {
 function pick_color(color) {
   var rgb = color.replace(/[^\d,]/g, '').split(',');
 
-
   var table_1 = '<table><tr>', table_2 = table_1, table_3 = table_2;
   for (var k = 0; k <= 255; k++) {
     table_1 += '<td style="background: rgb('+k+', 0, 0)"></td>';
@@ -99,6 +115,11 @@ function pick_color(color) {
   $('#rgb').on('input', handle_rgb);
 }
 
+/**
+* Checks if the values inserted by the user are valid.<br>
+* If so, the color of one of the tiny squares in the popup is updated.
+* @param {string} id an identifier of the element
+*/
 function check_color_picker(id) {
   if ($('#color_picker').css('display') !== 'none') {
     var rgb_val = $('#rgb').val();
@@ -125,7 +146,8 @@ function check_color_picker(id) {
 }
 
 /**
-* Checks if given colors are valid.
+* Checks if the given colors are valid.
+* @returns {boolean} if the given colors are valid
 */
 function check_colors() {
   var r = parseInt($('#item_bg_0').val()),
@@ -158,10 +180,7 @@ function check_colors() {
     valid_col_rgb = false;
   }
 
-  if (!valid_bg_rgb || !valid_col_rgb) {
-    return false;
-  }
-  return true;
+  return (valid_bg_rgb && valid_col_rgb);
 }
 
 /**
