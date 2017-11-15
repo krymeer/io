@@ -2,7 +2,7 @@
 * Very basic styling of the generated document
 */
 var basic_css_org = '\n\
-@import url("https://fonts.googleapis.com/css?family=Saira+Semi+Condensed");\n\
+@import url("{{app_url}}/css/Saira_Semi_Condensed.css");\n\
 \n\
 html, body { \n\
   padding: 0; \n\
@@ -77,7 +77,7 @@ div.item button { \n\
 /*
 * Flags indicating if any custom fonts are used
 */
-var no_lato = true, no_roboto = true, tab = '  ', basic_css = '';
+var no_lato = true, no_roboto = true, tab = '  ', css_out = '';
 
 /**
 * Converts the inlined styling into one section between <head> and </head> tags.
@@ -88,7 +88,7 @@ var no_lato = true, no_roboto = true, tab = '  ', basic_css = '';
 function move_css(grid, name) {
   var grid_style = grid.attr('style'), id = grid.attr('id');
   if (grid_style !== '' && grid_style !== undefined) {
-    basic_css += '\n' + name + ' {\n' + tab + grid_style + '\n}';
+    css_out += '\n' + name + ' {\n' + tab + grid_style + '\n}';
     grid.removeAttr('style');
   }
   $('.item, .item_contents, .item_contents *', grid).each(function() {
@@ -98,16 +98,16 @@ function move_css(grid, name) {
     }
     style = style.replace(/; /g, ';\n  ');
     
-    if ($(this).html().indexOf('<blockquote') > 0 && basic_css.indexOf('div.item blockquote') === -1) {
-      basic_css += blockquote_css;
+    if ($(this).html().indexOf('<blockquote') > 0 && css_out.indexOf('div.item blockquote') === -1) {
+      css_out += blockquote_css;
     }
 
-    if ($(this).html().indexOf('<a') > 0 && basic_css.indexOf('div.item a') === -1) {
-      basic_css += a_css;
+    if ($(this).html().indexOf('<a') > 0 && css_out.indexOf('div.item a') === -1) {
+      css_out += a_css;
     }
 
-    if ($(this).html().indexOf('<button') > 0 && basic_css.indexOf('div.item button') === -1) {
-      basic_css += button_css;
+    if ($(this).html().indexOf('<button') > 0 && css_out.indexOf('div.item button') === -1) {
+      css_out += button_css;
     }
 
     var selector;
@@ -130,16 +130,23 @@ function move_css(grid, name) {
     }
 
     var s = '\n#' + selector + ' {\n' + tab + style + '\n}';
-    if (basic_css.indexOf(s) === -1) {
-      basic_css += s;
-    }
+    if (css_out.indexOf(s) === -1) {
+      css_out += s;
+    }1
     if (style.indexOf('Roboto') >= 0 && no_roboto) {
-      basic_css = '\n@import url("https://fonts.googleapis.com/css?family=Roboto");' + basic_css;
+      css_out = '\n@import url("{{app_url}}/css/Roboto.css");' + css_out;
     }
     if (style.indexOf('Lato') >= 0 && no_lato) {
-      basic_css = '\n@import url("https://fonts.googleapis.com/css?family=Lato");' + basic_css;
+      css_out = '\n@import url("{{app_url}}/css/Lato.css");' + css_out;
     }
     $(this).removeAttr('style');
+
+    var url = window.location.href, i = url.indexOf('.html');
+    if (i >= 0) {
+      url = url.substring(url, url.lastIndexOf('/'));
+    }
+
+    css_out = css_out.replace('{{app_url}}', url);
   });
   return grid;
 }

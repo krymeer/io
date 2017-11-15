@@ -113,33 +113,17 @@ function get_item_basic_content(id) {
 * @returns {string} a HTML template of the website 
 */
 function create_html_template(header, main_content, footer) {
-  basic_css = basic_css
-              .replace(/\n/g, '\n'+tab.repeat(3))
-              .replace(/}/g, '}\n')
-              .replace(/\n$/, '');
+  css_out = css_out
+            .replace(/\n/g, '\n'+tab.repeat(3))
+            .replace(/}/g, '}\n')
+            .replace(/\n$/, '');
 
   beautify_html(header, 4);
   beautify_html(main_content, 4);
   beautify_html(footer, 4);
 
-/*
-  return  template.replace('{{header}}', escape_characters(header.html()))
-                  .replace('{{main_content}}', escape_characters(main_content.html()))
-                  .replace('{{footer}}', escape_characters(footer.html()))
-                  .replace('{{style}}', basic_css+'\n');
-*/
-
   return  template.replace('{{header}}', header.html())
                   .replace('{{main_content}}', main_content.html())
                   .replace('{{footer}}', footer.html())
-                  .replace('{{style}}', basic_css+'\n');
+                  .replace('{{style}}', css_out+'\n');
 }
-
-/*
-  header = header.replace(/\n\s+\n/g, '\n').replace(/\n\s+\n/g, '\n')
-                 .replace(/\n/g, '\n'+tab.repeat(4));
-  footer = footer.replace(/\n\s+\n/g, '\n')
-                 .replace(/\n/g, '\n'+tab.repeat(4));
-  main_content = main_content.replace(/\n\s+\n/g, '\n')
-                 .replace(/\n/g, '\n'+tab.repeat(4));
-*/

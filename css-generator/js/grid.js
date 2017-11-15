@@ -28,7 +28,7 @@ function save_file() {
   $('.item_panel', main_part).remove();
   $('.item_panel', footer).remove();
 
-  basic_css = basic_css_org;
+  css_out = basic_css_org;
   header = move_css(header, 'header');
   main_part = move_css(main_part, '#main_content');
   footer = move_css(footer, '.footer');
