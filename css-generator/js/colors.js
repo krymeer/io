@@ -50,7 +50,6 @@ function handle_rgb() {
 * Validates a hexadecimal value of the color.
 */
 function handle_hex() {
-  console.log('handled')
   var hex = $('#hex').val(),
       valid_hex = check_hex(hex),
       j = 1, rgb = [];
