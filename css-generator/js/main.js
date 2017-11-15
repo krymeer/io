@@ -29,10 +29,10 @@ function restart() {
   $('#next_step').removeClass('visible').slideUp('fast');
 }
 
+
 $(document).ready(function() {
   $('#restart').click(function() {
     restart();
   });
   $('#select_font, #vertical_alignment, #horizontal_alignment').niceSelect();
 });
-

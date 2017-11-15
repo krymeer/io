@@ -26,17 +26,6 @@ var template = '\
   </body> \n\
 </html>';
 
-/*
-* Exemplary contents of a grid item: headings, paragraphs, links and buttons
-*/
-var samples = '\
-<h1>Tytuł</h1> \n\
-<h2>Podtytuł</h2> \n\
-<blockquote>Fusce tempus at ex et finibus. Nullam at augue congue, vulputate risus et, varius ex.</blockquote>\n\
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sit amet gravida purus. Nulla rhoncus a nunc sed varius. Nullam nibh tortor, pharetra eu hendrerit et, scelerisque sed sem. Fusce volutpat in metus et elementum. Sed sed scelerisque enim.</p> \n\
-<button>Przycisk 1</button> <button>Przycisk 2</button> <button>Przycisk 3</button> \n\
-<p><a href="http://example.com/">Link 1</a> <a href="http://example.com/">Link 2</a></p>';
-
 /* 
 * A skeleton of a code of a freshly generated grid item.
 * Formatted text is inserted into the "item_contents" div
@@ -68,7 +57,6 @@ function beautify_html(elem, k) {
     convert_to_one_line(elem);
   }
 
-
   /*
   * Handles element's children (providing they have their own descendants)
   */
@@ -82,12 +70,6 @@ function beautify_html(elem, k) {
     elem.html(elem.html() + '\n' + tab.repeat(k-1))
         .html(elem.html().replace(/><(?=[A-Za-z])/g, '>\n' + tab.repeat(k) +'<'))
         .html('\n' + tab.repeat(k) + elem.html());
-
-/*
-    if (elem.hasClass('item_contents')) {
-      elem.html(elem.html().replace(/'|"|\//g, '{{$&}}'));
-    }
-*/
 
     if (elem.hasClass('grid')) {
       elem.html(elem.html().trim().replace(/^\n|\n$/g, ''));

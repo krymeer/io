@@ -1,6 +1,43 @@
 var id = 0, grids_ok = 0, number_of_columns = [1, 1, 1];
 
 /**
+* Changes settings of the grid container.
+* Supported feature: number of grid items in one row.
+* @param {object} e a grid container
+*/
+function change_grid_settings(e) {
+  var heading = $('h2', e).text();
+  heading = heading.charAt(0).toUpperCase() + heading.slice(1);
+  $('#grid_settings_popup h2').text(heading);
+  var k = e.attr('id').slice(4),
+      n = number_of_columns[k];
+  $('.grid_n').text(n);
+  $('#grid_rows_number .minus').click(function() {
+    if (n-1 > 0) {
+      n--;
+      $('.grid_n').text(n);
+    }
+  });
+  $('#grid_rows_number .plus').click(function() {
+    if (n+1 < 11) {
+      n++;
+      $('.grid_n').text(n);
+    }
+  });
+  $('#grid_settings_popup .btn').click(function() {
+    number_of_columns[k] = n;
+    var rule = '';
+    for (i = 0; i < n; i++) {
+      rule += '1fr ';
+    }
+    rule = rule.substring(0, rule.length-1);
+    $('.grid', e).css('grid-template-columns', rule);
+    close_popup('#grid_settings_popup');
+    $(this).off('click');
+  });
+}
+
+/**
 * Adds a new item to the grid container.
 * @param {object} grid the grid container
 */
@@ -14,53 +51,6 @@ function add_new_item(grid) {
     .css('background', get_random_color())
     .css('color', get_random_color());
   id += 1;
-}
-
-/**
-* Saves contents of the document to a separate file.
-*/
-function save_file() {
-  var header = $('.template.header .grid').clone(),
-      main_part = $('.template.main_part .grid').clone(),
-      footer = $('.template.footer .grid').clone();
-
-  $('.item_panel', header).remove();
-  $('.item_panel', main_part).remove();
-  $('.item_panel', footer).remove();
-
-  css_out = basic_css_org;
-  header = move_css(header, 'header');
-  main_part = move_css(main_part, '#main_content');
-  footer = move_css(footer, '.footer');
-
-  var html = create_html_template(header, main_part, footer);
-
-  var filename = $('#filename').val();
-  if (filename === '') {
-    $('#file_creator_popup .popup_err').slideDown('fast');
-  } else {
-    $('#file_creator_popup').fadeOut('fast', function() {
-      create_file(html, filename);
-      get_popup('file_save_success');
-      $('#file_save_success .btn_save, #file_save_success .btn_cancel').click(function() {
-        close_popup('#file_save_success');
-        restart();
-      });
-    });
-  }
-}
-
-/**
-* Inserts exemplary tags into the main container of the HTML template.
-*/
-function insert_samples() {
-  var item_contents = $('.main_part .item:first-of-type .item_contents');
-  if (item_contents.html() !== undefined) {
-    item_contents.html(samples);
-    item_contents.parent().addClass('with_samples');
-    $('#samples').removeClass('visible');
-    $('#choose_colors').addClass('visible');    
-  }
 }
 
 /*
@@ -114,7 +104,7 @@ $(document).ready(function() {
     });
     $('#choose_colors').click(function() {
       get_popup('list_of_schemes');
-      choose_colors();
+      choose_scheme();
     });
     $('.control_panel .icon_settings', parent).click(function() {
       get_popup('grid_settings_popup');
@@ -133,10 +123,4 @@ $(document).ready(function() {
       }
     });
   });
-/*
-  // Testing
-  $('.template:first-of-type .grid').trigger('click');
-  //$('#item_0_style').trigger('click');
-  $('#item_0_text').trigger('click');
-//*/  
 });
