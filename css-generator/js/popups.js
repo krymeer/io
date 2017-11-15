@@ -213,6 +213,18 @@ function change_item_contents(id) {
       $(this).html($(this).html().replace(/\n/g, '<br>'));
     });
 
+
+    /*
+    * If the most important element does not contain any dummy contents, the corresponding button ought to be hidden.
+    */
+    var main_item = $('.main_part .item:first-of-type .item_contents');
+    if (main_item.length > 0) {
+      var main_item_contents = main_item.html().replace(/( )?style=\"[^\"]+\"/g, '');
+      if (main_item_contents.indexOf(samples) < 0 && $('#choose_colors').css('display') !== 'none') {
+        $('#choose_colors').removeClass('visible');        
+      }
+    }
+
     close_popup('#item_text_popup');
     $(this).off('click');
     $('#item_tags .sq_btn').each(function() {
