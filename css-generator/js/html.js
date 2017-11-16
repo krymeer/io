@@ -110,3 +110,31 @@ function create_html_template(header, main_content, footer) {
                   .replace('{{footer}}', footer.html())
                   .replace('{{style}}', css_out+'\n');
 }
+
+var page_part_template = '\
+<h2></h2> \
+<div class="grid"></div> \
+<div class="no_content_panel"> \
+  <i class="icon_add_item material-icons">add_circle_outline</i> \
+  <div class="add_item_msg"> \
+    <span>Dodaj element</span> \
+  </div> \
+</div> \
+<div class="control_panel"> \
+  <i title="Ustawienia" class="icon_settings material-icons">settings</i><i title="Dodaj element" class="icon_add_item material-icons">add_circle</i> \
+</div>';
+
+var page_parts = [{'class_name': 'header', 'displayed_name': 'nagłówek'}, {'class_name': 'main_part', 'displayed_name': 'główna treść'}, {'class_name': 'footer', 'displayed_name': 'stopka'}];
+
+/**
+* Inserts parts of the template into the generator.
+*/
+function insert_parts() {
+  for (var k = 2; k >= 0; k--) {
+    var obj = $('<div/>').attr('id', 'tmp_'+k).addClass('template').addClass(page_parts[k].class_name);
+    obj.html(page_part_template);
+    obj.find('h2').text(page_parts[k].displayed_name);
+    $('#main_content').prepend(obj);
+    add_listeners(obj);
+  }
+}

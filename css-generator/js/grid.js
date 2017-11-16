@@ -47,10 +47,73 @@ function add_new_item(grid) {
     br = '\n';
   }
   grid.append(br+get_item_basic_content(id));
-  $('#item_'+id, grid)
-    .css('background', get_random_color())
-    .css('color', get_random_color());
+  $('#item_'+id, grid).css({
+    'background': get_random_color(),
+    'color': get_random_color()
+  });
   id += 1;
+}
+
+/**
+* Adds listeners to a part of the template.<br>
+* This part is actually a container of the grid object.
+* @param {object} parent a part of the template
+*/
+function add_listeners(parent) {
+  var grid = $('.grid', parent);
+  grid.click(function(e) {
+    if (e.target === this) {
+      if (!grid.hasClass('not_empty')) {
+        $('.control_panel', parent).fadeIn('fast');
+        grid.addClass('not_empty');
+        add_new_item(grid);
+        grids_ok++;
+      }
+      if (grids_ok == 3 && $('#next_step').css('display') === 'none') {
+        $('#samples').addClass('visible');
+        $('#next_step').slideDown('fast', function() {
+          $('#next_step').addClass('visible');
+        });
+      }
+    } else if (e.target.id.indexOf('item') !== -1 && e.target.id.indexOf('style') !== -1) {
+      var id = '#item_' + e.target.id.substring(
+        e.target.id.indexOf('item')+5,
+        e.target.id.indexOf('style')-1);
+      get_popup('item_style_popup');
+      $('#select_font, #vertical_alignment, #horizontal_alignment').niceSelect();
+      change_item_style(id);
+    } else if (e.target.id.indexOf('item') !== -1 && e.target.id.indexOf('text') !== -1) {
+      var id = '#item_' + e.target.id.substring(
+        e.target.id.indexOf('item')+5,
+        e.target.id.indexOf('text')-1);
+      $('#item_text_popup .popup_err').show();
+      get_popup('item_text_popup');
+      change_item_contents(id);
+    }
+  });
+  $('#samples').click(function() {
+    insert_samples();
+  });
+  $('#choose_colors').click(function() {
+    get_popup('list_of_schemes');
+    choose_scheme();
+  });
+  $('.control_panel .icon_settings', parent).click(function() {
+    get_popup('grid_settings_popup');
+    change_grid_settings(parent);
+  });
+  $('.control_panel .icon_add_item', parent).click(function() {
+    if (grid.hasClass('not_empty')) {
+      add_new_item(grid);
+      if ($('.item', grid).length == 2) { 
+        grid.sortable({
+          containment: 'parent',
+          tolerance: 'pointer'
+        });
+        grid.disableSelection();
+      }
+    }
+  });
 }
 
 /*
@@ -66,61 +129,6 @@ $(document).ready(function() {
       save_file();
     });
   });
-  $('.grid').each(function() {
-    var grid = $(this),
-        parent = grid.parent();
-    grid.click(function(e) {
-      if (e.target === this) {
-        if (!grid.hasClass('not_empty')) {
-          $('.control_panel', grid.parent()).fadeIn('fast');
-          grid.addClass('not_empty');
-          add_new_item(grid);
-          grids_ok++;
-        }
-        if (grids_ok == 3 && $('#next_step').css('display') === 'none') {
-          $('#samples').addClass('visible');
-          $('#next_step').slideDown('fast', function() {
-            $('#next_step').addClass('visible');
-          });
-        }
-      } else if (e.target.id.indexOf('item') !== -1 && e.target.id.indexOf('style') !== -1) {
-        var id = '#item_' + e.target.id.substring(
-          e.target.id.indexOf('item')+5,
-          e.target.id.indexOf('style')-1);
-        get_popup('item_style_popup');
-        $('#select_font, #vertical_alignment, #horizontal_alignment').niceSelect();
-        change_item_style(id);
-      } else if (e.target.id.indexOf('item') !== -1 && e.target.id.indexOf('text') !== -1) {
-        var id = '#item_' + e.target.id.substring(
-          e.target.id.indexOf('item')+5,
-          e.target.id.indexOf('text')-1);
-        $('#item_text_popup .popup_err').show();
-        get_popup('item_text_popup');
-        change_item_contents(id);
-      }
-    });
-    $('#samples').click(function() {
-      insert_samples();
-    });
-    $('#choose_colors').click(function() {
-      get_popup('list_of_schemes');
-      choose_scheme();
-    });
-    $('.control_panel .icon_settings', parent).click(function() {
-      get_popup('grid_settings_popup');
-      change_grid_settings(parent);
-    });
-    $('.control_panel .icon_add_item', parent).click(function() {
-      if (grid.hasClass('not_empty')) {
-        add_new_item(grid);
-        if ($('.item', grid).length == 2) { 
-          grid.sortable({
-            containment: 'parent',
-            tolerance: 'pointer'
-          });
-          grid.disableSelection();
-        }
-      }
-    });
-  });
+  
 });
+
