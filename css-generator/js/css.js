@@ -1,9 +1,7 @@
 /*
 * Very basic styling of the generated document
 */
-var basic_css_org = '\n\
-@import url("{{app_url}}/css/Saira_Semi_Condensed.css");\n\
-\n\
+var basic_css_org = '\n\n\
 html, body { \n\
   padding: 0; \n\
   margin: 0; \n\
@@ -14,7 +12,7 @@ html, body { \n\
 } \n\
 \
 #main_container { \n\
-  font-family: "Saira Semi Condensed", Verdana, Tahoma, sans-serif;\n\
+  font-family: "Saira Semi Condensed", sans-serif;\n\
   max-width: 960px; \n\
   width: 90%; \n\
   height: 100vh; \n\
@@ -32,7 +30,6 @@ div.item { \n\
   align-items: center; \n\
   display: grid; \n\
 }';
-
 
 /*
 *  Basic styling of the blockquote
@@ -77,7 +74,7 @@ div.item button { \n\
 /*
 * Flags indicating if any custom fonts are used
 */
-var no_lato = true, no_roboto = true, tab = '  ', css_out = '';
+var no_lato = true, no_roboto = true, no_saira = true, tab = '  ', css_out = '';
 
 /**
 * Converts the inlined styling into one section between <head> and </head> tags.
@@ -113,6 +110,7 @@ function move_css(grid, name) {
     var selector;
     if ($(this).hasClass('item')) {
       selector = $(this).attr('id');
+
     } else if ($(this).parent().hasClass('item_contents')) {
       var tag_name = $(this).prop('nodeName').toLowerCase(),
           id = $(this).attr('id');
@@ -132,21 +130,29 @@ function move_css(grid, name) {
     var s = '\n#' + selector + ' {\n' + tab + style + '\n}';
     if (css_out.indexOf(s) === -1) {
       css_out += s;
-    }1
-    if (style.indexOf('Roboto') >= 0 && no_roboto) {
-      css_out = '\n@import url("{{app_url}}/css/Roboto.css");' + css_out;
     }
-    if (style.indexOf('Lato') >= 0 && no_lato) {
-      css_out = '\n@import url("{{app_url}}/css/Lato.css");' + css_out;
-    }
-    $(this).removeAttr('style');
 
+    /*
+    * Include the file paths of the fonts' files if any are used
+    */
     var url = window.location.href, i = url.indexOf('.html');
     if (i >= 0) {
       url = url.substring(url, url.lastIndexOf('/'));
     }
+    if (no_roboto && style.indexOf('Roboto') >= 0) {
+      css_out = '\n@import url("'+ url +'/css/Roboto.css");' + css_out;
+      no_roboto = false;
+    }
+    if (no_lato && style.indexOf('Lato') >= 0) {
+      css_out = '\n@import url("'+ url +'/css/Lato.css");' + css_out;
+      no_lato = false;
+    }
+    if (no_saira && css_out.indexOf('Saira Semi Condensed') >= 0 ) {
+      css_out = '\n@import url("'+ url +'/css/Saira_Semi_Condensed.css");' + css_out;
+      no_saira = false;
+    }
 
-    css_out = css_out.replace('{{app_url}}', url);
+    $(this).removeAttr('style');
   });
   return grid;
 }
