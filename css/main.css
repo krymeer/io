@@ -111,3 +111,10 @@ section p:first-of-type {
   top: 0;
   left: 0;
 }
+
+#sorry_note {
+  display: block;
+  margin-top: 1rem;
+  background: #713E5A;
+  padding: .5rem;
+}
