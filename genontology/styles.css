@@ -1,0 +1,118 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+}
+
+body, button, input, textarea {
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;    
+}
+
+button, input, textarea, select {
+    outline: none;
+}
+
+#main-container {
+    margin: 15px auto;
+    width: 90%;
+    max-width: 960px;
+}
+
+#list-of-persons {
+    margin: 0 0 10px 0;
+    padding: 0;
+    grid-row: span 2;
+}
+
+#add-person-form {
+    display: none;
+    margin-top: 10px;
+    background: #ededed;
+    padding: 5px;
+}
+
+#add-person-form input, #add-person-form select {
+    width: 250px;
+    height: 25px;
+    background: #fff;
+    padding: 0;
+    margin: 2.5px 0 7.5px 0;
+    font-size: 12px;
+}
+
+#add-person-form input {
+    padding: 0 5px;
+}
+
+#add-person-form button {
+    display: block;
+    position: relative;
+}
+
+#save-data-box {
+    display: none;
+}
+
+#save-data {
+    background: #ff0000;
+    color: #fff;
+    font-size: 22px;
+    margin: 10px auto;
+    display: block;
+    border: 1px solid #900;
+    cursor: pointer;
+}
+
+#save-data:hover {
+    background: #d00;
+}
+
+#simple-grid {
+    display: grid;
+    grid-template-columns: 1fr 450px;
+    grid-template-rows: auto 1fr;
+}
+
+#open-file-box {
+    justify-self: end;
+}
+
+#open-file {
+    cursor: pointer;
+    background: #fffe1c;
+    border: 1px solid #000;
+}
+
+#open-file:hover {
+    background: #f9f800;
+}
+
+#open-file-input {
+    display: none;
+}
+
+.person {
+    cursor: pointer;
+}
+
+.person:hover {
+    color: #248232;
+}
+
+#person-details-box {
+    grid-column: 2;
+    align-self: start;
+    background: #f4dbd8;
+    display: none;
+    border: 1px solid #000;
+    margin-top: 20px;
+    padding: 10px;
+}
+
+#person-details-box > div:first-child {
+    font-size: 24px;
+    font-weight: bold;
+}

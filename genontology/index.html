@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pl">
+    <head>
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <meta charset="utf-8">
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script src="script.js"></script>
+        <title>GenOntology</title>
+        <link rel="stylesheet" type="text/css" href="styles.css">
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    </head>
+    <body>
+        <div id="main-container">
+            <div id="simple-grid">
+                <ul id="list-of-persons">
+                    <div id="list-empty">Lista osób jest pusta</div>
+                </ul>
+                <div id="open-file-box">
+                    <button id="open-file">Dodaj dane z pliku</button>
+                    <input id="open-file-input" type="file">
+                </div>
+                <div id="person-details-box"></div>
+            </div>
+            <button id="add-person">Dodaj osobę</button>
+            <div id="add-person-form">
+                <div>Imię (imiona)</div>
+                <input type="text" id="person-first-name">
+                <div>Nazwisko</div>
+                <input type="text" id="person-last-name">
+                <div>Płeć</div>
+                <select id="person-sex">
+                    <option data-person-sex="M">Mężczyzna</option>
+                    <option data-person-sex="F">Kobieta</option>
+                </select>
+                <div>Ojciec</div>
+                <select id="person-parent-M" data>
+                    <option data-person-id="-1">Żaden z powyższych</option>
+                </select>
+                <div>Matka</div>
+                <select id="person-parent-F">
+                    <option data-person-id="-1">Żadna z powyższych</option>
+                </select>
+                <button id="save-person">Zapisz</button>
+            </div>
+            <div id="save-data-box">
+                <button id="save-data">Zapisz dane</button>
+            </div>
+        </div>
+    </body>
+</html>
