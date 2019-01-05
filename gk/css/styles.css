@@ -1,0 +1,13 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    background: #ddd;
+}
+
+#game-canvas {
+    background: #fff;
+    display: block;
+    margin: 20px auto;
+    border: 1px solid #000;
+}
