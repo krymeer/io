@@ -217,7 +217,7 @@ window.onload = function() {
     function drawWelcome()
     {
         ctx.font        = fontStyle;
-        ctx.fillStyle   = colors.red;
+        ctx.fillStyle   = colors.white;
         ctx.textAlign   = 'center';
         ctx.fillText( 'Press Space to start the game!', canvas.width / 2, canvas.height / 2 );
         ctx.strokeStyle = colors.white;
