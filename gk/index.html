@@ -1,12 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Gamedev Canvas Workshop</title>
+        <title>Simple 2D Breakout Game</title>
         <meta charset="utf-8">
-        <link rel="stylesheet" type="text/css" href="css/styles.css">
+        <link href="css/styles.css" rel="stylesheet" type="text/css" >
+        <link href="https://fonts.googleapis.com/css?family=Nova+Mono|Roboto+Mono|Ubuntu+Mono" rel="stylesheet">
     </head>
     <body>
-        <canvas id="game-canvas" width="480" height="320"></canvas>
-        <script src="js/script.js"></script>
+        <div id="main-container">
+            <header>
+                <h1>Simple 2D Breakout Game</h1>
+                <div id="header-caption">
+                    Based on <a href="https://developer.mozilla.org/en-US/docs/Games/Tutorials/2D_Breakout_game_pure_JavaScript" target="_blank">MDN's <i>2D breakout game using pure JavaScript</i></a> and many others
+                </div>
+            </header>
+            <canvas id="game-canvas" width="600" height="400"></canvas>
+            <script src="js/script.js"></script>
+            <footer>
+                &copy; 2018 Krzysztof R. Osada | <a href="https://github.com/krymeer/krymeer.github.io/tree/master/gk">about the project</a> | <a href="mailto:krzysztof.radoslaw.osada@gmail.com">contact me</a>
+            </footer>
+        </div>
     </body>
 </html>
