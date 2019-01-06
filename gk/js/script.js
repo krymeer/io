@@ -41,13 +41,13 @@ window.onload = function() {
     /*
      * Variables related to bricks
      */
-    const brickRowCount       = 3;
-    const brickColumnCount    = 5;
-    const brickWidth          = 75;
-    const brickHeight         = 20;
-    const brickPadding        = 10;
-    const brickOffsetTop      = 49;
-    const brickOffsetLeft     = 30;
+    const brickPadding      = 10;
+    const brickOffsetTop    = 49;
+    const brickOffsetLeft   = 15;
+    const brickColumnCount  = 8;
+    const brickRowCount     = 5;
+    const brickWidth        = ( canvas.width - 2 * brickOffsetLeft - brickPadding * ( brickColumnCount - 1 ) ) / brickColumnCount;
+    const brickHeight       = 20;
     var bricks;
 
     /*
@@ -117,11 +117,20 @@ window.onload = function() {
 
     function onMouseMove( e )
     {
-        var relativeX = e.clientX - canvas.offsetLeft;
+        var relativeX = e.clientX - canvas.offsetLeft;;
 
         if( relativeX > 0 && relativeX < canvas.width )
         {
             paddleX = relativeX - paddleWidth / 2;
+
+            if( paddleX < 0 )
+            {
+                paddleX = 0;
+            }
+            else if( paddleX + paddleWidth > canvas.width )
+            {
+                paddleX = canvas.width - paddleWidth;
+            }
         }
     }
 
