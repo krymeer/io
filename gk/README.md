@@ -8,8 +8,8 @@ Feel free to re-use it and give me any feedback you want.
 * Bricks could move just like in the original (Arcanoid).
 * The game ought to pause if there is no focus on its parent window.
 * Collisions between the ball and the bricks should be better in a better way.
-* -The paddle (when moved by the mouse) is able to leave the canvas (partly).-
-* -There ought to be more bricks than now.-
+* ~~The paddle (when moved by the mouse) is able to leave the canvas (partly).~~
+* ~~There ought to be more bricks than now.~~
 * Each collision could be accompanied by sound.
 
 ### Sources (sorted alphabetically):
