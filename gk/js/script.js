@@ -1,3 +1,7 @@
+/*
+ * (c) 2018 Krzysztof Osada
+ */
+
 window.onload = function() {
     /*
      * Variables related to the canvas (UI)
@@ -23,6 +27,7 @@ window.onload = function() {
      */
     var leftPressed     = false;
     var rightPressed    = false;
+    var gamePaused      = false;
     var gameOver        = false;
     var gameCompleted   = false;
     var gameStarted     = false;
@@ -45,10 +50,10 @@ window.onload = function() {
     const brickOffsetTop    = 49;
     const brickOffsetLeft   = 15;
     const brickColumnCount  = 8;
-    const brickRowCount     = 5;
+    const brickRowInitCount = 3;
     const brickWidth        = ( canvas.width - 2 * brickOffsetLeft - brickPadding * ( brickColumnCount - 1 ) ) / brickColumnCount;
-    const brickHeight       = 20;
-    var bricks;
+    const brickHeight       = 30;
+    var bricks, brickRowCount, brickCtr;
 
     /*
      * Variables related to the paddle
@@ -78,6 +83,7 @@ window.onload = function() {
             }
         }
 
+        gamePaused      = false;
         gameOver        = false;
         gameCompleted   = false;
         gameStarted     = true;
@@ -87,6 +93,7 @@ window.onload = function() {
         y               = canvas.height - 30;
         dx              = 2;
         dy              = -2;
+        brickCtr        = 0;
     }
 
     function onCollisionDetect()
@@ -106,7 +113,7 @@ window.onload = function() {
                     brick.status    = 0;
                     score++;
 
-                    if( score === brickRowCount * brickColumnCount )
+                    if( allBricksInvisible() )
                     {
                         gameCompleted = true;
                     }
@@ -180,20 +187,20 @@ window.onload = function() {
             secondLineText  = 'You lost this time!';
             thirdLineText   += ' to play an another round!'
         }
-        else if( type == 'gameOver')
+        else if( type === 'gameOver')
         {
             headerText      = 'Game Over';
             headerColor     = colors.red;
             secondLineText  = 'Number of points scored: ';
         }
-        else if( type == 'gameCompleted' )
+        else if( type === 'gameCompleted' )
         {
             headerText      = 'You Win!';
             headerColor     = colors.accentAlt;
             secondLineText  = 'Congrats! Your score is: ';
         }
 
-        if( type == 'gameOver' || type === 'gameCompleted' )
+        if( type === 'gameOver' || type === 'gameCompleted' )
         {
             secondLineText  += score + '.';
             thirdLineText   += ' to play again.';
@@ -249,6 +256,23 @@ window.onload = function() {
         ctx.closePath();
     }
 
+    function allBricksInvisible()
+    {
+        for( var c = 0; c < brickColumnCount; c++ )
+        {
+            for( var r = 0; r < brickRowCount; r++ )
+            {
+                if( bricks[ c ][ r ].status === 1 )
+                {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+
     function makeAllBricksVisible()
     {
         for( var c = 0; c < brickColumnCount; c++ )
@@ -260,6 +284,41 @@ window.onload = function() {
                 }
             }
         }
+    }
+
+    function anyBrickBelowBottom()
+    {
+        for( var c = 0; c < brickColumnCount; c++ )
+        {
+            for( var r = 0; r < brickRowCount; r++ )
+            {
+                var bX = bricks[ c ][ r ].x;
+                var bY = bricks[ c ][ r ].y;
+
+                if( bY + brickHeight > canvas.height || ( bY + brickHeight >= canvas.height - paddleHeight && bX + brickWidth > paddleX &&  bX < paddleX + paddleWidth ) )
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    function addBrickRow()
+    {
+        for( var c = 0; c < brickColumnCount; c++ )
+        {
+            var brick = {
+                x       : 0,
+                y       : 0,
+                status  : 1
+            }
+
+            bricks[ c ].unshift( brick );
+        }
+
+        brickRowCount++;
     }
 
     function buildBricks()
@@ -325,55 +384,74 @@ window.onload = function() {
 
     function draw()
     {
-        ctx.clearRect( 0, 0, canvas.width, canvas.height );
-        drawBackground();
-        drawTopBar();
-        drawBricks();
-        drawBall();
-        drawPaddle();
-        drawLives();
-        drawScore();
-        onCollisionDetect();
+        onPageFocusChange();
 
-        if( y + dy < ballRadius + 34 )
+        if( !gamePaused )
         {
-            dy = -dy;
-        }
-        else if ( x > paddleX && x < paddleX + paddleWidth && y + ballRadius === canvas.height - paddleHeight )
-        {
-            dy = -dy;
-        }
-        else if( y === canvas.height - ballRadius )
-        {
-            gameStarted = false;
+            if( brickCtr % 500 === 0 )
+            {
+                addBrickRow();
+            }
 
-            if( !lives )
+            ctx.clearRect( 0, 0, canvas.width, canvas.height );
+            drawBackground();
+            drawTopBar();
+            drawBricks();
+            drawBall();
+            drawPaddle();
+            drawLives();
+            drawScore();
+            onCollisionDetect();
+
+
+            if( anyBrickBelowBottom() )
             {
                 gameOver = true;
             }
             else
             {
-                lives--;
-                liveLost = true;
+                if( y + dy < ballRadius + 34 )
+                {
+                    dy = -dy;
+                }
+                else if ( x > paddleX && x < paddleX + paddleWidth && y + ballRadius >= canvas.height - paddleHeight )
+                {
+                    dy = -dy;
+                }
+                else if( y >= canvas.height - ballRadius )
+                {
+                    gameStarted = false;
+
+                    if( !lives )
+                    {
+                        gameOver = true;
+                    }
+                    else
+                    {
+                        lives--;
+                        liveLost = true;
+                    }
+                }
+
+                if( x + dx < ballRadius || x + dx > canvas.width - ballRadius )
+                {
+                    dx = -dx;
+                }
+
+                if( rightPressed && paddleX < canvas.width - paddleWidth )
+                {
+                    paddleX += 7;
+                }
+                else if( leftPressed && paddleX > 0 )
+                {
+                    paddleX -= 7;
+                }
             }
-        }
 
-        if( x + dx < ballRadius || x + dx > canvas.width - ballRadius )
-        {
-            dx = -dx;
+            x += dx;
+            y += dy;
+            brickCtr++;
         }
-
-        if( rightPressed && paddleX < canvas.width - paddleWidth )
-        {
-            paddleX += 7;
-        }
-        else if( leftPressed && paddleX > 0 )
-        {
-            paddleX -= 7;
-        }
-
-        x += dx;
-        y += dy;
 
         if( gameStarted && !gameOver && !gameCompleted && !liveLost )
         {
@@ -398,21 +476,30 @@ window.onload = function() {
         }
     }
 
+    function startGame()
+    {
+        brickRowCount = brickRowInitCount;
+        buildBricks();
+        setInitState();
+        draw();
+    }
+
+    function onPageFocusChange()
+    {
+        if( document.hasFocus() )
+        {
+            gamePaused = false;
+        }
+        else
+        {
+            gamePaused = true;
+        }
+    }
+
     document.addEventListener( 'mousemove', onMouseMove, false );
     document.addEventListener( 'keydown', onKeyDown, false );
     document.addEventListener( 'keyup', onKeyUp, false );
 
     drawBackground();
     drawWelcome();
-
-    function startGame()
-    {
-        if( typeof bricks === 'undefined' )
-        {
-            buildBricks();
-        }
-
-        setInitState();
-        draw();
-    }
 }
