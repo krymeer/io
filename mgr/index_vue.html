@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pl">
+    <head>
+        <title>JSON Data Handler</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu+Mono" rel="stylesheet">
+        <link href="./css/styles.css" rel="stylesheet">
+        <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <script src="./js/index.js"></script>
+        <script type="text/javascript">
+            /*
+            $( function() {
+                $.ajax( {
+                    dataType    : 'json',
+                    url         : './data.json',
+                } )
+                .done( function( data, textStatus, xhr ) {
+                    var tableBody = $( 'table > tbody' );
+
+                    for( var i = 0; i < data.length; i++ )
+                    {
+                        var tr = $( '<tr/>' );
+
+                        for( var key in data[ i ] )
+                        {
+                            if( data[ i ].hasOwnProperty( key ) )
+                            {
+                                $( '<td/>' ).addClass( 'person_' + key ).text( data[ i ][ key ] ).appendTo( tr );
+                            }
+                        }
+
+                        tr.appendTo( tableBody );
+                    }
+
+                } )
+                .fail( function( xhr, textStatus, errorThrown ) {
+                    console.error( textStatus + ': ' + errorThrown );
+                } );
+
+                $( '#button' ).click( function() {
+                    var dataArr = [];
+
+                    $( 'table > tbody > tr' ).each( function() {
+                        var tr  = $( this ); 
+                        var obj = {};
+
+                        tr.children( 'td' ).each( function() {
+                            var key = $( this ).attr( 'class' ).replace( 'person_', '' );
+                            var val = $( this ).text();
+                            obj[ key ] = val;
+                        } );
+
+                        dataArr.push( obj );
+                    } );
+
+                    if( dataArr.length > 0 )
+                    {
+                        $.ajax( {
+                            method  : 'POST',
+                            data    : { results : dataArr },
+                            //url     : '//php.mgr.lo/get_data.php'
+                            url     : '//data-entry-handler.herokuapp.com/get_data.php'
+                        } )
+                        .done( function( data, textStatus, xhr ) {
+                            console.log( data );
+                        } )
+                        .fail( function( xhr, textStatus, errorThrown ) {
+                            console.error( textStatus + ': ' + errorThrown );
+                        } );
+                    }
+                } );
+            } );
+            */
+        </script>
+    </head>
+    <body>
+        <div id="app">
+            {{ message }}
+            <table>
+                <thead>
+                    <tr>
+                        <td>Nazwisko</td> <td>Imię</td> <td>Data urodzenia</td> <td>Zawód</td> <td>Wykształcenie</td>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+            <div id="btn-grid">
+                <div class="btn btn-red">
+                    Wyślij dane
+                </div>
+                <div class="btn">
+                    Pobierz dane
+                </div>
+                <btn v-on:click="$emit('blah')">
+                </btn>
+            </div>
+        </div>
+    </body>
+</html>
