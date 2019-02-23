@@ -1,7 +1,16 @@
 function getCurrentDate()
 {
-    // TODO
-    // https://stackoverflow.com/questions/3552461/how-to-format-a-javascript-date
+    var date = new Date();
+    var y    = date.getFullYear();
+    var m    = ( '0' + ( date.getMonth() + 1 ) ).slice( -2 );
+    var d    = ( '0' + date.getDate() ).slice( -2 );
+    var h    = ( '0' + date.getHours() ).slice( -2 );
+    var i    = ( '0' + date.getMinutes() ).slice( -2 );
+    var s    = ( '0' + date.getSeconds() ).slice( -2 );
+
+    date     = y + m + d + '_' + h + i + s;
+
+    return date;
 }
 
 function getDataArray()
@@ -113,8 +122,7 @@ function downloadData()
             return false;
         }
 
-        d = d.toISOString().slice( 0, 19 ).replace( /[\-\:]+/ig, '' ).replace( 'T', '_' );
-        filename = 'results_' + d + '.csv';
+        filename = 'results_' + getCurrentDate() + '.csv';
 
         elem.attr( {
             href     : 'data:text/csv;charset=ISO-8859-2,' + encodeURIComponent( out ),
