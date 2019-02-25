@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Grid examples ‒ align-content</title>
+    <link href="https://fonts.googleapis.com/css?family=Nova+Mono" rel="stylesheet">
+    <style>
+    </style>
+    <link rel="stylesheet" type="text/css" href="../css/ex/12.css">
+    <link rel="stylesheet" type="text/css" href="../css/ex.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+  <body>
+    <div id="main_box">
+      <header>
+        <h1>
+          align-content
+        </h1>
+      </header>
+
+      <div class="grid_wrapper block">
+        <div class="container container1">
+          <div class="item item1">
+            <div class="text">
+              item1
+            </div>
+          </div>
+          <div class="item item2">
+            <div class="text">
+              item2
+            </div>
+          </div>
+          <div class="item item3">
+            <div class="text">
+              item3
+            </div>
+          </div>
+        </div><div class="container container2">
+          <div class="item item1">
+            <div class="text">
+              item1
+            </div>
+          </div>
+          <div class="item item2">
+            <div class="text">
+              item2
+            </div>
+          </div>
+          <div class="item item3">
+            <div class="text">
+              item3
+            </div>
+          </div>
+        </div><div class="container container3">
+          <div class="item item1">
+            <div class="text">
+              item1
+            </div>
+          </div>
+          <div class="item item2">
+            <div class="text">
+              item2
+            </div>
+          </div>
+          <div class="item item3">
+            <div class="text">
+              item3
+            </div>
+          </div>
+        </div><div class="container container4">
+          <div class="item item1">
+            <div class="text">
+              item1
+            </div>
+          </div>
+          <div class="item item2">
+            <div class="text">
+              item2
+            </div>
+          </div>
+          <div class="item item3">
+            <div class="text">
+              item3
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="wrapper">
+        <pre><code>.grid_wrapper .container {
+  grid-template: repeat(3, 100px) / 1fr 1fr 1fr;
+}
+
+.container1 /* top left */ {
+  align-content: space-around;
+}
+
+.container2 /* top right */ {
+  align-content: space-evenly;
+}
+
+.container3 /* bottom left */ {
+  align-content: space-between;
+}
+
+.container4 /* bottom right */ {
+  align-content: center;
+}</code></pre>
+      </div>
+
+      <div class="note">There is an another problem with setting 'align-' attributes on the inlined grids ‒ their alignment goes crazy.<br/>The keyword 'stretch' does not work for the 'align-content' property despite no reasonable explanation.<br/>Last but not least, W3 CSS Validator does not recognise the 'space-evenly' value.<br/></div>
+
+      <footer>
+        <a href="https://validator.w3.org/nu/?doc=https%3A%2F%2Fkrymeer.github.io%2Fex%2F12.html" target="blank">HTML5</a> | <a href="https://jigsaw.w3.org/css-validator/validator?uri=https%3A%2F%2Fkrymeer.github.io%2Fex%2F12.html&profile=css3&usermedium=all&warning=1&vextwarning=&lang=en" target="blank">CSS3</a> | <a href="../index.html">main page</a>
+      </footer>
+    </div>
+  </body>
+</html>

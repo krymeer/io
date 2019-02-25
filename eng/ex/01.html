@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Grid examples ‒ grid-column / grid-row</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nova+Mono">
+    <link rel="stylesheet" type="text/css" href="../css/ex/01.css">
+    <link rel="stylesheet" type="text/css" href="../css/ex.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+  <body>
+    <div id="main_box">
+      <header>
+        <h1>
+          grid-column / grid-row
+        </h1>
+      </header>
+
+      <div class="grid_wrapper">
+        <div class="container container1">
+          <div class="item item1">
+            <div class="text">
+              grid-row:<br/>1 / 4;<br/>
+              grid-column:<br/>1 / 2;
+            </div>
+          </div>
+          <div class="item item2">
+            <div class="text">
+              grid-column: 2 / span 2;<br/>
+              grid-row: 1 / span 2;
+            </div>
+          </div>
+          <div class="item item3">
+            <div class="text">
+              grid-column: 2 / 4;<br/>
+              grid-row: 3 / 4;
+            </div>
+          </div>
+        </div><div class="container container2">
+          <div class="item item1">
+            <div class="text">
+              grid-row-start: 1;<br/>
+              grid-row-end: 2;<br/>
+              grid-column-start: 1;<br/>
+              grid-column-end: 4;
+            </div>
+          </div>
+          <div class="item item2">
+            <div class="text">
+              grid-row-start: 2;<br/>
+              grid-row-end: 3;<br/>
+              grid-column-start: 1;<br/>
+              grid-column-end: 4;
+            </div>
+          </div>
+          <div class="item item3">
+            <div class="text">
+              grid-row-start: 3;<br/>
+              grid-row-end: 4;<br/>
+              grid-column-start: 1;<br/>
+              grid-column-end: 4;
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <a href="https://validator.w3.org/nu/?doc=https%3A%2F%2Fkrymeer.github.io%2Fex%2F01.html" target="blank">HTML5</a> | <a href="https://jigsaw.w3.org/css-validator/validator?uri=https%3A%2F%2Fkrymeer.github.io%2Fex%2F01.html&profile=css3&usermedium=all&warning=1&vextwarning=&lang=en" target="blank">CSS3</a> | <a href="../index.html">main page</a>
+      </footer>
+    </div>
+  </body>
+</html>
