@@ -51,28 +51,42 @@ function getDataArray()
 
 function sendData()
 {
-    var dataArr = getDataArray();
+    var dataArr     = getDataArray();
+    var requestURL;
     var request;
 
     if( dataArr.length > 0 )
     {
+        if( location.hostname === 'front.mgr' )
+        {
+            requestURL = '//back.mgr';
+        }
+        else
+        {
+            requestURL = 'https://data-entry-handler.herokuapp.com';
+        }
+
+        requestURL += '/?do=send&what=data';
+
         request = $.ajax( {
             method : 'POST',
-            data   :  { results : dataArr },
-            url    : '//back.mgr/index.php?do=send&what=data'
-            //url    : '//data-entry-handler.herokuapp.com/get_data.php'
-        } )
+            data   : { results : dataArr },
+            url    : requestURL
+        } );
         
         request.done( function( response, textStatus, xhr ) {
             response = JSON.parse( response );
 
-            if( response[ 'type' ] === 'error' )
+            for( var k = 0; k < response.length; k++ )
             {
-                console.error( response[ 'msg' ] );
-            }
-            else
-            {
-                console.log( response[ 'msg' ] );
+                if( response[ k ][ 'type' ] === 'error' )
+                {
+                    console.error( response[ k ][ 'msg' ] );
+                }
+                else
+                {
+                    console.log( response[ k ][ 'msg' ] );
+                }
             }
          } );
 
