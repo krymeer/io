@@ -6,28 +6,38 @@
             "values" : [
                 {
                     "id"    : "userId",
-                    "name"  : "Identyfikator użytkownika",
-                    "value" : 0
+                    "name"  : "Identyfikator",
+                    "value" : 51
+                },
+                {
+                    "id"    : "userFirstName",
+                    "name"  : "Imię",
+                    "value" : "Jan"
+                },
+                {
+                    "id"    : "userLastName",
+                    "name"  : "Nazwisko",
+                    "value" : "Kowalski"
                 },
                 {
                     "id"    : "userAge",
                     "name"  : "Wiek",
-                    "value" : 23
+                    "value" : 60
                 },
                 {
                     "id"    : "userEdu",
                     "name"  : "Wykształcenie",
-                    "value" : "Wyższe (inż.)"
+                    "value" : "Zasadnicze zawodowe"
                 },
                 {
                     "id"    : "userJob",
                     "name"  : "Zawód",
-                    "value" : "Programista"
+                    "value" : "Piekarz"
                 },
                 {
                     "id"    : "userFreq",
                     "name"  : "Częstość korzystania z aplikacji webowych",
-                    "value" : "Co najmniej 8 h dziennie" 
+                    "value" : "Co najwyżej 1 h dziennie"
                 }
             ]
         },
