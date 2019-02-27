@@ -13,10 +13,11 @@ function getCurrentDate()
     return date;
 }
 
-function getDataArray()
+function getDataObject()
 {
-    var dataArr    = [];
     var dataGroups = $( '.prop-section-items' );
+    var dataKeys   = [];
+    var dataVals   = [];
 
     for( var i = 0; i < dataGroups.length; i++ )
     {
@@ -33,29 +34,25 @@ function getDataArray()
             {
                 dataKey = dataKey.replace( 'prop-item-value-', '' );
 
-                if( dataVal !== '' )
+                if( dataKey !== '' && dataVal !== '' )
                 {
-                    var dataObj = {};
-                    dataObj[ dataKey ] = dataVal;
-                    dataArr.push( { 
-                        key     : dataKey, 
-                        value   : dataVal
-                    } );
+                    dataKeys.push( dataKey );
+                    dataVals.push( dataVal );
                 }
             }
         }
     }
 
-    return dataArr;
+    return { 'keys' : dataKeys, 'values' : dataVals };
 }
 
 function sendData()
 {
-    var dataArr     = getDataArray();
+    var dataObj = getDataObject();
     var requestURL;
     var request;
 
-    if( dataArr.length > 0 )
+    if( typeof dataObj[ 'keys' ] !== 'undefined' && typeof dataObj[ 'values' ] !== 'undefined' )
     {
         if( location.hostname === 'front.mgr' )
         {
@@ -70,7 +67,7 @@ function sendData()
 
         request = $.ajax( {
             method : 'POST',
-            data   : { results : dataArr },
+            data   : { results : dataObj },
             url    : requestURL
         } );
         
@@ -102,44 +99,26 @@ function sendData()
  */
 function downloadData()
 {
-    var dataArr = getDataArray();
+    var dataObj = getDataObject();
+    var keys    = dataObj[ 'keys' ];
+    var values  = dataObj[ 'values' ];
 
-    if( dataArr.length > 0 )
+    if( typeof keys !== 'undefined' && typeof values !== 'undefined' )
     {
-        var keys     = [];
-        var values   = [];
-        var elem     = $( '<a/>' );
-        var d        = new Date();
-        var out      = '';
         var filename = '';
-
-        for( var k = 0; k < dataArr.length; k++ )
-        {
-            var key = dataArr[ k ][ 'key' ];
-            var val = dataArr[ k ][ 'value' ];
-            
-            if( typeof key !== 'undefined' )
-            {
-                keys.push( key );
-            }
-            
-            if( typeof val !== 'undefined' )
-            {
-                values.push( val );
-            }
-        }
-
-        out    = keys.join( ',' ) + '\n' + values.join( ',' );
+        var elem     = $( '<a/>' );
+        var out      = keys.join( ',' ) + '\n' + values.join( ',' );
+        var d        = new Date();
 
         if( out.replace(/\s/g, '' ) === '' )
         {
             return false;
         }
 
-        filename = 'results_' + getCurrentDate() + '.csv';
+        filename = 'results_' + getCurrentDate() + '.txt';
 
         elem.attr( {
-            href     : 'data:text/csv;charset=ISO-8859-2,' + encodeURIComponent( out ),
+            href     : 'data:text/plain;charset=utf-8,' + encodeURIComponent( out ),
             download : filename
         } );
 
