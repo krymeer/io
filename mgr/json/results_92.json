@@ -1,0 +1,87 @@
+{ 
+    "sections" : [
+        {
+            "id"    : "basics",
+            "name"  : "Podstawowe informacje",
+            "values" : [
+                {
+                    "id"    : "userId",
+                    "name"  : "Identyfikator",
+                    "value" : 25
+                },
+                {
+                    "id"    : "userFirstName",
+                    "name"  : "Imię",
+                    "value" : "Franciszek"
+                },
+                {
+                    "id"    : "userLastName",
+                    "name"  : "Nazwisko",
+                    "value" : "Szecówka"
+                },
+                {
+                    "id"    : "userAge",
+                    "name"  : "Wiek",
+                    "value" : 126
+                },
+                {
+                    "id"    : "userEdu",
+                    "name"  : "Wykształcenie",
+                    "value" : "Inne"
+                },
+                {
+                    "id"    : "userJob",
+                    "name"  : "Zawód",
+                    "value" : "Rolnik"
+                },
+                {
+                    "id"    : "userFreq",
+                    "name"  : "Częstość korzystania z aplikacji webowych",
+                    "value" : "Bardzo rzadko bądź wcale"
+                }
+            ]
+        },
+        {
+            "id"     : "param1",
+            "name"   : "Parametr nr 1",
+            "values" : [
+                {
+                    "id"    : "param1Task1",
+                    "name"  : "Zadanie nr 1",
+                    "value" : "1/1"
+                },
+                {
+                    "id"    : "param1Task2",
+                    "name"  : "Zadanie nr 2",
+                    "value" : "1/2"
+                },
+                {
+                    "id"    : "param1Task3",
+                    "name"  : "Zadanie nr 3",
+                    "value" : "1/3"
+                }
+            ]
+        },
+        {
+            "id"     : "param2",
+            "name"   : "Parametr nr 2",
+            "values" : [
+                {
+                    "id"    : "param2Task1",
+                    "name"  : "Zadanie nr 1",
+                    "value" : "2/1"
+                },
+                {
+                    "id"    : "param2Task2",
+                    "name"  : "Zadanie nr 2",
+                    "value" : "2/2"
+                },
+                {
+                    "id"    : "param2Task3",
+                    "name"  : "Zadanie nr 3",
+                    "value" : "2/3"
+                }
+            ]
+        }
+    ]
+}

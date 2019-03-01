@@ -133,11 +133,12 @@ function downloadData()
 }
 
 $( function() {
-    var request;
+    var userIds = [ 25, 51, 89, 92, 95 ];
+    var userId  = userIds[ Math.floor( Math.random() * userIds.length ) ];
 
-    request = $.ajax( {
+    var request = $.ajax( {
         method : 'GET',
-        url    : './json/results.json',
+        url    : './json/results_' + userId + '.json',
     } );
     
     request.done( function( data, textStatus, xhr ) {
