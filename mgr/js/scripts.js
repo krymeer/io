@@ -46,11 +46,16 @@ function getDataObject()
     return { 'keys' : dataKeys, 'values' : dataVals };
 }
 
-function sendData()
+function sendData( btn )
 {
     var dataObj = getDataObject();
     var requestURL;
     var request;
+
+    btn.addClass( 'disabled' );
+    btn.children( '.btn-loader' ).css( 'opacity', 1 );
+    btn.children( 'span' ).css( 'opacity', 0 );
+
 
     if( typeof dataObj[ 'keys' ] !== 'undefined' && typeof dataObj[ 'values' ] !== 'undefined' )
     {
@@ -89,6 +94,12 @@ function sendData()
 
         request.fail( function( xhr, textStatus, errorThrown ) {
             console.error( textStatus + ': ' + errorThrown );
+        } );
+
+        request.always( function( a, textStatus, b ) {
+            btn.removeClass( 'disabled' );
+            btn.children( '.btn-loader' ).css( 'opacity', 0 );
+            btn.children( 'span' ).css( 'opacity', 1 );
         } );
     }
 }
@@ -220,7 +231,10 @@ $( function() {
     } );
 
     $( '#action-send' ).click( function() {
-        sendData();
+        if( !$( this ).hasClass( 'disabled' ) )
+        {
+            sendData( $( this ) );
+        }
     } );
 
     $( '#action-download' ).click( function() {
