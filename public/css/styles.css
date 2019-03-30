@@ -1,0 +1,191 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+main section > form, main section > table {
+  background: #fff;
+  border: 2px solid #eee;
+  color: #212121;
+}
+
+main section > table th, main section > table td {
+  border: 0;
+  border-bottom: 1px solid #eee;
+}
+
+body > * > *, main section > * {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+main section > * {
+  margin-top: 14px;
+  margin-bottom: 14px;
+}
+
+main > section > section {
+  margin-top: 21px;
+  margin-bottom: 21px;
+}
+
+main > section, main section > form, main section > table {
+  margin-top: 28px;
+  margin-bottom: 28px;
+}
+
+main {
+  padding-top: 56px;
+  padding-bottom: 56px;
+}
+
+main section > form .wrapper, main section > table th, main section > table td {
+  padding: 14px;
+}
+
+main p {
+  letter-spacing: 0.1px;
+  font-size: 16px;
+}
+
+main section > form .wrapper label, main section > form .wrapper input, main section > table th, main section > table td {
+  letter-spacing: 0.1px;
+  font-size: 14px;
+}
+
+main section > form, main section > table, main button {
+  border-radius: 4px;
+}
+
+header {
+  background: #a63446;
+  height: 256px;
+  padding: 115px 0 0 0;
+  color: #fff;
+  font-size: 56px;
+}
+
+main {
+  background: #f9f9f9;
+  overflow-y: auto;
+}
+main .text-important {
+  color: #a63446;
+}
+main a {
+  color: #a63446;
+  text-decoration: none;
+}
+main p {
+  text-align: justify;
+  line-height: 1.75;
+}
+main h1 {
+  color: #a63446;
+  font-size: 30px;
+}
+main h2 {
+  color: #a63446;
+  font-size: 24px;
+}
+main img {
+  max-width: 100%;
+  max-height: 100%;
+}
+main button {
+  border: 2px solid #a63446;
+  outline: none;
+  position: relative;
+  cursor: pointer;
+  background: transparent;
+  color: #a63446;
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: 1.25px;
+  padding: 0 14px;
+  height: 36px;
+  text-transform: uppercase;
+}
+main button::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #a63446;
+  opacity: 0;
+}
+main button:hover::before {
+  opacity: 0.08;
+}
+main section > table {
+  display: table !important;
+  table-layout: fixed;
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+main section > table th, main section > table td {
+  line-height: 1;
+}
+main section > table th {
+  font-weight: 700;
+  text-align: left;
+}
+main section > form {
+  width: fit-content;
+}
+main section > form .wrapper {
+  display: grid;
+  align-items: center;
+}
+main section > form .wrapper label, main section > form .wrapper input {
+  line-height: 1;
+  display: block;
+}
+main section > form .wrapper input {
+  border: 0;
+  border-bottom: 1px solid #212121;
+}
+main section > form .wrapper input:focus {
+  outline: none;
+  color: #a63446;
+  border-color: #a63446;
+}
+main section > form.labels-align-left .wrapper, main section > form.labels-align-right .wrapper {
+  grid-template-columns: auto 200px;
+  grid-column-gap: 21px;
+}
+main section > form.labels-align-right .wrapper label {
+  text-align: right;
+}
+main section > form.labels-align-top .wrapper {
+  grid-row-gap: 3.5px;
+}
+main section > form.labels-float-top .wrapper {
+  position: relative;
+}
+main section > form.labels-float-top .wrapper label {
+  position: absolute;
+  left: 3.5px;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: all 0.2s ease-in-out;
+  z-index: 1;
+}
+main section > form.labels-float-top .wrapper input:focus + label {
+  background: #a63446;
+  font-size: 12px;
+  margin-top: -16px;
+}
+body > * > * {
+  max-width: 760px;
+}
+
+/*# sourceMappingURL=styles.css.map */
