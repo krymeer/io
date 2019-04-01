@@ -6,10 +6,40 @@
   line-height: 1.5;
 }
 
-main section > form, main section > table {
+main section .form-container, main section > table, main p {
+  letter-spacing: 0.1px;
+}
+
+main p {
+  color: rgba(0, 0, 0, 0.7);
+  font-size: 16px;
+}
+
+main section.task {
+  position: relative;
+}
+main section.task::before {
+  display: block;
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #f9f9f9;
+  z-index: -1;
+  opacity: 0;
+}
+main section.disabled.task::before {
+  opacity: 0.95;
+  z-index: 100;
+}
+
+main section .form-container, main section > table {
   background: #fff;
   border: 2px solid #eee;
   color: #212121;
+  font-size: 14px;
 }
 
 main section > table th, main section > table td {
@@ -17,7 +47,7 @@ main section > table th, main section > table td {
   border-bottom: 1px solid #eee;
 }
 
-body > * > *, main section > * {
+main section > *, body > * > * {
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -28,14 +58,19 @@ main section > * {
   margin-bottom: 14px;
 }
 
-main > section > section {
+main > section > section, main section .form-container > form .wrapper, main section .form-container > form h3 {
   margin-top: 21px;
   margin-bottom: 21px;
 }
 
-main > section, main section > form, main section > table {
+main > section, main section > table {
   margin-top: 28px;
   margin-bottom: 28px;
+}
+
+main section .form-container {
+  margin-top: 56px;
+  margin-bottom: 56px;
 }
 
 main {
@@ -43,22 +78,41 @@ main {
   padding-bottom: 56px;
 }
 
-main section > form .wrapper, main section > table th, main section > table td {
+main section .form-container {
+  padding: 21px;
+}
+
+main section > table th, main section > table td {
   padding: 14px;
 }
 
-main p {
-  letter-spacing: 0.1px;
-  font-size: 16px;
+main section .form-container > form .wrapper input {
+  padding: 7px;
 }
 
-main section > form .wrapper label, main section > form .wrapper input, main section > table th, main section > table td {
-  letter-spacing: 0.1px;
-  font-size: 14px;
-}
-
-main section > form, main section > table, main button {
+main section .form-container > form .wrapper input, main section .form-container, main section > table, main button {
   border-radius: 4px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+html, body {
+  height: 100%;
+}
+
+body > * > * {
+  max-width: 760px;
+}
+
+button, p, h1, h2, h3, a, label, span, td {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 header {
@@ -71,6 +125,7 @@ header {
 
 main {
   background: #f9f9f9;
+  min-height: calc(100% - 256px);
   overflow-y: auto;
 }
 main .text-important {
@@ -92,6 +147,10 @@ main h2 {
   color: #a63446;
   font-size: 24px;
 }
+main h3 {
+  color: #a63446;
+  font-size: 18px;
+}
 main img {
   max-width: 100%;
   max-height: 100%;
@@ -101,7 +160,7 @@ main button {
   outline: none;
   position: relative;
   cursor: pointer;
-  background: transparent;
+  background: white;
   color: #a63446;
   font-family: "Roboto", sans-serif;
   font-weight: 500;
@@ -111,19 +170,14 @@ main button {
   height: 36px;
   text-transform: uppercase;
 }
-main button::before {
-  content: "";
-  display: block;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: #a63446;
-  opacity: 0;
+main button:hover {
+  background: transparent;
 }
-main button:hover::before {
-  opacity: 0.08;
+main button.disabled {
+  cursor: default;
+  background: transparent;
+  border-color: #b1b1b1;
+  color: #b1b1b1;
 }
 main section > table {
   display: table !important;
@@ -138,54 +192,70 @@ main section > table th {
   font-weight: 700;
   text-align: left;
 }
-main section > form {
+main section .form-container > form {
+  margin: 0 auto;
   width: fit-content;
 }
-main section > form .wrapper {
+main section .form-container > form .wrapper {
   display: grid;
   align-items: center;
 }
-main section > form .wrapper label, main section > form .wrapper input {
+main section .form-container > form .wrapper label, main section .form-container > form .wrapper input {
   line-height: 1;
   display: block;
 }
-main section > form .wrapper input {
-  border: 0;
-  border-bottom: 1px solid #212121;
+main section .form-container > form .wrapper input {
+  font-size: inherit;
+  color: #212121;
+  border: 2px solid #ddd;
 }
-main section > form .wrapper input:focus {
-  outline: none;
+main section .form-container > form .wrapper input.error {
   color: #a63446;
   border-color: #a63446;
 }
-main section > form.labels-align-left .wrapper, main section > form.labels-align-right .wrapper {
+main section .form-container > form .wrapper input:disabled {
+  background: #eee;
+  color: #ddd;
+}
+main section .form-container > form .wrapper input:focus {
+  outline: none;
+  border-color: #a63446;
+}
+main section .form-container > form.labels-align-left .wrapper, main section .form-container > form.labels-align-right .wrapper {
   grid-template-columns: auto 200px;
   grid-column-gap: 21px;
 }
-main section > form.labels-align-right .wrapper label {
+main section .form-container > form.labels-align-right .wrapper label {
   text-align: right;
 }
-main section > form.labels-align-top .wrapper {
+main section .form-container > form.labels-align-top .wrapper {
   grid-row-gap: 3.5px;
 }
-main section > form.labels-float-top .wrapper {
+main section .form-container > form.labels-float-top .wrapper {
   position: relative;
 }
-main section > form.labels-float-top .wrapper label {
+main section .form-container > form.labels-float-top .wrapper label {
   position: absolute;
-  left: 3.5px;
+  left: 7px;
   top: 50%;
   transform: translateY(-50%);
-  transition: all 0.2s ease-in-out;
+  transition: all 0.1s ease-in-out;
   z-index: 1;
+  color: #b1b1b1;
+  background: #fff;
 }
-main section > form.labels-float-top .wrapper input:focus + label {
-  background: #a63446;
+main section .form-container > form.labels-float-top .wrapper input:disabled + label {
+  background: transparent;
+}
+main section .form-container > form.labels-float-top .wrapper input:valid + label,
+main section .form-container > form.labels-float-top .wrapper input:focus + label {
   font-size: 12px;
   margin-top: -16px;
+  padding: 0 2px;
+  color: #a63446;
 }
-body > * > * {
-  max-width: 760px;
+main section .form-container > form.labels-float-top .wrapper input:valid:not(:focus) + label {
+  color: #b1b1b1;
 }
 
 /*# sourceMappingURL=styles.css.map */
