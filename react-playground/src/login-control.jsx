@@ -82,9 +82,9 @@ window.onload = function() {
             return (
                 <div>
                     { isLoggedIn ? (
-                        <LogoutButton onClick={ this.handleLogoutClick } />;
+                        <LogoutButton onClick={ this.handleLogoutClick } />
                     ) : (
-                        <LoginButton onClick={ this.handleLoginClick } />;
+                        <LoginButton onClick={ this.handleLoginClick } />
                     ) }
                 </div>
             );

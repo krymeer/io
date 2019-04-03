@@ -77,19 +77,28 @@ window.onload = function () {
             key: 'render',
             value: function render() {
                 var isLoggedIn = this.state.isLoggedIn;
-                var button = void 0;
+                // let button;
 
-                if (isLoggedIn) {
-                    button = React.createElement(LogoutButton, { onClick: this.handleLogoutClick });
-                } else {
-                    button = React.createElement(LoginButton, { onClick: this.handleLoginClick });
-                }
+                // if( isLoggedIn )
+                // {
+                //     button = <LogoutButton onClick={ this.handleLogoutClick } />;
+                // }
+                // else
+                // {
+                //     button = <LoginButton onClick={ this.handleLoginClick } />;
+                // }
+
+                // return (
+                //     <div>
+                //         <Greeting isLoggedIn={ isLoggedIn } />
+                //         { button }
+                //     </div>
+                // );
 
                 return React.createElement(
                     'div',
                     null,
-                    React.createElement(Greeting, { isLoggedIn: isLoggedIn }),
-                    button
+                    isLoggedIn ? React.createElement(LogoutButton, { onClick: this.handleLogoutClick }) : React.createElement(LoginButton, { onClick: this.handleLoginClick })
                 );
             }
         }]);
