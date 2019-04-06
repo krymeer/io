@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="pl">
+    <head>
+        <title>Badanie użyteczności | Krzysztof Osada</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="//fonts.googleapis.com/css?family=Roboto:400,500,700,400italic" rel="stylesheet" type="text/css">
+        <link href="./css/styles.css" rel="stylesheet" type="text/css">
+        <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+        <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+        <script type="text/javascript" src="./js/scripts.js"></script>
+    </head>
+    <body>
+        <header>
+            <span>Badanie użyteczności</span>
+        </header>
+        <main id="root"></main>
+        <!--<main id="root">
+            <p>Tutaj pojawi się akapit powitalny, informujący pokrótce o celu badania i sposobie jego przeprowadzenia.</p>
+
+            <section class="scenario" id="scenario-01">
+                <h1>Scenariusz nr 1</h1>
+                <p class="scenario-intro">Zamówiłeś kilka produktów z popularnego sklepu internetowego. W ostatnim czasie zmieniłeś miejsce zamieszkania, jednak jak dotąd nie zamawiałeś żadnej przesyłki na ten adres. Czas to zmienić!</p>
+                <button class="btn-start-scenario">Rozpocznij scenariusz</button>
+
+                <section class="task">
+                    <h2>Ćwiczenie nr 1</h2>
+                    <p>Wypełnij formularz, korzystając z danych zawartych <span class="text-important">w poniższej tabeli:</span></p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nazwa pola</th>
+                                <th>Wartość do wpisania</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Imię</td>
+                                <td>Adam</td>
+                            </tr>
+                            <tr>
+                                <td>Nazwisko</td>
+                                <td>Nowak</td>
+                            </tr>
+                            <tr>
+                                <td>Ulica i numer</td>
+                                <td>plac Grunwaldzki 13</td>
+                            </tr>
+                            <tr>
+                                <td>Kod pocztowy</td>
+                                <td>50-377</td>
+                            </tr>
+                            <tr>
+                                <td>Miejscowość</td>
+                                <td>Wrocław</td>
+                            </tr>
+                            <tr>
+                                <td>Numer telefonu</td>
+                                <td>789 425 661</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button class="btn-start-task">Rozpocznij ćwiczenie</button>
+                    <section class="form-container">
+                        <form class="labels-align-left">
+                            <h3>Adres do wysyłki</h3>
+                            <div class="wrapper">
+                                <label for="task-0001-1">Imię</label>
+                                <input type="text" id="task-0001-1" autocomplete="off">
+                            </div>
+                            <div class="wrapper">
+                                <label for="task-0001-2">Nazwisko</label>
+                                <input type="text" id="task-0001-2" autocomplete="off">
+                            </div>
+                            <div class="wrapper">
+                                <label for="task-0001-3">Ulica i numer</label>
+                                <input type="text" id="task-0001-3" autocomplete="off">
+                            </div>
+                            <div class="wrapper">
+                                <label for="task-0001-4">Kod pocztowy</label>
+                                <input type="tel" id="task-0001-4" autocomplete="off">
+                            </div>
+                            <div class="wrapper">
+                                <label for="task-0001-5">Miejscowość</label>
+                                <input type="text" id="task-0001-5" autocomplete="off">
+                            </div>
+                            <div class="wrapper">
+                                <label for="task-0001-6">Numer telefonu</label>
+                                <input type="text" id="task-0001-6" autocomplete="off">
+                            </div>
+                        </form>
+                    </section>
+                    <button class="btn-finish-task">Zakończ ćwiczenie</button>
+                </section>
+
+                <section class="task hidden">
+                    <h2>Ćwiczenie nr 2</h2>
+                    <p>Wypełnij formularz, korzystając z danych zawartych <span class="text-important">w poniższej tabeli:</span></p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nazwa pola</th>
+                                <th>Wartość do wpisania</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Imię</td>
+                                <td>Janusz</td>
+                            </tr>
+                            <tr>
+                                <td>Nazwisko</td>
+                                <td>Wiśniewski</td>
+                            </tr>
+                            <tr>
+                                <td>Ulica i numer</td>
+                                <td>Gajowa 37</td>
+                            </tr>
+                            <tr>
+                                <td>Kod pocztowy</td>
+                                <td>50-520</td>
+                            </tr>
+                            <tr>
+                                <td>Miejscowość</td>
+                                <td>Wrocław</td>
+                            </tr>
+                            <tr>
+                                <td>Numer telefonu</td>
+                                <td>321 131 332</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button class="btn-start-task">Rozpocznij ćwiczenie</button>
+                    <section class="form-container hidden">
+                        <form class="labels-align-right">
+                            <h3>Adres do wysyłki</h3>
+                            <div class="wrapper">
+                                <label for="task-0002-1">Imię</label>
+                                <input type="text" id="task-0002-1" autocomplete="off">
+                            </div>
+                            <div class="wrapper">
+                                <label for="task-0002-2">Nazwisko</label>
+                                <input type="text" id="task-0002-2" autocomplete="off">
+                            </div>
+                            <div class="wrapper">
+                                <label for="task-0002-3">Ulica i numer</label>
+                                <input type="text" id="task-0002-3" autocomplete="off">
+                            </div>
+                            <div class="wrapper">
+                                <label for="task-0002-4">Kod pocztowy</label>
+                                <input type="tel" id="task-0002-4" autocomplete="off">
+                            </div>
+                            <div class="wrapper">
+                                <label for="task-0002-5">Miejscowość</label>
+                                <input type="text" id="task-0002-5" autocomplete="off">
+                            </div>
+                            <div class="wrapper">
+                                <label for="task-0002-6">Numer telefonu</label>
+                                <input type="text" id="task-0002-6" autocomplete="off">
+                            </div>
+                        </form>
+                    </section>
+                    <button class="btn-finish-task hidden">Zakończ ćwiczenie</button>
+                </section>
+
+                <section class="task hidden">
+                    <h2>Ćwiczenie nr 3</h2>
+                    <p>Wypełnij formularz, korzystając z danych zawartych <span class="text-important">w poniższej tabeli:</span></p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nazwa pola</th>
+                                <th>Wartość do wpisania</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Imię</td>
+                                <td>Michał</td>
+                            </tr>
+                            <tr>
+                                <td>Nazwisko</td>
+                                <td>Lewandowski</td>
+                            </tr>
+                            <tr>
+                                <td>Ulica i numer</td>
+                                <td>aleja Aleksandra Brucknera 10</td>
+                            </tr>
+                            <tr>
+                                <td>Kod pocztowy</td>
+                                <td>51-410</td>
+                            </tr>
+                            <tr>
+                                <td>Miejscowość</td>
+                                <td>Wrocław</td>
+                            </tr>
+                            <tr>
+                                <td>Numer telefonu</td>
+                                <td>700 229 451</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button class="btn-start-task">Rozpocznij ćwiczenie</button>
+                    <section class="form-container hidden">
+                        <form class="labels-align-top">
+                            <h3>Adres do wysyłki</h3>
+                            <div class="wrapper">
+                                <label for="task-0003-1">Imię</label>
+                                <input type="text" id="task-0003-1" autocomplete="off">
+                            </div>
+                            <div class="wrapper">
+                                <label for="task-0003-2">Nazwisko</label>
+                                <input type="text" id="task-0003-2" autocomplete="off">
+                            </div>
+                            <div class="wrapper">
+                                <label for="task-0003-3">Ulica i numer</label>
+                                <input type="text" id="task-0003-3" autocomplete="off">
+                            </div>
+                            <div class="wrapper">
+                                <label for="task-0003-4">Kod pocztowy</label>
+                                <input type="tel" id="task-0003-4" autocomplete="off">
+                            </div>
+                            <div class="wrapper">
+                                <label for="task-0003-5">Miejscowość</label>
+                                <input type="text" id="task-0003-5" autocomplete="off">
+                            </div>
+                            <div class="wrapper">
+                                <label for="task-0003-6">Numer telefonu</label>
+                                <input type="text" id="task-0003-6" autocomplete="off">
+                            </div>
+                        </form>
+                    </section>
+                    <button class="btn-finish-task hidden">Zakończ ćwiczenie</button>
+                </section> -->
+
+                <!-- <section class="task hidden">
+                    <h2>Ćwiczenie nr 4</h2>
+                    <p>Wypełnij formularz, korzystając z danych zawartych <span class="text-important">w poniższej tabeli:</span></p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nazwa pola</th>
+                                <th>Wartość do wpisania</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Imię</td>
+                                <td>Grzegorz</td>
+                            </tr>
+                            <tr>
+                                <td>Nazwisko</td>
+                                <td>Kowalski</td>
+                            </tr>
+                            <tr>
+                                <td>Ulica i numer</td>
+                                <td>Fabryczna 14</td>
+                            </tr>
+                            <tr>
+                                <td>Kod pocztowy</td>
+                                <td>53-609</td>
+                            </tr>
+                            <tr>
+                                <td>Miejscowość</td>
+                                <td>Wrocław</td>
+                            </tr>
+                            <tr>
+                                <td>Numer telefonu</td>
+                                <td>713 210 132</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button class="btn-start-task">Rozpocznij ćwiczenie</button>
+                    <section class="form-container hidden">
+                        <form class="labels-float-top">
+                            <h3>Adres do wysyłki</h3>
+                            <div class="wrapper">
+                                <input type="text" id="task-0004-1" autocomplete="off" required>
+                                <label for="task-0004-1">Imię</label>
+                            </div>
+                            <div class="wrapper">
+                                <input type="text" id="task-0004-2" autocomplete="off" required>
+                                <label for="task-0004-2">Nazwisko</label>
+                            </div>
+                            <div class="wrapper">
+                                <input type="text" id="task-0004-3" autocomplete="off" required>
+                                <label for="task-0004-3">Ulica i numer</label>
+                            </div>
+                            <div class="wrapper">
+                                <input type="tel" id="task-0004-4" autocomplete="off" required>
+                                <label for="task-0004-4">Kod pocztowy</label>
+                            </div>
+                            <div class="wrapper">
+                                <input type="text" id="task-0004-5" autocomplete="off" required>
+                                <label for="task-0004-5">Miejscowość</label>
+                            </div>
+                            <div class="wrapper">
+                                <input type="text" id="task-0004-6" autocomplete="off" required>
+                                <label for="task-0004-6">Numer telefonu</label>
+                            </div>
+                        </form>
+                    </section>
+                    <button class="btn-finish-task hidden">Zakończ ćwiczenie</button>
+                </section>
+
+                <section class="scenario-outro hidden">
+                    <h2>Gratulacje!</h2>
+                    <p>Właśnie ukończyłeś scenariusz <span class="text-important">X z Y.</span> Naciśnij poniższy przycisk, aby przejść dalej:</p>
+                    <button class="btn-finish-scenario">Zakończ scenariusz</button>
+                </section>
+            </section>
+        </main>-->
+    </body>
+</html>
