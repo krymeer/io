@@ -1,16 +1,42 @@
 window.onload = function() {
-    function getTextImportant( string )
+    function insertNbsp( str )
     {
-        return string.split( /(\*\*[^\*]*\*\*)/gi );
+        return str.replace( /(?<=(\s|>)\w)\s/g, '\u00a0' );
     }
 
-    function insertNbsp()
+    function extractTextImportant( string )
     {
-        var p = document.querySelectorAll( 'p' );
+        var chunks = [];
 
-        for( var k = 0; k < p.length; k++ )
+        string.split( /(\*\*[^\*]*\*\*)/gi ).map( ( chunk, index ) => {
+            chunk = insertNbsp( chunk );
+
+            if( chunk.indexOf( '**' ) !== -1 )
+            {
+                chunk = <span key={ Math.random().toString( 36 ).substring( 2 ) } className="text-important">{ chunk.substring( 2, chunk.length - 2 ) }</span>
+            }
+
+            chunks.push( chunk );
+        } );
+
+        return chunks;
+    }
+
+    class Paragraph extends React.Component {
+        constructor( props )
         {
-            p[k].innerHTML = p[k].innerHTML.replace( /(?<=(\s|>)\w)\s/g, '&nbsp;' );
+            super( props );
+        }
+
+        render()
+        {
+            var pContent = extractTextImportant( this.props.content );
+
+            return(
+                <p className={ typeof this.props.pClass !== 'undefined' ? this.props.pClass : '' }>
+                    { pContent }
+                </p>
+            );
         }
     }
 
@@ -22,18 +48,14 @@ window.onload = function() {
 
         render()
         {
+            var taskID = 'task-' + this.props.scenarioIndex + '-' + this.props.index;
+
             return (
-                <section className="task" id={ "task-" + this.props.scenarioIndex + "-" + this.props.index }>
+                <section className="task" id={ taskID }>
                     <h2>Ćwiczenie nr { this.props.index }</h2>
                     <span>{ this.props.html }</span>
                     { typeof this.props.task.description !== 'undefined' &&
-                        <p>
-                            { getTextImportant( this.props.task.description ).map( ( chunk, index ) =>
-                                // TODO
-                                // Create a <Paragraph /> component in order to be able to render <span> tags
-                                <span>{ chunk }</span>
-                            ) }
-                        </p>
+                        <Paragraph pClass="task-description" content={ this.props.task.description } />
                     }
                 </section>
             );
@@ -52,9 +74,7 @@ window.onload = function() {
                 <section className="scenario" id={ "scenario-" + this.props.index }>
                     <h1>Scenariusz nr { this.props.index }</h1>
                     { typeof this.props.scenario.intro !== 'undefined' && 
-                        <p className="scenario-intro">
-                            { this.props.scenario.intro }
-                        </p>
+                        <Paragraph pClass="scenario-intro" content={ this.props.scenario.intro } />
                     }
                     <button className="btn-start-scenario" id={ "btn-start-scenario-" +  + this.props.index }>Rozpocznij scenariusz</button>
                     {
@@ -109,7 +129,7 @@ window.onload = function() {
             }
             else if( !isLoaded )
             {
-                return <div>Loading...</div>;
+                return '';
             }
             else
             {
@@ -118,17 +138,6 @@ window.onload = function() {
                         <Scenario key={ index + 1 } index={ index + 1 } scenario={ scenario } />
                     )
                 );
-
-
-
-
-
-
-
-
-
-                //     <div style={{ fontFamily : 'monospace' }}>{ JSON.stringify( scenarios ) }</div>
-                // );
             }
         }
     }
@@ -137,6 +146,4 @@ window.onload = function() {
         <MainComponent />,
         document.getElementById( 'root' )
     );
-
-    insertNbsp();
 };
