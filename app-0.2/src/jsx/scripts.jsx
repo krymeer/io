@@ -4,16 +4,21 @@ window.onload = function() {
         return str.replace( /(?<=(\s|>)\w)\s/g, '\u00a0' );
     }
 
+    function getRandomString()
+    {
+        return Math.random().toString( 36 ).substring( 2 );
+    }
+
     function extractTextImportant( string )
     {
-        var chunks = [];
+        const chunks = [];
 
         string.split( /(\*\*[^\*]*\*\*)/gi ).map( ( chunk, index ) => {
             chunk = insertNbsp( chunk );
 
             if( chunk.indexOf( '**' ) !== -1 )
             {
-                chunk = <span key={ Math.random().toString( 36 ).substring( 2 ) } className="text-important">{ chunk.substring( 2, chunk.length - 2 ) }</span>
+                chunk = <span key={ index } className='text-important'>{ chunk.substring( 2, chunk.length - 2 ) }</span>
             }
 
             chunks.push( chunk );
@@ -30,12 +35,74 @@ window.onload = function() {
 
         render()
         {
-            var pContent = extractTextImportant( this.props.content );
-
             return(
                 <p className={ typeof this.props.pClass !== 'undefined' ? this.props.pClass : '' }>
-                    { pContent }
+                    { extractTextImportant( this.props.content ) }
                 </p>
+            );
+        }
+    }
+
+    class TaskForm extends React.Component {
+        constructor( props )
+        {
+            super( props );
+            this.handleInputFocus = this.handleInputFocus.bind( this );
+            this.handleInputBlur  = this.handleInputBlur.bind( this );
+        }
+
+        handleInputFocus( event )
+        {
+            const inputID = event.target.id;
+            const label   = event.target.previousElementSibling;
+
+            if( this.props.type.indexOf( 'labels-float' ) !== -1 && label !== null )
+            {
+                label.classList.add( 'on-input-focus' );
+            }
+        }
+
+        handleInputBlur( event )
+        {
+            const inputID = event.target.id;
+            const label   = event.target.previousElementSibling;
+
+            if( this.props.type.indexOf( 'labels-float' ) !== -1 && label !== null )
+            {
+                label.classList.remove( 'on-input-focus' );
+
+                if( event.target.value !== '' )
+                {
+                    label.classList.add( 'on-input-data' );
+                }
+                else
+                {
+                    label.classList.remove( 'on-input-data' );
+                }
+            }
+        }
+
+        render()
+        {
+            const fields = [];
+
+            this.props.fields.map( ( field, index ) => {
+                const inputID = this.props.taskID + '--input-' + ( index + 1 );
+                fields.push(
+                    <div key={ index } className="wrapper">
+                        <label htmlFor={ inputID }>{ field.key }</label>
+                        <input type="text" id={ inputID } autoComplete="off" onFocus={ this.handleInputFocus } onBlur={ this.handleInputBlur }/>
+                    </div>
+                )
+            } );
+
+            return (
+                <section className="form-container">
+                    <form className={ this.props.type }>
+                        <h3>{ this.props.taskTitle }</h3>
+                        { fields }
+                    </form>
+                </section>
             );
         }
     }
@@ -44,19 +111,46 @@ window.onload = function() {
         constructor( props )
         {
             super( props );
+            this.finishTask = this.finishTask.bind( this );
+        }
+
+        finishTask( event )
+        {
+            alert( 'click' );
+
+            // TODO
+            // Make the form disabled after firing this event
         }
 
         render()
         {
-            var taskID = 'task-' + this.props.scenarioIndex + '-' + this.props.index;
+            const taskID = 'task-' + this.props.scenarioIndex + '-' + this.props.index;
 
             return (
-                <section className="task" id={ taskID }>
+                <section className='task' id={ taskID }>
                     <h2>Ćwiczenie nr { this.props.index }</h2>
-                    <span>{ this.props.html }</span>
-                    { typeof this.props.task.description !== 'undefined' &&
-                        <Paragraph pClass="task-description" content={ this.props.task.description } />
-                    }
+                    <Paragraph pClass='task-description' content='Wypełnij formularz, korzystając z danych zawartych **w poniższej tabeli:**' />
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nazwa pola</th>
+                                <th>Wartość do wpisania</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                this.props.task.data.map( ( row, index ) =>
+                                    <tr key={ index }>
+                                        <td>{ row.key }</td>
+                                        <td>{ row.value }</td>
+                                    </tr>
+                                )
+                            }
+                        </tbody>
+                    </table>
+                    <button className='btn-start-task' id={ 'btn-start-' +  taskID }>Rozpocznij ćwiczenie</button>
+                    <TaskForm taskID={ taskID } taskTitle={ this.props.task.title } type={ this.props.task.formType } fields={ this.props.task.data } />
+                    <button className='btn-finish-task' id={ 'btn-finish-' +  taskID } onClick={ this.finishTask }>Zakończ ćwiczenie</button>
                 </section>
             );
         }
@@ -71,17 +165,19 @@ window.onload = function() {
         render()
         {
             return (
-                <section className="scenario" id={ "scenario-" + this.props.index }>
+                <section className='scenario' id={ 'scenario-' + this.props.index }>
                     <h1>Scenariusz nr { this.props.index }</h1>
                     { typeof this.props.scenario.intro !== 'undefined' && 
-                        <Paragraph pClass="scenario-intro" content={ this.props.scenario.intro } />
+                        <Paragraph pClass='scenario-intro' content={ this.props.scenario.intro } />
                     }
-                    <button className="btn-start-scenario" id={ "btn-start-scenario-" +  + this.props.index }>Rozpocznij scenariusz</button>
+                    <button className='btn-start-scenario' id={ 'btn-start-scenario-' +  + this.props.index }>Rozpocznij scenariusz</button>
                     {
                         this.props.scenario.tasks.map( ( task, index ) =>
                             <Task key={ index + 1 } scenarioIndex={ this.props.index } index={ index + 1 } task={ task } />
                         )
                     }
+                    <Paragraph pClass='scenario-outro' content={ 'Gratulacje! Wykonałeś wszystkie zadania ze **scenariusza nr ' + this.props.index + '.** Naciśnij poniższy przycisk, aby przejść do dalszej części badania:' } />
+                    <button className="btn-finish-scenario" id={ 'btn-finish-scenario-' +  + this.props.index }>Zakończ scenariusz</button>
                 </section>
             );
         }

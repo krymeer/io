@@ -345,19 +345,19 @@ main {
                             background: #fff;
                         }
 
-                        input:disabled + label {
-                            background: transparent;
-                        }
+                        // input:disabled + label {
+                        //     background: transparent;
+                        // }
 
-                        input:valid + label,
-                        input:focus + label {
+                        label.on-input-focus,
+                        label.on-input-data {
                             font-size: 12px;
                             margin-top: -16px;
                             padding: 0 2px;
                             color: $primary-color;
                         }
 
-                        input:valid:not(:focus) + label {
+                        label.on-input-data {
                             color: $placeholder-color;
                         }
                     }

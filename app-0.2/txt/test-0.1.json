@@ -4,51 +4,123 @@
             "intro" : "Zamówiłeś kilka produktów z popularnego sklepu internetowego. W ostatnim czasie zmieniłeś miejsce zamieszkania, jednak jak dotąd nie zamawiałeś żadnej przesyłki na ten adres. Czas to zmienić!",
             "tasks" : [
                 {
+                    "title"    : "Adres do wysyłki",
                     "formType" : "labels-align-left",
-                    "description" : "Wypełnij **formularz**, korzystając z danych zawartych **w poniższej tabeli:**",
-                    "data" : [
-                        { "Imię"           : "Adam" },
-                        { "Nazwisko"       : "Nowak" },
-                        { "Ulica i numer"  : "plac Grunwaldzki 13" },
-                        { "Kod pocztowy"   : "50-377" },
-                        { "Miejscowość"    : "Wrocław" },
-                        { "Numer telefonu" : "789 425 661" }
+                    "data"     : [
+                        {
+                            "key" : "Imię",
+                            "value" : "Adam"
+                        },
+                        {
+                            "key" : "Nazwisko",
+                            "value" : "Nowak"
+                        },
+                        {
+                            "key" : "Ulica i numer",
+                            "value" : "plac Grunwaldzki 13"
+                        },
+                        {
+                            "key" : "Kod pocztowy",
+                            "value" : "50-377"
+                        },
+                        {
+                            "key" : "Miejscowość",
+                            "value" : "Wrocław"
+                        },
+                        {
+                            "key" : "Numer telefonu",
+                            "value" : "789 425 661"
+                        }
                     ]
                 },
                 {
+                    "title"    : "Adres do wysyłki",
                     "formType" : "labels-align-right",
-                    "description" : "Wypełnij formularz, korzystając z danych zawartych **w poniższej tabeli:**",
-                    "data" : [
-                        { "Imię"           : "Jan" },
-                        { "Nazwisko"       : "Kowalski" },
-                        { "Ulica i numer"  : "Kluczborska 24 m. 20" },
-                        { "Kod pocztowy"   : "50-322" },
-                        { "Miejscowość"    : "Wrocław" },
-                        { "Numer telefonu" : "71 320 46 81" }
+                    "data"     : [
+                        {
+                            "key" : "Imię",
+                            "value" : "Jan"
+                        },
+                        {
+                            "key" : "Nazwisko",
+                            "value" : "Kowalski"
+                        },
+                        {
+                            "key" : "Ulica i numer",
+                            "value" : "Kluczborska 24 m. 20"
+                        },
+                        {
+                            "key" : "Kod pocztowy",
+                            "value" : "50-322"
+                        },
+                        {
+                            "key" : "Miejscowość",
+                            "value" : "Wrocław"
+                        },
+                        {
+                            "key" : "Numer telefonu",
+                            "value" : "71 320 46 81"
+                        }
                     ]
                 },
                 {
+                    "title"    : "Adres do wysyłki",
                     "formType" : "labels-align-top",
-                    "description" : "Wypełnij formularz, korzystając z danych zawartych **w poniższej tabeli:**",
-                    "data" : [
-                        { "Imię"           : "Krzysztof" },
-                        { "Nazwisko"       : "Wiśniewski" },
-                        { "Ulica i numer"  : "Wałbrzyska 2B" },
-                        { "Kod pocztowy"   : "58-100" },
-                        { "Miejscowość"    : "Świdnica" },
-                        { "Numer telefonu" : "590 290 390" }
+                    "data"     : [
+                        {
+                            "key" : "Imię",
+                            "value" : "Krzysztof"
+                        },
+                        {
+                            "key" : "Nazwisko",
+                            "value" : "Wiśniewski"
+                        },
+                        {
+                            "key" : "Ulica i numer",
+                            "value" : "Wałbrzyska 2B"
+                        },
+                        {
+                            "key" : "Kod pocztowy",
+                            "value" : "58-100"
+                        },
+                        {
+                            "key" : "Miejscowość",
+                            "value" : "Świdnica"
+                        },
+                        {
+                            "key" : "Numer telefonu",
+                            "value" : "590 290 390"
+                        }
                     ]
                 },
                 {
+                    "title"    : "Adres do wysyłki",
                     "formType" : "labels-float-top",
-                    "description" : "Wypełnij formularz, korzystając z danych zawartych **w poniższej tabeli:**",
-                    "data" : [
-                        { "Imię"           : "Jarosław" },
-                        { "Nazwisko"       : "Dębski" },
-                        { "Ulica i numer"  : "Jedności Narodowej 72/80" },
-                        { "Kod pocztowy"   : "50-261" },
-                        { "Miejscowość"    : "Wrocław" },
-                        { "Numer telefonu" : "782 287 872" }
+                    "data"     : [
+                        {
+                            "key" : "Imię",
+                            "value" : "Jarosław"
+                        },
+                        {
+                            "key" : "Nazwisko",
+                            "value" : "Dębski"
+                        },
+                        {
+                            "key" : "Ulica i numer",
+                            "value" : "Jedności Narodowej 72/80"
+                        },
+                        {
+                            "key" : "Kod pocztowy",
+                            "value" : "50-261"
+                        },
+                        {
+                            "key" : "Miejscowość",
+                            "value" : "Wrocław"
+                        },
+                        {
+                            "key" : "Numer telefonu",
+                            "value" : "782 287 872"
+                        }
                     ]
                 }
             ]

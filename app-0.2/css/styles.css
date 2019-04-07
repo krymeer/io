@@ -244,17 +244,14 @@ main section .form-container > form.labels-float-top .wrapper label {
   color: #b1b1b1;
   background: #fff;
 }
-main section .form-container > form.labels-float-top .wrapper input:disabled + label {
-  background: transparent;
-}
-main section .form-container > form.labels-float-top .wrapper input:valid + label,
-main section .form-container > form.labels-float-top .wrapper input:focus + label {
+main section .form-container > form.labels-float-top .wrapper label.on-input-focus,
+main section .form-container > form.labels-float-top .wrapper label.on-input-data {
   font-size: 12px;
   margin-top: -16px;
   padding: 0 2px;
   color: #a63446;
 }
-main section .form-container > form.labels-float-top .wrapper input:valid:not(:focus) + label {
+main section .form-container > form.labels-float-top .wrapper label.on-input-data {
   color: #b1b1b1;
 }
 
