@@ -334,6 +334,7 @@ main {
                         position: relative;
 
                         label {
+                            cursor: text;
                             position: absolute;
                             left: $value-s;
                             top: 50%;
@@ -344,9 +345,9 @@ main {
                             background: #fff;
                         }
 
-                        // input:disabled + label {
-                        //     background: transparent;
-                        // }
+                        label.on-input-disabled {
+                            background: $border-color-main;
+                        }
 
                         label.on-input-focus,
                         label.on-input-data {

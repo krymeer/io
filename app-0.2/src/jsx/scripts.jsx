@@ -43,68 +43,47 @@ window.onload = function() {
         }
     }
 
-    class TaskForm extends React.Component {
+
+    class InputWrapper extends React.Component {
         constructor( props )
         {
             super( props );
-            this.handleInputFocus = this.handleInputFocus.bind( this );
-            this.handleInputBlur  = this.handleInputBlur.bind( this );
-        }
+            this.handleFocus = this.handleFocus.bind( this );
+            this.handleBlur  = this.handleBlur.bind( this );
 
-        handleInputFocus( event )
-        {
-            const inputID = event.target.id;
-            const label   = event.target.previousElementSibling;
-
-            if( this.props.type.indexOf( 'labels-float' ) !== -1 && label !== null )
-            {
-                label.classList.add( 'on-input-focus' );
+            this.state = {
+                inputFocus : false
             }
         }
 
-        handleInputBlur( event )
+        handleFocus()
         {
-            const inputID = event.target.id;
-            const label   = event.target.previousElementSibling;
+            this.setState( {
+                inputFocus : true
+            } );
+        }
 
-            if( this.props.type.indexOf( 'labels-float' ) !== -1 && label !== null )
-            {
-                label.classList.remove( 'on-input-focus' );
-
-                if( event.target.value !== '' )
-                {
-                    label.classList.add( 'on-input-data' );
-                }
-                else
-                {
-                    label.classList.remove( 'on-input-data' );
-                }
-            }
+        handleBlur()
+        {
+            this.setState( {
+                inputFocus : false
+            } );
         }
 
         render()
         {
-            const fields = [];
-
-            this.props.fields.map( ( field, index ) => {
-                const inputID = this.props.taskID + '--input-' + ( index + 1 );
-                fields.push(
-                    <div key={ index } className="wrapper">
-                        <label htmlFor={ inputID }>{ field.key }</label>
-                        <input type="text" id={ inputID } autoComplete="off" onFocus={ this.handleInputFocus } onBlur={ this.handleInputBlur }/>
-                    </div>
-                )
-            } );
+            const inputID        = this.props.taskID + '--input-' + ( this.props.inputIndex + 1 );
+            const labelClassName = ( ( this.props.inputDisabled ? 'on-input-disabled' : '' ) + ' ' + ( this.state.inputFocus ? 'on-input-focus' : '' ) ).trim();
+            console.log( labelClassName );
 
             return (
-                <section className="form-container">
-                    <form className={ this.props.type }>
-                        <h3>{ this.props.taskTitle }</h3>
-                        { fields }
-                    </form>
-                </section>
+                <div className="wrapper">
+                    <label className={ labelClassName } htmlFor={ inputID }>{ this.props.data.key }</label>
+                    <input type="text" id={ inputID } autoComplete="off" onFocus={ this.handleFocus } onBlur={ this.handleBlur } disabled={ this.props.inputDisabled } />
+                </div>
             );
         }
+
     }
 
     class Task extends React.Component {
@@ -166,7 +145,16 @@ window.onload = function() {
                         </tbody>
                     </table>
                     <button className='btn-start-task' id={ 'btn-start-' +  taskID } onClick={ this.handleTaskStart } disabled={ this.state.taskStarted }>Rozpocznij ćwiczenie</button>
-                    <TaskForm taskID={ taskID } taskTitle={ this.props.task.title } type={ this.props.task.type } fields={ this.props.task.data } />
+                    <section className="form-container">
+                        <form className={ this.props.task.type }>
+                            <h3>{ this.props.task.title }</h3>
+                            {
+                                this.props.task.data.map( ( fieldKeyVal, index ) =>
+                                    <InputWrapper key={ index } taskID={ taskID } inputIndex={ index } inputDisabled={ this.state.taskFinished || !this.state.taskStarted } data={ fieldKeyVal }/>
+                                )
+                            }
+                        </form>
+                    </section>
                     <button className='btn-finish-task' id={ 'btn-finish-' +  taskID } onClick={ this.handleTaskFinish } disabled={ this.state.taskFinished || !this.state.taskStarted }>Zakończ ćwiczenie</button>
                 </section>
             );
@@ -181,20 +169,22 @@ window.onload = function() {
 
         render()
         {
+            const scenarioID = 'scenario-' + this.props.index;
+
             return (
-                <section className='scenario' id={ 'scenario-' + this.props.index }>
+                <section className='scenario' id={ scenarioID }>
                     <h1>Scenariusz nr { this.props.index }</h1>
                     { typeof this.props.scenario.intro !== 'undefined' && 
                         <Paragraph pClass='scenario-intro' content={ this.props.scenario.intro } />
                     }
-                    <button className='btn-start-scenario' id={ 'btn-start-scenario-' +  + this.props.index }>Rozpocznij scenariusz</button>
+                    <button className='btn-start-scenario' id={ 'btn-start-' + scenarioID }>Rozpocznij scenariusz</button>
                     {
                         this.props.scenario.tasks.map( ( task, index ) =>
                             <Task key={ index + 1 } scenarioIndex={ this.props.index } index={ index + 1 } task={ task } />
                         )
                     }
                     <Paragraph pClass='scenario-outro' content={ 'Gratulacje! Wykonałeś wszystkie zadania ze **scenariusza nr ' + this.props.index + '.** Naciśnij poniższy przycisk, aby przejść do dalszej części badania:' } />
-                    <button className="btn-finish-scenario" id={ 'btn-finish-scenario-' +  + this.props.index }>Zakończ scenariusz</button>
+                    <button className="btn-finish-scenario" id={ 'btn-finish-' + scenarioID }>Zakończ scenariusz</button>
                 </section>
             );
         }

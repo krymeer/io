@@ -58,84 +58,58 @@ window.onload = function () {
         return Paragraph;
     }(React.Component);
 
-    var TaskForm = function (_React$Component2) {
-        _inherits(TaskForm, _React$Component2);
+    var InputWrapper = function (_React$Component2) {
+        _inherits(InputWrapper, _React$Component2);
 
-        function TaskForm(props) {
-            _classCallCheck(this, TaskForm);
+        function InputWrapper(props) {
+            _classCallCheck(this, InputWrapper);
 
-            var _this2 = _possibleConstructorReturn(this, (TaskForm.__proto__ || Object.getPrototypeOf(TaskForm)).call(this, props));
+            var _this2 = _possibleConstructorReturn(this, (InputWrapper.__proto__ || Object.getPrototypeOf(InputWrapper)).call(this, props));
 
-            _this2.handleInputFocus = _this2.handleInputFocus.bind(_this2);
-            _this2.handleInputBlur = _this2.handleInputBlur.bind(_this2);
+            _this2.handleFocus = _this2.handleFocus.bind(_this2);
+            _this2.handleBlur = _this2.handleBlur.bind(_this2);
+
+            _this2.state = {
+                inputFocus: false
+            };
             return _this2;
         }
 
-        _createClass(TaskForm, [{
-            key: 'handleInputFocus',
-            value: function handleInputFocus(event) {
-                var inputID = event.target.id;
-                var label = event.target.previousElementSibling;
-
-                if (this.props.type.indexOf('labels-float') !== -1 && label !== null) {
-                    label.classList.add('on-input-focus');
-                }
+        _createClass(InputWrapper, [{
+            key: 'handleFocus',
+            value: function handleFocus() {
+                this.setState({
+                    inputFocus: true
+                });
             }
         }, {
-            key: 'handleInputBlur',
-            value: function handleInputBlur(event) {
-                var inputID = event.target.id;
-                var label = event.target.previousElementSibling;
-
-                if (this.props.type.indexOf('labels-float') !== -1 && label !== null) {
-                    label.classList.remove('on-input-focus');
-
-                    if (event.target.value !== '') {
-                        label.classList.add('on-input-data');
-                    } else {
-                        label.classList.remove('on-input-data');
-                    }
-                }
+            key: 'handleBlur',
+            value: function handleBlur() {
+                this.setState({
+                    inputFocus: false
+                });
             }
         }, {
             key: 'render',
             value: function render() {
-                var _this3 = this;
-
-                var fields = [];
-
-                this.props.fields.map(function (field, index) {
-                    var inputID = _this3.props.taskID + '--input-' + (index + 1);
-                    fields.push(React.createElement(
-                        'div',
-                        { key: index, className: 'wrapper' },
-                        React.createElement(
-                            'label',
-                            { htmlFor: inputID },
-                            field.key
-                        ),
-                        React.createElement('input', { type: 'text', id: inputID, autoComplete: 'off', onFocus: _this3.handleInputFocus, onBlur: _this3.handleInputBlur })
-                    ));
-                });
+                var inputID = this.props.taskID + '--input-' + (this.props.inputIndex + 1);
+                var labelClassName = ((this.props.inputDisabled ? 'on-input-disabled' : '') + ' ' + (this.state.inputFocus ? 'on-input-focus' : '')).trim();
+                console.log(labelClassName);
 
                 return React.createElement(
-                    'section',
-                    { className: 'form-container' },
+                    'div',
+                    { className: 'wrapper' },
                     React.createElement(
-                        'form',
-                        { className: this.props.type },
-                        React.createElement(
-                            'h3',
-                            null,
-                            this.props.taskTitle
-                        ),
-                        fields
-                    )
+                        'label',
+                        { className: labelClassName, htmlFor: inputID },
+                        this.props.data.key
+                    ),
+                    React.createElement('input', { type: 'text', id: inputID, autoComplete: 'off', onFocus: this.handleFocus, onBlur: this.handleBlur, disabled: this.props.inputDisabled })
                 );
             }
         }]);
 
-        return TaskForm;
+        return InputWrapper;
     }(React.Component);
 
     var Task = function (_React$Component3) {
@@ -144,15 +118,15 @@ window.onload = function () {
         function Task(props) {
             _classCallCheck(this, Task);
 
-            var _this4 = _possibleConstructorReturn(this, (Task.__proto__ || Object.getPrototypeOf(Task)).call(this, props));
+            var _this3 = _possibleConstructorReturn(this, (Task.__proto__ || Object.getPrototypeOf(Task)).call(this, props));
 
-            _this4.handleTaskStart = _this4.handleTaskStart.bind(_this4);
-            _this4.handleTaskFinish = _this4.handleTaskFinish.bind(_this4);
-            _this4.state = {
+            _this3.handleTaskStart = _this3.handleTaskStart.bind(_this3);
+            _this3.handleTaskFinish = _this3.handleTaskFinish.bind(_this3);
+            _this3.state = {
                 taskStarted: false,
                 taskFinished: false
             };
-            return _this4;
+            return _this3;
         }
 
         _createClass(Task, [{
@@ -176,6 +150,8 @@ window.onload = function () {
         }, {
             key: 'render',
             value: function render() {
+                var _this4 = this;
+
                 var taskID = 'task-' + this.props.scenarioIndex + '-' + this.props.index;
 
                 return React.createElement(
@@ -235,7 +211,22 @@ window.onload = function () {
                         { className: 'btn-start-task', id: 'btn-start-' + taskID, onClick: this.handleTaskStart, disabled: this.state.taskStarted },
                         'Rozpocznij \u0107wiczenie'
                     ),
-                    React.createElement(TaskForm, { taskID: taskID, taskTitle: this.props.task.title, type: this.props.task.type, fields: this.props.task.data }),
+                    React.createElement(
+                        'section',
+                        { className: 'form-container' },
+                        React.createElement(
+                            'form',
+                            { className: this.props.task.type },
+                            React.createElement(
+                                'h3',
+                                null,
+                                this.props.task.title
+                            ),
+                            this.props.task.data.map(function (fieldKeyVal, index) {
+                                return React.createElement(InputWrapper, { key: index, taskID: taskID, inputIndex: index, inputDisabled: _this4.state.taskFinished || !_this4.state.taskStarted, data: fieldKeyVal });
+                            })
+                        )
+                    ),
                     React.createElement(
                         'button',
                         { className: 'btn-finish-task', id: 'btn-finish-' + taskID, onClick: this.handleTaskFinish, disabled: this.state.taskFinished || !this.state.taskStarted },
@@ -262,9 +253,11 @@ window.onload = function () {
             value: function render() {
                 var _this6 = this;
 
+                var scenarioID = 'scenario-' + this.props.index;
+
                 return React.createElement(
                     'section',
-                    { className: 'scenario', id: 'scenario-' + this.props.index },
+                    { className: 'scenario', id: scenarioID },
                     React.createElement(
                         'h1',
                         null,
@@ -274,7 +267,7 @@ window.onload = function () {
                     typeof this.props.scenario.intro !== 'undefined' && React.createElement(Paragraph, { pClass: 'scenario-intro', content: this.props.scenario.intro }),
                     React.createElement(
                         'button',
-                        { className: 'btn-start-scenario', id: 'btn-start-scenario-' + +this.props.index },
+                        { className: 'btn-start-scenario', id: 'btn-start-' + scenarioID },
                         'Rozpocznij scenariusz'
                     ),
                     this.props.scenario.tasks.map(function (task, index) {
@@ -283,7 +276,7 @@ window.onload = function () {
                     React.createElement(Paragraph, { pClass: 'scenario-outro', content: 'Gratulacje! Wykonałeś wszystkie zadania ze **scenariusza nr ' + this.props.index + '.** Naciśnij poniższy przycisk, aby przejść do dalszej części badania:' }),
                     React.createElement(
                         'button',
-                        { className: 'btn-finish-scenario', id: 'btn-finish-scenario-' + +this.props.index },
+                        { className: 'btn-finish-scenario', id: 'btn-finish-' + scenarioID },
                         'Zako\u0144cz scenariusz'
                     )
                 );

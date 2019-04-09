@@ -235,6 +235,7 @@ main section .form-container > form.labels-float-top .wrapper {
   position: relative;
 }
 main section .form-container > form.labels-float-top .wrapper label {
+  cursor: text;
   position: absolute;
   left: 7px;
   top: 50%;
@@ -243,6 +244,9 @@ main section .form-container > form.labels-float-top .wrapper label {
   z-index: 1;
   color: #b1b1b1;
   background: #fff;
+}
+main section .form-container > form.labels-float-top .wrapper label.on-input-disabled {
+  background: #eee;
 }
 main section .form-container > form.labels-float-top .wrapper label.on-input-focus,
 main section .form-container > form.labels-float-top .wrapper label.on-input-data {
