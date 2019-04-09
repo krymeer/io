@@ -146,17 +146,32 @@ window.onload = function () {
 
             var _this4 = _possibleConstructorReturn(this, (Task.__proto__ || Object.getPrototypeOf(Task)).call(this, props));
 
-            _this4.finishTask = _this4.finishTask.bind(_this4);
+            _this4.handleTaskStart = _this4.handleTaskStart.bind(_this4);
+            _this4.handleTaskFinish = _this4.handleTaskFinish.bind(_this4);
+            _this4.state = {
+                taskStarted: false,
+                taskFinished: false
+            };
             return _this4;
         }
 
         _createClass(Task, [{
-            key: 'finishTask',
-            value: function finishTask(event) {
-                alert('click');
-
-                // TODO
-                // Make the form disabled after firing this event
+            key: 'handleTaskStart',
+            value: function handleTaskStart() {
+                if (!this.state.taskStarted && !this.state.taskFinished) {
+                    this.setState({
+                        taskStarted: true
+                    });
+                }
+            }
+        }, {
+            key: 'handleTaskFinish',
+            value: function handleTaskFinish() {
+                if (this.state.taskStarted && !this.state.taskFinished) {
+                    this.setState({
+                        taskFinished: true
+                    });
+                }
             }
         }, {
             key: 'render',
@@ -217,13 +232,13 @@ window.onload = function () {
                     ),
                     React.createElement(
                         'button',
-                        { className: 'btn-start-task', id: 'btn-start-' + taskID },
+                        { className: 'btn-start-task', id: 'btn-start-' + taskID, onClick: this.handleTaskStart, disabled: this.state.taskStarted },
                         'Rozpocznij \u0107wiczenie'
                     ),
-                    React.createElement(TaskForm, { taskID: taskID, taskTitle: this.props.task.title, type: this.props.task.formType, fields: this.props.task.data }),
+                    React.createElement(TaskForm, { taskID: taskID, taskTitle: this.props.task.title, type: this.props.task.type, fields: this.props.task.data }),
                     React.createElement(
                         'button',
-                        { className: 'btn-finish-task', id: 'btn-finish-' + taskID, onClick: this.finishTask },
+                        { className: 'btn-finish-task', id: 'btn-finish-' + taskID, onClick: this.handleTaskFinish, disabled: this.state.taskFinished || !this.state.taskStarted },
                         'Zako\u0144cz \u0107wiczenie'
                     )
                 );
@@ -332,9 +347,31 @@ window.onload = function () {
                 } else if (!isLoaded) {
                     return '';
                 } else {
-                    return scenarios.map(function (scenario, index) {
-                        return React.createElement(Scenario, { key: index + 1, index: index + 1, scenario: scenario });
+                    var scenarioList = [];
+
+                    scenarios.map(function (scenario, index) {
+                        scenarioList.push(React.createElement(Scenario, { key: index + 1, index: index + 1, scenario: scenario }));
                     });
+
+                    return React.createElement(
+                        'div',
+                        { id: 'page-container' },
+                        React.createElement(
+                            'header',
+                            null,
+                            React.createElement(
+                                'span',
+                                null,
+                                'Badanie u\u017Cyteczno\u015Bci'
+                            )
+                        ),
+                        React.createElement(
+                            'main',
+                            null,
+                            React.createElement(Paragraph, { content: 'Witaj! Niniejsze badanie ma na celu zbadanie u\u017Cyteczno\u015Bci wybranych wzorc\xF3w p\xF3l, kt\xF3re mo\u017Cesz na co dzie\u0144 znale\u017A\u0107 w wielu aplikacjach webowych i na stronach internetowych. Zostaniesz poproszony o wykonanie kilkunastu zada\u0144 polegaj\u0105cych na uzupe\u0142nieniu r\xF3\u017Cnego typu formularzy. **Ten tekst jeszcze si\u0119 zmieni.**' }),
+                            scenarioList
+                        )
+                    );
                 }
             }
         }]);

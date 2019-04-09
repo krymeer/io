@@ -5,7 +5,7 @@
             "tasks" : [
                 {
                     "title"    : "Adres do wysyłki",
-                    "formType" : "labels-align-left",
+                    "type"     : "labels-align-left",
                     "data"     : [
                         {
                             "key" : "Imię",
@@ -35,7 +35,7 @@
                 },
                 {
                     "title"    : "Adres do wysyłki",
-                    "formType" : "labels-align-right",
+                    "type"     : "labels-align-right",
                     "data"     : [
                         {
                             "key" : "Imię",
@@ -65,7 +65,7 @@
                 },
                 {
                     "title"    : "Adres do wysyłki",
-                    "formType" : "labels-align-top",
+                    "type"     : "labels-align-top",
                     "data"     : [
                         {
                             "key" : "Imię",
@@ -95,7 +95,7 @@
                 },
                 {
                     "title"    : "Adres do wysyłki",
-                    "formType" : "labels-float-top",
+                    "type"     : "labels-float-top",
                     "data"     : [
                         {
                             "key" : "Imię",

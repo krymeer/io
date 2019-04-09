@@ -1,10 +1,11 @@
-$primary-color:     #a63446;
-$bg-color:          #f9f9f9;
-$border-color-main: #eee;
-$border-color-dark: #ddd;
-$text-color-main:   rgba(0, 0, 0, .7);
-$input-color:       #212121;
-$placeholder-color: #b1b1b1;
+$primary-color:      #a63446;
+$bg-color:           #f9f9f9;
+$border-color-main:  #eee;
+$border-color-dark:  #ddd;
+$text-color-main:    rgba(0, 0, 0, .7);
+$input-color:        #212121;
+$placeholder-color:  #b1b1b1;
+$transition:         .1s ease-in-out;
 
 $value-xs:  3.5px;
 $value-s:   7px;
@@ -136,13 +137,6 @@ html, body {
     height: 100%;
 }
 
-body{
-    > * > * {
-        @extend %block-centered;
-        max-width: 760px;
-    }
-}
-
 button, p, h1, h2, h3, a, label, span, td {
   -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -150,6 +144,11 @@ button, p, h1, h2, h3, a, label, span, td {
        -moz-user-select: none;
         -ms-user-select: none;
             user-select: none;
+}
+
+#page-container > * > * {
+    @extend %block-centered;
+    max-width: 760px;
 }
 
 header {
@@ -203,12 +202,12 @@ main {
 
     button {
         @extend %radius;
-        border: 2px solid $primary-color;
         outline: none;
         position: relative;
         cursor: pointer;
-        background: rgb(255, 255, 255);
-        color: $primary-color;
+        border: 0;
+        background: #8b8b8b;
+        color: #fff;
         font-family: 'Roboto', sans-serif;
         font-weight: 500;
         font-size: 14px;
@@ -216,17 +215,17 @@ main {
         padding: 0 14px;
         height: 36px;
         text-transform: uppercase;
+        transition: background $transition, color $transition;
         // transition: border-color .2s ease-in-out, color .2s ease-in-out, background .2s ease-in-out;
 
         &:hover {
-            background: transparent;
+            background: #9c9c9c;
         }
 
-        &.disabled {
+        &[disabled] {
             cursor: default;
-            background: transparent;
-            border-color: $placeholder-color;
-            color: $placeholder-color;
+            background: #e0e0e0;
+            color: #bebebe;
         }
     }
 

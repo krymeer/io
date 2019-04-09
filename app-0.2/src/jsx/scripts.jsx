@@ -111,15 +111,32 @@ window.onload = function() {
         constructor( props )
         {
             super( props );
-            this.finishTask = this.finishTask.bind( this );
+            this.handleTaskStart  = this.handleTaskStart.bind( this );
+            this.handleTaskFinish = this.handleTaskFinish.bind( this );
+            this.state = {
+                taskStarted  : false,
+                taskFinished : false
+            }
         }
 
-        finishTask( event )
+        handleTaskStart()
         {
-            alert( 'click' );
+            if( !this.state.taskStarted && !this.state.taskFinished )
+            {
+                this.setState( {
+                    taskStarted : true
+                } );
+            }
+        }
 
-            // TODO
-            // Make the form disabled after firing this event
+        handleTaskFinish()
+        {
+            if( this.state.taskStarted && !this.state.taskFinished )
+            {
+                this.setState( {
+                    taskFinished : true
+                } );
+            }
         }
 
         render()
@@ -148,9 +165,9 @@ window.onload = function() {
                             }
                         </tbody>
                     </table>
-                    <button className='btn-start-task' id={ 'btn-start-' +  taskID }>Rozpocznij ćwiczenie</button>
-                    <TaskForm taskID={ taskID } taskTitle={ this.props.task.title } type={ this.props.task.formType } fields={ this.props.task.data } />
-                    <button className='btn-finish-task' id={ 'btn-finish-' +  taskID } onClick={ this.finishTask }>Zakończ ćwiczenie</button>
+                    <button className='btn-start-task' id={ 'btn-start-' +  taskID } onClick={ this.handleTaskStart } disabled={ this.state.taskStarted }>Rozpocznij ćwiczenie</button>
+                    <TaskForm taskID={ taskID } taskTitle={ this.props.task.title } type={ this.props.task.type } fields={ this.props.task.data } />
+                    <button className='btn-finish-task' id={ 'btn-finish-' +  taskID } onClick={ this.handleTaskFinish } disabled={ this.state.taskFinished || !this.state.taskStarted }>Zakończ ćwiczenie</button>
                 </section>
             );
         }
@@ -229,10 +246,24 @@ window.onload = function() {
             }
             else
             {
-                return (
-                    scenarios.map( ( scenario, index ) => 
+                const scenarioList = [];
+
+                scenarios.map( ( scenario, index ) => {
+                    scenarioList.push(
                         <Scenario key={ index + 1 } index={ index + 1 } scenario={ scenario } />
-                    )
+                    );
+                } );
+
+                return (
+                    <div id="page-container">
+                        <header>
+                            <span>Badanie użyteczności</span>
+                        </header>
+                        <main>
+                            <Paragraph content="Witaj! Niniejsze badanie ma na celu zbadanie użyteczności wybranych wzorców pól, które możesz na co dzień znaleźć w wielu aplikacjach webowych i na stronach internetowych. Zostaniesz poproszony o wykonanie kilkunastu zadań polegających na uzupełnieniu różnego typu formularzy. **Ten tekst jeszcze się zmieni.**" />
+                            { scenarioList }
+                        </main>
+                    </div>
                 );
             }
         }

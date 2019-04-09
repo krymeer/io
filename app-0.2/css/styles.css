@@ -47,7 +47,7 @@ main section > table th, main section > table td {
   border-bottom: 1px solid #eee;
 }
 
-main section > *, body > * > * {
+main section > *, #page-container > * > * {
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -102,10 +102,6 @@ html, body {
   height: 100%;
 }
 
-body > * > * {
-  max-width: 760px;
-}
-
 button, p, h1, h2, h3, a, label, span, td {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -113,6 +109,10 @@ button, p, h1, h2, h3, a, label, span, td {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+}
+
+#page-container > * > * {
+  max-width: 760px;
 }
 
 header {
@@ -156,12 +156,12 @@ main img {
   max-height: 100%;
 }
 main button {
-  border: 2px solid #a63446;
   outline: none;
   position: relative;
   cursor: pointer;
-  background: white;
-  color: #a63446;
+  border: 0;
+  background: #8b8b8b;
+  color: #fff;
   font-family: "Roboto", sans-serif;
   font-weight: 500;
   font-size: 14px;
@@ -169,15 +169,15 @@ main button {
   padding: 0 14px;
   height: 36px;
   text-transform: uppercase;
+  transition: background 0.1s ease-in-out, color 0.1s ease-in-out;
 }
 main button:hover {
-  background: transparent;
+  background: #9c9c9c;
 }
-main button.disabled {
+main button[disabled] {
   cursor: default;
-  background: transparent;
-  border-color: #b1b1b1;
-  color: #b1b1b1;
+  background: #e0e0e0;
+  color: #bebebe;
 }
 main section > table {
   display: table !important;
