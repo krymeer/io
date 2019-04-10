@@ -1,0 +1,39 @@
+{
+    "scenarios" : [
+        {
+            "intro" : "Zamówiłeś kilka produktów z popularnego sklepu internetowego. W ostatnim czasie zmieniłeś miejsce zamieszkania, jednak jak dotąd nie zamawiałeś żadnej przesyłki na ten adres. Czas to zmienić!",
+            "tasks" : [
+                {
+                    "title"    : "Adres do wysyłki",
+                    "type"     : "labels-float-top",
+                    "data"     : [
+                        {
+                            "key" : "Imię",
+                            "value" : "Jarosław"
+                        },
+                        {
+                            "key" : "Nazwisko",
+                            "value" : "Dębski"
+                        },
+                        {
+                            "key" : "Ulica i numer",
+                            "value" : "Jedności Narodowej 72/80"
+                        },
+                        {
+                            "key" : "Kod pocztowy",
+                            "value" : "50-261"
+                        },
+                        {
+                            "key" : "Miejscowość",
+                            "value" : "Wrocław"
+                        },
+                        {
+                            "key" : "Numer telefonu",
+                            "value" : "782 287 872"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

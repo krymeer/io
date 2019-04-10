@@ -5,6 +5,7 @@ $border-color-dark:  #ddd;
 $text-color-main:    rgba(0, 0, 0, .7);
 $input-color:        #212121;
 $placeholder-color:  #b1b1b1;
+$placeholder-float-color: #7e7e7e;
 $transition:         .1s ease-in-out;
 
 $value-xs:  3.5px;
@@ -350,15 +351,20 @@ main {
                         }
 
                         label.on-input-focus,
-                        label.on-input-data {
+                        label.on-input-non-empty:not(.on-input-disabled) {
                             font-size: 12px;
                             margin-top: -16px;
                             padding: 0 2px;
-                            color: $primary-color;
                         }
 
-                        label.on-input-data {
-                            color: $placeholder-color;
+                        label.on-input-non-empty:not(.on-input-disabled) {
+                            color: $placeholder-float-color;
+                        }
+
+
+                        label.on-input-focus.on-input-non-empty,
+                        label.on-input-focus {
+                            color: $primary-color;
                         }
                     }
                 }

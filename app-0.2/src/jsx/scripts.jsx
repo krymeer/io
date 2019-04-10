@@ -43,38 +43,54 @@ window.onload = function() {
         }
     }
 
-
     class InputWrapper extends React.Component {
         constructor( props )
         {
             super( props );
+
             this.handleFocus = this.handleFocus.bind( this );
             this.handleBlur  = this.handleBlur.bind( this );
-
-            this.state = {
-                inputFocus : false
+            this.state       = {
+                inputFocus    : false,
+                inputNonEmpty : false,
+                inputValid    : false
             }
         }
 
-        handleFocus()
+        handleFocus( e )
         {
+            const inputNonEmpty = ( event.target.value !== '' );
+            const inputValid    = ( event.target.value === this.props.data.value );
+            const inputID       = event.target.id;
+
             this.setState( {
-                inputFocus : true
+                inputFocus    : true,
+                inputNonEmpty : inputNonEmpty,
+                inputValid    : inputValid
             } );
+
+            this.props.onInputEvent( inputID, inputValid );
         }
 
-        handleBlur()
+        handleBlur( e )
         {
+            const inputNonEmpty = ( event.target.value !=='' );
+            const inputValid    = ( event.target.value === this.props.data.value );
+            const inputID       = event.target.id;
+
             this.setState( {
-                inputFocus : false
+                inputFocus    : false,
+                inputNonEmpty : inputNonEmpty,
+                inputValid    : inputValid
             } );
+
+            this.props.onInputEvent( inputID, inputValid );
         }
 
         render()
         {
-            const inputID        = this.props.taskID + '--input-' + ( this.props.inputIndex + 1 );
-            const labelClassName = ( ( this.props.inputDisabled ? 'on-input-disabled' : '' ) + ' ' + ( this.state.inputFocus ? 'on-input-focus' : '' ) ).trim();
-            console.log( labelClassName );
+            const inputID        = this.props.taskID + '--input-' + this.props.index;
+            const labelClassName = ( ( this.props.inputDisabled ? 'on-input-disabled' : '' ) + ' ' + ( this.state.inputFocus ? 'on-input-focus' : '' ) + ' ' + ( this.state.inputNonEmpty ? 'on-input-non-empty' : '' ) ).trim();
 
             return (
                 <div className="wrapper">
@@ -83,7 +99,6 @@ window.onload = function() {
                 </div>
             );
         }
-
     }
 
     class Task extends React.Component {
@@ -92,9 +107,11 @@ window.onload = function() {
             super( props );
             this.handleTaskStart  = this.handleTaskStart.bind( this );
             this.handleTaskFinish = this.handleTaskFinish.bind( this );
-            this.state = {
-                taskStarted  : false,
-                taskFinished : false
+            this.handleInputEvent = this.handleInputEvent.bind( this );
+            this.state            = {
+                taskStarted   : false,
+                taskFinished  : false,
+
             }
         }
 
@@ -116,6 +133,11 @@ window.onload = function() {
                     taskFinished : true
                 } );
             }
+        }
+
+        handleInputEvent( inputID, inputValid )
+        {
+            console.log( inputID, inputValid );
         }
 
         render()
@@ -149,8 +171,8 @@ window.onload = function() {
                         <form className={ this.props.task.type }>
                             <h3>{ this.props.task.title }</h3>
                             {
-                                this.props.task.data.map( ( fieldKeyVal, index ) =>
-                                    <InputWrapper key={ index } taskID={ taskID } inputIndex={ index } inputDisabled={ this.state.taskFinished || !this.state.taskStarted } data={ fieldKeyVal }/>
+                                this.props.task.data.map( ( keyValData, index ) =>
+                                    <InputWrapper key={ index } taskID={ taskID } taskError={ this.state.taskError && this.state.taskStarted } index={ index + 1 } inputDisabled={ this.state.taskFinished || !this.state.taskStarted } onInputEvent={ this.handleInputEvent } data={ keyValData }/>
                                 )
                             }
                         </form>
@@ -204,7 +226,7 @@ window.onload = function() {
 
         componentDidMount()
         {
-            fetch( './txt/test-0.1.json' )
+            fetch( './txt/test-simple.json' )
                 .then( res => res.json() )
                 .then(
                     ( result ) => {

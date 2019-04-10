@@ -249,14 +249,17 @@ main section .form-container > form.labels-float-top .wrapper label.on-input-dis
   background: #eee;
 }
 main section .form-container > form.labels-float-top .wrapper label.on-input-focus,
-main section .form-container > form.labels-float-top .wrapper label.on-input-data {
+main section .form-container > form.labels-float-top .wrapper label.on-input-non-empty:not(.on-input-disabled) {
   font-size: 12px;
   margin-top: -16px;
   padding: 0 2px;
-  color: #a63446;
 }
-main section .form-container > form.labels-float-top .wrapper label.on-input-data {
-  color: #b1b1b1;
+main section .form-container > form.labels-float-top .wrapper label.on-input-non-empty:not(.on-input-disabled) {
+  color: #7e7e7e;
+}
+main section .form-container > form.labels-float-top .wrapper label.on-input-focus.on-input-non-empty,
+main section .form-container > form.labels-float-top .wrapper label.on-input-focus {
+  color: #a63446;
 }
 
 /*# sourceMappingURL=styles.css.map */

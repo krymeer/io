@@ -68,33 +68,49 @@ window.onload = function () {
 
             _this2.handleFocus = _this2.handleFocus.bind(_this2);
             _this2.handleBlur = _this2.handleBlur.bind(_this2);
-
             _this2.state = {
-                inputFocus: false
+                inputFocus: false,
+                inputNonEmpty: false,
+                inputValid: false
             };
             return _this2;
         }
 
         _createClass(InputWrapper, [{
             key: 'handleFocus',
-            value: function handleFocus() {
+            value: function handleFocus(e) {
+                var inputNonEmpty = event.target.value !== '';
+                var inputValid = event.target.value === this.props.data.value;
+                var inputID = event.target.id;
+
                 this.setState({
-                    inputFocus: true
+                    inputFocus: true,
+                    inputNonEmpty: inputNonEmpty,
+                    inputValid: inputValid
                 });
+
+                this.props.onInputEvent(inputID, inputValid);
             }
         }, {
             key: 'handleBlur',
-            value: function handleBlur() {
+            value: function handleBlur(e) {
+                var inputNonEmpty = event.target.value !== '';
+                var inputValid = event.target.value === this.props.data.value;
+                var inputID = event.target.id;
+
                 this.setState({
-                    inputFocus: false
+                    inputFocus: false,
+                    inputNonEmpty: inputNonEmpty,
+                    inputValid: inputValid
                 });
+
+                this.props.onInputEvent(inputID, inputValid);
             }
         }, {
             key: 'render',
             value: function render() {
-                var inputID = this.props.taskID + '--input-' + (this.props.inputIndex + 1);
-                var labelClassName = ((this.props.inputDisabled ? 'on-input-disabled' : '') + ' ' + (this.state.inputFocus ? 'on-input-focus' : '')).trim();
-                console.log(labelClassName);
+                var inputID = this.props.taskID + '--input-' + this.props.index;
+                var labelClassName = ((this.props.inputDisabled ? 'on-input-disabled' : '') + ' ' + (this.state.inputFocus ? 'on-input-focus' : '') + ' ' + (this.state.inputNonEmpty ? 'on-input-non-empty' : '')).trim();
 
                 return React.createElement(
                     'div',
@@ -122,9 +138,11 @@ window.onload = function () {
 
             _this3.handleTaskStart = _this3.handleTaskStart.bind(_this3);
             _this3.handleTaskFinish = _this3.handleTaskFinish.bind(_this3);
+            _this3.handleInputEvent = _this3.handleInputEvent.bind(_this3);
             _this3.state = {
                 taskStarted: false,
                 taskFinished: false
+
             };
             return _this3;
         }
@@ -146,6 +164,11 @@ window.onload = function () {
                         taskFinished: true
                     });
                 }
+            }
+        }, {
+            key: 'handleInputEvent',
+            value: function handleInputEvent(inputID, inputValid) {
+                console.log(inputID, inputValid);
             }
         }, {
             key: 'render',
@@ -222,8 +245,8 @@ window.onload = function () {
                                 null,
                                 this.props.task.title
                             ),
-                            this.props.task.data.map(function (fieldKeyVal, index) {
-                                return React.createElement(InputWrapper, { key: index, taskID: taskID, inputIndex: index, inputDisabled: _this4.state.taskFinished || !_this4.state.taskStarted, data: fieldKeyVal });
+                            this.props.task.data.map(function (keyValData, index) {
+                                return React.createElement(InputWrapper, { key: index, taskID: taskID, taskError: _this4.state.taskError && _this4.state.taskStarted, index: index + 1, inputDisabled: _this4.state.taskFinished || !_this4.state.taskStarted, onInputEvent: _this4.handleInputEvent, data: keyValData });
                             })
                         )
                     ),
@@ -307,7 +330,7 @@ window.onload = function () {
             value: function componentDidMount() {
                 var _this8 = this;
 
-                fetch('./txt/test-0.1.json').then(function (res) {
+                fetch('./txt/test-simple.json').then(function (res) {
                     return res.json();
                 }).then(function (result) {
                     _this8.setState({
