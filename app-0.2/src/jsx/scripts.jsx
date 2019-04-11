@@ -60,8 +60,7 @@ window.onload = function() {
         handleFocus( e )
         {
             const inputNonEmpty = ( event.target.value !== '' );
-            const inputValid    = ( event.target.value === this.props.data.value );
-            const inputID       = event.target.id;
+            const inputValid    = ( event.target.value === this.props.value );
 
             this.setState( {
                 inputFocus    : true,
@@ -69,14 +68,13 @@ window.onload = function() {
                 inputValid    : inputValid
             } );
 
-            this.props.onInputEvent( inputID, inputValid );
+            this.props.onInputFocus( this.props.id, inputValid );
         }
 
         handleBlur( e )
         {
             const inputNonEmpty = ( event.target.value !=='' );
-            const inputValid    = ( event.target.value === this.props.data.value );
-            const inputID       = event.target.id;
+            const inputValid    = ( event.target.value === this.props.value );
 
             this.setState( {
                 inputFocus    : false,
@@ -84,18 +82,17 @@ window.onload = function() {
                 inputValid    : inputValid
             } );
 
-            this.props.onInputEvent( inputID, inputValid );
+            this.props.onInputBlur( this.props.id, inputValid );
         }
 
         render()
         {
-            const inputID        = this.props.taskID + '--input-' + this.props.index;
             const labelClassName = ( ( this.props.inputDisabled ? 'on-input-disabled' : '' ) + ' ' + ( this.state.inputFocus ? 'on-input-focus' : '' ) + ' ' + ( this.state.inputNonEmpty ? 'on-input-non-empty' : '' ) ).trim();
 
             return (
                 <div className="wrapper">
-                    <label className={ labelClassName } htmlFor={ inputID }>{ this.props.data.key }</label>
-                    <input type="text" id={ inputID } autoComplete="off" onFocus={ this.handleFocus } onBlur={ this.handleBlur } disabled={ this.props.inputDisabled } />
+                    <label className={ labelClassName } htmlFor={ this.props.id }>{ this.props.label }</label>
+                    <input type="text" id={ this.props.id } autoComplete="off" onFocus={ this.handleFocus } onBlur={ this.handleBlur } disabled={ this.props.inputDisabled } />
                 </div>
             );
         }
@@ -107,11 +104,20 @@ window.onload = function() {
             super( props );
             this.handleTaskStart  = this.handleTaskStart.bind( this );
             this.handleTaskFinish = this.handleTaskFinish.bind( this );
-            this.handleInputEvent = this.handleInputEvent.bind( this );
+            this.handleInputBlur  = this.handleInputBlur.bind( this );
+            this.handleInputFocus = this.handleInputFocus.bind( this );
             this.state            = {
-                taskStarted   : false,
-                taskFinished  : false,
-
+                taskStarted  : false,
+                taskFinished : false,
+                taskError    : false,
+                inputs       : this.props.task.data.map( ( item, index ) => {
+                    return {
+                        id    : this.props.id + '--input-' + ( index + 1 ),
+                        valid : false,
+                        key   : item.key,
+                        value : item.value,
+                    };
+                } )
             }
         }
 
@@ -129,23 +135,44 @@ window.onload = function() {
         {
             if( this.state.taskStarted && !this.state.taskFinished )
             {
-                this.setState( {
-                    taskFinished : true
-                } );
+                console.log( this.state.inputs );
+
+                if( this.state.inputs.filter( input => !input.valid ).length > 0 )
+                {
+                    console.error( 'Invalid Input Error' );
+                }
             }
         }
 
-        handleInputEvent( inputID, inputValid )
+        handleInputFocus( inputId, inputValid )
         {
-            console.log( inputID, inputValid );
+        }
+
+        handleInputBlur( inputId, inputValid )
+        {
+            this.setState( state => {
+                const inputs = state.inputs.map( ( input ) => {
+                    if( input.id === inputId )
+                    {
+                        return {
+                            ...input,
+                            valid : inputValid
+                        };
+                    }
+
+                    return input;
+                } );
+
+                return {
+                    inputs
+                };
+            } );
         }
 
         render()
         {
-            const taskID = 'task-' + this.props.scenarioIndex + '-' + this.props.index;
-
             return (
-                <section className='task' id={ taskID }>
+                <section className='task' id={ this.props.id }>
                     <h2>Ćwiczenie nr { this.props.index }</h2>
                     <Paragraph pClass='task-description' content='Wypełnij formularz, korzystając z danych zawartych **w poniższej tabeli:**' />
                     <table>
@@ -166,18 +193,18 @@ window.onload = function() {
                             }
                         </tbody>
                     </table>
-                    <button className='btn-start-task' id={ 'btn-start-' +  taskID } onClick={ this.handleTaskStart } disabled={ this.state.taskStarted }>Rozpocznij ćwiczenie</button>
+                    <button className='btn-start-task' id={ 'btn-start-' +  this.props.id } onClick={ this.handleTaskStart } disabled={ this.state.taskStarted }>Rozpocznij ćwiczenie</button>
                     <section className="form-container">
                         <form className={ this.props.task.type }>
                             <h3>{ this.props.task.title }</h3>
                             {
-                                this.props.task.data.map( ( keyValData, index ) =>
-                                    <InputWrapper key={ index } taskID={ taskID } taskError={ this.state.taskError && this.state.taskStarted } index={ index + 1 } inputDisabled={ this.state.taskFinished || !this.state.taskStarted } onInputEvent={ this.handleInputEvent } data={ keyValData }/>
+                                this.state.inputs.map( ( input ) =>
+                                    <InputWrapper key={ input.id } id={ input.id } taskError={ this.state.taskError && this.state.taskStarted } inputDisabled={ this.state.taskFinished || !this.state.taskStarted } onInputBlur={ this.handleInputBlur } onInputFocus={ this.handleInputFocus } label={ input.key } value={ input.value } />
                                 )
                             }
                         </form>
                     </section>
-                    <button className='btn-finish-task' id={ 'btn-finish-' +  taskID } onClick={ this.handleTaskFinish } disabled={ this.state.taskFinished || !this.state.taskStarted }>Zakończ ćwiczenie</button>
+                    <button className='btn-finish-task' id={ 'btn-finish-' +  this.props.id } onClick={ this.handleTaskFinish } disabled={ this.state.taskFinished || !this.state.taskStarted }>Zakończ ćwiczenie</button>
                 </section>
             );
         }
@@ -191,22 +218,20 @@ window.onload = function() {
 
         render()
         {
-            const scenarioID = 'scenario-' + this.props.index;
-
             return (
-                <section className='scenario' id={ scenarioID }>
+                <section className='scenario' id={ this.props.id }>
                     <h1>Scenariusz nr { this.props.index }</h1>
                     { typeof this.props.scenario.intro !== 'undefined' && 
                         <Paragraph pClass='scenario-intro' content={ this.props.scenario.intro } />
                     }
-                    <button className='btn-start-scenario' id={ 'btn-start-' + scenarioID }>Rozpocznij scenariusz</button>
+                    <button className='btn-start-scenario' id={ 'btn-start-' + this.props.id }>Rozpocznij scenariusz</button>
                     {
                         this.props.scenario.tasks.map( ( task, index ) =>
-                            <Task key={ index + 1 } scenarioIndex={ this.props.index } index={ index + 1 } task={ task } />
+                            <Task key={ index + 1 } id={ 'task-' + this.props.index + '-' + ( index + 1 ) } task={ task } />
                         )
                     }
                     <Paragraph pClass='scenario-outro' content={ 'Gratulacje! Wykonałeś wszystkie zadania ze **scenariusza nr ' + this.props.index + '.** Naciśnij poniższy przycisk, aby przejść do dalszej części badania:' } />
-                    <button className="btn-finish-scenario" id={ 'btn-finish-' + scenarioID }>Zakończ scenariusz</button>
+                    <button className="btn-finish-scenario" id={ 'btn-finish-' + this.props.id }>Zakończ scenariusz</button>
                 </section>
             );
         }
@@ -258,14 +283,6 @@ window.onload = function() {
             }
             else
             {
-                const scenarioList = [];
-
-                scenarios.map( ( scenario, index ) => {
-                    scenarioList.push(
-                        <Scenario key={ index + 1 } index={ index + 1 } scenario={ scenario } />
-                    );
-                } );
-
                 return (
                     <div id="page-container">
                         <header>
@@ -273,7 +290,9 @@ window.onload = function() {
                         </header>
                         <main>
                             <Paragraph content="Witaj! Niniejsze badanie ma na celu zbadanie użyteczności wybranych wzorców pól, które możesz na co dzień znaleźć w wielu aplikacjach webowych i na stronach internetowych. Zostaniesz poproszony o wykonanie kilkunastu zadań polegających na uzupełnieniu różnego typu formularzy. **Ten tekst jeszcze się zmieni.**" />
-                            { scenarioList }
+                            { scenarios.map( ( scenario, index ) =>
+                                <Scenario key={ index + 1 } id={ 'scenario-' + ( index + 1 ) } index={ index + 1 } scenario={ scenario } />
+                            ) }
                         </main>
                     </div>
                 );
