@@ -63,8 +63,6 @@ window.onload = function() {
             this.setState( {
                 inputFocus : true
             } );
-
-            this.props.onInputFocus( this.props.id, inputValid );
         }
 
         handleBlur( e )
@@ -79,10 +77,10 @@ window.onload = function() {
 
         handleChange( e )
         {
-            const inputValid    = ( event.target.value === this.props.value );
+            const inputValid = ( event.target.value === this.props.value );
 
             this.setState( {
-                inputValid    : inputValid
+                inputValid : inputValid
             } );
 
             this.props.onInputChange( this.props.id, inputValid )
@@ -106,8 +104,8 @@ window.onload = function() {
         constructor( props )
         {
             super( props );
-            this.handleTaskStart   = this.handleTaskStart.bind( this );
-            this.handleTaskFinish  = this.handleTaskFinish.bind( this );
+            this.handleStart       = this.handleStart.bind( this );
+            this.handleFinish      = this.handleFinish.bind( this );
             this.handleInputChange = this.handleInputChange.bind( this );
             this.state             = {
                 taskStarted  : false,
@@ -124,7 +122,7 @@ window.onload = function() {
             }
         }
 
-        handleTaskStart()
+        handleStart()
         {
             if( !this.state.taskStarted && !this.state.taskFinished )
             {
@@ -134,7 +132,7 @@ window.onload = function() {
             }
         }
 
-        handleTaskFinish()
+        handleFinish()
         {
             if( this.state.taskStarted && !this.state.taskFinished )
             {
@@ -150,6 +148,8 @@ window.onload = function() {
                         taskError    : false,
                         taskFinished : true
                     } );
+
+                    this.props.onTaskFinish( this.props.index );
                 }
             }
         }
@@ -177,7 +177,6 @@ window.onload = function() {
 
         render()
         {
-            console.log( this.props.scenarioStarted, this.props.currentIndex, this.props.index )
             if( this.props.scenarioStarted && this.props.currentIndex >= this.props.index )
             {
                 return (
@@ -202,7 +201,7 @@ window.onload = function() {
                                 }
                             </tbody>
                         </table>
-                        <button className='btn-start-task' id={ 'btn-start-' +  this.props.id } onClick={ this.handleTaskStart } disabled={ this.state.taskStarted }>Rozpocznij ćwiczenie</button>
+                        <button className='btn-start-task' id={ 'btn-start-' +  this.props.id } onClick={ this.handleStart } disabled={ this.state.taskStarted }>Rozpocznij ćwiczenie</button>
                         <section className="form-container">
                             <form className={ this.props.task.type }>
                                 <h3>{ this.props.task.title }</h3>
@@ -216,7 +215,7 @@ window.onload = function() {
                                 }
                             </form>
                         </section>
-                        <button className='btn-finish-task' id={ 'btn-finish-' +  this.props.id } onClick={ this.handleTaskFinish } disabled={ this.state.taskFinished || !this.state.taskStarted }>Zakończ ćwiczenie</button>
+                        <button className='btn-finish-task' id={ 'btn-finish-' +  this.props.id } onClick={ this.handleFinish } disabled={ this.state.taskFinished || !this.state.taskStarted }>Zakończ ćwiczenie</button>
                     </section>
                 );
             }
@@ -230,25 +229,53 @@ window.onload = function() {
         {
             super( props );
 
-            this.handleScenarioStart  = this.handleScenarioStart.bind( this );
-            this.handleScenarioFinish = this.handleScenarioFinish.bind( this );
-            this.state                = {
+            this.handleStart      = this.handleStart.bind( this );
+            this.handleFinish     = this.handleFinish.bind( this );
+            this.handleTaskFinish = this.handleTaskFinish.bind( this );
+            this.state            = {
+                allTasksFinished : false,
                 scenarioStarted  : false,
                 scenarioFinished : false,
                 currentTaskIndex : 0
             }
         }
 
-        handleScenarioStart()
+        handleStart()
         {
             this.setState( {
                 scenarioStarted : true
             } );
         }
 
-        handleScenarioFinish()
+        handleFinish()
         {
+            if( this.state.scenarioStarted && this.state.allTasksFinished && !this.state.scenarioFinished )
+            {
+                this.setState( {
+                    scenarioFinished : true
+                } );
 
+                this.props.onScenarioFinish( this.props.index );
+            }
+        }
+
+        handleTaskFinish( taskIndex )
+        {
+            if( this.state.currentTaskIndex === taskIndex )
+            {
+                if( this.state.currentTaskIndex === this.props.scenario.tasks.length - 1 )
+                {
+                    this.setState( {
+                        allTasksFinished : true
+                    } );
+                }
+                else
+                {
+                    this.setState( {
+                        currentTaskIndex : this.state.currentTaskIndex + 1
+                    } );
+                }
+            }
         }
 
         render()
@@ -261,17 +288,17 @@ window.onload = function() {
                         { typeof this.props.scenario.intro !== 'undefined' &&
                             <Paragraph class='scenario-intro' content={ this.props.scenario.intro } />
                         }
-                        <button className='btn-start-scenario' id={ 'btn-start-' + this.props.id } onClick={ this.handleScenarioStart } disabled={ this.state.scenarioStarted }>Rozpocznij scenariusz</button>
+                        <button className='btn-start-scenario' id={ 'btn-start-' + this.props.id } onClick={ this.handleStart } disabled={ this.state.scenarioStarted }>Rozpocznij scenariusz</button>
                         {
                             this.props.scenario.tasks.map( ( task, index ) =>
-                                <Task key={ index } currentIndex={ this.state.currentTaskIndex } index={ index } id={ 'task-' + this.props.index + '-' + index } scenarioStarted={ this.state.scenarioStarted } task={ task } />
+                                <Task key={ index } currentIndex={ this.state.currentTaskIndex } onTaskFinish={ this.handleTaskFinish } index={ index } id={ 'task-' + this.props.index + '-' + index } scenarioStarted={ this.state.scenarioStarted } task={ task } />
                             )
                         }
-                        { this.state.scenarioFinished && typeof this.props.scenario.outro !== 'undefined' &&
+                        { this.state.allTasksFinished && typeof this.props.scenario.outro !== 'undefined' &&
                             <Paragraph class='scenario-outro' content={ this.props.scenario.outro } />
                         }
-                        { this.state.scenarioFinished &&
-                            <button className="btn-finish-scenario" id={ 'btn-finish-' + this.props.id } onClick={ this.handleScenarioFinish }>Zakończ scenariusz</button>
+                        { this.state.allTasksFinished &&
+                            <button className="btn-finish-scenario" id={ 'btn-finish-' + this.props.id } onClick={ this.handleFinish } disabled={ this.state.scenarioFinished }>Zakończ scenariusz</button>
                         }
                     </section>
                 );
@@ -286,27 +313,54 @@ window.onload = function() {
         {
             super( props );
 
-            this.handleTestStart = this.handleTestStart.bind( this );
-            this.state = {
+            this.handleStart          = this.handleStart.bind( this );
+            this.handleFinish         = this.handleFinish.bind( this );
+            this.handleScenarioFinish = this.handleScenarioFinish.bind( this );
+            this.state                = {
                 error                : null,
                 isLoaded             : false,
                 scenarios            : [],
+                allScenariosFinished : false,
                 testStarted          : false,
                 testFinished         : false,
                 currentScenarioIndex : 0
             }
         }
 
-        handleTestStart()
+        handleStart()
         {
             this.setState( {
                 testStarted : true
             } );
         }
 
+        handleFinish()
+        {
+
+        }
+
+        handleScenarioFinish( scenarioIndex )
+        {
+            if( this.state.currentScenarioIndex === scenarioIndex )
+            {
+                if( this.state.currentScenarioIndex === this.state.scenarios.length - 1 )
+                {
+                    this.setState( {
+                        allScenariosFinished : true
+                    } );
+                }
+                else
+                {
+                    this.setState( {
+                        currentScenarioIndex : this.state.currentScenarioIndex + 1
+                    } );
+                }
+            }
+        }
+
         componentDidMount()
         {
-            fetch( './txt/test-simple.json' )
+            fetch( './txt/test-1.json' )
                 .then( res => res.json() )
                 .then(
                     ( result ) => {
@@ -345,10 +399,13 @@ window.onload = function() {
                         </header>
                         <main>
                             <Paragraph content="Witaj! Niniejsze badanie ma na celu zbadanie użyteczności wybranych wzorców pól, które możesz na co dzień znaleźć w wielu aplikacjach webowych i na stronach internetowych. Zostaniesz poproszony o wykonanie kilkunastu zadań polegających na uzupełnieniu różnego typu formularzy. **Ten tekst jeszcze się zmieni.**" />
-                            <button onClick={ this.handleTestStart } disabled={ this.state.testStarted }>Rozpocznij badanie</button>
+                            <button onClick={ this.handleStart } disabled={ this.state.testStarted }>Rozpocznij badanie</button>
                             { scenarios.map( ( scenario, index ) =>
-                                <Scenario key={ index } id={ 'scenario-' + index } index={ index } testStarted={ this.state.testStarted } currentIndex={ this.state.currentScenarioIndex } scenario={ scenario } />
+                                <Scenario key={ index } id={ 'scenario-' + index } index={ index } testStarted={ this.state.testStarted } currentIndex={ this.state.currentScenarioIndex } scenario={ scenario } onScenarioFinish={ this.handleScenarioFinish }/>
                             ) }
+                            { this.state.allScenariosFinished &&
+                                <Paragraph content="**To już koniec!** Dziękuję za poświęcony czas i dotarcie do samego końca badania!" />
+                            }
                         </main>
                     </div>
                 );

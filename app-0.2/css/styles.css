@@ -38,7 +38,7 @@ main section > * {
   margin-bottom: 14px;
 }
 
-main > section > section, main section .form-container > form .wrapper {
+main > section > section, main section .form-container > form > .wrapper {
   margin-top: 21px;
   margin-bottom: 21px;
 }
@@ -66,11 +66,11 @@ main section > table th, main section > table td {
   padding: 14px;
 }
 
-main section .form-container > form .wrapper input {
+main section .form-container > form > .wrapper > input {
   padding: 7px;
 }
 
-main section .form-container > form .wrapper input, main section .form-container, main section > table, main button {
+main section .form-container > form > .wrapper > input, main section .form-container, main section > table, main button {
   border-radius: 4px;
 }
 
@@ -178,61 +178,74 @@ main section > table th {
   text-align: left;
 }
 main section .form-container {
-  width: 330px;
+  width: fit-content;
 }
 main section .form-container > form {
   margin: 0 auto;
 }
-main section .form-container > form .wrapper {
+main section .form-container > form > .wrapper {
   display: grid;
   align-items: center;
 }
-main section .form-container > form .wrapper label, main section .form-container > form .wrapper input {
+main section .form-container > form > .wrapper > label, main section .form-container > form > .wrapper > input {
   line-height: 1;
   display: block;
 }
-main section .form-container > form .wrapper input {
+main section .form-container > form > .wrapper > input {
   font-size: inherit;
   color: #212121;
   border: 2px solid #ddd;
   transition: color 0.1s ease-in-out, background 0.1s ease-in-out, border-color 0.1s ease-in-out;
 }
-main section .form-container > form .wrapper input.error {
+main section .form-container > form > .wrapper > input.error {
   color: #a63446;
   border-color: #a63446;
 }
-main section .form-container > form .wrapper input:disabled {
+main section .form-container > form > .wrapper > input:disabled {
   background: #eee;
   color: #ddd;
 }
-main section .form-container > form .wrapper input:focus {
+main section .form-container > form > .wrapper > input:focus {
   outline: none;
   border-color: #7e7e7e;
 }
-main section .form-container > form .wrapper.on-task-error.on-input-invalid input {
+main section .form-container > form > .wrapper.on-task-error.on-input-invalid > input {
   border-color: #a63446 !important;
   color: #a63446 !important;
 }
-main section .form-container > form .wrapper.on-task-error.on-input-invalid label {
+main section .form-container > form > .wrapper.on-task-error.on-input-invalid > label {
   color: #a63446 !important;
 }
 main section .form-container > form > p.on-task-error {
   font-size: 14px;
+  text-align: center;
 }
-main section .form-container > form.labels-align-left .wrapper, main section .form-container > form.labels-align-right .wrapper {
+main section .form-container > form.labels-align-left > .wrapper, main section .form-container > form.labels-align-right > .wrapper {
   grid-template-columns: auto 200px;
   grid-column-gap: 21px;
 }
-main section .form-container > form.labels-align-right .wrapper label {
+main section .form-container > form.labels-align-left {
+  width: 380px;
+}
+main section .form-container > form.labels-align-right {
+  width: 330px;
+}
+main section .form-container > form.labels-align-right > .wrapper > label {
   text-align: right;
 }
-main section .form-container > form.labels-align-top .wrapper {
+main section .form-container > form.labels-align-top {
+  width: 200px;
+}
+main section .form-container > form.labels-align-top > .wrapper {
   grid-row-gap: 3.5px;
 }
-main section .form-container > form.labels-float-top .wrapper {
+main section .form-container > form.labels-float-top {
+  width: 200px;
+}
+main section .form-container > form.labels-float-top > .wrapper {
   position: relative;
 }
-main section .form-container > form.labels-float-top .wrapper label {
+main section .form-container > form.labels-float-top > .wrapper > label {
   cursor: text;
   position: absolute;
   left: 7px;
@@ -243,17 +256,15 @@ main section .form-container > form.labels-float-top .wrapper label {
   color: #b1b1b1;
   background: #fff;
 }
-main section .form-container > form.labels-float-top .wrapper label.on-input-disabled {
+main section .form-container > form.labels-float-top > .wrapper > label.on-input-disabled {
   background: #eee;
 }
-main section .form-container > form.labels-float-top .wrapper label.on-input-focus,
-main section .form-container > form.labels-float-top .wrapper label.on-input-non-empty:not(.on-input-disabled) {
+main section .form-container > form.labels-float-top > .wrapper > label.on-input-focus, main section .form-container > form.labels-float-top > .wrapper > label.on-input-non-empty:not(.on-input-disabled) {
   font-size: 12px;
   margin-top: -16px;
   padding: 0 2px;
 }
-main section .form-container > form.labels-float-top .wrapper label.on-input-focus,
-main section .form-container > form.labels-float-top .wrapper label.on-input-non-empty:not(.on-input-disabled) {
+main section .form-container > form.labels-float-top > .wrapper > label.on-input-focus, main section .form-container > form.labels-float-top > .wrapper > label.on-input-non-empty:not(.on-input-disabled) {
   color: #7e7e7e;
 }
 

@@ -2,7 +2,38 @@
     "scenarios" : [
         {
             "intro" : "Zamówiłeś kilka produktów z popularnego sklepu internetowego. W ostatnim czasie zmieniłeś miejsce zamieszkania, jednak jak dotąd nie zamawiałeś żadnej przesyłki na ten adres. Czas to zmienić!",
+            "outro" : "**Gratulacje!** Właśnie ukończyłeś scenariusz. Naciśnij poniższy przycisk, aby przejść do dalszej części badania:",
             "tasks" : [
+                {
+                    "title"    : "Adres do wysyłki",
+                    "type"     : "labels-align-left",
+                    "data"     : [
+                        {
+                            "key" : "Imię",
+                            "value" : "Adam"
+                        },
+                        {
+                            "key" : "Nazwisko",
+                            "value" : "Nowak"
+                        },
+                        {
+                            "key" : "Ulica i numer",
+                            "value" : "plac Grunwaldzki 13"
+                        },
+                        {
+                            "key" : "Kod pocztowy",
+                            "value" : "50-377"
+                        },
+                        {
+                            "key" : "Miejscowość",
+                            "value" : "Wrocław"
+                        },
+                        {
+                            "key" : "Numer telefonu",
+                            "value" : "789 425 661"
+                        }
+                    ]
+                },
                 {
                     "title"    : "Adres do wysyłki",
                     "type"     : "labels-float-top",
@@ -33,8 +64,7 @@
                         }
                     ]
                 }
-            ],
-            "outro" : "To będzie tekst **kończący scenariusz.** Naciśnij poniższy przycisk, aby przejść dalej:"
+            ]
         }
     ]
 }

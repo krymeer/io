@@ -242,25 +242,22 @@ main {
             @extend %block-alt;
             @extend %radius;
             @extend %padding-l;
-            width: 330px;
+            width: fit-content;
 
             > form {
                 margin: 0 auto;
 
-                h3 {
-                }
-
-                .wrapper {
+                > .wrapper {
                     @extend %margin-top-btm-l;
                     display: grid;
                     align-items: center;
 
-                    label, input {
+                    > label, > input {
                         line-height: 1;
                         display: block;
                     }
 
-                    input {
+                    > input {
                         @extend %padding-s;
                         @extend %radius;
                         font-size: inherit;
@@ -285,12 +282,12 @@ main {
                     }
 
                     &.on-task-error.on-input-invalid {
-                        input {
+                        > input {
                             border-color: $primary-color !important;
                             color: $primary-color !important;
                         }
 
-                        label {
+                        > label {
                             color: $primary-color !important;
                         }
                     }
@@ -298,34 +295,45 @@ main {
 
                 > p.on-task-error {
                     font-size: 14px;
+                    text-align: center;
                 }
 
                 &.labels-align-left, &.labels-align-right {
-                    .wrapper {
+                    > .wrapper {
                         grid-template-columns: auto 200px;
                         grid-column-gap: $value-l;
                     }
                 }
 
+                &.labels-align-left {
+                    width: 380px;
+                }
+
                 &.labels-align-right {
-                    .wrapper {
-                        label {
+                    width: 330px;
+
+                    > .wrapper {
+                        > label {
                             text-align: right;
                         }
                     }
                 }
 
                 &.labels-align-top {
-                    .wrapper {
+                    width: 200px;
+
+                    > .wrapper {
                         grid-row-gap: $value-xs;
                     }
                 }
 
                 &.labels-float-top {
-                    .wrapper {
+                    width: 200px;
+
+                    > .wrapper {
                         position: relative;
 
-                        label {
+                        > label {
                             cursor: text;
                             position: absolute;
                             left: $value-s;
@@ -335,22 +343,23 @@ main {
                             z-index: 1;
                             color: $placeholder-color;
                             background: #fff;
-                        }
 
-                        label.on-input-disabled {
-                            background: $border-color-m;
-                        }
+                            &.on-input-disabled {
+                                background: $border-color-m;
+                            }
 
-                        label.on-input-focus,
-                        label.on-input-non-empty:not(.on-input-disabled) {
-                            font-size: 12px;
-                            margin-top: -16px;
-                            padding: 0 2px;
-                        }
+                            &.on-input-focus,
+                            &.on-input-non-empty:not(.on-input-disabled) {
+                                font-size: 12px;
+                                margin-top: -16px;
+                                padding: 0 2px;
+                            }
 
-                        label.on-input-focus,
-                        label.on-input-non-empty:not(.on-input-disabled) {
-                            color: $input-color-b;
+                            &.on-input-focus,
+                            &.on-input-non-empty:not(.on-input-disabled) {
+                                color: $input-color-b;
+                            }
+
                         }
                     }
                 }

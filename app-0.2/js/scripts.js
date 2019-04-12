@@ -83,8 +83,6 @@ window.onload = function () {
                 this.setState({
                     inputFocus: true
                 });
-
-                this.props.onInputFocus(this.props.id, inputValid);
             }
         }, {
             key: 'handleBlur',
@@ -137,8 +135,8 @@ window.onload = function () {
 
             var _this3 = _possibleConstructorReturn(this, (Task.__proto__ || Object.getPrototypeOf(Task)).call(this, props));
 
-            _this3.handleTaskStart = _this3.handleTaskStart.bind(_this3);
-            _this3.handleTaskFinish = _this3.handleTaskFinish.bind(_this3);
+            _this3.handleStart = _this3.handleStart.bind(_this3);
+            _this3.handleFinish = _this3.handleFinish.bind(_this3);
             _this3.handleInputChange = _this3.handleInputChange.bind(_this3);
             _this3.state = {
                 taskStarted: false,
@@ -157,8 +155,8 @@ window.onload = function () {
         }
 
         _createClass(Task, [{
-            key: 'handleTaskStart',
-            value: function handleTaskStart() {
+            key: 'handleStart',
+            value: function handleStart() {
                 if (!this.state.taskStarted && !this.state.taskFinished) {
                     this.setState({
                         taskStarted: true
@@ -166,8 +164,8 @@ window.onload = function () {
                 }
             }
         }, {
-            key: 'handleTaskFinish',
-            value: function handleTaskFinish() {
+            key: 'handleFinish',
+            value: function handleFinish() {
                 if (this.state.taskStarted && !this.state.taskFinished) {
                     if (this.state.inputs.filter(function (input) {
                         return !input.valid;
@@ -180,6 +178,8 @@ window.onload = function () {
                             taskError: false,
                             taskFinished: true
                         });
+
+                        this.props.onTaskFinish(this.props.index);
                     }
                 }
             }
@@ -207,7 +207,6 @@ window.onload = function () {
             value: function render() {
                 var _this4 = this;
 
-                console.log(this.props.scenarioStarted, this.props.currentIndex, this.props.index);
                 if (this.props.scenarioStarted && this.props.currentIndex >= this.props.index) {
                     return React.createElement(
                         'section',
@@ -263,7 +262,7 @@ window.onload = function () {
                         ),
                         React.createElement(
                             'button',
-                            { className: 'btn-start-task', id: 'btn-start-' + this.props.id, onClick: this.handleTaskStart, disabled: this.state.taskStarted },
+                            { className: 'btn-start-task', id: 'btn-start-' + this.props.id, onClick: this.handleStart, disabled: this.state.taskStarted },
                             'Rozpocznij \u0107wiczenie'
                         ),
                         React.createElement(
@@ -285,7 +284,7 @@ window.onload = function () {
                         ),
                         React.createElement(
                             'button',
-                            { className: 'btn-finish-task', id: 'btn-finish-' + this.props.id, onClick: this.handleTaskFinish, disabled: this.state.taskFinished || !this.state.taskStarted },
+                            { className: 'btn-finish-task', id: 'btn-finish-' + this.props.id, onClick: this.handleFinish, disabled: this.state.taskFinished || !this.state.taskStarted },
                             'Zako\u0144cz \u0107wiczenie'
                         )
                     );
@@ -306,9 +305,11 @@ window.onload = function () {
 
             var _this5 = _possibleConstructorReturn(this, (Scenario.__proto__ || Object.getPrototypeOf(Scenario)).call(this, props));
 
-            _this5.handleScenarioStart = _this5.handleScenarioStart.bind(_this5);
-            _this5.handleScenarioFinish = _this5.handleScenarioFinish.bind(_this5);
+            _this5.handleStart = _this5.handleStart.bind(_this5);
+            _this5.handleFinish = _this5.handleFinish.bind(_this5);
+            _this5.handleTaskFinish = _this5.handleTaskFinish.bind(_this5);
             _this5.state = {
+                allTasksFinished: false,
                 scenarioStarted: false,
                 scenarioFinished: false,
                 currentTaskIndex: 0
@@ -317,15 +318,38 @@ window.onload = function () {
         }
 
         _createClass(Scenario, [{
-            key: 'handleScenarioStart',
-            value: function handleScenarioStart() {
+            key: 'handleStart',
+            value: function handleStart() {
                 this.setState({
                     scenarioStarted: true
                 });
             }
         }, {
-            key: 'handleScenarioFinish',
-            value: function handleScenarioFinish() {}
+            key: 'handleFinish',
+            value: function handleFinish() {
+                if (this.state.scenarioStarted && this.state.allTasksFinished && !this.state.scenarioFinished) {
+                    this.setState({
+                        scenarioFinished: true
+                    });
+
+                    this.props.onScenarioFinish(this.props.index);
+                }
+            }
+        }, {
+            key: 'handleTaskFinish',
+            value: function handleTaskFinish(taskIndex) {
+                if (this.state.currentTaskIndex === taskIndex) {
+                    if (this.state.currentTaskIndex === this.props.scenario.tasks.length - 1) {
+                        this.setState({
+                            allTasksFinished: true
+                        });
+                    } else {
+                        this.setState({
+                            currentTaskIndex: this.state.currentTaskIndex + 1
+                        });
+                    }
+                }
+            }
         }, {
             key: 'render',
             value: function render() {
@@ -344,16 +368,16 @@ window.onload = function () {
                         typeof this.props.scenario.intro !== 'undefined' && React.createElement(Paragraph, { 'class': 'scenario-intro', content: this.props.scenario.intro }),
                         React.createElement(
                             'button',
-                            { className: 'btn-start-scenario', id: 'btn-start-' + this.props.id, onClick: this.handleScenarioStart, disabled: this.state.scenarioStarted },
+                            { className: 'btn-start-scenario', id: 'btn-start-' + this.props.id, onClick: this.handleStart, disabled: this.state.scenarioStarted },
                             'Rozpocznij scenariusz'
                         ),
                         this.props.scenario.tasks.map(function (task, index) {
-                            return React.createElement(Task, { key: index, currentIndex: _this6.state.currentTaskIndex, index: index, id: 'task-' + _this6.props.index + '-' + index, scenarioStarted: _this6.state.scenarioStarted, task: task });
+                            return React.createElement(Task, { key: index, currentIndex: _this6.state.currentTaskIndex, onTaskFinish: _this6.handleTaskFinish, index: index, id: 'task-' + _this6.props.index + '-' + index, scenarioStarted: _this6.state.scenarioStarted, task: task });
                         }),
-                        this.state.scenarioFinished && typeof this.props.scenario.outro !== 'undefined' && React.createElement(Paragraph, { 'class': 'scenario-outro', content: this.props.scenario.outro }),
-                        this.state.scenarioFinished && React.createElement(
+                        this.state.allTasksFinished && typeof this.props.scenario.outro !== 'undefined' && React.createElement(Paragraph, { 'class': 'scenario-outro', content: this.props.scenario.outro }),
+                        this.state.allTasksFinished && React.createElement(
                             'button',
-                            { className: 'btn-finish-scenario', id: 'btn-finish-' + this.props.id, onClick: this.handleScenarioFinish },
+                            { className: 'btn-finish-scenario', id: 'btn-finish-' + this.props.id, onClick: this.handleFinish, disabled: this.state.scenarioFinished },
                             'Zako\u0144cz scenariusz'
                         )
                     );
@@ -374,11 +398,14 @@ window.onload = function () {
 
             var _this7 = _possibleConstructorReturn(this, (MainComponent.__proto__ || Object.getPrototypeOf(MainComponent)).call(this, props));
 
-            _this7.handleTestStart = _this7.handleTestStart.bind(_this7);
+            _this7.handleStart = _this7.handleStart.bind(_this7);
+            _this7.handleFinish = _this7.handleFinish.bind(_this7);
+            _this7.handleScenarioFinish = _this7.handleScenarioFinish.bind(_this7);
             _this7.state = {
                 error: null,
                 isLoaded: false,
                 scenarios: [],
+                allScenariosFinished: false,
                 testStarted: false,
                 testFinished: false,
                 currentScenarioIndex: 0
@@ -387,18 +414,36 @@ window.onload = function () {
         }
 
         _createClass(MainComponent, [{
-            key: 'handleTestStart',
-            value: function handleTestStart() {
+            key: 'handleStart',
+            value: function handleStart() {
                 this.setState({
                     testStarted: true
                 });
+            }
+        }, {
+            key: 'handleFinish',
+            value: function handleFinish() {}
+        }, {
+            key: 'handleScenarioFinish',
+            value: function handleScenarioFinish(scenarioIndex) {
+                if (this.state.currentScenarioIndex === scenarioIndex) {
+                    if (this.state.currentScenarioIndex === this.state.scenarios.length - 1) {
+                        this.setState({
+                            allScenariosFinished: true
+                        });
+                    } else {
+                        this.setState({
+                            currentScenarioIndex: this.state.currentScenarioIndex + 1
+                        });
+                    }
+                }
             }
         }, {
             key: 'componentDidMount',
             value: function componentDidMount() {
                 var _this8 = this;
 
-                fetch('./txt/test-simple.json').then(function (res) {
+                fetch('./txt/test-1.json').then(function (res) {
                     return res.json();
                 }).then(function (result) {
                     _this8.setState({
@@ -451,12 +496,13 @@ window.onload = function () {
                             React.createElement(Paragraph, { content: 'Witaj! Niniejsze badanie ma na celu zbadanie u\u017Cyteczno\u015Bci wybranych wzorc\xF3w p\xF3l, kt\xF3re mo\u017Cesz na co dzie\u0144 znale\u017A\u0107 w wielu aplikacjach webowych i na stronach internetowych. Zostaniesz poproszony o wykonanie kilkunastu zada\u0144 polegaj\u0105cych na uzupe\u0142nieniu r\xF3\u017Cnego typu formularzy. **Ten tekst jeszcze si\u0119 zmieni.**' }),
                             React.createElement(
                                 'button',
-                                { onClick: this.handleTestStart, disabled: this.state.testStarted },
+                                { onClick: this.handleStart, disabled: this.state.testStarted },
                                 'Rozpocznij badanie'
                             ),
                             scenarios.map(function (scenario, index) {
-                                return React.createElement(Scenario, { key: index, id: 'scenario-' + index, index: index, testStarted: _this9.state.testStarted, currentIndex: _this9.state.currentScenarioIndex, scenario: scenario });
-                            })
+                                return React.createElement(Scenario, { key: index, id: 'scenario-' + index, index: index, testStarted: _this9.state.testStarted, currentIndex: _this9.state.currentScenarioIndex, scenario: scenario, onScenarioFinish: _this9.handleScenarioFinish });
+                            }),
+                            this.state.allScenariosFinished && React.createElement(Paragraph, { content: '**To ju\u017C koniec!** Dzi\u0119kuj\u0119 za po\u015Bwi\u0119cony czas i dotarcie do samego ko\u0144ca badania!' })
                         )
                     );
                 }
