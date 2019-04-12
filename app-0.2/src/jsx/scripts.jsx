@@ -48,9 +48,10 @@ window.onload = function() {
         {
             super( props );
 
-            this.handleFocus = this.handleFocus.bind( this );
-            this.handleBlur  = this.handleBlur.bind( this );
-            this.state       = {
+            this.handleFocus  = this.handleFocus.bind( this );
+            this.handleBlur   = this.handleBlur.bind( this );
+            this.handleChange = this.handleChange.bind( this );
+            this.state        = {
                 inputFocus    : false,
                 inputNonEmpty : false,
                 inputValid    : false
@@ -59,13 +60,8 @@ window.onload = function() {
 
         handleFocus( e )
         {
-            const inputNonEmpty = ( event.target.value !== '' );
-            const inputValid    = ( event.target.value === this.props.value );
-
             this.setState( {
-                inputFocus    : true,
-                inputNonEmpty : inputNonEmpty,
-                inputValid    : inputValid
+                inputFocus : true
             } );
 
             this.props.onInputFocus( this.props.id, inputValid );
@@ -73,16 +69,23 @@ window.onload = function() {
 
         handleBlur( e )
         {
-            const inputNonEmpty = ( event.target.value !=='' );
-            const inputValid    = ( event.target.value === this.props.value );
+            const inputNonEmpty = ( event.target.value !== '' );
 
             this.setState( {
                 inputFocus    : false,
-                inputNonEmpty : inputNonEmpty,
+                inputNonEmpty : inputNonEmpty
+            } );
+        }
+
+        handleChange( e )
+        {
+            const inputValid    = ( event.target.value === this.props.value );
+
+            this.setState( {
                 inputValid    : inputValid
             } );
 
-            this.props.onInputBlur( this.props.id, inputValid );
+            this.props.onInputChange( this.props.id, inputValid )
         }
 
         render()
@@ -93,7 +96,7 @@ window.onload = function() {
             return (
                 <div className={ ( wrapperClassName !== '' ) ? wrapperClassName : undefined }>
                     <label className={ ( labelClassName !== '' ) ? labelClassName : undefined } htmlFor={ this.props.id }>{ this.props.label }</label>
-                    <input type="text" id={ this.props.id } autoComplete="off" onFocus={ this.handleFocus } onBlur={ this.handleBlur } disabled={ this.props.inputDisabled } />
+                    <input type="text" id={ this.props.id } autoComplete="off" onFocus={ this.handleFocus } onBlur={ this.handleBlur } onChange={ this.handleChange } disabled={ this.props.inputDisabled } />
                 </div>
             );
         }
@@ -103,11 +106,10 @@ window.onload = function() {
         constructor( props )
         {
             super( props );
-            this.handleTaskStart  = this.handleTaskStart.bind( this );
-            this.handleTaskFinish = this.handleTaskFinish.bind( this );
-            this.handleInputBlur  = this.handleInputBlur.bind( this );
-            this.handleInputFocus = this.handleInputFocus.bind( this );
-            this.state            = {
+            this.handleTaskStart   = this.handleTaskStart.bind( this );
+            this.handleTaskFinish  = this.handleTaskFinish.bind( this );
+            this.handleInputChange = this.handleInputChange.bind( this );
+            this.state             = {
                 taskStarted  : false,
                 taskFinished : false,
                 taskError    : false,
@@ -152,12 +154,7 @@ window.onload = function() {
             }
         }
 
-        handleInputFocus( inputId, inputValid )
-        {
-            // Nothing happens here?
-        }
-
-        handleInputBlur( inputId, inputValid )
+        handleInputChange( inputId, inputValid )
         {
             this.setState( state => {
                 const inputs = state.inputs.map( ( input ) => {
@@ -180,45 +177,51 @@ window.onload = function() {
 
         render()
         {
-            return (
-                <section className='task' id={ this.props.id }>
-                    <h2>Ćwiczenie nr { this.props.index }</h2>
-                    <Paragraph class="task-description" content="Wypełnij formularz, korzystając z danych zawartych **w poniższej tabeli:**" />
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Nazwa pola</th>
-                                <th>Wartość do wpisania</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {
-                                this.props.task.data.map( ( row, index ) =>
-                                    <tr key={ index }>
-                                        <td>{ row.key }</td>
-                                        <td>{ row.value }</td>
-                                    </tr>
-                                )
-                            }
-                        </tbody>
-                    </table>
-                    <button className='btn-start-task' id={ 'btn-start-' +  this.props.id } onClick={ this.handleTaskStart } disabled={ this.state.taskStarted }>Rozpocznij ćwiczenie</button>
-                    <section className="form-container">
-                        <form className={ this.props.task.type }>
-                            <h3>{ this.props.task.title }</h3>
-                            {
-                                this.state.inputs.map( ( input ) =>
-                                    <InputWrapper key={ input.id } id={ input.id } taskError={ this.state.taskError && this.state.taskStarted } inputDisabled={ this.state.taskFinished || !this.state.taskStarted } onInputBlur={ this.handleInputBlur } onInputFocus={ this.handleInputFocus } label={ input.key } value={ input.value } />
-                                )
-                            }
-                            { this.state.taskError &&
-                                <Paragraph class="on-task-error" content="Aby przejść dalej, popraw pola wyróżnione **tym kolorem.**" />
-                            }
-                        </form>
+            console.log( this.props.scenarioStarted, this.props.currentIndex, this.props.index )
+            if( this.props.scenarioStarted && this.props.currentIndex >= this.props.index )
+            {
+                return (
+                    <section className='task' id={ this.props.id }>
+                        <h2>Ćwiczenie nr { this.props.index + 1 }</h2>
+                        <Paragraph class="task-description" content="Wypełnij formularz, korzystając z danych zawartych **w poniższej tabeli:**" />
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Nazwa pola</th>
+                                    <th>Wartość do wpisania</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    this.props.task.data.map( ( row, index ) =>
+                                        <tr key={ index }>
+                                            <td>{ row.key }</td>
+                                            <td>{ row.value }</td>
+                                        </tr>
+                                    )
+                                }
+                            </tbody>
+                        </table>
+                        <button className='btn-start-task' id={ 'btn-start-' +  this.props.id } onClick={ this.handleTaskStart } disabled={ this.state.taskStarted }>Rozpocznij ćwiczenie</button>
+                        <section className="form-container">
+                            <form className={ this.props.task.type }>
+                                <h3>{ this.props.task.title }</h3>
+                                {
+                                    this.state.inputs.map( ( input ) =>
+                                        <InputWrapper key={ input.id } id={ input.id } taskError={ this.state.taskError && this.state.taskStarted } inputDisabled={ this.state.taskFinished || !this.state.taskStarted } label={ input.key } value={ input.value } onInputChange={ this.handleInputChange } />
+                                    )
+                                }
+                                { this.state.taskError &&
+                                    <Paragraph class="on-task-error" content="Aby przejść dalej, popraw pola wyróżnione **tym kolorem.**" />
+                                }
+                            </form>
+                        </section>
+                        <button className='btn-finish-task' id={ 'btn-finish-' +  this.props.id } onClick={ this.handleTaskFinish } disabled={ this.state.taskFinished || !this.state.taskStarted }>Zakończ ćwiczenie</button>
                     </section>
-                    <button className='btn-finish-task' id={ 'btn-finish-' +  this.props.id } onClick={ this.handleTaskFinish } disabled={ this.state.taskFinished || !this.state.taskStarted }>Zakończ ćwiczenie</button>
-                </section>
-            );
+                );
+            }
+
+            return '';
         }
     }
 
@@ -227,11 +230,25 @@ window.onload = function() {
         {
             super( props );
 
-            this.state = {
+            this.handleScenarioStart  = this.handleScenarioStart.bind( this );
+            this.handleScenarioFinish = this.handleScenarioFinish.bind( this );
+            this.state                = {
                 scenarioStarted  : false,
                 scenarioFinished : false,
                 currentTaskIndex : 0
             }
+        }
+
+        handleScenarioStart()
+        {
+            this.setState( {
+                scenarioStarted : true
+            } );
+        }
+
+        handleScenarioFinish()
+        {
+
         }
 
         render()
@@ -244,17 +261,17 @@ window.onload = function() {
                         { typeof this.props.scenario.intro !== 'undefined' &&
                             <Paragraph class='scenario-intro' content={ this.props.scenario.intro } />
                         }
-                        <button className='btn-start-scenario' id={ 'btn-start-' + this.props.id }>Rozpocznij scenariusz</button>
+                        <button className='btn-start-scenario' id={ 'btn-start-' + this.props.id } onClick={ this.handleScenarioStart } disabled={ this.state.scenarioStarted }>Rozpocznij scenariusz</button>
                         {
                             this.props.scenario.tasks.map( ( task, index ) =>
-                                <Task key={ index } currentIndex={ this.state.currentTaskIndex } index={ index + 1 } id={ 'task-' + this.props.index + '-' + index } task={ task } />
+                                <Task key={ index } currentIndex={ this.state.currentTaskIndex } index={ index } id={ 'task-' + this.props.index + '-' + index } scenarioStarted={ this.state.scenarioStarted } task={ task } />
                             )
                         }
                         { this.state.scenarioFinished && typeof this.props.scenario.outro !== 'undefined' &&
                             <Paragraph class='scenario-outro' content={ this.props.scenario.outro } />
                         }
                         { this.state.scenarioFinished &&
-                            <button className="btn-finish-scenario" id={ 'btn-finish-' + this.props.id }>Zakończ scenariusz</button>
+                            <button className="btn-finish-scenario" id={ 'btn-finish-' + this.props.id } onClick={ this.handleScenarioFinish }>Zakończ scenariusz</button>
                         }
                     </section>
                 );

@@ -68,6 +68,7 @@ window.onload = function () {
 
             _this2.handleFocus = _this2.handleFocus.bind(_this2);
             _this2.handleBlur = _this2.handleBlur.bind(_this2);
+            _this2.handleChange = _this2.handleChange.bind(_this2);
             _this2.state = {
                 inputFocus: false,
                 inputNonEmpty: false,
@@ -79,13 +80,8 @@ window.onload = function () {
         _createClass(InputWrapper, [{
             key: 'handleFocus',
             value: function handleFocus(e) {
-                var inputNonEmpty = event.target.value !== '';
-                var inputValid = event.target.value === this.props.value;
-
                 this.setState({
-                    inputFocus: true,
-                    inputNonEmpty: inputNonEmpty,
-                    inputValid: inputValid
+                    inputFocus: true
                 });
 
                 this.props.onInputFocus(this.props.id, inputValid);
@@ -94,15 +90,22 @@ window.onload = function () {
             key: 'handleBlur',
             value: function handleBlur(e) {
                 var inputNonEmpty = event.target.value !== '';
-                var inputValid = event.target.value === this.props.value;
 
                 this.setState({
                     inputFocus: false,
-                    inputNonEmpty: inputNonEmpty,
+                    inputNonEmpty: inputNonEmpty
+                });
+            }
+        }, {
+            key: 'handleChange',
+            value: function handleChange(e) {
+                var inputValid = event.target.value === this.props.value;
+
+                this.setState({
                     inputValid: inputValid
                 });
 
-                this.props.onInputBlur(this.props.id, inputValid);
+                this.props.onInputChange(this.props.id, inputValid);
             }
         }, {
             key: 'render',
@@ -118,7 +121,7 @@ window.onload = function () {
                         { className: labelClassName !== '' ? labelClassName : undefined, htmlFor: this.props.id },
                         this.props.label
                     ),
-                    React.createElement('input', { type: 'text', id: this.props.id, autoComplete: 'off', onFocus: this.handleFocus, onBlur: this.handleBlur, disabled: this.props.inputDisabled })
+                    React.createElement('input', { type: 'text', id: this.props.id, autoComplete: 'off', onFocus: this.handleFocus, onBlur: this.handleBlur, onChange: this.handleChange, disabled: this.props.inputDisabled })
                 );
             }
         }]);
@@ -136,8 +139,7 @@ window.onload = function () {
 
             _this3.handleTaskStart = _this3.handleTaskStart.bind(_this3);
             _this3.handleTaskFinish = _this3.handleTaskFinish.bind(_this3);
-            _this3.handleInputBlur = _this3.handleInputBlur.bind(_this3);
-            _this3.handleInputFocus = _this3.handleInputFocus.bind(_this3);
+            _this3.handleInputChange = _this3.handleInputChange.bind(_this3);
             _this3.state = {
                 taskStarted: false,
                 taskFinished: false,
@@ -182,13 +184,8 @@ window.onload = function () {
                 }
             }
         }, {
-            key: 'handleInputFocus',
-            value: function handleInputFocus(inputId, inputValid) {
-                // Nothing happens here?
-            }
-        }, {
-            key: 'handleInputBlur',
-            value: function handleInputBlur(inputId, inputValid) {
+            key: 'handleInputChange',
+            value: function handleInputChange(inputId, inputValid) {
                 this.setState(function (state) {
                     var inputs = state.inputs.map(function (input) {
                         if (input.id === inputId) {
@@ -210,86 +207,91 @@ window.onload = function () {
             value: function render() {
                 var _this4 = this;
 
-                return React.createElement(
-                    'section',
-                    { className: 'task', id: this.props.id },
-                    React.createElement(
-                        'h2',
-                        null,
-                        '\u0106wiczenie nr ',
-                        this.props.index
-                    ),
-                    React.createElement(Paragraph, { 'class': 'task-description', content: 'Wype\u0142nij formularz, korzystaj\u0105c z danych zawartych **w poni\u017Cszej tabeli:**' }),
-                    React.createElement(
-                        'table',
-                        null,
+                console.log(this.props.scenarioStarted, this.props.currentIndex, this.props.index);
+                if (this.props.scenarioStarted && this.props.currentIndex >= this.props.index) {
+                    return React.createElement(
+                        'section',
+                        { className: 'task', id: this.props.id },
                         React.createElement(
-                            'thead',
+                            'h2',
+                            null,
+                            '\u0106wiczenie nr ',
+                            this.props.index + 1
+                        ),
+                        React.createElement(Paragraph, { 'class': 'task-description', content: 'Wype\u0142nij formularz, korzystaj\u0105c z danych zawartych **w poni\u017Cszej tabeli:**' }),
+                        React.createElement(
+                            'table',
                             null,
                             React.createElement(
-                                'tr',
+                                'thead',
                                 null,
                                 React.createElement(
-                                    'th',
+                                    'tr',
                                     null,
-                                    'Nazwa pola'
-                                ),
-                                React.createElement(
-                                    'th',
-                                    null,
-                                    'Warto\u015B\u0107 do wpisania'
+                                    React.createElement(
+                                        'th',
+                                        null,
+                                        'Nazwa pola'
+                                    ),
+                                    React.createElement(
+                                        'th',
+                                        null,
+                                        'Warto\u015B\u0107 do wpisania'
+                                    )
                                 )
+                            ),
+                            React.createElement(
+                                'tbody',
+                                null,
+                                this.props.task.data.map(function (row, index) {
+                                    return React.createElement(
+                                        'tr',
+                                        { key: index },
+                                        React.createElement(
+                                            'td',
+                                            null,
+                                            row.key
+                                        ),
+                                        React.createElement(
+                                            'td',
+                                            null,
+                                            row.value
+                                        )
+                                    );
+                                })
                             )
                         ),
                         React.createElement(
-                            'tbody',
-                            null,
-                            this.props.task.data.map(function (row, index) {
-                                return React.createElement(
-                                    'tr',
-                                    { key: index },
-                                    React.createElement(
-                                        'td',
-                                        null,
-                                        row.key
-                                    ),
-                                    React.createElement(
-                                        'td',
-                                        null,
-                                        row.value
-                                    )
-                                );
-                            })
-                        )
-                    ),
-                    React.createElement(
-                        'button',
-                        { className: 'btn-start-task', id: 'btn-start-' + this.props.id, onClick: this.handleTaskStart, disabled: this.state.taskStarted },
-                        'Rozpocznij \u0107wiczenie'
-                    ),
-                    React.createElement(
-                        'section',
-                        { className: 'form-container' },
+                            'button',
+                            { className: 'btn-start-task', id: 'btn-start-' + this.props.id, onClick: this.handleTaskStart, disabled: this.state.taskStarted },
+                            'Rozpocznij \u0107wiczenie'
+                        ),
                         React.createElement(
-                            'form',
-                            { className: this.props.task.type },
+                            'section',
+                            { className: 'form-container' },
                             React.createElement(
-                                'h3',
-                                null,
-                                this.props.task.title
-                            ),
-                            this.state.inputs.map(function (input) {
-                                return React.createElement(InputWrapper, { key: input.id, id: input.id, taskError: _this4.state.taskError && _this4.state.taskStarted, inputDisabled: _this4.state.taskFinished || !_this4.state.taskStarted, onInputBlur: _this4.handleInputBlur, onInputFocus: _this4.handleInputFocus, label: input.key, value: input.value });
-                            }),
-                            this.state.taskError && React.createElement(Paragraph, { 'class': 'on-task-error', content: 'Aby przej\u015B\u0107 dalej, popraw pola wyr\xF3\u017Cnione **tym kolorem.**' })
+                                'form',
+                                { className: this.props.task.type },
+                                React.createElement(
+                                    'h3',
+                                    null,
+                                    this.props.task.title
+                                ),
+                                this.state.inputs.map(function (input) {
+                                    return React.createElement(InputWrapper, { key: input.id, id: input.id, taskError: _this4.state.taskError && _this4.state.taskStarted, inputDisabled: _this4.state.taskFinished || !_this4.state.taskStarted, label: input.key, value: input.value, onInputChange: _this4.handleInputChange });
+                                }),
+                                this.state.taskError && React.createElement(Paragraph, { 'class': 'on-task-error', content: 'Aby przej\u015B\u0107 dalej, popraw pola wyr\xF3\u017Cnione **tym kolorem.**' })
+                            )
+                        ),
+                        React.createElement(
+                            'button',
+                            { className: 'btn-finish-task', id: 'btn-finish-' + this.props.id, onClick: this.handleTaskFinish, disabled: this.state.taskFinished || !this.state.taskStarted },
+                            'Zako\u0144cz \u0107wiczenie'
                         )
-                    ),
-                    React.createElement(
-                        'button',
-                        { className: 'btn-finish-task', id: 'btn-finish-' + this.props.id, onClick: this.handleTaskFinish, disabled: this.state.taskFinished || !this.state.taskStarted },
-                        'Zako\u0144cz \u0107wiczenie'
-                    )
-                );
+                    );
+                }
+
+                return '';
             }
         }]);
 
@@ -304,6 +306,8 @@ window.onload = function () {
 
             var _this5 = _possibleConstructorReturn(this, (Scenario.__proto__ || Object.getPrototypeOf(Scenario)).call(this, props));
 
+            _this5.handleScenarioStart = _this5.handleScenarioStart.bind(_this5);
+            _this5.handleScenarioFinish = _this5.handleScenarioFinish.bind(_this5);
             _this5.state = {
                 scenarioStarted: false,
                 scenarioFinished: false,
@@ -313,6 +317,16 @@ window.onload = function () {
         }
 
         _createClass(Scenario, [{
+            key: 'handleScenarioStart',
+            value: function handleScenarioStart() {
+                this.setState({
+                    scenarioStarted: true
+                });
+            }
+        }, {
+            key: 'handleScenarioFinish',
+            value: function handleScenarioFinish() {}
+        }, {
             key: 'render',
             value: function render() {
                 var _this6 = this;
@@ -330,16 +344,16 @@ window.onload = function () {
                         typeof this.props.scenario.intro !== 'undefined' && React.createElement(Paragraph, { 'class': 'scenario-intro', content: this.props.scenario.intro }),
                         React.createElement(
                             'button',
-                            { className: 'btn-start-scenario', id: 'btn-start-' + this.props.id },
+                            { className: 'btn-start-scenario', id: 'btn-start-' + this.props.id, onClick: this.handleScenarioStart, disabled: this.state.scenarioStarted },
                             'Rozpocznij scenariusz'
                         ),
                         this.props.scenario.tasks.map(function (task, index) {
-                            return React.createElement(Task, { key: index, currentIndex: _this6.state.currentTaskIndex, index: index + 1, id: 'task-' + _this6.props.index + '-' + index, task: task });
+                            return React.createElement(Task, { key: index, currentIndex: _this6.state.currentTaskIndex, index: index, id: 'task-' + _this6.props.index + '-' + index, scenarioStarted: _this6.state.scenarioStarted, task: task });
                         }),
                         this.state.scenarioFinished && typeof this.props.scenario.outro !== 'undefined' && React.createElement(Paragraph, { 'class': 'scenario-outro', content: this.props.scenario.outro }),
                         this.state.scenarioFinished && React.createElement(
                             'button',
-                            { className: 'btn-finish-scenario', id: 'btn-finish-' + this.props.id },
+                            { className: 'btn-finish-scenario', id: 'btn-finish-' + this.props.id, onClick: this.handleScenarioFinish },
                             'Zako\u0144cz scenariusz'
                         )
                     );

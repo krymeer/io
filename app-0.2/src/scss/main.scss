@@ -110,7 +110,6 @@ $value-xxl: 56px;
     display: none !important;
 }
 
-
 html, body {
     height: 100%;
 }
@@ -122,6 +121,11 @@ button, p, h1, h2, h3, a, label, span, td {
        -moz-user-select: none;
         -ms-user-select: none;
             user-select: none;
+}
+
+#root {
+    display: grid;
+    height: 100%;
 }
 
 #page-container > * > * {
