@@ -7,15 +7,15 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 window.onload = function () {
-    function insertNbsp(str) {
+    insertNbsp = function insertNbsp(str) {
         return str.replace(/(?<=(\s|>)\w)\s/g, '\xA0');
-    }
+    };
 
-    function getRandomString() {
+    getRandomString = function getRandomString() {
         return Math.random().toString(36).substring(2);
-    }
+    };
 
-    function extractTextImportant(string) {
+    extractTextImportant = function extractTextImportant(string) {
         var chunks = [];
 
         string.split(/(\*\*[^\*]*\*\*)/gi).map(function (chunk, index) {
@@ -33,7 +33,7 @@ window.onload = function () {
         });
 
         return chunks;
-    }
+    };
 
     var Paragraph = function (_React$Component) {
         _inherits(Paragraph, _React$Component);
@@ -87,11 +87,9 @@ window.onload = function () {
         }, {
             key: 'handleBlur',
             value: function handleBlur(e) {
-                var inputNonEmpty = event.target.value !== '';
-
                 this.setState({
                     inputFocus: false,
-                    inputNonEmpty: inputNonEmpty
+                    inputNonEmpty: event.target.value !== ''
                 });
             }
         }, {

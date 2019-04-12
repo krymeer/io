@@ -1,16 +1,13 @@
 window.onload = function() {
-    function insertNbsp( str )
-    {
+    insertNbsp = ( str ) => {
         return str.replace( /(?<=(\s|>)\w)\s/g, '\u00a0' );
     }
 
-    function getRandomString()
-    {
+    getRandomString = () => {
         return Math.random().toString( 36 ).substring( 2 );
     }
 
-    function extractTextImportant( string )
-    {
+    extractTextImportant = ( string ) => {
         const chunks = [];
 
         string.split( /(\*\*[^\*]*\*\*)/gi ).map( ( chunk, index ) => {
@@ -35,7 +32,7 @@ window.onload = function() {
 
         render()
         {
-            return(
+            return (
                 <p className={ typeof this.props.class !== 'undefined' ? this.props.class : undefined }>
                     { extractTextImportant( this.props.content ) }
                 </p>
@@ -67,11 +64,9 @@ window.onload = function() {
 
         handleBlur( e )
         {
-            const inputNonEmpty = ( event.target.value !== '' );
-
             this.setState( {
                 inputFocus    : false,
-                inputNonEmpty : inputNonEmpty
+                inputNonEmpty : ( event.target.value !== '' )
             } );
         }
 
