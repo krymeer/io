@@ -33,7 +33,8 @@
                         }
                     ]
                 }
-            ]
+            ],
+            "outro" : "To będzie tekst **kończący scenariusz.** Naciśnij poniższy przycisk, aby przejść dalej:"
         }
     ]
 }

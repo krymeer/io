@@ -1,11 +1,11 @@
 $primary-color:      #a63446;
 $bg-color:           #f9f9f9;
-$border-color-main:  #eee;
-$border-color-dark:  #ddd;
-$text-color-main:    rgba(0, 0, 0, .7);
-$input-color:        #212121;
+$border-color-m:     #eee;
+$border-color-d:     #ddd;
+$text-color:         rgba(0, 0, 0, .7);
+$input-color-m:      #212121;
+$input-color-b:      #7e7e7e;
 $placeholder-color:  #b1b1b1;
-$placeholder-float-color: #7e7e7e;
 $transition:         .1s ease-in-out;
 
 $value-xs:  3.5px;
@@ -29,44 +29,21 @@ $value-xxl: 56px;
 
 %text-normal {
     @extend %text-spacing;
-    color: $text-color-main;
+    color: $text-color;
     font-size: 16px;
-}
-
-%mask {
-    position: relative;
-
-    &::before {
-        display: block;
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: $bg-color;
-        // transition: opacity .2s ease-in-out, z-index 0s .2s;
-        z-index: -1;
-        opacity: 0;
-    }
-
-    &.disabled::before {
-        opacity: .95;
-        z-index: 100;
-    }
 }
 
 %block-alt {
     @extend %text-spacing;
     background: #fff;
-    border: 2px solid $border-color-main;
-    color: $input-color;
+    border: 2px solid $border-color-m;
+    color: $input-color-m;
     font-size: 14px;
 }
 
 %block-alt-child {
     border: 0;
-    border-bottom: 1px solid $border-color-main;
+    border-bottom: 1px solid $border-color-m;
 }
 
 %block-centered {
@@ -217,7 +194,6 @@ main {
         height: 36px;
         text-transform: uppercase;
         transition: background $transition, color $transition;
-        // transition: border-color .2s ease-in-out, color .2s ease-in-out, background .2s ease-in-out;
 
         &:hover {
             background: #9c9c9c;
@@ -257,22 +233,17 @@ main {
             }
         }
 
-        &.task {
-            @extend %mask;
-        }
-
         .form-container {
             @extend %margin-top-btm-xxl;
             @extend %block-alt;
             @extend %radius;
             @extend %padding-l;
+            width: 330px;
 
             > form {
                 margin: 0 auto;
-                width: fit-content;
 
                 h3 {
-                    @extend %margin-top-btm-l;
                 }
 
                 .wrapper {
@@ -289,8 +260,9 @@ main {
                         @extend %padding-s;
                         @extend %radius;
                         font-size: inherit;
-                        color: $input-color;
-                        border: 2px solid $border-color-dark;
+                        color: $input-color-m;
+                        border: 2px solid $border-color-d;
+                        transition: color $transition, background $transition, border-color $transition;
 
                         &.error {
                             color: $primary-color;
@@ -298,15 +270,30 @@ main {
                         }
 
                         &:disabled  {
-                            background: $border-color-main;
-                            color: $border-color-dark;
+                            background: $border-color-m;
+                            color: $border-color-d;
                         }
 
                         &:focus {
                             outline: none;
-                            border-color: $primary-color;
+                            border-color: $input-color-b;
                         }
                     }
+
+                    &.on-task-error.on-input-invalid {
+                        input {
+                            border-color: $primary-color !important;
+                            color: $primary-color !important;
+                        }
+
+                        label {
+                            color: $primary-color !important;
+                        }
+                    }
+                }
+
+                > p.on-task-error {
+                    font-size: 14px;
                 }
 
                 &.labels-align-left, &.labels-align-right {
@@ -340,14 +327,14 @@ main {
                             left: $value-s;
                             top: 50%;
                             transform: translateY(-50%);
-                            transition: all .1s ease-in-out;
+                            transition: all $transition;
                             z-index: 1;
                             color: $placeholder-color;
                             background: #fff;
                         }
 
                         label.on-input-disabled {
-                            background: $border-color-main;
+                            background: $border-color-m;
                         }
 
                         label.on-input-focus,
@@ -357,14 +344,9 @@ main {
                             padding: 0 2px;
                         }
 
+                        label.on-input-focus,
                         label.on-input-non-empty:not(.on-input-disabled) {
-                            color: $placeholder-float-color;
-                        }
-
-
-                        label.on-input-focus.on-input-non-empty,
-                        label.on-input-focus {
-                            color: $primary-color;
+                            color: $input-color-b;
                         }
                     }
                 }

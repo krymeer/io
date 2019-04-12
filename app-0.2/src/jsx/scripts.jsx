@@ -36,7 +36,7 @@ window.onload = function() {
         render()
         {
             return(
-                <p className={ typeof this.props.pClass !== 'undefined' ? this.props.pClass : '' }>
+                <p className={ typeof this.props.class !== 'undefined' ? this.props.class : undefined }>
                     { extractTextImportant( this.props.content ) }
                 </p>
             );
@@ -87,11 +87,12 @@ window.onload = function() {
 
         render()
         {
-            const labelClassName = ( ( this.props.inputDisabled ? 'on-input-disabled' : '' ) + ' ' + ( this.state.inputFocus ? 'on-input-focus' : '' ) + ' ' + ( this.state.inputNonEmpty ? 'on-input-non-empty' : '' ) ).trim();
+            const wrapperClassName = ( 'wrapper' + ' ' + ( this.props.taskError ? 'on-task-error' : '' ) + ' ' + ( this.state.inputValid ? '' : 'on-input-invalid' ) ).trim().replace( /\s+/g, ' ' );
+            const labelClassName   = ( ( this.props.inputDisabled ? 'on-input-disabled' : '' ) + ' ' + ( this.state.inputFocus ? 'on-input-focus' : '' ) + ' ' + ( this.state.inputNonEmpty ? 'on-input-non-empty' : '' ) ).trim().replace( /\s+/g, ' ' );
 
             return (
-                <div className="wrapper">
-                    <label className={ labelClassName } htmlFor={ this.props.id }>{ this.props.label }</label>
+                <div className={ ( wrapperClassName !== '' ) ? wrapperClassName : undefined }>
+                    <label className={ ( labelClassName !== '' ) ? labelClassName : undefined } htmlFor={ this.props.id }>{ this.props.label }</label>
                     <input type="text" id={ this.props.id } autoComplete="off" onFocus={ this.handleFocus } onBlur={ this.handleBlur } disabled={ this.props.inputDisabled } />
                 </div>
             );
@@ -112,7 +113,7 @@ window.onload = function() {
                 taskError    : false,
                 inputs       : this.props.task.data.map( ( item, index ) => {
                     return {
-                        id    : this.props.id + '--input-' + ( index + 1 ),
+                        id    : this.props.id + '--input-' + index,
                         valid : false,
                         key   : item.key,
                         value : item.value,
@@ -135,17 +136,25 @@ window.onload = function() {
         {
             if( this.state.taskStarted && !this.state.taskFinished )
             {
-                console.log( this.state.inputs );
-
                 if( this.state.inputs.filter( input => !input.valid ).length > 0 )
                 {
-                    console.error( 'Invalid Input Error' );
+                    this.setState( {
+                        taskError : true
+                    } );
+                }
+                else
+                {
+                    this.setState( {
+                        taskError    : false,
+                        taskFinished : true
+                    } );
                 }
             }
         }
 
         handleInputFocus( inputId, inputValid )
         {
+            // Nothing happens here?
         }
 
         handleInputBlur( inputId, inputValid )
@@ -174,7 +183,7 @@ window.onload = function() {
             return (
                 <section className='task' id={ this.props.id }>
                     <h2>Ćwiczenie nr { this.props.index }</h2>
-                    <Paragraph pClass='task-description' content='Wypełnij formularz, korzystając z danych zawartych **w poniższej tabeli:**' />
+                    <Paragraph class="task-description" content="Wypełnij formularz, korzystając z danych zawartych **w poniższej tabeli:**" />
                     <table>
                         <thead>
                             <tr>
@@ -202,6 +211,9 @@ window.onload = function() {
                                     <InputWrapper key={ input.id } id={ input.id } taskError={ this.state.taskError && this.state.taskStarted } inputDisabled={ this.state.taskFinished || !this.state.taskStarted } onInputBlur={ this.handleInputBlur } onInputFocus={ this.handleInputFocus } label={ input.key } value={ input.value } />
                                 )
                             }
+                            { this.state.taskError &&
+                                <Paragraph class="on-task-error" content="Aby przejść dalej, popraw pola wyróżnione **tym kolorem.**" />
+                            }
                         </form>
                     </section>
                     <button className='btn-finish-task' id={ 'btn-finish-' +  this.props.id } onClick={ this.handleTaskFinish } disabled={ this.state.taskFinished || !this.state.taskStarted }>Zakończ ćwiczenie</button>
@@ -214,39 +226,65 @@ window.onload = function() {
         constructor( props )
         {
             super( props );
+
+            this.state = {
+                scenarioStarted  : false,
+                scenarioFinished : false,
+                currentTaskIndex : 0
+            }
         }
 
         render()
         {
-            return (
-                <section className='scenario' id={ this.props.id }>
-                    <h1>Scenariusz nr { this.props.index }</h1>
-                    { typeof this.props.scenario.intro !== 'undefined' && 
-                        <Paragraph pClass='scenario-intro' content={ this.props.scenario.intro } />
-                    }
-                    <button className='btn-start-scenario' id={ 'btn-start-' + this.props.id }>Rozpocznij scenariusz</button>
-                    {
-                        this.props.scenario.tasks.map( ( task, index ) =>
-                            <Task key={ index + 1 } id={ 'task-' + this.props.index + '-' + ( index + 1 ) } task={ task } />
-                        )
-                    }
-                    <Paragraph pClass='scenario-outro' content={ 'Gratulacje! Wykonałeś wszystkie zadania ze **scenariusza nr ' + this.props.index + '.** Naciśnij poniższy przycisk, aby przejść do dalszej części badania:' } />
-                    <button className="btn-finish-scenario" id={ 'btn-finish-' + this.props.id }>Zakończ scenariusz</button>
-                </section>
-            );
-        }
+            if( this.props.testStarted && this.props.currentIndex >= this.props.index )
+            {
+                return (
+                    <section className='scenario' id={ this.props.id }>
+                        <h1>Scenariusz nr { ( this.props.index + 1 ) }</h1>
+                        { typeof this.props.scenario.intro !== 'undefined' &&
+                            <Paragraph class='scenario-intro' content={ this.props.scenario.intro } />
+                        }
+                        <button className='btn-start-scenario' id={ 'btn-start-' + this.props.id }>Rozpocznij scenariusz</button>
+                        {
+                            this.props.scenario.tasks.map( ( task, index ) =>
+                                <Task key={ index } currentIndex={ this.state.currentTaskIndex } index={ index + 1 } id={ 'task-' + this.props.index + '-' + index } task={ task } />
+                            )
+                        }
+                        { this.state.scenarioFinished && typeof this.props.scenario.outro !== 'undefined' &&
+                            <Paragraph class='scenario-outro' content={ this.props.scenario.outro } />
+                        }
+                        { this.state.scenarioFinished &&
+                            <button className="btn-finish-scenario" id={ 'btn-finish-' + this.props.id }>Zakończ scenariusz</button>
+                        }
+                    </section>
+                );
+            }
 
+            return '';
+        }
     }
 
     class MainComponent extends React.Component {
         constructor( props )
         {
             super( props );
+
+            this.handleTestStart = this.handleTestStart.bind( this );
             this.state = {
-                error     : null,
-                isLoaded  : false,
-                scenarios : []
+                error                : null,
+                isLoaded             : false,
+                scenarios            : [],
+                testStarted          : false,
+                testFinished         : false,
+                currentScenarioIndex : 0
             }
+        }
+
+        handleTestStart()
+        {
+            this.setState( {
+                testStarted : true
+            } );
         }
 
         componentDidMount()
@@ -290,8 +328,9 @@ window.onload = function() {
                         </header>
                         <main>
                             <Paragraph content="Witaj! Niniejsze badanie ma na celu zbadanie użyteczności wybranych wzorców pól, które możesz na co dzień znaleźć w wielu aplikacjach webowych i na stronach internetowych. Zostaniesz poproszony o wykonanie kilkunastu zadań polegających na uzupełnieniu różnego typu formularzy. **Ten tekst jeszcze się zmieni.**" />
+                            <button onClick={ this.handleTestStart } disabled={ this.state.testStarted }>Rozpocznij badanie</button>
                             { scenarios.map( ( scenario, index ) =>
-                                <Scenario key={ index + 1 } id={ 'scenario-' + ( index + 1 ) } index={ index + 1 } scenario={ scenario } />
+                                <Scenario key={ index } id={ 'scenario-' + index } index={ index } testStarted={ this.state.testStarted } currentIndex={ this.state.currentScenarioIndex } scenario={ scenario } />
                             ) }
                         </main>
                     </div>
