@@ -301,7 +301,17 @@ main {
                 @extend %block-centered;
                 @extend %radius;
                 @extend %padding-l;
+                position: relative;
                 width: fit-content;
+
+                > i.insert-everything {
+                    cursor: pointer;
+                    position: absolute;
+                    top: $value-l;
+                    right: $value-l;
+                    margin: 0;
+                    color: $primary-color;
+                }
 
                 > .wrapper {
                     @extend %margin-top-btm-l;

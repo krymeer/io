@@ -64,19 +64,23 @@ window.onload = function() {
             this.setState( {
                 inputFocus : true
             } );
+
+            // TEMPORARY
+            // This call is necessary when filling the inputs programmatically
+            this.handleChange( e );
         }
 
         handleBlur( e )
         {
             this.setState( {
                 inputFocus    : false,
-                inputNonEmpty : ( event.target.value !== '' )
+                inputNonEmpty : ( e.target.value !== '' )
             } );
         }
 
         handleChange( e )
         {
-            const inputValid = ( event.target.value === this.props.value );
+            const inputValid = ( e.target.value === this.props.value );
 
             this.setState( {
                 inputValid : inputValid
@@ -150,7 +154,7 @@ window.onload = function() {
                     { this.props.rating > 0 &&
                         <section className="comment">
                             <h4>
-                                Dlaczego zdecydowałeś się na taką ocenę? *
+                                Czy masz jakieś uwagi lub sugestie związane z powyższym ćwiczeniem? *
                             </h4>
                             <textarea maxLength={ this.props.maxCommentLength } onChange={ this.handleComment } disabled={ this.props.disabled } />
                             <div>
@@ -305,7 +309,27 @@ window.onload = function() {
                 return {
                     inputs
                 };
+            }, () => {
+                if( this.state.inputs.filter( input => !input.valid ).length === 0 )
+                {
+                    this.setState( {
+                        taskError : false
+                    } );
+                }
             } );
+        }
+
+        // TEMPORARY
+        // Insert all the data by clicking only one button
+        insertEverything( e )
+        {
+            const inputs = e.target.parentElement.querySelectorAll( 'input' );
+
+            for( var k = 0; k < inputs.length; k++ )
+            {
+                inputs[ k ].value = this.props.task.data[ k ].value;
+                inputs[ k ].dispatchEvent( new Event( 'focus' ) );
+            }
         }
 
         render()
@@ -335,11 +359,14 @@ window.onload = function() {
                             </tbody>
                         </table>
                         <button onClick={ this.handleStart } disabled={ this.state.taskStarted }>Rozpocznij ćwiczenie</button>
-                        <section className={ "task-form " + this.props.task.type } >
+                        <section className={ "task-form " + this.props.task.type }>
                             <h3>{ this.props.task.title }</h3>
+                            { this.state.taskStarted && !this.state.taskFinished &&
+                                <i className="material-icons insert-everything" onClick={ this.insertEverything.bind( this ) }>keyboard</i>
+                            }
                             {
                                 this.state.inputs.map( ( input, index ) =>
-                                    <InputWrapper key={ index } index={ index } taskError={ this.state.taskError && this.state.taskStarted } inputDisabled={ this.state.taskFinished || !this.state.taskStarted } label={ input.key } value={ input.value } onInputChange={ this.handleInputChange } />
+                                    <InputWrapper key={ index } index={ index } taskError={ this.state.taskError && this.state.taskStarted } inputDisabled={ this.state.taskFinished || !this.state.taskStarted } label={ input.key } value={ input.value } onInputChange={ this.handleInputChange } simulation={ this.state.simulation }/>
                                 )
                             }
                             { this.state.taskError &&
