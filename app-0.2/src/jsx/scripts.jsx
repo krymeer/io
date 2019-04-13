@@ -1,3 +1,7 @@
+// window.onbeforeunload = function() {
+//     return '';
+// }
+
 window.onload = function() {
     insertNbsp = ( str ) => {
         return str.replace( /(?<=(\s|>)\w)\s/g, '\u00a0' );
