@@ -208,7 +208,7 @@ window.onload = function () {
                 if (this.props.scenarioStarted && this.props.currentIndex >= this.props.index) {
                     return React.createElement(
                         'section',
-                        { className: 'task', id: this.props.id },
+                        { className: 'task', id: this.props.id, ref: this.props.nodeRef },
                         React.createElement(
                             'h2',
                             null,
@@ -312,6 +312,10 @@ window.onload = function () {
                 scenarioFinished: false,
                 currentTaskIndex: 0
             };
+
+            _this5.childNodeRef = function (child) {
+                window.scrollTo(0, child.offsetTop);
+            };
             return _this5;
         }
 
@@ -356,7 +360,7 @@ window.onload = function () {
                 if (this.props.testStarted && this.props.currentIndex >= this.props.index) {
                     return React.createElement(
                         'section',
-                        { className: 'scenario', id: this.props.id },
+                        { className: 'scenario', id: this.props.id, ref: this.props.nodeRef },
                         React.createElement(
                             'h1',
                             null,
@@ -370,7 +374,7 @@ window.onload = function () {
                             'Rozpocznij scenariusz'
                         ),
                         this.props.scenario.tasks.map(function (task, index) {
-                            return React.createElement(Task, { key: index, currentIndex: _this6.state.currentTaskIndex, onTaskFinish: _this6.handleTaskFinish, index: index, id: 'task-' + _this6.props.index + '-' + index, scenarioStarted: _this6.state.scenarioStarted, task: task });
+                            return React.createElement(Task, { key: index, currentIndex: _this6.state.currentTaskIndex, onTaskFinish: _this6.handleTaskFinish, index: index, id: 'task-' + _this6.props.index + '-' + index, scenarioStarted: _this6.state.scenarioStarted, task: task, nodeRef: _this6.childNodeRef });
                         }),
                         this.state.allTasksFinished && typeof this.props.scenario.outro !== 'undefined' && React.createElement(Paragraph, { 'class': 'scenario-outro', content: this.props.scenario.outro }),
                         this.state.allTasksFinished && React.createElement(
@@ -407,6 +411,10 @@ window.onload = function () {
                 testStarted: false,
                 testFinished: false,
                 currentScenarioIndex: 0
+            };
+
+            _this7.childNodeRef = function (child) {
+                window.scrollTo(0, child.offsetTop);
             };
             return _this7;
         }
@@ -498,7 +506,7 @@ window.onload = function () {
                                 'Rozpocznij badanie'
                             ),
                             scenarios.map(function (scenario, index) {
-                                return React.createElement(Scenario, { key: index, id: 'scenario-' + index, index: index, testStarted: _this9.state.testStarted, currentIndex: _this9.state.currentScenarioIndex, scenario: scenario, onScenarioFinish: _this9.handleScenarioFinish });
+                                return React.createElement(Scenario, { key: index, id: 'scenario-' + index, index: index, testStarted: _this9.state.testStarted, currentIndex: _this9.state.currentScenarioIndex, scenario: scenario, onScenarioFinish: _this9.handleScenarioFinish, nodeRef: _this9.childNodeRef });
                             }),
                             this.state.allScenariosFinished && React.createElement(Paragraph, { content: '**To ju\u017C koniec!** Dzi\u0119kuj\u0119 za po\u015Bwi\u0119cony czas i dotarcie do samego ko\u0144ca badania!' })
                         )

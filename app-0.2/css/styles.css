@@ -78,6 +78,10 @@ main section .form-container > form > .wrapper > input, main section .form-conta
   display: none !important;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 html, body {
   height: 100%;
 }

@@ -110,6 +110,10 @@ $value-xxl: 56px;
     display: none !important;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 html, body {
     height: 100%;
 }

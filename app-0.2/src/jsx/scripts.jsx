@@ -175,7 +175,7 @@ window.onload = function() {
             if( this.props.scenarioStarted && this.props.currentIndex >= this.props.index )
             {
                 return (
-                    <section className='task' id={ this.props.id }>
+                    <section className='task' id={ this.props.id } ref={ this.props.nodeRef }>
                         <h2>Ćwiczenie nr { this.props.index + 1 }</h2>
                         <Paragraph class="task-description" content="Wypełnij formularz, korzystając z danych zawartych **w poniższej tabeli:**" />
                         <table>
@@ -233,6 +233,10 @@ window.onload = function() {
                 scenarioFinished : false,
                 currentTaskIndex : 0
             }
+
+            this.childNodeRef = child => {
+                window.scrollTo( 0, child.offsetTop );
+            }
         }
 
         handleStart()
@@ -278,7 +282,7 @@ window.onload = function() {
             if( this.props.testStarted && this.props.currentIndex >= this.props.index )
             {
                 return (
-                    <section className='scenario' id={ this.props.id }>
+                    <section className='scenario' id={ this.props.id } ref={ this.props.nodeRef }>
                         <h1>Scenariusz nr { ( this.props.index + 1 ) }</h1>
                         { typeof this.props.scenario.intro !== 'undefined' &&
                             <Paragraph class='scenario-intro' content={ this.props.scenario.intro } />
@@ -286,7 +290,7 @@ window.onload = function() {
                         <button className='btn-start-scenario' id={ 'btn-start-' + this.props.id } onClick={ this.handleStart } disabled={ this.state.scenarioStarted }>Rozpocznij scenariusz</button>
                         {
                             this.props.scenario.tasks.map( ( task, index ) =>
-                                <Task key={ index } currentIndex={ this.state.currentTaskIndex } onTaskFinish={ this.handleTaskFinish } index={ index } id={ 'task-' + this.props.index + '-' + index } scenarioStarted={ this.state.scenarioStarted } task={ task } />
+                                <Task key={ index } currentIndex={ this.state.currentTaskIndex } onTaskFinish={ this.handleTaskFinish } index={ index } id={ 'task-' + this.props.index + '-' + index } scenarioStarted={ this.state.scenarioStarted } task={ task } nodeRef={ this.childNodeRef } />
                             )
                         }
                         { this.state.allTasksFinished && typeof this.props.scenario.outro !== 'undefined' &&
@@ -320,6 +324,10 @@ window.onload = function() {
                 testFinished         : false,
                 currentScenarioIndex : 0
             }
+
+            this.childNodeRef = child => {
+                window.scrollTo( 0, child.offsetTop );
+            }
         }
 
         handleStart()
@@ -349,6 +357,8 @@ window.onload = function() {
                     this.setState( {
                         currentScenarioIndex : this.state.currentScenarioIndex + 1
                     } );
+
+
                 }
             }
         }
@@ -396,7 +406,7 @@ window.onload = function() {
                             <Paragraph content="Witaj! Niniejsze badanie ma na celu zbadanie użyteczności wybranych wzorców pól, które możesz na co dzień znaleźć w wielu aplikacjach webowych i na stronach internetowych. Zostaniesz poproszony o wykonanie kilkunastu zadań polegających na uzupełnieniu różnego typu formularzy. **Ten tekst jeszcze się zmieni.**" />
                             <button onClick={ this.handleStart } disabled={ this.state.testStarted }>Rozpocznij badanie</button>
                             { scenarios.map( ( scenario, index ) =>
-                                <Scenario key={ index } id={ 'scenario-' + index } index={ index } testStarted={ this.state.testStarted } currentIndex={ this.state.currentScenarioIndex } scenario={ scenario } onScenarioFinish={ this.handleScenarioFinish }/>
+                                <Scenario key={ index } id={ 'scenario-' + index } index={ index } testStarted={ this.state.testStarted } currentIndex={ this.state.currentScenarioIndex } scenario={ scenario } onScenarioFinish={ this.handleScenarioFinish } nodeRef={ this.childNodeRef } />
                             ) }
                             { this.state.allScenariosFinished &&
                                 <Paragraph content="**To już koniec!** Dziękuję za poświęcony czas i dotarcie do samego końca badania!" />
