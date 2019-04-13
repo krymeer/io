@@ -158,7 +158,7 @@ window.onload = function () {
                         { className: 'seq-item', key: k },
                         React.createElement(
                             'i',
-                            { className: 'material-icons', onClick: this.handleRating.bind(this, k) },
+                            { className: 'material-icons', onClick: this.handleRating.bind(this, k), disabled: this.props.disabled },
                             this.props.rating < k && 'star_border',
                             this.props.rating >= k && 'star'
                         )
@@ -167,7 +167,7 @@ window.onload = function () {
 
                 return React.createElement(
                     'section',
-                    { className: 'seq' },
+                    { className: 'seq', ref: this.props.nodeRef },
                     React.createElement(
                         'h3',
                         null,
@@ -175,7 +175,7 @@ window.onload = function () {
                     ),
                     React.createElement(
                         'ul',
-                        { className: 'seq-stars' },
+                        { className: ("seq-stars" + ' ' + (this.props.disabled ? "disabled" : "")).trim() },
                         React.createElement(
                             'li',
                             null,
@@ -196,7 +196,7 @@ window.onload = function () {
                             null,
                             'Dlaczego zdecydowa\u0142e\u015B si\u0119 na tak\u0105 ocen\u0119? *'
                         ),
-                        React.createElement('textarea', { maxLength: '"' + this.props.maxCommentLength + '"', onChange: this.handleComment }),
+                        React.createElement('textarea', { maxLength: this.props.maxCommentLength, onChange: this.handleComment, disabled: this.props.disabled }),
                         React.createElement(
                             'div',
                             null,
@@ -234,15 +234,21 @@ window.onload = function () {
 
             _this4.handleStart = _this4.handleStart.bind(_this4);
             _this4.handleFinish = _this4.handleFinish.bind(_this4);
-            _this4.handleSummary = _this4.handleSummary.bind(_this4);
+            _this4.handleNext = _this4.handleNext.bind(_this4);
             _this4.handleInputChange = _this4.handleInputChange.bind(_this4);
             _this4.handleRatingChange = _this4.handleRatingChange.bind(_this4);
             _this4.handleCommentChange = _this4.handleCommentChange.bind(_this4);
             _this4.maxCommentLength = 255;
+            _this4.tableRef = React.createRef();
+            _this4.nextTaskRef = React.createRef();
+            _this4.seqRef = function (node) {
+                window.scrollTo(0, node.offsetTop);
+            };
             _this4.state = {
                 taskStarted: false,
                 taskFinished: false,
                 taskError: false,
+                nextTask: false,
                 stats: {
                     rating: 0,
                     comment: ''
@@ -266,6 +272,8 @@ window.onload = function () {
                     this.setState({
                         taskStarted: true
                     });
+
+                    window.scrollTo(0, this.tableRef.current.offsetTop);
                 }
             }
         }, {
@@ -287,8 +295,25 @@ window.onload = function () {
                 }
             }
         }, {
+            key: 'handleNext',
+            value: function handleNext() {
+                if (this.state.taskStarted && this.state.taskFinished) {
+                    // TODO
+                    // Send the data wherever you'd like to
+                    // Note: the comment has to be sanitized before send
+
+                    this.setState({
+                        nextTask: true
+                    });
+
+                    this.props.onTaskFinish(this.props.index);
+                }
+            }
+        }, {
             key: 'handleRatingChange',
             value: function handleRatingChange(k) {
+                var _this5 = this;
+
                 if (k !== this.state.rating) {
                     this.setState(function (state) {
                         var stats = Object.assign({}, state.stats, {
@@ -298,6 +323,10 @@ window.onload = function () {
                         return {
                             stats: stats
                         };
+                    }, function () {
+                        if (k > 0) {
+                            window.scrollTo(0, _this5.nextTaskRef.current.offsetTop);
+                        }
                     });
                 }
             }
@@ -313,13 +342,6 @@ window.onload = function () {
                         stats: stats
                     };
                 });
-            }
-        }, {
-            key: 'handleSummary',
-            value: function handleSummary() {
-                console.log(this.state.stats);
-
-                // TO FINISH
             }
         }, {
             key: 'handleInputChange',
@@ -343,7 +365,7 @@ window.onload = function () {
         }, {
             key: 'render',
             value: function render() {
-                var _this5 = this;
+                var _this6 = this;
 
                 if (this.props.scenarioStarted && this.props.currentIndex >= this.props.index) {
                     return React.createElement(
@@ -358,7 +380,7 @@ window.onload = function () {
                         React.createElement(Paragraph, { 'class': 'task-description', content: 'Wype\u0142nij formularz, korzystaj\u0105c z danych zawartych **w poni\u017Cszej tabeli:**' }),
                         React.createElement(
                             'table',
-                            null,
+                            { ref: this.tableRef },
                             React.createElement(
                                 'thead',
                                 null,
@@ -412,7 +434,7 @@ window.onload = function () {
                                 this.props.task.title
                             ),
                             this.state.inputs.map(function (input) {
-                                return React.createElement(InputWrapper, { key: input.id, id: input.id, taskError: _this5.state.taskError && _this5.state.taskStarted, inputDisabled: _this5.state.taskFinished || !_this5.state.taskStarted, label: input.key, value: input.value, onInputChange: _this5.handleInputChange });
+                                return React.createElement(InputWrapper, { key: input.id, id: input.id, taskError: _this6.state.taskError && _this6.state.taskStarted, inputDisabled: _this6.state.taskFinished || !_this6.state.taskStarted, label: input.key, value: input.value, onInputChange: _this6.handleInputChange });
                             }),
                             this.state.taskError && React.createElement(Paragraph, { 'class': 'on-task-error', content: 'Aby przej\u015B\u0107 dalej, popraw pola wyr\xF3\u017Cnione **tym kolorem.**' })
                         ),
@@ -421,10 +443,10 @@ window.onload = function () {
                             { className: 'btn-finish-task', id: 'btn-finish-' + this.props.id, onClick: this.handleFinish, disabled: this.state.taskFinished },
                             'Zako\u0144cz \u0107wiczenie'
                         ),
-                        this.state.taskFinished && React.createElement(SEQ, { rating: this.state.stats.rating, onRatingChange: this.handleRatingChange, onCommentChange: this.handleCommentChange, maxCommentLength: this.maxCommentLength, commentLength: this.state.stats.comment.length }),
-                        this.state.taskFinished && React.createElement(
+                        this.state.taskFinished && React.createElement(SEQ, { nodeRef: this.seqRef, rating: this.state.stats.rating, onRatingChange: this.handleRatingChange, onCommentChange: this.handleCommentChange, maxCommentLength: this.maxCommentLength, commentLength: this.state.stats.comment.length, disabled: this.state.nextTask }),
+                        this.state.stats.rating > 0 && React.createElement(
                             'button',
-                            { onClick: this.handleSummary },
+                            { onClick: this.handleNext, ref: this.nextTaskRef, disabled: this.state.nextTask },
                             'Nast\u0119pne \u0107wiczenie'
                         )
                     );
@@ -443,22 +465,21 @@ window.onload = function () {
         function Scenario(props) {
             _classCallCheck(this, Scenario);
 
-            var _this6 = _possibleConstructorReturn(this, (Scenario.__proto__ || Object.getPrototypeOf(Scenario)).call(this, props));
+            var _this7 = _possibleConstructorReturn(this, (Scenario.__proto__ || Object.getPrototypeOf(Scenario)).call(this, props));
 
-            _this6.handleStart = _this6.handleStart.bind(_this6);
-            _this6.handleFinish = _this6.handleFinish.bind(_this6);
-            _this6.handleTaskFinish = _this6.handleTaskFinish.bind(_this6);
-            _this6.state = {
+            _this7.handleStart = _this7.handleStart.bind(_this7);
+            _this7.handleFinish = _this7.handleFinish.bind(_this7);
+            _this7.handleTaskFinish = _this7.handleTaskFinish.bind(_this7);
+            _this7.state = {
                 allTasksFinished: false,
                 scenarioStarted: false,
                 scenarioFinished: false,
                 currentTaskIndex: 0
             };
-
-            _this6.childNodeRef = function (child) {
+            _this7.childNodeRef = function (child) {
                 window.scrollTo(0, child.offsetTop);
             };
-            return _this6;
+            return _this7;
         }
 
         _createClass(Scenario, [{
@@ -497,7 +518,7 @@ window.onload = function () {
         }, {
             key: 'render',
             value: function render() {
-                var _this7 = this;
+                var _this8 = this;
 
                 if (this.props.testStarted && this.props.currentIndex >= this.props.index) {
                     return React.createElement(
@@ -516,7 +537,7 @@ window.onload = function () {
                             'Rozpocznij scenariusz'
                         ),
                         this.props.scenario.tasks.map(function (task, index) {
-                            return React.createElement(Task, { key: index, currentIndex: _this7.state.currentTaskIndex, onTaskFinish: _this7.handleTaskFinish, index: index, id: 'task-' + _this7.props.index + '-' + index, scenarioStarted: _this7.state.scenarioStarted, task: task, nodeRef: _this7.childNodeRef });
+                            return React.createElement(Task, { key: index, currentIndex: _this8.state.currentTaskIndex, onTaskFinish: _this8.handleTaskFinish, index: index, id: 'task-' + _this8.props.index + '-' + index, scenarioStarted: _this8.state.scenarioStarted, task: task, nodeRef: _this8.childNodeRef });
                         }),
                         this.state.allTasksFinished && typeof this.props.scenario.outro !== 'undefined' && React.createElement(Paragraph, { 'class': 'scenario-outro', content: this.props.scenario.outro }),
                         this.state.allTasksFinished && React.createElement(
@@ -540,12 +561,12 @@ window.onload = function () {
         function MainComponent(props) {
             _classCallCheck(this, MainComponent);
 
-            var _this8 = _possibleConstructorReturn(this, (MainComponent.__proto__ || Object.getPrototypeOf(MainComponent)).call(this, props));
+            var _this9 = _possibleConstructorReturn(this, (MainComponent.__proto__ || Object.getPrototypeOf(MainComponent)).call(this, props));
 
-            _this8.handleStart = _this8.handleStart.bind(_this8);
-            _this8.handleFinish = _this8.handleFinish.bind(_this8);
-            _this8.handleScenarioFinish = _this8.handleScenarioFinish.bind(_this8);
-            _this8.state = {
+            _this9.handleStart = _this9.handleStart.bind(_this9);
+            _this9.handleFinish = _this9.handleFinish.bind(_this9);
+            _this9.handleScenarioFinish = _this9.handleScenarioFinish.bind(_this9);
+            _this9.state = {
                 error: null,
                 isLoaded: false,
                 scenarios: [],
@@ -555,10 +576,10 @@ window.onload = function () {
                 currentScenarioIndex: 0
             };
 
-            _this8.childNodeRef = function (child) {
+            _this9.childNodeRef = function (child) {
                 window.scrollTo(0, child.offsetTop);
             };
-            return _this8;
+            return _this9;
         }
 
         _createClass(MainComponent, [{
@@ -589,17 +610,17 @@ window.onload = function () {
         }, {
             key: 'componentDidMount',
             value: function componentDidMount() {
-                var _this9 = this;
+                var _this10 = this;
 
                 fetch('./txt/test-1.json').then(function (res) {
                     return res.json();
                 }).then(function (result) {
-                    _this9.setState({
+                    _this10.setState({
                         scenarios: result.scenarios,
                         isLoaded: true
                     });
                 }, function (error) {
-                    _this9.setState({
+                    _this10.setState({
                         isLoaded: false,
                         error: error
                     });
@@ -608,7 +629,7 @@ window.onload = function () {
         }, {
             key: 'render',
             value: function render() {
-                var _this10 = this;
+                var _this11 = this;
 
                 var _state = this.state,
                     error = _state.error,
@@ -648,7 +669,7 @@ window.onload = function () {
                                 'Rozpocznij badanie'
                             ),
                             scenarios.map(function (scenario, index) {
-                                return React.createElement(Scenario, { key: index, id: 'scenario-' + index, index: index, testStarted: _this10.state.testStarted, currentIndex: _this10.state.currentScenarioIndex, scenario: scenario, onScenarioFinish: _this10.handleScenarioFinish, nodeRef: _this10.childNodeRef });
+                                return React.createElement(Scenario, { key: index, id: 'scenario-' + index, index: index, testStarted: _this11.state.testStarted, currentIndex: _this11.state.currentScenarioIndex, scenario: scenario, onScenarioFinish: _this11.handleScenarioFinish, nodeRef: _this11.childNodeRef });
                             }),
                             this.state.allScenariosFinished && React.createElement(Paragraph, { content: '**To ju\u017C koniec!** Dzi\u0119kuj\u0119 za po\u015Bwi\u0119cony czas i dotarcie do samego ko\u0144ca badania!' })
                         )

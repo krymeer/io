@@ -65,11 +65,11 @@ main table th, main table td {
   padding: 14px;
 }
 
-main input, main textarea {
+main textarea, main input {
   padding: 7px;
 }
 
-main section.task .seq, main section.task .task-form, main table, main input, main textarea, main button {
+main section.task .seq, main section.task .task-form, main table, main textarea, main input, main button {
   border-radius: 4px;
 }
 
@@ -173,39 +173,27 @@ main button[disabled] {
   background: #e0e0e0;
   color: #bebebe;
 }
-main textarea {
-  resize: none;
-  width: 100%;
+main textarea, main input {
   font-size: inherit;
   color: #212121;
   border: 2px solid #ddd;
   transition: color 0.1s ease-in-out, background 0.1s ease-in-out, border-color 0.1s ease-in-out;
 }
-main textarea:focus {
-  outline: none;
-  border-color: #7e7e7e;
-}
-main textarea:disabled {
-  background: #eee;
-  color: #ddd;
-}
-main input {
-  font-size: inherit;
-  color: #212121;
-  border: 2px solid #ddd;
-  transition: color 0.1s ease-in-out, background 0.1s ease-in-out, border-color 0.1s ease-in-out;
-}
-main input.error {
+main textarea.error, main input.error {
   color: #a63446;
   border-color: #a63446;
 }
-main input:disabled {
+main textarea:disabled, main input:disabled {
   background: #eee;
   color: #ddd;
 }
-main input:focus {
+main textarea:focus, main input:focus {
   outline: none;
   border-color: #7e7e7e;
+}
+main textarea {
+  resize: none;
+  width: 100%;
 }
 main table {
   display: table !important;
@@ -221,10 +209,10 @@ main table th {
   text-align: left;
 }
 main section > *:first-child {
-  margin-top: 0;
+  margin-top: 0 !important;
 }
 main section > *:last-child {
-  margin-bottom: 0;
+  margin-bottom: 0 !important;
 }
 main section.task .task-form {
   width: fit-content;
@@ -262,7 +250,7 @@ main section.task .task-form.labels-align-right > .wrapper > label {
   text-align: right;
 }
 main section.task .task-form.labels-align-top {
-  width: 200px;
+  width: 223px;
 }
 main section.task .task-form.labels-align-top > .wrapper {
   grid-row-gap: 3.5px;
@@ -343,6 +331,10 @@ main section.task .seq > .seq-stars > li.seq-item > i {
 }
 main section.task .seq > .seq-stars > li.seq-item > i:hover {
   color: #9c9c9c;
+}
+main section.task .seq > .seq-stars.disabled > li.seq-item > i {
+  cursor: default;
+  color: #ddd;
 }
 
 /*# sourceMappingURL=styles.css.map */

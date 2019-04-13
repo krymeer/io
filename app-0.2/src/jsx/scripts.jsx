@@ -121,7 +121,7 @@ window.onload = function() {
             {
                 seqItems.push(
                     <li className="seq-item" key={ k }>
-                        <i className="material-icons" onClick={ this.handleRating.bind( this, k ) }>
+                        <i className="material-icons" onClick={ this.handleRating.bind( this, k ) } disabled={ this.props.disabled }>
                             { this.props.rating < k &&
                                 'star_border'
                             }
@@ -134,11 +134,11 @@ window.onload = function() {
             }
 
             return (
-                <section className="seq">
+                <section className="seq" ref={ this.props.nodeRef }>
                     <h3>
                         Jaki jest, Twoim zdaniem, poziom trudności powyższego ćwiczenia?
                     </h3>
-                    <ul className="seq-stars">
+                    <ul className={ ( "seq-stars" + ' ' + ( this.props.disabled ? "disabled" : "" ) ).trim() }>
                         <li>bardzo trudne</li>
                         { seqItems }
                         <li>bardzo łatwe</li>
@@ -148,7 +148,7 @@ window.onload = function() {
                             <h4>
                                 Dlaczego zdecydowałeś się na taką ocenę? *
                             </h4>
-                            <textarea maxLength={ '"' + this.props.maxCommentLength + '"' } onChange={ this.handleComment } />
+                            <textarea maxLength={ this.props.maxCommentLength } onChange={ this.handleComment } disabled={ this.props.disabled } />
                             <div>
                                 <p className="note">
                                     Pozostało znaków: <span className="text-important">{ this.props.maxCommentLength - this.props.commentLength }</span>
@@ -170,15 +170,21 @@ window.onload = function() {
             super( props );
             this.handleStart         = this.handleStart.bind( this );
             this.handleFinish        = this.handleFinish.bind( this );
-            this.handleSummary       = this.handleSummary.bind( this );
+            this.handleNext          = this.handleNext.bind( this );
             this.handleInputChange   = this.handleInputChange.bind( this );
             this.handleRatingChange  = this.handleRatingChange.bind( this );
             this.handleCommentChange = this.handleCommentChange.bind( this );
             this.maxCommentLength    = 255;
+            this.tableRef            = React.createRef();
+            this.nextTaskRef         = React.createRef();
+            this.seqRef              = node => {
+                window.scrollTo( 0, node.offsetTop );
+            }
             this.state               = {
                 taskStarted  : false,
                 taskFinished : false,
                 taskError    : false,
+                nextTask     : false,
                 stats        : {
                     rating  : 0,
                     comment : ''
@@ -201,6 +207,8 @@ window.onload = function() {
                 this.setState( {
                     taskStarted : true
                 } );
+
+                window.scrollTo( 0, this.tableRef.current.offsetTop );
             }
         }
 
@@ -224,6 +232,22 @@ window.onload = function() {
             }
         }
 
+        handleNext()
+        {
+            if( this.state.taskStarted && this.state.taskFinished )
+            {
+                // TODO
+                // Send the data wherever you'd like to
+                // Note: the comment has to be sanitized before send
+
+                this.setState( {
+                    nextTask : true
+                } );
+
+                this.props.onTaskFinish( this.props.index );
+            }
+        }
+
         handleRatingChange( k )
         {
             if( k !== this.state.rating )
@@ -237,6 +261,11 @@ window.onload = function() {
                     return {
                         stats
                     };
+                }, () => {
+                    if( k > 0 )
+                    {
+                        window.scrollTo( 0, this.nextTaskRef.current.offsetTop );
+                    }
                 } );
             }
         }
@@ -253,13 +282,6 @@ window.onload = function() {
                     stats
                 };
             } );
-        }
-
-        handleSummary()
-        {
-            console.log( this.state.stats );
-
-            // TO FINISH
         }
 
         handleInputChange( inputId, inputValid )
@@ -291,7 +313,7 @@ window.onload = function() {
                     <section className="task" id={ this.props.id } ref={ this.props.nodeRef }>
                         <h2>Ćwiczenie nr { this.props.index + 1 }</h2>
                         <Paragraph class="task-description" content="Wypełnij formularz, korzystając z danych zawartych **w poniższej tabeli:**" />
-                        <table>
+                        <table ref={ this.tableRef }>
                             <thead>
                                 <tr>
                                     <th>Nazwa pola</th>
@@ -325,10 +347,10 @@ window.onload = function() {
                             <button className='btn-finish-task' id={ 'btn-finish-' +  this.props.id } onClick={ this.handleFinish } disabled={ this.state.taskFinished }>Zakończ ćwiczenie</button>
                         }
                         { this.state.taskFinished &&
-                            <SEQ rating={ this.state.stats.rating } onRatingChange={ this.handleRatingChange } onCommentChange={ this.handleCommentChange } maxCommentLength={ this.maxCommentLength } commentLength={ this.state.stats.comment.length } />
+                            <SEQ nodeRef={ this.seqRef } rating={ this.state.stats.rating } onRatingChange={ this.handleRatingChange } onCommentChange={ this.handleCommentChange } maxCommentLength={ this.maxCommentLength } commentLength={ this.state.stats.comment.length } disabled={ this.state.nextTask } />
                         }
-                        { this.state.taskFinished &&
-                            <button onClick={ this.handleSummary }>Następne ćwiczenie</button>
+                        { this.state.stats.rating > 0 &&
+                            <button onClick={ this.handleNext } ref={ this.nextTaskRef } disabled={ this.state.nextTask }>Następne ćwiczenie</button>
                         }
                     </section>
                 );
@@ -352,8 +374,7 @@ window.onload = function() {
                 scenarioFinished : false,
                 currentTaskIndex : 0
             }
-
-            this.childNodeRef = child => {
+            this.childNodeRef     = child => {
                 window.scrollTo( 0, child.offsetTop );
             }
         }
