@@ -251,6 +251,51 @@ main {
         }
     }
 
+    input {
+        @extend %padding-s;
+        @extend %radius;
+        font-size: inherit;
+        color: $input-color-m;
+        border: 2px solid $border-color-d;
+        transition: color $transition, background $transition, border-color $transition;
+
+        &.error {
+            color: $primary-color;
+            border-color: $primary-color;
+        }
+
+        &:disabled  {
+            background: $border-color-m;
+            color: $border-color-d;
+        }
+
+        &:focus {
+            outline: none;
+            border-color: $input-color-b;
+        }
+    }
+
+    table {
+        @extend %margin-top-btm-xl;
+        @extend %block-alt;
+        @extend %radius;
+        display: table !important;
+        table-layout: fixed;
+        border-spacing: 0;
+        border-collapse: collapse;
+
+        th, td {
+            @extend %block-alt-child;
+            @extend %padding-m;
+            line-height: 1;
+        }
+
+        th {
+            font-weight: 700;
+            text-align: left;
+        }
+    }
+
     section {
         > * {
             @extend %margin-top-btm-m;
@@ -266,24 +311,104 @@ main {
         }
 
         &.task {
-            > table {
+            .task-form {
                 @extend %margin-top-btm-xl;
                 @extend %block-alt;
+                @extend %block-centered;
                 @extend %radius;
-                display: table !important;
-                table-layout: fixed;
-                border-spacing: 0;
-                border-collapse: collapse;
+                @extend %padding-l;
+                width: fit-content;
 
-                th, td {
-                    @extend %block-alt-child;
-                    @extend %padding-m;
-                    line-height: 1;
+                > .wrapper {
+                    @extend %margin-top-btm-l;
+                    display: grid;
+                    align-items: center;
+
+                    > label, > input {
+                        line-height: 1;
+                        display: block;
+                    }
+
+                    &.on-task-error.on-input-invalid {
+                        > input {
+                            border-color: $primary-color !important;
+                            color: $primary-color !important;
+                        }
+
+                        > label {
+                            color: $primary-color !important;
+                        }
+                    }
                 }
 
-                th {
-                    font-weight: 700;
-                    text-align: left;
+                > p.on-task-error {
+                    font-size: 14px;
+                    text-align: center;
+                }
+
+                &.labels-align-left, &.labels-align-right {
+                    > .wrapper {
+                        grid-template-columns: auto 200px;
+                        grid-column-gap: $value-l;
+                    }
+                }
+
+                &.labels-align-left {
+                    width: 380px;
+                }
+
+                &.labels-align-right {
+                    width: 380px;
+
+                    > .wrapper {
+                        > label {
+                            text-align: right;
+                        }
+                    }
+                }
+
+                &.labels-align-top {
+                    width: 200px;
+
+                    > .wrapper {
+                        grid-row-gap: $value-xs;
+                    }
+                }
+
+                &.labels-float-top {
+                    width: 200px;
+
+                    > .wrapper {
+                        position: relative;
+
+                        > label {
+                            cursor: text;
+                            position: absolute;
+                            left: $value-s;
+                            top: 50%;
+                            transform: translateY(-50%);
+                            transition: all $transition;
+                            z-index: 1;
+                            color: $placeholder-color;
+                            background: #fff;
+
+                            &.on-input-disabled {
+                                background: $border-color-m;
+                            }
+
+                            &.on-input-focus,
+                            &.on-input-non-empty:not(.on-input-disabled) {
+                                font-size: 12px;
+                                margin-top: -16px;
+                                padding: 0 2px;
+                            }
+
+                            &.on-input-focus,
+                            &.on-input-non-empty:not(.on-input-disabled) {
+                                color: $input-color-b;
+                            }
+                        }
+                    }
                 }
             }
 
@@ -349,134 +474,6 @@ main {
 
                             > i:hover {
                                 color: $button-color-h;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        .form-container {
-            @extend %margin-top-btm-xl;
-            @extend %block-alt;
-            @extend %radius;
-            @extend %padding-l;
-            width: fit-content;
-
-            > form {
-                margin: 0 auto;
-
-                > .wrapper {
-                    @extend %margin-top-btm-l;
-                    display: grid;
-                    align-items: center;
-
-                    > label, > input {
-                        line-height: 1;
-                        display: block;
-                    }
-
-                    > input {
-                        @extend %padding-s;
-                        @extend %radius;
-                        font-size: inherit;
-                        color: $input-color-m;
-                        border: 2px solid $border-color-d;
-                        transition: color $transition, background $transition, border-color $transition;
-
-                        &.error {
-                            color: $primary-color;
-                            border-color: $primary-color;
-                        }
-
-                        &:disabled  {
-                            background: $border-color-m;
-                            color: $border-color-d;
-                        }
-
-                        &:focus {
-                            outline: none;
-                            border-color: $input-color-b;
-                        }
-                    }
-
-                    &.on-task-error.on-input-invalid {
-                        > input {
-                            border-color: $primary-color !important;
-                            color: $primary-color !important;
-                        }
-
-                        > label {
-                            color: $primary-color !important;
-                        }
-                    }
-                }
-
-                > p.on-task-error {
-                    font-size: 14px;
-                    text-align: center;
-                }
-
-                &.labels-align-left, &.labels-align-right {
-                    > .wrapper {
-                        grid-template-columns: auto 200px;
-                        grid-column-gap: $value-l;
-                    }
-                }
-
-                &.labels-align-left {
-                    width: 380px;
-                }
-
-                &.labels-align-right {
-                    width: 330px;
-
-                    > .wrapper {
-                        > label {
-                            text-align: right;
-                        }
-                    }
-                }
-
-                &.labels-align-top {
-                    width: 200px;
-
-                    > .wrapper {
-                        grid-row-gap: $value-xs;
-                    }
-                }
-
-                &.labels-float-top {
-                    width: 200px;
-
-                    > .wrapper {
-                        position: relative;
-
-                        > label {
-                            cursor: text;
-                            position: absolute;
-                            left: $value-s;
-                            top: 50%;
-                            transform: translateY(-50%);
-                            transition: all $transition;
-                            z-index: 1;
-                            color: $placeholder-color;
-                            background: #fff;
-
-                            &.on-input-disabled {
-                                background: $border-color-m;
-                            }
-
-                            &.on-input-focus,
-                            &.on-input-non-empty:not(.on-input-disabled) {
-                                font-size: 12px;
-                                margin-top: -16px;
-                                padding: 0 2px;
-                            }
-
-                            &.on-input-focus,
-                            &.on-input-non-empty:not(.on-input-disabled) {
-                                color: $input-color-b;
                             }
                         }
                     }

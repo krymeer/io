@@ -133,35 +133,19 @@ window.onload = function () {
 
             var _this3 = _possibleConstructorReturn(this, (SEQ.__proto__ || Object.getPrototypeOf(SEQ)).call(this, props));
 
-            _this3.maxCommentLength = 255;
-            _this3.handleStarClick = _this3.handleStarClick.bind(_this3);
-            _this3.handleCommentChange = _this3.handleCommentChange.bind(_this3);
-            _this3.state = {
-                rating: 0,
-                commentLength: 0
-            };
+            _this3.handleComment = _this3.handleComment.bind(_this3);
             return _this3;
         }
 
         _createClass(SEQ, [{
-            key: 'handleStarClick',
-            value: function handleStarClick(e) {
-                var index = parseInt(e.target.getAttribute('data-index'));
-
-                if (index !== this.state.rating) {
-                    this.setState({
-                        rating: index
-                    });
-                }
+            key: 'handleRating',
+            value: function handleRating(k) {
+                this.props.onRatingChange(k);
             }
         }, {
-            key: 'handleCommentChange',
-            value: function handleCommentChange(e) {
-                var comment = e.target.value;
-
-                this.setState({
-                    commentLength: comment.length
-                });
+            key: 'handleComment',
+            value: function handleComment(e) {
+                this.props.onCommentChange(e.target.value);
             }
         }, {
             key: 'render',
@@ -174,9 +158,9 @@ window.onload = function () {
                         { className: 'seq-item', key: k },
                         React.createElement(
                             'i',
-                            { className: 'material-icons', 'data-index': k, onClick: this.handleStarClick },
-                            this.state.rating < k && 'star_border',
-                            this.state.rating >= k && 'star'
+                            { className: 'material-icons', onClick: this.handleRating.bind(this, k) },
+                            this.props.rating < k && 'star_border',
+                            this.props.rating >= k && 'star'
                         )
                     ));
                 }
@@ -204,7 +188,7 @@ window.onload = function () {
                             'bardzo \u0142atwe'
                         )
                     ),
-                    this.state.rating > 0 && React.createElement(
+                    this.props.rating > 0 && React.createElement(
                         'section',
                         { className: 'comment' },
                         React.createElement(
@@ -212,7 +196,7 @@ window.onload = function () {
                             null,
                             'Dlaczego zdecydowa\u0142e\u015B si\u0119 na tak\u0105 ocen\u0119? *'
                         ),
-                        React.createElement('textarea', { maxLength: this.maxCommentLength.toString(), onChange: this.handleCommentChange }),
+                        React.createElement('textarea', { maxLength: '"' + this.props.maxCommentLength + '"', onChange: this.handleComment }),
                         React.createElement(
                             'div',
                             null,
@@ -222,8 +206,8 @@ window.onload = function () {
                                 'Pozosta\u0142o znak\xF3w: ',
                                 React.createElement(
                                     'span',
-                                    { 'class': 'text-important' },
-                                    this.maxCommentLength - this.state.commentLength
+                                    { className: 'text-important' },
+                                    this.props.maxCommentLength - this.props.commentLength
                                 )
                             ),
                             React.createElement(
@@ -252,10 +236,17 @@ window.onload = function () {
             _this4.handleFinish = _this4.handleFinish.bind(_this4);
             _this4.handleSummary = _this4.handleSummary.bind(_this4);
             _this4.handleInputChange = _this4.handleInputChange.bind(_this4);
+            _this4.handleRatingChange = _this4.handleRatingChange.bind(_this4);
+            _this4.handleCommentChange = _this4.handleCommentChange.bind(_this4);
+            _this4.maxCommentLength = 255;
             _this4.state = {
                 taskStarted: false,
                 taskFinished: false,
                 taskError: false,
+                stats: {
+                    rating: 0,
+                    comment: ''
+                },
                 inputs: _this4.props.task.data.map(function (item, index) {
                     return {
                         id: _this4.props.id + '--input-' + index,
@@ -292,14 +283,44 @@ window.onload = function () {
                             taskError: false,
                             taskFinished: true
                         });
-
-                        //this.props.onTaskFinish( this.props.index );
                     }
                 }
             }
         }, {
+            key: 'handleRatingChange',
+            value: function handleRatingChange(k) {
+                if (k !== this.state.rating) {
+                    this.setState(function (state) {
+                        var stats = Object.assign({}, state.stats, {
+                            rating: k
+                        });
+
+                        return {
+                            stats: stats
+                        };
+                    });
+                }
+            }
+        }, {
+            key: 'handleCommentChange',
+            value: function handleCommentChange(comment) {
+                this.setState(function (state) {
+                    var stats = Object.assign({}, state.stats, {
+                        comment: comment
+                    });
+
+                    return {
+                        stats: stats
+                    };
+                });
+            }
+        }, {
             key: 'handleSummary',
-            value: function handleSummary() {}
+            value: function handleSummary() {
+                console.log(this.state.stats);
+
+                // TO FINISH
+            }
         }, {
             key: 'handleInputChange',
             value: function handleInputChange(inputId, inputValid) {
@@ -384,27 +405,23 @@ window.onload = function () {
                         ),
                         React.createElement(
                             'section',
-                            { className: 'form-container' },
+                            { className: "task-form " + this.props.task.type },
                             React.createElement(
-                                'form',
-                                { className: this.props.task.type },
-                                React.createElement(
-                                    'h3',
-                                    null,
-                                    this.props.task.title
-                                ),
-                                this.state.inputs.map(function (input) {
-                                    return React.createElement(InputWrapper, { key: input.id, id: input.id, taskError: _this5.state.taskError && _this5.state.taskStarted, inputDisabled: _this5.state.taskFinished || !_this5.state.taskStarted, label: input.key, value: input.value, onInputChange: _this5.handleInputChange });
-                                }),
-                                this.state.taskError && React.createElement(Paragraph, { 'class': 'on-task-error', content: 'Aby przej\u015B\u0107 dalej, popraw pola wyr\xF3\u017Cnione **tym kolorem.**' })
-                            )
+                                'h3',
+                                null,
+                                this.props.task.title
+                            ),
+                            this.state.inputs.map(function (input) {
+                                return React.createElement(InputWrapper, { key: input.id, id: input.id, taskError: _this5.state.taskError && _this5.state.taskStarted, inputDisabled: _this5.state.taskFinished || !_this5.state.taskStarted, label: input.key, value: input.value, onInputChange: _this5.handleInputChange });
+                            }),
+                            this.state.taskError && React.createElement(Paragraph, { 'class': 'on-task-error', content: 'Aby przej\u015B\u0107 dalej, popraw pola wyr\xF3\u017Cnione **tym kolorem.**' })
                         ),
                         this.state.taskStarted && React.createElement(
                             'button',
                             { className: 'btn-finish-task', id: 'btn-finish-' + this.props.id, onClick: this.handleFinish, disabled: this.state.taskFinished },
                             'Zako\u0144cz \u0107wiczenie'
                         ),
-                        this.state.taskFinished && React.createElement(SEQ, null),
+                        this.state.taskFinished && React.createElement(SEQ, { rating: this.state.stats.rating, onRatingChange: this.handleRatingChange, onCommentChange: this.handleCommentChange, maxCommentLength: this.maxCommentLength, commentLength: this.state.stats.comment.length }),
                         this.state.taskFinished && React.createElement(
                             'button',
                             { onClick: this.handleSummary },

@@ -100,34 +100,17 @@ window.onload = function() {
         {
             super( props );
 
-            this.maxCommentLength = 255;
-            this.handleStarClick  = this.handleStarClick.bind( this );
-            this.handleCommentChange  = this.handleCommentChange.bind( this );
-            this.state            = {
-                rating        : 0,
-                commentLength : 0
-            }
+            this.handleComment = this.handleComment.bind( this )
         }
 
-        handleStarClick( e )
+        handleRating( k )
         {
-            const index = parseInt( e.target.getAttribute( 'data-index' ) );
-
-            if( index !== this.state.rating )
-            {
-                this.setState( {
-                    rating : index
-                } );
-            }
+            this.props.onRatingChange( k );
         }
 
-        handleCommentChange( e )
+        handleComment( e )
         {
-            const comment = e.target.value;
-
-            this.setState( {
-                commentLength : comment.length
-            } );
+            this.props.onCommentChange( e.target.value );
         }
 
         render()
@@ -138,11 +121,11 @@ window.onload = function() {
             {
                 seqItems.push(
                     <li className="seq-item" key={ k }>
-                        <i className="material-icons" data-index={ k } onClick={ this.handleStarClick }>
-                            { this.state.rating < k &&
+                        <i className="material-icons" onClick={ this.handleRating.bind( this, k ) }>
+                            { this.props.rating < k &&
                                 'star_border'
                             }
-                            { this.state.rating >= k &&
+                            { this.props.rating >= k &&
                                 'star'
                             }
                         </i>
@@ -160,15 +143,15 @@ window.onload = function() {
                         { seqItems }
                         <li>bardzo łatwe</li>
                     </ul>
-                    { this.state.rating > 0 &&
+                    { this.props.rating > 0 &&
                         <section className="comment">
                             <h4>
                                 Dlaczego zdecydowałeś się na taką ocenę? *
                             </h4>
-                            <textarea maxLength={ this.maxCommentLength.toString() } onChange={ this.handleCommentChange } />
+                            <textarea maxLength={ '"' + this.props.maxCommentLength + '"' } onChange={ this.handleComment } />
                             <div>
                                 <p className="note">
-                                    Pozostało znaków: <span class="text-important">{ this.maxCommentLength - this.state.commentLength }</span>
+                                    Pozostało znaków: <span className="text-important">{ this.props.maxCommentLength - this.props.commentLength }</span>
                                 </p>
                                 <p className="note">
                                     * Pole opcjonalne
@@ -185,14 +168,21 @@ window.onload = function() {
         constructor( props )
         {
             super( props );
-            this.handleStart       = this.handleStart.bind( this );
-            this.handleFinish      = this.handleFinish.bind( this );
-            this.handleSummary     = this.handleSummary.bind( this );
-            this.handleInputChange = this.handleInputChange.bind( this );
-            this.state             = {
+            this.handleStart         = this.handleStart.bind( this );
+            this.handleFinish        = this.handleFinish.bind( this );
+            this.handleSummary       = this.handleSummary.bind( this );
+            this.handleInputChange   = this.handleInputChange.bind( this );
+            this.handleRatingChange  = this.handleRatingChange.bind( this );
+            this.handleCommentChange = this.handleCommentChange.bind( this );
+            this.maxCommentLength    = 255;
+            this.state               = {
                 taskStarted  : false,
                 taskFinished : false,
                 taskError    : false,
+                stats        : {
+                    rating  : 0,
+                    comment : ''
+                },
                 inputs       : this.props.task.data.map( ( item, index ) => {
                     return {
                         id    : this.props.id + '--input-' + index,
@@ -230,15 +220,46 @@ window.onload = function() {
                         taskError    : false,
                         taskFinished : true
                     } );
-
-                    //this.props.onTaskFinish( this.props.index );
                 }
             }
         }
 
+        handleRatingChange( k )
+        {
+            if( k !== this.state.rating )
+            {
+                this.setState( state => {
+                    const stats = {
+                        ...state.stats,
+                        rating : k
+                    }
+
+                    return {
+                        stats
+                    };
+                } );
+            }
+        }
+
+        handleCommentChange( comment )
+        {
+            this.setState( state => {
+                const stats = {
+                    ...state.stats,
+                    comment : comment
+                }
+
+                return {
+                    stats
+                };
+            } );
+        }
+
         handleSummary()
         {
+            console.log( this.state.stats );
 
+            // TO FINISH
         }
 
         handleInputChange( inputId, inputValid )
@@ -267,7 +288,7 @@ window.onload = function() {
             if( this.props.scenarioStarted && this.props.currentIndex >= this.props.index )
             {
                 return (
-                    <section className='task' id={ this.props.id } ref={ this.props.nodeRef }>
+                    <section className="task" id={ this.props.id } ref={ this.props.nodeRef }>
                         <h2>Ćwiczenie nr { this.props.index + 1 }</h2>
                         <Paragraph class="task-description" content="Wypełnij formularz, korzystając z danych zawartych **w poniższej tabeli:**" />
                         <table>
@@ -289,24 +310,22 @@ window.onload = function() {
                             </tbody>
                         </table>
                         <button className='btn-start-task' id={ 'btn-start-' +  this.props.id } onClick={ this.handleStart } disabled={ this.state.taskStarted }>Rozpocznij ćwiczenie</button>
-                        <section className="form-container">
-                            <form className={ this.props.task.type }>
-                                <h3>{ this.props.task.title }</h3>
-                                {
-                                    this.state.inputs.map( ( input ) =>
-                                        <InputWrapper key={ input.id } id={ input.id } taskError={ this.state.taskError && this.state.taskStarted } inputDisabled={ this.state.taskFinished || !this.state.taskStarted } label={ input.key } value={ input.value } onInputChange={ this.handleInputChange } />
-                                    )
-                                }
-                                { this.state.taskError &&
-                                    <Paragraph class="on-task-error" content="Aby przejść dalej, popraw pola wyróżnione **tym kolorem.**" />
-                                }
-                            </form>
+                        <section className={ "task-form " + this.props.task.type } >
+                            <h3>{ this.props.task.title }</h3>
+                            {
+                                this.state.inputs.map( ( input ) =>
+                                    <InputWrapper key={ input.id } id={ input.id } taskError={ this.state.taskError && this.state.taskStarted } inputDisabled={ this.state.taskFinished || !this.state.taskStarted } label={ input.key } value={ input.value } onInputChange={ this.handleInputChange } />
+                                )
+                            }
+                            { this.state.taskError &&
+                                <Paragraph class="on-task-error" content="Aby przejść dalej, popraw pola wyróżnione **tym kolorem.**" />
+                            }
                         </section>
                         { this.state.taskStarted &&
                             <button className='btn-finish-task' id={ 'btn-finish-' +  this.props.id } onClick={ this.handleFinish } disabled={ this.state.taskFinished }>Zakończ ćwiczenie</button>
                         }
                         { this.state.taskFinished &&
-                            <SEQ />
+                            <SEQ rating={ this.state.stats.rating } onRatingChange={ this.handleRatingChange } onCommentChange={ this.handleCommentChange } maxCommentLength={ this.maxCommentLength } commentLength={ this.state.stats.comment.length } />
                         }
                         { this.state.taskFinished &&
                             <button onClick={ this.handleSummary }>Następne ćwiczenie</button>

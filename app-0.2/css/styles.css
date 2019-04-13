@@ -6,7 +6,7 @@
   line-height: 1.5;
 }
 
-main section .form-container, main section.task .seq, main section.task > table, main p {
+main section.task .seq, main section.task .task-form, main table, main p {
   letter-spacing: 0.1px;
 }
 
@@ -15,23 +15,23 @@ main p {
   font-size: 16px;
 }
 
-main section .form-container, main section.task .seq, main section.task > table {
+main section.task .seq, main section.task .task-form, main table {
   background: #fff;
   border: 2px solid #eee;
   color: #212121;
   font-size: 14px;
 }
-main section .form-container p, main section.task .seq p, main section.task > table p {
+main section.task .seq p, main section.task .task-form p, main table p {
   color: inherit;
   line-height: inherit;
 }
 
-main section.task > table th, main section.task > table td {
+main table th, main table td {
   border: 0;
   border-bottom: 1px solid #eee;
 }
 
-main section > *, #page-container > * > * {
+main section.task .task-form, main section > *, #page-container > * > * {
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -42,12 +42,12 @@ main section > * {
   margin-bottom: 14px;
 }
 
-main > section > section, main section .form-container > form > .wrapper {
+main > section > section, main section.task .task-form > .wrapper {
   margin-top: 21px;
   margin-bottom: 21px;
 }
 
-main > section, main section .form-container, main section.task .seq, main section.task > table {
+main > section, main section.task .seq, main section.task .task-form, main table {
   margin-top: 28px;
   margin-bottom: 28px;
 }
@@ -57,19 +57,19 @@ main {
   padding-bottom: 56px;
 }
 
-main section .form-container, main section.task .seq {
+main section.task .seq, main section.task .task-form {
   padding: 21px;
 }
 
-main section.task > table th, main section.task > table td {
+main table th, main table td {
   padding: 14px;
 }
 
-main section .form-container > form > .wrapper > input, main textarea {
+main input, main textarea {
   padding: 7px;
 }
 
-main section .form-container > form > .wrapper > input, main section .form-container, main section.task .seq, main section.task > table, main textarea, main button {
+main section.task .seq, main section.task .task-form, main table, main input, main textarea, main button {
   border-radius: 4px;
 }
 
@@ -189,24 +189,111 @@ main textarea:disabled {
   background: #eee;
   color: #ddd;
 }
+main input {
+  font-size: inherit;
+  color: #212121;
+  border: 2px solid #ddd;
+  transition: color 0.1s ease-in-out, background 0.1s ease-in-out, border-color 0.1s ease-in-out;
+}
+main input.error {
+  color: #a63446;
+  border-color: #a63446;
+}
+main input:disabled {
+  background: #eee;
+  color: #ddd;
+}
+main input:focus {
+  outline: none;
+  border-color: #7e7e7e;
+}
+main table {
+  display: table !important;
+  table-layout: fixed;
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+main table th, main table td {
+  line-height: 1;
+}
+main table th {
+  font-weight: 700;
+  text-align: left;
+}
 main section > *:first-child {
   margin-top: 0;
 }
 main section > *:last-child {
   margin-bottom: 0;
 }
-main section.task > table {
-  display: table !important;
-  table-layout: fixed;
-  border-spacing: 0;
-  border-collapse: collapse;
+main section.task .task-form {
+  width: fit-content;
 }
-main section.task > table th, main section.task > table td {
+main section.task .task-form > .wrapper {
+  display: grid;
+  align-items: center;
+}
+main section.task .task-form > .wrapper > label, main section.task .task-form > .wrapper > input {
   line-height: 1;
+  display: block;
 }
-main section.task > table th {
-  font-weight: 700;
-  text-align: left;
+main section.task .task-form > .wrapper.on-task-error.on-input-invalid > input {
+  border-color: #a63446 !important;
+  color: #a63446 !important;
+}
+main section.task .task-form > .wrapper.on-task-error.on-input-invalid > label {
+  color: #a63446 !important;
+}
+main section.task .task-form > p.on-task-error {
+  font-size: 14px;
+  text-align: center;
+}
+main section.task .task-form.labels-align-left > .wrapper, main section.task .task-form.labels-align-right > .wrapper {
+  grid-template-columns: auto 200px;
+  grid-column-gap: 21px;
+}
+main section.task .task-form.labels-align-left {
+  width: 380px;
+}
+main section.task .task-form.labels-align-right {
+  width: 380px;
+}
+main section.task .task-form.labels-align-right > .wrapper > label {
+  text-align: right;
+}
+main section.task .task-form.labels-align-top {
+  width: 200px;
+}
+main section.task .task-form.labels-align-top > .wrapper {
+  grid-row-gap: 3.5px;
+}
+main section.task .task-form.labels-float-top {
+  width: 200px;
+}
+main section.task .task-form.labels-float-top > .wrapper {
+  position: relative;
+}
+main section.task .task-form.labels-float-top > .wrapper > label {
+  cursor: text;
+  position: absolute;
+  left: 7px;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: all 0.1s ease-in-out;
+  z-index: 1;
+  color: #b1b1b1;
+  background: #fff;
+}
+main section.task .task-form.labels-float-top > .wrapper > label.on-input-disabled {
+  background: #eee;
+}
+main section.task .task-form.labels-float-top > .wrapper > label.on-input-focus, main section.task .task-form.labels-float-top > .wrapper > label.on-input-non-empty:not(.on-input-disabled) {
+  font-size: 12px;
+  margin-top: -16px;
+  padding: 0 2px;
+}
+main section.task .task-form.labels-float-top > .wrapper > label.on-input-focus, main section.task .task-form.labels-float-top > .wrapper > label.on-input-non-empty:not(.on-input-disabled) {
+  color: #7e7e7e;
 }
 main section.task .seq {
   width: fit-content;
@@ -256,96 +343,6 @@ main section.task .seq > .seq-stars > li.seq-item > i {
 }
 main section.task .seq > .seq-stars > li.seq-item > i:hover {
   color: #9c9c9c;
-}
-main section .form-container {
-  width: fit-content;
-}
-main section .form-container > form {
-  margin: 0 auto;
-}
-main section .form-container > form > .wrapper {
-  display: grid;
-  align-items: center;
-}
-main section .form-container > form > .wrapper > label, main section .form-container > form > .wrapper > input {
-  line-height: 1;
-  display: block;
-}
-main section .form-container > form > .wrapper > input {
-  font-size: inherit;
-  color: #212121;
-  border: 2px solid #ddd;
-  transition: color 0.1s ease-in-out, background 0.1s ease-in-out, border-color 0.1s ease-in-out;
-}
-main section .form-container > form > .wrapper > input.error {
-  color: #a63446;
-  border-color: #a63446;
-}
-main section .form-container > form > .wrapper > input:disabled {
-  background: #eee;
-  color: #ddd;
-}
-main section .form-container > form > .wrapper > input:focus {
-  outline: none;
-  border-color: #7e7e7e;
-}
-main section .form-container > form > .wrapper.on-task-error.on-input-invalid > input {
-  border-color: #a63446 !important;
-  color: #a63446 !important;
-}
-main section .form-container > form > .wrapper.on-task-error.on-input-invalid > label {
-  color: #a63446 !important;
-}
-main section .form-container > form > p.on-task-error {
-  font-size: 14px;
-  text-align: center;
-}
-main section .form-container > form.labels-align-left > .wrapper, main section .form-container > form.labels-align-right > .wrapper {
-  grid-template-columns: auto 200px;
-  grid-column-gap: 21px;
-}
-main section .form-container > form.labels-align-left {
-  width: 380px;
-}
-main section .form-container > form.labels-align-right {
-  width: 330px;
-}
-main section .form-container > form.labels-align-right > .wrapper > label {
-  text-align: right;
-}
-main section .form-container > form.labels-align-top {
-  width: 200px;
-}
-main section .form-container > form.labels-align-top > .wrapper {
-  grid-row-gap: 3.5px;
-}
-main section .form-container > form.labels-float-top {
-  width: 200px;
-}
-main section .form-container > form.labels-float-top > .wrapper {
-  position: relative;
-}
-main section .form-container > form.labels-float-top > .wrapper > label {
-  cursor: text;
-  position: absolute;
-  left: 7px;
-  top: 50%;
-  transform: translateY(-50%);
-  transition: all 0.1s ease-in-out;
-  z-index: 1;
-  color: #b1b1b1;
-  background: #fff;
-}
-main section .form-container > form.labels-float-top > .wrapper > label.on-input-disabled {
-  background: #eee;
-}
-main section .form-container > form.labels-float-top > .wrapper > label.on-input-focus, main section .form-container > form.labels-float-top > .wrapper > label.on-input-non-empty:not(.on-input-disabled) {
-  font-size: 12px;
-  margin-top: -16px;
-  padding: 0 2px;
-}
-main section .form-container > form.labels-float-top > .wrapper > label.on-input-focus, main section .form-container > form.labels-float-top > .wrapper > label.on-input-non-empty:not(.on-input-disabled) {
-  color: #7e7e7e;
 }
 
 /*# sourceMappingURL=styles.css.map */
