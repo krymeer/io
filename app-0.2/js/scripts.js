@@ -101,7 +101,7 @@ window.onload = function () {
                     inputValid: inputValid
                 });
 
-                this.props.onInputChange(this.props.id, inputValid);
+                this.props.onInputChange(this.props.index, inputValid);
             }
         }, {
             key: 'render',
@@ -114,10 +114,10 @@ window.onload = function () {
                     { className: wrapperClassName !== '' ? wrapperClassName : undefined },
                     React.createElement(
                         'label',
-                        { className: labelClassName !== '' ? labelClassName : undefined, htmlFor: this.props.id },
+                        { className: labelClassName !== '' ? labelClassName : undefined },
                         this.props.label
                     ),
-                    React.createElement('input', { type: 'text', id: this.props.id, autoComplete: 'off', onFocus: this.handleFocus, onBlur: this.handleBlur, onChange: this.handleChange, disabled: this.props.inputDisabled })
+                    React.createElement('input', { type: 'text', autoComplete: 'off', onFocus: this.handleFocus, onBlur: this.handleBlur, onChange: this.handleChange, disabled: this.props.inputDisabled })
                 );
             }
         }]);
@@ -253,9 +253,8 @@ window.onload = function () {
                     rating: 0,
                     comment: ''
                 },
-                inputs: _this4.props.task.data.map(function (item, index) {
+                inputs: _this4.props.task.data.map(function (item) {
                     return {
-                        id: _this4.props.id + '--input-' + index,
                         valid: false,
                         key: item.key,
                         value: item.value
@@ -345,10 +344,10 @@ window.onload = function () {
             }
         }, {
             key: 'handleInputChange',
-            value: function handleInputChange(inputId, inputValid) {
+            value: function handleInputChange(inputIndex, inputValid) {
                 this.setState(function (state) {
-                    var inputs = state.inputs.map(function (input) {
-                        if (input.id === inputId) {
+                    var inputs = state.inputs.map(function (input, index) {
+                        if (inputIndex === index) {
                             return Object.assign({}, input, {
                                 valid: inputValid
                             });
@@ -370,7 +369,7 @@ window.onload = function () {
                 if (this.props.scenarioStarted && this.props.currentIndex >= this.props.index) {
                     return React.createElement(
                         'section',
-                        { className: 'task', id: this.props.id, ref: this.props.nodeRef },
+                        { className: 'task', ref: this.props.nodeRef },
                         React.createElement(
                             'h2',
                             null,
@@ -422,7 +421,7 @@ window.onload = function () {
                         ),
                         React.createElement(
                             'button',
-                            { className: 'btn-start-task', id: 'btn-start-' + this.props.id, onClick: this.handleStart, disabled: this.state.taskStarted },
+                            { onClick: this.handleStart, disabled: this.state.taskStarted },
                             'Rozpocznij \u0107wiczenie'
                         ),
                         React.createElement(
@@ -433,14 +432,14 @@ window.onload = function () {
                                 null,
                                 this.props.task.title
                             ),
-                            this.state.inputs.map(function (input) {
-                                return React.createElement(InputWrapper, { key: input.id, id: input.id, taskError: _this6.state.taskError && _this6.state.taskStarted, inputDisabled: _this6.state.taskFinished || !_this6.state.taskStarted, label: input.key, value: input.value, onInputChange: _this6.handleInputChange });
+                            this.state.inputs.map(function (input, index) {
+                                return React.createElement(InputWrapper, { key: index, index: index, taskError: _this6.state.taskError && _this6.state.taskStarted, inputDisabled: _this6.state.taskFinished || !_this6.state.taskStarted, label: input.key, value: input.value, onInputChange: _this6.handleInputChange });
                             }),
                             this.state.taskError && React.createElement(Paragraph, { 'class': 'on-task-error', content: 'Aby przej\u015B\u0107 dalej, popraw pola wyr\xF3\u017Cnione **tym kolorem.**' })
                         ),
                         this.state.taskStarted && React.createElement(
                             'button',
-                            { className: 'btn-finish-task', id: 'btn-finish-' + this.props.id, onClick: this.handleFinish, disabled: this.state.taskFinished },
+                            { onClick: this.handleFinish, disabled: this.state.taskFinished },
                             'Zako\u0144cz \u0107wiczenie'
                         ),
                         this.state.taskFinished && React.createElement(SEQ, { nodeRef: this.seqRef, rating: this.state.stats.rating, onRatingChange: this.handleRatingChange, onCommentChange: this.handleCommentChange, maxCommentLength: this.maxCommentLength, commentLength: this.state.stats.comment.length, disabled: this.state.nextTask }),
@@ -523,26 +522,26 @@ window.onload = function () {
                 if (this.props.testStarted && this.props.currentIndex >= this.props.index) {
                     return React.createElement(
                         'section',
-                        { className: 'scenario', id: this.props.id, ref: this.props.nodeRef },
+                        { className: 'scenario', ref: this.props.nodeRef },
                         React.createElement(
                             'h1',
                             null,
                             'Scenariusz nr ',
                             this.props.index + 1
                         ),
-                        typeof this.props.scenario.intro !== 'undefined' && React.createElement(Paragraph, { 'class': 'scenario-intro', content: this.props.scenario.intro }),
+                        typeof this.props.scenario.intro !== 'undefined' && React.createElement(Paragraph, { content: this.props.scenario.intro }),
                         React.createElement(
                             'button',
-                            { className: 'btn-start-scenario', id: 'btn-start-' + this.props.id, onClick: this.handleStart, disabled: this.state.scenarioStarted },
+                            { onClick: this.handleStart, disabled: this.state.scenarioStarted },
                             'Rozpocznij scenariusz'
                         ),
                         this.props.scenario.tasks.map(function (task, index) {
-                            return React.createElement(Task, { key: index, currentIndex: _this8.state.currentTaskIndex, onTaskFinish: _this8.handleTaskFinish, index: index, id: 'task-' + _this8.props.index + '-' + index, scenarioStarted: _this8.state.scenarioStarted, task: task, nodeRef: _this8.childNodeRef });
+                            return React.createElement(Task, { key: index, index: index, currentIndex: _this8.state.currentTaskIndex, onTaskFinish: _this8.handleTaskFinish, scenarioStarted: _this8.state.scenarioStarted, task: task, nodeRef: _this8.childNodeRef });
                         }),
-                        this.state.allTasksFinished && typeof this.props.scenario.outro !== 'undefined' && React.createElement(Paragraph, { 'class': 'scenario-outro', content: this.props.scenario.outro }),
+                        this.state.allTasksFinished && typeof this.props.scenario.outro !== 'undefined' && React.createElement(Paragraph, { content: this.props.scenario.outro }),
                         this.state.allTasksFinished && React.createElement(
                             'button',
-                            { className: 'btn-finish-scenario', id: 'btn-finish-' + this.props.id, onClick: this.handleFinish, disabled: this.state.scenarioFinished },
+                            { onClick: this.handleFinish, disabled: this.state.scenarioFinished },
                             'Zako\u0144cz scenariusz'
                         )
                     );
@@ -669,7 +668,7 @@ window.onload = function () {
                                 'Rozpocznij badanie'
                             ),
                             scenarios.map(function (scenario, index) {
-                                return React.createElement(Scenario, { key: index, id: 'scenario-' + index, index: index, testStarted: _this11.state.testStarted, currentIndex: _this11.state.currentScenarioIndex, scenario: scenario, onScenarioFinish: _this11.handleScenarioFinish, nodeRef: _this11.childNodeRef });
+                                return React.createElement(Scenario, { key: index, index: index, testStarted: _this11.state.testStarted, currentIndex: _this11.state.currentScenarioIndex, scenario: scenario, onScenarioFinish: _this11.handleScenarioFinish, nodeRef: _this11.childNodeRef });
                             }),
                             this.state.allScenariosFinished && React.createElement(Paragraph, { content: '**To ju\u017C koniec!** Dzi\u0119kuj\u0119 za po\u015Bwi\u0119cony czas i dotarcie do samego ko\u0144ca badania!' })
                         )

@@ -15,7 +15,7 @@ window.onload = function() {
 
             if( chunk.indexOf( '**' ) !== -1 )
             {
-                chunk = <span key={ index } className='text-important'>{ chunk.substring( 2, chunk.length - 2 ) }</span>
+                chunk = <span key={ index } className="text-important">{ chunk.substring( 2, chunk.length - 2 ) }</span>
             }
 
             chunks.push( chunk );
@@ -78,7 +78,7 @@ window.onload = function() {
                 inputValid : inputValid
             } );
 
-            this.props.onInputChange( this.props.id, inputValid )
+            this.props.onInputChange( this.props.index, inputValid )
         }
 
         render()
@@ -88,8 +88,8 @@ window.onload = function() {
 
             return (
                 <div className={ ( wrapperClassName !== '' ) ? wrapperClassName : undefined }>
-                    <label className={ ( labelClassName !== '' ) ? labelClassName : undefined } htmlFor={ this.props.id }>{ this.props.label }</label>
-                    <input type="text" id={ this.props.id } autoComplete="off" onFocus={ this.handleFocus } onBlur={ this.handleBlur } onChange={ this.handleChange } disabled={ this.props.inputDisabled } />
+                    <label className={ ( labelClassName !== '' ) ? labelClassName : undefined }>{ this.props.label }</label>
+                    <input type="text" autoComplete="off" onFocus={ this.handleFocus } onBlur={ this.handleBlur } onChange={ this.handleChange } disabled={ this.props.inputDisabled } />
                 </div>
             );
         }
@@ -189,9 +189,8 @@ window.onload = function() {
                     rating  : 0,
                     comment : ''
                 },
-                inputs       : this.props.task.data.map( ( item, index ) => {
+                inputs       : this.props.task.data.map( ( item ) => {
                     return {
-                        id    : this.props.id + '--input-' + index,
                         valid : false,
                         key   : item.key,
                         value : item.value,
@@ -284,11 +283,11 @@ window.onload = function() {
             } );
         }
 
-        handleInputChange( inputId, inputValid )
+        handleInputChange( inputIndex, inputValid )
         {
             this.setState( state => {
-                const inputs = state.inputs.map( ( input ) => {
-                    if( input.id === inputId )
+                const inputs = state.inputs.map( ( input, index ) => {
+                    if( inputIndex === index )
                     {
                         return {
                             ...input,
@@ -310,7 +309,7 @@ window.onload = function() {
             if( this.props.scenarioStarted && this.props.currentIndex >= this.props.index )
             {
                 return (
-                    <section className="task" id={ this.props.id } ref={ this.props.nodeRef }>
+                    <section className="task" ref={ this.props.nodeRef }>
                         <h2>Ćwiczenie nr { this.props.index + 1 }</h2>
                         <Paragraph class="task-description" content="Wypełnij formularz, korzystając z danych zawartych **w poniższej tabeli:**" />
                         <table ref={ this.tableRef }>
@@ -331,12 +330,12 @@ window.onload = function() {
                                 }
                             </tbody>
                         </table>
-                        <button className='btn-start-task' id={ 'btn-start-' +  this.props.id } onClick={ this.handleStart } disabled={ this.state.taskStarted }>Rozpocznij ćwiczenie</button>
+                        <button onClick={ this.handleStart } disabled={ this.state.taskStarted }>Rozpocznij ćwiczenie</button>
                         <section className={ "task-form " + this.props.task.type } >
                             <h3>{ this.props.task.title }</h3>
                             {
-                                this.state.inputs.map( ( input ) =>
-                                    <InputWrapper key={ input.id } id={ input.id } taskError={ this.state.taskError && this.state.taskStarted } inputDisabled={ this.state.taskFinished || !this.state.taskStarted } label={ input.key } value={ input.value } onInputChange={ this.handleInputChange } />
+                                this.state.inputs.map( ( input, index ) =>
+                                    <InputWrapper key={ index } index={ index } taskError={ this.state.taskError && this.state.taskStarted } inputDisabled={ this.state.taskFinished || !this.state.taskStarted } label={ input.key } value={ input.value } onInputChange={ this.handleInputChange } />
                                 )
                             }
                             { this.state.taskError &&
@@ -344,7 +343,7 @@ window.onload = function() {
                             }
                         </section>
                         { this.state.taskStarted &&
-                            <button className='btn-finish-task' id={ 'btn-finish-' +  this.props.id } onClick={ this.handleFinish } disabled={ this.state.taskFinished }>Zakończ ćwiczenie</button>
+                            <button onClick={ this.handleFinish } disabled={ this.state.taskFinished }>Zakończ ćwiczenie</button>
                         }
                         { this.state.taskFinished &&
                             <SEQ nodeRef={ this.seqRef } rating={ this.state.stats.rating } onRatingChange={ this.handleRatingChange } onCommentChange={ this.handleCommentChange } maxCommentLength={ this.maxCommentLength } commentLength={ this.state.stats.comment.length } disabled={ this.state.nextTask } />
@@ -422,22 +421,22 @@ window.onload = function() {
             if( this.props.testStarted && this.props.currentIndex >= this.props.index )
             {
                 return (
-                    <section className='scenario' id={ this.props.id } ref={ this.props.nodeRef }>
+                    <section className="scenario" ref={ this.props.nodeRef }>
                         <h1>Scenariusz nr { ( this.props.index + 1 ) }</h1>
                         { typeof this.props.scenario.intro !== 'undefined' &&
-                            <Paragraph class='scenario-intro' content={ this.props.scenario.intro } />
+                            <Paragraph content={ this.props.scenario.intro } />
                         }
-                        <button className='btn-start-scenario' id={ 'btn-start-' + this.props.id } onClick={ this.handleStart } disabled={ this.state.scenarioStarted }>Rozpocznij scenariusz</button>
+                        <button onClick={ this.handleStart } disabled={ this.state.scenarioStarted }>Rozpocznij scenariusz</button>
                         {
                             this.props.scenario.tasks.map( ( task, index ) =>
-                                <Task key={ index } currentIndex={ this.state.currentTaskIndex } onTaskFinish={ this.handleTaskFinish } index={ index } id={ 'task-' + this.props.index + '-' + index } scenarioStarted={ this.state.scenarioStarted } task={ task } nodeRef={ this.childNodeRef } />
+                                <Task key={ index } index={ index } currentIndex={ this.state.currentTaskIndex } onTaskFinish={ this.handleTaskFinish } scenarioStarted={ this.state.scenarioStarted } task={ task } nodeRef={ this.childNodeRef } />
                             )
                         }
                         { this.state.allTasksFinished && typeof this.props.scenario.outro !== 'undefined' &&
-                            <Paragraph class='scenario-outro' content={ this.props.scenario.outro } />
+                            <Paragraph content={ this.props.scenario.outro } />
                         }
                         { this.state.allTasksFinished &&
-                            <button className="btn-finish-scenario" id={ 'btn-finish-' + this.props.id } onClick={ this.handleFinish } disabled={ this.state.scenarioFinished }>Zakończ scenariusz</button>
+                            <button onClick={ this.handleFinish } disabled={ this.state.scenarioFinished }>Zakończ scenariusz</button>
                         }
                     </section>
                 );
@@ -544,7 +543,7 @@ window.onload = function() {
                             <Paragraph content="Witaj! Niniejsze badanie ma na celu zbadanie użyteczności wybranych wzorców pól, które możesz na co dzień znaleźć w wielu aplikacjach webowych i na stronach internetowych. Zostaniesz poproszony o wykonanie kilkunastu zadań polegających na uzupełnieniu różnego typu formularzy. **Ten tekst jeszcze się zmieni.**" />
                             <button onClick={ this.handleStart } disabled={ this.state.testStarted }>Rozpocznij badanie</button>
                             { scenarios.map( ( scenario, index ) =>
-                                <Scenario key={ index } id={ 'scenario-' + index } index={ index } testStarted={ this.state.testStarted } currentIndex={ this.state.currentScenarioIndex } scenario={ scenario } onScenarioFinish={ this.handleScenarioFinish } nodeRef={ this.childNodeRef } />
+                                <Scenario key={ index } index={ index } testStarted={ this.state.testStarted } currentIndex={ this.state.currentScenarioIndex } scenario={ scenario } onScenarioFinish={ this.handleScenarioFinish } nodeRef={ this.childNodeRef } />
                             ) }
                             { this.state.allScenariosFinished &&
                                 <Paragraph content="**To już koniec!** Dziękuję za poświęcony czas i dotarcie do samego końca badania!" />
