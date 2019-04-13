@@ -95,12 +95,99 @@ window.onload = function() {
         }
     }
 
+    class SEQ extends React.Component {
+        constructor( props )
+        {
+            super( props );
+
+            this.maxCommentLength = 255;
+            this.handleStarClick  = this.handleStarClick.bind( this );
+            this.handleCommentChange  = this.handleCommentChange.bind( this );
+            this.state            = {
+                rating        : 0,
+                commentLength : 0
+            }
+        }
+
+        handleStarClick( e )
+        {
+            const index = parseInt( e.target.getAttribute( 'data-index' ) );
+
+            if( index !== this.state.rating )
+            {
+                this.setState( {
+                    rating : index
+                } );
+            }
+        }
+
+        handleCommentChange( e )
+        {
+            const comment = e.target.value;
+
+            this.setState( {
+                commentLength : comment.length
+            } );
+        }
+
+        render()
+        {
+            const seqItems = [];
+
+            for( var k = 1; k <= 5; k++ )
+            {
+                seqItems.push(
+                    <li className="seq-item" key={ k }>
+                        <i className="material-icons" data-index={ k } onClick={ this.handleStarClick }>
+                            { this.state.rating < k &&
+                                'star_border'
+                            }
+                            { this.state.rating >= k &&
+                                'star'
+                            }
+                        </i>
+                    </li>
+                );
+            }
+
+            return (
+                <section className="seq">
+                    <h3>
+                        Jaki jest, Twoim zdaniem, poziom trudności powyższego ćwiczenia?
+                    </h3>
+                    <ul className="seq-stars">
+                        <li>bardzo trudne</li>
+                        { seqItems }
+                        <li>bardzo łatwe</li>
+                    </ul>
+                    { this.state.rating > 0 &&
+                        <section className="comment">
+                            <h4>
+                                Dlaczego zdecydowałeś się na taką ocenę? *
+                            </h4>
+                            <textarea maxLength={ this.maxCommentLength.toString() } onChange={ this.handleCommentChange } />
+                            <div>
+                                <p className="note">
+                                    Pozostało znaków: <span class="text-important">{ this.maxCommentLength - this.state.commentLength }</span>
+                                </p>
+                                <p className="note">
+                                    * Pole opcjonalne
+                                </p>
+                            </div>
+                        </section>
+                    }
+                </section>
+            );
+        }
+    }
+
     class Task extends React.Component {
         constructor( props )
         {
             super( props );
             this.handleStart       = this.handleStart.bind( this );
             this.handleFinish      = this.handleFinish.bind( this );
+            this.handleSummary     = this.handleSummary.bind( this );
             this.handleInputChange = this.handleInputChange.bind( this );
             this.state             = {
                 taskStarted  : false,
@@ -144,9 +231,14 @@ window.onload = function() {
                         taskFinished : true
                     } );
 
-                    this.props.onTaskFinish( this.props.index );
+                    //this.props.onTaskFinish( this.props.index );
                 }
             }
+        }
+
+        handleSummary()
+        {
+
         }
 
         handleInputChange( inputId, inputValid )
@@ -210,7 +302,15 @@ window.onload = function() {
                                 }
                             </form>
                         </section>
-                        <button className='btn-finish-task' id={ 'btn-finish-' +  this.props.id } onClick={ this.handleFinish } disabled={ this.state.taskFinished || !this.state.taskStarted }>Zakończ ćwiczenie</button>
+                        { this.state.taskStarted &&
+                            <button className='btn-finish-task' id={ 'btn-finish-' +  this.props.id } onClick={ this.handleFinish } disabled={ this.state.taskFinished }>Zakończ ćwiczenie</button>
+                        }
+                        { this.state.taskFinished &&
+                            <SEQ />
+                        }
+                        { this.state.taskFinished &&
+                            <button onClick={ this.handleSummary }>Następne ćwiczenie</button>
+                        }
                     </section>
                 );
             }
@@ -357,8 +457,6 @@ window.onload = function() {
                     this.setState( {
                         currentScenarioIndex : this.state.currentScenarioIndex + 1
                     } );
-
-
                 }
             }
         }

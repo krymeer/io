@@ -6,7 +6,7 @@
   line-height: 1.5;
 }
 
-main section .form-container, main section > table, main p {
+main section .form-container, main section.task .seq, main section.task > table, main p {
   letter-spacing: 0.1px;
 }
 
@@ -15,14 +15,18 @@ main p {
   font-size: 16px;
 }
 
-main section .form-container, main section > table {
+main section .form-container, main section.task .seq, main section.task > table {
   background: #fff;
   border: 2px solid #eee;
   color: #212121;
   font-size: 14px;
 }
+main section .form-container p, main section.task .seq p, main section.task > table p {
+  color: inherit;
+  line-height: inherit;
+}
 
-main section > table th, main section > table td {
+main section.task > table th, main section.task > table td {
   border: 0;
   border-bottom: 1px solid #eee;
 }
@@ -43,14 +47,9 @@ main > section > section, main section .form-container > form > .wrapper {
   margin-bottom: 21px;
 }
 
-main > section, main section > table {
+main > section, main section .form-container, main section.task .seq, main section.task > table {
   margin-top: 28px;
   margin-bottom: 28px;
-}
-
-main section .form-container {
-  margin-top: 56px;
-  margin-bottom: 56px;
 }
 
 main {
@@ -58,19 +57,19 @@ main {
   padding-bottom: 56px;
 }
 
-main section .form-container {
+main section .form-container, main section.task .seq {
   padding: 21px;
 }
 
-main section > table th, main section > table td {
+main section.task > table th, main section.task > table td {
   padding: 14px;
 }
 
-main section .form-container > form > .wrapper > input {
+main section .form-container > form > .wrapper > input, main textarea {
   padding: 7px;
 }
 
-main section .form-container > form > .wrapper > input, main section .form-container, main section > table, main button {
+main section .form-container > form > .wrapper > input, main section .form-container, main section.task .seq, main section.task > table, main textarea, main button {
   border-radius: 4px;
 }
 
@@ -86,7 +85,7 @@ html, body {
   height: 100%;
 }
 
-button, p, h1, h2, h3, a, label, span, td {
+button, p, h1, h2, h3, h4 a, label, span, td {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
@@ -128,17 +127,23 @@ main p {
   text-align: justify;
   line-height: 1.75;
 }
-main h1 {
+main p.note-required {
+  font-size: 11px;
+}
+main h1, main h2, main h3, main h4 {
   color: #a63446;
+}
+main h1 {
   font-size: 30px;
 }
 main h2 {
-  color: #a63446;
   font-size: 24px;
 }
 main h3 {
-  color: #a63446;
   font-size: 18px;
+}
+main h4 {
+  font-size: 16px;
 }
 main img {
   max-width: 100%;
@@ -168,18 +173,89 @@ main button[disabled] {
   background: #e0e0e0;
   color: #bebebe;
 }
-main section > table {
+main textarea {
+  resize: none;
+  width: 100%;
+  font-size: inherit;
+  color: #212121;
+  border: 2px solid #ddd;
+  transition: color 0.1s ease-in-out, background 0.1s ease-in-out, border-color 0.1s ease-in-out;
+}
+main textarea:focus {
+  outline: none;
+  border-color: #7e7e7e;
+}
+main textarea:disabled {
+  background: #eee;
+  color: #ddd;
+}
+main section > *:first-child {
+  margin-top: 0;
+}
+main section > *:last-child {
+  margin-bottom: 0;
+}
+main section.task > table {
   display: table !important;
   table-layout: fixed;
   border-spacing: 0;
   border-collapse: collapse;
 }
-main section > table th, main section > table td {
+main section.task > table th, main section.task > table td {
   line-height: 1;
 }
-main section > table th {
+main section.task > table th {
   font-weight: 700;
   text-align: left;
+}
+main section.task .seq {
+  width: fit-content;
+}
+main section.task .seq > .comment > textarea {
+  height: 102px;
+}
+main section.task .seq > .comment > div {
+  display: grid;
+  grid-auto-flow: column;
+}
+main section.task .seq > .comment > div > .note {
+  font-size: 11px;
+  text-align: left;
+}
+main section.task .seq > .comment > div > .note:last-child {
+  text-align: right;
+}
+main section.task .seq > .seq-stars {
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: center;
+  padding: 0;
+}
+main section.task .seq > .seq-stars > li {
+  list-style-type: none;
+  height: 32px;
+  line-height: 32px;
+}
+main section.task .seq > .seq-stars > li:first-child, main section.task .seq > .seq-stars > li:last-child {
+  font-size: 14px;
+}
+main section.task .seq > .seq-stars > li:first-child {
+  padding-right: 14px;
+}
+main section.task .seq > .seq-stars > li:last-child {
+  padding-left: 14px;
+}
+main section.task .seq > .seq-stars > li.seq-item {
+  width: 32px;
+}
+main section.task .seq > .seq-stars > li.seq-item > i {
+  cursor: pointer;
+  font-size: 32px;
+  color: #8b8b8b;
+  transition: color 0.1s ease-in-out;
+}
+main section.task .seq > .seq-stars > li.seq-item > i:hover {
+  color: #9c9c9c;
 }
 main section .form-container {
   width: fit-content;

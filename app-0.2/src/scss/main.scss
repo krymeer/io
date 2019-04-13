@@ -6,6 +6,8 @@ $text-color:         rgba(0, 0, 0, .7);
 $input-color-m:      #212121;
 $input-color-b:      #7e7e7e;
 $placeholder-color:  #b1b1b1;
+$button-color-m:     #8b8b8b;
+$button-color-h:     #9c9c9c;
 $transition:         .1s ease-in-out;
 
 $value-xs:  3.5px;
@@ -39,6 +41,11 @@ $value-xxl: 56px;
     border: 2px solid $border-color-m;
     color: $input-color-m;
     font-size: 14px;
+
+    p {
+        color: inherit;
+        line-height: inherit;
+    }
 }
 
 %block-alt-child {
@@ -118,7 +125,7 @@ html, body {
     height: 100%;
 }
 
-button, p, h1, h2, h3, a, label, span, td {
+button, p, h1, h2, h3, h4 a, label, span, td {
   -webkit-touch-callout: none;
     -webkit-user-select: none;
      -khtml-user-select: none;
@@ -164,21 +171,30 @@ main {
         text-align: justify;
         line-height: 1.75;
         @extend %text-normal;
+
+        &.note-required {
+            font-size: 11px;
+        }
+    }
+
+    h1, h2, h3, h4 {
+        color: $primary-color;
     }
 
     h1 {
-        color: $primary-color;
         font-size: 30px;
     }
 
     h2 {
-        color: $primary-color;
         font-size: 24px;
     }
 
     h3 {
-        color: $primary-color;
         font-size: 18px;
+    }
+
+    h4 {
+        font-size: 16px;
     }
 
     img {
@@ -214,35 +230,134 @@ main {
         }
     }
 
+    textarea {
+        resize: none;
+        width: 100%;
+        @extend %padding-s;
+        @extend %radius;
+        font-size: inherit;
+        color: $input-color-m;
+        border: 2px solid $border-color-d;
+        transition: color $transition, background $transition, border-color $transition;
+
+        &:focus {
+            outline: none;
+            border-color: $input-color-b;
+        }
+
+        &:disabled  {
+            background: $border-color-m;
+            color: $border-color-d;
+        }
+    }
+
     section {
         > * {
             @extend %margin-top-btm-m;
             @extend %block-centered;
-        }
 
-        > table {
-            @extend %margin-top-btm-xl;
-            @extend %block-alt;
-            @extend %radius;
-            display: table !important;
-            table-layout: fixed;
-            border-spacing: 0;
-            border-collapse: collapse;
-
-            th, td {
-                @extend %block-alt-child;
-                @extend %padding-m;
-                line-height: 1;
+            &:first-child {
+                margin-top: 0;
             }
 
-            th {
-                font-weight: 700;
-                text-align: left;
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+
+        &.task {
+            > table {
+                @extend %margin-top-btm-xl;
+                @extend %block-alt;
+                @extend %radius;
+                display: table !important;
+                table-layout: fixed;
+                border-spacing: 0;
+                border-collapse: collapse;
+
+                th, td {
+                    @extend %block-alt-child;
+                    @extend %padding-m;
+                    line-height: 1;
+                }
+
+                th {
+                    font-weight: 700;
+                    text-align: left;
+                }
+            }
+
+            .seq {
+                @extend %margin-top-btm-xl;
+                @extend %block-alt;
+                @extend %radius;
+                @extend %padding-l;
+                width: fit-content;
+
+                > .comment {
+                    > textarea {
+                        height: 102px;
+                    }
+
+                    > div {
+                        display: grid;
+                        grid-auto-flow: column;
+
+                        > .note {
+                            font-size: 11px;
+                            text-align: left;
+                        }
+
+                        > .note:last-child {
+                            text-align: right;
+                        }
+                    }
+                }
+
+                > .seq-stars {
+                    display: grid;
+                    grid-auto-flow: column;
+                    justify-content: center;
+                    padding: 0;
+
+                    > li {
+                        list-style-type: none;
+                        height: 32px;
+                        line-height: 32px;
+
+                        &:first-child, &:last-child {
+                            font-size: $value-m;
+                        }
+
+                        &:first-child {
+                            padding-right: $value-m;
+                        }
+
+                        &:last-child {
+                            padding-left: $value-m;
+                        }
+
+                        &.seq-item {
+                            width: 32px;
+
+                            > i {
+                                cursor: pointer;
+                                font-size: 32px;
+                                color: $button-color-m;
+                                transition: color $transition;
+                            }
+
+                            > i:hover {
+                                color: $button-color-h;
+                            }
+                        }
+                    }
+                }
             }
         }
 
         .form-container {
-            @extend %margin-top-btm-xxl;
+            @extend %margin-top-btm-xl;
             @extend %block-alt;
             @extend %radius;
             @extend %padding-l;
@@ -363,7 +478,6 @@ main {
                             &.on-input-non-empty:not(.on-input-disabled) {
                                 color: $input-color-b;
                             }
-
                         }
                     }
                 }
