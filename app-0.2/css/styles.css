@@ -250,7 +250,7 @@ main section.task .task-form.labels-align-left > .wrapper, main section.task .ta
   grid-column-gap: 21px;
 }
 main section.task .task-form.labels-align-left {
-  width: 380px;
+  width: 430px;
 }
 main section.task .task-form.labels-align-right {
   width: 380px;
@@ -265,7 +265,7 @@ main section.task .task-form.labels-align-top > .wrapper {
   grid-row-gap: 3.5px;
 }
 main section.task .task-form.labels-float-top {
-  width: 200px;
+  width: 240px;
 }
 main section.task .task-form.labels-float-top > .wrapper {
   position: relative;

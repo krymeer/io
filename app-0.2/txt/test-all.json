@@ -1,0 +1,136 @@
+{
+    "scenarios" : [
+        {
+            "intro" : "Zamówiłeś kilka produktów z popularnego sklepu internetowego. W ostatnim czasie zmieniłeś miejsce zamieszkania, jednak jak dotąd nie zamawiałeś żadnej przesyłki na ten adres. Czas to zmienić!",
+            "outro" : "**Gratulacje!** Właśnie ukończyłeś scenariusz. Naciśnij poniższy przycisk, aby przejść do dalszej części badania:",
+            "tasks" : [
+                {
+                    "title"    : "Adres do wysyłki",
+                    "type"     : "labels-align-left",
+                    "data"     : [
+                        {
+                            "key" : "Imię",
+                            "value" : "Adam"
+                        },
+                        {
+                            "key" : "Nazwisko",
+                            "value" : "Nowak"
+                        },
+                        {
+                            "key" : "Ulica i numer",
+                            "value" : "plac Grunwaldzki 13"
+                        },
+                        {
+                            "key" : "Kod pocztowy",
+                            "value" : "50-377"
+                        },
+                        {
+                            "key" : "Miejscowość",
+                            "value" : "Wrocław"
+                        },
+                        {
+                            "key" : "Numer telefonu",
+                            "value" : "789 425 661"
+                        }
+                    ]
+                },
+                {
+                    "title"    : "Adres do wysyłki",
+                    "type"     : "labels-float-top",
+                    "data"     : [
+                        {
+                            "key" : "Imię",
+                            "value" : "Jarosław"
+                        },
+                        {
+                            "key" : "Nazwisko",
+                            "value" : "Dębski"
+                        },
+                        {
+                            "key" : "Ulica i numer",
+                            "value" : "Jedności Narodowej 72/80"
+                        },
+                        {
+                            "key" : "Kod pocztowy",
+                            "value" : "50-261"
+                        },
+                        {
+                            "key" : "Miejscowość",
+                            "value" : "Wrocław"
+                        },
+                        {
+                            "key" : "Numer telefonu",
+                            "value" : "782 287 872"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "intro" : "Zamówiłeś kilka produktów z popularnego sklepu internetowego. W ostatnim czasie zmieniłeś miejsce zamieszkania, jednak jak dotąd nie zamawiałeś żadnej przesyłki na ten adres. Czas to zmienić!",
+            "outro" : "**Gratulacje!** Właśnie ukończyłeś scenariusz. Naciśnij poniższy przycisk, aby przejść do dalszej części badania:",
+            "tasks" : [
+                {
+                    "title"    : "Adres do wysyłki",
+                    "type"     : "labels-align-right",
+                    "data"     : [
+                        {
+                            "key" : "Imię",
+                            "value" : "Jan"
+                        },
+                        {
+                            "key" : "Nazwisko",
+                            "value" : "Kowalski"
+                        },
+                        {
+                            "key" : "Ulica i numer",
+                            "value" : "Kluczborska 24 m. 20"
+                        },
+                        {
+                            "key" : "Kod pocztowy",
+                            "value" : "50-322"
+                        },
+                        {
+                            "key" : "Miejscowość",
+                            "value" : "Wrocław"
+                        },
+                        {
+                            "key" : "Numer telefonu",
+                            "value" : "71 320 46 81"
+                        }
+                    ]
+                },
+                {
+                    "title"    : "Adres do wysyłki",
+                    "type"     : "labels-align-top",
+                    "data"     : [
+                        {
+                            "key" : "Imię",
+                            "value" : "Krzysztof"
+                        },
+                        {
+                            "key" : "Nazwisko",
+                            "value" : "Wiśniewski"
+                        },
+                        {
+                            "key" : "Ulica i numer",
+                            "value" : "Wałbrzyska 2B"
+                        },
+                        {
+                            "key" : "Kod pocztowy",
+                            "value" : "58-100"
+                        },
+                        {
+                            "key" : "Miejscowość",
+                            "value" : "Świdnica"
+                        },
+                        {
+                            "key" : "Numer telefonu",
+                            "value" : "590 290 390"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

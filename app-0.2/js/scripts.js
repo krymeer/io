@@ -391,6 +391,7 @@ window.onload = function () {
                 for (var k = 0; k < inputs.length; k++) {
                     inputs[k].value = this.props.task.data[k].value;
                     inputs[k].dispatchEvent(new Event('focus'));
+                    inputs[k].dispatchEvent(new Event('blur'));
                 }
             }
         }, {
@@ -504,10 +505,8 @@ window.onload = function () {
             var _this9 = _possibleConstructorReturn(this, (Scenario.__proto__ || Object.getPrototypeOf(Scenario)).call(this, props));
 
             _this9.handleStart = _this9.handleStart.bind(_this9);
-            _this9.handleFinish = _this9.handleFinish.bind(_this9);
             _this9.handleTaskFinish = _this9.handleTaskFinish.bind(_this9);
             _this9.state = {
-                allTasksFinished: false,
                 scenarioStarted: false,
                 scenarioFinished: false,
                 currentTaskIndex: 0
@@ -526,24 +525,17 @@ window.onload = function () {
                 });
             }
         }, {
-            key: 'handleFinish',
-            value: function handleFinish() {
-                if (this.state.scenarioStarted && this.state.allTasksFinished && !this.state.scenarioFinished) {
-                    this.setState({
-                        scenarioFinished: true
-                    });
-
-                    this.props.onScenarioFinish(this.props.index);
-                }
-            }
-        }, {
             key: 'handleTaskFinish',
             value: function handleTaskFinish(taskIndex) {
                 if (this.state.currentTaskIndex === taskIndex) {
                     if (this.state.currentTaskIndex === this.props.scenario.tasks.length - 1) {
-                        this.setState({
-                            allTasksFinished: true
-                        });
+                        if (this.state.scenarioStarted && !this.state.scenarioFinished) {
+                            this.setState({
+                                scenarioFinished: true
+                            });
+
+                            this.props.onScenarioFinish(this.props.index);
+                        }
                     } else {
                         this.setState({
                             currentTaskIndex: this.state.currentTaskIndex + 1
@@ -574,13 +566,7 @@ window.onload = function () {
                         ),
                         this.props.scenario.tasks.map(function (task, index) {
                             return React.createElement(Task, { key: index, index: index, currentIndex: _this10.state.currentTaskIndex, onTaskFinish: _this10.handleTaskFinish, scenarioStarted: _this10.state.scenarioStarted, task: task, nodeRef: _this10.childNodeRef });
-                        }),
-                        this.state.allTasksFinished && typeof this.props.scenario.outro !== 'undefined' && React.createElement(Paragraph, { content: this.props.scenario.outro }),
-                        this.state.allTasksFinished && React.createElement(
-                            'button',
-                            { onClick: this.handleFinish, disabled: this.state.scenarioFinished },
-                            'Zako\u0144cz scenariusz'
-                        )
+                        })
                     );
                 }
 
@@ -600,7 +586,6 @@ window.onload = function () {
             var _this11 = _possibleConstructorReturn(this, (MainComponent.__proto__ || Object.getPrototypeOf(MainComponent)).call(this, props));
 
             _this11.handleStart = _this11.handleStart.bind(_this11);
-            _this11.handleFinish = _this11.handleFinish.bind(_this11);
             _this11.handleScenarioFinish = _this11.handleScenarioFinish.bind(_this11);
             _this11.state = {
                 error: null,
@@ -626,9 +611,6 @@ window.onload = function () {
                 });
             }
         }, {
-            key: 'handleFinish',
-            value: function handleFinish() {}
-        }, {
             key: 'handleScenarioFinish',
             value: function handleScenarioFinish(scenarioIndex) {
                 if (this.state.currentScenarioIndex === scenarioIndex) {
@@ -648,7 +630,7 @@ window.onload = function () {
             value: function componentDidMount() {
                 var _this12 = this;
 
-                fetch('./txt/test-1.json').then(function (res) {
+                fetch('./txt/test-all.json').then(function (res) {
                     return res.json();
                 }).then(function (result) {
                     _this12.setState({

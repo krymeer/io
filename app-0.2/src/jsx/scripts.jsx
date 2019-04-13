@@ -322,6 +322,7 @@ window.onload = function() {
             {
                 inputs[ k ].value = this.props.task.data[ k ].value;
                 inputs[ k ].dispatchEvent( new Event( 'focus' ) );
+                inputs[ k ].dispatchEvent( new Event( 'blur' ) );
             }
         }
 
@@ -389,10 +390,8 @@ window.onload = function() {
             super( props );
 
             this.handleStart      = this.handleStart.bind( this );
-            this.handleFinish     = this.handleFinish.bind( this );
             this.handleTaskFinish = this.handleTaskFinish.bind( this );
             this.state            = {
-                allTasksFinished : false,
                 scenarioStarted  : false,
                 scenarioFinished : false,
                 currentTaskIndex : 0
@@ -409,27 +408,20 @@ window.onload = function() {
             } );
         }
 
-        handleFinish()
-        {
-            if( this.state.scenarioStarted && this.state.allTasksFinished && !this.state.scenarioFinished )
-            {
-                this.setState( {
-                    scenarioFinished : true
-                } );
-
-                this.props.onScenarioFinish( this.props.index );
-            }
-        }
-
         handleTaskFinish( taskIndex )
         {
             if( this.state.currentTaskIndex === taskIndex )
             {
                 if( this.state.currentTaskIndex === this.props.scenario.tasks.length - 1 )
                 {
-                    this.setState( {
-                        allTasksFinished : true
-                    } );
+                    if( this.state.scenarioStarted && !this.state.scenarioFinished )
+                    {
+                        this.setState( {
+                            scenarioFinished : true
+                        } );
+
+                        this.props.onScenarioFinish( this.props.index );
+                    }
                 }
                 else
                 {
@@ -456,12 +448,6 @@ window.onload = function() {
                                 <Task key={ index } index={ index } currentIndex={ this.state.currentTaskIndex } onTaskFinish={ this.handleTaskFinish } scenarioStarted={ this.state.scenarioStarted } task={ task } nodeRef={ this.childNodeRef } />
                             )
                         }
-                        { this.state.allTasksFinished && typeof this.props.scenario.outro !== 'undefined' &&
-                            <Paragraph content={ this.props.scenario.outro } />
-                        }
-                        { this.state.allTasksFinished &&
-                            <button onClick={ this.handleFinish } disabled={ this.state.scenarioFinished }>Zakończ scenariusz</button>
-                        }
                     </section>
                 );
             }
@@ -476,7 +462,6 @@ window.onload = function() {
             super( props );
 
             this.handleStart          = this.handleStart.bind( this );
-            this.handleFinish         = this.handleFinish.bind( this );
             this.handleScenarioFinish = this.handleScenarioFinish.bind( this );
             this.state                = {
                 error                : null,
@@ -500,11 +485,6 @@ window.onload = function() {
             } );
         }
 
-        handleFinish()
-        {
-
-        }
-
         handleScenarioFinish( scenarioIndex )
         {
             if( this.state.currentScenarioIndex === scenarioIndex )
@@ -526,7 +506,7 @@ window.onload = function() {
 
         componentDidMount()
         {
-            fetch( './txt/test-1.json' )
+            fetch( './txt/test-all.json' )
                 .then( res => res.json() )
                 .then(
                     ( result ) => {
