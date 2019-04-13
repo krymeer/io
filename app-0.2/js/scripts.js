@@ -1,5 +1,7 @@
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -87,19 +89,23 @@ window.onload = function () {
                 this.setState({
                     inputFocus: true
                 });
+
+                // TEMPORARY
+                // This call is necessary when filling the inputs programmatically
+                this.handleChange(e);
             }
         }, {
             key: 'handleBlur',
             value: function handleBlur(e) {
                 this.setState({
                     inputFocus: false,
-                    inputNonEmpty: event.target.value !== ''
+                    inputNonEmpty: e.target.value !== ''
                 });
             }
         }, {
             key: 'handleChange',
             value: function handleChange(e) {
-                var inputValid = event.target.value === this.props.value;
+                var inputValid = e.target.value === this.props.value;
 
                 this.setState({
                     inputValid: inputValid
@@ -154,20 +160,7 @@ window.onload = function () {
         }, {
             key: 'render',
             value: function render() {
-                var seqItems = [];
-
-                for (var k = 1; k <= 5; k++) {
-                    seqItems.push(React.createElement(
-                        'li',
-                        { className: 'seq-item', key: k },
-                        React.createElement(
-                            'i',
-                            { className: 'material-icons', onClick: this.handleRating.bind(this, k), disabled: this.props.disabled },
-                            this.props.rating < k && 'star_border',
-                            this.props.rating >= k && 'star'
-                        )
-                    ));
-                }
+                var _this4 = this;
 
                 return React.createElement(
                     'section',
@@ -185,7 +178,18 @@ window.onload = function () {
                             null,
                             'bardzo trudne'
                         ),
-                        seqItems,
+                        [].concat(_toConsumableArray(Array(5))).map(function (x, key) {
+                            return React.createElement(
+                                'li',
+                                { className: 'seq-item', key: key },
+                                React.createElement(
+                                    'i',
+                                    { className: 'material-icons', onClick: _this4.handleRating.bind(_this4, key + 1), disabled: _this4.props.disabled },
+                                    _this4.props.rating <= key && 'star_border',
+                                    _this4.props.rating > key && 'star'
+                                )
+                            );
+                        }),
                         React.createElement(
                             'li',
                             null,
@@ -198,7 +202,7 @@ window.onload = function () {
                         React.createElement(
                             'h4',
                             null,
-                            'Dlaczego zdecydowa\u0142e\u015B si\u0119 na tak\u0105 ocen\u0119? *'
+                            'Czy masz jakie\u015B uwagi lub sugestie zwi\u0105zane z powy\u017Cszym \u0107wiczeniem? *'
                         ),
                         React.createElement('textarea', { maxLength: this.props.maxCommentLength, onChange: this.handleComment, disabled: this.props.disabled }),
                         React.createElement(
@@ -234,21 +238,21 @@ window.onload = function () {
         function Task(props) {
             _classCallCheck(this, Task);
 
-            var _this4 = _possibleConstructorReturn(this, (Task.__proto__ || Object.getPrototypeOf(Task)).call(this, props));
+            var _this5 = _possibleConstructorReturn(this, (Task.__proto__ || Object.getPrototypeOf(Task)).call(this, props));
 
-            _this4.handleStart = _this4.handleStart.bind(_this4);
-            _this4.handleFinish = _this4.handleFinish.bind(_this4);
-            _this4.handleNext = _this4.handleNext.bind(_this4);
-            _this4.handleInputChange = _this4.handleInputChange.bind(_this4);
-            _this4.handleRatingChange = _this4.handleRatingChange.bind(_this4);
-            _this4.handleCommentChange = _this4.handleCommentChange.bind(_this4);
-            _this4.maxCommentLength = 255;
-            _this4.tableRef = React.createRef();
-            _this4.nextTaskRef = React.createRef();
-            _this4.seqRef = function (node) {
+            _this5.handleStart = _this5.handleStart.bind(_this5);
+            _this5.handleFinish = _this5.handleFinish.bind(_this5);
+            _this5.handleNext = _this5.handleNext.bind(_this5);
+            _this5.handleInputChange = _this5.handleInputChange.bind(_this5);
+            _this5.handleRatingChange = _this5.handleRatingChange.bind(_this5);
+            _this5.handleCommentChange = _this5.handleCommentChange.bind(_this5);
+            _this5.maxCommentLength = 255;
+            _this5.tableRef = React.createRef();
+            _this5.nextTaskRef = React.createRef();
+            _this5.seqRef = function (node) {
                 window.scrollTo(0, node.offsetTop);
             };
-            _this4.state = {
+            _this5.state = {
                 taskStarted: false,
                 taskFinished: false,
                 taskError: false,
@@ -257,7 +261,7 @@ window.onload = function () {
                     rating: 0,
                     comment: ''
                 },
-                inputs: _this4.props.task.data.map(function (item) {
+                inputs: _this5.props.task.data.map(function (item) {
                     return {
                         valid: false,
                         key: item.key,
@@ -265,7 +269,7 @@ window.onload = function () {
                     };
                 })
             };
-            return _this4;
+            return _this5;
         }
 
         _createClass(Task, [{
@@ -315,7 +319,7 @@ window.onload = function () {
         }, {
             key: 'handleRatingChange',
             value: function handleRatingChange(k) {
-                var _this5 = this;
+                var _this6 = this;
 
                 if (k !== this.state.rating) {
                     this.setState(function (state) {
@@ -328,7 +332,7 @@ window.onload = function () {
                         };
                     }, function () {
                         if (k > 0) {
-                            window.scrollTo(0, _this5.nextTaskRef.current.offsetTop);
+                            window.scrollTo(0, _this6.nextTaskRef.current.offsetTop);
                         }
                     });
                 }
@@ -349,6 +353,8 @@ window.onload = function () {
         }, {
             key: 'handleInputChange',
             value: function handleInputChange(inputIndex, inputValid) {
+                var _this7 = this;
+
                 this.setState(function (state) {
                     var inputs = state.inputs.map(function (input, index) {
                         if (inputIndex === index) {
@@ -363,12 +369,34 @@ window.onload = function () {
                     return {
                         inputs: inputs
                     };
+                }, function () {
+                    if (_this7.state.inputs.filter(function (input) {
+                        return !input.valid;
+                    }).length === 0) {
+                        _this7.setState({
+                            taskError: false
+                        });
+                    }
                 });
+            }
+
+            // TEMPORARY
+            // Insert all the data by clicking only one button
+
+        }, {
+            key: 'insertEverything',
+            value: function insertEverything(e) {
+                var inputs = e.target.parentElement.querySelectorAll('input');
+
+                for (var k = 0; k < inputs.length; k++) {
+                    inputs[k].value = this.props.task.data[k].value;
+                    inputs[k].dispatchEvent(new Event('focus'));
+                }
             }
         }, {
             key: 'render',
             value: function render() {
-                var _this6 = this;
+                var _this8 = this;
 
                 if (this.props.scenarioStarted && this.props.currentIndex >= this.props.index) {
                     return React.createElement(
@@ -436,8 +464,13 @@ window.onload = function () {
                                 null,
                                 this.props.task.title
                             ),
+                            this.state.taskStarted && !this.state.taskFinished && React.createElement(
+                                'i',
+                                { className: 'material-icons insert-everything', onClick: this.insertEverything.bind(this) },
+                                'keyboard'
+                            ),
                             this.state.inputs.map(function (input, index) {
-                                return React.createElement(InputWrapper, { key: index, index: index, taskError: _this6.state.taskError && _this6.state.taskStarted, inputDisabled: _this6.state.taskFinished || !_this6.state.taskStarted, label: input.key, value: input.value, onInputChange: _this6.handleInputChange });
+                                return React.createElement(InputWrapper, { key: index, index: index, taskError: _this8.state.taskError && _this8.state.taskStarted, inputDisabled: _this8.state.taskFinished || !_this8.state.taskStarted, label: input.key, value: input.value, onInputChange: _this8.handleInputChange, simulation: _this8.state.simulation });
                             }),
                             this.state.taskError && React.createElement(Paragraph, { 'class': 'on-task-error', content: 'Aby przej\u015B\u0107 dalej, popraw pola wyr\xF3\u017Cnione **tym kolorem.**' })
                         ),
@@ -468,21 +501,21 @@ window.onload = function () {
         function Scenario(props) {
             _classCallCheck(this, Scenario);
 
-            var _this7 = _possibleConstructorReturn(this, (Scenario.__proto__ || Object.getPrototypeOf(Scenario)).call(this, props));
+            var _this9 = _possibleConstructorReturn(this, (Scenario.__proto__ || Object.getPrototypeOf(Scenario)).call(this, props));
 
-            _this7.handleStart = _this7.handleStart.bind(_this7);
-            _this7.handleFinish = _this7.handleFinish.bind(_this7);
-            _this7.handleTaskFinish = _this7.handleTaskFinish.bind(_this7);
-            _this7.state = {
+            _this9.handleStart = _this9.handleStart.bind(_this9);
+            _this9.handleFinish = _this9.handleFinish.bind(_this9);
+            _this9.handleTaskFinish = _this9.handleTaskFinish.bind(_this9);
+            _this9.state = {
                 allTasksFinished: false,
                 scenarioStarted: false,
                 scenarioFinished: false,
                 currentTaskIndex: 0
             };
-            _this7.childNodeRef = function (child) {
+            _this9.childNodeRef = function (child) {
                 window.scrollTo(0, child.offsetTop);
             };
-            return _this7;
+            return _this9;
         }
 
         _createClass(Scenario, [{
@@ -521,7 +554,7 @@ window.onload = function () {
         }, {
             key: 'render',
             value: function render() {
-                var _this8 = this;
+                var _this10 = this;
 
                 if (this.props.testStarted && this.props.currentIndex >= this.props.index) {
                     return React.createElement(
@@ -540,7 +573,7 @@ window.onload = function () {
                             'Rozpocznij scenariusz'
                         ),
                         this.props.scenario.tasks.map(function (task, index) {
-                            return React.createElement(Task, { key: index, index: index, currentIndex: _this8.state.currentTaskIndex, onTaskFinish: _this8.handleTaskFinish, scenarioStarted: _this8.state.scenarioStarted, task: task, nodeRef: _this8.childNodeRef });
+                            return React.createElement(Task, { key: index, index: index, currentIndex: _this10.state.currentTaskIndex, onTaskFinish: _this10.handleTaskFinish, scenarioStarted: _this10.state.scenarioStarted, task: task, nodeRef: _this10.childNodeRef });
                         }),
                         this.state.allTasksFinished && typeof this.props.scenario.outro !== 'undefined' && React.createElement(Paragraph, { content: this.props.scenario.outro }),
                         this.state.allTasksFinished && React.createElement(
@@ -564,12 +597,12 @@ window.onload = function () {
         function MainComponent(props) {
             _classCallCheck(this, MainComponent);
 
-            var _this9 = _possibleConstructorReturn(this, (MainComponent.__proto__ || Object.getPrototypeOf(MainComponent)).call(this, props));
+            var _this11 = _possibleConstructorReturn(this, (MainComponent.__proto__ || Object.getPrototypeOf(MainComponent)).call(this, props));
 
-            _this9.handleStart = _this9.handleStart.bind(_this9);
-            _this9.handleFinish = _this9.handleFinish.bind(_this9);
-            _this9.handleScenarioFinish = _this9.handleScenarioFinish.bind(_this9);
-            _this9.state = {
+            _this11.handleStart = _this11.handleStart.bind(_this11);
+            _this11.handleFinish = _this11.handleFinish.bind(_this11);
+            _this11.handleScenarioFinish = _this11.handleScenarioFinish.bind(_this11);
+            _this11.state = {
                 error: null,
                 isLoaded: false,
                 scenarios: [],
@@ -579,10 +612,10 @@ window.onload = function () {
                 currentScenarioIndex: 0
             };
 
-            _this9.childNodeRef = function (child) {
+            _this11.childNodeRef = function (child) {
                 window.scrollTo(0, child.offsetTop);
             };
-            return _this9;
+            return _this11;
         }
 
         _createClass(MainComponent, [{
@@ -613,17 +646,17 @@ window.onload = function () {
         }, {
             key: 'componentDidMount',
             value: function componentDidMount() {
-                var _this10 = this;
+                var _this12 = this;
 
                 fetch('./txt/test-1.json').then(function (res) {
                     return res.json();
                 }).then(function (result) {
-                    _this10.setState({
+                    _this12.setState({
                         scenarios: result.scenarios,
                         isLoaded: true
                     });
                 }, function (error) {
-                    _this10.setState({
+                    _this12.setState({
                         isLoaded: false,
                         error: error
                     });
@@ -632,7 +665,7 @@ window.onload = function () {
         }, {
             key: 'render',
             value: function render() {
-                var _this11 = this;
+                var _this13 = this;
 
                 var _state = this.state,
                     error = _state.error,
@@ -672,7 +705,7 @@ window.onload = function () {
                                 'Rozpocznij badanie'
                             ),
                             scenarios.map(function (scenario, index) {
-                                return React.createElement(Scenario, { key: index, index: index, testStarted: _this11.state.testStarted, currentIndex: _this11.state.currentScenarioIndex, scenario: scenario, onScenarioFinish: _this11.handleScenarioFinish, nodeRef: _this11.childNodeRef });
+                                return React.createElement(Scenario, { key: index, index: index, testStarted: _this13.state.testStarted, currentIndex: _this13.state.currentScenarioIndex, scenario: scenario, onScenarioFinish: _this13.handleScenarioFinish, nodeRef: _this13.childNodeRef });
                             }),
                             this.state.allScenariosFinished && React.createElement(Paragraph, { content: '**To ju\u017C koniec!** Dzi\u0119kuj\u0119 za po\u015Bwi\u0119cony czas i dotarcie do samego ko\u0144ca badania!' })
                         )

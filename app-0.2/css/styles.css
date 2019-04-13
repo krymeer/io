@@ -215,7 +215,16 @@ main section > *:last-child {
   margin-bottom: 0 !important;
 }
 main section.task .task-form {
+  position: relative;
   width: fit-content;
+}
+main section.task .task-form > i.insert-everything {
+  cursor: pointer;
+  position: absolute;
+  top: 21px;
+  right: 21px;
+  margin: 0;
+  color: #a63446;
 }
 main section.task .task-form > .wrapper {
   display: grid;

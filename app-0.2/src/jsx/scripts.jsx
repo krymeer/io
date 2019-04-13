@@ -123,24 +123,6 @@ window.onload = function() {
 
         render()
         {
-            const seqItems = [];
-
-            for( var k = 1; k <= 5; k++ )
-            {
-                seqItems.push(
-                    <li className="seq-item" key={ k }>
-                        <i className="material-icons" onClick={ this.handleRating.bind( this, k ) } disabled={ this.props.disabled }>
-                            { this.props.rating < k &&
-                                'star_border'
-                            }
-                            { this.props.rating >= k &&
-                                'star'
-                            }
-                        </i>
-                    </li>
-                );
-            }
-
             return (
                 <section className="seq" ref={ this.props.nodeRef }>
                     <h3>
@@ -148,7 +130,18 @@ window.onload = function() {
                     </h3>
                     <ul className={ ( "seq-stars" + ' ' + ( this.props.disabled ? "disabled" : "" ) ).trim() }>
                         <li>bardzo trudne</li>
-                        { seqItems }
+                        { [ ...Array( 5 ) ].map( ( x, key ) =>
+                            <li className="seq-item" key={ key }>
+                                <i className="material-icons" onClick={ this.handleRating.bind( this, key + 1 ) } disabled={ this.props.disabled }>
+                                    { this.props.rating <= key &&
+                                        'star_border'
+                                    }
+                                    { this.props.rating > key &&
+                                        'star'
+                                    }
+                                </i>
+                            </li>
+                        ) }
                         <li>bardzo łatwe</li>
                     </ul>
                     { this.props.rating > 0 &&
