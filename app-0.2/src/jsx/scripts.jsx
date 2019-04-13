@@ -97,7 +97,7 @@ window.onload = function() {
             return (
                 <div className={ ( wrapperClassName !== '' ) ? wrapperClassName : undefined }>
                     <label className={ ( labelClassName !== '' ) ? labelClassName : undefined }>{ this.props.label }</label>
-                    <input type="text" autoComplete="off" onFocus={ this.handleFocus } onBlur={ this.handleBlur } onChange={ this.handleChange } disabled={ this.props.inputDisabled } />
+                    <input type="text" spellCheck="false" autoComplete="off" onFocus={ this.handleFocus } onBlur={ this.handleBlur } onChange={ this.handleChange } disabled={ this.props.inputDisabled } />
                 </div>
             );
         }
@@ -149,7 +149,7 @@ window.onload = function() {
                             <h4>
                                 Czy masz jakieś uwagi lub sugestie związane z powyższym ćwiczeniem? *
                             </h4>
-                            <textarea maxLength={ this.props.maxCommentLength } onChange={ this.handleComment } disabled={ this.props.disabled } />
+                            <textarea spellCheck="false" maxLength={ this.props.maxCommentLength } onChange={ this.handleComment } disabled={ this.props.disabled } />
                             <div>
                                 <p className="note">
                                     Pozostało znaków: <span className="text-important">{ this.props.maxCommentLength - this.props.commentLength }</span>

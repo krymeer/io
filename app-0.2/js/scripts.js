@@ -127,7 +127,7 @@ window.onload = function () {
                         { className: labelClassName !== '' ? labelClassName : undefined },
                         this.props.label
                     ),
-                    React.createElement('input', { type: 'text', autoComplete: 'off', onFocus: this.handleFocus, onBlur: this.handleBlur, onChange: this.handleChange, disabled: this.props.inputDisabled })
+                    React.createElement('input', { type: 'text', spellCheck: 'false', autoComplete: 'off', onFocus: this.handleFocus, onBlur: this.handleBlur, onChange: this.handleChange, disabled: this.props.inputDisabled })
                 );
             }
         }]);
@@ -204,7 +204,7 @@ window.onload = function () {
                             null,
                             'Czy masz jakie\u015B uwagi lub sugestie zwi\u0105zane z powy\u017Cszym \u0107wiczeniem? *'
                         ),
-                        React.createElement('textarea', { maxLength: this.props.maxCommentLength, onChange: this.handleComment, disabled: this.props.disabled }),
+                        React.createElement('textarea', { spellCheck: 'false', maxLength: this.props.maxCommentLength, onChange: this.handleComment, disabled: this.props.disabled }),
                         React.createElement(
                             'div',
                             null,
