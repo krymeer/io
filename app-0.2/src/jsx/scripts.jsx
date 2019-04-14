@@ -346,7 +346,7 @@ window.onload = function() {
             {
                 return (
                     <section className="task" ref={ this.props.nodeRef }>
-                        <h2>Ćwiczenie nr { this.props.index + 1 }</h2>
+                        <h2>Ćwiczenie nr { this.props.index }</h2>
                         <Paragraph class="task-description" content="Wypełnij formularz, korzystając z danych zawartych **w poniższej tabeli:**" />
                         <table ref={ this.tableRef }>
                             <thead>
@@ -408,7 +408,7 @@ window.onload = function() {
             this.state            = {
                 scenarioStarted  : false,
                 scenarioFinished : false,
-                currentTaskIndex : 0
+                currentTaskIndex : 1
             }
             this.childNodeRef     = child => {
                 window.scrollTo( 0, getRealOffsetTop( child.offsetTop ) );
@@ -426,7 +426,7 @@ window.onload = function() {
         {
             if( this.state.currentTaskIndex === taskIndex )
             {
-                if( this.state.currentTaskIndex === this.props.scenario.tasks.length - 1 )
+                if( this.state.currentTaskIndex === this.props.scenario.tasks.length )
                 {
                     if( this.state.scenarioStarted && !this.state.scenarioFinished )
                     {
@@ -452,14 +452,14 @@ window.onload = function() {
             {
                 return (
                     <section className="scenario" ref={ this.props.nodeRef }>
-                        <h1>Scenariusz nr { ( this.props.index + 1 ) }</h1>
+                        <h1>Scenariusz nr { ( this.props.index ) }</h1>
                         { typeof this.props.scenario.intro !== 'undefined' &&
                             <Paragraph content={ this.props.scenario.intro } />
                         }
                         <button onClick={ this.handleStart } disabled={ this.state.scenarioStarted }>Rozpocznij scenariusz</button>
                         {
                             this.props.scenario.tasks.map( ( task, index ) =>
-                                <Task key={ index } index={ index } currentIndex={ this.state.currentTaskIndex } onTaskFinish={ this.handleTaskFinish } scenarioStarted={ this.state.scenarioStarted } task={ task } nodeRef={ this.childNodeRef } />
+                                <Task key={ index } index={ index + 1 } currentIndex={ this.state.currentTaskIndex } onTaskFinish={ this.handleTaskFinish } scenarioStarted={ this.state.scenarioStarted } task={ task } nodeRef={ this.childNodeRef } />
                             )
                         }
                     </section>
@@ -487,7 +487,7 @@ window.onload = function() {
                 testStarted          : false,
                 testFinished         : false,
                 headerFixed          : false,
-                currentScenarioIndex : 0,
+                currentScenarioIndex : 1,
             }
 
             this.childNodeRef = child => {
@@ -511,7 +511,7 @@ window.onload = function() {
         {
             if( this.state.currentScenarioIndex === scenarioIndex )
             {
-                if( this.state.currentScenarioIndex === this.state.scenarios.length - 1 )
+                if( this.state.currentScenarioIndex === this.state.scenarios.length )
                 {
                     this.setState( {
                         allScenariosFinished : true
@@ -584,6 +584,9 @@ window.onload = function() {
                             <p>
                                 <span>Badanie użyteczności</span>
                                 { this.state.headerFixed &&
+                                    <span>scenariusz { this.state.currentScenarioIndex }/{ this.state.scenarios.length }</span>
+                                }
+                                { this.state.headerFixed &&
                                     <i className="material-icons" onClick={ this.backToTop }>
                                         arrow_upward
                                     </i>
@@ -594,7 +597,7 @@ window.onload = function() {
                             <Paragraph content="Witaj! Niniejsze badanie ma na celu zbadanie użyteczności wybranych wzorców pól, które możesz na co dzień znaleźć w wielu aplikacjach webowych i na stronach internetowych. Zostaniesz poproszony o wykonanie kilkunastu zadań polegających na uzupełnieniu różnego typu formularzy. **Ten tekst jeszcze się zmieni.**" />
                             <button onClick={ this.handleStart } disabled={ this.state.testStarted }>Rozpocznij badanie</button>
                             { scenarios.map( ( scenario, index ) =>
-                                <Scenario key={ index } index={ index } testStarted={ this.state.testStarted } currentIndex={ this.state.currentScenarioIndex } scenario={ scenario } onScenarioFinish={ this.handleScenarioFinish } nodeRef={ this.childNodeRef } />
+                                <Scenario key={ index } index={ index + 1 } testStarted={ this.state.testStarted } currentIndex={ this.state.currentScenarioIndex } scenario={ scenario } onScenarioFinish={ this.handleScenarioFinish } nodeRef={ this.childNodeRef } />
                             ) }
                             { this.state.allScenariosFinished &&
                                 <Paragraph content="**To już koniec!** Dziękuję za poświęcony czas i dotarcie do samego końca badania!" />

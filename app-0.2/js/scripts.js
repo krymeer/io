@@ -13,6 +13,19 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 // }
 
 window.onload = function () {
+    var headerHeight = {
+        static: 256,
+        fixed: 35
+    };
+
+    getRealOffsetTop = function getRealOffsetTop(offsetTop) {
+        if (offsetTop > headerHeight.static) {
+            return offsetTop - headerHeight.fixed;
+        }
+
+        return offsetTop;
+    };
+
     insertNbsp = function insertNbsp(str) {
         return str.replace(/(?<=(\s|>)\w)\s/g, '\xA0');
     };
@@ -250,7 +263,7 @@ window.onload = function () {
             _this5.tableRef = React.createRef();
             _this5.nextTaskRef = React.createRef();
             _this5.seqRef = function (node) {
-                window.scrollTo(0, node.offsetTop);
+                window.scrollTo(0, getRealOffsetTop(node.offsetTop));
             };
             _this5.state = {
                 taskStarted: false,
@@ -280,7 +293,7 @@ window.onload = function () {
                         taskStarted: true
                     });
 
-                    window.scrollTo(0, this.tableRef.current.offsetTop);
+                    window.scrollTo(0, getRealOffsetTop(this.tableRef.current.offsetTop));
                 }
             }
         }, {
@@ -332,7 +345,7 @@ window.onload = function () {
                         };
                     }, function () {
                         if (k > 0) {
-                            window.scrollTo(0, _this6.nextTaskRef.current.offsetTop);
+                            window.scrollTo(0, getRealOffsetTop(_this6.nextTaskRef.current.offsetTop));
                         }
                     });
                 }
@@ -407,7 +420,7 @@ window.onload = function () {
                             'h2',
                             null,
                             '\u0106wiczenie nr ',
-                            this.props.index + 1
+                            this.props.index
                         ),
                         React.createElement(Paragraph, { 'class': 'task-description', content: 'Wype\u0142nij formularz, korzystaj\u0105c z danych zawartych **w poni\u017Cszej tabeli:**' }),
                         React.createElement(
@@ -509,10 +522,10 @@ window.onload = function () {
             _this9.state = {
                 scenarioStarted: false,
                 scenarioFinished: false,
-                currentTaskIndex: 0
+                currentTaskIndex: 1
             };
             _this9.childNodeRef = function (child) {
-                window.scrollTo(0, child.offsetTop);
+                window.scrollTo(0, getRealOffsetTop(child.offsetTop));
             };
             return _this9;
         }
@@ -528,7 +541,7 @@ window.onload = function () {
             key: 'handleTaskFinish',
             value: function handleTaskFinish(taskIndex) {
                 if (this.state.currentTaskIndex === taskIndex) {
-                    if (this.state.currentTaskIndex === this.props.scenario.tasks.length - 1) {
+                    if (this.state.currentTaskIndex === this.props.scenario.tasks.length) {
                         if (this.state.scenarioStarted && !this.state.scenarioFinished) {
                             this.setState({
                                 scenarioFinished: true
@@ -556,7 +569,7 @@ window.onload = function () {
                             'h1',
                             null,
                             'Scenariusz nr ',
-                            this.props.index + 1
+                            this.props.index
                         ),
                         typeof this.props.scenario.intro !== 'undefined' && React.createElement(Paragraph, { content: this.props.scenario.intro }),
                         React.createElement(
@@ -565,7 +578,7 @@ window.onload = function () {
                             'Rozpocznij scenariusz'
                         ),
                         this.props.scenario.tasks.map(function (task, index) {
-                            return React.createElement(Task, { key: index, index: index, currentIndex: _this10.state.currentTaskIndex, onTaskFinish: _this10.handleTaskFinish, scenarioStarted: _this10.state.scenarioStarted, task: task, nodeRef: _this10.childNodeRef });
+                            return React.createElement(Task, { key: index, index: index + 1, currentIndex: _this10.state.currentTaskIndex, onTaskFinish: _this10.handleTaskFinish, scenarioStarted: _this10.state.scenarioStarted, task: task, nodeRef: _this10.childNodeRef });
                         })
                     );
                 }
@@ -585,8 +598,10 @@ window.onload = function () {
 
             var _this11 = _possibleConstructorReturn(this, (MainComponent.__proto__ || Object.getPrototypeOf(MainComponent)).call(this, props));
 
+            _this11.handleScroll = _this11.handleScroll.bind(_this11);
             _this11.handleStart = _this11.handleStart.bind(_this11);
             _this11.handleScenarioFinish = _this11.handleScenarioFinish.bind(_this11);
+            _this11.backToTop = _this11.backToTop.bind(_this11);
             _this11.state = {
                 error: null,
                 isLoaded: false,
@@ -594,16 +609,22 @@ window.onload = function () {
                 allScenariosFinished: false,
                 testStarted: false,
                 testFinished: false,
-                currentScenarioIndex: 0
+                headerFixed: false,
+                currentScenarioIndex: 1
             };
 
             _this11.childNodeRef = function (child) {
-                window.scrollTo(0, child.offsetTop);
+                window.scrollTo(0, getRealOffsetTop(child.offsetTop));
             };
             return _this11;
         }
 
         _createClass(MainComponent, [{
+            key: 'backToTop',
+            value: function backToTop() {
+                window.scrollTo(0, 0);
+            }
+        }, {
             key: 'handleStart',
             value: function handleStart() {
                 this.setState({
@@ -614,7 +635,7 @@ window.onload = function () {
             key: 'handleScenarioFinish',
             value: function handleScenarioFinish(scenarioIndex) {
                 if (this.state.currentScenarioIndex === scenarioIndex) {
-                    if (this.state.currentScenarioIndex === this.state.scenarios.length - 1) {
+                    if (this.state.currentScenarioIndex === this.state.scenarios.length) {
                         this.setState({
                             allScenariosFinished: true
                         });
@@ -623,6 +644,19 @@ window.onload = function () {
                             currentScenarioIndex: this.state.currentScenarioIndex + 1
                         });
                     }
+                }
+            }
+        }, {
+            key: 'handleScroll',
+            value: function handleScroll() {
+                if (window.scrollY > 256) {
+                    this.setState({
+                        headerFixed: true
+                    });
+                } else {
+                    this.setState({
+                        headerFixed: false
+                    });
                 }
             }
         }, {
@@ -636,6 +670,8 @@ window.onload = function () {
                     _this12.setState({
                         scenarios: result.scenarios,
                         isLoaded: true
+                    }, function () {
+                        window.addEventListener('scroll', _this12.handleScroll);
                     });
                 }, function (error) {
                     _this12.setState({
@@ -667,14 +703,31 @@ window.onload = function () {
                 } else {
                     return React.createElement(
                         'div',
-                        { id: 'page-container' },
+                        { className: this.state.headerFixed ? 'header-fixed' : undefined, id: 'page-container' },
                         React.createElement(
                             'header',
                             null,
                             React.createElement(
-                                'span',
+                                'p',
                                 null,
-                                'Badanie u\u017Cyteczno\u015Bci'
+                                React.createElement(
+                                    'span',
+                                    null,
+                                    'Badanie u\u017Cyteczno\u015Bci'
+                                ),
+                                this.state.headerFixed && React.createElement(
+                                    'span',
+                                    null,
+                                    'scenariusz ',
+                                    this.state.currentScenarioIndex,
+                                    '/',
+                                    this.state.scenarios.length
+                                ),
+                                this.state.headerFixed && React.createElement(
+                                    'i',
+                                    { className: 'material-icons', onClick: this.backToTop },
+                                    'arrow_upward'
+                                )
                             )
                         ),
                         React.createElement(
@@ -687,7 +740,7 @@ window.onload = function () {
                                 'Rozpocznij badanie'
                             ),
                             scenarios.map(function (scenario, index) {
-                                return React.createElement(Scenario, { key: index, index: index, testStarted: _this13.state.testStarted, currentIndex: _this13.state.currentScenarioIndex, scenario: scenario, onScenarioFinish: _this13.handleScenarioFinish, nodeRef: _this13.childNodeRef });
+                                return React.createElement(Scenario, { key: index, index: index + 1, testStarted: _this13.state.testStarted, currentIndex: _this13.state.currentScenarioIndex, scenario: scenario, onScenarioFinish: _this13.handleScenarioFinish, nodeRef: _this13.childNodeRef });
                             }),
                             this.state.allScenariosFinished && React.createElement(Paragraph, { content: '**To ju\u017C koniec!** Dzi\u0119kuj\u0119 za po\u015Bwi\u0119cony czas i dotarcie do samego ko\u0144ca badania!' })
                         )

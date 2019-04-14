@@ -172,11 +172,21 @@ button, p, h1, h2, h3, h4 a, label, span, td {
 
             > p {
                 display: grid;
-                grid-template-columns: 1fr auto;
+                grid-template-columns: auto 1fr auto;
+                grid-column-gap: $value-s;
 
                 > span {
-                    font-size: $value-l;
                     line-height: 1;
+                }
+
+                > span:first-child {
+                    font-size: $value-l;
+                }
+
+                > span:nth-child(2) {
+                    font-size: 12px;
+                    align-self: end;
+                    padding-bottom: 1px;
                 }
 
                 > i {

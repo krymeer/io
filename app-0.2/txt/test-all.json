@@ -2,7 +2,6 @@
     "scenarios" : [
         {
             "intro" : "Zamówiłeś kilka produktów z popularnego sklepu internetowego. W ostatnim czasie zmieniłeś miejsce zamieszkania, jednak jak dotąd nie zamawiałeś żadnej przesyłki na ten adres. Czas to zmienić!",
-            "outro" : "**Gratulacje!** Właśnie ukończyłeś scenariusz. Naciśnij poniższy przycisk, aby przejść do dalszej części badania:",
             "tasks" : [
                 {
                     "title"    : "Adres do wysyłki",
@@ -68,7 +67,6 @@
         },
         {
             "intro" : "Zamówiłeś kilka produktów z popularnego sklepu internetowego. W ostatnim czasie zmieniłeś miejsce zamieszkania, jednak jak dotąd nie zamawiałeś żadnej przesyłki na ten adres. Czas to zmienić!",
-            "outro" : "**Gratulacje!** Właśnie ukończyłeś scenariusz. Naciśnij poniższy przycisk, aby przejść do dalszej części badania:",
             "tasks" : [
                 {
                     "title"    : "Adres do wysyłki",
