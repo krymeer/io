@@ -88,6 +88,11 @@ $value-xxl: 56px;
     margin-bottom: $value-xxl;
 }
 
+%padding-to-btm-s {
+    padding-top: $value-s;
+    padding-bottom: $value-s;
+}
+
 %padding-top-btm-xxl {
     padding-top: $value-xxl;
     padding-bottom: $value-xxl;
@@ -139,17 +144,56 @@ button, p, h1, h2, h3, h4 a, label, span, td {
     height: 100%;
 }
 
-#page-container > * > * {
-    @extend %block-centered;
-    max-width: 760px;
-}
+#page-container {
+    > * > * {
+        @extend %block-centered;
+        max-width: 760px;
+    }
 
-header {
-    background: $primary-color;
-    height: 256px;
-    padding: 115px 0 0 0;
-    color: #fff;
-    font-size: 56px;
+    > header {
+        background: $primary-color;
+        height: 256px;
+        padding: 115px 0 0 0;
+        color: #fff;
+        font-size: 56px;
+    }
+
+    &.header-fixed {
+        margin-top: 256px;
+
+        > header {
+            @extend %padding-to-btm-s;
+            height: 35px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 666;
+
+            > p {
+                display: grid;
+                grid-template-columns: 1fr auto;
+
+                > span {
+                    font-size: $value-l;
+                    line-height: 1;
+                }
+
+                > i {
+                    cursor: pointer;
+                    font-size: 21px;
+                    color: $primary-color;
+                    background: rgba(255, 255, 255, 1);
+                    border-radius: 50%;
+                    transition: background $transition;
+                }
+
+                > i:hover {
+                    background: rgba(255, 255, 255, .85);
+                }
+            }
+        }
+    }
 }
 
 main {

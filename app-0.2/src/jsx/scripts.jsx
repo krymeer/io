@@ -3,6 +3,20 @@
 // }
 
 window.onload = function() {
+    const headerHeight = {
+        static : 256,
+        fixed  : 35
+    }
+
+    getRealOffsetTop = ( offsetTop ) => {
+        if( offsetTop > headerHeight.static )
+        {
+            return offsetTop - headerHeight.fixed;
+        }
+
+        return offsetTop;
+    }
+
     insertNbsp = ( str ) => {
         return str.replace( /(?<=(\s|>)\w)\s/g, '\u00a0' );
     }
@@ -179,7 +193,7 @@ window.onload = function() {
             this.tableRef            = React.createRef();
             this.nextTaskRef         = React.createRef();
             this.seqRef              = node => {
-                window.scrollTo( 0, node.offsetTop );
+                window.scrollTo( 0, getRealOffsetTop( node.offsetTop ) );
             }
             this.state               = {
                 taskStarted  : false,
@@ -208,7 +222,7 @@ window.onload = function() {
                     taskStarted : true
                 } );
 
-                window.scrollTo( 0, this.tableRef.current.offsetTop );
+                window.scrollTo( 0, getRealOffsetTop( this.tableRef.current.offsetTop ) );
             }
         }
 
@@ -264,7 +278,7 @@ window.onload = function() {
                 }, () => {
                     if( k > 0 )
                     {
-                        window.scrollTo( 0, this.nextTaskRef.current.offsetTop );
+                        window.scrollTo( 0, getRealOffsetTop( this.nextTaskRef.current.offsetTop ) );
                     }
                 } );
             }
@@ -397,7 +411,7 @@ window.onload = function() {
                 currentTaskIndex : 0
             }
             this.childNodeRef     = child => {
-                window.scrollTo( 0, child.offsetTop );
+                window.scrollTo( 0, getRealOffsetTop( child.offsetTop ) );
             }
         }
 
@@ -461,8 +475,10 @@ window.onload = function() {
         {
             super( props );
 
+            this.handleScroll         = this.handleScroll.bind( this );
             this.handleStart          = this.handleStart.bind( this );
             this.handleScenarioFinish = this.handleScenarioFinish.bind( this );
+            this.backToTop            = this.backToTop.bind( this );
             this.state                = {
                 error                : null,
                 isLoaded             : false,
@@ -470,12 +486,18 @@ window.onload = function() {
                 allScenariosFinished : false,
                 testStarted          : false,
                 testFinished         : false,
-                currentScenarioIndex : 0
+                headerFixed          : false,
+                currentScenarioIndex : 0,
             }
 
             this.childNodeRef = child => {
-                window.scrollTo( 0, child.offsetTop );
+                window.scrollTo( 0, getRealOffsetTop( child.offsetTop ) );
             }
+        }
+
+        backToTop()
+        {
+            window.scrollTo( 0, 0 );
         }
 
         handleStart()
@@ -504,6 +526,22 @@ window.onload = function() {
             }
         }
 
+        handleScroll()
+        {
+            if( window.scrollY > 256 )
+            {
+                this.setState( {
+                    headerFixed : true
+                } );
+            }
+            else
+            {
+                this.setState( {
+                    headerFixed : false
+                } );
+            }
+        }
+
         componentDidMount()
         {
             fetch( './txt/test-all.json' )
@@ -513,6 +551,8 @@ window.onload = function() {
                         this.setState( {
                             scenarios : result.scenarios,
                             isLoaded  : true
+                        }, () => {
+                            window.addEventListener( 'scroll', this.handleScroll );
                         } );
                     },
                     ( error ) => {
@@ -539,9 +579,16 @@ window.onload = function() {
             else
             {
                 return (
-                    <div id="page-container">
+                    <div className={ this.state.headerFixed ? 'header-fixed' : undefined } id="page-container">
                         <header>
-                            <span>Badanie użyteczności</span>
+                            <p>
+                                <span>Badanie użyteczności</span>
+                                { this.state.headerFixed &&
+                                    <i className="material-icons" onClick={ this.backToTop }>
+                                        arrow_upward
+                                    </i>
+                                }
+                            </p>
                         </header>
                         <main>
                             <Paragraph content="Witaj! Niniejsze badanie ma na celu zbadanie użyteczności wybranych wzorców pól, które możesz na co dzień znaleźć w wielu aplikacjach webowych i na stronach internetowych. Zostaniesz poproszony o wykonanie kilkunastu zadań polegających na uzupełnieniu różnego typu formularzy. **Ten tekst jeszcze się zmieni.**" />
