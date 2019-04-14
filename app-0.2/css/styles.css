@@ -215,6 +215,32 @@ main button[disabled] {
   background: #e0e0e0;
   color: #bebebe;
 }
+main .radio {
+  cursor: pointer;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: transparent;
+  border: 2px solid #8b8b8b;
+  position: relative;
+  margin: 0 auto;
+}
+main .radio > div {
+  width: 50%;
+  height: 50%;
+  background: #8b8b8b;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 0.1s ease-in-out;
+}
+main .radio:hover > div,
+main .radio > div.chosen {
+  opacity: 1;
+}
 main textarea, main input {
   font-size: inherit;
   color: #212121;
@@ -351,41 +377,60 @@ main section.task .seq > .comment > div > .note {
 main section.task .seq > .comment > div > .note:last-child {
   text-align: right;
 }
-main section.task .seq > .seq-stars {
+main section.task .seq > .seq-radios {
   display: grid;
   grid-auto-flow: column;
   justify-content: center;
   padding: 0;
 }
-main section.task .seq > .seq-stars > li {
+main section.task .seq > .seq-radios > li {
   list-style-type: none;
-  height: 32px;
-  line-height: 32px;
 }
-main section.task .seq > .seq-stars > li:first-child, main section.task .seq > .seq-stars > li:last-child {
-  font-size: 14px;
+main section.task .seq > .seq-radios > li.seq-item {
+  width: 36px;
+  align-self: end;
 }
-main section.task .seq > .seq-stars > li:first-child {
-  padding-right: 14px;
+main section.task .seq > .seq-radios > li.seq-item > div {
+  font-size: 11px;
+  text-align: center;
 }
-main section.task .seq > .seq-stars > li:last-child {
-  padding-left: 14px;
+main section.task .seq > .seq-radios > li.seq-item:first-child > div:first-child, main section.task .seq > .seq-radios > li.seq-item:last-child > div:first-child {
+  margin-bottom: 3.5px;
 }
-main section.task .seq > .seq-stars > li.seq-item {
-  width: 32px;
-}
-main section.task .seq > .seq-stars > li.seq-item > i {
+main section.task .seq > .seq-radios > li.seq-item > .radio {
   cursor: pointer;
-  font-size: 32px;
-  color: #8b8b8b;
-  transition: color 0.1s ease-in-out;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: transparent;
+  border: 2px solid #8b8b8b;
+  position: relative;
+  margin: 0 auto;
 }
-main section.task .seq > .seq-stars > li.seq-item > i:hover {
-  color: #9c9c9c;
+main section.task .seq > .seq-radios > li.seq-item > .radio > div {
+  width: 50%;
+  height: 50%;
+  background: #8b8b8b;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 0.1s ease-in-out;
 }
-main section.task .seq > .seq-stars.disabled > li.seq-item > i {
+main section.task .seq > .seq-radios > li.seq-item > .radio:hover > div, main section.task .seq > .seq-radios > li.seq-item > .radio.chosen > div {
+  opacity: 1;
+}
+main section.task .seq > .seq-radios.disabled > li.seq-item > .radio {
   cursor: default;
-  color: #ddd;
+  border-color: #ddd;
+}
+main section.task .seq > .seq-radios.disabled > li.seq-item > .radio:not(.chosen) > div {
+  opacity: 0;
+}
+main section.task .seq > .seq-radios.disabled > li.seq-item > .radio.chosen > div {
+  background: #ddd;
 }
 
 /*# sourceMappingURL=styles.css.map */

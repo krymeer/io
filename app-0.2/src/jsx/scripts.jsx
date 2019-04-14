@@ -109,8 +109,8 @@ window.onload = function() {
             const labelClassName   = ( ( this.props.inputDisabled ? 'on-input-disabled' : '' ) + ' ' + ( this.state.inputFocus ? 'on-input-focus' : '' ) + ' ' + ( this.state.inputNonEmpty ? 'on-input-non-empty' : '' ) ).trim().replace( /\s+/g, ' ' );
 
             return (
-                <div className={ ( wrapperClassName !== '' ) ? wrapperClassName : undefined }>
-                    <label className={ ( labelClassName !== '' ) ? labelClassName : undefined }>{ this.props.label }</label>
+                <div className={ ( wrapperClassName !== "" ) ? wrapperClassName : undefined }>
+                    <label className={ ( labelClassName !== "" ) ? labelClassName : undefined }>{ this.props.label }</label>
                     <input type="text" spellCheck="false" autoComplete="off" onFocus={ this.handleFocus } onBlur={ this.handleBlur } onChange={ this.handleChange } disabled={ this.props.inputDisabled } />
                 </div>
             );
@@ -127,7 +127,10 @@ window.onload = function() {
 
         handleRating( k )
         {
-            this.props.onRatingChange( k );
+            if( !this.props.disabled )
+            {
+                this.props.onRatingChange( k );
+            }
         }
 
         handleComment( e )
@@ -142,21 +145,21 @@ window.onload = function() {
                     <h3>
                         Jaki jest, Twoim zdaniem, poziom trudności powyższego ćwiczenia?
                     </h3>
-                    <ul className={ ( "seq-stars" + ' ' + ( this.props.disabled ? "disabled" : "" ) ).trim() }>
-                        <li>bardzo trudne</li>
-                        { [ ...Array( 5 ) ].map( ( x, key ) =>
+                    <ul className={ ( "seq-radios" + " " + ( this.props.disabled ? "disabled" : "" ) ).trim() }>
+                        { [ ...Array( 7 ) ].map( ( x, key, array ) =>
                             <li className="seq-item" key={ key }>
-                                <i className="material-icons" onClick={ this.handleRating.bind( this, key + 1 ) } disabled={ this.props.disabled }>
-                                    { this.props.rating <= key &&
-                                        'star_border'
-                                    }
-                                    { this.props.rating > key &&
-                                        'star'
-                                    }
-                                </i>
+                                { key === 0 &&
+                                    <div>Bardzo trudne</div>
+                                }
+                                { key === array.length - 1 &&
+                                    <div>Bardzo latwe</div>
+                                }
+                                <div>{ key + 1 }</div>
+                                <div className={ ( "radio " + ( this.props.rating === key + 1  ? "chosen" : "" ) ).trim() } onClick={ this.handleRating.bind( this, key + 1 ) }>
+                                    <div/>
+                                </div>
                             </li>
                         ) }
-                        <li>bardzo łatwe</li>
                     </ul>
                     { this.props.rating > 0 &&
                         <section className="comment">

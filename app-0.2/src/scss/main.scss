@@ -284,6 +284,35 @@ main {
         }
     }
 
+     .radio {
+        cursor: pointer;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: transparent;
+        border: 2px solid $button-color-m;
+        position: relative;
+        margin: 0 auto;
+
+        > div {
+            width: 50%;
+            height: 50%;
+            background: $button-color-m;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            transition: opacity $transition;
+        }
+
+        &:hover > div,
+        > div.chosen {
+            opacity: 1;
+        }
+    }
+
     textarea, input {
         @extend %padding-s;
         @extend %radius;
@@ -487,7 +516,7 @@ main {
                     }
                 }
 
-                > .seq-stars {
+                > .seq-radios {
                     display: grid;
                     grid-auto-flow: column;
                     justify-content: center;
@@ -495,33 +524,49 @@ main {
 
                     > li {
                         list-style-type: none;
-                        height: 32px;
-                        line-height: 32px;
-
-                        &:first-child, &:last-child {
-                            font-size: $value-m;
-                        }
-
-                        &:first-child {
-                            padding-right: $value-m;
-                        }
-
-                        &:last-child {
-                            padding-left: $value-m;
-                        }
 
                         &.seq-item {
-                            width: 32px;
+                            width: 36px;
+                            align-self: end;
 
-                            > i {
-                                cursor: pointer;
-                                font-size: 32px;
-                                color: $button-color-m;
-                                transition: color $transition;
+                            > div {
+                                font-size: 11px;
+                                text-align: center;
                             }
 
-                            > i:hover {
-                                color: $button-color-h;
+                            &:first-child, &:last-child {
+                                > div:first-child {
+                                    margin-bottom: $value-xs;
+                                }
+                            }
+
+                            > .radio {
+                                cursor: pointer;
+                                width: 18px;
+                                height: 18px;
+                                border-radius: 50%;
+                                background: transparent;
+                                border: 2px solid $button-color-m;
+                                position: relative;
+                                margin: 0 auto;
+
+                                > div {
+                                    width: 50%;
+                                    height: 50%;
+                                    background: $button-color-m;
+                                    border-radius: 50%;
+                                    position: absolute;
+                                    top: 50%;
+                                    left: 50%;
+                                    transform: translate(-50%, -50%);
+                                    opacity: 0;
+                                    transition: opacity $transition;
+                                }
+
+                                &:hover > div,
+                                &.chosen > div {
+                                    opacity: 1;
+                                }
                             }
                         }
                     }
@@ -529,9 +574,17 @@ main {
                     &.disabled {
                         > li {
                             &.seq-item {
-                                > i {
+                                > .radio {
                                     cursor: default;
-                                    color: $border-color-d;
+                                    border-color: $border-color-d;
+
+                                    &:not(.chosen ) > div {
+                                        opacity: 0;
+                                    }
+
+                                    &.chosen > div {
+                                        background: $border-color-d;
+                                    }
                                 }
                             }
                         }

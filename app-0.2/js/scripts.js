@@ -134,10 +134,10 @@ window.onload = function () {
 
                 return React.createElement(
                     'div',
-                    { className: wrapperClassName !== '' ? wrapperClassName : undefined },
+                    { className: wrapperClassName !== "" ? wrapperClassName : undefined },
                     React.createElement(
                         'label',
-                        { className: labelClassName !== '' ? labelClassName : undefined },
+                        { className: labelClassName !== "" ? labelClassName : undefined },
                         this.props.label
                     ),
                     React.createElement('input', { type: 'text', spellCheck: 'false', autoComplete: 'off', onFocus: this.handleFocus, onBlur: this.handleBlur, onChange: this.handleChange, disabled: this.props.inputDisabled })
@@ -163,7 +163,9 @@ window.onload = function () {
         _createClass(SEQ, [{
             key: 'handleRating',
             value: function handleRating(k) {
-                this.props.onRatingChange(k);
+                if (!this.props.disabled) {
+                    this.props.onRatingChange(k);
+                }
             }
         }, {
             key: 'handleComment',
@@ -185,29 +187,33 @@ window.onload = function () {
                     ),
                     React.createElement(
                         'ul',
-                        { className: ("seq-stars" + ' ' + (this.props.disabled ? "disabled" : "")).trim() },
-                        React.createElement(
-                            'li',
-                            null,
-                            'bardzo trudne'
-                        ),
-                        [].concat(_toConsumableArray(Array(5))).map(function (x, key) {
+                        { className: ("seq-radios" + " " + (this.props.disabled ? "disabled" : "")).trim() },
+                        [].concat(_toConsumableArray(Array(7))).map(function (x, key, array) {
                             return React.createElement(
                                 'li',
                                 { className: 'seq-item', key: key },
+                                key === 0 && React.createElement(
+                                    'div',
+                                    null,
+                                    'Bardzo trudne'
+                                ),
+                                key === array.length - 1 && React.createElement(
+                                    'div',
+                                    null,
+                                    'Bardzo latwe'
+                                ),
                                 React.createElement(
-                                    'i',
-                                    { className: 'material-icons', onClick: _this4.handleRating.bind(_this4, key + 1), disabled: _this4.props.disabled },
-                                    _this4.props.rating <= key && 'star_border',
-                                    _this4.props.rating > key && 'star'
+                                    'div',
+                                    null,
+                                    key + 1
+                                ),
+                                React.createElement(
+                                    'div',
+                                    { className: ("radio " + (_this4.props.rating === key + 1 ? "chosen" : "")).trim(), onClick: _this4.handleRating.bind(_this4, key + 1) },
+                                    React.createElement('div', null)
                                 )
                             );
-                        }),
-                        React.createElement(
-                            'li',
-                            null,
-                            'bardzo \u0142atwe'
-                        )
+                        })
                     ),
                     this.props.rating > 0 && React.createElement(
                         'section',
