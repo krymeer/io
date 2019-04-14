@@ -183,6 +183,7 @@ window.onload = function() {
         constructor( props )
         {
             super( props );
+            this.handleClick         = this.handleClick.bind( this );
             this.handleStart         = this.handleStart.bind( this );
             this.handleFinish        = this.handleFinish.bind( this );
             this.handleNext          = this.handleNext.bind( this );
@@ -201,8 +202,12 @@ window.onload = function() {
                 taskError    : false,
                 nextTask     : false,
                 stats        : {
-                    rating  : 0,
-                    comment : ''
+                    startTime      : 0,
+                    endTime        : 0,
+                    numberOfClicks : 0,
+                    numberOfErrors : 0,
+                    rating         : 0,
+                    comment        : ''
                 },
                 inputs       : this.props.task.data.map( ( item ) => {
                     return {
@@ -214,12 +219,37 @@ window.onload = function() {
             }
         }
 
+        handleClick()
+        {
+            if( this.state.taskStarted && !this.state.taskFinished )
+            {
+                this.setState( state => {
+                    const stats = {
+                        ...state.stats,
+                        numberOfClicks : state.stats.numberOfClicks + 1
+                    };
+
+                    return {
+                        stats
+                    };
+                } );
+            }
+        }
+
         handleStart()
         {
             if( !this.state.taskStarted && !this.state.taskFinished )
             {
-                this.setState( {
-                    taskStarted : true
+                this.setState( state => {
+                    const stats = {
+                        ...state.stats,
+                        startTime : new Date().getTime()
+                    };
+
+                    return {
+                        stats,
+                        taskStarted  : true
+                    };
                 } );
 
                 window.scrollTo( 0, getRealOffsetTop( this.tableRef.current.offsetTop ) );
@@ -232,15 +262,31 @@ window.onload = function() {
             {
                 if( this.state.inputs.filter( input => !input.valid ).length > 0 )
                 {
-                    this.setState( {
-                        taskError : true
+                    this.setState( state => {
+                        const stats = {
+                            ...state.stats,
+                            numberOfErrors : state.stats.numberOfErrors + 1
+                        };
+
+                        return {
+                            stats,
+                            taskError : true
+                        }
                     } );
                 }
                 else
                 {
-                    this.setState( {
-                        taskError    : false,
-                        taskFinished : true
+                    this.setState( state => {
+                        const stats = {
+                            ...state.stats,
+                            endTime : new Date().getTime()
+                        };
+
+                        return {
+                            stats,
+                            taskError    : false,
+                            taskFinished : true
+                        };
                     } );
                 }
             }
@@ -250,6 +296,8 @@ window.onload = function() {
         {
             if( this.state.taskStarted && this.state.taskFinished )
             {
+                console.log( this.state.stats );
+
                 // TODO
                 // Send the data wherever you'd like to
                 // Note: the comment has to be sanitized before send
@@ -345,7 +393,7 @@ window.onload = function() {
             if( this.props.scenarioStarted && this.props.currentIndex >= this.props.index )
             {
                 return (
-                    <section className="task" ref={ this.props.nodeRef }>
+                    <section className="task" ref={ this.props.nodeRef } onClick={ this.handleClick }>
                         <h2>Ćwiczenie nr { this.props.index }</h2>
                         <Paragraph class="task-description" content="Wypełnij formularz, korzystając z danych zawartych **w poniższej tabeli:**" />
                         <table ref={ this.tableRef }>

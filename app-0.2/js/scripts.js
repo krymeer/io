@@ -253,6 +253,7 @@ window.onload = function () {
 
             var _this5 = _possibleConstructorReturn(this, (Task.__proto__ || Object.getPrototypeOf(Task)).call(this, props));
 
+            _this5.handleClick = _this5.handleClick.bind(_this5);
             _this5.handleStart = _this5.handleStart.bind(_this5);
             _this5.handleFinish = _this5.handleFinish.bind(_this5);
             _this5.handleNext = _this5.handleNext.bind(_this5);
@@ -271,6 +272,10 @@ window.onload = function () {
                 taskError: false,
                 nextTask: false,
                 stats: {
+                    startTime: 0,
+                    endTime: 0,
+                    numberOfClicks: 0,
+                    numberOfErrors: 0,
                     rating: 0,
                     comment: ''
                 },
@@ -286,11 +291,33 @@ window.onload = function () {
         }
 
         _createClass(Task, [{
+            key: 'handleClick',
+            value: function handleClick() {
+                if (this.state.taskStarted && !this.state.taskFinished) {
+                    this.setState(function (state) {
+                        var stats = Object.assign({}, state.stats, {
+                            numberOfClicks: state.stats.numberOfClicks + 1
+                        });
+
+                        return {
+                            stats: stats
+                        };
+                    });
+                }
+            }
+        }, {
             key: 'handleStart',
             value: function handleStart() {
                 if (!this.state.taskStarted && !this.state.taskFinished) {
-                    this.setState({
-                        taskStarted: true
+                    this.setState(function (state) {
+                        var stats = Object.assign({}, state.stats, {
+                            startTime: new Date().getTime()
+                        });
+
+                        return {
+                            stats: stats,
+                            taskStarted: true
+                        };
                     });
 
                     window.scrollTo(0, getRealOffsetTop(this.tableRef.current.offsetTop));
@@ -303,13 +330,27 @@ window.onload = function () {
                     if (this.state.inputs.filter(function (input) {
                         return !input.valid;
                     }).length > 0) {
-                        this.setState({
-                            taskError: true
+                        this.setState(function (state) {
+                            var stats = Object.assign({}, state.stats, {
+                                numberOfErrors: state.stats.numberOfErrors + 1
+                            });
+
+                            return {
+                                stats: stats,
+                                taskError: true
+                            };
                         });
                     } else {
-                        this.setState({
-                            taskError: false,
-                            taskFinished: true
+                        this.setState(function (state) {
+                            var stats = Object.assign({}, state.stats, {
+                                endTime: new Date().getTime()
+                            });
+
+                            return {
+                                stats: stats,
+                                taskError: false,
+                                taskFinished: true
+                            };
                         });
                     }
                 }
@@ -318,6 +359,8 @@ window.onload = function () {
             key: 'handleNext',
             value: function handleNext() {
                 if (this.state.taskStarted && this.state.taskFinished) {
+                    console.log(this.state.stats);
+
                     // TODO
                     // Send the data wherever you'd like to
                     // Note: the comment has to be sanitized before send
@@ -415,7 +458,7 @@ window.onload = function () {
                 if (this.props.scenarioStarted && this.props.currentIndex >= this.props.index) {
                     return React.createElement(
                         'section',
-                        { className: 'task', ref: this.props.nodeRef },
+                        { className: 'task', ref: this.props.nodeRef, onClick: this.handleClick },
                         React.createElement(
                             'h2',
                             null,

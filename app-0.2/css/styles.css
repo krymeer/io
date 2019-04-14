@@ -90,7 +90,7 @@ html, body {
   height: 100%;
 }
 
-button, p, h1, h2, h3, h4 a, label, span, td {
+button, p, h1, h2, h3, h4 a, label, span, td, th, i.material-icons {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
