@@ -6,7 +6,7 @@
   line-height: 1.5;
 }
 
-main section.task .seq, main section.task .task-form, main table, main p {
+main section.task .seq, main section.task .task-form, main section.scenario .summary .questions, main table, main p {
   letter-spacing: 0.1px;
 }
 
@@ -15,13 +15,13 @@ main p {
   font-size: 16px;
 }
 
-main section.task .seq, main section.task .task-form, main table {
+main section.task .seq, main section.task .task-form, main section.scenario .summary .questions, main table {
   background: #fff;
   border: 2px solid #eee;
   color: #212121;
   font-size: 14px;
 }
-main section.task .seq p, main section.task .task-form p, main table p {
+main section.task .seq p, main section.task .task-form p, main section.scenario .summary .questions p, main table p {
   color: inherit;
   line-height: inherit;
 }
@@ -37,17 +37,22 @@ main section.task .task-form, main section > *, #page-container > * > * {
   margin-right: auto;
 }
 
+main section.scenario .summary .questions > .question-wrapper > h4 {
+  margin-top: 3.5px;
+  margin-bottom: 3.5px;
+}
+
 main section > * {
   margin-top: 14px;
   margin-bottom: 14px;
 }
 
-main > section > section, main section.task .task-form > .wrapper {
+main > section > section, main section.task .task-form > .wrapper, main section.scenario .summary .questions > .question-wrapper {
   margin-top: 21px;
   margin-bottom: 21px;
 }
 
-main > section, main section.task .seq, main section.task .task-form, main table {
+main > section, main section.task .seq, main section.task .task-form, main section.scenario .summary .questions, main table {
   margin-top: 28px;
   margin-bottom: 28px;
 }
@@ -62,7 +67,7 @@ main {
   padding-bottom: 56px;
 }
 
-main section.task .seq, main section.task .task-form {
+main section.task .seq, main section.task .task-form, main section.scenario .summary .questions {
   padding: 21px;
 }
 
@@ -74,8 +79,17 @@ main textarea, main input {
   padding: 7px;
 }
 
-main section.task .seq, main section.task .task-form, main table, main textarea, main input, main button {
+main section.task .seq, main section.task .task-form, main section.scenario .summary .questions > .question-wrapper > ul > li, main section.scenario .summary .questions, main table, main textarea, main input, main button {
   border-radius: 4px;
+}
+
+main section.task .seq, button, p, h1, h2, h3, h4, a, label, span, td, th, i.material-icons {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .hidden {
@@ -88,15 +102,6 @@ html {
 
 html, body {
   height: 100%;
-}
-
-button, p, h1, h2, h3, h4 a, label, span, td, th, i.material-icons {
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
 }
 
 #root {
@@ -169,8 +174,9 @@ main p {
   text-align: justify;
   line-height: 1.75;
 }
-main p.note-required {
+main p.note {
   font-size: 11px;
+  text-align: left;
 }
 main h1, main h2, main h3, main h4 {
   color: #a63446;
@@ -237,9 +243,18 @@ main .radio > div {
   opacity: 0;
   transition: opacity 0.1s ease-in-out;
 }
-main .radio:hover > div,
-main .radio > div.chosen {
+main .radio:hover > div, main .radio.chosen > div {
   opacity: 1;
+}
+main .comment > textarea {
+  height: 102px;
+}
+main .comment > div {
+  display: grid;
+  grid-auto-flow: column;
+}
+main .comment > div > .note:last-child {
+  text-align: right;
 }
 main textarea, main input {
   font-size: inherit;
@@ -281,6 +296,32 @@ main section > *:first-child {
 }
 main section > *:last-child {
   margin-bottom: 0 !important;
+}
+main section.scenario .summary .questions {
+  width: 615px;
+}
+main section.scenario .summary .questions > .question-wrapper > h4 {
+  margin-top: 0;
+}
+main section.scenario .summary .questions > .question-wrapper > ul {
+  padding: 0;
+  display: grid;
+  grid-auto-flow: column;
+  place-items: center;
+}
+main section.scenario .summary .questions > .question-wrapper > ul > li {
+  list-style-type: none;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  grid-auto-flow: column;
+  grid-column-gap: 7px;
+}
+main section.scenario .summary .questions > .question-wrapper > ul > li > * {
+  line-height: 1;
+}
+main section.scenario .summary .questions > .note {
+  text-align: right;
 }
 main section.task .task-form {
   position: relative;
@@ -363,20 +404,6 @@ main section.task .task-form.labels-float-top > .wrapper > label.on-input-focus,
 main section.task .seq {
   width: fit-content;
 }
-main section.task .seq > .comment > textarea {
-  height: 102px;
-}
-main section.task .seq > .comment > div {
-  display: grid;
-  grid-auto-flow: column;
-}
-main section.task .seq > .comment > div > .note {
-  font-size: 11px;
-  text-align: left;
-}
-main section.task .seq > .comment > div > .note:last-child {
-  text-align: right;
-}
 main section.task .seq > .seq-radios {
   display: grid;
   grid-auto-flow: column;
@@ -397,31 +424,6 @@ main section.task .seq > .seq-radios > li.seq-item > div {
 main section.task .seq > .seq-radios > li.seq-item:first-child > div:first-child, main section.task .seq > .seq-radios > li.seq-item:last-child > div:first-child {
   margin-bottom: 3.5px;
 }
-main section.task .seq > .seq-radios > li.seq-item > .radio {
-  cursor: pointer;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: transparent;
-  border: 2px solid #8b8b8b;
-  position: relative;
-  margin: 0 auto;
-}
-main section.task .seq > .seq-radios > li.seq-item > .radio > div {
-  width: 50%;
-  height: 50%;
-  background: #8b8b8b;
-  border-radius: 50%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  opacity: 0;
-  transition: opacity 0.1s ease-in-out;
-}
-main section.task .seq > .seq-radios > li.seq-item > .radio:hover > div, main section.task .seq > .seq-radios > li.seq-item > .radio.chosen > div {
-  opacity: 1;
-}
 main section.task .seq > .seq-radios.disabled > li.seq-item > .radio {
   cursor: default;
   border-color: #ddd;
@@ -431,6 +433,9 @@ main section.task .seq > .seq-radios.disabled > li.seq-item > .radio:not(.chosen
 }
 main section.task .seq > .seq-radios.disabled > li.seq-item > .radio.chosen > div {
   background: #ddd;
+}
+main section.task .seq > .seq-radios + .note {
+  text-align: right;
 }
 
 /*# sourceMappingURL=styles.css.map */

@@ -51,7 +51,7 @@ window.onload = function() {
         render()
         {
             return (
-                <p className={ typeof this.props.class !== 'undefined' ? this.props.class : undefined }>
+                <p ref={ this.props.nodeRef } className={ this.props.class }>
                     { extractTextImportant( this.props.content ) }
                 </p>
             );
@@ -225,10 +225,8 @@ window.onload = function() {
             this.handleRatingChange  = this.handleRatingChange.bind( this );
             this.handleCommentChange = this.handleCommentChange.bind( this );
             this.maxCommentLength    = 255;
-            this.tableRef            = React.createRef();
-            this.nextTaskRef         = React.createRef();
-            this.seqRef              = node => {
-                window.scrollTo( 0, getRealOffsetTop( node.offsetTop ) );
+            this.childNodeRef        = child => {
+                window.scrollTo( 0, getRealOffsetTop( child.offsetTop ) );
             }
             this.state               = {
                 taskStarted  : false,
@@ -285,8 +283,6 @@ window.onload = function() {
                         taskStarted  : true
                     };
                 } );
-
-                window.scrollTo( 0, getRealOffsetTop( this.tableRef.current.offsetTop ) );
             }
         }
 
@@ -351,11 +347,6 @@ window.onload = function() {
                     return {
                         stats
                     };
-                }, () => {
-                    if( k > 0 )
-                    {
-                        window.scrollTo( 0, getRealOffsetTop( this.nextTaskRef.current.offsetTop ) );
-                    }
                 } );
             }
         }
@@ -421,10 +412,10 @@ window.onload = function() {
             if( this.props.scenarioStarted && this.props.currentIndex >= this.props.index )
             {
                 return (
-                    <section className="task" ref={ this.props.nodeRef } onClick={ this.handleClick }>
+                    <section className="task" onClick={ this.handleClick } ref={ this.props.nodeRef }>
                         <h2>Ćwiczenie nr { this.props.index }</h2>
                         <Paragraph class="task-description" content="Wypełnij formularz, korzystając z danych zawartych **w poniższej tabeli:**" />
-                        <table ref={ this.tableRef }>
+                        <table ref={ ( this.state.taskStarted ) ? this.childNodeRef : undefined }>
                             <thead>
                                 <tr>
                                     <th>Nazwa pola</th>
@@ -461,10 +452,10 @@ window.onload = function() {
                             <button onClick={ this.handleFinish } disabled={ this.state.taskFinished }>Zakończ ćwiczenie</button>
                         }
                         { this.state.taskFinished &&
-                            <SEQ nodeRef={ this.seqRef } rating={ this.state.stats.rating } onRatingChange={ this.handleRatingChange } onCommentChange={ this.handleCommentChange } maxCommentLength={ this.maxCommentLength } commentLength={ this.state.stats.comment.length } disabled={ this.state.nextTask } />
+                            <SEQ nodeRef={ this.childNodeRef } rating={ this.state.stats.rating } onRatingChange={ this.handleRatingChange } onCommentChange={ this.handleCommentChange } maxCommentLength={ this.maxCommentLength } commentLength={ this.state.stats.comment.length } disabled={ this.state.nextTask } />
                         }
                         { this.state.stats.rating > 0 &&
-                            <button onClick={ this.handleNext } ref={ this.nextTaskRef } disabled={ this.state.nextTask }>
+                            <button onClick={ this.handleNext } ref={ this.childNodeRef } disabled={ this.state.nextTask }>
                                 { this.props.index < this.props.lastIndex &&
                                     "Następne ćwiczenie"
                                 }
@@ -486,7 +477,6 @@ window.onload = function() {
         {
             super( props );
 
-            this.summaryRef             = React.createRef();
             this.handleStart            = this.handleStart.bind( this );
             this.handleNext             = this.handleNext.bind( this );
             this.handleTaskFinish       = this.handleTaskFinish.bind( this );
@@ -557,9 +547,6 @@ window.onload = function() {
                 {
                     this.setState( {
                         scenarioFinished : true
-                    }, () => {
-                        window.scrollTo( 0, getRealOffsetTop( this.summaryRef.current.offsetTop ) );
-                        console.log( this.state.tasks );
                     } );
                 }
                 else
@@ -622,7 +609,7 @@ window.onload = function() {
             if( this.props.testStarted && this.props.currentIndex >= this.props.index )
             {
                 return (
-                    <section className="scenario" ref={ this.props.nodeRef }>
+                    <section className="scenario">
                         <h1>Scenariusz nr { ( this.props.index ) }</h1>
                         { typeof this.props.scenario.intro !== 'undefined' &&
                             <Paragraph content={ this.props.scenario.intro } />
@@ -630,11 +617,11 @@ window.onload = function() {
                         <button onClick={ this.handleStart } disabled={ this.state.scenarioStarted }>Rozpocznij scenariusz</button>
                         {
                             this.props.scenario.tasks.map( ( task, index, tasks ) =>
-                                <Task key={ index } index={ index + 1 } currentIndex={ this.state.currentTaskIndex } lastIndex={ tasks.length } onTaskFinish={ this.handleTaskFinish } scenarioStarted={ this.state.scenarioStarted } task={ task } nodeRef={ this.childNodeRef } />
+                                <Task nodeRef={ this.childNodeRef } key={ index } index={ index + 1 } currentIndex={ this.state.currentTaskIndex } lastIndex={ tasks.length } onTaskFinish={ this.handleTaskFinish } scenarioStarted={ this.state.scenarioStarted } task={ task } />
                             )
                         }
                         { this.state.scenarioFinished &&
-                            <section className="summary" ref={ this.summaryRef }>
+                            <section className="summary" ref={ this.childNodeRef }>
                                 <h2>Podsumowanie</h2>
                                 <Paragraph content={ "Gratulacje! Wszystko wskazuje na to, że udało Ci się ukończyć **scenariusz nr " + this.props.index + ".** Zanim przejdziesz dalej, udziel odpowiedzi na poniższe pytania." } />
                                 <section className="questions">
@@ -816,10 +803,10 @@ window.onload = function() {
                             <Paragraph content="Witaj! Niniejsze badanie ma na celu zbadanie użyteczności wybranych wzorców pól, które możesz na co dzień znaleźć w wielu aplikacjach webowych i na stronach internetowych. Zostaniesz poproszony o wykonanie kilkunastu zadań polegających na uzupełnieniu różnego typu formularzy. **Ten tekst jeszcze się zmieni.**" />
                             <button onClick={ this.handleStart } disabled={ this.state.testStarted }>Rozpocznij badanie</button>
                             { scenarios.map( ( scenario, index ) =>
-                                <Scenario key={ index } index={ index + 1 } testStarted={ this.state.testStarted } currentIndex={ this.state.currentScenarioIndex } lastIndex={ this.state.scenarios.length } scenario={ scenario } onScenarioFinish={ this.handleScenarioFinish } nodeRef={ this.childNodeRef } />
+                                <Scenario key={ index } index={ index + 1 } testStarted={ this.state.testStarted } currentIndex={ this.state.currentScenarioIndex } lastIndex={ this.state.scenarios.length } scenario={ scenario } onScenarioFinish={ this.handleScenarioFinish } ref={ this.childNodeRef } />
                             ) }
                             { this.state.allScenariosFinished &&
-                                <Paragraph content="**To już koniec!** Dziękuję za poświęcony czas i dotarcie do samego końca badania!" />
+                                <Paragraph nodeRef={ this.childNodeRef } content="**To już koniec!** Dziękuję za poświęcony czas i dotarcie do samego końca badania!" />
                             }
                         </main>
                     </div>
