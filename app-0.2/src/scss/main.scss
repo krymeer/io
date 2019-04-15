@@ -63,6 +63,11 @@ $value-xxl: 56px;
     margin-top: 0;
 }
 
+%margin-top-btm-xs {
+    margin-top: $value-xs;
+    margin-bottom: $value-xs;
+}
+
 %margin-top-btm-s {
     margin-top: $value-s;
     margin-bottom: $value-s;
@@ -118,6 +123,15 @@ $value-xxl: 56px;
     border-radius: 4px;
 }
 
+%noselect {
+    -webkit-touch-callout: none;
+      -webkit-user-select: none;
+       -khtml-user-select: none;
+         -moz-user-select: none;
+          -ms-user-select: none;
+              user-select: none;
+}
+
 .hidden {
     display: none !important;
 }
@@ -130,13 +144,8 @@ html, body {
     height: 100%;
 }
 
-button, p, h1, h2, h3, h4 a, label, span, td, th, i.material-icons {
-  -webkit-touch-callout: none;
-    -webkit-user-select: none;
-     -khtml-user-select: none;
-       -moz-user-select: none;
-        -ms-user-select: none;
-            user-select: none;
+button, p, h1, h2, h3, h4, a, label, span, td, th, i.material-icons {
+    @extend %noselect;
 }
 
 #root {
@@ -226,8 +235,9 @@ main {
         line-height: 1.75;
         @extend %text-normal;
 
-        &.note-required {
+        &.note {
             font-size: 11px;
+            text-align: left;
         }
     }
 
@@ -284,7 +294,7 @@ main {
         }
     }
 
-     .radio {
+    .radio {
         cursor: pointer;
         width: 18px;
         height: 18px;
@@ -308,8 +318,23 @@ main {
         }
 
         &:hover > div,
-        > div.chosen {
+        &.chosen > div {
             opacity: 1;
+        }
+    }
+
+    .comment {
+        > textarea {
+            height: 102px;
+        }
+
+        > div {
+            display: grid;
+            grid-auto-flow: column;
+
+            > .note:last-child {
+                text-align: right;
+            }
         }
     }
 
@@ -374,6 +399,53 @@ main {
 
             &:last-child {
                 margin-bottom: 0 !important;
+            }
+        }
+
+        &.scenario {
+            .summary {
+                .questions {
+                    @extend %block-alt;
+                    @extend %margin-top-btm-xl;
+                    @extend %block-alt;
+                    @extend %radius;
+                    @extend %padding-l;
+                    width: 615px;
+
+                    > .question-wrapper {
+                        @extend %margin-top-btm-l;
+
+                        > h4 {
+                            @extend %margin-top-btm-xs;
+                            margin-top: 0;
+                        }
+
+                        > ul {
+                            padding: 0;
+                            display: grid;
+                            grid-auto-flow: column;
+                            place-items: center;
+
+                            > li {
+                                @extend %radius;
+                                list-style-type: none;
+                                display: grid;
+                                justify-content: center;
+                                align-items: center;
+                                grid-auto-flow: column;
+                                grid-column-gap: $value-s;
+
+                                > * {
+                                    line-height: 1;
+                                }
+                            }
+                        }
+                    }
+
+                    > .note {
+                        text-align: right;
+                    }
+                }
             }
         }
 
@@ -494,27 +566,8 @@ main {
                 @extend %block-alt;
                 @extend %radius;
                 @extend %padding-l;
+                @extend %noselect;
                 width: fit-content;
-
-                > .comment {
-                    > textarea {
-                        height: 102px;
-                    }
-
-                    > div {
-                        display: grid;
-                        grid-auto-flow: column;
-
-                        > .note {
-                            font-size: 11px;
-                            text-align: left;
-                        }
-
-                        > .note:last-child {
-                            text-align: right;
-                        }
-                    }
-                }
 
                 > .seq-radios {
                     display: grid;
@@ -539,35 +592,6 @@ main {
                                     margin-bottom: $value-xs;
                                 }
                             }
-
-                            > .radio {
-                                cursor: pointer;
-                                width: 18px;
-                                height: 18px;
-                                border-radius: 50%;
-                                background: transparent;
-                                border: 2px solid $button-color-m;
-                                position: relative;
-                                margin: 0 auto;
-
-                                > div {
-                                    width: 50%;
-                                    height: 50%;
-                                    background: $button-color-m;
-                                    border-radius: 50%;
-                                    position: absolute;
-                                    top: 50%;
-                                    left: 50%;
-                                    transform: translate(-50%, -50%);
-                                    opacity: 0;
-                                    transition: opacity $transition;
-                                }
-
-                                &:hover > div,
-                                &.chosen > div {
-                                    opacity: 1;
-                                }
-                            }
                         }
                     }
 
@@ -588,6 +612,10 @@ main {
                                 }
                             }
                         }
+                    }
+
+                    + .note {
+                        text-align: right;
                     }
                 }
             }

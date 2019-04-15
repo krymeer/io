@@ -117,6 +117,43 @@ window.onload = function() {
         }
     }
 
+    class Comment extends React.Component {
+        constructor( props )
+        {
+            super( props );
+
+            this.handleChange = this.handleChange.bind( this );
+        }
+
+        handleChange( e )
+        {
+            this.props.onChange( e.target.value );
+        }
+
+        render()
+        {
+            return (
+                <section className="comment">
+                    <h4>
+                        { this.props.headerText }
+                    </h4>
+                    <textarea spellCheck="false" maxLength={ this.props.maxLength } onChange={ this.handleChange } disabled={ this.props.disabled } />
+                    <div>
+                        <p className="note">
+                            Pozostało znaków: <span className="text-important">{ this.props.maxLength - this.props.length }</span>
+                        </p>
+                        { this.props.noteText &&
+                            <p className="note">
+                                { this.props.noteText }
+                            </p>
+                        }
+                    </div>
+                </section>
+
+            );
+        }
+    }
+
     class SEQ extends React.Component {
         constructor( props )
         {
@@ -133,9 +170,9 @@ window.onload = function() {
             }
         }
 
-        handleComment( e )
+        handleComment( comment )
         {
-            this.props.onCommentChange( e.target.value );
+            this.props.onCommentChange( comment );
         }
 
         render()
@@ -143,16 +180,20 @@ window.onload = function() {
             return (
                 <section className="seq" ref={ this.props.nodeRef }>
                     <h3>
-                        Jaki jest, Twoim zdaniem, poziom trudności powyższego ćwiczenia?
+                        Jaki jest, Twoim zdaniem, poziom trudności powyższego ćwiczenia? *
                     </h3>
                     <ul className={ ( "seq-radios" + " " + ( this.props.disabled ? "disabled" : "" ) ).trim() }>
                         { [ ...Array( 7 ) ].map( ( x, key, array ) =>
                             <li className="seq-item" key={ key }>
                                 { key === 0 &&
-                                    <div>Bardzo trudne</div>
+                                    <div>
+                                        Bardzo trudne
+                                    </div>
                                 }
                                 { key === array.length - 1 &&
-                                    <div>Bardzo latwe</div>
+                                    <div>
+                                        Bardzo latwe
+                                    </div>
                                 }
                                 <div>{ key + 1 }</div>
                                 <div className={ ( "radio " + ( this.props.rating === key + 1  ? "chosen" : "" ) ).trim() } onClick={ this.handleRating.bind( this, key + 1 ) }>
@@ -161,21 +202,11 @@ window.onload = function() {
                             </li>
                         ) }
                     </ul>
+                    <p className="note">
+                        * Pole wymagane
+                    </p>
                     { this.props.rating > 0 &&
-                        <section className="comment">
-                            <h4>
-                                Czy masz jakieś uwagi lub sugestie związane z powyższym ćwiczeniem? *
-                            </h4>
-                            <textarea spellCheck="false" maxLength={ this.props.maxCommentLength } onChange={ this.handleComment } disabled={ this.props.disabled } />
-                            <div>
-                                <p className="note">
-                                    Pozostało znaków: <span className="text-important">{ this.props.maxCommentLength - this.props.commentLength }</span>
-                                </p>
-                                <p className="note">
-                                    * Pole opcjonalne
-                                </p>
-                            </div>
-                        </section>
+                        <Comment headerText="Czy masz jakieś uwagi lub sugestie związane z powyższym ćwiczeniem? **" noteText="** Pole opcjonalne" onChange={ this.handleComment } length={ this.props.commentLength } maxLength={ this.props.maxCommentLength } disabled={ this.props.disabled } />
                     }
                 </section>
             );
@@ -299,17 +330,11 @@ window.onload = function() {
         {
             if( this.state.taskStarted && this.state.taskFinished )
             {
-                console.log( this.state.stats );
-
-                // TODO
-                // Send the data wherever you'd like to
-                // Note: the comment has to be sanitized before send
-
                 this.setState( {
                     nextTask : true
                 } );
 
-                this.props.onTaskFinish( this.props.index );
+                this.props.onTaskFinish( this.props.index, this.props.task.type, this.state.stats );
             }
         }
 
@@ -439,7 +464,14 @@ window.onload = function() {
                             <SEQ nodeRef={ this.seqRef } rating={ this.state.stats.rating } onRatingChange={ this.handleRatingChange } onCommentChange={ this.handleCommentChange } maxCommentLength={ this.maxCommentLength } commentLength={ this.state.stats.comment.length } disabled={ this.state.nextTask } />
                         }
                         { this.state.stats.rating > 0 &&
-                            <button onClick={ this.handleNext } ref={ this.nextTaskRef } disabled={ this.state.nextTask }>Następne ćwiczenie</button>
+                            <button onClick={ this.handleNext } ref={ this.nextTaskRef } disabled={ this.state.nextTask }>
+                                { this.props.index < this.props.lastIndex &&
+                                    "Następne ćwiczenie"
+                                }
+                                { this.props.index === this.props.lastIndex &&
+                                    "Zakończ scenariusz"
+                                }
+                            </button>
                         }
                     </section>
                 );
@@ -454,16 +486,30 @@ window.onload = function() {
         {
             super( props );
 
-            this.handleStart      = this.handleStart.bind( this );
-            this.handleTaskFinish = this.handleTaskFinish.bind( this );
-            this.state            = {
+            this.summaryRef             = React.createRef();
+            this.handleStart            = this.handleStart.bind( this );
+            this.handleNext             = this.handleNext.bind( this );
+            this.handleTaskFinish       = this.handleTaskFinish.bind( this );
+            this.handleSummaryComment   = this.handleSummaryComment.bind( this );
+            this.state                  = {
                 scenarioStarted  : false,
                 scenarioFinished : false,
-                currentTaskIndex : 1
-            }
+                nextScenario     : false,
+                currentTaskIndex : 1,
+                tasks            : [],
+                summary          : {
+                    currentQuestion : 0,
+                    questions : [
+                        { text : 'Czy treść ćwiczeń była jasna i zrozumiała?', chosenAnswer : -1, answers : [ 'Tak', 'Nie' ] },
+                        { text : 'Czy poziom trudności ćwiczeń był zgodny z Twoimi oczekiwaniami?', chosenAnswer : -1, answers : [ 'Tak', 'Nie' ] },
+                        { text : 'Czy podczas wykonywania ćwiczeń wystąpiły jakieś problemy?', chosenAnswer : -1, answers : [ 'Tak', 'Nie' ] }
+                    ],
+                    comment   : ''
+                }
+            };
             this.childNodeRef     = child => {
                 window.scrollTo( 0, getRealOffsetTop( child.offsetTop ) );
-            }
+            };
         }
 
         handleStart()
@@ -473,20 +519,48 @@ window.onload = function() {
             } );
         }
 
-        handleTaskFinish( taskIndex )
+        handleNext()
         {
-            if( this.state.currentTaskIndex === taskIndex )
+            if( this.state.scenarioStarted && this.state.scenarioFinished )
             {
+                this.setState( {
+                    nextScenario : true
+                } );
+
+                this.props.onScenarioFinish( {
+                    index   : this.props.index,
+                    tasks   : this.state.tasks,
+                    summary : this.state.summary
+                } );
+            }
+        }
+
+        handleTaskFinish( taskIndex, taskType, taskStats )
+        {
+            if( this.state.scenarioStarted && !this.state.scenarioFinished && this.state.currentTaskIndex === taskIndex )
+            {
+                this.setState( state => {
+                    const tasks = state.tasks;
+                    tasks.push( {
+                        index : taskIndex,
+                        type  : taskType,
+                        stats : taskStats
+                    } );
+
+                    return {
+                        ...state,
+                        tasks
+                    };
+                } );
+
                 if( this.state.currentTaskIndex === this.props.scenario.tasks.length )
                 {
-                    if( this.state.scenarioStarted && !this.state.scenarioFinished )
-                    {
-                        this.setState( {
-                            scenarioFinished : true
-                        } );
-
-                        this.props.onScenarioFinish( this.props.index );
-                    }
+                    this.setState( {
+                        scenarioFinished : true
+                    }, () => {
+                        window.scrollTo( 0, getRealOffsetTop( this.summaryRef.current.offsetTop ) );
+                        console.log( this.state.tasks );
+                    } );
                 }
                 else
                 {
@@ -494,6 +568,52 @@ window.onload = function() {
                         currentTaskIndex : this.state.currentTaskIndex + 1
                     } );
                 }
+            }
+        }
+
+        handleSummaryComment( comment )
+        {
+            if( this.state.scenarioFinished && !this.state.nextScenario )
+            {
+                this.setState( state => {
+                    const summary = {
+                        ...state.summary,
+                        comment : comment
+                    }
+
+                    return {
+                        ...state,
+                        summary
+                    };
+                } );
+            }
+        }
+
+        handleSummaryQuestion( questionIndex, answerIndex )
+        {
+            if( this.state.scenarioFinished && !this.state.nextScenario )
+            {
+                this.setState( state => {
+                    const questions = state.summary.questions.map( ( question, index ) => {
+                        if( questionIndex === index )
+                        {
+                            return {
+                                ...question,
+                                chosenAnswer : answerIndex
+                            };
+                        }
+
+                        return question;
+                    } );
+
+                    return {
+                        summary : {
+                            ...state.summary,
+                            currentQuestion : questionIndex + 1,
+                            questions
+                        }
+                    };
+                } );
             }
         }
 
@@ -509,15 +629,61 @@ window.onload = function() {
                         }
                         <button onClick={ this.handleStart } disabled={ this.state.scenarioStarted }>Rozpocznij scenariusz</button>
                         {
-                            this.props.scenario.tasks.map( ( task, index ) =>
-                                <Task key={ index } index={ index + 1 } currentIndex={ this.state.currentTaskIndex } onTaskFinish={ this.handleTaskFinish } scenarioStarted={ this.state.scenarioStarted } task={ task } nodeRef={ this.childNodeRef } />
+                            this.props.scenario.tasks.map( ( task, index, tasks ) =>
+                                <Task key={ index } index={ index + 1 } currentIndex={ this.state.currentTaskIndex } lastIndex={ tasks.length } onTaskFinish={ this.handleTaskFinish } scenarioStarted={ this.state.scenarioStarted } task={ task } nodeRef={ this.childNodeRef } />
                             )
+                        }
+                        { this.state.scenarioFinished &&
+                            <section className="summary" ref={ this.summaryRef }>
+                                <h2>Podsumowanie</h2>
+                                <Paragraph content={ "Gratulacje! Wszystko wskazuje na to, że udało Ci się ukończyć **scenariusz nr " + this.props.index + ".** Zanim przejdziesz dalej, udziel odpowiedzi na poniższe pytania." } />
+                                <section className="questions">
+                                    { this.state.summary.questions.map( ( question, qIndex ) => {
+                                        if( this.state.summary.currentQuestion >= qIndex )
+                                        {
+                                            return ( <div key={ qIndex } className="question-wrapper" ref={ this.childNodeRef }>
+                                                <h4>{ question.text } *</h4>
+                                                <ul>
+                                                    { question.answers.map( ( answer, aIndex ) =>
+                                                        <li key={ aIndex }>
+                                                            <div className={ ( "radio " + ( question.chosenAnswer === aIndex ? "chosen" : "" ) ).trim() } onClick={ this.handleSummaryQuestion.bind( this, qIndex, aIndex ) }>
+                                                                <div />
+                                                            </div>
+                                                            <span>{ answer }</span>
+                                                        </li>
+                                                    ) }
+                                                </ul>
+                                            </div> );
+                                        }
+                                        else
+                                        {
+                                            return '';
+                                        }
+                                    } ) }
+                                    <p className="note">* Pole wymagane</p>
+                                    { this.state.summary.currentQuestion >= this.state.summary.questions.length &&
+                                        <Comment headerText="Czy masz jakieś uwagi lub sugestie związane z ukończonym scenariuszem? **" noteText="** Pole opcjonalne" onChange={ this.handleSummaryComment } length={ this.state.summary.comment.length } maxLength="255" disabled={ this.state.nextScenario } />
+                                    }
+                                </section>
+                            </section>
+                        }
+                        { this.state.scenarioFinished && this.state.summary.currentQuestion >= this.state.summary.questions.length &&
+                            <button onClick={ this.handleNext } ref={ this.childNodeRef } disabled={ this.state.nextScenario }>
+                                { this.props.index < this.props.lastIndex &&
+                                    "Następny scenariusz"
+                                }
+                                { this.props.index === this.props.lastIndex &&
+                                    "Zakończ badanie"
+                                }
+                            </button>
                         }
                     </section>
                 );
             }
-
-            return '';
+            else
+            {
+                return '';
+            }
         }
     }
 
@@ -558,10 +724,12 @@ window.onload = function() {
             } );
         }
 
-        handleScenarioFinish( scenarioIndex )
+        handleScenarioFinish( scenario )
         {
-            if( this.state.currentScenarioIndex === scenarioIndex )
+            if( this.state.currentScenarioIndex === scenario.index )
             {
+                console.log( scenario );
+
                 if( this.state.currentScenarioIndex === this.state.scenarios.length )
                 {
                     this.setState( {
@@ -595,7 +763,7 @@ window.onload = function() {
 
         componentDidMount()
         {
-            fetch( './txt/test-all.json' )
+            fetch( './txt/test-one-task.json' )
                 .then( res => res.json() )
                 .then(
                     ( result ) => {
@@ -648,7 +816,7 @@ window.onload = function() {
                             <Paragraph content="Witaj! Niniejsze badanie ma na celu zbadanie użyteczności wybranych wzorców pól, które możesz na co dzień znaleźć w wielu aplikacjach webowych i na stronach internetowych. Zostaniesz poproszony o wykonanie kilkunastu zadań polegających na uzupełnieniu różnego typu formularzy. **Ten tekst jeszcze się zmieni.**" />
                             <button onClick={ this.handleStart } disabled={ this.state.testStarted }>Rozpocznij badanie</button>
                             { scenarios.map( ( scenario, index ) =>
-                                <Scenario key={ index } index={ index + 1 } testStarted={ this.state.testStarted } currentIndex={ this.state.currentScenarioIndex } scenario={ scenario } onScenarioFinish={ this.handleScenarioFinish } nodeRef={ this.childNodeRef } />
+                                <Scenario key={ index } index={ index + 1 } testStarted={ this.state.testStarted } currentIndex={ this.state.currentScenarioIndex } lastIndex={ this.state.scenarios.length } scenario={ scenario } onScenarioFinish={ this.handleScenarioFinish } nodeRef={ this.childNodeRef } />
                             ) }
                             { this.state.allScenariosFinished &&
                                 <Paragraph content="**To już koniec!** Dziękuję za poświęcony czas i dotarcie do samego końca badania!" />
