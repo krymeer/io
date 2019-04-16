@@ -99,38 +99,44 @@ window.onload = function () {
         _createClass(InputWrapper, [{
             key: 'handleFocus',
             value: function handleFocus(e) {
-                this.setState({
-                    inputFocus: true
-                });
+                if (!this.props.disabled) {
+                    this.setState({
+                        inputFocus: true
+                    });
 
-                // TEMPORARY
-                // This call is necessary when filling the inputs programmatically
-                this.handleChange(e);
+                    // TEMPORARY
+                    // This call is necessary when filling the inputs programmatically
+                    this.handleChange(e);
+                }
             }
         }, {
             key: 'handleBlur',
             value: function handleBlur(e) {
-                this.setState({
-                    inputFocus: false,
-                    inputNonEmpty: e.target.value !== ''
-                });
+                if (!this.props.disabled) {
+                    this.setState({
+                        inputFocus: false,
+                        inputNonEmpty: e.target.value !== ''
+                    });
+                }
             }
         }, {
             key: 'handleChange',
             value: function handleChange(e) {
-                var inputValid = e.target.value === this.props.value;
+                if (!this.props.disabled) {
+                    var inputValid = e.target.value === this.props.value;
 
-                this.setState({
-                    inputValid: inputValid
-                });
+                    this.setState({
+                        inputValid: inputValid
+                    });
 
-                this.props.onInputChange(this.props.index, inputValid);
+                    this.props.onInputChange(this.props.index, inputValid);
+                }
             }
         }, {
             key: 'render',
             value: function render() {
                 var wrapperClassName = ('wrapper' + ' ' + (this.props.taskError ? 'on-task-error' : '') + ' ' + (this.state.inputValid ? '' : 'on-input-invalid')).trim().replace(/\s+/g, ' ');
-                var labelClassName = ((this.props.inputDisabled ? 'on-input-disabled' : '') + ' ' + (this.state.inputFocus ? 'on-input-focus' : '') + ' ' + (this.state.inputNonEmpty ? 'on-input-non-empty' : '')).trim().replace(/\s+/g, ' ');
+                var labelClassName = ((this.props.disabled ? 'on-input-disabled' : '') + ' ' + (this.state.inputFocus ? 'on-input-focus' : '') + ' ' + (this.state.inputNonEmpty ? 'on-input-non-empty' : '')).trim().replace(/\s+/g, ' ');
 
                 return React.createElement(
                     'div',
@@ -140,7 +146,7 @@ window.onload = function () {
                         { className: labelClassName !== "" ? labelClassName : undefined },
                         this.props.label
                     ),
-                    React.createElement('input', { type: 'text', spellCheck: 'false', autoComplete: 'off', onFocus: this.handleFocus, onBlur: this.handleBlur, onChange: this.handleChange, disabled: this.props.inputDisabled })
+                    React.createElement('input', { type: 'text', spellCheck: 'false', autoComplete: 'off', onFocus: this.handleFocus, onBlur: this.handleBlur, onChange: this.handleChange, disabled: this.props.disabled })
                 );
             }
         }]);
@@ -163,7 +169,9 @@ window.onload = function () {
         _createClass(Comment, [{
             key: 'handleChange',
             value: function handleChange(e) {
-                this.props.onChange(e.target.value);
+                if (!this.props.disabled) {
+                    this.props.onChange(e.target.value);
+                }
             }
         }, {
             key: 'render',
@@ -203,106 +211,26 @@ window.onload = function () {
         return Comment;
     }(React.Component);
 
-    var SEQ = function (_React$Component4) {
-        _inherits(SEQ, _React$Component4);
-
-        function SEQ(props) {
-            _classCallCheck(this, SEQ);
-
-            var _this4 = _possibleConstructorReturn(this, (SEQ.__proto__ || Object.getPrototypeOf(SEQ)).call(this, props));
-
-            _this4.handleComment = _this4.handleComment.bind(_this4);
-            return _this4;
-        }
-
-        _createClass(SEQ, [{
-            key: 'handleRating',
-            value: function handleRating(k) {
-                if (!this.props.disabled) {
-                    this.props.onRatingChange(k);
-                }
-            }
-        }, {
-            key: 'handleComment',
-            value: function handleComment(comment) {
-                this.props.onCommentChange(comment);
-            }
-        }, {
-            key: 'render',
-            value: function render() {
-                var _this5 = this;
-
-                return React.createElement(
-                    'section',
-                    { className: 'seq', ref: this.props.nodeRef },
-                    React.createElement(
-                        'h3',
-                        null,
-                        'Jaki jest, Twoim zdaniem, poziom trudno\u015Bci powy\u017Cszego \u0107wiczenia? *'
-                    ),
-                    React.createElement(
-                        'ul',
-                        { className: ("seq-radios" + " " + (this.props.disabled ? "disabled" : "")).trim() },
-                        [].concat(_toConsumableArray(Array(7))).map(function (x, key, array) {
-                            return React.createElement(
-                                'li',
-                                { className: 'seq-item', key: key },
-                                key === 0 && React.createElement(
-                                    'div',
-                                    null,
-                                    'Bardzo trudne'
-                                ),
-                                key === array.length - 1 && React.createElement(
-                                    'div',
-                                    null,
-                                    'Bardzo latwe'
-                                ),
-                                React.createElement(
-                                    'div',
-                                    null,
-                                    key + 1
-                                ),
-                                React.createElement(
-                                    'div',
-                                    { className: ("radio " + (_this5.props.rating === key + 1 ? "chosen" : "")).trim(), onClick: _this5.handleRating.bind(_this5, key + 1) },
-                                    React.createElement('div', null)
-                                )
-                            );
-                        })
-                    ),
-                    React.createElement(
-                        'p',
-                        { className: 'note' },
-                        '* Pole wymagane'
-                    ),
-                    this.props.rating > 0 && React.createElement(Comment, { headerText: 'Czy masz jakie\u015B uwagi lub sugestie zwi\u0105zane z powy\u017Cszym \u0107wiczeniem? **', noteText: '** Pole opcjonalne', onChange: this.handleComment, length: this.props.commentLength, maxLength: this.props.maxCommentLength, disabled: this.props.disabled })
-                );
-            }
-        }]);
-
-        return SEQ;
-    }(React.Component);
-
-    var Task = function (_React$Component5) {
-        _inherits(Task, _React$Component5);
+    var Task = function (_React$Component4) {
+        _inherits(Task, _React$Component4);
 
         function Task(props) {
             _classCallCheck(this, Task);
 
-            var _this6 = _possibleConstructorReturn(this, (Task.__proto__ || Object.getPrototypeOf(Task)).call(this, props));
+            var _this4 = _possibleConstructorReturn(this, (Task.__proto__ || Object.getPrototypeOf(Task)).call(this, props));
 
-            _this6.handleClick = _this6.handleClick.bind(_this6);
-            _this6.handleStart = _this6.handleStart.bind(_this6);
-            _this6.handleFinish = _this6.handleFinish.bind(_this6);
-            _this6.handleNext = _this6.handleNext.bind(_this6);
-            _this6.handleInputChange = _this6.handleInputChange.bind(_this6);
-            _this6.handleRatingChange = _this6.handleRatingChange.bind(_this6);
-            _this6.handleCommentChange = _this6.handleCommentChange.bind(_this6);
-            _this6.maxCommentLength = 255;
-            _this6.childNodeRef = function (child) {
+            _this4.handleClick = _this4.handleClick.bind(_this4);
+            _this4.handleStart = _this4.handleStart.bind(_this4);
+            _this4.handleFinish = _this4.handleFinish.bind(_this4);
+            _this4.handleNext = _this4.handleNext.bind(_this4);
+            _this4.handleInputChange = _this4.handleInputChange.bind(_this4);
+            _this4.handleRatingChange = _this4.handleRatingChange.bind(_this4);
+            _this4.handleCommentChange = _this4.handleCommentChange.bind(_this4);
+            _this4.maxCommentLength = 255;
+            _this4.childNodeRef = function (child) {
                 window.scrollTo(0, getRealOffsetTop(child.offsetTop));
             };
-            _this6.state = {
+            _this4.state = {
                 taskStarted: false,
                 taskFinished: false,
                 taskError: false,
@@ -315,7 +243,7 @@ window.onload = function () {
                     rating: 0,
                     comment: ''
                 },
-                inputs: _this6.props.task.data.map(function (item) {
+                inputs: _this4.props.task.data.map(function (item) {
                     return {
                         valid: false,
                         key: item.key,
@@ -323,7 +251,7 @@ window.onload = function () {
                     };
                 })
             };
-            return _this6;
+            return _this4;
         }
 
         _createClass(Task, [{
@@ -403,10 +331,27 @@ window.onload = function () {
         }, {
             key: 'handleRatingChange',
             value: function handleRatingChange(k) {
-                if (k !== this.state.rating) {
+                if (this.state.taskFinished && !this.state.nextTask) {
+                    if (k !== this.state.rating) {
+                        this.setState(function (state) {
+                            var stats = Object.assign({}, state.stats, {
+                                rating: k
+                            });
+
+                            return {
+                                stats: stats
+                            };
+                        });
+                    }
+                }
+            }
+        }, {
+            key: 'handleCommentChange',
+            value: function handleCommentChange(comment) {
+                if (this.state.taskFinished && !this.state.nextTask) {
                     this.setState(function (state) {
                         var stats = Object.assign({}, state.stats, {
-                            rating: k
+                            comment: comment
                         });
 
                         return {
@@ -416,46 +361,35 @@ window.onload = function () {
                 }
             }
         }, {
-            key: 'handleCommentChange',
-            value: function handleCommentChange(comment) {
-                this.setState(function (state) {
-                    var stats = Object.assign({}, state.stats, {
-                        comment: comment
-                    });
-
-                    return {
-                        stats: stats
-                    };
-                });
-            }
-        }, {
             key: 'handleInputChange',
             value: function handleInputChange(inputIndex, inputValid) {
-                var _this7 = this;
+                var _this5 = this;
 
-                this.setState(function (state) {
-                    var inputs = state.inputs.map(function (input, index) {
-                        if (inputIndex === index) {
-                            return Object.assign({}, input, {
-                                valid: inputValid
+                if (this.state.taskStarted && !this.state.taskFinished) {
+                    this.setState(function (state) {
+                        var inputs = state.inputs.map(function (input, index) {
+                            if (inputIndex === index) {
+                                return Object.assign({}, input, {
+                                    valid: inputValid
+                                });
+                            }
+
+                            return input;
+                        });
+
+                        return {
+                            inputs: inputs
+                        };
+                    }, function () {
+                        if (_this5.state.inputs.filter(function (input) {
+                            return !input.valid;
+                        }).length === 0) {
+                            _this5.setState({
+                                taskError: false
                             });
                         }
-
-                        return input;
                     });
-
-                    return {
-                        inputs: inputs
-                    };
-                }, function () {
-                    if (_this7.state.inputs.filter(function (input) {
-                        return !input.valid;
-                    }).length === 0) {
-                        _this7.setState({
-                            taskError: false
-                        });
-                    }
-                });
+                }
             }
 
             // TEMPORARY
@@ -475,7 +409,7 @@ window.onload = function () {
         }, {
             key: 'render',
             value: function render() {
-                var _this8 = this;
+                var _this6 = this;
 
                 if (this.props.scenarioStarted && this.props.currentIndex >= this.props.index) {
                     return React.createElement(
@@ -549,7 +483,7 @@ window.onload = function () {
                                 'keyboard'
                             ),
                             this.state.inputs.map(function (input, index) {
-                                return React.createElement(InputWrapper, { key: index, index: index, taskError: _this8.state.taskError && _this8.state.taskStarted, inputDisabled: _this8.state.taskFinished || !_this8.state.taskStarted, label: input.key, value: input.value, onInputChange: _this8.handleInputChange, simulation: _this8.state.simulation });
+                                return React.createElement(InputWrapper, { key: index, index: index, taskError: _this6.state.taskError && _this6.state.taskStarted, disabled: _this6.state.taskFinished || !_this6.state.taskStarted, label: input.key, value: input.value, onInputChange: _this6.handleInputChange, simulation: _this6.state.simulation });
                             }),
                             this.state.taskError && React.createElement(Paragraph, { 'class': 'on-task-error', content: 'Aby przej\u015B\u0107 dalej, popraw pola wyr\xF3\u017Cnione **tym kolorem.**' })
                         ),
@@ -558,7 +492,51 @@ window.onload = function () {
                             { onClick: this.handleFinish, disabled: this.state.taskFinished },
                             'Zako\u0144cz \u0107wiczenie'
                         ),
-                        this.state.taskFinished && React.createElement(SEQ, { nodeRef: this.childNodeRef, rating: this.state.stats.rating, onRatingChange: this.handleRatingChange, onCommentChange: this.handleCommentChange, maxCommentLength: this.maxCommentLength, commentLength: this.state.stats.comment.length, disabled: this.state.nextTask }),
+                        this.state.taskFinished && React.createElement(
+                            'section',
+                            { className: 'seq', ref: this.childNodeRef },
+                            React.createElement(
+                                'h3',
+                                null,
+                                'Jaki jest, Twoim zdaniem, poziom trudno\u015Bci powy\u017Cszego \u0107wiczenia? *'
+                            ),
+                            React.createElement(
+                                'ul',
+                                { className: 'seq-radios' },
+                                [].concat(_toConsumableArray(Array(7))).map(function (x, key, array) {
+                                    return React.createElement(
+                                        'li',
+                                        { className: 'seq-item', key: key },
+                                        key === 0 && React.createElement(
+                                            'div',
+                                            null,
+                                            'Bardzo trudne'
+                                        ),
+                                        key === array.length - 1 && React.createElement(
+                                            'div',
+                                            null,
+                                            'Bardzo latwe'
+                                        ),
+                                        React.createElement(
+                                            'div',
+                                            null,
+                                            key + 1
+                                        ),
+                                        React.createElement(
+                                            'div',
+                                            { className: ("radio " + (_this6.state.stats.rating === key + 1 ? "chosen" : "") + " " + (_this6.state.nextTask ? "disabled" : "")).trim().replace(/\s+/g, ' '), onClick: _this6.handleRatingChange.bind(_this6, key + 1) },
+                                            React.createElement('div', null)
+                                        )
+                                    );
+                                })
+                            ),
+                            React.createElement(
+                                'p',
+                                { className: 'note' },
+                                '* Pole wymagane'
+                            ),
+                            this.state.stats.rating > 0 && React.createElement(Comment, { headerText: 'Czy masz jakie\u015B uwagi lub sugestie zwi\u0105zane z powy\u017Cszym \u0107wiczeniem? **', noteText: '** Pole opcjonalne', onChange: this.handleCommentChange, length: this.state.stats.comment.length, maxLength: this.maxCommentLength, disabled: this.state.nextTask })
+                        ),
                         this.state.stats.rating > 0 && React.createElement(
                             'button',
                             { onClick: this.handleNext, ref: this.childNodeRef, disabled: this.state.nextTask },
@@ -575,19 +553,19 @@ window.onload = function () {
         return Task;
     }(React.Component);
 
-    var Scenario = function (_React$Component6) {
-        _inherits(Scenario, _React$Component6);
+    var Scenario = function (_React$Component5) {
+        _inherits(Scenario, _React$Component5);
 
         function Scenario(props) {
             _classCallCheck(this, Scenario);
 
-            var _this9 = _possibleConstructorReturn(this, (Scenario.__proto__ || Object.getPrototypeOf(Scenario)).call(this, props));
+            var _this7 = _possibleConstructorReturn(this, (Scenario.__proto__ || Object.getPrototypeOf(Scenario)).call(this, props));
 
-            _this9.handleStart = _this9.handleStart.bind(_this9);
-            _this9.handleNext = _this9.handleNext.bind(_this9);
-            _this9.handleTaskFinish = _this9.handleTaskFinish.bind(_this9);
-            _this9.handleSummaryComment = _this9.handleSummaryComment.bind(_this9);
-            _this9.state = {
+            _this7.handleStart = _this7.handleStart.bind(_this7);
+            _this7.handleNext = _this7.handleNext.bind(_this7);
+            _this7.handleTaskFinish = _this7.handleTaskFinish.bind(_this7);
+            _this7.handleSummaryComment = _this7.handleSummaryComment.bind(_this7);
+            _this7.state = {
                 scenarioStarted: false,
                 scenarioFinished: false,
                 nextScenario: false,
@@ -599,18 +577,20 @@ window.onload = function () {
                     comment: ''
                 }
             };
-            _this9.childNodeRef = function (child) {
+            _this7.childNodeRef = function (child) {
                 window.scrollTo(0, getRealOffsetTop(child.offsetTop));
             };
-            return _this9;
+            return _this7;
         }
 
         _createClass(Scenario, [{
             key: 'handleStart',
             value: function handleStart() {
-                this.setState({
-                    scenarioStarted: true
-                });
+                if (!this.state.scenarioStarted) {
+                    this.setState({
+                        scenarioStarted: true
+                    });
+                }
             }
         }, {
             key: 'handleNext',
@@ -697,7 +677,7 @@ window.onload = function () {
         }, {
             key: 'render',
             value: function render() {
-                var _this10 = this;
+                var _this8 = this;
 
                 if (this.props.testStarted && this.props.currentIndex >= this.props.index) {
                     return React.createElement(
@@ -716,7 +696,7 @@ window.onload = function () {
                             'Rozpocznij scenariusz'
                         ),
                         this.props.scenario.tasks.map(function (task, index, tasks) {
-                            return React.createElement(Task, { nodeRef: _this10.childNodeRef, key: index, index: index + 1, currentIndex: _this10.state.currentTaskIndex, lastIndex: tasks.length, onTaskFinish: _this10.handleTaskFinish, scenarioStarted: _this10.state.scenarioStarted, task: task });
+                            return React.createElement(Task, { nodeRef: _this8.childNodeRef, key: index, index: index + 1, currentIndex: _this8.state.currentTaskIndex, lastIndex: tasks.length, onTaskFinish: _this8.handleTaskFinish, scenarioStarted: _this8.state.scenarioStarted, task: task });
                         }),
                         this.state.scenarioFinished && React.createElement(
                             'section',
@@ -731,10 +711,10 @@ window.onload = function () {
                                 'section',
                                 { className: 'questions' },
                                 this.state.summary.questions.map(function (question, qIndex) {
-                                    if (_this10.state.summary.currentQuestion >= qIndex) {
+                                    if (_this8.state.summary.currentQuestion >= qIndex) {
                                         return React.createElement(
                                             'div',
-                                            { key: qIndex, className: 'question-wrapper', ref: _this10.childNodeRef },
+                                            { key: qIndex, className: 'question-wrapper', ref: _this8.childNodeRef },
                                             React.createElement(
                                                 'h4',
                                                 null,
@@ -750,7 +730,7 @@ window.onload = function () {
                                                         { key: aIndex },
                                                         React.createElement(
                                                             'div',
-                                                            { className: ("radio " + (question.chosenAnswer === aIndex ? "chosen" : "")).trim(), onClick: _this10.handleSummaryQuestion.bind(_this10, qIndex, aIndex) },
+                                                            { className: ("radio " + (question.chosenAnswer === aIndex ? "chosen" : "") + " " + (_this8.state.nextScenario ? "disabled" : "")).trim().replace(/\s+/g, ' '), onClick: _this8.handleSummaryQuestion.bind(_this8, qIndex, aIndex) },
                                                             React.createElement('div', null)
                                                         ),
                                                         React.createElement(
@@ -790,19 +770,19 @@ window.onload = function () {
         return Scenario;
     }(React.Component);
 
-    var MainComponent = function (_React$Component7) {
-        _inherits(MainComponent, _React$Component7);
+    var MainComponent = function (_React$Component6) {
+        _inherits(MainComponent, _React$Component6);
 
         function MainComponent(props) {
             _classCallCheck(this, MainComponent);
 
-            var _this11 = _possibleConstructorReturn(this, (MainComponent.__proto__ || Object.getPrototypeOf(MainComponent)).call(this, props));
+            var _this9 = _possibleConstructorReturn(this, (MainComponent.__proto__ || Object.getPrototypeOf(MainComponent)).call(this, props));
 
-            _this11.handleScroll = _this11.handleScroll.bind(_this11);
-            _this11.handleStart = _this11.handleStart.bind(_this11);
-            _this11.handleScenarioFinish = _this11.handleScenarioFinish.bind(_this11);
-            _this11.backToTop = _this11.backToTop.bind(_this11);
-            _this11.state = {
+            _this9.handleScroll = _this9.handleScroll.bind(_this9);
+            _this9.handleStart = _this9.handleStart.bind(_this9);
+            _this9.handleScenarioFinish = _this9.handleScenarioFinish.bind(_this9);
+            _this9.backToTop = _this9.backToTop.bind(_this9);
+            _this9.state = {
                 error: null,
                 isLoaded: false,
                 scenarios: [],
@@ -813,10 +793,10 @@ window.onload = function () {
                 currentScenarioIndex: 1
             };
 
-            _this11.childNodeRef = function (child) {
+            _this9.childNodeRef = function (child) {
                 window.scrollTo(0, getRealOffsetTop(child.offsetTop));
             };
-            return _this11;
+            return _this9;
         }
 
         _createClass(MainComponent, [{
@@ -827,14 +807,16 @@ window.onload = function () {
         }, {
             key: 'handleStart',
             value: function handleStart() {
-                this.setState({
-                    testStarted: true
-                });
+                if (!this.state.testStarted) {
+                    this.setState({
+                        testStarted: true
+                    });
+                }
             }
         }, {
             key: 'handleScenarioFinish',
             value: function handleScenarioFinish(scenario) {
-                if (this.state.currentScenarioIndex === scenario.index) {
+                if (this.state.testStarted && this.state.currentScenarioIndex === scenario.index) {
                     console.log(scenario);
 
                     if (this.state.currentScenarioIndex === this.state.scenarios.length) {
@@ -864,19 +846,19 @@ window.onload = function () {
         }, {
             key: 'componentDidMount',
             value: function componentDidMount() {
-                var _this12 = this;
+                var _this10 = this;
 
                 fetch('./txt/test-one-task.json').then(function (res) {
                     return res.json();
                 }).then(function (result) {
-                    _this12.setState({
+                    _this10.setState({
                         scenarios: result.scenarios,
                         isLoaded: true
                     }, function () {
-                        window.addEventListener('scroll', _this12.handleScroll);
+                        window.addEventListener('scroll', _this10.handleScroll);
                     });
                 }, function (error) {
-                    _this12.setState({
+                    _this10.setState({
                         isLoaded: false,
                         error: error
                     });
@@ -885,7 +867,7 @@ window.onload = function () {
         }, {
             key: 'render',
             value: function render() {
-                var _this13 = this;
+                var _this11 = this;
 
                 var _state = this.state,
                     error = _state.error,
@@ -942,7 +924,7 @@ window.onload = function () {
                                 'Rozpocznij badanie'
                             ),
                             scenarios.map(function (scenario, index) {
-                                return React.createElement(Scenario, { key: index, index: index + 1, testStarted: _this13.state.testStarted, currentIndex: _this13.state.currentScenarioIndex, lastIndex: _this13.state.scenarios.length, scenario: scenario, onScenarioFinish: _this13.handleScenarioFinish, ref: _this13.childNodeRef });
+                                return React.createElement(Scenario, { key: index, index: index + 1, testStarted: _this11.state.testStarted, currentIndex: _this11.state.currentScenarioIndex, lastIndex: _this11.state.scenarios.length, scenario: scenario, onScenarioFinish: _this11.handleScenarioFinish, ref: _this11.childNodeRef });
                             }),
                             this.state.allScenariosFinished && React.createElement(Paragraph, { nodeRef: this.childNodeRef, content: '**To ju\u017C koniec!** Dzi\u0119kuj\u0119 za po\u015Bwi\u0119cony czas i dotarcie do samego ko\u0144ca badania!' })
                         )

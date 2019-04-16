@@ -75,43 +75,52 @@ window.onload = function() {
 
         handleFocus( e )
         {
-            this.setState( {
-                inputFocus : true
-            } );
+            if( !this.props.disabled )
+            {
+                this.setState( {
+                    inputFocus : true
+                } );
 
-            // TEMPORARY
-            // This call is necessary when filling the inputs programmatically
-            this.handleChange( e );
+                // TEMPORARY
+                // This call is necessary when filling the inputs programmatically
+                this.handleChange( e );
+            }
         }
 
         handleBlur( e )
         {
-            this.setState( {
-                inputFocus    : false,
-                inputNonEmpty : ( e.target.value !== '' )
-            } );
+            if( !this.props.disabled )
+            {
+                this.setState( {
+                    inputFocus    : false,
+                    inputNonEmpty : ( e.target.value !== '' )
+                } );
+            }
         }
 
         handleChange( e )
         {
-            const inputValid = ( e.target.value === this.props.value );
+            if( !this.props.disabled )
+            {
+                const inputValid = ( e.target.value === this.props.value );
 
-            this.setState( {
-                inputValid : inputValid
-            } );
+                this.setState( {
+                    inputValid : inputValid
+                } );
 
-            this.props.onInputChange( this.props.index, inputValid )
+                this.props.onInputChange( this.props.index, inputValid );
+            }
         }
 
         render()
         {
             const wrapperClassName = ( 'wrapper' + ' ' + ( this.props.taskError ? 'on-task-error' : '' ) + ' ' + ( this.state.inputValid ? '' : 'on-input-invalid' ) ).trim().replace( /\s+/g, ' ' );
-            const labelClassName   = ( ( this.props.inputDisabled ? 'on-input-disabled' : '' ) + ' ' + ( this.state.inputFocus ? 'on-input-focus' : '' ) + ' ' + ( this.state.inputNonEmpty ? 'on-input-non-empty' : '' ) ).trim().replace( /\s+/g, ' ' );
+            const labelClassName   = ( ( this.props.disabled ? 'on-input-disabled' : '' ) + ' ' + ( this.state.inputFocus ? 'on-input-focus' : '' ) + ' ' + ( this.state.inputNonEmpty ? 'on-input-non-empty' : '' ) ).trim().replace( /\s+/g, ' ' );
 
             return (
                 <div className={ ( wrapperClassName !== "" ) ? wrapperClassName : undefined }>
                     <label className={ ( labelClassName !== "" ) ? labelClassName : undefined }>{ this.props.label }</label>
-                    <input type="text" spellCheck="false" autoComplete="off" onFocus={ this.handleFocus } onBlur={ this.handleBlur } onChange={ this.handleChange } disabled={ this.props.inputDisabled } />
+                    <input type="text" spellCheck="false" autoComplete="off" onFocus={ this.handleFocus } onBlur={ this.handleBlur } onChange={ this.handleChange } disabled={ this.props.disabled } />
                 </div>
             );
         }
@@ -127,7 +136,10 @@ window.onload = function() {
 
         handleChange( e )
         {
-            this.props.onChange( e.target.value );
+            if( !this.props.disabled )
+            {
+                this.props.onChange( e.target.value );
+            }
         }
 
         render()
@@ -150,65 +162,6 @@ window.onload = function() {
                     </div>
                 </section>
 
-            );
-        }
-    }
-
-    class SEQ extends React.Component {
-        constructor( props )
-        {
-            super( props );
-
-            this.handleComment = this.handleComment.bind( this )
-        }
-
-        handleRating( k )
-        {
-            if( !this.props.disabled )
-            {
-                this.props.onRatingChange( k );
-            }
-        }
-
-        handleComment( comment )
-        {
-            this.props.onCommentChange( comment );
-        }
-
-        render()
-        {
-            return (
-                <section className="seq" ref={ this.props.nodeRef }>
-                    <h3>
-                        Jaki jest, Twoim zdaniem, poziom trudności powyższego ćwiczenia? *
-                    </h3>
-                    <ul className={ ( "seq-radios" + " " + ( this.props.disabled ? "disabled" : "" ) ).trim() }>
-                        { [ ...Array( 7 ) ].map( ( x, key, array ) =>
-                            <li className="seq-item" key={ key }>
-                                { key === 0 &&
-                                    <div>
-                                        Bardzo trudne
-                                    </div>
-                                }
-                                { key === array.length - 1 &&
-                                    <div>
-                                        Bardzo latwe
-                                    </div>
-                                }
-                                <div>{ key + 1 }</div>
-                                <div className={ ( "radio " + ( this.props.rating === key + 1  ? "chosen" : "" ) ).trim() } onClick={ this.handleRating.bind( this, key + 1 ) }>
-                                    <div/>
-                                </div>
-                            </li>
-                        ) }
-                    </ul>
-                    <p className="note">
-                        * Pole wymagane
-                    </p>
-                    { this.props.rating > 0 &&
-                        <Comment headerText="Czy masz jakieś uwagi lub sugestie związane z powyższym ćwiczeniem? **" noteText="** Pole opcjonalne" onChange={ this.handleComment } length={ this.props.commentLength } maxLength={ this.props.maxCommentLength } disabled={ this.props.disabled } />
-                    }
-                </section>
             );
         }
     }
@@ -336,12 +289,32 @@ window.onload = function() {
 
         handleRatingChange( k )
         {
-            if( k !== this.state.rating )
+            if( this.state.taskFinished && !this.state.nextTask )
+            {
+                if( k !== this.state.rating )
+                {
+                    this.setState( state => {
+                        const stats = {
+                            ...state.stats,
+                            rating : k
+                        }
+
+                        return {
+                            stats
+                        };
+                    } );
+                }
+            }
+        }
+
+        handleCommentChange( comment )
+        {
+            if( this.state.taskFinished && !this.state.nextTask )
             {
                 this.setState( state => {
                     const stats = {
                         ...state.stats,
-                        rating : k
+                        comment : comment
                     }
 
                     return {
@@ -351,46 +324,35 @@ window.onload = function() {
             }
         }
 
-        handleCommentChange( comment )
-        {
-            this.setState( state => {
-                const stats = {
-                    ...state.stats,
-                    comment : comment
-                }
-
-                return {
-                    stats
-                };
-            } );
-        }
-
         handleInputChange( inputIndex, inputValid )
         {
-            this.setState( state => {
-                const inputs = state.inputs.map( ( input, index ) => {
-                    if( inputIndex === index )
-                    {
-                        return {
-                            ...input,
-                            valid : inputValid
-                        };
-                    }
+            if( this.state.taskStarted && !this.state.taskFinished )
+            {
+                this.setState( state => {
+                    const inputs = state.inputs.map( ( input, index ) => {
+                        if( inputIndex === index )
+                        {
+                            return {
+                                ...input,
+                                valid : inputValid
+                            };
+                        }
 
-                    return input;
-                } );
-
-                return {
-                    inputs
-                };
-            }, () => {
-                if( this.state.inputs.filter( input => !input.valid ).length === 0 )
-                {
-                    this.setState( {
-                        taskError : false
+                        return input;
                     } );
-                }
-            } );
+
+                    return {
+                        inputs
+                    };
+                }, () => {
+                    if( this.state.inputs.filter( input => !input.valid ).length === 0 )
+                    {
+                        this.setState( {
+                            taskError : false
+                        } );
+                    }
+                } );
+            }
         }
 
         // TEMPORARY
@@ -441,7 +403,7 @@ window.onload = function() {
                             }
                             {
                                 this.state.inputs.map( ( input, index ) =>
-                                    <InputWrapper key={ index } index={ index } taskError={ this.state.taskError && this.state.taskStarted } inputDisabled={ this.state.taskFinished || !this.state.taskStarted } label={ input.key } value={ input.value } onInputChange={ this.handleInputChange } simulation={ this.state.simulation }/>
+                                    <InputWrapper key={ index } index={ index } taskError={ this.state.taskError && this.state.taskStarted } disabled={ this.state.taskFinished || !this.state.taskStarted } label={ input.key } value={ input.value } onInputChange={ this.handleInputChange } simulation={ this.state.simulation }/>
                                 )
                             }
                             { this.state.taskError &&
@@ -452,7 +414,37 @@ window.onload = function() {
                             <button onClick={ this.handleFinish } disabled={ this.state.taskFinished }>Zakończ ćwiczenie</button>
                         }
                         { this.state.taskFinished &&
-                            <SEQ nodeRef={ this.childNodeRef } rating={ this.state.stats.rating } onRatingChange={ this.handleRatingChange } onCommentChange={ this.handleCommentChange } maxCommentLength={ this.maxCommentLength } commentLength={ this.state.stats.comment.length } disabled={ this.state.nextTask } />
+                            <section className="seq" ref={ this.childNodeRef }>
+                                <h3>
+                                    Jaki jest, Twoim zdaniem, poziom trudności powyższego ćwiczenia? *
+                                </h3>
+                                <ul className="seq-radios">
+                                    { [ ...Array( 7 ) ].map( ( x, key, array ) =>
+                                        <li className="seq-item" key={ key }>
+                                            { key === 0 &&
+                                                <div>
+                                                    Bardzo trudne
+                                                </div>
+                                            }
+                                            { key === array.length - 1 &&
+                                                <div>
+                                                    Bardzo latwe
+                                                </div>
+                                            }
+                                            <div>{ key + 1 }</div>
+                                            <div className={ ( "radio " + ( this.state.stats.rating === key + 1  ? "chosen" : "" ) + " " + ( this.state.nextTask ? "disabled" : "" ) ).trim().replace( /\s+/g, ' ' ) } onClick={ this.handleRatingChange.bind( this, key + 1 ) }>
+                                                <div/>
+                                            </div>
+                                        </li>
+                                    ) }
+                                </ul>
+                                <p className="note">
+                                    * Pole wymagane
+                                </p>
+                                { this.state.stats.rating > 0 &&
+                                    <Comment headerText="Czy masz jakieś uwagi lub sugestie związane z powyższym ćwiczeniem? **" noteText="** Pole opcjonalne" onChange={ this.handleCommentChange } length={ this.state.stats.comment.length } maxLength={ this.maxCommentLength } disabled={ this.state.nextTask } />
+                                }
+                            </section>
                         }
                         { this.state.stats.rating > 0 &&
                             <button onClick={ this.handleNext } ref={ this.childNodeRef } disabled={ this.state.nextTask }>
@@ -504,9 +496,12 @@ window.onload = function() {
 
         handleStart()
         {
-            this.setState( {
-                scenarioStarted : true
-            } );
+            if( !this.state.scenarioStarted )
+            {
+                this.setState( {
+                    scenarioStarted : true
+                } );
+            }
         }
 
         handleNext()
@@ -633,7 +628,7 @@ window.onload = function() {
                                                 <ul>
                                                     { question.answers.map( ( answer, aIndex ) =>
                                                         <li key={ aIndex }>
-                                                            <div className={ ( "radio " + ( question.chosenAnswer === aIndex ? "chosen" : "" ) ).trim() } onClick={ this.handleSummaryQuestion.bind( this, qIndex, aIndex ) }>
+                                                            <div className={ ( "radio " + ( question.chosenAnswer === aIndex ? "chosen" : "" ) + " " + ( this.state.nextScenario ? "disabled" : "" ) ).trim().replace( /\s+/g, ' ' ) } onClick={ this.handleSummaryQuestion.bind( this, qIndex, aIndex ) }>
                                                                 <div />
                                                             </div>
                                                             <span>{ answer }</span>
@@ -706,14 +701,17 @@ window.onload = function() {
 
         handleStart()
         {
-            this.setState( {
-                testStarted : true
-            } );
+            if( !this.state.testStarted )
+            {
+                this.setState( {
+                    testStarted : true
+                } );
+            }
         }
 
         handleScenarioFinish( scenario )
         {
-            if( this.state.currentScenarioIndex === scenario.index )
+            if( this.state.testStarted && this.state.currentScenarioIndex === scenario.index )
             {
                 console.log( scenario );
 

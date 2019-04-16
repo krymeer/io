@@ -104,6 +104,11 @@ html, body {
   height: 100%;
 }
 
+::selection {
+  background: #a63446;
+  color: #fff;
+}
+
 #root {
   display: grid;
   height: 100%;
@@ -245,6 +250,16 @@ main .radio > div {
 }
 main .radio:hover > div, main .radio.chosen > div {
   opacity: 1;
+}
+main .radio.disabled {
+  cursor: default;
+  border-color: #ddd;
+}
+main .radio.disabled:not(.chosen) > div {
+  opacity: 0;
+}
+main .radio.disabled.chosen > div {
+  background: #ddd;
 }
 main .comment > textarea {
   height: 102px;
@@ -423,16 +438,6 @@ main section.task .seq > .seq-radios > li.seq-item > div {
 }
 main section.task .seq > .seq-radios > li.seq-item:first-child > div:first-child, main section.task .seq > .seq-radios > li.seq-item:last-child > div:first-child {
   margin-bottom: 3.5px;
-}
-main section.task .seq > .seq-radios.disabled > li.seq-item > .radio {
-  cursor: default;
-  border-color: #ddd;
-}
-main section.task .seq > .seq-radios.disabled > li.seq-item > .radio:not(.chosen) > div {
-  opacity: 0;
-}
-main section.task .seq > .seq-radios.disabled > li.seq-item > .radio.chosen > div {
-  background: #ddd;
 }
 main section.task .seq > .seq-radios + .note {
   text-align: right;

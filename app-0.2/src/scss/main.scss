@@ -148,6 +148,11 @@ button, p, h1, h2, h3, h4, a, label, span, td, th, i.material-icons {
     @extend %noselect;
 }
 
+::selection {
+    background: $primary-color;
+    color: #fff;
+}
+
 #root {
     display: grid;
     height: 100%;
@@ -320,6 +325,19 @@ main {
         &:hover > div,
         &.chosen > div {
             opacity: 1;
+        }
+
+        &.disabled {
+            cursor: default;
+            border-color: $border-color-d;
+
+            &:not(.chosen ) > div {
+                opacity: 0;
+            }
+
+            &.chosen > div {
+                background: $border-color-d;
+            }
         }
     }
 
@@ -590,25 +608,6 @@ main {
                             &:first-child, &:last-child {
                                 > div:first-child {
                                     margin-bottom: $value-xs;
-                                }
-                            }
-                        }
-                    }
-
-                    &.disabled {
-                        > li {
-                            &.seq-item {
-                                > .radio {
-                                    cursor: default;
-                                    border-color: $border-color-d;
-
-                                    &:not(.chosen ) > div {
-                                        opacity: 0;
-                                    }
-
-                                    &.chosen > div {
-                                        background: $border-color-d;
-                                    }
                                 }
                             }
                         }
