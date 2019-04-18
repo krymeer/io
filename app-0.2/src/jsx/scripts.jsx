@@ -645,7 +645,7 @@ window.onload = function() {
             if( this.props.testStarted && this.props.currentIndex >= this.props.index )
             {
                 return (
-                    <section className="scenario">
+                    <section className="scenario" ref={ this.props.nodeRef }>
                         <h1>Scenariusz nr { ( this.props.index ) }</h1>
                         { typeof this.props.scenario.intro !== 'undefined' &&
                             <Paragraph content={ this.props.scenario.intro } />
@@ -785,7 +785,7 @@ window.onload = function() {
 
         componentDidMount()
         {
-            fetch( './txt/test-one-task.json' )
+            fetch( './txt/test-all.json' )
                 .then( res => res.json() )
                 .then(
                     ( result ) => {
@@ -1004,7 +1004,7 @@ window.onload = function() {
                                 <button onClick={ this.handleStart } disabled={ this.state.testStarted }>Rozpocznij badanie</button>
                             </section>
                             { scenarios.map( ( scenario, index ) =>
-                                <Scenario key={ index } index={ index + 1 } testStarted={ this.state.testStarted } currentIndex={ this.state.currentScenarioIndex } lastIndex={ this.state.scenarios.length } scenario={ scenario } onFinish={ this.handleScenarioFinish } ref={ this.childNodeRef } />
+                                <Scenario key={ index } index={ index + 1 } testStarted={ this.state.testStarted } currentIndex={ this.state.currentScenarioIndex } lastIndex={ this.state.scenarios.length } scenario={ scenario } onFinish={ this.handleScenarioFinish } nodeRef={ this.childNodeRef } />
                             ) }
                             { this.state.allScenariosFinished &&
                                 <section ref={ this.childNodeRef }>

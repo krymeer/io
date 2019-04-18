@@ -727,7 +727,7 @@ window.onload = function () {
                 if (this.props.testStarted && this.props.currentIndex >= this.props.index) {
                     return React.createElement(
                         'section',
-                        { className: 'scenario' },
+                        { className: 'scenario', ref: this.props.nodeRef },
                         React.createElement(
                             'h1',
                             null,
@@ -890,7 +890,7 @@ window.onload = function () {
             value: function componentDidMount() {
                 var _this11 = this;
 
-                fetch('./txt/test-one-task.json').then(function (res) {
+                fetch('./txt/test-all.json').then(function (res) {
                     return res.json();
                 }).then(function (result) {
                     _this11.setState({
@@ -1113,7 +1113,7 @@ window.onload = function () {
                                 )
                             ),
                             scenarios.map(function (scenario, index) {
-                                return React.createElement(Scenario, { key: index, index: index + 1, testStarted: _this14.state.testStarted, currentIndex: _this14.state.currentScenarioIndex, lastIndex: _this14.state.scenarios.length, scenario: scenario, onFinish: _this14.handleScenarioFinish, ref: _this14.childNodeRef });
+                                return React.createElement(Scenario, { key: index, index: index + 1, testStarted: _this14.state.testStarted, currentIndex: _this14.state.currentScenarioIndex, lastIndex: _this14.state.scenarios.length, scenario: scenario, onFinish: _this14.handleScenarioFinish, nodeRef: _this14.childNodeRef });
                             }),
                             this.state.allScenariosFinished && React.createElement(
                                 'section',
