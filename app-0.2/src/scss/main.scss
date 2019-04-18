@@ -271,6 +271,37 @@ main {
         max-height: 100%;
     }
 
+    table {
+        @extend %margin-top-btm-xl;
+        @extend %block-alt;
+        @extend %radius;
+        display: table !important;
+        table-layout: fixed;
+        border-spacing: 0;
+        border-collapse: collapse;
+
+        th, td {
+            @extend %block-alt-child;
+            @extend %padding-m;
+            line-height: 1;
+        }
+
+        th {
+            font-weight: 700;
+            text-align: left;
+        }
+    }
+
+    > * {
+        &:first-child {
+            margin-top: 0 !important;
+        }
+
+        &:last-child {
+            margin-bottom: 0 !important;
+        }
+    }
+
     button {
         @extend %radius;
         outline: none;
@@ -296,48 +327,6 @@ main {
             cursor: default;
             background: #e0e0e0;
             color: #bebebe;
-        }
-    }
-
-    .radio {
-        cursor: pointer;
-        width: 18px;
-        height: 18px;
-        border-radius: 50%;
-        background: transparent;
-        border: 2px solid $button-color-m;
-        position: relative;
-        margin: 0 auto;
-
-        > div {
-            width: 50%;
-            height: 50%;
-            background: $button-color-m;
-            border-radius: 50%;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            opacity: 0;
-            transition: opacity $transition;
-        }
-
-        &:hover > div,
-        &.chosen > div {
-            opacity: 1;
-        }
-
-        &.disabled {
-            cursor: default;
-            border-color: $border-color-d;
-
-            &:not(.chosen ) > div {
-                opacity: 0;
-            }
-
-            &.chosen > div {
-                background: $border-color-d;
-            }
         }
     }
 
@@ -385,31 +374,73 @@ main {
         width: 100%;
     }
 
-    table {
-        @extend %margin-top-btm-xl;
-        @extend %block-alt;
-        @extend %radius;
-        display: table !important;
-        table-layout: fixed;
-        border-spacing: 0;
-        border-collapse: collapse;
+    label, input {
+        line-height: 1;
+        display: block;
+    }
 
-        th, td {
-            @extend %block-alt-child;
-            @extend %padding-m;
-            line-height: 1;
+    .radio-item {
+        display: grid;
+        grid-auto-flow: column;
+
+        > .radio {
+            cursor: pointer;
+            background: transparent;
+            width: 18px;
+            height: 18px;
+            border: 2px solid $border-color-d;
+            border-radius: 50%;
+            position: relative;
+            margin-right: 5px;
+
+            &:before {
+                display: block;
+                content: '';
+                width: 50%;
+                height: 50%;
+                background: $input-color-b;
+                border-radius: 50%;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                opacity: 0;
+                transition: opacity $transition;
+            }
+
+            &:hover:before {
+                opacity: 1;
+            }
         }
 
-        th {
-            font-weight: 700;
-            text-align: left;
+        &.disabled {
+            > .radio {
+                border-color: $border-color-d;
+                background: $border-color-m;
+
+                &:before {
+                    background: $border-color-d;
+                }
+            }
+        }
+
+        &.chosen {
+            > .radio {
+                &:before {
+                    opacity: 1;
+                }
+            }
+        }
+
+        > span {
+            font-size: 12px;
         }
     }
 
     section {
         > * {
-            @extend %margin-top-btm-m;
             @extend %block-centered;
+            @extend %margin-top-btm-m;
 
             &:first-child {
                 margin-top: 0 !important;
@@ -456,6 +487,10 @@ main {
                                 > * {
                                     line-height: 1;
                                 }
+
+                                > span {
+                                    font-size: 14px;
+                                }
                             }
                         }
                     }
@@ -467,118 +502,146 @@ main {
             }
         }
 
-        &.task {
-            .task-form {
-                @extend %margin-top-btm-xl;
-                @extend %block-alt;
-                @extend %block-centered;
-                @extend %radius;
-                @extend %padding-l;
-                position: relative;
-                width: fit-content;
+        .form {
+            @extend %margin-top-btm-xl;
+            @extend %block-alt;
+            @extend %block-centered;
+            @extend %radius;
+            @extend %padding-l;
+            position: relative;
+            width: fit-content;
 
-                > i.insert-everything {
-                    cursor: pointer;
-                    position: absolute;
-                    top: $value-l;
-                    right: $value-l;
-                    margin: 0;
-                    color: $primary-color;
-                }
+            > i.insert-everything {
+                cursor: pointer;
+                position: absolute;
+                top: $value-l;
+                right: $value-l;
+                margin: 0;
+                color: $primary-color;
+            }
 
-                > .wrapper {
-                    @extend %margin-top-btm-l;
+            > .wrapper {
+                @extend %margin-top-btm-l;
+                display: grid;
+                align-items: center;
+
+                > ul.input-list {
+                    padding: 0;
                     display: grid;
-                    align-items: center;
+                    grid-auto-flow: column;
+                    justify-content: start;
 
-                    > label, > input {
-                        line-height: 1;
-                        display: block;
-                    }
+                    > li {
+                        list-style-type: none;
 
-                    &.on-task-error.on-input-invalid {
-                        > input {
-                            border-color: $primary-color !important;
-                            color: $primary-color !important;
-                        }
-
-                        > label {
-                            color: $primary-color !important;
+                        &:nth-child(n+2) {
+                            margin-left: $value-m;
                         }
                     }
                 }
 
-                > p.on-task-error {
-                    font-size: 14px;
-                    text-align: center;
-                }
-
-                &.labels-align-left, &.labels-align-right {
-                    > .wrapper {
-                        grid-template-columns: auto 200px;
-                        grid-column-gap: $value-l;
+                &.on-form-error.on-input-invalid {
+                    > input {
+                        border-color: $primary-color !important;
+                        color: $primary-color !important;
                     }
-                }
 
-                &.labels-align-left {
-                    width: 430px;
-                }
-
-                &.labels-align-right {
-                    width: 380px;
-
-                    > .wrapper {
-                        > label {
-                            text-align: right;
-                        }
+                    > label {
+                        color: $primary-color !important;
                     }
-                }
 
-                &.labels-align-top {
-                    width: 223px;
+                    > ul.input-list {
+                        > li {
+                            &.radio-item {
+                                > div {
+                                    border-color: $primary-color !important;
 
-                    > .wrapper {
-                        grid-row-gap: $value-xs;
-                    }
-                }
-
-                &.labels-float-top {
-                    width: 240px;
-
-                    > .wrapper {
-                        position: relative;
-
-                        > label {
-                            cursor: text;
-                            position: absolute;
-                            left: $value-s;
-                            top: 50%;
-                            transform: translateY(-50%);
-                            transition: all $transition;
-                            z-index: 1;
-                            color: $placeholder-color;
-                            background: #fff;
-
-                            &.on-input-disabled {
-                                background: $border-color-m;
-                            }
-
-                            &.on-input-focus,
-                            &.on-input-non-empty:not(.on-input-disabled) {
-                                font-size: 12px;
-                                margin-top: -16px;
-                                padding: 0 2px;
-                            }
-
-                            &.on-input-focus,
-                            &.on-input-non-empty:not(.on-input-disabled) {
-                                color: $input-color-b;
+                                    &:before {
+                                        background: $primary-color;
+                                    }
+                                }
                             }
                         }
                     }
                 }
             }
 
+            > p.on-form-error {
+                font-size: 14px;
+                text-align: center;
+            }
+
+            &.labels-align-left, &.labels-align-right {
+                > .wrapper {
+                    grid-template-columns: auto 200px;
+                    grid-column-gap: $value-l;
+
+                    > .input-wrapper {
+                        grid-column: 2;
+                    }
+                }
+            }
+
+            &.labels-align-left {
+                width: 430px;
+            }
+
+            &.labels-align-right {
+                width: 380px;
+
+                > .wrapper {
+                    > label {
+                        text-align: right;
+                    }
+                }
+            }
+
+            &.labels-align-top {
+                width: 223px;
+
+                > .wrapper {
+                    grid-row-gap: $value-xs;
+                }
+            }
+
+            &.labels-float-top {
+                width: 240px;
+
+                > .wrapper {
+                    position: relative;
+
+                    > label {
+                        cursor: text;
+                        position: absolute;
+                        left: $value-s;
+                        top: 50%;
+                        transform: translateY(-50%);
+                        transition: all $transition;
+                        z-index: 1;
+                        color: $placeholder-color;
+                        background: #fff;
+
+                        &.on-input-disabled {
+                            background: $border-color-m;
+                        }
+
+                        &.on-input-focus,
+                        &.on-input-non-empty:not(.on-input-disabled) {
+                            font-size: 12px;
+                            margin-top: -16px;
+                            padding: 0 2px;
+                        }
+
+                        &.on-input-focus,
+                        &.on-input-non-empty:not(.on-input-disabled) {
+                            color: $input-color-b;
+                        }
+                    }
+                }
+            }
+        }
+
+        &.task {
             .seq {
                 @extend %margin-top-btm-xl;
                 @extend %block-alt;
@@ -597,17 +660,34 @@ main {
                         list-style-type: none;
 
                         &.seq-item {
+                            display: block;
                             width: 36px;
                             align-self: end;
 
                             > div {
                                 font-size: 11px;
                                 text-align: center;
+
+                                &.radio {
+                                    margin: 0 auto;
+                                }
                             }
 
                             &:first-child, &:last-child {
                                 > div:first-child {
                                     margin-bottom: $value-xs;
+                                }
+                            }
+
+                            &:first-child {
+                                > div:first-child {
+                                    text-align: left;
+                                }
+                            }
+
+                            &:last-child {
+                                > div:first-child {
+                                    text-align: right;
                                 }
                             }
                         }
@@ -618,6 +698,10 @@ main {
                     }
                 }
             }
+        }
+
+        #user-form {
+            width: 400px;
         }
     }
 

@@ -6,7 +6,7 @@
   line-height: 1.5;
 }
 
-main section.task .seq, main section.task .task-form, main section.scenario .summary .questions, main table, main p {
+main section.task .seq, main section .form, main section.scenario .summary .questions, main table, main p {
   letter-spacing: 0.1px;
 }
 
@@ -15,13 +15,13 @@ main p {
   font-size: 16px;
 }
 
-main section.task .seq, main section.task .task-form, main section.scenario .summary .questions, main table {
+main section.task .seq, main section .form, main section.scenario .summary .questions, main table {
   background: #fff;
   border: 2px solid #eee;
   color: #212121;
   font-size: 14px;
 }
-main section.task .seq p, main section.task .task-form p, main section.scenario .summary .questions p, main table p {
+main section.task .seq p, main section .form p, main section.scenario .summary .questions p, main table p {
   color: inherit;
   line-height: inherit;
 }
@@ -31,7 +31,7 @@ main table th, main table td {
   border-bottom: 1px solid #eee;
 }
 
-main section.task .task-form, main section > *, #page-container > * > * {
+main section .form, main section > *, #page-container > * > * {
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -47,12 +47,12 @@ main section > * {
   margin-bottom: 14px;
 }
 
-main > section > section, main section.task .task-form > .wrapper, main section.scenario .summary .questions > .question-wrapper {
+main > section > section, main section .form > .wrapper, main section.scenario .summary .questions > .question-wrapper {
   margin-top: 21px;
   margin-bottom: 21px;
 }
 
-main > section, main section.task .seq, main section.task .task-form, main section.scenario .summary .questions, main table {
+main > section, main section.task .seq, main section .form, main section.scenario .summary .questions, main table {
   margin-top: 28px;
   margin-bottom: 28px;
 }
@@ -67,7 +67,7 @@ main {
   padding-bottom: 56px;
 }
 
-main section.task .seq, main section.task .task-form, main section.scenario .summary .questions {
+main section.task .seq, main section .form, main section.scenario .summary .questions {
   padding: 21px;
 }
 
@@ -79,7 +79,7 @@ main textarea, main input {
   padding: 7px;
 }
 
-main section.task .seq, main section.task .task-form, main section.scenario .summary .questions > .question-wrapper > ul > li, main section.scenario .summary .questions, main table, main textarea, main input, main button {
+main section.task .seq, main section .form, main section.scenario .summary .questions > .question-wrapper > ul > li, main section.scenario .summary .questions, main textarea, main input, main button, main table {
   border-radius: 4px;
 }
 
@@ -202,6 +202,25 @@ main img {
   max-width: 100%;
   max-height: 100%;
 }
+main table {
+  display: table !important;
+  table-layout: fixed;
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+main table th, main table td {
+  line-height: 1;
+}
+main table th {
+  font-weight: 700;
+  text-align: left;
+}
+main > *:first-child {
+  margin-top: 0 !important;
+}
+main > *:last-child {
+  margin-bottom: 0 !important;
+}
 main button {
   outline: none;
   position: relative;
@@ -225,41 +244,6 @@ main button[disabled] {
   cursor: default;
   background: #e0e0e0;
   color: #bebebe;
-}
-main .radio {
-  cursor: pointer;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: transparent;
-  border: 2px solid #8b8b8b;
-  position: relative;
-  margin: 0 auto;
-}
-main .radio > div {
-  width: 50%;
-  height: 50%;
-  background: #8b8b8b;
-  border-radius: 50%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  opacity: 0;
-  transition: opacity 0.1s ease-in-out;
-}
-main .radio:hover > div, main .radio.chosen > div {
-  opacity: 1;
-}
-main .radio.disabled {
-  cursor: default;
-  border-color: #ddd;
-}
-main .radio.disabled:not(.chosen) > div {
-  opacity: 0;
-}
-main .radio.disabled.chosen > div {
-  background: #ddd;
 }
 main .comment > textarea {
   height: 102px;
@@ -293,18 +277,53 @@ main textarea {
   resize: none;
   width: 100%;
 }
-main table {
-  display: table !important;
-  table-layout: fixed;
-  border-spacing: 0;
-  border-collapse: collapse;
-}
-main table th, main table td {
+main label, main input {
   line-height: 1;
+  display: block;
 }
-main table th {
-  font-weight: 700;
-  text-align: left;
+main .radio-item {
+  display: grid;
+  grid-auto-flow: column;
+}
+main .radio-item > .radio {
+  cursor: pointer;
+  background: transparent;
+  width: 18px;
+  height: 18px;
+  border: 2px solid #ddd;
+  border-radius: 50%;
+  position: relative;
+  margin-right: 5px;
+}
+main .radio-item > .radio:before {
+  display: block;
+  content: "";
+  width: 50%;
+  height: 50%;
+  background: #7e7e7e;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 0.1s ease-in-out;
+}
+main .radio-item > .radio:hover:before {
+  opacity: 1;
+}
+main .radio-item.disabled > .radio {
+  border-color: #ddd;
+  background: #eee;
+}
+main .radio-item.disabled > .radio:before {
+  background: #ddd;
+}
+main .radio-item.chosen > .radio:before {
+  opacity: 1;
+}
+main .radio-item > span {
+  font-size: 12px;
 }
 main section > *:first-child {
   margin-top: 0 !important;
@@ -335,14 +354,17 @@ main section.scenario .summary .questions > .question-wrapper > ul > li {
 main section.scenario .summary .questions > .question-wrapper > ul > li > * {
   line-height: 1;
 }
+main section.scenario .summary .questions > .question-wrapper > ul > li > span {
+  font-size: 14px;
+}
 main section.scenario .summary .questions > .note {
   text-align: right;
 }
-main section.task .task-form {
+main section .form {
   position: relative;
   width: fit-content;
 }
-main section.task .task-form > i.insert-everything {
+main section .form > i.insert-everything {
   cursor: pointer;
   position: absolute;
   top: 21px;
@@ -350,51 +372,68 @@ main section.task .task-form > i.insert-everything {
   margin: 0;
   color: #a63446;
 }
-main section.task .task-form > .wrapper {
+main section .form > .wrapper {
   display: grid;
   align-items: center;
 }
-main section.task .task-form > .wrapper > label, main section.task .task-form > .wrapper > input {
-  line-height: 1;
-  display: block;
+main section .form > .wrapper > ul.input-list {
+  padding: 0;
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: start;
 }
-main section.task .task-form > .wrapper.on-task-error.on-input-invalid > input {
+main section .form > .wrapper > ul.input-list > li {
+  list-style-type: none;
+}
+main section .form > .wrapper > ul.input-list > li:nth-child(n+2) {
+  margin-left: 14px;
+}
+main section .form > .wrapper.on-form-error.on-input-invalid > input {
   border-color: #a63446 !important;
   color: #a63446 !important;
 }
-main section.task .task-form > .wrapper.on-task-error.on-input-invalid > label {
+main section .form > .wrapper.on-form-error.on-input-invalid > label {
   color: #a63446 !important;
 }
-main section.task .task-form > p.on-task-error {
+main section .form > .wrapper.on-form-error.on-input-invalid > ul.input-list > li.radio-item > div {
+  border-color: #a63446 !important;
+}
+main section .form > .wrapper.on-form-error.on-input-invalid > ul.input-list > li.radio-item > div:before {
+  background: #a63446;
+}
+main section .form > p.on-form-error {
   font-size: 14px;
   text-align: center;
 }
-main section.task .task-form.labels-align-left > .wrapper, main section.task .task-form.labels-align-right > .wrapper {
+main section .form.labels-align-left > .wrapper, main section .form.labels-align-right > .wrapper {
   grid-template-columns: auto 200px;
   grid-column-gap: 21px;
 }
-main section.task .task-form.labels-align-left {
+main section .form.labels-align-left > .wrapper > .input-wrapper, main section .form.labels-align-right > .wrapper > .input-wrapper {
+  grid-column: 2;
+}
+main section .form.labels-align-left {
   width: 430px;
 }
-main section.task .task-form.labels-align-right {
+main section .form.labels-align-right {
   width: 380px;
 }
-main section.task .task-form.labels-align-right > .wrapper > label {
+main section .form.labels-align-right > .wrapper > label {
   text-align: right;
 }
-main section.task .task-form.labels-align-top {
+main section .form.labels-align-top {
   width: 223px;
 }
-main section.task .task-form.labels-align-top > .wrapper {
+main section .form.labels-align-top > .wrapper {
   grid-row-gap: 3.5px;
 }
-main section.task .task-form.labels-float-top {
+main section .form.labels-float-top {
   width: 240px;
 }
-main section.task .task-form.labels-float-top > .wrapper {
+main section .form.labels-float-top > .wrapper {
   position: relative;
 }
-main section.task .task-form.labels-float-top > .wrapper > label {
+main section .form.labels-float-top > .wrapper > label {
   cursor: text;
   position: absolute;
   left: 7px;
@@ -405,15 +444,15 @@ main section.task .task-form.labels-float-top > .wrapper > label {
   color: #b1b1b1;
   background: #fff;
 }
-main section.task .task-form.labels-float-top > .wrapper > label.on-input-disabled {
+main section .form.labels-float-top > .wrapper > label.on-input-disabled {
   background: #eee;
 }
-main section.task .task-form.labels-float-top > .wrapper > label.on-input-focus, main section.task .task-form.labels-float-top > .wrapper > label.on-input-non-empty:not(.on-input-disabled) {
+main section .form.labels-float-top > .wrapper > label.on-input-focus, main section .form.labels-float-top > .wrapper > label.on-input-non-empty:not(.on-input-disabled) {
   font-size: 12px;
   margin-top: -16px;
   padding: 0 2px;
 }
-main section.task .task-form.labels-float-top > .wrapper > label.on-input-focus, main section.task .task-form.labels-float-top > .wrapper > label.on-input-non-empty:not(.on-input-disabled) {
+main section .form.labels-float-top > .wrapper > label.on-input-focus, main section .form.labels-float-top > .wrapper > label.on-input-non-empty:not(.on-input-disabled) {
   color: #7e7e7e;
 }
 main section.task .seq {
@@ -429,6 +468,7 @@ main section.task .seq > .seq-radios > li {
   list-style-type: none;
 }
 main section.task .seq > .seq-radios > li.seq-item {
+  display: block;
   width: 36px;
   align-self: end;
 }
@@ -436,11 +476,23 @@ main section.task .seq > .seq-radios > li.seq-item > div {
   font-size: 11px;
   text-align: center;
 }
+main section.task .seq > .seq-radios > li.seq-item > div.radio {
+  margin: 0 auto;
+}
 main section.task .seq > .seq-radios > li.seq-item:first-child > div:first-child, main section.task .seq > .seq-radios > li.seq-item:last-child > div:first-child {
   margin-bottom: 3.5px;
 }
+main section.task .seq > .seq-radios > li.seq-item:first-child > div:first-child {
+  text-align: left;
+}
+main section.task .seq > .seq-radios > li.seq-item:last-child > div:first-child {
+  text-align: right;
+}
 main section.task .seq > .seq-radios + .note {
   text-align: right;
+}
+main section #user-form {
+  width: 400px;
 }
 
 /*# sourceMappingURL=styles.css.map */

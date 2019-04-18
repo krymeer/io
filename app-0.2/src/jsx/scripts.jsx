@@ -3,6 +3,8 @@
 // }
 
 window.onload = function() {
+    const emailRegex = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/;
+
     const headerHeight = {
         static : 256,
         fixed  : 35
@@ -69,7 +71,7 @@ window.onload = function() {
             this.state        = {
                 inputFocus    : false,
                 inputNonEmpty : false,
-                inputValid    : false
+                inputValid    : false,
             }
         }
 
@@ -81,8 +83,7 @@ window.onload = function() {
                     inputFocus : true
                 } );
 
-                // TEMPORARY
-                // This call is necessary when filling the inputs programmatically
+                // This TEMPORARY call is necessary when filling the inputs programmatically
                 this.handleChange( e );
             }
         }
@@ -98,29 +99,66 @@ window.onload = function() {
             }
         }
 
-        handleChange( e )
+        handleChange( event )
         {
             if( !this.props.disabled )
             {
-                const inputValid = ( e.target.value === this.props.value );
+                const inputValid = ( typeof this.props.defaultValue !== 'undefined' ) ? ( this.props.defaultValue === event.target.value ) : ( this.props.regex.test( event.target.value ) );
 
                 this.setState( {
                     inputValid : inputValid
                 } );
 
-                this.props.onInputChange( this.props.index, inputValid );
+                this.props.onChange( {
+                    index : this.props.index,
+                    valid : inputValid,
+                    value : event.target.value
+                } );
+            }
+        }
+
+        handleOption( event, index, value )
+        {
+            if( !this.props.disabled )
+            {
+                const inputValid = ( typeof this.props.defaultValue !== 'undefined' ) ? ( this.props.defaultValue === value ) : true;
+
+                this.setState( {
+                    inputValid  : inputValid,
+                    chosenIndex : index
+                } );
+
+                this.props.onChange( {
+                    index : this.props.index,
+                    valid : inputValid,
+                    value
+                } );
             }
         }
 
         render()
         {
-            const wrapperClassName = ( 'wrapper' + ' ' + ( this.props.taskError ? 'on-task-error' : '' ) + ' ' + ( this.state.inputValid ? '' : 'on-input-invalid' ) ).trim().replace( /\s+/g, ' ' );
+            const wrapperClassName = ( 'wrapper' + ' ' + ( this.props.error ? 'on-form-error' : '' ) + ' ' + ( this.state.inputValid ? '' : 'on-input-invalid' ) ).trim().replace( /\s+/g, ' ' );
             const labelClassName   = ( ( this.props.disabled ? 'on-input-disabled' : '' ) + ' ' + ( this.state.inputFocus ? 'on-input-focus' : '' ) + ' ' + ( this.state.inputNonEmpty ? 'on-input-non-empty' : '' ) ).trim().replace( /\s+/g, ' ' );
 
             return (
                 <div className={ ( wrapperClassName !== "" ) ? wrapperClassName : undefined }>
                     <label className={ ( labelClassName !== "" ) ? labelClassName : undefined }>{ this.props.label }</label>
-                    <input type="text" spellCheck="false" autoComplete="off" onFocus={ this.handleFocus } onBlur={ this.handleBlur } onChange={ this.handleChange } disabled={ this.props.disabled } />
+                    { this.props.type === 'text' &&
+                        <input maxLength={ this.props.maxLength } type="text" spellCheck="false" autoComplete="off" onFocus={ this.handleFocus } onBlur={ this.handleBlur } onChange={ this.handleChange } disabled={ this.props.disabled } />
+                    }
+                    { this.props.type === 'radio' &&
+                        <ul className="input-list">
+                        {
+                            this.props.options.map( ( option, index ) =>
+                                <li className={ ( "radio-item "  +  ( this.state.chosenIndex === index ? "chosen" : "" ) + " " + ( this.props.disabled ? "disabled" : "" ) ).trim() } key={ index }>
+                                    <div className="radio" onClick={ this.handleOption.bind( this, event, index, option ) } />
+                                    <span>{ option }</span>
+                                </li>
+                            )
+                        }
+                        </ul>
+                    }
                 </div>
             );
         }
@@ -194,11 +232,9 @@ window.onload = function() {
                     rating         : 0,
                     comment        : ''
                 },
-                inputs       : this.props.task.data.map( ( item ) => {
+                inputs       : this.props.task.data.map( ( input ) => {
                     return {
-                        valid : false,
-                        key   : item.key,
-                        value : item.value,
+                        valid : false
                     };
                 } )
             }
@@ -283,7 +319,11 @@ window.onload = function() {
                     nextTask : true
                 } );
 
-                this.props.onTaskFinish( this.props.index, this.props.task.type, this.state.stats );
+                this.props.onFinish( {
+                    index : this.props.index,
+                    type  : this.props.task.type,
+                    stats : this.state.stats
+                } );
             }
         }
 
@@ -314,7 +354,7 @@ window.onload = function() {
                 this.setState( state => {
                     const stats = {
                         ...state.stats,
-                        comment : comment
+                        comment
                     }
 
                     return {
@@ -324,28 +364,28 @@ window.onload = function() {
             }
         }
 
-        handleInputChange( inputIndex, inputValid )
+        handleInputChange( input )
         {
             if( this.state.taskStarted && !this.state.taskFinished )
             {
                 this.setState( state => {
-                    const inputs = state.inputs.map( ( input, index ) => {
-                        if( inputIndex === index )
+                    const inputs = state.inputs.map( ( item, itemIndex ) => {
+                        if( itemIndex === input.index )
                         {
                             return {
-                                ...input,
-                                valid : inputValid
+                                ...item,
+                                valid: input.valid
                             };
                         }
 
-                        return input;
+                        return item;
                     } );
 
                     return {
                         inputs
                     };
                 }, () => {
-                    if( this.state.inputs.filter( input => !input.valid ).length === 0 )
+                    if( this.state.inputs.filter( item => !item.valid ).length === 0 )
                     {
                         this.setState( {
                             taskError : false
@@ -361,9 +401,9 @@ window.onload = function() {
         {
             const inputs = e.target.parentElement.querySelectorAll( 'input' );
 
-            for( var k = 0; k < inputs.length; k++ )
+            for( let k = 0; k < inputs.length; k++ )
             {
-                inputs[ k ].value = this.props.task.data[ k ].value;
+                inputs[ k ].value = this.props.task.data[ k ].defaultValue;
                 inputs[ k ].dispatchEvent( new Event( 'focus' ) );
                 inputs[ k ].dispatchEvent( new Event( 'blur' ) );
             }
@@ -388,26 +428,26 @@ window.onload = function() {
                                 {
                                     this.props.task.data.map( ( row, index ) =>
                                         <tr key={ index }>
-                                            <td>{ row.key }</td>
-                                            <td>{ row.value }</td>
+                                            <td>{ row.label }</td>
+                                            <td>{ row.defaultValue }</td>
                                         </tr>
                                     )
                                 }
                             </tbody>
                         </table>
                         <button onClick={ this.handleStart } disabled={ this.state.taskStarted }>Rozpocznij ćwiczenie</button>
-                        <section className={ "task-form " + this.props.task.type }>
+                        <section className={ "form " + this.props.task.type }>
                             <h3>{ this.props.task.title }</h3>
                             { this.state.taskStarted && !this.state.taskFinished &&
                                 <i className="material-icons insert-everything" onClick={ this.insertEverything.bind( this ) }>keyboard</i>
                             }
                             {
                                 this.state.inputs.map( ( input, index ) =>
-                                    <InputWrapper key={ index } index={ index } taskError={ this.state.taskError && this.state.taskStarted } disabled={ this.state.taskFinished || !this.state.taskStarted } label={ input.key } value={ input.value } onInputChange={ this.handleInputChange } simulation={ this.state.simulation }/>
+                                    <InputWrapper key={ index } index={ index } error={ this.state.taskError && this.state.taskStarted } disabled={ this.state.taskFinished || !this.state.taskStarted } onChange={ this.handleInputChange } { ...input } {...this.props.task.data[ index ] } />
                                 )
                             }
                             { this.state.taskError &&
-                                <Paragraph class="on-task-error" content="Aby przejść dalej, popraw pola wyróżnione **tym kolorem.**" />
+                                <Paragraph class="on-form-error" content="Aby przejść dalej, popraw pola wyróżnione **tym kolorem.**" />
                             }
                         </section>
                         { this.state.taskStarted &&
@@ -420,7 +460,7 @@ window.onload = function() {
                                 </h3>
                                 <ul className="seq-radios">
                                     { [ ...Array( 7 ) ].map( ( x, key, array ) =>
-                                        <li className="seq-item" key={ key }>
+                                        <li className={ ( "seq-item radio-item " + ( this.state.stats.rating === key + 1  ? "chosen" : "" ) + " " + ( this.state.nextTask ? "disabled" : "" ) ).trim().replace( /\s+/g, ' ' ) } key={ key }>
                                             { key === 0 &&
                                                 <div>
                                                     Bardzo trudne
@@ -432,9 +472,7 @@ window.onload = function() {
                                                 </div>
                                             }
                                             <div>{ key + 1 }</div>
-                                            <div className={ ( "radio " + ( this.state.stats.rating === key + 1  ? "chosen" : "" ) + " " + ( this.state.nextTask ? "disabled" : "" ) ).trim().replace( /\s+/g, ' ' ) } onClick={ this.handleRatingChange.bind( this, key + 1 ) }>
-                                                <div/>
-                                            </div>
+                                            <div className="radio" onClick={ this.handleRatingChange.bind( this, key + 1 ) } />
                                         </li>
                                     ) }
                                 </ul>
@@ -470,7 +508,7 @@ window.onload = function() {
             super( props );
 
             this.handleStart            = this.handleStart.bind( this );
-            this.handleNext             = this.handleNext.bind( this );
+            this.handleFinish           = this.handleFinish.bind( this );
             this.handleTaskFinish       = this.handleTaskFinish.bind( this );
             this.handleSummaryComment   = this.handleSummaryComment.bind( this );
             this.state                  = {
@@ -504,7 +542,7 @@ window.onload = function() {
             }
         }
 
-        handleNext()
+        handleFinish()
         {
             if( this.state.scenarioStarted && this.state.scenarioFinished )
             {
@@ -512,25 +550,28 @@ window.onload = function() {
                     nextScenario : true
                 } );
 
-                this.props.onScenarioFinish( {
+                this.props.onFinish( {
                     index   : this.props.index,
                     tasks   : this.state.tasks,
-                    summary : this.state.summary
+                    summary : {
+                        comment : this.state.summary.comment,
+                        answers : this.state.summary.questions.map( ( question ) => {
+                            return question.chosenAnswer;
+                        } )
+                    }
                 } );
             }
         }
 
-        handleTaskFinish( taskIndex, taskType, taskStats )
+        handleTaskFinish( task )
         {
-            if( this.state.scenarioStarted && !this.state.scenarioFinished && this.state.currentTaskIndex === taskIndex )
+            let { index, ...data } = task;
+
+            if( this.state.scenarioStarted && !this.state.scenarioFinished && this.state.currentTaskIndex === index )
             {
                 this.setState( state => {
                     const tasks = state.tasks;
-                    tasks.push( {
-                        index : taskIndex,
-                        type  : taskType,
-                        stats : taskStats
-                    } );
+                    tasks.push( data );
 
                     return {
                         ...state,
@@ -612,7 +653,7 @@ window.onload = function() {
                         <button onClick={ this.handleStart } disabled={ this.state.scenarioStarted }>Rozpocznij scenariusz</button>
                         {
                             this.props.scenario.tasks.map( ( task, index, tasks ) =>
-                                <Task nodeRef={ this.childNodeRef } key={ index } index={ index + 1 } currentIndex={ this.state.currentTaskIndex } lastIndex={ tasks.length } onTaskFinish={ this.handleTaskFinish } scenarioStarted={ this.state.scenarioStarted } task={ task } />
+                                <Task nodeRef={ this.childNodeRef } key={ index } index={ index + 1 } currentIndex={ this.state.currentTaskIndex } lastIndex={ tasks.length } onFinish={ this.handleTaskFinish } scenarioStarted={ this.state.scenarioStarted } task={ task } />
                             )
                         }
                         { this.state.scenarioFinished &&
@@ -627,10 +668,8 @@ window.onload = function() {
                                                 <h4>{ question.text } *</h4>
                                                 <ul>
                                                     { question.answers.map( ( answer, aIndex ) =>
-                                                        <li key={ aIndex }>
-                                                            <div className={ ( "radio " + ( question.chosenAnswer === aIndex ? "chosen" : "" ) + " " + ( this.state.nextScenario ? "disabled" : "" ) ).trim().replace( /\s+/g, ' ' ) } onClick={ this.handleSummaryQuestion.bind( this, qIndex, aIndex ) }>
-                                                                <div />
-                                                            </div>
+                                                        <li className={ ( "radio-item " + ( question.chosenAnswer === aIndex ? "chosen" : "" ) + " " + ( this.state.nextScenario ? "disabled" : "" ) ).trim().replace( /\s+/g, ' ' ) } key={ aIndex }>
+                                                            <div className="radio" onClick={ this.handleSummaryQuestion.bind( this, qIndex, aIndex ) } />
                                                             <span>{ answer }</span>
                                                         </li>
                                                     ) }
@@ -650,7 +689,7 @@ window.onload = function() {
                             </section>
                         }
                         { this.state.scenarioFinished && this.state.summary.currentQuestion >= this.state.summary.questions.length &&
-                            <button onClick={ this.handleNext } ref={ this.childNodeRef } disabled={ this.state.nextScenario }>
+                            <button onClick={ this.handleFinish } ref={ this.childNodeRef } disabled={ this.state.nextScenario }>
                                 { this.props.index < this.props.lastIndex &&
                                     "Następny scenariusz"
                                 }
@@ -674,75 +713,73 @@ window.onload = function() {
         {
             super( props );
 
+            this.handleFormChange     = this.handleFormChange.bind( this );
             this.handleScroll         = this.handleScroll.bind( this );
             this.handleStart          = this.handleStart.bind( this );
+            this.handleFinish         = this.handleFinish.bind( this );
             this.handleScenarioFinish = this.handleScenarioFinish.bind( this );
             this.backToTop            = this.backToTop.bind( this );
             this.state                = {
                 error                : null,
                 isLoaded             : false,
-                scenarios            : [],
-                allScenariosFinished : false,
+                headerFixed          : false,
                 testStarted          : false,
                 testFinished         : false,
-                headerFixed          : false,
+                scenarios            : [],
                 currentScenarioIndex : 1,
+                allScenariosFinished : false,
+                form                 : {
+                    error : false,
+                    data  : [
+                        {
+                            type      : 'text',
+                            label     : 'Imię',
+                            id        : 'firstName',
+                            value     : '',
+                            regex     : /^[a-ząćęłńóśźż]+$/i,
+                            maxLength : 32,
+                            valid     : false
+                        },
+                        {
+                            type      : 'text',
+                            label     : 'E-mail',
+                            id        : 'email',
+                            value     : '',
+                            regex     : emailRegex,
+                            maxLength : 128,
+                            valid     : false
+                        },
+                        {
+                            type      : 'text',
+                            label     : 'Rok urodzenia',
+                            id        : 'birthYear',
+                            value     : '',
+                            regex     : /^\d{4}$/,
+                            maxLength : 4,
+                            valid     : false
+                        },
+                        {
+                            type    : 'radio',
+                            label   : 'Płeć',
+                            id      : 'Sex',
+                            value   : '',
+                            options : [ 'Mężczyzna', 'Kobieta' ],
+                            valid     : false
+                        }
+                    ]
+                },
+                output : {
+                    results : {
+                        startTime : 0,
+                        endTime   : 0,
+                        scenarios : []
+                    },
+                    user : {}
+                }
             }
 
             this.childNodeRef = child => {
                 window.scrollTo( 0, getRealOffsetTop( child.offsetTop ) );
-            }
-        }
-
-        backToTop()
-        {
-            window.scrollTo( 0, 0 );
-        }
-
-        handleStart()
-        {
-            if( !this.state.testStarted )
-            {
-                this.setState( {
-                    testStarted : true
-                } );
-            }
-        }
-
-        handleScenarioFinish( scenario )
-        {
-            if( this.state.testStarted && this.state.currentScenarioIndex === scenario.index )
-            {
-                console.log( scenario );
-
-                if( this.state.currentScenarioIndex === this.state.scenarios.length )
-                {
-                    this.setState( {
-                        allScenariosFinished : true
-                    } );
-                }
-                else
-                {
-                    this.setState( {
-                        currentScenarioIndex : this.state.currentScenarioIndex + 1
-                    } );
-                }
-            }
-        }
-
-        handleScroll()
-        {
-            if( window.scrollY > 256 )
-            {
-                this.setState( {
-                    headerFixed : true
-                } );
-            }
-            else
-            {
-                this.setState( {
-                    headerFixed : false
-                } );
             }
         }
 
@@ -766,6 +803,170 @@ window.onload = function() {
                         } );
                     }
                 );
+        }
+
+        backToTop()
+        {
+            window.scrollTo( 0, 0 );
+        }
+
+        handleScroll()
+        {
+            if( window.scrollY > 256 )
+            {
+                this.setState( {
+                    headerFixed : true
+                } );
+            }
+            else
+            {
+                this.setState( {
+                    headerFixed : false
+                } );
+            }
+        }
+
+        handleFormChange( input )
+        {
+            this.setState( state => {
+                const data = state.form.data.map( ( item, itemIndex ) => {
+                    if( itemIndex === input.index )
+                    {
+                        return {
+                            ...item,
+                            valid : input.valid,
+                            value : input.value
+                        };
+                    }
+
+                    return item;
+                } );
+
+                return {
+                    ...state,
+                    form : {
+                        ...state.form,
+                        data
+                    }
+                };
+            }, () => {
+                if( this.state.form.data.filter( item => !item.valid ).length === 0 )
+                {
+                    this.setState( state => {
+                        return {
+                            ...state,
+                            form : {
+                                ...state.form,
+                                error : false
+                            }
+                        };
+                    } );
+                }
+            } );
+        }
+
+        handleStart()
+        {
+            if( !this.state.testStarted )
+            {
+                this.setState( state => {
+                    return {
+                        ...state,
+                        testStarted : true,
+                        output      : {
+                            ...state.output,
+                            results : {
+                                ...state.output.results,
+                                startTime : new Date().getTime()
+                            }
+                        }
+                    }
+                } );
+            }
+        }
+
+        handleScenarioFinish( scenario )
+        {
+            let { index, ...data } = scenario;
+
+            if( this.state.testStarted && this.state.currentScenarioIndex === index )
+            {
+                this.setState( state => {
+                    const scenarios = state.output.results.scenarios;
+                    scenarios.push( data );
+
+                    return {
+                        ...state,
+                        output : {
+                            ...state.output,
+                            results : {
+                                ...state.output.results,
+                                scenarios
+                            }
+                        }
+                    }
+                } );
+
+                if( this.state.currentScenarioIndex === this.state.scenarios.length )
+                {
+                    this.setState( {
+                        allScenariosFinished : true
+                    } );
+                }
+                else
+                {
+                    this.setState( {
+                        currentScenarioIndex : this.state.currentScenarioIndex + 1
+                    } );
+                }
+            }
+        }
+
+        handleFinish()
+        {
+            if( this.state.form.data.filter( input => !input.valid ).length > 0 )
+            {
+                this.setState( state => {
+                    return {
+                        ...state,
+                        form : {
+                            ...state.form,
+                            error : true
+                        }
+                    };
+                } );
+            }
+            else
+            {
+                this.setState( state => {
+                    return {
+                        ...state,
+                        testFinished : true,
+                        output      : {
+                            ...state.output,
+                            results : {
+                                ...state.output.results,
+                                endTime : new Date().getTime()
+                            }
+                        }
+                    }
+                }, () => {
+                    let output     = this.state.output;
+                    const userData = this.state.form.data.map( ( input ) => {
+                        const item       = {};
+                        item[ input.id ] = input.value;
+
+                        return item;
+                    } );
+
+                    output = {
+                        ...output,
+                        user : userData
+                    };
+
+                    console.log( output );
+                } );
+            }
         }
 
         render()
@@ -798,13 +999,35 @@ window.onload = function() {
                             </p>
                         </header>
                         <main>
-                            <Paragraph content="Witaj! Niniejsze badanie ma na celu zbadanie użyteczności wybranych wzorców pól, które możesz na co dzień znaleźć w wielu aplikacjach webowych i na stronach internetowych. Zostaniesz poproszony o wykonanie kilkunastu zadań polegających na uzupełnieniu różnego typu formularzy. **Ten tekst jeszcze się zmieni.**" />
-                            <button onClick={ this.handleStart } disabled={ this.state.testStarted }>Rozpocznij badanie</button>
+                            <section>
+                                <Paragraph content="Witaj! Niniejsze badanie ma na celu zbadanie użyteczności wybranych wzorców pól, które możesz na co dzień znaleźć w wielu aplikacjach webowych i na stronach internetowych. Zostaniesz poproszony o wykonanie kilkunastu zadań polegających na uzupełnieniu różnego typu formularzy. **Ten tekst jeszcze się zmieni.**" />
+                                <button onClick={ this.handleStart } disabled={ this.state.testStarted }>Rozpocznij badanie</button>
+                            </section>
                             { scenarios.map( ( scenario, index ) =>
-                                <Scenario key={ index } index={ index + 1 } testStarted={ this.state.testStarted } currentIndex={ this.state.currentScenarioIndex } lastIndex={ this.state.scenarios.length } scenario={ scenario } onScenarioFinish={ this.handleScenarioFinish } ref={ this.childNodeRef } />
+                                <Scenario key={ index } index={ index + 1 } testStarted={ this.state.testStarted } currentIndex={ this.state.currentScenarioIndex } lastIndex={ this.state.scenarios.length } scenario={ scenario } onFinish={ this.handleScenarioFinish } ref={ this.childNodeRef } />
                             ) }
                             { this.state.allScenariosFinished &&
-                                <Paragraph nodeRef={ this.childNodeRef } content="**To już koniec!** Dziękuję za poświęcony czas i dotarcie do samego końca badania!" />
+                                <section ref={ this.childNodeRef }>
+                                    <h1>Zakończenie</h1>
+                                    <Paragraph content="Tutaj będzie jakiś akapit podsumowujący, jednak na razie nie wiem, co by w nim mogło się znaleźć." />
+                                    <section className="form labels-align-top" id="user-form">
+                                        <h3>Ankieta uczestnika</h3>
+                                        {
+                                            this.state.form.data.map( ( item, index ) =>
+                                                <InputWrapper key={ index } index={ index } error={ this.state.form.error } disabled={ this.state.testFinished } onChange={ this.handleFormChange } { ...item }/>
+                                            )
+                                        }
+                                        { this.state.form.error &&
+                                            <Paragraph class="on-form-error" content="Aby przejść dalej, popraw pola wyróżnione **tym kolorem.**" />
+                                        }
+                                    </section>
+                                    <button onClick={ this.handleFinish } disabled={ this.state.testFinished }>Wyślij</button>
+                                </section>
+                            }
+                            { this.state.testFinished &&
+                                <section ref={ this.childNodeRef }>
+                                    <Paragraph content="**Serdecznie dziękuję za wzięcie udziału w badaniu!** Twoja pomoc jest naprawdę nieoceniona i przyczyni się do zrealizowania jednego z największych moich celów w życiu -- ukończenia studiów na Politechnice Wrocławskiej." />
+                                </section>
                             }
                         </main>
                     </div>
