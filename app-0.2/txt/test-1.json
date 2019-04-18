@@ -9,28 +9,34 @@
                     "type"     : "labels-align-right",
                     "data"     : [
                         {
-                            "key" : "Imię",
-                            "value" : "Jan"
+                            "type"         : "text",
+                            "label"          : "Imię",
+                            "defaultValue" : "Jan"
                         },
                         {
-                            "key" : "Nazwisko",
-                            "value" : "Kowalski"
+                            "type"         : "text",
+                            "label"          : "Nazwisko",
+                            "defaultValue" : "Kowalski"
                         },
                         {
-                            "key" : "Ulica i numer",
-                            "value" : "Kluczborska 24 m. 20"
+                            "type"         : "text",
+                            "label"          : "Ulica i numer",
+                            "defaultValue" : "Kluczborska 24 m. 20"
                         },
                         {
-                            "key" : "Kod pocztowy",
-                            "value" : "50-322"
+                            "type"         : "text",
+                            "label"          : "Kod pocztowy",
+                            "defaultValue" : "50-322"
                         },
                         {
-                            "key" : "Miejscowość",
-                            "value" : "Wrocław"
+                            "type"         : "text",
+                            "label"          : "Miejscowość",
+                            "defaultValue" : "Wrocław"
                         },
                         {
-                            "key" : "Numer telefonu",
-                            "value" : "71 320 46 81"
+                            "type"         : "text",
+                            "label"          : "Numer telefonu",
+                            "defaultValue" : "71 320 46 81"
                         }
                     ]
                 },
@@ -39,28 +45,34 @@
                     "type"     : "labels-align-top",
                     "data"     : [
                         {
-                            "key" : "Imię",
-                            "value" : "Krzysztof"
+                            "type"         : "text",
+                            "label"          : "Imię",
+                            "defaultValue" : "Krzysztof"
                         },
                         {
-                            "key" : "Nazwisko",
-                            "value" : "Wiśniewski"
+                            "type"         : "text",
+                            "label"          : "Nazwisko",
+                            "defaultValue" : "Wiśniewski"
                         },
                         {
-                            "key" : "Ulica i numer",
-                            "value" : "Wałbrzyska 2B"
+                            "type"         : "text",
+                            "label"          : "Ulica i numer",
+                            "defaultValue" : "Wałbrzyska 2B"
                         },
                         {
-                            "key" : "Kod pocztowy",
-                            "value" : "58-100"
+                            "type"         : "text",
+                            "label"          : "Kod pocztowy",
+                            "defaultValue" : "58-100"
                         },
                         {
-                            "key" : "Miejscowość",
-                            "value" : "Świdnica"
+                            "type"         : "text",
+                            "label"          : "Miejscowość",
+                            "defaultValue" : "Świdnica"
                         },
                         {
-                            "key" : "Numer telefonu",
-                            "value" : "590 290 390"
+                            "type"         : "text",
+                            "label"          : "Numer telefonu",
+                            "defaultValue" : "590 290 390"
                         }
                     ]
                 }

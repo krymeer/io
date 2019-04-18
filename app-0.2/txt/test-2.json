@@ -9,28 +9,34 @@
                     "type"     : "labels-align-left",
                     "data"     : [
                         {
-                            "key" : "Imię",
-                            "value" : "Adam"
+                            "type"         :"text",
+                            "label"          : "Imię",
+                            "defaultValue" : "Adam"
                         },
                         {
-                            "key" : "Nazwisko",
-                            "value" : "Nowak"
+                            "type"         :"text",
+                            "label"          : "Nazwisko",
+                            "defaultValue" : "Nowak"
                         },
                         {
-                            "key" : "Ulica i numer",
-                            "value" : "plac Grunwaldzki 13"
+                            "type"         :"text",
+                            "label"          : "Ulica i numer",
+                            "defaultValue" : "plac Grunwaldzki 13"
                         },
                         {
-                            "key" : "Kod pocztowy",
-                            "value" : "50-377"
+                            "type"         :"text",
+                            "label"          : "Kod pocztowy",
+                            "defaultValue" : "50-377"
                         },
                         {
-                            "key" : "Miejscowość",
-                            "value" : "Wrocław"
+                            "type"         :"text",
+                            "label"          : "Miejscowość",
+                            "defaultValue" : "Wrocław"
                         },
                         {
-                            "key" : "Numer telefonu",
-                            "value" : "789 425 661"
+                            "type"         :"text",
+                            "label"          : "Numer telefonu",
+                            "defaultValue" : "789 425 661"
                         }
                     ]
                 },
@@ -39,28 +45,34 @@
                     "type"     : "labels-float-top",
                     "data"     : [
                         {
-                            "key" : "Imię",
-                            "value" : "Jarosław"
+                            "type"         :"text",
+                            "label"          : "Imię",
+                            "defaultValue" : "Jarosław"
                         },
                         {
-                            "key" : "Nazwisko",
-                            "value" : "Dębski"
+                            "type"         :"text",
+                            "label"          : "Nazwisko",
+                            "defaultValue" : "Dębski"
                         },
                         {
-                            "key" : "Ulica i numer",
-                            "value" : "Jedności Narodowej 72/80"
+                            "type"         :"text",
+                            "label"          : "Ulica i numer",
+                            "defaultValue" : "Jedności Narodowej 72/80"
                         },
                         {
-                            "key" : "Kod pocztowy",
-                            "value" : "50-261"
+                            "type"         :"text",
+                            "label"          : "Kod pocztowy",
+                            "defaultValue" : "50-261"
                         },
                         {
-                            "key" : "Miejscowość",
-                            "value" : "Wrocław"
+                            "type"         :"text",
+                            "label"          : "Miejscowość",
+                            "defaultValue" : "Wrocław"
                         },
                         {
-                            "key" : "Numer telefonu",
-                            "value" : "782 287 872"
+                            "type"         :"text",
+                            "label"          : "Numer telefonu",
+                            "defaultValue" : "782 287 872"
                         }
                     ]
                 }
