@@ -1004,7 +1004,7 @@ window.onload = function () {
             value: function componentDidMount() {
                 var _this12 = this;
 
-                fetch('./txt/test-all.json').then(function (res) {
+                fetch('./json/test-all.json').then(function (res) {
                     return res.json();
                 }).then(function (result) {
                     _this12.setState({

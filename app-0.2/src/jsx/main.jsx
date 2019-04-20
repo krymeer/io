@@ -897,7 +897,7 @@ window.onload = function() {
 
         componentDidMount()
         {
-            fetch( './txt/test-all.json' )
+            fetch( './json/test-all.json' )
                 .then( res => res.json() )
                 .then(
                     ( result ) => {
