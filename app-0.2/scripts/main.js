@@ -97,6 +97,12 @@ window.onload = function () {
                 inputNonEmpty: false,
                 inputValid: false
             };
+
+            if (_this2.props.type === 'select') {
+                _this2.state = Object.assign({}, _this2.state, {
+                    selectList: {}
+                });
+            }
             return _this2;
         }
 
@@ -141,7 +147,7 @@ window.onload = function () {
             }
         }, {
             key: 'handleOption',
-            value: function handleOption(event, index, value) {
+            value: function handleOption(index, value) {
                 if (!this.props.disabled) {
                     var inputValid = typeof this.props.defaultValue !== 'undefined' ? this.props.defaultValue === value : true;
 
@@ -149,6 +155,19 @@ window.onload = function () {
                         inputValid: inputValid,
                         chosenIndex: index
                     });
+
+                    if (this.props.type === 'select') {
+                        this.setState(function (state) {
+                            var selectList = Object.assign({}, state.selectList, {
+                                open: false,
+                                overflow: undefined
+                            });
+
+                            return {
+                                selectList: selectList
+                            };
+                        });
+                    }
 
                     this.props.onChange({
                         index: this.props.index,
@@ -158,9 +177,60 @@ window.onload = function () {
                 }
             }
         }, {
+            key: 'handleSelectTop',
+            value: function handleSelectTop(event) {
+                var _this3 = this;
+
+                // TODO
+                // insert all the "not-chosen" list elements into a separate div (in order to be able to give them some shadow)
+                // when clicking outside the list, make sure to close it
+                // https://stackoverflow.com/questions/32553158/detect-click-outside-react-component
+
+                if (!this.props.disabled) {
+                    var bodyScrollHeight = document.body.scrollHeight;
+                    var currentNode = event.target;
+
+                    this.setState(function (state) {
+                        var selectList = Object.assign({}, state.selectList, {
+                            open: !state.selectList.open
+                        });
+
+                        return {
+                            selectList: selectList
+                        };
+                    }, function () {
+                        if (_this3.state.selectList.open) {
+                            var listNode = currentNode.closest('.select-current').nextElementSibling;
+
+                            if (listNode !== null) {
+                                var listNodeOffsetBtm = document.body.parentElement.scrollTop + listNode.getBoundingClientRect().top + listNode.offsetHeight;
+                                var overflowDirection = listNodeOffsetBtm > bodyScrollHeight ? 'top' : 'bottom';
+
+                                _this3.setState(function (state) {
+                                    var selectList = Object.assign({}, state.selectList, {
+                                        overflow: overflowDirection
+                                    });
+
+                                    return {
+                                        selectList: selectList
+                                    };
+                                });
+                            }
+                        }
+                    });
+                }
+            }
+        }, {
+            key: 'componentDidMount',
+            value: function componentDidMount() {
+                if (this.props.type === 'select') {
+                    this.handleSelectTop = this.handleSelectTop.bind(this);
+                }
+            }
+        }, {
             key: 'render',
             value: function render() {
-                var _this3 = this;
+                var _this4 = this;
 
                 var wrapperClassName = ('wrapper' + ' ' + (this.props.error ? 'on-form-error' : '') + ' ' + (this.state.inputValid ? '' : 'on-input-invalid')).trim().replace(/\s+/g, ' ');
                 var labelClassName = ((this.props.disabled ? 'on-input-disabled' : '') + ' ' + (this.state.inputFocus ? 'on-input-focus' : '') + ' ' + (this.state.inputNonEmpty ? 'on-input-non-empty' : '')).trim().replace(/\s+/g, ' ');
@@ -176,12 +246,12 @@ window.onload = function () {
                     this.props.type === 'text' && React.createElement('input', { maxLength: this.props.maxLength, type: 'text', spellCheck: 'false', autoComplete: 'off', onFocus: this.handleFocus, onBlur: this.handleBlur, onChange: this.handleChange, disabled: this.props.disabled }),
                     this.props.type === 'radio' && React.createElement(
                         'ul',
-                        { className: 'input-list' },
+                        { className: 'input-list radio-list' },
                         this.props.options.map(function (option, index) {
                             return React.createElement(
                                 'li',
-                                { className: ("radio-item " + (_this3.state.chosenIndex === index ? "chosen" : "") + " " + (_this3.props.disabled ? "disabled" : "")).trim(), key: index },
-                                React.createElement('div', { className: 'radio', onClick: _this3.handleOption.bind(_this3, event, index, option) }),
+                                { className: ("radio-item " + (_this4.state.chosenIndex === index ? "chosen" : "") + " " + (_this4.props.disabled ? "disabled" : "")).trim(), key: index },
+                                React.createElement('div', { className: 'radio', onClick: _this4.handleOption.bind(_this4, index, option) }),
                                 React.createElement(
                                     'span',
                                     null,
@@ -189,6 +259,43 @@ window.onload = function () {
                                 )
                             );
                         })
+                    ),
+                    this.props.type === 'select' && React.createElement(
+                        'div',
+                        { className: 'select-wrapper' },
+                        React.createElement(
+                            'div',
+                            { className: 'select-current', onClick: this.handleSelectTop.bind(this) },
+                            React.createElement(
+                                'span',
+                                null,
+                                this.state.chosenIndex >= 0 ? this.props.options[this.state.chosenIndex] : ''
+                            ),
+                            React.createElement(
+                                'i',
+                                { className: 'material-icons' },
+                                this.state.selectList.open ? 'keyboard_arrow_up' : 'keyboard_arrow_down'
+                            )
+                        ),
+                        this.props.type === 'select' && this.state.selectList.open && React.createElement(
+                            'ul',
+                            { className: ("select-list " + this.state.selectList.overflow).trim() },
+                            this.props.options.map(function (option, index) {
+                                if (index !== _this4.state.chosenIndex) {
+                                    return React.createElement(
+                                        'li',
+                                        { key: index, className: 'select-option', onClick: _this4.handleOption.bind(_this4, index, option) },
+                                        React.createElement(
+                                            'span',
+                                            null,
+                                            option
+                                        )
+                                    );
+                                } else {
+                                    return '';
+                                }
+                            })
+                        )
                     )
                 );
             }
@@ -203,10 +310,10 @@ window.onload = function () {
         function Comment(props) {
             _classCallCheck(this, Comment);
 
-            var _this4 = _possibleConstructorReturn(this, (Comment.__proto__ || Object.getPrototypeOf(Comment)).call(this, props));
+            var _this5 = _possibleConstructorReturn(this, (Comment.__proto__ || Object.getPrototypeOf(Comment)).call(this, props));
 
-            _this4.handleChange = _this4.handleChange.bind(_this4);
-            return _this4;
+            _this5.handleChange = _this5.handleChange.bind(_this5);
+            return _this5;
         }
 
         _createClass(Comment, [{
@@ -260,20 +367,20 @@ window.onload = function () {
         function Task(props) {
             _classCallCheck(this, Task);
 
-            var _this5 = _possibleConstructorReturn(this, (Task.__proto__ || Object.getPrototypeOf(Task)).call(this, props));
+            var _this6 = _possibleConstructorReturn(this, (Task.__proto__ || Object.getPrototypeOf(Task)).call(this, props));
 
-            _this5.handleClick = _this5.handleClick.bind(_this5);
-            _this5.handleStart = _this5.handleStart.bind(_this5);
-            _this5.handleFinish = _this5.handleFinish.bind(_this5);
-            _this5.handleNext = _this5.handleNext.bind(_this5);
-            _this5.handleInputChange = _this5.handleInputChange.bind(_this5);
-            _this5.handleRatingChange = _this5.handleRatingChange.bind(_this5);
-            _this5.handleCommentChange = _this5.handleCommentChange.bind(_this5);
-            _this5.maxCommentLength = 255;
-            _this5.childNodeRef = function (child) {
+            _this6.handleClick = _this6.handleClick.bind(_this6);
+            _this6.handleStart = _this6.handleStart.bind(_this6);
+            _this6.handleFinish = _this6.handleFinish.bind(_this6);
+            _this6.handleNext = _this6.handleNext.bind(_this6);
+            _this6.handleInputChange = _this6.handleInputChange.bind(_this6);
+            _this6.handleRatingChange = _this6.handleRatingChange.bind(_this6);
+            _this6.handleCommentChange = _this6.handleCommentChange.bind(_this6);
+            _this6.maxCommentLength = 255;
+            _this6.childNodeRef = function (child) {
                 window.scrollTo(0, getRealOffsetTop(child.offsetTop));
             };
-            _this5.state = {
+            _this6.state = {
                 taskStarted: false,
                 taskFinished: false,
                 taskError: false,
@@ -286,13 +393,13 @@ window.onload = function () {
                     rating: 0,
                     comment: ''
                 },
-                inputs: _this5.props.task.data.map(function (input) {
+                inputs: _this6.props.task.data.map(function (input) {
                     return {
                         valid: false
                     };
                 })
             };
-            return _this5;
+            return _this6;
         }
 
         _createClass(Task, [{
@@ -408,7 +515,7 @@ window.onload = function () {
         }, {
             key: 'handleInputChange',
             value: function handleInputChange(input) {
-                var _this6 = this;
+                var _this7 = this;
 
                 if (this.state.taskStarted && !this.state.taskFinished) {
                     this.setState(function (state) {
@@ -426,10 +533,10 @@ window.onload = function () {
                             inputs: inputs
                         };
                     }, function () {
-                        if (_this6.state.inputs.filter(function (item) {
+                        if (_this7.state.inputs.filter(function (item) {
                             return !item.valid;
                         }).length === 0) {
-                            _this6.setState({
+                            _this7.setState({
                                 taskError: false
                             });
                         }
@@ -454,7 +561,7 @@ window.onload = function () {
         }, {
             key: 'render',
             value: function render() {
-                var _this7 = this;
+                var _this8 = this;
 
                 if (this.props.scenarioStarted && this.props.currentIndex >= this.props.index) {
                     return React.createElement(
@@ -528,7 +635,7 @@ window.onload = function () {
                                 'keyboard'
                             ),
                             this.state.inputs.map(function (input, index) {
-                                return React.createElement(InputWrapper, Object.assign({ key: index, index: index, error: _this7.state.taskError && _this7.state.taskStarted, disabled: _this7.state.taskFinished || !_this7.state.taskStarted, onChange: _this7.handleInputChange }, input, _this7.props.task.data[index]));
+                                return React.createElement(InputWrapper, Object.assign({ key: index, index: index, error: _this8.state.taskError && _this8.state.taskStarted, disabled: _this8.state.taskFinished || !_this8.state.taskStarted, onChange: _this8.handleInputChange }, input, _this8.props.task.data[index]));
                             }),
                             this.state.taskError && React.createElement(Paragraph, { 'class': 'on-form-error', content: 'Aby przej\u015B\u0107 dalej, popraw pola wyr\xF3\u017Cnione **tym kolorem.**' })
                         ),
@@ -551,7 +658,7 @@ window.onload = function () {
                                 [].concat(_toConsumableArray(Array(7))).map(function (x, key, array) {
                                     return React.createElement(
                                         'li',
-                                        { className: ("seq-item radio-item " + (_this7.state.stats.rating === key + 1 ? "chosen" : "") + " " + (_this7.state.nextTask ? "disabled" : "")).trim().replace(/\s+/g, ' '), key: key },
+                                        { className: ("seq-item radio-item " + (_this8.state.stats.rating === key + 1 ? "chosen" : "") + " " + (_this8.state.nextTask ? "disabled" : "")).trim().replace(/\s+/g, ' '), key: key },
                                         key === 0 && React.createElement(
                                             'div',
                                             null,
@@ -567,7 +674,7 @@ window.onload = function () {
                                             null,
                                             key + 1
                                         ),
-                                        React.createElement('div', { className: 'radio', onClick: _this7.handleRatingChange.bind(_this7, key + 1) })
+                                        React.createElement('div', { className: 'radio', onClick: _this8.handleRatingChange.bind(_this8, key + 1) })
                                     );
                                 })
                             ),
@@ -600,13 +707,13 @@ window.onload = function () {
         function Scenario(props) {
             _classCallCheck(this, Scenario);
 
-            var _this8 = _possibleConstructorReturn(this, (Scenario.__proto__ || Object.getPrototypeOf(Scenario)).call(this, props));
+            var _this9 = _possibleConstructorReturn(this, (Scenario.__proto__ || Object.getPrototypeOf(Scenario)).call(this, props));
 
-            _this8.handleStart = _this8.handleStart.bind(_this8);
-            _this8.handleFinish = _this8.handleFinish.bind(_this8);
-            _this8.handleTaskFinish = _this8.handleTaskFinish.bind(_this8);
-            _this8.handleSummaryComment = _this8.handleSummaryComment.bind(_this8);
-            _this8.state = {
+            _this9.handleStart = _this9.handleStart.bind(_this9);
+            _this9.handleFinish = _this9.handleFinish.bind(_this9);
+            _this9.handleTaskFinish = _this9.handleTaskFinish.bind(_this9);
+            _this9.handleSummaryComment = _this9.handleSummaryComment.bind(_this9);
+            _this9.state = {
                 scenarioStarted: false,
                 scenarioFinished: false,
                 nextScenario: false,
@@ -618,10 +725,10 @@ window.onload = function () {
                     comment: ''
                 }
             };
-            _this8.childNodeRef = function (child) {
+            _this9.childNodeRef = function (child) {
                 window.scrollTo(0, getRealOffsetTop(child.offsetTop));
             };
-            return _this8;
+            return _this9;
         }
 
         _createClass(Scenario, [{
@@ -722,7 +829,7 @@ window.onload = function () {
         }, {
             key: 'render',
             value: function render() {
-                var _this9 = this;
+                var _this10 = this;
 
                 if (this.props.testStarted && this.props.currentIndex >= this.props.index) {
                     return React.createElement(
@@ -741,7 +848,7 @@ window.onload = function () {
                             'Rozpocznij scenariusz'
                         ),
                         this.props.scenario.tasks.map(function (task, index, tasks) {
-                            return React.createElement(Task, { nodeRef: _this9.childNodeRef, key: index, index: index + 1, currentIndex: _this9.state.currentTaskIndex, lastIndex: tasks.length, onFinish: _this9.handleTaskFinish, scenarioStarted: _this9.state.scenarioStarted, task: task });
+                            return React.createElement(Task, { nodeRef: _this10.childNodeRef, key: index, index: index + 1, currentIndex: _this10.state.currentTaskIndex, lastIndex: tasks.length, onFinish: _this10.handleTaskFinish, scenarioStarted: _this10.state.scenarioStarted, task: task });
                         }),
                         this.state.scenarioFinished && React.createElement(
                             'section',
@@ -756,10 +863,10 @@ window.onload = function () {
                                 'section',
                                 { className: 'questions' },
                                 this.state.summary.questions.map(function (question, qIndex) {
-                                    if (_this9.state.summary.currentQuestion >= qIndex) {
+                                    if (_this10.state.summary.currentQuestion >= qIndex) {
                                         return React.createElement(
                                             'div',
-                                            { key: qIndex, className: 'question-wrapper', ref: _this9.childNodeRef },
+                                            { key: qIndex, className: 'question-wrapper', ref: _this10.childNodeRef },
                                             React.createElement(
                                                 'h4',
                                                 null,
@@ -772,8 +879,8 @@ window.onload = function () {
                                                 question.answers.map(function (answer, aIndex) {
                                                     return React.createElement(
                                                         'li',
-                                                        { className: ("radio-item " + (question.chosenAnswer === aIndex ? "chosen" : "") + " " + (_this9.state.nextScenario ? "disabled" : "")).trim().replace(/\s+/g, ' '), key: aIndex },
-                                                        React.createElement('div', { className: 'radio', onClick: _this9.handleSummaryQuestion.bind(_this9, qIndex, aIndex) }),
+                                                        { className: ("radio-item " + (question.chosenAnswer === aIndex ? "chosen" : "") + " " + (_this10.state.nextScenario ? "disabled" : "")).trim().replace(/\s+/g, ' '), key: aIndex },
+                                                        React.createElement('div', { className: 'radio', onClick: _this10.handleSummaryQuestion.bind(_this10, qIndex, aIndex) }),
                                                         React.createElement(
                                                             'span',
                                                             null,
@@ -817,15 +924,15 @@ window.onload = function () {
         function MainComponent(props) {
             _classCallCheck(this, MainComponent);
 
-            var _this10 = _possibleConstructorReturn(this, (MainComponent.__proto__ || Object.getPrototypeOf(MainComponent)).call(this, props));
+            var _this11 = _possibleConstructorReturn(this, (MainComponent.__proto__ || Object.getPrototypeOf(MainComponent)).call(this, props));
 
-            _this10.handleFormChange = _this10.handleFormChange.bind(_this10);
-            _this10.handleScroll = _this10.handleScroll.bind(_this10);
-            _this10.handleStart = _this10.handleStart.bind(_this10);
-            _this10.handleFinish = _this10.handleFinish.bind(_this10);
-            _this10.handleScenarioFinish = _this10.handleScenarioFinish.bind(_this10);
-            _this10.backToTop = _this10.backToTop.bind(_this10);
-            _this10.state = {
+            _this11.handleFormChange = _this11.handleFormChange.bind(_this11);
+            _this11.handleScroll = _this11.handleScroll.bind(_this11);
+            _this11.handleStart = _this11.handleStart.bind(_this11);
+            _this11.handleFinish = _this11.handleFinish.bind(_this11);
+            _this11.handleScenarioFinish = _this11.handleScenarioFinish.bind(_this11);
+            _this11.backToTop = _this11.backToTop.bind(_this11);
+            _this11.state = {
                 error: null,
                 isLoaded: false,
                 headerFixed: false,
@@ -863,9 +970,16 @@ window.onload = function () {
                     }, {
                         type: 'radio',
                         label: 'Płeć',
-                        id: 'Sex',
+                        id: 'sex',
                         value: '',
                         options: ['Mężczyzna', 'Kobieta'],
+                        valid: false
+                    }, {
+                        type: 'select',
+                        label: 'Wykształcenie',
+                        id: 'education',
+                        value: '',
+                        options: ['Podstawowe', 'Gimnazjalne', 'Zasadnicze zawodowe', 'Zasadnicze branżowe', 'Średnie branżowe', 'Średnie', 'Wyższe', 'Żadne z powyższych'],
                         valid: false
                     }]
                 },
@@ -879,28 +993,28 @@ window.onload = function () {
                 }
             };
 
-            _this10.childNodeRef = function (child) {
+            _this11.childNodeRef = function (child) {
                 window.scrollTo(0, getRealOffsetTop(child.offsetTop));
             };
-            return _this10;
+            return _this11;
         }
 
         _createClass(MainComponent, [{
             key: 'componentDidMount',
             value: function componentDidMount() {
-                var _this11 = this;
+                var _this12 = this;
 
                 fetch('./txt/test-all.json').then(function (res) {
                     return res.json();
                 }).then(function (result) {
-                    _this11.setState({
+                    _this12.setState({
                         scenarios: result.scenarios,
                         isLoaded: true
                     }, function () {
-                        window.addEventListener('scroll', _this11.handleScroll);
+                        window.addEventListener('scroll', _this12.handleScroll);
                     });
                 }, function (error) {
-                    _this11.setState({
+                    _this12.setState({
                         isLoaded: false,
                         error: error
                     });
@@ -927,7 +1041,7 @@ window.onload = function () {
         }, {
             key: 'handleFormChange',
             value: function handleFormChange(input) {
-                var _this12 = this;
+                var _this13 = this;
 
                 this.setState(function (state) {
                     var data = state.form.data.map(function (item, itemIndex) {
@@ -947,10 +1061,10 @@ window.onload = function () {
                         })
                     });
                 }, function () {
-                    if (_this12.state.form.data.filter(function (item) {
+                    if (_this13.state.form.data.filter(function (item) {
                         return !item.valid;
                     }).length === 0) {
-                        _this12.setState(function (state) {
+                        _this13.setState(function (state) {
                             return Object.assign({}, state, {
                                 form: Object.assign({}, state.form, {
                                     error: false
@@ -1010,7 +1124,7 @@ window.onload = function () {
         }, {
             key: 'handleFinish',
             value: function handleFinish() {
-                var _this13 = this;
+                var _this14 = this;
 
                 if (this.state.form.data.filter(function (input) {
                     return !input.valid;
@@ -1033,8 +1147,8 @@ window.onload = function () {
                             })
                         });
                     }, function () {
-                        var output = _this13.state.output;
-                        var userData = _this13.state.form.data.map(function (input) {
+                        var output = _this14.state.output;
+                        var userData = _this14.state.form.data.map(function (input) {
                             var item = {};
                             item[input.id] = input.value;
 
@@ -1052,7 +1166,7 @@ window.onload = function () {
         }, {
             key: 'render',
             value: function render() {
-                var _this14 = this;
+                var _this15 = this;
 
                 var _state = this.state,
                     error = _state.error,
@@ -1113,9 +1227,9 @@ window.onload = function () {
                                 )
                             ),
                             scenarios.map(function (scenario, index) {
-                                return React.createElement(Scenario, { key: index, index: index + 1, testStarted: _this14.state.testStarted, currentIndex: _this14.state.currentScenarioIndex, lastIndex: _this14.state.scenarios.length, scenario: scenario, onFinish: _this14.handleScenarioFinish, nodeRef: _this14.childNodeRef });
+                                return React.createElement(Scenario, { key: index, index: index + 1, testStarted: _this15.state.testStarted, currentIndex: _this15.state.currentScenarioIndex, lastIndex: _this15.state.scenarios.length, scenario: scenario, onFinish: _this15.handleScenarioFinish, nodeRef: _this15.childNodeRef });
                             }),
-                            this.state.allScenariosFinished && React.createElement(
+                            !this.state.allScenariosFinished && React.createElement(
                                 'section',
                                 { ref: this.childNodeRef },
                                 React.createElement(
@@ -1133,7 +1247,7 @@ window.onload = function () {
                                         'Ankieta uczestnika'
                                     ),
                                     this.state.form.data.map(function (item, index) {
-                                        return React.createElement(InputWrapper, Object.assign({ key: index, index: index, error: _this14.state.form.error, disabled: _this14.state.testFinished, onChange: _this14.handleFormChange }, item));
+                                        return React.createElement(InputWrapper, Object.assign({ key: index, index: index, error: _this15.state.form.error, disabled: _this15.state.testFinished, onChange: _this15.handleFormChange }, item));
                                     }),
                                     this.state.form.error && React.createElement(Paragraph, { 'class': 'on-form-error', content: 'Aby przej\u015B\u0107 dalej, popraw pola wyr\xF3\u017Cnione **tym kolorem.**' })
                                 ),

@@ -65,13 +65,21 @@ window.onload = function() {
         {
             super( props );
 
-            this.handleFocus  = this.handleFocus.bind( this );
-            this.handleBlur   = this.handleBlur.bind( this );
-            this.handleChange = this.handleChange.bind( this );
+            this.handleFocus     = this.handleFocus.bind( this );
+            this.handleBlur      = this.handleBlur.bind( this );
+            this.handleChange    = this.handleChange.bind( this );
             this.state        = {
-                inputFocus    : false,
-                inputNonEmpty : false,
-                inputValid    : false,
+                inputFocus     : false,
+                inputNonEmpty  : false,
+                inputValid     : false,
+            };
+
+            if( this.props.type === 'select' )
+            {
+                this.state = {
+                    ...this.state,
+                    selectList : {}
+                };
             }
         }
 
@@ -117,7 +125,7 @@ window.onload = function() {
             }
         }
 
-        handleOption( event, index, value )
+        handleOption( index, value )
         {
             if( !this.props.disabled )
             {
@@ -128,11 +136,80 @@ window.onload = function() {
                     chosenIndex : index
                 } );
 
+                if( this.props.type === 'select' ) {
+                    this.setState( state => {
+                        const selectList = {
+                            ...state.selectList,
+                            open     : false,
+                            overflow : undefined
+                        };
+
+                        return {
+                            selectList
+                        };                     
+                    } );
+                }
+
                 this.props.onChange( {
                     index : this.props.index,
                     valid : inputValid,
                     value
                 } );
+            }
+        }
+
+        handleSelectTop( event )
+        {
+            // TODO
+            // insert all the "not-chosen" list elements into a separate div (in order to be able to give them some shadow)
+            // when clicking outside the list, make sure to close it
+            // https://stackoverflow.com/questions/32553158/detect-click-outside-react-component
+
+            if( !this.props.disabled )
+            {
+                const bodyScrollHeight = document.body.scrollHeight;
+                const currentNode      = event.target;
+
+                this.setState( state => {
+                    const selectList = {
+                        ...state.selectList,
+                        open : !state.selectList.open
+                    };
+
+                    return {
+                        selectList
+                    };
+                }, () => {
+                    if( this.state.selectList.open )
+                    {
+                        const listNode = currentNode.closest( '.select-current' ).nextElementSibling;
+
+                        if( listNode !== null )
+                        {
+                            const listNodeOffsetBtm = document.body.parentElement.scrollTop + listNode.getBoundingClientRect().top + listNode.offsetHeight;
+                            const overflowDirection = listNodeOffsetBtm > bodyScrollHeight ? 'top' : 'bottom';
+
+                            this.setState( state => {
+                                const selectList = {
+                                    ...state.selectList,
+                                    overflow : overflowDirection
+                                };
+
+                                return {
+                                    selectList
+                                }
+                            } );
+                        }
+                    }
+                } );
+            }
+        }
+
+        componentDidMount()
+        {
+            if( this.props.type === 'select' )
+            {
+                this.handleSelectTop = this.handleSelectTop.bind( this );
             }
         }
 
@@ -148,16 +225,44 @@ window.onload = function() {
                         <input maxLength={ this.props.maxLength } type="text" spellCheck="false" autoComplete="off" onFocus={ this.handleFocus } onBlur={ this.handleBlur } onChange={ this.handleChange } disabled={ this.props.disabled } />
                     }
                     { this.props.type === 'radio' &&
-                        <ul className="input-list">
+                        <ul className="input-list radio-list">
                         {
                             this.props.options.map( ( option, index ) =>
                                 <li className={ ( "radio-item "  +  ( this.state.chosenIndex === index ? "chosen" : "" ) + " " + ( this.props.disabled ? "disabled" : "" ) ).trim() } key={ index }>
-                                    <div className="radio" onClick={ this.handleOption.bind( this, event, index, option ) } />
+                                    <div className="radio" onClick={ this.handleOption.bind( this, index, option ) } />
                                     <span>{ option }</span>
                                 </li>
                             )
                         }
                         </ul>
+                    }
+                    { this.props.type === 'select' &&
+                        <div className="select-wrapper">
+                            <div className="select-current" onClick={ this.handleSelectTop.bind( this ) }>
+                                <span>{ this.state.chosenIndex >= 0 ? this.props.options[ this.state.chosenIndex ] : '' }</span>
+                                <i className="material-icons">
+                                    { ( this.state.selectList.open ) ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }
+                                </i>
+                            </div>
+                            { this.props.type === 'select' && this.state.selectList.open &&
+                                <ul className={ ( "select-list " + this.state.selectList.overflow ).trim() } >
+                                    { this.props.options.map( ( option, index ) => {
+                                        if( index !== this.state.chosenIndex )
+                                        {
+                                            return (
+                                                <li key={ index } className="select-option" onClick={ this.handleOption.bind( this, index, option ) }>
+                                                    <span>{ option }</span>
+                                                </li>
+                                            );
+                                        }
+                                        else
+                                        {
+                                            return '';
+                                        }
+                                    } ) }
+                                </ul>
+                            }
+                        </div>
                     }
                 </div>
             );
@@ -199,7 +304,6 @@ window.onload = function() {
                         }
                     </div>
                 </section>
-
             );
         }
     }
@@ -761,10 +865,18 @@ window.onload = function() {
                         {
                             type    : 'radio',
                             label   : 'Płeć',
-                            id      : 'Sex',
+                            id      : 'sex',
                             value   : '',
                             options : [ 'Mężczyzna', 'Kobieta' ],
                             valid     : false
+                        },
+                        {
+                            type    : 'select',
+                            label   : 'Wykształcenie',
+                            id      : 'education',
+                            value   : '',
+                            options : [ 'Podstawowe', 'Gimnazjalne', 'Zasadnicze zawodowe', 'Zasadnicze branżowe', 'Średnie branżowe', 'Średnie', 'Wyższe', 'Żadne z powyższych' ],
+                            valid   : false
                         }
                     ]
                 },
@@ -1006,7 +1118,7 @@ window.onload = function() {
                             { scenarios.map( ( scenario, index ) =>
                                 <Scenario key={ index } index={ index + 1 } testStarted={ this.state.testStarted } currentIndex={ this.state.currentScenarioIndex } lastIndex={ this.state.scenarios.length } scenario={ scenario } onFinish={ this.handleScenarioFinish } nodeRef={ this.childNodeRef } />
                             ) }
-                            { this.state.allScenariosFinished &&
+                            { !this.state.allScenariosFinished &&
                                 <section ref={ this.childNodeRef }>
                                     <h1>Zakończenie</h1>
                                     <Paragraph content="Tutaj będzie jakiś akapit podsumowujący, jednak na razie nie wiem, co by w nim mogło się znaleźć." />
