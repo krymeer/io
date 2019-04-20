@@ -22,6 +22,9 @@ window.onload = function () {
         fixed: 35
     };
 
+    var maxInputLength = 64;
+    var maxTextareaLength = 255;
+
     getRealOffsetTop = function getRealOffsetTop(offsetTop) {
         if (offsetTop > headerHeight.static) {
             return offsetTop - headerHeight.fixed;
@@ -89,42 +92,63 @@ window.onload = function () {
 
             var _this2 = _possibleConstructorReturn(this, (InputWrapper.__proto__ || Object.getPrototypeOf(InputWrapper)).call(this, props));
 
-            _this2.handleFocus = _this2.handleFocus.bind(_this2);
-            _this2.handleBlur = _this2.handleBlur.bind(_this2);
-            _this2.handleChange = _this2.handleChange.bind(_this2);
             _this2.state = {
-                inputFocus: false,
-                inputNonEmpty: false,
                 inputValid: false
             };
+
+            if (_this2.props.type === 'text' || _this2.props.type === 'select' && _this2.props.otherOption) {
+                _this2.handleFocus = _this2.handleFocus.bind(_this2);
+                _this2.handleBlur = _this2.handleBlur.bind(_this2);
+                _this2.handleChange = _this2.handleChange.bind(_this2);
+
+                _this2.state = Object.assign({}, _this2.state, {
+                    inputFocus: false,
+                    inputNonEmpty: false,
+                    inputValue: ''
+                });
+            }
 
             if (_this2.props.type === 'select') {
                 _this2.state = Object.assign({}, _this2.state, {
                     selectList: {}
                 });
+
+                _this2.handleClickOutside = _this2.handleClickOutside.bind(_this2);
+                _this2.handleSelect = _this2.handleSelect.bind(_this2);
             }
             return _this2;
         }
 
         _createClass(InputWrapper, [{
+            key: 'handleClickOutside',
+            value: function handleClickOutside(e) {
+                if (this.node.contains(e.target)) {
+                    return;
+                }
+
+                if (this.props.type === 'select' && this.state.selectList.open) {
+                    this.handleSelect();
+                }
+            }
+        }, {
             key: 'handleFocus',
-            value: function handleFocus(e) {
+            value: function handleFocus(event) {
                 if (!this.props.disabled) {
                     this.setState({
                         inputFocus: true
                     });
 
                     // This TEMPORARY call is necessary when filling the inputs programmatically
-                    this.handleChange(e);
+                    this.handleChange(event);
                 }
             }
         }, {
             key: 'handleBlur',
-            value: function handleBlur(e) {
+            value: function handleBlur() {
                 if (!this.props.disabled) {
                     this.setState({
                         inputFocus: false,
-                        inputNonEmpty: e.target.value !== ''
+                        inputNonEmpty: this.state.inputValue !== ''
                     });
                 }
             }
@@ -132,71 +156,71 @@ window.onload = function () {
             key: 'handleChange',
             value: function handleChange(event) {
                 if (!this.props.disabled) {
-                    var inputValid = typeof this.props.defaultValue !== 'undefined' ? this.props.defaultValue === event.target.value : this.props.regex.test(event.target.value);
+                    var inputValue = event.target.value;
+                    var inputValid = typeof this.props.defaultValue !== 'undefined' ? this.props.defaultValue === inputValue : typeof this.props.regex !== 'undefined' ? this.props.regex.test(inputValue) : inputValue !== '';
 
                     this.setState({
+                        inputValue: inputValue,
                         inputValid: inputValid
                     });
 
                     this.props.onChange({
                         index: this.props.index,
-                        valid: inputValid,
-                        value: event.target.value
+                        value: inputValue,
+                        valid: inputValid
                     });
                 }
             }
         }, {
             key: 'handleOption',
-            value: function handleOption(index, value) {
+            value: function handleOption(optionIndex, optionValue) {
                 if (!this.props.disabled) {
-                    var inputValid = typeof this.props.defaultValue !== 'undefined' ? this.props.defaultValue === value : true;
+                    var inputValid = typeof this.props.defaultValue !== 'undefined' ? this.props.defaultValue === optionValue : true;
 
                     this.setState({
                         inputValid: inputValid,
-                        chosenIndex: index
+                        chosenIndex: optionIndex
                     });
 
                     if (this.props.type === 'select') {
-                        this.setState(function (state) {
-                            var selectList = Object.assign({}, state.selectList, {
-                                open: false,
-                                overflow: undefined
-                            });
+                        var otherOptionChosen = this.props.otherOption && optionIndex === this.props.options.length - 1;
 
-                            return {
-                                selectList: selectList
-                            };
+                        this.setState({
+                            otherOptionChosen: otherOptionChosen,
+                            inputValid: !otherOptionChosen
                         });
+
+                        this.handleSelect();
                     }
 
                     this.props.onChange({
                         index: this.props.index,
                         valid: inputValid,
-                        value: value
+                        value: optionValue
                     });
                 }
             }
         }, {
-            key: 'handleSelectTop',
-            value: function handleSelectTop(event) {
+            key: 'handleSelect',
+            value: function handleSelect(event) {
                 var _this3 = this;
-
-                // TODO
-                // insert all the "not-chosen" list elements into a separate div (in order to be able to give them some shadow)
-                // when clicking outside the list, make sure to close it
-                // https://stackoverflow.com/questions/32553158/detect-click-outside-react-component
 
                 if (!this.props.disabled) {
                     var bodyScrollHeight = document.body.scrollHeight;
-                    var currentNode = event.target;
+                    var currentNode = typeof event !== 'undefined' ? event.target : '';
+
+                    if (!this.state.selectList.open) {
+                        document.addEventListener('click', this.handleClickOutside, false);
+                    } else {
+                        document.removeEventListener('click', this.handleClickOutside, false);
+                    }
 
                     this.setState(function (state) {
-                        var selectList = Object.assign({}, state.selectList, {
-                            open: !state.selectList.open
-                        });
-
                         return {
-                            selectList: selectList
+                            selectList: Object.assign({}, state.selectList, {
+                                open: !state.selectList.open,
+                                overflow: undefined
+                            })
                         };
                     }, function () {
                         if (_this3.state.selectList.open) {
@@ -207,24 +231,15 @@ window.onload = function () {
                                 var overflowDirection = listNodeOffsetBtm > bodyScrollHeight ? 'top' : 'bottom';
 
                                 _this3.setState(function (state) {
-                                    var selectList = Object.assign({}, state.selectList, {
-                                        overflow: overflowDirection
-                                    });
-
                                     return {
-                                        selectList: selectList
+                                        selectList: Object.assign({}, state.selectList, {
+                                            overflow: overflowDirection
+                                        })
                                     };
                                 });
                             }
                         }
                     });
-                }
-            }
-        }, {
-            key: 'componentDidMount',
-            value: function componentDidMount() {
-                if (this.props.type === 'select') {
-                    this.handleSelectTop = this.handleSelectTop.bind(this);
                 }
             }
         }, {
@@ -243,14 +258,14 @@ window.onload = function () {
                         { className: labelClassName !== "" ? labelClassName : undefined },
                         this.props.label
                     ),
-                    this.props.type === 'text' && React.createElement('input', { maxLength: this.props.maxLength, type: 'text', spellCheck: 'false', autoComplete: 'off', onFocus: this.handleFocus, onBlur: this.handleBlur, onChange: this.handleChange, disabled: this.props.disabled }),
+                    this.props.type === 'text' && React.createElement('input', { maxLength: typeof this.props.maxLength !== 'undefined' ? this.props.maxLength : maxInputLength, type: 'text', spellCheck: 'false', autoComplete: 'off', onFocus: this.handleFocus, onBlur: this.handleBlur, onChange: this.handleChange, disabled: this.props.disabled, value: this.state.inputValue }),
                     this.props.type === 'radio' && React.createElement(
                         'ul',
                         { className: 'input-list radio-list' },
                         this.props.options.map(function (option, index) {
                             return React.createElement(
                                 'li',
-                                { className: ("radio-item " + (_this4.state.chosenIndex === index ? "chosen" : "") + " " + (_this4.props.disabled ? "disabled" : "")).trim(), key: index },
+                                { className: ("radio-item " + (_this4.state.chosenIndex === index ? "chosen" : "") + " " + (_this4.props.disabled ? "disabled" : "")).trim().replace(/\s+/g, " "), key: index },
                                 React.createElement('div', { className: 'radio', onClick: _this4.handleOption.bind(_this4, index, option) }),
                                 React.createElement(
                                     'span',
@@ -265,7 +280,7 @@ window.onload = function () {
                         { className: 'select-wrapper' },
                         React.createElement(
                             'div',
-                            { className: 'select-current', onClick: this.handleSelectTop.bind(this) },
+                            { className: ("select-current " + (this.props.disabled ? "disabled" : "") + " " + (this.state.selectList.open ? "focus" : "")).trim().replace(/\s+/g, " "), onClick: this.handleSelect },
                             React.createElement(
                                 'span',
                                 null,
@@ -277,9 +292,11 @@ window.onload = function () {
                                 this.state.selectList.open ? 'keyboard_arrow_up' : 'keyboard_arrow_down'
                             )
                         ),
-                        this.props.type === 'select' && this.state.selectList.open && React.createElement(
+                        this.state.selectList.open && React.createElement(
                             'ul',
-                            { className: ("select-list " + this.state.selectList.overflow).trim() },
+                            { className: ("select-list " + this.state.selectList.overflow).trim(), ref: function ref(node) {
+                                    return _this4.node = node;
+                                } },
                             this.props.options.map(function (option, index) {
                                 if (index !== _this4.state.chosenIndex) {
                                     return React.createElement(
@@ -295,7 +312,8 @@ window.onload = function () {
                                     return '';
                                 }
                             })
-                        )
+                        ),
+                        this.state.otherOptionChosen && React.createElement('input', { className: 'select-other', maxLength: typeof this.props.maxLength !== 'undefined' ? this.props.maxLength : maxInputLength, type: 'text', spellCheck: 'false', autoComplete: 'off', disabled: this.props.disabled, onFocus: this.handleFocus, onBlur: this.handleBlur, onChange: this.handleChange, value: this.state.inputValue })
                     )
                 );
             }
@@ -334,7 +352,7 @@ window.onload = function () {
                         null,
                         this.props.headerText
                     ),
-                    React.createElement('textarea', { spellCheck: 'false', maxLength: this.props.maxLength, onChange: this.handleChange, disabled: this.props.disabled }),
+                    React.createElement('textarea', { spellCheck: 'false', maxLength: typeof this.props.maxLength !== 'undefined' ? this.props.maxLength : maxTextareaLength, onChange: this.handleChange, disabled: this.props.disabled }),
                     React.createElement(
                         'div',
                         null,
@@ -376,7 +394,6 @@ window.onload = function () {
             _this6.handleInputChange = _this6.handleInputChange.bind(_this6);
             _this6.handleRatingChange = _this6.handleRatingChange.bind(_this6);
             _this6.handleCommentChange = _this6.handleCommentChange.bind(_this6);
-            _this6.maxCommentLength = 255;
             _this6.childNodeRef = function (child) {
                 window.scrollTo(0, getRealOffsetTop(child.offsetTop));
             };
@@ -658,7 +675,7 @@ window.onload = function () {
                                 [].concat(_toConsumableArray(Array(7))).map(function (x, key, array) {
                                     return React.createElement(
                                         'li',
-                                        { className: ("seq-item radio-item " + (_this8.state.stats.rating === key + 1 ? "chosen" : "") + " " + (_this8.state.nextTask ? "disabled" : "")).trim().replace(/\s+/g, ' '), key: key },
+                                        { className: ("seq-item radio-item " + (_this8.state.stats.rating === key + 1 ? "chosen" : "") + " " + (_this8.state.nextTask ? "disabled" : "")).trim().replace(/\s+/g, " "), key: key },
                                         key === 0 && React.createElement(
                                             'div',
                                             null,
@@ -683,7 +700,7 @@ window.onload = function () {
                                 { className: 'note' },
                                 '* Pole wymagane'
                             ),
-                            this.state.stats.rating > 0 && React.createElement(Comment, { headerText: 'Czy masz jakie\u015B uwagi lub sugestie zwi\u0105zane z powy\u017Cszym \u0107wiczeniem? **', noteText: '** Pole opcjonalne', onChange: this.handleCommentChange, length: this.state.stats.comment.length, maxLength: this.maxCommentLength, disabled: this.state.nextTask })
+                            this.state.stats.rating > 0 && React.createElement(Comment, { headerText: 'Czy masz jakie\u015B uwagi lub sugestie zwi\u0105zane z powy\u017Cszym \u0107wiczeniem? **', noteText: '** Pole opcjonalne', onChange: this.handleCommentChange, length: this.state.stats.comment.length, maxLength: maxTextareaLength, disabled: this.state.nextTask })
                         ),
                         this.state.stats.rating > 0 && React.createElement(
                             'button',
@@ -879,7 +896,7 @@ window.onload = function () {
                                                 question.answers.map(function (answer, aIndex) {
                                                     return React.createElement(
                                                         'li',
-                                                        { className: ("radio-item " + (question.chosenAnswer === aIndex ? "chosen" : "") + " " + (_this10.state.nextScenario ? "disabled" : "")).trim().replace(/\s+/g, ' '), key: aIndex },
+                                                        { className: ("radio-item " + (question.chosenAnswer === aIndex ? "chosen" : "") + " " + (_this10.state.nextScenario ? "disabled" : "")).trim().replace(/\s+/g, " "), key: aIndex },
                                                         React.createElement('div', { className: 'radio', onClick: _this10.handleSummaryQuestion.bind(_this10, qIndex, aIndex) }),
                                                         React.createElement(
                                                             'span',
@@ -899,7 +916,7 @@ window.onload = function () {
                                     { className: 'note' },
                                     '* Pole wymagane'
                                 ),
-                                this.state.summary.currentQuestion >= this.state.summary.questions.length && React.createElement(Comment, { headerText: 'Czy masz jakie\u015B uwagi lub sugestie zwi\u0105zane z uko\u0144czonym scenariuszem? **', noteText: '** Pole opcjonalne', onChange: this.handleSummaryComment, length: this.state.summary.comment.length, maxLength: '255', disabled: this.state.nextScenario })
+                                this.state.summary.currentQuestion >= this.state.summary.questions.length && React.createElement(Comment, { headerText: 'Czy masz jakie\u015B uwagi lub sugestie zwi\u0105zane z uko\u0144czonym scenariuszem? **', noteText: '** Pole opcjonalne', onChange: this.handleSummaryComment, length: this.state.summary.comment.length, maxLength: maxTextareaLength, disabled: this.state.nextScenario })
                             )
                         ),
                         this.state.scenarioFinished && this.state.summary.currentQuestion >= this.state.summary.questions.length && React.createElement(
@@ -948,7 +965,6 @@ window.onload = function () {
                         label: 'Imię',
                         id: 'firstName',
                         value: '',
-                        regex: /^[a-ząćęłńóśźż]+$/i,
                         maxLength: 32,
                         valid: false
                     }, {
@@ -979,7 +995,8 @@ window.onload = function () {
                         label: 'Wykształcenie',
                         id: 'education',
                         value: '',
-                        options: ['Podstawowe', 'Gimnazjalne', 'Zasadnicze zawodowe', 'Zasadnicze branżowe', 'Średnie branżowe', 'Średnie', 'Wyższe', 'Żadne z powyższych'],
+                        options: ['Podstawowe', 'Gimnazjalne', 'Zasadnicze zawodowe', 'Zasadnicze branżowe', 'Średnie branżowe', 'Średnie', 'Wyższe', 'Inne (jakie?)'],
+                        otherOption: true,
                         valid: false
                     }]
                 },
@@ -1148,18 +1165,18 @@ window.onload = function () {
                         });
                     }, function () {
                         var output = _this14.state.output;
-                        var userData = _this14.state.form.data.map(function (input) {
-                            var item = {};
-                            item[input.id] = input.value;
+                        var userData = {};
 
-                            return item;
-                        });
+                        for (var k = 0; k < _this14.state.form.data.length; k++) {
+                            var input = _this14.state.form.data[k];
+                            userData[input.id] = input.value;
+                        }
 
                         output = Object.assign({}, output, {
                             user: userData
                         });
 
-                        console.log(output);
+                        console.log(output.user);
                     });
                 }
             }

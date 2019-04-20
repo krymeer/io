@@ -419,9 +419,11 @@ main {
             > .radio {
                 border-color: $border-color-d;
                 background: $border-color-m;
+                cursor: default;
 
                 &:before {
                     background: $border-color-d;
+                    opacity: 0;
                 }
             }
         }
@@ -534,9 +536,11 @@ main {
                         cursor: pointer;
                         display: grid;
                         grid-template-columns: 1fr 24px;
-                        cursor: pointer;
                         height: 35px;
                         align-content: center;
+                        background: #fff;
+                        position: relative;
+                        z-index: 2;
 
                         > span {
                             align-self: center;
@@ -544,6 +548,16 @@ main {
 
                         > i {
                             justify-self: end;
+                        }
+
+                        &.disabled {
+                            cursor: default;
+                            background: $border-color-m;
+                            color: $border-color-d;
+                        }
+
+                        &.focus {
+                            border-color: $input-color-b;
                         }
                     }
 
@@ -556,9 +570,9 @@ main {
                         padding: 0;
                         list-style-type: none;
                         margin: 0 $value-s;
-                        box-shadow: 0px 4px 10px rgba(0, 0, 0,.2);
                         background: transparent;
                         border: 2px solid $border-color-d;
+                        box-shadow: 0px 0px 10px rgba(0, 0, 0,.2);
                         z-index: 1;
 
                         &.top {
@@ -566,6 +580,10 @@ main {
                             border-bottom-left-radius: 0;
                             border-bottom-right-radius: 0;
                             border-bottom: none;
+
+                            &:not(:last-child) {
+                                bottom: 75px;
+                            }
                         }
 
                         &:not(.top) {
@@ -584,6 +602,11 @@ main {
                                 background: $border-color-m;
                             }
                         }
+                    }
+
+                    > .select-other {
+                        margin-top: 5px;
+                        width: 100%;
                     }
                 }
 
@@ -613,17 +636,12 @@ main {
                     }
 
                     > .select-wrapper {
-                        > .select-current {
+                        > .select-current, > .select-list, > .select-other  {
                             border-color: $primary-color !important;
-                            color: $primary-color !important;
                         }
 
-                        > .select-list {
-                            border-color: $primary-color !important;
-
-                            > .select-option {
-                                color: $primary-color !important;
-                            }
+                        > .select-current, > .select-list > .select-option , > .select-other {
+                            color: $primary-color !important;
                         }
                     }
 
@@ -636,6 +654,10 @@ main {
                                     &:before {
                                         background: $primary-color;
                                     }
+                                }
+
+                                > span {
+                                    color: $primary-color !important;
                                 }
                             }
                         }

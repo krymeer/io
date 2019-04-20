@@ -10,6 +10,9 @@ window.onload = function() {
         fixed  : 35
     }
 
+    const maxInputLength    = 64;
+    const maxTextareaLength = 255;
+
     getRealOffsetTop = ( offsetTop ) => {
         if( offsetTop > headerHeight.static )
         {
@@ -64,15 +67,23 @@ window.onload = function() {
         constructor( props )
         {
             super( props );
-
-            this.handleFocus     = this.handleFocus.bind( this );
-            this.handleBlur      = this.handleBlur.bind( this );
-            this.handleChange    = this.handleChange.bind( this );
-            this.state        = {
-                inputFocus     : false,
-                inputNonEmpty  : false,
-                inputValid     : false,
+            this.state              = {
+                inputValid : false
             };
+
+            if( this.props.type === 'text' || ( this.props.type === 'select' && this.props.otherOption ) )
+            {
+                this.handleFocus        = this.handleFocus.bind( this );
+                this.handleBlur         = this.handleBlur.bind( this );
+                this.handleChange       = this.handleChange.bind( this );
+
+                this.state = {
+                    ...this.state,
+                    inputFocus     : false,
+                    inputNonEmpty  : false,
+                    inputValue     : ''
+                }
+            }
 
             if( this.props.type === 'select' )
             {
@@ -80,10 +91,26 @@ window.onload = function() {
                     ...this.state,
                     selectList : {}
                 };
+
+                this.handleClickOutside = this.handleClickOutside.bind( this );
+                this.handleSelect       = this.handleSelect.bind( this );
             }
         }
 
-        handleFocus( e )
+        handleClickOutside( e )
+        {
+            if( this.node.contains( e.target ) )
+            {
+                return;
+            }
+
+            if( this.props.type === 'select' && this.state.selectList.open )
+            {
+                this.handleSelect();
+            }
+        }
+
+        handleFocus( event )
         {
             if( !this.props.disabled )
             {
@@ -92,17 +119,17 @@ window.onload = function() {
                 } );
 
                 // This TEMPORARY call is necessary when filling the inputs programmatically
-                this.handleChange( e );
+                this.handleChange( event );
             }
         }
 
-        handleBlur( e )
+        handleBlur()
         {
             if( !this.props.disabled )
             {
                 this.setState( {
                     inputFocus    : false,
-                    inputNonEmpty : ( e.target.value !== '' )
+                    inputNonEmpty : ( this.state.inputValue !== '' )
                 } );
             }
         }
@@ -111,73 +138,80 @@ window.onload = function() {
         {
             if( !this.props.disabled )
             {
-                const inputValid = ( typeof this.props.defaultValue !== 'undefined' ) ? ( this.props.defaultValue === event.target.value ) : ( this.props.regex.test( event.target.value ) );
+                const inputValue = event.target.value;
+                const inputValid = ( typeof this.props.defaultValue !== 'undefined' )
+                                    ? ( this.props.defaultValue === inputValue )
+                                    : ( ( typeof this.props.regex !== 'undefined' )
+                                        ? this.props.regex.test( inputValue )
+                                        : ( inputValue !== '' ) );
 
                 this.setState( {
+                    inputValue : inputValue,
                     inputValid : inputValid
                 } );
 
                 this.props.onChange( {
                     index : this.props.index,
-                    valid : inputValid,
-                    value : event.target.value
+                    value : inputValue,
+                    valid : inputValid
                 } );
             }
         }
 
-        handleOption( index, value )
+        handleOption( optionIndex, optionValue )
         {
             if( !this.props.disabled )
             {
-                const inputValid = ( typeof this.props.defaultValue !== 'undefined' ) ? ( this.props.defaultValue === value ) : true;
+                const inputValid = ( typeof this.props.defaultValue !== 'undefined' ) ? ( this.props.defaultValue === optionValue ) : true;
 
                 this.setState( {
                     inputValid  : inputValid,
-                    chosenIndex : index
+                    chosenIndex : optionIndex
                 } );
 
-                if( this.props.type === 'select' ) {
-                    this.setState( state => {
-                        const selectList = {
-                            ...state.selectList,
-                            open     : false,
-                            overflow : undefined
-                        };
+                if( this.props.type === 'select' )
+                {
+                    const otherOptionChosen = ( this.props.otherOption && optionIndex === this.props.options.length - 1 );
 
-                        return {
-                            selectList
-                        };                     
+                    this.setState( {
+                        otherOptionChosen : otherOptionChosen,
+                        inputValid        : !otherOptionChosen
                     } );
+
+                    this.handleSelect();
                 }
 
                 this.props.onChange( {
                     index : this.props.index,
                     valid : inputValid,
-                    value
+                    value : optionValue
                 } );
             }
         }
 
-        handleSelectTop( event )
+        handleSelect( event )
         {
-            // TODO
-            // insert all the "not-chosen" list elements into a separate div (in order to be able to give them some shadow)
-            // when clicking outside the list, make sure to close it
-            // https://stackoverflow.com/questions/32553158/detect-click-outside-react-component
-
             if( !this.props.disabled )
             {
                 const bodyScrollHeight = document.body.scrollHeight;
-                const currentNode      = event.target;
+                const currentNode      = ( typeof event !== 'undefined' ) ? event.target : '';
+
+                if( !this.state.selectList.open )
+                {
+                    document.addEventListener( 'click', this.handleClickOutside, false );
+                }
+                else
+                {
+                    document.removeEventListener( 'click', this.handleClickOutside, false );
+                }
 
                 this.setState( state => {
-                    const selectList = {
-                        ...state.selectList,
-                        open : !state.selectList.open
-                    };
-
                     return {
-                        selectList
+                        selectList : {
+                            ...state.selectList,
+                            open     : !state.selectList.open,
+                            overflow : undefined
+                        }
                     };
                 }, () => {
                     if( this.state.selectList.open )
@@ -187,29 +221,19 @@ window.onload = function() {
                         if( listNode !== null )
                         {
                             const listNodeOffsetBtm = document.body.parentElement.scrollTop + listNode.getBoundingClientRect().top + listNode.offsetHeight;
-                            const overflowDirection = listNodeOffsetBtm > bodyScrollHeight ? 'top' : 'bottom';
+                            const overflowDirection = ( listNodeOffsetBtm > bodyScrollHeight ) ? 'top' : 'bottom';
 
                             this.setState( state => {
-                                const selectList = {
-                                    ...state.selectList,
-                                    overflow : overflowDirection
-                                };
-
                                 return {
-                                    selectList
-                                }
+                                    selectList : {
+                                        ...state.selectList,
+                                        overflow : overflowDirection
+                                    }
+                                };
                             } );
                         }
                     }
                 } );
-            }
-        }
-
-        componentDidMount()
-        {
-            if( this.props.type === 'select' )
-            {
-                this.handleSelectTop = this.handleSelectTop.bind( this );
             }
         }
 
@@ -222,13 +246,13 @@ window.onload = function() {
                 <div className={ ( wrapperClassName !== "" ) ? wrapperClassName : undefined }>
                     <label className={ ( labelClassName !== "" ) ? labelClassName : undefined }>{ this.props.label }</label>
                     { this.props.type === 'text' &&
-                        <input maxLength={ this.props.maxLength } type="text" spellCheck="false" autoComplete="off" onFocus={ this.handleFocus } onBlur={ this.handleBlur } onChange={ this.handleChange } disabled={ this.props.disabled } />
+                        <input maxLength={ ( typeof this.props.maxLength !== 'undefined' ) ? this.props.maxLength : maxInputLength } type="text" spellCheck="false" autoComplete="off" onFocus={ this.handleFocus } onBlur={ this.handleBlur } onChange={ this.handleChange } disabled={ this.props.disabled } value={ this.state.inputValue }/>
                     }
                     { this.props.type === 'radio' &&
                         <ul className="input-list radio-list">
                         {
                             this.props.options.map( ( option, index ) =>
-                                <li className={ ( "radio-item "  +  ( this.state.chosenIndex === index ? "chosen" : "" ) + " " + ( this.props.disabled ? "disabled" : "" ) ).trim() } key={ index }>
+                                <li className={ ( "radio-item "  +  ( this.state.chosenIndex === index ? "chosen" : "" ) + " " + ( this.props.disabled ? "disabled" : "" ) ).trim().replace( /\s+/g, " " ) } key={ index }>
                                     <div className="radio" onClick={ this.handleOption.bind( this, index, option ) } />
                                     <span>{ option }</span>
                                 </li>
@@ -238,14 +262,14 @@ window.onload = function() {
                     }
                     { this.props.type === 'select' &&
                         <div className="select-wrapper">
-                            <div className="select-current" onClick={ this.handleSelectTop.bind( this ) }>
+                            <div className={ ( "select-current " + ( this.props.disabled ? "disabled" : "" ) + " " + ( this.state.selectList.open ? "focus" : "" ) ).trim().replace( /\s+/g, " " ) } onClick={ this.handleSelect }>
                                 <span>{ this.state.chosenIndex >= 0 ? this.props.options[ this.state.chosenIndex ] : '' }</span>
                                 <i className="material-icons">
                                     { ( this.state.selectList.open ) ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }
                                 </i>
                             </div>
-                            { this.props.type === 'select' && this.state.selectList.open &&
-                                <ul className={ ( "select-list " + this.state.selectList.overflow ).trim() } >
+                            { this.state.selectList.open &&
+                                <ul className={ ( "select-list " + this.state.selectList.overflow ).trim() }  ref={ node => this.node = node }>
                                     { this.props.options.map( ( option, index ) => {
                                         if( index !== this.state.chosenIndex )
                                         {
@@ -261,6 +285,9 @@ window.onload = function() {
                                         }
                                     } ) }
                                 </ul>
+                            }
+                            { this.state.otherOptionChosen &&
+                                <input className="select-other" maxLength={ ( typeof this.props.maxLength !== 'undefined' ) ? this.props.maxLength : maxInputLength } type="text" spellCheck="false" autoComplete="off" disabled={ this.props.disabled } onFocus={ this.handleFocus } onBlur={ this.handleBlur } onChange={ this.handleChange } value={ this.state.inputValue }/>
                             }
                         </div>
                     }
@@ -292,7 +319,7 @@ window.onload = function() {
                     <h4>
                         { this.props.headerText }
                     </h4>
-                    <textarea spellCheck="false" maxLength={ this.props.maxLength } onChange={ this.handleChange } disabled={ this.props.disabled } />
+                    <textarea spellCheck="false" maxLength={ ( typeof this.props.maxLength !== 'undefined' ) ? this.props.maxLength : maxTextareaLength } onChange={ this.handleChange } disabled={ this.props.disabled } />
                     <div>
                         <p className="note">
                             Pozostało znaków: <span className="text-important">{ this.props.maxLength - this.props.length }</span>
@@ -319,7 +346,6 @@ window.onload = function() {
             this.handleInputChange   = this.handleInputChange.bind( this );
             this.handleRatingChange  = this.handleRatingChange.bind( this );
             this.handleCommentChange = this.handleCommentChange.bind( this );
-            this.maxCommentLength    = 255;
             this.childNodeRef        = child => {
                 window.scrollTo( 0, getRealOffsetTop( child.offsetTop ) );
             }
@@ -564,7 +590,7 @@ window.onload = function() {
                                 </h3>
                                 <ul className="seq-radios">
                                     { [ ...Array( 7 ) ].map( ( x, key, array ) =>
-                                        <li className={ ( "seq-item radio-item " + ( this.state.stats.rating === key + 1  ? "chosen" : "" ) + " " + ( this.state.nextTask ? "disabled" : "" ) ).trim().replace( /\s+/g, ' ' ) } key={ key }>
+                                        <li className={ ( "seq-item radio-item " + ( this.state.stats.rating === key + 1  ? "chosen" : "" ) + " " + ( this.state.nextTask ? "disabled" : "" ) ).trim().replace( /\s+/g, " " ) } key={ key }>
                                             { key === 0 &&
                                                 <div>
                                                     Bardzo trudne
@@ -584,7 +610,7 @@ window.onload = function() {
                                     * Pole wymagane
                                 </p>
                                 { this.state.stats.rating > 0 &&
-                                    <Comment headerText="Czy masz jakieś uwagi lub sugestie związane z powyższym ćwiczeniem? **" noteText="** Pole opcjonalne" onChange={ this.handleCommentChange } length={ this.state.stats.comment.length } maxLength={ this.maxCommentLength } disabled={ this.state.nextTask } />
+                                    <Comment headerText="Czy masz jakieś uwagi lub sugestie związane z powyższym ćwiczeniem? **" noteText="** Pole opcjonalne" onChange={ this.handleCommentChange } length={ this.state.stats.comment.length } maxLength={ maxTextareaLength } disabled={ this.state.nextTask } />
                                 }
                             </section>
                         }
@@ -772,7 +798,7 @@ window.onload = function() {
                                                 <h4>{ question.text } *</h4>
                                                 <ul>
                                                     { question.answers.map( ( answer, aIndex ) =>
-                                                        <li className={ ( "radio-item " + ( question.chosenAnswer === aIndex ? "chosen" : "" ) + " " + ( this.state.nextScenario ? "disabled" : "" ) ).trim().replace( /\s+/g, ' ' ) } key={ aIndex }>
+                                                        <li className={ ( "radio-item " + ( question.chosenAnswer === aIndex ? "chosen" : "" ) + " " + ( this.state.nextScenario ? "disabled" : "" ) ).trim().replace( /\s+/g, " " ) } key={ aIndex }>
                                                             <div className="radio" onClick={ this.handleSummaryQuestion.bind( this, qIndex, aIndex ) } />
                                                             <span>{ answer }</span>
                                                         </li>
@@ -787,7 +813,7 @@ window.onload = function() {
                                     } ) }
                                     <p className="note">* Pole wymagane</p>
                                     { this.state.summary.currentQuestion >= this.state.summary.questions.length &&
-                                        <Comment headerText="Czy masz jakieś uwagi lub sugestie związane z ukończonym scenariuszem? **" noteText="** Pole opcjonalne" onChange={ this.handleSummaryComment } length={ this.state.summary.comment.length } maxLength="255" disabled={ this.state.nextScenario } />
+                                        <Comment headerText="Czy masz jakieś uwagi lub sugestie związane z ukończonym scenariuszem? **" noteText="** Pole opcjonalne" onChange={ this.handleSummaryComment } length={ this.state.summary.comment.length } maxLength={ maxTextareaLength } disabled={ this.state.nextScenario } />
                                     }
                                 </section>
                             </section>
@@ -840,7 +866,6 @@ window.onload = function() {
                             label     : 'Imię',
                             id        : 'firstName',
                             value     : '',
-                            regex     : /^[a-ząćęłńóśźż]+$/i,
                             maxLength : 32,
                             valid     : false
                         },
@@ -871,12 +896,13 @@ window.onload = function() {
                             valid     : false
                         },
                         {
-                            type    : 'select',
-                            label   : 'Wykształcenie',
-                            id      : 'education',
-                            value   : '',
-                            options : [ 'Podstawowe', 'Gimnazjalne', 'Zasadnicze zawodowe', 'Zasadnicze branżowe', 'Średnie branżowe', 'Średnie', 'Wyższe', 'Żadne z powyższych' ],
-                            valid   : false
+                            type        : 'select',
+                            label       : 'Wykształcenie',
+                            id          : 'education',
+                            value       : '',
+                            options     : [ 'Podstawowe', 'Gimnazjalne', 'Zasadnicze zawodowe', 'Zasadnicze branżowe', 'Średnie branżowe', 'Średnie', 'Wyższe', 'Inne (jakie?)' ],
+                            otherOption : true,
+                            valid       : false
                         }
                     ]
                 },
@@ -1063,20 +1089,21 @@ window.onload = function() {
                         }
                     }
                 }, () => {
-                    let output     = this.state.output;
-                    const userData = this.state.form.data.map( ( input ) => {
-                        const item       = {};
-                        item[ input.id ] = input.value;
+                    let output   = this.state.output;
+                    let userData = {};
 
-                        return item;
-                    } );
+                    for( let k = 0; k < this.state.form.data.length; k++ )
+                    {
+                        const input = this.state.form.data[ k ];
+                        userData[ input.id ] = input.value;
+                    }
 
                     output = {
                         ...output,
                         user : userData
                     };
 
-                    console.log( output );
+                    console.log( output.user );
                 } );
             }
         }

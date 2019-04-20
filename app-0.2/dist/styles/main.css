@@ -314,9 +314,11 @@ main .radio-item > .radio:hover:before {
 main .radio-item.disabled > .radio {
   border-color: #ddd;
   background: #eee;
+  cursor: default;
 }
 main .radio-item.disabled > .radio:before {
   background: #ddd;
+  opacity: 0;
 }
 main .radio-item.chosen > .radio:before {
   opacity: 1;
@@ -382,15 +384,25 @@ main section .form > .wrapper > .select-wrapper > .select-current {
   cursor: pointer;
   display: grid;
   grid-template-columns: 1fr 24px;
-  cursor: pointer;
   height: 35px;
   align-content: center;
+  background: #fff;
+  position: relative;
+  z-index: 2;
 }
 main section .form > .wrapper > .select-wrapper > .select-current > span {
   align-self: center;
 }
 main section .form > .wrapper > .select-wrapper > .select-current > i {
   justify-self: end;
+}
+main section .form > .wrapper > .select-wrapper > .select-current.disabled {
+  cursor: default;
+  background: #eee;
+  color: #ddd;
+}
+main section .form > .wrapper > .select-wrapper > .select-current.focus {
+  border-color: #7e7e7e;
 }
 main section .form > .wrapper > .select-wrapper > .select-list {
   position: absolute;
@@ -400,9 +412,9 @@ main section .form > .wrapper > .select-wrapper > .select-list {
   padding: 0;
   list-style-type: none;
   margin: 0 7px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
   background: transparent;
   border: 2px solid #ddd;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
   z-index: 1;
 }
 main section .form > .wrapper > .select-wrapper > .select-list.top {
@@ -410,6 +422,9 @@ main section .form > .wrapper > .select-wrapper > .select-list.top {
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
   border-bottom: none;
+}
+main section .form > .wrapper > .select-wrapper > .select-list.top:not(:last-child) {
+  bottom: 75px;
 }
 main section .form > .wrapper > .select-wrapper > .select-list:not(.top) {
   border-top-left-radius: 0;
@@ -424,6 +439,10 @@ main section .form > .wrapper > .select-wrapper > .select-list > .select-option 
 }
 main section .form > .wrapper > .select-wrapper > .select-list > .select-option:hover {
   background: #eee;
+}
+main section .form > .wrapper > .select-wrapper > .select-other {
+  margin-top: 5px;
+  width: 100%;
 }
 main section .form > .wrapper > ul.input-list {
   padding: 0;
@@ -444,14 +463,10 @@ main section .form > .wrapper.on-form-error.on-input-invalid > input {
 main section .form > .wrapper.on-form-error.on-input-invalid > label {
   color: #a63446 !important;
 }
-main section .form > .wrapper.on-form-error.on-input-invalid > .select-wrapper > .select-current {
-  border-color: #a63446 !important;
-  color: #a63446 !important;
-}
-main section .form > .wrapper.on-form-error.on-input-invalid > .select-wrapper > .select-list {
+main section .form > .wrapper.on-form-error.on-input-invalid > .select-wrapper > .select-current, main section .form > .wrapper.on-form-error.on-input-invalid > .select-wrapper > .select-list, main section .form > .wrapper.on-form-error.on-input-invalid > .select-wrapper > .select-other {
   border-color: #a63446 !important;
 }
-main section .form > .wrapper.on-form-error.on-input-invalid > .select-wrapper > .select-list > .select-option {
+main section .form > .wrapper.on-form-error.on-input-invalid > .select-wrapper > .select-current, main section .form > .wrapper.on-form-error.on-input-invalid > .select-wrapper > .select-list > .select-option, main section .form > .wrapper.on-form-error.on-input-invalid > .select-wrapper > .select-other {
   color: #a63446 !important;
 }
 main section .form > .wrapper.on-form-error.on-input-invalid > ul.input-list > li.radio-item > div {
@@ -459,6 +474,9 @@ main section .form > .wrapper.on-form-error.on-input-invalid > ul.input-list > l
 }
 main section .form > .wrapper.on-form-error.on-input-invalid > ul.input-list > li.radio-item > div:before {
   background: #a63446;
+}
+main section .form > .wrapper.on-form-error.on-input-invalid > ul.input-list > li.radio-item > span {
+  color: #a63446 !important;
 }
 main section .form > p.on-form-error {
   font-size: 14px;
