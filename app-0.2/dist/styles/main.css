@@ -256,6 +256,14 @@ main .notes-wrapper {
   grid-auto-flow: column;
   justify-content: space-between;
 }
+main .comment-wrapper > label {
+  color: #a63446;
+  font-size: 16px;
+  line-height: 1.5;
+}
+main .comment-wrapper > textarea {
+  margin: 3.5px 0 14px 0;
+}
 main .select-option, main .select-current, main textarea, main input {
   font-size: inherit;
   color: #212121;
@@ -275,6 +283,7 @@ main textarea.error, main input.error {
   border-color: #a63446;
 }
 main textarea {
+  display: block;
   resize: none;
   width: 100%;
   height: 102px;
@@ -366,8 +375,8 @@ main section.scenario .summary .questions > .question-wrapper > ul > li > * {
 main section.scenario .summary .questions > .question-wrapper > ul > li > span {
   font-size: 14px;
 }
-main section.scenario .summary .questions > .note {
-  text-align: right;
+main section.scenario .summary .questions > .comment-wrapper > textarea {
+  margin-top: 3.5px;
 }
 main section .form {
   position: relative;
@@ -570,9 +579,6 @@ main section.task .seq > .seq-radios > li.seq-item:first-child > div:first-child
   text-align: left;
 }
 main section.task .seq > .seq-radios > li.seq-item:last-child > div:first-child {
-  text-align: right;
-}
-main section.task .seq > .seq-radios + .note {
   text-align: right;
 }
 main section #user-form {

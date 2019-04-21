@@ -90,14 +90,14 @@ class Scenario extends React.Component {
         }
     }
 
-    handleSummaryComment( comment )
+    handleSummaryComment( input )
     {
         if( this.state.scenarioFinished && !this.state.nextScenario )
         {
             this.setState( state => {
                 const summary = {
                     ...state.summary,
-                    comment : comment
+                    comment : input.value
                 }
 
                 return {
@@ -178,7 +178,7 @@ class Scenario extends React.Component {
                                     }
                                 } ) }
                                 { this.state.summary.currentQuestion >= this.state.summary.questions.length &&
-                                    <Comment headerText="Czy masz jakieś uwagi lub sugestie związane z ukończonym scenariuszem? *" noteText="* Pole opcjonalne" onChange={ this.handleSummaryComment } length={ this.state.summary.comment.length } maxLength={ globals.maxLength.textarea } disabled={ this.state.nextScenario } />
+                                    <InputWrapper wrapperClass="comment-wrapper" label="Czy masz jakieś uwagi lub sugestie związane z ukończonym scenariuszem?" optional={ true } type="textarea" disabled={ this.state.nextScenario } onChange={ this.handleSummaryComment } />
                                 }
                             </section>
                         </section>

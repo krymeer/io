@@ -145,11 +145,11 @@ var Task = function (_React$Component) {
         }
     }, {
         key: 'handleCommentChange',
-        value: function handleCommentChange(comment) {
+        value: function handleCommentChange(input) {
             if (this.state.taskFinished && !this.state.nextTask) {
                 this.setState(function (state) {
                     var stats = Object.assign({}, state.stats, {
-                        comment: comment
+                        comment: input.value
                     });
 
                     return {
@@ -323,7 +323,7 @@ var Task = function (_React$Component) {
                                 );
                             })
                         ),
-                        this.state.stats.rating > 0 && React.createElement(Comment, { headerText: 'Czy masz jakie\u015B uwagi lub sugestie zwi\u0105zane z powy\u017Cszym \u0107wiczeniem? *', noteText: '* Pole opcjonalne', onChange: this.handleCommentChange, length: this.state.stats.comment.length, maxLength: globals.maxLength.textarea, disabled: this.state.nextTask })
+                        this.state.stats.rating > 0 && React.createElement(InputWrapper, { wrapperClass: 'comment-wrapper', label: 'Czy masz jakie\u015B uwagi lub sugestie zwi\u0105zane z powy\u017Cszym \u0107wiczeniem?', optional: true, type: 'textarea', disabled: this.state.nextTask, onChange: this.handleCommentChange })
                     ),
                     this.state.stats.rating > 0 && React.createElement(
                         'button',

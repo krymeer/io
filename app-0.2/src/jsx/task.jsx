@@ -140,14 +140,14 @@ class Task extends React.Component {
         }
     }
 
-    handleCommentChange( comment )
+    handleCommentChange( input )
     {
         if( this.state.taskFinished && !this.state.nextTask )
         {
             this.setState( state => {
                 const stats = {
                     ...state.stats,
-                    comment
+                    comment : input.value
                 }
 
                 return {
@@ -269,7 +269,7 @@ class Task extends React.Component {
                                 ) }
                             </ul>
                             { this.state.stats.rating > 0 &&
-                                <Comment headerText="Czy masz jakieś uwagi lub sugestie związane z powyższym ćwiczeniem? *" noteText="* Pole opcjonalne" onChange={ this.handleCommentChange } length={ this.state.stats.comment.length } maxLength={ globals.maxLength.textarea } disabled={ this.state.nextTask } />
+                                <InputWrapper wrapperClass="comment-wrapper" label="Czy masz jakieś uwagi lub sugestie związane z powyższym ćwiczeniem?" optional={ true } type="textarea" disabled={ this.state.nextTask } onChange={ this.handleCommentChange } />
                             }
                         </section>
                     }

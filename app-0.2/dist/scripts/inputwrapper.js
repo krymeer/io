@@ -193,7 +193,7 @@ var InputWrapper = function (_React$Component) {
         value: function render() {
             var _this4 = this;
 
-            var wrapperClassName = ('wrapper' + ' ' + (this.props.error ? 'on-form-error' : '') + ' ' + (this.state.inputValid ? '' : 'on-input-invalid')).trim().replace(/\s+/g, ' ');
+            var wrapperClassName = ('wrapper' + ' ' + (this.props.error ? 'on-form-error' : '') + ' ' + (this.state.inputValid ? '' : 'on-input-invalid') + ' ' + (typeof this.props.wrapperClass !== 'undefined' ? this.props.wrapperClass : '')).trim().replace(/\s+/g, ' ');
             var labelClassName = ((this.props.disabled ? 'on-input-disabled' : '') + ' ' + (this.state.inputFocus ? 'on-input-focus' : '') + ' ' + (this.state.inputNonEmpty ? 'on-input-non-empty' : '')).trim().replace(/\s+/g, ' ');
 
             return React.createElement(

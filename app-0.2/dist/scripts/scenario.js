@@ -96,11 +96,11 @@ var Scenario = function (_React$Component) {
         }
     }, {
         key: 'handleSummaryComment',
-        value: function handleSummaryComment(comment) {
+        value: function handleSummaryComment(input) {
             if (this.state.scenarioFinished && !this.state.nextScenario) {
                 this.setState(function (state) {
                     var summary = Object.assign({}, state.summary, {
-                        comment: comment
+                        comment: input.value
                     });
 
                     return Object.assign({}, state, {
@@ -200,7 +200,7 @@ var Scenario = function (_React$Component) {
                                     return "";
                                 }
                             }),
-                            this.state.summary.currentQuestion >= this.state.summary.questions.length && React.createElement(Comment, { headerText: 'Czy masz jakie\u015B uwagi lub sugestie zwi\u0105zane z uko\u0144czonym scenariuszem? *', noteText: '* Pole opcjonalne', onChange: this.handleSummaryComment, length: this.state.summary.comment.length, maxLength: globals.maxLength.textarea, disabled: this.state.nextScenario })
+                            this.state.summary.currentQuestion >= this.state.summary.questions.length && React.createElement(InputWrapper, { wrapperClass: 'comment-wrapper', label: 'Czy masz jakie\u015B uwagi lub sugestie zwi\u0105zane z uko\u0144czonym scenariuszem?', optional: true, type: 'textarea', disabled: this.state.nextScenario, onChange: this.handleSummaryComment })
                         )
                     ),
                     this.state.scenarioFinished && this.state.summary.currentQuestion >= this.state.summary.questions.length && React.createElement(
