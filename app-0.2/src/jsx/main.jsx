@@ -67,7 +67,7 @@ window.onload = function() {
         constructor( props )
         {
             super( props );
-            this.state              = {
+            this.state = {
                 inputValid : false
             };
 
@@ -162,20 +162,22 @@ window.onload = function() {
         {
             if( !this.props.disabled )
             {
-                const inputValid = ( typeof this.props.defaultValue !== 'undefined' ) ? ( this.props.defaultValue === optionValue ) : true;
+                const otherOptionChosen = ( this.props.type === 'select' && this.props.otherOption && optionIndex === this.props.options.length - 1 );
+                const inputValid        = ( typeof this.props.defaultValue !== 'undefined' )
+                                            ? ( this.props.defaultValue === optionValue )
+                                            : ( otherOptionChosen
+                                                ? ( this.state.inputValue !== '' )
+                                                : true );
 
                 this.setState( {
-                    inputValid  : inputValid,
-                    chosenIndex : optionIndex
+                    inputValid        : inputValid,
+                    chosenIndex       : optionIndex
                 } );
 
                 if( this.props.type === 'select' )
                 {
-                    const otherOptionChosen = ( this.props.otherOption && optionIndex === this.props.options.length - 1 );
-
                     this.setState( {
                         otherOptionChosen : otherOptionChosen,
-                        inputValid        : !otherOptionChosen
                     } );
 
                     this.handleSelect();
@@ -245,10 +247,10 @@ window.onload = function() {
             return (
                 <div className={ ( wrapperClassName !== "" ) ? wrapperClassName : undefined }>
                     <label className={ ( labelClassName !== "" ) ? labelClassName : undefined }>{ this.props.label }</label>
-                    { this.props.type === 'text' &&
-                        <input maxLength={ ( typeof this.props.maxLength !== 'undefined' ) ? this.props.maxLength : maxInputLength } type="text" spellCheck="false" autoComplete="off" onFocus={ this.handleFocus } onBlur={ this.handleBlur } onChange={ this.handleChange } disabled={ this.props.disabled } value={ this.state.inputValue }/>
+                    { this.props.type === "text" &&
+                        <input maxLength={ ( typeof this.props.maxLength !== "undefined" ) ? this.props.maxLength : maxInputLength } type="text" spellCheck="false" autoComplete="off" onFocus={ this.handleFocus } onBlur={ this.handleBlur } onChange={ this.handleChange } disabled={ this.props.disabled } value={ this.state.inputValue }/>
                     }
-                    { this.props.type === 'radio' &&
+                    { this.props.type === "radio" &&
                         <ul className="input-list radio-list">
                         {
                             this.props.options.map( ( option, index ) =>
@@ -260,12 +262,12 @@ window.onload = function() {
                         }
                         </ul>
                     }
-                    { this.props.type === 'select' &&
+                    { this.props.type === "select" &&
                         <div className="select-wrapper">
                             <div className={ ( "select-current " + ( this.props.disabled ? "disabled" : "" ) + " " + ( this.state.selectList.open ? "focus" : "" ) ).trim().replace( /\s+/g, " " ) } onClick={ this.handleSelect }>
-                                <span>{ this.state.chosenIndex >= 0 ? this.props.options[ this.state.chosenIndex ] : '' }</span>
+                                <span>{ this.state.chosenIndex >= 0 ? this.props.options[ this.state.chosenIndex ] : "" }</span>
                                 <i className="material-icons">
-                                    { ( this.state.selectList.open ) ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }
+                                    { ( this.state.selectList.open ) ? "keyboard_arrow_up" : "keyboard_arrow_down" }
                                 </i>
                             </div>
                             { this.state.selectList.open &&
@@ -281,13 +283,13 @@ window.onload = function() {
                                         }
                                         else
                                         {
-                                            return '';
+                                            return "";
                                         }
                                     } ) }
                                 </ul>
                             }
                             { this.state.otherOptionChosen &&
-                                <input className="select-other" maxLength={ ( typeof this.props.maxLength !== 'undefined' ) ? this.props.maxLength : maxInputLength } type="text" spellCheck="false" autoComplete="off" disabled={ this.props.disabled } onFocus={ this.handleFocus } onBlur={ this.handleBlur } onChange={ this.handleChange } value={ this.state.inputValue }/>
+                                <input className="select-other" maxLength={ ( typeof this.props.maxLength !== "undefined" ) ? this.props.maxLength : maxInputLength } type="text" spellCheck="false" autoComplete="off" disabled={ this.props.disabled } onFocus={ this.handleFocus } onBlur={ this.handleBlur } onChange={ this.handleChange } value={ this.state.inputValue }/>
                             }
                         </div>
                     }
@@ -319,7 +321,7 @@ window.onload = function() {
                     <h4>
                         { this.props.headerText }
                     </h4>
-                    <textarea spellCheck="false" maxLength={ ( typeof this.props.maxLength !== 'undefined' ) ? this.props.maxLength : maxTextareaLength } onChange={ this.handleChange } disabled={ this.props.disabled } />
+                    <textarea spellCheck="false" maxLength={ ( typeof this.props.maxLength !== "undefined" ) ? this.props.maxLength : maxTextareaLength } onChange={ this.handleChange } disabled={ this.props.disabled } />
                     <div>
                         <p className="note">
                             Pozostało znaków: <span className="text-important">{ this.props.maxLength - this.props.length }</span>
@@ -628,7 +630,7 @@ window.onload = function() {
                 );
             }
 
-            return '';
+            return "";
         }
     }
 
@@ -777,7 +779,7 @@ window.onload = function() {
                 return (
                     <section className="scenario" ref={ this.props.nodeRef }>
                         <h1>Scenariusz nr { ( this.props.index ) }</h1>
-                        { typeof this.props.scenario.intro !== 'undefined' &&
+                        { typeof this.props.scenario.intro !== "undefined" &&
                             <Paragraph content={ this.props.scenario.intro } />
                         }
                         <button onClick={ this.handleStart } disabled={ this.state.scenarioStarted }>Rozpocznij scenariusz</button>
@@ -808,7 +810,7 @@ window.onload = function() {
                                         }
                                         else
                                         {
-                                            return '';
+                                            return "";
                                         }
                                     } ) }
                                     <p className="note">* Pole wymagane</p>
@@ -833,7 +835,7 @@ window.onload = function() {
             }
             else
             {
-                return '';
+                return "";
             }
         }
     }
@@ -1103,7 +1105,7 @@ window.onload = function() {
                         user : userData
                     };
 
-                    console.log( output.user );
+                    console.log( output );
                 } );
             }
         }
@@ -1118,12 +1120,12 @@ window.onload = function() {
             }
             else if( !isLoaded )
             {
-                return '';
+                return "";
             }
             else
             {
                 return (
-                    <div className={ this.state.headerFixed ? 'header-fixed' : undefined } id="page-container">
+                    <div className={ this.state.headerFixed ? "header-fixed" : undefined } id="page-container">
                         <header>
                             <p>
                                 <span>Badanie użyteczności</span>
@@ -1145,7 +1147,7 @@ window.onload = function() {
                             { scenarios.map( ( scenario, index ) =>
                                 <Scenario key={ index } index={ index + 1 } testStarted={ this.state.testStarted } currentIndex={ this.state.currentScenarioIndex } lastIndex={ this.state.scenarios.length } scenario={ scenario } onFinish={ this.handleScenarioFinish } nodeRef={ this.childNodeRef } />
                             ) }
-                            { !this.state.allScenariosFinished &&
+                            { this.state.allScenariosFinished &&
                                 <section ref={ this.childNodeRef }>
                                     <h1>Zakończenie</h1>
                                     <Paragraph content="Tutaj będzie jakiś akapit podsumowujący, jednak na razie nie wiem, co by w nim mogło się znaleźć." />

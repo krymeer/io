@@ -175,7 +175,8 @@ window.onload = function () {
             key: 'handleOption',
             value: function handleOption(optionIndex, optionValue) {
                 if (!this.props.disabled) {
-                    var inputValid = typeof this.props.defaultValue !== 'undefined' ? this.props.defaultValue === optionValue : true;
+                    var otherOptionChosen = this.props.type === 'select' && this.props.otherOption && optionIndex === this.props.options.length - 1;
+                    var inputValid = typeof this.props.defaultValue !== 'undefined' ? this.props.defaultValue === optionValue : otherOptionChosen ? this.state.inputValue !== '' : true;
 
                     this.setState({
                         inputValid: inputValid,
@@ -183,11 +184,8 @@ window.onload = function () {
                     });
 
                     if (this.props.type === 'select') {
-                        var otherOptionChosen = this.props.otherOption && optionIndex === this.props.options.length - 1;
-
                         this.setState({
-                            otherOptionChosen: otherOptionChosen,
-                            inputValid: !otherOptionChosen
+                            otherOptionChosen: otherOptionChosen
                         });
 
                         this.handleSelect();
@@ -258,8 +256,8 @@ window.onload = function () {
                         { className: labelClassName !== "" ? labelClassName : undefined },
                         this.props.label
                     ),
-                    this.props.type === 'text' && React.createElement('input', { maxLength: typeof this.props.maxLength !== 'undefined' ? this.props.maxLength : maxInputLength, type: 'text', spellCheck: 'false', autoComplete: 'off', onFocus: this.handleFocus, onBlur: this.handleBlur, onChange: this.handleChange, disabled: this.props.disabled, value: this.state.inputValue }),
-                    this.props.type === 'radio' && React.createElement(
+                    this.props.type === "text" && React.createElement('input', { maxLength: typeof this.props.maxLength !== "undefined" ? this.props.maxLength : maxInputLength, type: 'text', spellCheck: 'false', autoComplete: 'off', onFocus: this.handleFocus, onBlur: this.handleBlur, onChange: this.handleChange, disabled: this.props.disabled, value: this.state.inputValue }),
+                    this.props.type === "radio" && React.createElement(
                         'ul',
                         { className: 'input-list radio-list' },
                         this.props.options.map(function (option, index) {
@@ -275,7 +273,7 @@ window.onload = function () {
                             );
                         })
                     ),
-                    this.props.type === 'select' && React.createElement(
+                    this.props.type === "select" && React.createElement(
                         'div',
                         { className: 'select-wrapper' },
                         React.createElement(
@@ -284,12 +282,12 @@ window.onload = function () {
                             React.createElement(
                                 'span',
                                 null,
-                                this.state.chosenIndex >= 0 ? this.props.options[this.state.chosenIndex] : ''
+                                this.state.chosenIndex >= 0 ? this.props.options[this.state.chosenIndex] : ""
                             ),
                             React.createElement(
                                 'i',
                                 { className: 'material-icons' },
-                                this.state.selectList.open ? 'keyboard_arrow_up' : 'keyboard_arrow_down'
+                                this.state.selectList.open ? "keyboard_arrow_up" : "keyboard_arrow_down"
                             )
                         ),
                         this.state.selectList.open && React.createElement(
@@ -309,11 +307,11 @@ window.onload = function () {
                                         )
                                     );
                                 } else {
-                                    return '';
+                                    return "";
                                 }
                             })
                         ),
-                        this.state.otherOptionChosen && React.createElement('input', { className: 'select-other', maxLength: typeof this.props.maxLength !== 'undefined' ? this.props.maxLength : maxInputLength, type: 'text', spellCheck: 'false', autoComplete: 'off', disabled: this.props.disabled, onFocus: this.handleFocus, onBlur: this.handleBlur, onChange: this.handleChange, value: this.state.inputValue })
+                        this.state.otherOptionChosen && React.createElement('input', { className: 'select-other', maxLength: typeof this.props.maxLength !== "undefined" ? this.props.maxLength : maxInputLength, type: 'text', spellCheck: 'false', autoComplete: 'off', disabled: this.props.disabled, onFocus: this.handleFocus, onBlur: this.handleBlur, onChange: this.handleChange, value: this.state.inputValue })
                     )
                 );
             }
@@ -352,7 +350,7 @@ window.onload = function () {
                         null,
                         this.props.headerText
                     ),
-                    React.createElement('textarea', { spellCheck: 'false', maxLength: typeof this.props.maxLength !== 'undefined' ? this.props.maxLength : maxTextareaLength, onChange: this.handleChange, disabled: this.props.disabled }),
+                    React.createElement('textarea', { spellCheck: 'false', maxLength: typeof this.props.maxLength !== "undefined" ? this.props.maxLength : maxTextareaLength, onChange: this.handleChange, disabled: this.props.disabled }),
                     React.createElement(
                         'div',
                         null,
@@ -711,7 +709,7 @@ window.onload = function () {
                     );
                 }
 
-                return '';
+                return "";
             }
         }]);
 
@@ -858,7 +856,7 @@ window.onload = function () {
                             'Scenariusz nr ',
                             this.props.index
                         ),
-                        typeof this.props.scenario.intro !== 'undefined' && React.createElement(Paragraph, { content: this.props.scenario.intro }),
+                        typeof this.props.scenario.intro !== "undefined" && React.createElement(Paragraph, { content: this.props.scenario.intro }),
                         React.createElement(
                             'button',
                             { onClick: this.handleStart, disabled: this.state.scenarioStarted },
@@ -908,7 +906,7 @@ window.onload = function () {
                                             )
                                         );
                                     } else {
-                                        return '';
+                                        return "";
                                     }
                                 }),
                                 React.createElement(
@@ -927,7 +925,7 @@ window.onload = function () {
                         )
                     );
                 } else {
-                    return '';
+                    return "";
                 }
             }
         }]);
@@ -1176,7 +1174,7 @@ window.onload = function () {
                             user: userData
                         });
 
-                        console.log(output.user);
+                        console.log(output);
                     });
                 }
             }
@@ -1199,11 +1197,11 @@ window.onload = function () {
                         error.message
                     );
                 } else if (!isLoaded) {
-                    return '';
+                    return "";
                 } else {
                     return React.createElement(
                         'div',
-                        { className: this.state.headerFixed ? 'header-fixed' : undefined, id: 'page-container' },
+                        { className: this.state.headerFixed ? "header-fixed" : undefined, id: 'page-container' },
                         React.createElement(
                             'header',
                             null,
@@ -1246,7 +1244,7 @@ window.onload = function () {
                             scenarios.map(function (scenario, index) {
                                 return React.createElement(Scenario, { key: index, index: index + 1, testStarted: _this15.state.testStarted, currentIndex: _this15.state.currentScenarioIndex, lastIndex: _this15.state.scenarios.length, scenario: scenario, onFinish: _this15.handleScenarioFinish, nodeRef: _this15.childNodeRef });
                             }),
-                            !this.state.allScenariosFinished && React.createElement(
+                            this.state.allScenariosFinished && React.createElement(
                                 'section',
                                 { ref: this.childNodeRef },
                                 React.createElement(
