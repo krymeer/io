@@ -161,7 +161,8 @@ button, p, h1, h2, h3, h4, a, label, span, td, th, i.material-icons {
 #page-container {
     > * > * {
         @extend %block-centered;
-        max-width: 760px;
+        // max-width: 760px;
+        width: 760px;
     }
 
     > header {
@@ -330,10 +331,6 @@ main {
     }
 
     .comment {
-        > textarea {
-            height: 102px;
-        }
-
         > div {
             display: grid;
             grid-auto-flow: column;
@@ -344,7 +341,12 @@ main {
         }
     }
 
-    // .select-option, 
+    .notes-wrapper {
+        display: grid;
+        grid-auto-flow: column;
+        justify-content: space-between;
+    }
+
     .select-option, .select-current, textarea, input {
         @extend %padding-s;
         @extend %radius;
@@ -374,11 +376,19 @@ main {
     textarea {
         resize: none;
         width: 100%;
+        height: 102px;
     }
 
     label, input {
-        line-height: 1;
         display: block;
+    }
+
+    label {
+        line-height: 1.25;
+    }
+
+    input {
+        line-height: 1;
     }
 
     .radio-item {
@@ -539,8 +549,6 @@ main {
                         height: 35px;
                         align-content: center;
                         background: #fff;
-                        position: relative;
-                        z-index: 2;
 
                         > span {
                             align-self: center;
@@ -558,6 +566,8 @@ main {
 
                         &.focus {
                             border-color: $input-color-b;
+                            position: relative;
+                            z-index: 2;
                         }
                     }
 
@@ -626,13 +636,12 @@ main {
                 }
 
                 &.on-form-error.on-input-invalid {
-                    > input {
-                        border-color: $primary-color !important;
+                    > input, > label {
                         color: $primary-color !important;
                     }
 
-                    > label {
-                        color: $primary-color !important;
+                    > textarea, > input {
+                        border-color: $primary-color !important;
                     }
 
                     > .select-wrapper {

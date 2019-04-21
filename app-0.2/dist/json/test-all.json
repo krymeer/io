@@ -4,73 +4,73 @@
             "intro" : "Zamówiłeś kilka produktów z popularnego sklepu internetowego. W ostatnim czasie zmieniłeś miejsce zamieszkania, jednak jak dotąd nie zamawiałeś żadnej przesyłki na ten adres. Czas to zmienić!",
             "tasks" : [
                 {
-                    "title"    : "Adres do wysyłki",
-                    "type"     : "labels-align-left",
-                    "data"     : [
+                    "title" : "Adres do wysyłki",
+                    "type"  : "labels-align-left",
+                    "data"  : [
                         {
                             "type"         : "text",
-                            "label"          : "Imię",
+                            "label"        : "Imię",
                             "defaultValue" : "Adam"
                         },
                         {
                             "type"         : "text",
-                            "label"          : "Nazwisko",
+                            "label"        : "Nazwisko",
                             "defaultValue" : "Nowak"
                         },
                         {
                             "type"         : "text",
-                            "label"          : "Ulica i numer",
+                            "label"        : "Ulica i numer",
                             "defaultValue" : "plac Grunwaldzki 13"
                         },
                         {
                             "type"         : "text",
-                            "label"          : "Kod pocztowy",
+                            "label"        : "Kod pocztowy",
                             "defaultValue" : "50-377"
                         },
                         {
                             "type"         : "text",
-                            "label"          : "Miejscowość",
+                            "label"        : "Miejscowość",
                             "defaultValue" : "Wrocław"
                         },
                         {
                             "type"         : "text",
-                            "label"          : "Numer telefonu",
+                            "label"        : "Numer telefonu",
                             "defaultValue" : "789 425 661"
                         }
                     ]
                 },
                 {
-                    "title"    : "Adres do wysyłki",
-                    "type"     : "labels-float-top",
-                    "data"     : [
+                    "title" : "Adres do wysyłki",
+                    "type"  : "labels-float-top",
+                    "data"  : [
                         {
                             "type"         : "text",
-                            "label"          : "Imię",
+                            "label"        : "Imię",
                             "defaultValue" : "Jarosław"
                         },
                         {
                             "type"         : "text",
-                            "label"          : "Nazwisko",
+                            "label"        : "Nazwisko",
                             "defaultValue" : "Dębski"
                         },
                         {
                             "type"         : "text",
-                            "label"          : "Ulica i numer",
+                            "label"        : "Ulica i numer",
                             "defaultValue" : "Jedności Narodowej 72/80"
                         },
                         {
                             "type"         : "text",
-                            "label"          : "Kod pocztowy",
+                            "label"        : "Kod pocztowy",
                             "defaultValue" : "50-261"
                         },
                         {
                             "type"         : "text",
-                            "label"          : "Miejscowość",
+                            "label"        : "Miejscowość",
                             "defaultValue" : "Wrocław"
                         },
                         {
                             "type"         : "text",
-                            "label"          : "Numer telefonu",
+                            "label"        : "Numer telefonu",
                             "defaultValue" : "782 287 872"
                         }
                     ]
@@ -81,73 +81,73 @@
             "intro" : "Zamówiłeś kilka produktów z popularnego sklepu internetowego. W ostatnim czasie zmieniłeś miejsce zamieszkania, jednak jak dotąd nie zamawiałeś żadnej przesyłki na ten adres. Czas to zmienić!",
             "tasks" : [
                 {
-                    "title"    : "Adres do wysyłki",
-                    "type"     : "labels-align-right",
-                    "data"     : [
+                    "title" : "Adres do wysyłki",
+                    "type"  : "labels-align-right",
+                    "data"  : [
                         {
                             "type"         : "text",
-                            "label"          : "Imię",
+                            "label"        : "Imię",
                             "defaultValue" : "Jan"
                         },
                         {
                             "type"         : "text",
-                            "label"          : "Nazwisko",
+                            "label"        : "Nazwisko",
                             "defaultValue" : "Kowalski"
                         },
                         {
                             "type"         : "text",
-                            "label"          : "Ulica i numer",
+                            "label"        : "Ulica i numer",
                             "defaultValue" : "Kluczborska 24 m. 20"
                         },
                         {
                             "type"         : "text",
-                            "label"          : "Kod pocztowy",
+                            "label"        : "Kod pocztowy",
                             "defaultValue" : "50-322"
                         },
                         {
                             "type"         : "text",
-                            "label"          : "Miejscowość",
+                            "label"        : "Miejscowość",
                             "defaultValue" : "Wrocław"
                         },
                         {
                             "type"         : "text",
-                            "label"          : "Numer telefonu",
+                            "label"        : "Numer telefonu",
                             "defaultValue" : "71 320 46 81"
                         }
                     ]
                 },
                 {
-                    "title"    : "Adres do wysyłki",
-                    "type"     : "labels-align-top",
-                    "data"     : [
+                    "title" : "Adres do wysyłki",
+                    "type"  : "labels-align-top",
+                    "data"  : [
                         {
                             "type"         : "text",
-                            "label"          : "Imię",
+                            "label"        : "Imię",
                             "defaultValue" : "Krzysztof"
                         },
                         {
                             "type"         : "text",
-                            "label"          : "Nazwisko",
+                            "label"        : "Nazwisko",
                             "defaultValue" : "Wiśniewski"
                         },
                         {
                             "type"         : "text",
-                            "label"          : "Ulica i numer",
+                            "label"        : "Ulica i numer",
                             "defaultValue" : "Wałbrzyska 2B"
                         },
                         {
                             "type"         : "text",
-                            "label"          : "Kod pocztowy",
+                            "label"        : "Kod pocztowy",
                             "defaultValue" : "58-100"
                         },
                         {
                             "type"         : "text",
-                            "label"          : "Miejscowość",
+                            "label"        : "Miejscowość",
                             "defaultValue" : "Świdnica"
                         },
                         {
                             "type"         : "text",
-                            "label"          : "Numer telefonu",
+                            "label"        : "Numer telefonu",
                             "defaultValue" : "590 290 390"
                         }
                     ]

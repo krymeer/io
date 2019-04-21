@@ -2,76 +2,75 @@
     "scenarios" : [
         {
             "intro" : "Zamówiłeś kilka produktów z popularnego sklepu internetowego. W ostatnim czasie zmieniłeś miejsce zamieszkania, jednak jak dotąd nie zamawiałeś żadnej przesyłki na ten adres. Czas to zmienić!",
-            "outro" : "**Gratulacje!** Właśnie ukończyłeś scenariusz. Naciśnij poniższy przycisk, aby przejść do dalszej części badania:",
             "tasks" : [
                 {
-                    "title"    : "Adres do wysyłki",
-                    "type"     : "labels-align-left",
-                    "data"     : [
+                    "title" : "Adres do wysyłki",
+                    "type"  : "labels-align-left",
+                    "data"  : [
                         {
-                            "type"         :"text",
-                            "label"          : "Imię",
+                            "type"         : "text",
+                            "label"        : "Imię",
                             "defaultValue" : "Adam"
                         },
                         {
-                            "type"         :"text",
-                            "label"          : "Nazwisko",
+                            "type"         : "text",
+                            "label"        : "Nazwisko",
                             "defaultValue" : "Nowak"
                         },
                         {
-                            "type"         :"text",
-                            "label"          : "Ulica i numer",
+                            "type"         : "text",
+                            "label"        : "Ulica i numer",
                             "defaultValue" : "plac Grunwaldzki 13"
                         },
                         {
-                            "type"         :"text",
-                            "label"          : "Kod pocztowy",
+                            "type"         : "text",
+                            "label"        : "Kod pocztowy",
                             "defaultValue" : "50-377"
                         },
                         {
-                            "type"         :"text",
-                            "label"          : "Miejscowość",
+                            "type"         : "text",
+                            "label"        : "Miejscowość",
                             "defaultValue" : "Wrocław"
                         },
                         {
-                            "type"         :"text",
-                            "label"          : "Numer telefonu",
+                            "type"         : "text",
+                            "label"        : "Numer telefonu",
                             "defaultValue" : "789 425 661"
                         }
                     ]
                 },
                 {
-                    "title"    : "Adres do wysyłki",
-                    "type"     : "labels-float-top",
-                    "data"     : [
+                    "title" : "Adres do wysyłki",
+                    "type"  : "labels-float-top",
+                    "data"  : [
                         {
-                            "type"         :"text",
-                            "label"          : "Imię",
+                            "type"         : "text",
+                            "label"        : "Imię",
                             "defaultValue" : "Jarosław"
                         },
                         {
-                            "type"         :"text",
-                            "label"          : "Nazwisko",
+                            "type"         : "text",
+                            "label"        : "Nazwisko",
                             "defaultValue" : "Dębski"
                         },
                         {
-                            "type"         :"text",
-                            "label"          : "Ulica i numer",
+                            "type"         : "text",
+                            "label"        : "Ulica i numer",
                             "defaultValue" : "Jedności Narodowej 72/80"
                         },
                         {
-                            "type"         :"text",
-                            "label"          : "Kod pocztowy",
+                            "type"         : "text",
+                            "label"        : "Kod pocztowy",
                             "defaultValue" : "50-261"
                         },
                         {
-                            "type"         :"text",
-                            "label"          : "Miejscowość",
+                            "type"         : "text",
+                            "label"        : "Miejscowość",
                             "defaultValue" : "Wrocław"
                         },
                         {
-                            "type"         :"text",
-                            "label"          : "Numer telefonu",
+                            "type"         : "text",
+                            "label"        : "Numer telefonu",
                             "defaultValue" : "782 287 872"
                         }
                     ]

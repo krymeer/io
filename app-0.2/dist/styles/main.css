@@ -115,7 +115,7 @@ html, body {
 }
 
 #page-container > * > * {
-  max-width: 760px;
+  width: 760px;
 }
 #page-container > header {
   background: #a63446;
@@ -244,15 +244,17 @@ main button[disabled] {
   background: #e0e0e0;
   color: #bebebe;
 }
-main .comment > textarea {
-  height: 102px;
-}
 main .comment > div {
   display: grid;
   grid-auto-flow: column;
 }
 main .comment > div > .note:last-child {
   text-align: right;
+}
+main .notes-wrapper {
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: space-between;
 }
 main .select-option, main .select-current, main textarea, main input {
   font-size: inherit;
@@ -275,10 +277,16 @@ main textarea.error, main input.error {
 main textarea {
   resize: none;
   width: 100%;
+  height: 102px;
 }
 main label, main input {
-  line-height: 1;
   display: block;
+}
+main label {
+  line-height: 1.25;
+}
+main input {
+  line-height: 1;
 }
 main .radio-item {
   display: grid;
@@ -387,8 +395,6 @@ main section .form > .wrapper > .select-wrapper > .select-current {
   height: 35px;
   align-content: center;
   background: #fff;
-  position: relative;
-  z-index: 2;
 }
 main section .form > .wrapper > .select-wrapper > .select-current > span {
   align-self: center;
@@ -403,6 +409,8 @@ main section .form > .wrapper > .select-wrapper > .select-current.disabled {
 }
 main section .form > .wrapper > .select-wrapper > .select-current.focus {
   border-color: #7e7e7e;
+  position: relative;
+  z-index: 2;
 }
 main section .form > .wrapper > .select-wrapper > .select-list {
   position: absolute;
@@ -456,12 +464,11 @@ main section .form > .wrapper > ul.input-list > li {
 main section .form > .wrapper > ul.input-list > li:nth-child(n+2) {
   margin-left: 14px;
 }
-main section .form > .wrapper.on-form-error.on-input-invalid > input {
-  border-color: #a63446 !important;
+main section .form > .wrapper.on-form-error.on-input-invalid > input, main section .form > .wrapper.on-form-error.on-input-invalid > label {
   color: #a63446 !important;
 }
-main section .form > .wrapper.on-form-error.on-input-invalid > label {
-  color: #a63446 !important;
+main section .form > .wrapper.on-form-error.on-input-invalid > textarea, main section .form > .wrapper.on-form-error.on-input-invalid > input {
+  border-color: #a63446 !important;
 }
 main section .form > .wrapper.on-form-error.on-input-invalid > .select-wrapper > .select-current, main section .form > .wrapper.on-form-error.on-input-invalid > .select-wrapper > .select-list, main section .form > .wrapper.on-form-error.on-input-invalid > .select-wrapper > .select-other {
   border-color: #a63446 !important;

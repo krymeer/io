@@ -25,7 +25,9 @@ window.onload = function() {
     }
 
     insertNbsp = ( str ) => {
-        return str.replace( /(?<=(\s|>)\w)\s/g, '\u00a0' );
+        return str;
+        // This will not work in Firefox
+        // return str.replace( /(?<=(\s|>)\w)\s/g, '\u00a0' );
     }
 
     getRandomString = () => {
@@ -70,20 +72,28 @@ window.onload = function() {
         {
             super( props );
             this.state = {
-                inputValid : false
+                inputValid : this.props.optional ? true : false
             };
 
-            if( this.props.type === 'text' || ( this.props.type === 'select' && this.props.otherOption ) )
+            this.inputMaxLength = ( typeof this.props.maxLength !== "undefined" )
+                                ? this.props.maxLength
+                                : ( this.props.type === 'textarea' )
+                                    ? globals.maxLength.textarea
+                                    : globals.maxLength.input;
+
+            if( this.props.type === 'textarea' || this.props.type === 'text' || ( this.props.type === 'select' && this.props.otherOption ) )
             {
-                this.handleFocus        = this.handleFocus.bind( this );
-                this.handleBlur         = this.handleBlur.bind( this );
-                this.handleChange       = this.handleChange.bind( this );
+                this.handleFocus  = this.handleFocus.bind( this );
+                this.handleBlur   = this.handleBlur.bind( this );
+                this.handleChange = this.handleChange.bind( this );
+                this.handleLabel  = this.handleLabel.bind( this );
 
                 this.state = {
                     ...this.state,
                     inputFocus     : false,
                     inputNonEmpty  : false,
-                    inputValue     : ''
+                    inputValue     : '',
+                    inputLength    : 0
                 };
             }
 
@@ -112,7 +122,7 @@ window.onload = function() {
             }
         }
 
-        handleFocus( event )
+        handleFocus()
         {
             if( !this.props.disabled )
             {
@@ -133,20 +143,31 @@ window.onload = function() {
             }
         }
 
+        handleLabel()
+        {
+            if( !this.props.disabled && typeof this.node.focus !== 'undefined' )
+            {
+                this.node.focus();
+            }
+        }
+
         handleChange( event )
         {
             if( !this.props.disabled )
             {
-                const eventType = event.type;
-                const inputValue = event.target.value;
-                const inputValid = ( typeof this.props.defaultValue !== 'undefined' )
-                                    ? ( this.props.defaultValue === inputValue )
-                                    : ( ( typeof this.props.regex !== 'undefined' )
-                                        ? this.props.regex.test( inputValue )
-                                        : ( inputValue !== '' ) );
+                const eventType   = event.type;
+                const inputValue  = event.target.value;
+                const inputValid  = this.props.optional
+                                    ? true
+                                    : ( ( typeof this.props.defaultValue !== 'undefined' )
+                                        ? ( this.props.defaultValue === inputValue )
+                                        : ( ( typeof this.props.regex !== 'undefined' )
+                                            ? this.props.regex.test( inputValue )
+                                            : ( inputValue !== '' ) ) );
                 this.setState( {
-                    inputValue : inputValue,
-                    inputValid : inputValid
+                    inputValue  : inputValue,
+                    inputValid  : inputValid,
+                    inputLength : inputValue.length
                 }, () => {
                     if( eventType === 'triggerChange' )
                     {
@@ -249,7 +270,7 @@ window.onload = function() {
             {
                 const _self = this;
 
-                this.inputNode.addEventListener( 'triggerChange', function( event ) {
+                this.node.addEventListener( 'triggerChange', function( event ) {
                     _self.handleChange( event );
                 } );
             }
@@ -262,9 +283,17 @@ window.onload = function() {
 
             return (
                 <div className={ ( wrapperClassName !== "" ) ? wrapperClassName : undefined }>
-                    <label className={ ( labelClassName !== "" ) ? labelClassName : undefined }>{ this.props.label }</label>
+                    <label className={ ( labelClassName !== "" ) ? labelClassName : undefined } onClick={ this.handleLabel }>
+                        { this.props.label }
+                        { this.props.optional &&
+                            " *"
+                        }
+                    </label>
                     { this.props.type === "text" &&
-                        <input ref={ node => this.inputNode = node } maxLength={ ( typeof this.props.maxLength !== "undefined" ) ? this.props.maxLength : globals.maxLength.input } type="text" spellCheck="false" autoComplete="off" onFocus={ this.handleFocus } onBlur={ this.handleBlur } onChange={ this.handleChange } disabled={ this.props.disabled } value={ this.state.inputValue }/>
+                        <input ref={ node => this.node = node } maxLength={ this.inputMaxLength } type="text" spellCheck="false" autoComplete="off" onFocus={ this.handleFocus } onBlur={ this.handleBlur } onChange={ this.handleChange } disabled={ this.props.disabled } value={ this.state.inputValue }/>
+                    }
+                    { this.props.type === "textarea" &&
+                        <textarea ref={ node => this.node = node } spellCheck="false" maxLength={ this.inputMaxLength } disabled={ this.props.disabled } onFocus={ this.handleFocus } onChange={ this.handleChange } onBlur={ this.handleBlur } />
                     }
                     { this.props.type === "radio" &&
                         <ul className="input-list radio-list">
@@ -305,10 +334,20 @@ window.onload = function() {
                                 </ul>
                             }
                             { this.state.otherOptionChosen &&
-                                <input className="select-other" maxLength={ ( typeof this.props.maxLength !== "undefined" ) ? this.props.maxLength : globals.maxLength.input } type="text" spellCheck="false" autoComplete="off" disabled={ this.props.disabled } onFocus={ this.handleFocus } onBlur={ this.handleBlur } onChange={ this.handleChange } value={ this.state.inputValue }/>
+                                <input ref={ node => this.node = node } className="select-other" maxLength={ this.inputMaxLength } type="text" spellCheck="false" autoComplete="off" disabled={ this.props.disabled } onFocus={ this.handleFocus } onBlur={ this.handleBlur } onChange={ this.handleChange } value={ this.state.inputValue }/>
                             }
                         </div>
                     }
+                    <div className="notes-wrapper">
+                        { this.props.type === "textarea" &&
+                            <p className="note">
+                                Pozostało znaków: <span className="text-important">{ this.inputMaxLength - this.state.inputLength }</span>
+                            </p>
+                        }
+                        { this.props.optional &&
+                            <p className="note">* Pole opcjonalne</p>
+                        }
+                    </div>
                 </div>
             );
         }
@@ -603,7 +642,7 @@ window.onload = function() {
                         { this.state.taskFinished &&
                             <section className="seq" ref={ this.childNodeRef }>
                                 <h3>
-                                    Jaki jest, Twoim zdaniem, poziom trudności powyższego ćwiczenia? *
+                                    Jaki jest, Twoim zdaniem, poziom trudności powyższego ćwiczenia?
                                 </h3>
                                 <ul className="seq-radios">
                                     { [ ...Array( 7 ) ].map( ( x, key, array ) =>
@@ -623,11 +662,8 @@ window.onload = function() {
                                         </li>
                                     ) }
                                 </ul>
-                                <p className="note">
-                                    * Pole wymagane
-                                </p>
                                 { this.state.stats.rating > 0 &&
-                                    <Comment headerText="Czy masz jakieś uwagi lub sugestie związane z powyższym ćwiczeniem? **" noteText="** Pole opcjonalne" onChange={ this.handleCommentChange } length={ this.state.stats.comment.length } maxLength={ globals.maxLength.textarea } disabled={ this.state.nextTask } />
+                                    <Comment headerText="Czy masz jakieś uwagi lub sugestie związane z powyższym ćwiczeniem? *" noteText="* Pole opcjonalne" onChange={ this.handleCommentChange } length={ this.state.stats.comment.length } maxLength={ globals.maxLength.textarea } disabled={ this.state.nextTask } />
                                 }
                             </section>
                         }
@@ -812,7 +848,7 @@ window.onload = function() {
                                         if( this.state.summary.currentQuestion >= qIndex )
                                         {
                                             return ( <div key={ qIndex } className="question-wrapper" ref={ this.childNodeRef }>
-                                                <h4>{ question.text } *</h4>
+                                                <h4>{ question.text }</h4>
                                                 <ul>
                                                     { question.answers.map( ( answer, aIndex ) =>
                                                         <li className={ ( "radio-item " + ( question.chosenAnswer === aIndex ? "chosen" : "" ) + " " + ( this.state.nextScenario ? "disabled" : "" ) ).trim().replace( /\s+/g, " " ) } key={ aIndex }>
@@ -828,9 +864,8 @@ window.onload = function() {
                                             return "";
                                         }
                                     } ) }
-                                    <p className="note">* Pole wymagane</p>
                                     { this.state.summary.currentQuestion >= this.state.summary.questions.length &&
-                                        <Comment headerText="Czy masz jakieś uwagi lub sugestie związane z ukończonym scenariuszem? **" noteText="** Pole opcjonalne" onChange={ this.handleSummaryComment } length={ this.state.summary.comment.length } maxLength={ globals.maxLength.textarea } disabled={ this.state.nextScenario } />
+                                        <Comment headerText="Czy masz jakieś uwagi lub sugestie związane z ukończonym scenariuszem? *" noteText="* Pole opcjonalne" onChange={ this.handleSummaryComment } length={ this.state.summary.comment.length } maxLength={ globals.maxLength.textarea } disabled={ this.state.nextScenario } />
                                     }
                                 </section>
                             </section>
@@ -879,47 +914,75 @@ window.onload = function() {
                     error : false,
                     data  : [
                         {
-                            type      : 'text',
-                            label     : 'Imię',
-                            id        : 'firstName',
-                            value     : '',
-                            maxLength : 32,
-                            valid     : false
+                            type        : 'text',
+                            label       : 'Twoje imię',
+                            id          : 'firstName',
+                            maxLength   : 32
                         },
                         {
-                            type      : 'text',
-                            label     : 'E-mail',
-                            id        : 'email',
-                            value     : '',
-                            regex     : globals.emailRegex,
-                            maxLength : 128,
-                            valid     : false
+                            type        : 'text',
+                            label       : 'Twój adres e-mail',
+                            id          : 'email',
+                            regex       : globals.emailRegex,
+                            maxLength   : 128
                         },
                         {
-                            type      : 'text',
-                            label     : 'Rok urodzenia',
-                            id        : 'birthYear',
-                            value     : '',
-                            regex     : /^\d{4}$/,
-                            maxLength : 4,
-                            valid     : false
+                            type        : 'text',
+                            label       : 'Twój rok urodzenia',
+                            id          : 'birthYear',
+                            regex       : /^\d{4}$/,
+                            maxLength   : 4
                         },
                         {
-                            type    : 'radio',
-                            label   : 'Płeć',
-                            id      : 'sex',
-                            value   : '',
-                            options : [ 'Mężczyzna', 'Kobieta' ],
-                            valid     : false
+                            type        : 'radio',
+                            label       : 'Twoja płeć',
+                            id          : 'sex',
+                            options     : [ 'Mężczyzna', 'Kobieta' ]
                         },
                         {
                             type        : 'select',
-                            label       : 'Wykształcenie',
+                            label       : 'Twoje wykształcenie',
                             id          : 'education',
-                            value       : '',
                             options     : [ 'Podstawowe', 'Gimnazjalne', 'Zasadnicze zawodowe', 'Zasadnicze branżowe', 'Średnie branżowe', 'Średnie', 'Wyższe', 'Inne (jakie?)' ],
-                            otherOption : true,
-                            valid       : false
+                            otherOption : true
+                        },
+                        {
+                            type        : 'select',
+                            label       : 'Twój zawód',
+                            id          : 'job',
+                            options     : [ 'Uczeń', 'Student', 'Programista', 'Nauczyciel', 'Urzędnik', 'Bezrobotny', 'Inny (jaki?)' ],
+                            otherOption : true
+                        },
+                        {
+                            type        : 'select',
+                            label       : 'Jak często przeglądasz strony WWW?',
+                            id          : 'frequency',
+                            options     : [ 'Kilka razy dziennie', 'Raz dziennie', 'Co kilka dni', 'Raz w tygodniu', 'Sporadycznie', 'Trudno powiedzieć' ]
+                        },
+                        {
+                            type        : 'select',
+                            label       : 'Główny powód, dla którego przeglądasz strony WWW',
+                            id          : 'mainReason',
+                            options     : [ 'Praca', 'Rozrywka', 'Kontakt ze znajomymi', 'Nauka', 'Zakupy online', 'Inny (jaki?)' ],
+                            otherOption : true
+                        },
+                        {
+                            type        : 'radio',
+                            label       : 'Czy prawidłowe wypełnianie formularzy na stronach WWW jest dla Ciebie czymś trudnym?',
+                            id          : 'difficulties',
+                            options     : [ 'Tak', 'Nie' ]
+                        },
+                        {
+                            type        : 'radio',
+                            label       : 'Czy Twoim zdaniem formularze na stronach WWW są odpowiednio zaprojektowane?',
+                            id          : 'usability',
+                            options     : [ 'Tak', 'Nie', 'Trudno powiedzieć' ]
+                        },
+                        {
+                            type        : 'textarea',
+                            label       : 'Twój komentarz',
+                            id          : 'comment',
+                            optional    : true
                         }
                     ]
                 },
@@ -940,7 +1003,7 @@ window.onload = function() {
 
         componentDidMount()
         {
-            fetch( './json/test-all.json' )
+            fetch( './json/test-2.json' )
                 .then( res => res.json() )
                 .then(
                     ( result ) => {
@@ -1151,7 +1214,15 @@ window.onload = function() {
                             <p>
                                 <span>Badanie użyteczności</span>
                                 { this.state.headerFixed &&
-                                    <span>scenariusz { this.state.currentScenarioIndex }/{ this.state.scenarios.length }</span>
+                                    <span>
+                                        { !this.state.allScenariosFinished &&
+                                            "scenariusz " + this.state.currentScenarioIndex + "/" + this.state.scenarios.length
+
+                                        }
+                                        { this.state.allScenariosFinished &&
+                                            "podsumowanie"
+                                        }
+                                    </span>
                                 }
                                 { this.state.headerFixed &&
                                     <i className="material-icons" onClick={ this.backToTop }>
@@ -1198,7 +1269,7 @@ window.onload = function() {
         }
     }
 
-    ReactDOM.render( 
+    ReactDOM.render(
         <MainComponent />,
         document.getElementById( 'root' )
     );

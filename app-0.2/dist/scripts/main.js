@@ -36,7 +36,9 @@ window.onload = function () {
     };
 
     insertNbsp = function insertNbsp(str) {
-        return str.replace(/(?<=(\s|>)\w)\s/g, '\xA0');
+        return str;
+        // This will not work in Firefox
+        // return str.replace( /(?<=(\s|>)\w)\s/g, '\u00a0' );
     };
 
     getRandomString = function getRandomString() {
@@ -51,8 +53,8 @@ window.onload = function () {
 
             if (chunk.indexOf('**') !== -1) {
                 chunk = React.createElement(
-                    'span',
-                    { key: index, className: 'text-important' },
+                    "span",
+                    { key: index, className: "text-important" },
                     chunk.substring(2, chunk.length - 2)
                 );
             }
@@ -73,10 +75,10 @@ window.onload = function () {
         }
 
         _createClass(Paragraph, [{
-            key: 'render',
+            key: "render",
             value: function render() {
                 return React.createElement(
-                    'p',
+                    "p",
                     { ref: this.props.nodeRef, className: this.props.class },
                     extractTextImportant(this.props.content)
                 );
@@ -95,18 +97,22 @@ window.onload = function () {
             var _this2 = _possibleConstructorReturn(this, (InputWrapper.__proto__ || Object.getPrototypeOf(InputWrapper)).call(this, props));
 
             _this2.state = {
-                inputValid: false
+                inputValid: _this2.props.optional ? true : false
             };
 
-            if (_this2.props.type === 'text' || _this2.props.type === 'select' && _this2.props.otherOption) {
+            _this2.inputMaxLength = typeof _this2.props.maxLength !== "undefined" ? _this2.props.maxLength : _this2.props.type === 'textarea' ? globals.maxLength.textarea : globals.maxLength.input;
+
+            if (_this2.props.type === 'textarea' || _this2.props.type === 'text' || _this2.props.type === 'select' && _this2.props.otherOption) {
                 _this2.handleFocus = _this2.handleFocus.bind(_this2);
                 _this2.handleBlur = _this2.handleBlur.bind(_this2);
                 _this2.handleChange = _this2.handleChange.bind(_this2);
+                _this2.handleLabel = _this2.handleLabel.bind(_this2);
 
                 _this2.state = Object.assign({}, _this2.state, {
                     inputFocus: false,
                     inputNonEmpty: false,
-                    inputValue: ''
+                    inputValue: '',
+                    inputLength: 0
                 });
             }
 
@@ -122,7 +128,7 @@ window.onload = function () {
         }
 
         _createClass(InputWrapper, [{
-            key: 'handleClickOutside',
+            key: "handleClickOutside",
             value: function handleClickOutside(e) {
                 if (this.props.disabled || this.node.contains(e.target)) {
                     return;
@@ -133,8 +139,8 @@ window.onload = function () {
                 }
             }
         }, {
-            key: 'handleFocus',
-            value: function handleFocus(event) {
+            key: "handleFocus",
+            value: function handleFocus() {
                 if (!this.props.disabled) {
                     this.setState({
                         inputFocus: true
@@ -142,7 +148,7 @@ window.onload = function () {
                 }
             }
         }, {
-            key: 'handleBlur',
+            key: "handleBlur",
             value: function handleBlur() {
                 if (!this.props.disabled) {
                     this.setState({
@@ -152,17 +158,25 @@ window.onload = function () {
                 }
             }
         }, {
-            key: 'handleChange',
+            key: "handleLabel",
+            value: function handleLabel() {
+                if (!this.props.disabled && typeof this.node.focus !== 'undefined') {
+                    this.node.focus();
+                }
+            }
+        }, {
+            key: "handleChange",
             value: function handleChange(event) {
                 var _this3 = this;
 
                 if (!this.props.disabled) {
                     var eventType = event.type;
                     var inputValue = event.target.value;
-                    var inputValid = typeof this.props.defaultValue !== 'undefined' ? this.props.defaultValue === inputValue : typeof this.props.regex !== 'undefined' ? this.props.regex.test(inputValue) : inputValue !== '';
+                    var inputValid = this.props.optional ? true : typeof this.props.defaultValue !== 'undefined' ? this.props.defaultValue === inputValue : typeof this.props.regex !== 'undefined' ? this.props.regex.test(inputValue) : inputValue !== '';
                     this.setState({
                         inputValue: inputValue,
-                        inputValid: inputValid
+                        inputValid: inputValid,
+                        inputLength: inputValue.length
                     }, function () {
                         if (eventType === 'triggerChange') {
                             _this3.handleBlur();
@@ -177,7 +191,7 @@ window.onload = function () {
                 }
             }
         }, {
-            key: 'handleOption',
+            key: "handleOption",
             value: function handleOption(optionIndex, optionValue) {
                 if (!this.props.disabled) {
                     var otherOptionChosen = this.props.type === 'select' && this.props.otherOption && optionIndex === this.props.options.length - 1;
@@ -204,7 +218,7 @@ window.onload = function () {
                 }
             }
         }, {
-            key: 'handleSelect',
+            key: "handleSelect",
             value: function handleSelect(event) {
                 var _this4 = this;
 
@@ -246,18 +260,18 @@ window.onload = function () {
                 }
             }
         }, {
-            key: 'componentDidMount',
+            key: "componentDidMount",
             value: function componentDidMount() {
                 if (this.props.type === 'text') {
                     var _self = this;
 
-                    this.inputNode.addEventListener('triggerChange', function (event) {
+                    this.node.addEventListener('triggerChange', function (event) {
                         _self.handleChange(event);
                     });
                 }
             }
         }, {
-            key: 'render',
+            key: "render",
             value: function render() {
                 var _this5 = this;
 
@@ -265,26 +279,30 @@ window.onload = function () {
                 var labelClassName = ((this.props.disabled ? 'on-input-disabled' : '') + ' ' + (this.state.inputFocus ? 'on-input-focus' : '') + ' ' + (this.state.inputNonEmpty ? 'on-input-non-empty' : '')).trim().replace(/\s+/g, ' ');
 
                 return React.createElement(
-                    'div',
+                    "div",
                     { className: wrapperClassName !== "" ? wrapperClassName : undefined },
                     React.createElement(
-                        'label',
-                        { className: labelClassName !== "" ? labelClassName : undefined },
-                        this.props.label
+                        "label",
+                        { className: labelClassName !== "" ? labelClassName : undefined, onClick: this.handleLabel },
+                        this.props.label,
+                        this.props.optional && " *"
                     ),
-                    this.props.type === "text" && React.createElement('input', { ref: function ref(node) {
-                            return _this5.inputNode = node;
-                        }, maxLength: typeof this.props.maxLength !== "undefined" ? this.props.maxLength : globals.maxLength.input, type: 'text', spellCheck: 'false', autoComplete: 'off', onFocus: this.handleFocus, onBlur: this.handleBlur, onChange: this.handleChange, disabled: this.props.disabled, value: this.state.inputValue }),
+                    this.props.type === "text" && React.createElement("input", { ref: function ref(node) {
+                            return _this5.node = node;
+                        }, maxLength: this.inputMaxLength, type: "text", spellCheck: "false", autoComplete: "off", onFocus: this.handleFocus, onBlur: this.handleBlur, onChange: this.handleChange, disabled: this.props.disabled, value: this.state.inputValue }),
+                    this.props.type === "textarea" && React.createElement("textarea", { ref: function ref(node) {
+                            return _this5.node = node;
+                        }, spellCheck: "false", maxLength: this.inputMaxLength, disabled: this.props.disabled, onFocus: this.handleFocus, onChange: this.handleChange, onBlur: this.handleBlur }),
                     this.props.type === "radio" && React.createElement(
-                        'ul',
-                        { className: 'input-list radio-list' },
+                        "ul",
+                        { className: "input-list radio-list" },
                         this.props.options.map(function (option, index) {
                             return React.createElement(
-                                'li',
+                                "li",
                                 { className: ("radio-item " + (_this5.state.chosenIndex === index ? "chosen" : "") + " " + (_this5.props.disabled ? "disabled" : "")).trim().replace(/\s+/g, " "), key: index },
-                                React.createElement('div', { className: 'radio', onClick: _this5.handleOption.bind(_this5, index, option) }),
+                                React.createElement("div", { className: "radio", onClick: _this5.handleOption.bind(_this5, index, option) }),
                                 React.createElement(
-                                    'span',
+                                    "span",
                                     null,
                                     option
                                 )
@@ -292,34 +310,34 @@ window.onload = function () {
                         })
                     ),
                     this.props.type === "select" && React.createElement(
-                        'div',
-                        { className: 'select-wrapper' },
+                        "div",
+                        { className: "select-wrapper" },
                         React.createElement(
-                            'div',
+                            "div",
                             { className: ("select-current " + (this.props.disabled ? "disabled" : "") + " " + (this.state.selectList.open ? "focus" : "")).trim().replace(/\s+/g, " "), onClick: this.handleSelect },
                             React.createElement(
-                                'span',
+                                "span",
                                 null,
                                 this.state.chosenIndex >= 0 ? this.props.options[this.state.chosenIndex] : ""
                             ),
                             React.createElement(
-                                'i',
-                                { className: 'material-icons' },
+                                "i",
+                                { className: "material-icons" },
                                 this.state.selectList.open ? "keyboard_arrow_up" : "keyboard_arrow_down"
                             )
                         ),
                         this.state.selectList.open && React.createElement(
-                            'ul',
+                            "ul",
                             { className: ("select-list " + this.state.selectList.overflow).trim(), ref: function ref(node) {
                                     return _this5.node = node;
                                 } },
                             this.props.options.map(function (option, index) {
                                 if (index !== _this5.state.chosenIndex) {
                                     return React.createElement(
-                                        'li',
-                                        { key: index, className: 'select-option', onClick: _this5.handleOption.bind(_this5, index, option) },
+                                        "li",
+                                        { key: index, className: "select-option", onClick: _this5.handleOption.bind(_this5, index, option) },
                                         React.createElement(
-                                            'span',
+                                            "span",
                                             null,
                                             option
                                         )
@@ -329,7 +347,28 @@ window.onload = function () {
                                 }
                             })
                         ),
-                        this.state.otherOptionChosen && React.createElement('input', { className: 'select-other', maxLength: typeof this.props.maxLength !== "undefined" ? this.props.maxLength : globals.maxLength.input, type: 'text', spellCheck: 'false', autoComplete: 'off', disabled: this.props.disabled, onFocus: this.handleFocus, onBlur: this.handleBlur, onChange: this.handleChange, value: this.state.inputValue })
+                        this.state.otherOptionChosen && React.createElement("input", { ref: function ref(node) {
+                                return _this5.node = node;
+                            }, className: "select-other", maxLength: this.inputMaxLength, type: "text", spellCheck: "false", autoComplete: "off", disabled: this.props.disabled, onFocus: this.handleFocus, onBlur: this.handleBlur, onChange: this.handleChange, value: this.state.inputValue })
+                    ),
+                    React.createElement(
+                        "div",
+                        { className: "notes-wrapper" },
+                        this.props.type === "textarea" && React.createElement(
+                            "p",
+                            { className: "note" },
+                            "Pozosta\u0142o znak\xF3w: ",
+                            React.createElement(
+                                "span",
+                                { className: "text-important" },
+                                this.inputMaxLength - this.state.inputLength
+                            )
+                        ),
+                        this.props.optional && React.createElement(
+                            "p",
+                            { className: "note" },
+                            "* Pole opcjonalne"
+                        )
                     )
                 );
             }
@@ -351,40 +390,40 @@ window.onload = function () {
         }
 
         _createClass(Comment, [{
-            key: 'handleChange',
+            key: "handleChange",
             value: function handleChange(e) {
                 if (!this.props.disabled) {
                     this.props.onChange(e.target.value);
                 }
             }
         }, {
-            key: 'render',
+            key: "render",
             value: function render() {
                 return React.createElement(
-                    'section',
-                    { className: 'comment' },
+                    "section",
+                    { className: "comment" },
                     React.createElement(
-                        'h4',
+                        "h4",
                         null,
                         this.props.headerText
                     ),
-                    React.createElement('textarea', { spellCheck: 'false', maxLength: typeof this.props.maxLength !== "undefined" ? this.props.maxLength : globals.maxLength.textarea, onChange: this.handleChange, disabled: this.props.disabled }),
+                    React.createElement("textarea", { spellCheck: "false", maxLength: typeof this.props.maxLength !== "undefined" ? this.props.maxLength : globals.maxLength.textarea, onChange: this.handleChange, disabled: this.props.disabled }),
                     React.createElement(
-                        'div',
+                        "div",
                         null,
                         React.createElement(
-                            'p',
-                            { className: 'note' },
-                            'Pozosta\u0142o znak\xF3w: ',
+                            "p",
+                            { className: "note" },
+                            "Pozosta\u0142o znak\xF3w: ",
                             React.createElement(
-                                'span',
-                                { className: 'text-important' },
+                                "span",
+                                { className: "text-important" },
                                 this.props.maxLength - this.props.length
                             )
                         ),
                         this.props.noteText && React.createElement(
-                            'p',
-                            { className: 'note' },
+                            "p",
+                            { className: "note" },
                             this.props.noteText
                         )
                     )
@@ -436,7 +475,7 @@ window.onload = function () {
         }
 
         _createClass(Task, [{
-            key: 'handleClick',
+            key: "handleClick",
             value: function handleClick() {
                 if (this.state.taskStarted && !this.state.taskFinished) {
                     this.setState(function (state) {
@@ -451,7 +490,7 @@ window.onload = function () {
                 }
             }
         }, {
-            key: 'handleStart',
+            key: "handleStart",
             value: function handleStart() {
                 if (!this.state.taskStarted && !this.state.taskFinished) {
                     this.setState(function (state) {
@@ -467,7 +506,7 @@ window.onload = function () {
                 }
             }
         }, {
-            key: 'handleFinish',
+            key: "handleFinish",
             value: function handleFinish() {
                 if (this.state.taskStarted && !this.state.taskFinished) {
                     if (this.state.inputs.filter(function (input) {
@@ -499,7 +538,7 @@ window.onload = function () {
                 }
             }
         }, {
-            key: 'handleNext',
+            key: "handleNext",
             value: function handleNext() {
                 if (this.state.taskStarted && this.state.taskFinished) {
                     this.setState({
@@ -514,7 +553,7 @@ window.onload = function () {
                 }
             }
         }, {
-            key: 'handleRatingChange',
+            key: "handleRatingChange",
             value: function handleRatingChange(k) {
                 if (this.state.taskFinished && !this.state.nextTask) {
                     if (k !== this.state.rating) {
@@ -531,7 +570,7 @@ window.onload = function () {
                 }
             }
         }, {
-            key: 'handleCommentChange',
+            key: "handleCommentChange",
             value: function handleCommentChange(comment) {
                 if (this.state.taskFinished && !this.state.nextTask) {
                     this.setState(function (state) {
@@ -546,7 +585,7 @@ window.onload = function () {
                 }
             }
         }, {
-            key: 'handleInputChange',
+            key: "handleInputChange",
             value: function handleInputChange(input) {
                 var _this8 = this;
 
@@ -580,7 +619,7 @@ window.onload = function () {
             // TEMPORARY: Insert all the data by clicking only one button
 
         }, {
-            key: 'insertEverything',
+            key: "insertEverything",
             value: function insertEverything(e) {
                 var inputs = e.target.parentElement.querySelectorAll('input');
                 var _self = this;
@@ -591,56 +630,56 @@ window.onload = function () {
                 }
             }
         }, {
-            key: 'render',
+            key: "render",
             value: function render() {
                 var _this9 = this;
 
                 if (this.props.scenarioStarted && this.props.currentIndex >= this.props.index) {
                     return React.createElement(
-                        'section',
-                        { className: 'task', onClick: this.handleClick, ref: this.props.nodeRef },
+                        "section",
+                        { className: "task", onClick: this.handleClick, ref: this.props.nodeRef },
                         React.createElement(
-                            'h2',
+                            "h2",
                             null,
-                            '\u0106wiczenie nr ',
+                            "\u0106wiczenie nr ",
                             this.props.index
                         ),
-                        React.createElement(Paragraph, { 'class': 'task-description', content: 'Wype\u0142nij formularz, korzystaj\u0105c z danych zawartych **w poni\u017Cszej tabeli:**' }),
+                        React.createElement(Paragraph, { "class": "task-description", content: "Wype\u0142nij formularz, korzystaj\u0105c z danych zawartych **w poni\u017Cszej tabeli:**" }),
                         React.createElement(
-                            'table',
+                            "table",
                             { ref: this.state.taskStarted ? this.childNodeRef : undefined },
                             React.createElement(
-                                'thead',
+                                "thead",
                                 null,
                                 React.createElement(
-                                    'tr',
+                                    "tr",
                                     null,
                                     React.createElement(
-                                        'th',
+                                        "th",
                                         null,
-                                        'Nazwa pola'
+                                        "Nazwa pola"
                                     ),
                                     React.createElement(
-                                        'th',
+                                        "th",
                                         null,
-                                        'Warto\u015B\u0107 do wpisania'
+                                        "Warto\u015B\u0107 do wpisania"
                                     )
                                 )
                             ),
                             React.createElement(
-                                'tbody',
+                                "tbody",
                                 null,
                                 this.props.task.data.map(function (row, index) {
                                     return React.createElement(
-                                        'tr',
+                                        "tr",
                                         { key: index },
                                         React.createElement(
-                                            'td',
+                                            "td",
                                             null,
                                             row.label
                                         ),
                                         React.createElement(
-                                            'td',
+                                            "td",
                                             null,
                                             row.defaultValue
                                         )
@@ -649,76 +688,71 @@ window.onload = function () {
                             )
                         ),
                         React.createElement(
-                            'button',
+                            "button",
                             { onClick: this.handleStart, disabled: this.state.taskStarted },
-                            'Rozpocznij \u0107wiczenie'
+                            "Rozpocznij \u0107wiczenie"
                         ),
                         React.createElement(
-                            'section',
+                            "section",
                             { className: "form " + this.props.task.type },
                             React.createElement(
-                                'h3',
+                                "h3",
                                 null,
                                 this.props.task.title
                             ),
                             this.state.taskStarted && !this.state.taskFinished && React.createElement(
-                                'i',
-                                { className: 'material-icons insert-everything', onClick: this.insertEverything.bind(this) },
-                                'keyboard'
+                                "i",
+                                { className: "material-icons insert-everything", onClick: this.insertEverything.bind(this) },
+                                "keyboard"
                             ),
                             this.state.inputs.map(function (input, index) {
                                 return React.createElement(InputWrapper, Object.assign({ key: index, index: index, error: _this9.state.taskError && _this9.state.taskStarted, disabled: _this9.state.taskFinished || !_this9.state.taskStarted, onChange: _this9.handleInputChange }, input, _this9.props.task.data[index]));
                             }),
-                            this.state.taskError && React.createElement(Paragraph, { 'class': 'on-form-error', content: 'Aby przej\u015B\u0107 dalej, popraw pola wyr\xF3\u017Cnione **tym kolorem.**' })
+                            this.state.taskError && React.createElement(Paragraph, { "class": "on-form-error", content: "Aby przej\u015B\u0107 dalej, popraw pola wyr\xF3\u017Cnione **tym kolorem.**" })
                         ),
                         this.state.taskStarted && React.createElement(
-                            'button',
+                            "button",
                             { onClick: this.handleFinish, disabled: this.state.taskFinished },
-                            'Zako\u0144cz \u0107wiczenie'
+                            "Zako\u0144cz \u0107wiczenie"
                         ),
                         this.state.taskFinished && React.createElement(
-                            'section',
-                            { className: 'seq', ref: this.childNodeRef },
+                            "section",
+                            { className: "seq", ref: this.childNodeRef },
                             React.createElement(
-                                'h3',
+                                "h3",
                                 null,
-                                'Jaki jest, Twoim zdaniem, poziom trudno\u015Bci powy\u017Cszego \u0107wiczenia? *'
+                                "Jaki jest, Twoim zdaniem, poziom trudno\u015Bci powy\u017Cszego \u0107wiczenia?"
                             ),
                             React.createElement(
-                                'ul',
-                                { className: 'seq-radios' },
+                                "ul",
+                                { className: "seq-radios" },
                                 [].concat(_toConsumableArray(Array(7))).map(function (x, key, array) {
                                     return React.createElement(
-                                        'li',
+                                        "li",
                                         { className: ("seq-item radio-item " + (_this9.state.stats.rating === key + 1 ? "chosen" : "") + " " + (_this9.state.nextTask ? "disabled" : "")).trim().replace(/\s+/g, " "), key: key },
                                         key === 0 && React.createElement(
-                                            'div',
+                                            "div",
                                             null,
-                                            'Bardzo trudne'
+                                            "Bardzo trudne"
                                         ),
                                         key === array.length - 1 && React.createElement(
-                                            'div',
+                                            "div",
                                             null,
-                                            'Bardzo latwe'
+                                            "Bardzo latwe"
                                         ),
                                         React.createElement(
-                                            'div',
+                                            "div",
                                             null,
                                             key + 1
                                         ),
-                                        React.createElement('div', { className: 'radio', onClick: _this9.handleRatingChange.bind(_this9, key + 1) })
+                                        React.createElement("div", { className: "radio", onClick: _this9.handleRatingChange.bind(_this9, key + 1) })
                                     );
                                 })
                             ),
-                            React.createElement(
-                                'p',
-                                { className: 'note' },
-                                '* Pole wymagane'
-                            ),
-                            this.state.stats.rating > 0 && React.createElement(Comment, { headerText: 'Czy masz jakie\u015B uwagi lub sugestie zwi\u0105zane z powy\u017Cszym \u0107wiczeniem? **', noteText: '** Pole opcjonalne', onChange: this.handleCommentChange, length: this.state.stats.comment.length, maxLength: globals.maxLength.textarea, disabled: this.state.nextTask })
+                            this.state.stats.rating > 0 && React.createElement(Comment, { headerText: "Czy masz jakie\u015B uwagi lub sugestie zwi\u0105zane z powy\u017Cszym \u0107wiczeniem? *", noteText: "* Pole opcjonalne", onChange: this.handleCommentChange, length: this.state.stats.comment.length, maxLength: globals.maxLength.textarea, disabled: this.state.nextTask })
                         ),
                         this.state.stats.rating > 0 && React.createElement(
-                            'button',
+                            "button",
                             { onClick: this.handleNext, ref: this.childNodeRef, disabled: this.state.nextTask },
                             this.props.index < this.props.lastIndex && "Następne ćwiczenie",
                             this.props.index === this.props.lastIndex && "Zakończ scenariusz"
@@ -764,7 +798,7 @@ window.onload = function () {
         }
 
         _createClass(Scenario, [{
-            key: 'handleStart',
+            key: "handleStart",
             value: function handleStart() {
                 if (!this.state.scenarioStarted) {
                     this.setState({
@@ -773,7 +807,7 @@ window.onload = function () {
                 }
             }
         }, {
-            key: 'handleFinish',
+            key: "handleFinish",
             value: function handleFinish() {
                 if (this.state.scenarioStarted && this.state.scenarioFinished) {
                     this.setState({
@@ -793,10 +827,10 @@ window.onload = function () {
                 }
             }
         }, {
-            key: 'handleTaskFinish',
+            key: "handleTaskFinish",
             value: function handleTaskFinish(task) {
                 var index = task.index,
-                    data = _objectWithoutProperties(task, ['index']);
+                    data = _objectWithoutProperties(task, ["index"]);
 
                 if (this.state.scenarioStarted && !this.state.scenarioFinished && this.state.currentTaskIndex === index) {
                     this.setState(function (state) {
@@ -820,7 +854,7 @@ window.onload = function () {
                 }
             }
         }, {
-            key: 'handleSummaryComment',
+            key: "handleSummaryComment",
             value: function handleSummaryComment(comment) {
                 if (this.state.scenarioFinished && !this.state.nextScenario) {
                     this.setState(function (state) {
@@ -835,7 +869,7 @@ window.onload = function () {
                 }
             }
         }, {
-            key: 'handleSummaryQuestion',
+            key: "handleSummaryQuestion",
             value: function handleSummaryQuestion(questionIndex, answerIndex) {
                 if (this.state.scenarioFinished && !this.state.nextScenario) {
                     this.setState(function (state) {
@@ -859,62 +893,61 @@ window.onload = function () {
                 }
             }
         }, {
-            key: 'render',
+            key: "render",
             value: function render() {
                 var _this11 = this;
 
                 if (this.props.testStarted && this.props.currentIndex >= this.props.index) {
                     return React.createElement(
-                        'section',
-                        { className: 'scenario', ref: this.props.nodeRef },
+                        "section",
+                        { className: "scenario", ref: this.props.nodeRef },
                         React.createElement(
-                            'h1',
+                            "h1",
                             null,
-                            'Scenariusz nr ',
+                            "Scenariusz nr ",
                             this.props.index
                         ),
                         typeof this.props.scenario.intro !== "undefined" && React.createElement(Paragraph, { content: this.props.scenario.intro }),
                         React.createElement(
-                            'button',
+                            "button",
                             { onClick: this.handleStart, disabled: this.state.scenarioStarted },
-                            'Rozpocznij scenariusz'
+                            "Rozpocznij scenariusz"
                         ),
                         this.props.scenario.tasks.map(function (task, index, tasks) {
                             return React.createElement(Task, { nodeRef: _this11.childNodeRef, key: index, index: index + 1, currentIndex: _this11.state.currentTaskIndex, lastIndex: tasks.length, onFinish: _this11.handleTaskFinish, scenarioStarted: _this11.state.scenarioStarted, task: task });
                         }),
                         this.state.scenarioFinished && React.createElement(
-                            'section',
-                            { className: 'summary', ref: this.childNodeRef },
+                            "section",
+                            { className: "summary", ref: this.childNodeRef },
                             React.createElement(
-                                'h2',
+                                "h2",
                                 null,
-                                'Podsumowanie'
+                                "Podsumowanie"
                             ),
                             React.createElement(Paragraph, { content: "Gratulacje! Wszystko wskazuje na to, że udało Ci się ukończyć **scenariusz nr " + this.props.index + ".** Zanim przejdziesz dalej, udziel odpowiedzi na poniższe pytania." }),
                             React.createElement(
-                                'section',
-                                { className: 'questions' },
+                                "section",
+                                { className: "questions" },
                                 this.state.summary.questions.map(function (question, qIndex) {
                                     if (_this11.state.summary.currentQuestion >= qIndex) {
                                         return React.createElement(
-                                            'div',
-                                            { key: qIndex, className: 'question-wrapper', ref: _this11.childNodeRef },
+                                            "div",
+                                            { key: qIndex, className: "question-wrapper", ref: _this11.childNodeRef },
                                             React.createElement(
-                                                'h4',
+                                                "h4",
                                                 null,
-                                                question.text,
-                                                ' *'
+                                                question.text
                                             ),
                                             React.createElement(
-                                                'ul',
+                                                "ul",
                                                 null,
                                                 question.answers.map(function (answer, aIndex) {
                                                     return React.createElement(
-                                                        'li',
+                                                        "li",
                                                         { className: ("radio-item " + (question.chosenAnswer === aIndex ? "chosen" : "") + " " + (_this11.state.nextScenario ? "disabled" : "")).trim().replace(/\s+/g, " "), key: aIndex },
-                                                        React.createElement('div', { className: 'radio', onClick: _this11.handleSummaryQuestion.bind(_this11, qIndex, aIndex) }),
+                                                        React.createElement("div", { className: "radio", onClick: _this11.handleSummaryQuestion.bind(_this11, qIndex, aIndex) }),
                                                         React.createElement(
-                                                            'span',
+                                                            "span",
                                                             null,
                                                             answer
                                                         )
@@ -926,16 +959,11 @@ window.onload = function () {
                                         return "";
                                     }
                                 }),
-                                React.createElement(
-                                    'p',
-                                    { className: 'note' },
-                                    '* Pole wymagane'
-                                ),
-                                this.state.summary.currentQuestion >= this.state.summary.questions.length && React.createElement(Comment, { headerText: 'Czy masz jakie\u015B uwagi lub sugestie zwi\u0105zane z uko\u0144czonym scenariuszem? **', noteText: '** Pole opcjonalne', onChange: this.handleSummaryComment, length: this.state.summary.comment.length, maxLength: globals.maxLength.textarea, disabled: this.state.nextScenario })
+                                this.state.summary.currentQuestion >= this.state.summary.questions.length && React.createElement(Comment, { headerText: "Czy masz jakie\u015B uwagi lub sugestie zwi\u0105zane z uko\u0144czonym scenariuszem? *", noteText: "* Pole opcjonalne", onChange: this.handleSummaryComment, length: this.state.summary.comment.length, maxLength: globals.maxLength.textarea, disabled: this.state.nextScenario })
                             )
                         ),
                         this.state.scenarioFinished && this.state.summary.currentQuestion >= this.state.summary.questions.length && React.createElement(
-                            'button',
+                            "button",
                             { onClick: this.handleFinish, ref: this.childNodeRef, disabled: this.state.nextScenario },
                             this.props.index < this.props.lastIndex && "Następny scenariusz",
                             this.props.index === this.props.lastIndex && "Zakończ badanie"
@@ -977,42 +1005,64 @@ window.onload = function () {
                     error: false,
                     data: [{
                         type: 'text',
-                        label: 'Imię',
+                        label: 'Twoje imię',
                         id: 'firstName',
-                        value: '',
-                        maxLength: 32,
-                        valid: false
+                        maxLength: 32
                     }, {
                         type: 'text',
-                        label: 'E-mail',
+                        label: 'Twój adres e-mail',
                         id: 'email',
-                        value: '',
                         regex: globals.emailRegex,
-                        maxLength: 128,
-                        valid: false
+                        maxLength: 128
                     }, {
                         type: 'text',
-                        label: 'Rok urodzenia',
+                        label: 'Twój rok urodzenia',
                         id: 'birthYear',
-                        value: '',
                         regex: /^\d{4}$/,
-                        maxLength: 4,
-                        valid: false
+                        maxLength: 4
                     }, {
                         type: 'radio',
-                        label: 'Płeć',
+                        label: 'Twoja płeć',
                         id: 'sex',
-                        value: '',
-                        options: ['Mężczyzna', 'Kobieta'],
-                        valid: false
+                        options: ['Mężczyzna', 'Kobieta']
                     }, {
                         type: 'select',
-                        label: 'Wykształcenie',
+                        label: 'Twoje wykształcenie',
                         id: 'education',
-                        value: '',
                         options: ['Podstawowe', 'Gimnazjalne', 'Zasadnicze zawodowe', 'Zasadnicze branżowe', 'Średnie branżowe', 'Średnie', 'Wyższe', 'Inne (jakie?)'],
-                        otherOption: true,
-                        valid: false
+                        otherOption: true
+                    }, {
+                        type: 'select',
+                        label: 'Twój zawód',
+                        id: 'job',
+                        options: ['Uczeń', 'Student', 'Programista', 'Nauczyciel', 'Urzędnik', 'Bezrobotny', 'Inny (jaki?)'],
+                        otherOption: true
+                    }, {
+                        type: 'select',
+                        label: 'Jak często przeglądasz strony WWW?',
+                        id: 'frequency',
+                        options: ['Kilka razy dziennie', 'Raz dziennie', 'Co kilka dni', 'Raz w tygodniu', 'Sporadycznie', 'Trudno powiedzieć']
+                    }, {
+                        type: 'select',
+                        label: 'Główny powód, dla którego przeglądasz strony WWW',
+                        id: 'mainReason',
+                        options: ['Praca', 'Rozrywka', 'Kontakt ze znajomymi', 'Nauka', 'Zakupy online', 'Inny (jaki?)'],
+                        otherOption: true
+                    }, {
+                        type: 'radio',
+                        label: 'Czy prawidłowe wypełnianie formularzy na stronach WWW jest dla Ciebie czymś trudnym?',
+                        id: 'difficulties',
+                        options: ['Tak', 'Nie']
+                    }, {
+                        type: 'radio',
+                        label: 'Czy Twoim zdaniem formularze na stronach WWW są odpowiednio zaprojektowane?',
+                        id: 'usability',
+                        options: ['Tak', 'Nie', 'Trudno powiedzieć']
+                    }, {
+                        type: 'textarea',
+                        label: 'Twój komentarz',
+                        id: 'comment',
+                        optional: true
                     }]
                 },
                 output: {
@@ -1032,11 +1082,11 @@ window.onload = function () {
         }
 
         _createClass(MainComponent, [{
-            key: 'componentDidMount',
+            key: "componentDidMount",
             value: function componentDidMount() {
                 var _this13 = this;
 
-                fetch('./json/test-all.json').then(function (res) {
+                fetch('./json/test-2.json').then(function (res) {
                     return res.json();
                 }).then(function (result) {
                     _this13.setState({
@@ -1053,12 +1103,12 @@ window.onload = function () {
                 });
             }
         }, {
-            key: 'backToTop',
+            key: "backToTop",
             value: function backToTop() {
                 window.scrollTo(0, 0);
             }
         }, {
-            key: 'handleScroll',
+            key: "handleScroll",
             value: function handleScroll() {
                 if (window.scrollY > globals.headerHeight.static) {
                     this.setState({
@@ -1071,7 +1121,7 @@ window.onload = function () {
                 }
             }
         }, {
-            key: 'handleFormChange',
+            key: "handleFormChange",
             value: function handleFormChange(input) {
                 var _this14 = this;
 
@@ -1109,7 +1159,7 @@ window.onload = function () {
                 }
             }
         }, {
-            key: 'handleStart',
+            key: "handleStart",
             value: function handleStart() {
                 if (!this.state.testStarted) {
                     this.setState(function (state) {
@@ -1125,10 +1175,10 @@ window.onload = function () {
                 }
             }
         }, {
-            key: 'handleScenarioFinish',
+            key: "handleScenarioFinish",
             value: function handleScenarioFinish(scenario) {
                 var index = scenario.index,
-                    data = _objectWithoutProperties(scenario, ['index']);
+                    data = _objectWithoutProperties(scenario, ["index"]);
 
                 if (this.state.testStarted && this.state.currentScenarioIndex === index) {
                     this.setState(function (state) {
@@ -1156,7 +1206,7 @@ window.onload = function () {
                 }
             }
         }, {
-            key: 'handleFinish',
+            key: "handleFinish",
             value: function handleFinish() {
                 var _this15 = this;
 
@@ -1200,7 +1250,7 @@ window.onload = function () {
                 }
             }
         }, {
-            key: 'render',
+            key: "render",
             value: function render() {
                 var _this16 = this;
 
@@ -1212,91 +1262,89 @@ window.onload = function () {
 
                 if (error) {
                     return React.createElement(
-                        'div',
+                        "div",
                         null,
-                        'Error: ',
+                        "Error: ",
                         error.message
                     );
                 } else if (!isLoaded) {
                     return "";
                 } else {
                     return React.createElement(
-                        'div',
-                        { className: this.state.headerFixed ? "header-fixed" : undefined, id: 'page-container' },
+                        "div",
+                        { className: this.state.headerFixed ? "header-fixed" : undefined, id: "page-container" },
                         React.createElement(
-                            'header',
+                            "header",
                             null,
                             React.createElement(
-                                'p',
+                                "p",
                                 null,
                                 React.createElement(
-                                    'span',
+                                    "span",
                                     null,
-                                    'Badanie u\u017Cyteczno\u015Bci'
+                                    "Badanie u\u017Cyteczno\u015Bci"
                                 ),
                                 this.state.headerFixed && React.createElement(
-                                    'span',
+                                    "span",
                                     null,
-                                    'scenariusz ',
-                                    this.state.currentScenarioIndex,
-                                    '/',
-                                    this.state.scenarios.length
+                                    !this.state.allScenariosFinished && "scenariusz " + this.state.currentScenarioIndex + "/" + this.state.scenarios.length,
+                                    this.state.allScenariosFinished && "podsumowanie"
                                 ),
                                 this.state.headerFixed && React.createElement(
-                                    'i',
-                                    { className: 'material-icons', onClick: this.backToTop },
-                                    'arrow_upward'
+                                    "i",
+                                    { className: "material-icons", onClick: this.backToTop },
+                                    "arrow_upward"
                                 )
                             )
                         ),
                         React.createElement(
-                            'main',
+                            "main",
                             null,
                             React.createElement(
-                                'section',
+                                "section",
                                 null,
-                                React.createElement(Paragraph, { content: 'Witaj! Niniejsze badanie ma na celu zbadanie u\u017Cyteczno\u015Bci wybranych wzorc\xF3w p\xF3l, kt\xF3re mo\u017Cesz na co dzie\u0144 znale\u017A\u0107 w wielu aplikacjach webowych i na stronach internetowych. Zostaniesz poproszony o wykonanie kilkunastu zada\u0144 polegaj\u0105cych na uzupe\u0142nieniu r\xF3\u017Cnego typu formularzy. **Ten tekst jeszcze si\u0119 zmieni.**' }),
+                                React.createElement(Paragraph, { content: "Witaj! Niniejsze badanie ma na celu zbadanie u\u017Cyteczno\u015Bci wybranych wzorc\xF3w p\xF3l, kt\xF3re mo\u017Cesz na co dzie\u0144 znale\u017A\u0107 w wielu aplikacjach webowych i na stronach internetowych. Zostaniesz poproszony o wykonanie kilkunastu zada\u0144 polegaj\u0105cych na uzupe\u0142nieniu r\xF3\u017Cnego typu formularzy. **Ten tekst jeszcze si\u0119 zmieni.**" }),
                                 React.createElement(
-                                    'button',
+                                    "button",
                                     { onClick: this.handleStart, disabled: this.state.testStarted },
-                                    'Rozpocznij badanie'
+                                    "Rozpocznij badanie"
                                 )
                             ),
                             scenarios.map(function (scenario, index) {
                                 return React.createElement(Scenario, { key: index, index: index + 1, testStarted: _this16.state.testStarted, currentIndex: _this16.state.currentScenarioIndex, lastIndex: _this16.state.scenarios.length, scenario: scenario, onFinish: _this16.handleScenarioFinish, nodeRef: _this16.childNodeRef });
                             }),
                             this.state.allScenariosFinished && React.createElement(
-                                'section',
+                                "section",
                                 { ref: this.childNodeRef },
                                 React.createElement(
-                                    'h1',
+                                    "h1",
                                     null,
-                                    'Zako\u0144czenie'
+                                    "Zako\u0144czenie"
                                 ),
-                                React.createElement(Paragraph, { content: 'Tutaj b\u0119dzie jaki\u015B akapit podsumowuj\u0105cy, jednak na razie nie wiem, co by w nim mog\u0142o si\u0119 znale\u017A\u0107.' }),
+                                React.createElement(Paragraph, { content: "Tutaj b\u0119dzie jaki\u015B akapit podsumowuj\u0105cy, jednak na razie nie wiem, co by w nim mog\u0142o si\u0119 znale\u017A\u0107." }),
                                 React.createElement(
-                                    'section',
-                                    { className: 'form labels-align-top', id: 'user-form' },
+                                    "section",
+                                    { className: "form labels-align-top", id: "user-form" },
                                     React.createElement(
-                                        'h3',
+                                        "h3",
                                         null,
-                                        'Ankieta uczestnika'
+                                        "Ankieta uczestnika"
                                     ),
                                     this.state.form.data.map(function (item, index) {
                                         return React.createElement(InputWrapper, Object.assign({ key: index, index: index, error: _this16.state.form.error, disabled: _this16.state.testFinished, onChange: _this16.handleFormChange }, item));
                                     }),
-                                    this.state.form.error && React.createElement(Paragraph, { 'class': 'on-form-error', content: 'Aby przej\u015B\u0107 dalej, popraw pola wyr\xF3\u017Cnione **tym kolorem.**' })
+                                    this.state.form.error && React.createElement(Paragraph, { "class": "on-form-error", content: "Aby przej\u015B\u0107 dalej, popraw pola wyr\xF3\u017Cnione **tym kolorem.**" })
                                 ),
                                 React.createElement(
-                                    'button',
+                                    "button",
                                     { onClick: this.handleFinish, disabled: this.state.testFinished },
-                                    'Wy\u015Blij'
+                                    "Wy\u015Blij"
                                 )
                             ),
                             this.state.testFinished && React.createElement(
-                                'section',
+                                "section",
                                 { ref: this.childNodeRef },
-                                React.createElement(Paragraph, { content: '**Serdecznie dzi\u0119kuj\u0119 za wzi\u0119cie udzia\u0142u w badaniu!** Twoja pomoc jest naprawd\u0119 nieoceniona i przyczyni si\u0119 do zrealizowania jednego z najwi\u0119kszych moich cel\xF3w w \u017Cyciu -- uko\u0144czenia studi\xF3w na Politechnice Wroc\u0142awskiej.' })
+                                React.createElement(Paragraph, { content: "**Serdecznie dzi\u0119kuj\u0119 za wzi\u0119cie udzia\u0142u w badaniu!** Twoja pomoc jest naprawd\u0119 nieoceniona i przyczyni si\u0119 do zrealizowania jednego z najwi\u0119kszych moich cel\xF3w w \u017Cyciu -- uko\u0144czenia studi\xF3w na Politechnice Wroc\u0142awskiej." })
                             )
                         )
                     );
