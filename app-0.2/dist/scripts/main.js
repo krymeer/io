@@ -15,19 +15,21 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 // }
 
 window.onload = function () {
-    var emailRegex = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/;
-
-    var headerHeight = {
-        static: 256,
-        fixed: 35
+    var globals = {
+        emailRegex: /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/,
+        headerHeight: {
+            static: 256,
+            fixed: 35
+        },
+        maxLength: {
+            input: 64,
+            textarea: 255
+        }
     };
 
-    var maxInputLength = 64;
-    var maxTextareaLength = 255;
-
     getRealOffsetTop = function getRealOffsetTop(offsetTop) {
-        if (offsetTop > headerHeight.static) {
-            return offsetTop - headerHeight.fixed;
+        if (offsetTop > globals.headerHeight.static) {
+            return offsetTop - globals.headerHeight.fixed;
         }
 
         return offsetTop;
@@ -122,7 +124,7 @@ window.onload = function () {
         _createClass(InputWrapper, [{
             key: 'handleClickOutside',
             value: function handleClickOutside(e) {
-                if (this.node.contains(e.target)) {
+                if (this.props.disabled || this.node.contains(e.target)) {
                     return;
                 }
 
@@ -137,9 +139,6 @@ window.onload = function () {
                     this.setState({
                         inputFocus: true
                     });
-
-                    // This TEMPORARY call is necessary when filling the inputs programmatically
-                    this.handleChange(event);
                 }
             }
         }, {
@@ -155,13 +154,19 @@ window.onload = function () {
         }, {
             key: 'handleChange',
             value: function handleChange(event) {
+                var _this3 = this;
+
                 if (!this.props.disabled) {
+                    var eventType = event.type;
                     var inputValue = event.target.value;
                     var inputValid = typeof this.props.defaultValue !== 'undefined' ? this.props.defaultValue === inputValue : typeof this.props.regex !== 'undefined' ? this.props.regex.test(inputValue) : inputValue !== '';
-
                     this.setState({
                         inputValue: inputValue,
                         inputValid: inputValid
+                    }, function () {
+                        if (eventType === 'triggerChange') {
+                            _this3.handleBlur();
+                        }
                     });
 
                     this.props.onChange({
@@ -201,7 +206,7 @@ window.onload = function () {
         }, {
             key: 'handleSelect',
             value: function handleSelect(event) {
-                var _this3 = this;
+                var _this4 = this;
 
                 if (!this.props.disabled) {
                     var bodyScrollHeight = document.body.scrollHeight;
@@ -221,14 +226,14 @@ window.onload = function () {
                             })
                         };
                     }, function () {
-                        if (_this3.state.selectList.open) {
+                        if (_this4.state.selectList.open) {
                             var listNode = currentNode.closest('.select-current').nextElementSibling;
 
                             if (listNode !== null) {
                                 var listNodeOffsetBtm = document.body.parentElement.scrollTop + listNode.getBoundingClientRect().top + listNode.offsetHeight;
                                 var overflowDirection = listNodeOffsetBtm > bodyScrollHeight ? 'top' : 'bottom';
 
-                                _this3.setState(function (state) {
+                                _this4.setState(function (state) {
                                     return {
                                         selectList: Object.assign({}, state.selectList, {
                                             overflow: overflowDirection
@@ -241,9 +246,20 @@ window.onload = function () {
                 }
             }
         }, {
+            key: 'componentDidMount',
+            value: function componentDidMount() {
+                if (this.props.type === 'text') {
+                    var _self = this;
+
+                    this.inputNode.addEventListener('triggerChange', function (event) {
+                        _self.handleChange(event);
+                    });
+                }
+            }
+        }, {
             key: 'render',
             value: function render() {
-                var _this4 = this;
+                var _this5 = this;
 
                 var wrapperClassName = ('wrapper' + ' ' + (this.props.error ? 'on-form-error' : '') + ' ' + (this.state.inputValid ? '' : 'on-input-invalid')).trim().replace(/\s+/g, ' ');
                 var labelClassName = ((this.props.disabled ? 'on-input-disabled' : '') + ' ' + (this.state.inputFocus ? 'on-input-focus' : '') + ' ' + (this.state.inputNonEmpty ? 'on-input-non-empty' : '')).trim().replace(/\s+/g, ' ');
@@ -256,15 +272,17 @@ window.onload = function () {
                         { className: labelClassName !== "" ? labelClassName : undefined },
                         this.props.label
                     ),
-                    this.props.type === "text" && React.createElement('input', { maxLength: typeof this.props.maxLength !== "undefined" ? this.props.maxLength : maxInputLength, type: 'text', spellCheck: 'false', autoComplete: 'off', onFocus: this.handleFocus, onBlur: this.handleBlur, onChange: this.handleChange, disabled: this.props.disabled, value: this.state.inputValue }),
+                    this.props.type === "text" && React.createElement('input', { ref: function ref(node) {
+                            return _this5.inputNode = node;
+                        }, maxLength: typeof this.props.maxLength !== "undefined" ? this.props.maxLength : globals.maxLength.input, type: 'text', spellCheck: 'false', autoComplete: 'off', onFocus: this.handleFocus, onBlur: this.handleBlur, onChange: this.handleChange, disabled: this.props.disabled, value: this.state.inputValue }),
                     this.props.type === "radio" && React.createElement(
                         'ul',
                         { className: 'input-list radio-list' },
                         this.props.options.map(function (option, index) {
                             return React.createElement(
                                 'li',
-                                { className: ("radio-item " + (_this4.state.chosenIndex === index ? "chosen" : "") + " " + (_this4.props.disabled ? "disabled" : "")).trim().replace(/\s+/g, " "), key: index },
-                                React.createElement('div', { className: 'radio', onClick: _this4.handleOption.bind(_this4, index, option) }),
+                                { className: ("radio-item " + (_this5.state.chosenIndex === index ? "chosen" : "") + " " + (_this5.props.disabled ? "disabled" : "")).trim().replace(/\s+/g, " "), key: index },
+                                React.createElement('div', { className: 'radio', onClick: _this5.handleOption.bind(_this5, index, option) }),
                                 React.createElement(
                                     'span',
                                     null,
@@ -293,13 +311,13 @@ window.onload = function () {
                         this.state.selectList.open && React.createElement(
                             'ul',
                             { className: ("select-list " + this.state.selectList.overflow).trim(), ref: function ref(node) {
-                                    return _this4.node = node;
+                                    return _this5.node = node;
                                 } },
                             this.props.options.map(function (option, index) {
-                                if (index !== _this4.state.chosenIndex) {
+                                if (index !== _this5.state.chosenIndex) {
                                     return React.createElement(
                                         'li',
-                                        { key: index, className: 'select-option', onClick: _this4.handleOption.bind(_this4, index, option) },
+                                        { key: index, className: 'select-option', onClick: _this5.handleOption.bind(_this5, index, option) },
                                         React.createElement(
                                             'span',
                                             null,
@@ -311,7 +329,7 @@ window.onload = function () {
                                 }
                             })
                         ),
-                        this.state.otherOptionChosen && React.createElement('input', { className: 'select-other', maxLength: typeof this.props.maxLength !== "undefined" ? this.props.maxLength : maxInputLength, type: 'text', spellCheck: 'false', autoComplete: 'off', disabled: this.props.disabled, onFocus: this.handleFocus, onBlur: this.handleBlur, onChange: this.handleChange, value: this.state.inputValue })
+                        this.state.otherOptionChosen && React.createElement('input', { className: 'select-other', maxLength: typeof this.props.maxLength !== "undefined" ? this.props.maxLength : globals.maxLength.input, type: 'text', spellCheck: 'false', autoComplete: 'off', disabled: this.props.disabled, onFocus: this.handleFocus, onBlur: this.handleBlur, onChange: this.handleChange, value: this.state.inputValue })
                     )
                 );
             }
@@ -326,10 +344,10 @@ window.onload = function () {
         function Comment(props) {
             _classCallCheck(this, Comment);
 
-            var _this5 = _possibleConstructorReturn(this, (Comment.__proto__ || Object.getPrototypeOf(Comment)).call(this, props));
+            var _this6 = _possibleConstructorReturn(this, (Comment.__proto__ || Object.getPrototypeOf(Comment)).call(this, props));
 
-            _this5.handleChange = _this5.handleChange.bind(_this5);
-            return _this5;
+            _this6.handleChange = _this6.handleChange.bind(_this6);
+            return _this6;
         }
 
         _createClass(Comment, [{
@@ -350,7 +368,7 @@ window.onload = function () {
                         null,
                         this.props.headerText
                     ),
-                    React.createElement('textarea', { spellCheck: 'false', maxLength: typeof this.props.maxLength !== "undefined" ? this.props.maxLength : maxTextareaLength, onChange: this.handleChange, disabled: this.props.disabled }),
+                    React.createElement('textarea', { spellCheck: 'false', maxLength: typeof this.props.maxLength !== "undefined" ? this.props.maxLength : globals.maxLength.textarea, onChange: this.handleChange, disabled: this.props.disabled }),
                     React.createElement(
                         'div',
                         null,
@@ -383,19 +401,19 @@ window.onload = function () {
         function Task(props) {
             _classCallCheck(this, Task);
 
-            var _this6 = _possibleConstructorReturn(this, (Task.__proto__ || Object.getPrototypeOf(Task)).call(this, props));
+            var _this7 = _possibleConstructorReturn(this, (Task.__proto__ || Object.getPrototypeOf(Task)).call(this, props));
 
-            _this6.handleClick = _this6.handleClick.bind(_this6);
-            _this6.handleStart = _this6.handleStart.bind(_this6);
-            _this6.handleFinish = _this6.handleFinish.bind(_this6);
-            _this6.handleNext = _this6.handleNext.bind(_this6);
-            _this6.handleInputChange = _this6.handleInputChange.bind(_this6);
-            _this6.handleRatingChange = _this6.handleRatingChange.bind(_this6);
-            _this6.handleCommentChange = _this6.handleCommentChange.bind(_this6);
-            _this6.childNodeRef = function (child) {
+            _this7.handleClick = _this7.handleClick.bind(_this7);
+            _this7.handleStart = _this7.handleStart.bind(_this7);
+            _this7.handleFinish = _this7.handleFinish.bind(_this7);
+            _this7.handleNext = _this7.handleNext.bind(_this7);
+            _this7.handleInputChange = _this7.handleInputChange.bind(_this7);
+            _this7.handleRatingChange = _this7.handleRatingChange.bind(_this7);
+            _this7.handleCommentChange = _this7.handleCommentChange.bind(_this7);
+            _this7.childNodeRef = function (child) {
                 window.scrollTo(0, getRealOffsetTop(child.offsetTop));
             };
-            _this6.state = {
+            _this7.state = {
                 taskStarted: false,
                 taskFinished: false,
                 taskError: false,
@@ -408,13 +426,13 @@ window.onload = function () {
                     rating: 0,
                     comment: ''
                 },
-                inputs: _this6.props.task.data.map(function (input) {
+                inputs: _this7.props.task.data.map(function (input) {
                     return {
                         valid: false
                     };
                 })
             };
-            return _this6;
+            return _this7;
         }
 
         _createClass(Task, [{
@@ -530,7 +548,7 @@ window.onload = function () {
         }, {
             key: 'handleInputChange',
             value: function handleInputChange(input) {
-                var _this7 = this;
+                var _this8 = this;
 
                 if (this.state.taskStarted && !this.state.taskFinished) {
                     this.setState(function (state) {
@@ -548,10 +566,10 @@ window.onload = function () {
                             inputs: inputs
                         };
                     }, function () {
-                        if (_this7.state.inputs.filter(function (item) {
+                        if (_this8.state.inputs.filter(function (item) {
                             return !item.valid;
                         }).length === 0) {
-                            _this7.setState({
+                            _this8.setState({
                                 taskError: false
                             });
                         }
@@ -559,24 +577,23 @@ window.onload = function () {
                 }
             }
 
-            // TEMPORARY
-            // Insert all the data by clicking only one button
+            // TEMPORARY: Insert all the data by clicking only one button
 
         }, {
             key: 'insertEverything',
             value: function insertEverything(e) {
                 var inputs = e.target.parentElement.querySelectorAll('input');
+                var _self = this;
 
                 for (var k = 0; k < inputs.length; k++) {
-                    inputs[k].value = this.props.task.data[k].defaultValue;
-                    inputs[k].dispatchEvent(new Event('focus'));
-                    inputs[k].dispatchEvent(new Event('blur'));
+                    inputs[k].value = _self.props.task.data[k].defaultValue;
+                    inputs[k].dispatchEvent(new Event('triggerChange'));
                 }
             }
         }, {
             key: 'render',
             value: function render() {
-                var _this8 = this;
+                var _this9 = this;
 
                 if (this.props.scenarioStarted && this.props.currentIndex >= this.props.index) {
                     return React.createElement(
@@ -650,7 +667,7 @@ window.onload = function () {
                                 'keyboard'
                             ),
                             this.state.inputs.map(function (input, index) {
-                                return React.createElement(InputWrapper, Object.assign({ key: index, index: index, error: _this8.state.taskError && _this8.state.taskStarted, disabled: _this8.state.taskFinished || !_this8.state.taskStarted, onChange: _this8.handleInputChange }, input, _this8.props.task.data[index]));
+                                return React.createElement(InputWrapper, Object.assign({ key: index, index: index, error: _this9.state.taskError && _this9.state.taskStarted, disabled: _this9.state.taskFinished || !_this9.state.taskStarted, onChange: _this9.handleInputChange }, input, _this9.props.task.data[index]));
                             }),
                             this.state.taskError && React.createElement(Paragraph, { 'class': 'on-form-error', content: 'Aby przej\u015B\u0107 dalej, popraw pola wyr\xF3\u017Cnione **tym kolorem.**' })
                         ),
@@ -673,7 +690,7 @@ window.onload = function () {
                                 [].concat(_toConsumableArray(Array(7))).map(function (x, key, array) {
                                     return React.createElement(
                                         'li',
-                                        { className: ("seq-item radio-item " + (_this8.state.stats.rating === key + 1 ? "chosen" : "") + " " + (_this8.state.nextTask ? "disabled" : "")).trim().replace(/\s+/g, " "), key: key },
+                                        { className: ("seq-item radio-item " + (_this9.state.stats.rating === key + 1 ? "chosen" : "") + " " + (_this9.state.nextTask ? "disabled" : "")).trim().replace(/\s+/g, " "), key: key },
                                         key === 0 && React.createElement(
                                             'div',
                                             null,
@@ -689,7 +706,7 @@ window.onload = function () {
                                             null,
                                             key + 1
                                         ),
-                                        React.createElement('div', { className: 'radio', onClick: _this8.handleRatingChange.bind(_this8, key + 1) })
+                                        React.createElement('div', { className: 'radio', onClick: _this9.handleRatingChange.bind(_this9, key + 1) })
                                     );
                                 })
                             ),
@@ -698,7 +715,7 @@ window.onload = function () {
                                 { className: 'note' },
                                 '* Pole wymagane'
                             ),
-                            this.state.stats.rating > 0 && React.createElement(Comment, { headerText: 'Czy masz jakie\u015B uwagi lub sugestie zwi\u0105zane z powy\u017Cszym \u0107wiczeniem? **', noteText: '** Pole opcjonalne', onChange: this.handleCommentChange, length: this.state.stats.comment.length, maxLength: maxTextareaLength, disabled: this.state.nextTask })
+                            this.state.stats.rating > 0 && React.createElement(Comment, { headerText: 'Czy masz jakie\u015B uwagi lub sugestie zwi\u0105zane z powy\u017Cszym \u0107wiczeniem? **', noteText: '** Pole opcjonalne', onChange: this.handleCommentChange, length: this.state.stats.comment.length, maxLength: globals.maxLength.textarea, disabled: this.state.nextTask })
                         ),
                         this.state.stats.rating > 0 && React.createElement(
                             'button',
@@ -722,13 +739,13 @@ window.onload = function () {
         function Scenario(props) {
             _classCallCheck(this, Scenario);
 
-            var _this9 = _possibleConstructorReturn(this, (Scenario.__proto__ || Object.getPrototypeOf(Scenario)).call(this, props));
+            var _this10 = _possibleConstructorReturn(this, (Scenario.__proto__ || Object.getPrototypeOf(Scenario)).call(this, props));
 
-            _this9.handleStart = _this9.handleStart.bind(_this9);
-            _this9.handleFinish = _this9.handleFinish.bind(_this9);
-            _this9.handleTaskFinish = _this9.handleTaskFinish.bind(_this9);
-            _this9.handleSummaryComment = _this9.handleSummaryComment.bind(_this9);
-            _this9.state = {
+            _this10.handleStart = _this10.handleStart.bind(_this10);
+            _this10.handleFinish = _this10.handleFinish.bind(_this10);
+            _this10.handleTaskFinish = _this10.handleTaskFinish.bind(_this10);
+            _this10.handleSummaryComment = _this10.handleSummaryComment.bind(_this10);
+            _this10.state = {
                 scenarioStarted: false,
                 scenarioFinished: false,
                 nextScenario: false,
@@ -740,10 +757,10 @@ window.onload = function () {
                     comment: ''
                 }
             };
-            _this9.childNodeRef = function (child) {
+            _this10.childNodeRef = function (child) {
                 window.scrollTo(0, getRealOffsetTop(child.offsetTop));
             };
-            return _this9;
+            return _this10;
         }
 
         _createClass(Scenario, [{
@@ -844,7 +861,7 @@ window.onload = function () {
         }, {
             key: 'render',
             value: function render() {
-                var _this10 = this;
+                var _this11 = this;
 
                 if (this.props.testStarted && this.props.currentIndex >= this.props.index) {
                     return React.createElement(
@@ -863,7 +880,7 @@ window.onload = function () {
                             'Rozpocznij scenariusz'
                         ),
                         this.props.scenario.tasks.map(function (task, index, tasks) {
-                            return React.createElement(Task, { nodeRef: _this10.childNodeRef, key: index, index: index + 1, currentIndex: _this10.state.currentTaskIndex, lastIndex: tasks.length, onFinish: _this10.handleTaskFinish, scenarioStarted: _this10.state.scenarioStarted, task: task });
+                            return React.createElement(Task, { nodeRef: _this11.childNodeRef, key: index, index: index + 1, currentIndex: _this11.state.currentTaskIndex, lastIndex: tasks.length, onFinish: _this11.handleTaskFinish, scenarioStarted: _this11.state.scenarioStarted, task: task });
                         }),
                         this.state.scenarioFinished && React.createElement(
                             'section',
@@ -878,10 +895,10 @@ window.onload = function () {
                                 'section',
                                 { className: 'questions' },
                                 this.state.summary.questions.map(function (question, qIndex) {
-                                    if (_this10.state.summary.currentQuestion >= qIndex) {
+                                    if (_this11.state.summary.currentQuestion >= qIndex) {
                                         return React.createElement(
                                             'div',
-                                            { key: qIndex, className: 'question-wrapper', ref: _this10.childNodeRef },
+                                            { key: qIndex, className: 'question-wrapper', ref: _this11.childNodeRef },
                                             React.createElement(
                                                 'h4',
                                                 null,
@@ -894,8 +911,8 @@ window.onload = function () {
                                                 question.answers.map(function (answer, aIndex) {
                                                     return React.createElement(
                                                         'li',
-                                                        { className: ("radio-item " + (question.chosenAnswer === aIndex ? "chosen" : "") + " " + (_this10.state.nextScenario ? "disabled" : "")).trim().replace(/\s+/g, " "), key: aIndex },
-                                                        React.createElement('div', { className: 'radio', onClick: _this10.handleSummaryQuestion.bind(_this10, qIndex, aIndex) }),
+                                                        { className: ("radio-item " + (question.chosenAnswer === aIndex ? "chosen" : "") + " " + (_this11.state.nextScenario ? "disabled" : "")).trim().replace(/\s+/g, " "), key: aIndex },
+                                                        React.createElement('div', { className: 'radio', onClick: _this11.handleSummaryQuestion.bind(_this11, qIndex, aIndex) }),
                                                         React.createElement(
                                                             'span',
                                                             null,
@@ -914,7 +931,7 @@ window.onload = function () {
                                     { className: 'note' },
                                     '* Pole wymagane'
                                 ),
-                                this.state.summary.currentQuestion >= this.state.summary.questions.length && React.createElement(Comment, { headerText: 'Czy masz jakie\u015B uwagi lub sugestie zwi\u0105zane z uko\u0144czonym scenariuszem? **', noteText: '** Pole opcjonalne', onChange: this.handleSummaryComment, length: this.state.summary.comment.length, maxLength: maxTextareaLength, disabled: this.state.nextScenario })
+                                this.state.summary.currentQuestion >= this.state.summary.questions.length && React.createElement(Comment, { headerText: 'Czy masz jakie\u015B uwagi lub sugestie zwi\u0105zane z uko\u0144czonym scenariuszem? **', noteText: '** Pole opcjonalne', onChange: this.handleSummaryComment, length: this.state.summary.comment.length, maxLength: globals.maxLength.textarea, disabled: this.state.nextScenario })
                             )
                         ),
                         this.state.scenarioFinished && this.state.summary.currentQuestion >= this.state.summary.questions.length && React.createElement(
@@ -939,15 +956,15 @@ window.onload = function () {
         function MainComponent(props) {
             _classCallCheck(this, MainComponent);
 
-            var _this11 = _possibleConstructorReturn(this, (MainComponent.__proto__ || Object.getPrototypeOf(MainComponent)).call(this, props));
+            var _this12 = _possibleConstructorReturn(this, (MainComponent.__proto__ || Object.getPrototypeOf(MainComponent)).call(this, props));
 
-            _this11.handleFormChange = _this11.handleFormChange.bind(_this11);
-            _this11.handleScroll = _this11.handleScroll.bind(_this11);
-            _this11.handleStart = _this11.handleStart.bind(_this11);
-            _this11.handleFinish = _this11.handleFinish.bind(_this11);
-            _this11.handleScenarioFinish = _this11.handleScenarioFinish.bind(_this11);
-            _this11.backToTop = _this11.backToTop.bind(_this11);
-            _this11.state = {
+            _this12.handleFormChange = _this12.handleFormChange.bind(_this12);
+            _this12.handleScroll = _this12.handleScroll.bind(_this12);
+            _this12.handleStart = _this12.handleStart.bind(_this12);
+            _this12.handleFinish = _this12.handleFinish.bind(_this12);
+            _this12.handleScenarioFinish = _this12.handleScenarioFinish.bind(_this12);
+            _this12.backToTop = _this12.backToTop.bind(_this12);
+            _this12.state = {
                 error: null,
                 isLoaded: false,
                 headerFixed: false,
@@ -970,7 +987,7 @@ window.onload = function () {
                         label: 'E-mail',
                         id: 'email',
                         value: '',
-                        regex: emailRegex,
+                        regex: globals.emailRegex,
                         maxLength: 128,
                         valid: false
                     }, {
@@ -1008,28 +1025,28 @@ window.onload = function () {
                 }
             };
 
-            _this11.childNodeRef = function (child) {
+            _this12.childNodeRef = function (child) {
                 window.scrollTo(0, getRealOffsetTop(child.offsetTop));
             };
-            return _this11;
+            return _this12;
         }
 
         _createClass(MainComponent, [{
             key: 'componentDidMount',
             value: function componentDidMount() {
-                var _this12 = this;
+                var _this13 = this;
 
                 fetch('./json/test-all.json').then(function (res) {
                     return res.json();
                 }).then(function (result) {
-                    _this12.setState({
+                    _this13.setState({
                         scenarios: result.scenarios,
                         isLoaded: true
                     }, function () {
-                        window.addEventListener('scroll', _this12.handleScroll);
+                        window.addEventListener('scroll', _this13.handleScroll);
                     });
                 }, function (error) {
-                    _this12.setState({
+                    _this13.setState({
                         isLoaded: false,
                         error: error
                     });
@@ -1043,7 +1060,7 @@ window.onload = function () {
         }, {
             key: 'handleScroll',
             value: function handleScroll() {
-                if (window.scrollY > 256) {
+                if (window.scrollY > globals.headerHeight.static) {
                     this.setState({
                         headerFixed: true
                     });
@@ -1056,38 +1073,40 @@ window.onload = function () {
         }, {
             key: 'handleFormChange',
             value: function handleFormChange(input) {
-                var _this13 = this;
+                var _this14 = this;
 
-                this.setState(function (state) {
-                    var data = state.form.data.map(function (item, itemIndex) {
-                        if (itemIndex === input.index) {
-                            return Object.assign({}, item, {
-                                valid: input.valid,
-                                value: input.value
+                if (this.state.allScenariosFinished && !this.state.testFinished) {
+                    this.setState(function (state) {
+                        var data = state.form.data.map(function (item, itemIndex) {
+                            if (itemIndex === input.index) {
+                                return Object.assign({}, item, {
+                                    valid: input.valid,
+                                    value: input.value
+                                });
+                            }
+
+                            return item;
+                        });
+
+                        return Object.assign({}, state, {
+                            form: Object.assign({}, state.form, {
+                                data: data
+                            })
+                        });
+                    }, function () {
+                        if (_this14.state.form.data.filter(function (item) {
+                            return !item.valid;
+                        }).length === 0) {
+                            _this14.setState(function (state) {
+                                return Object.assign({}, state, {
+                                    form: Object.assign({}, state.form, {
+                                        error: false
+                                    })
+                                });
                             });
                         }
-
-                        return item;
                     });
-
-                    return Object.assign({}, state, {
-                        form: Object.assign({}, state.form, {
-                            data: data
-                        })
-                    });
-                }, function () {
-                    if (_this13.state.form.data.filter(function (item) {
-                        return !item.valid;
-                    }).length === 0) {
-                        _this13.setState(function (state) {
-                            return Object.assign({}, state, {
-                                form: Object.assign({}, state.form, {
-                                    error: false
-                                })
-                            });
-                        });
-                    }
-                });
+                }
             }
         }, {
             key: 'handleStart',
@@ -1139,49 +1158,51 @@ window.onload = function () {
         }, {
             key: 'handleFinish',
             value: function handleFinish() {
-                var _this14 = this;
+                var _this15 = this;
 
-                if (this.state.form.data.filter(function (input) {
-                    return !input.valid;
-                }).length > 0) {
-                    this.setState(function (state) {
-                        return Object.assign({}, state, {
-                            form: Object.assign({}, state.form, {
-                                error: true
-                            })
-                        });
-                    });
-                } else {
-                    this.setState(function (state) {
-                        return Object.assign({}, state, {
-                            testFinished: true,
-                            output: Object.assign({}, state.output, {
-                                results: Object.assign({}, state.output.results, {
-                                    endTime: new Date().getTime()
+                if (this.state.allScenariosFinished && !this.state.testFinished) {
+                    if (this.state.form.data.filter(function (input) {
+                        return !input.valid;
+                    }).length > 0) {
+                        this.setState(function (state) {
+                            return Object.assign({}, state, {
+                                form: Object.assign({}, state.form, {
+                                    error: true
                                 })
-                            })
+                            });
                         });
-                    }, function () {
-                        var output = _this14.state.output;
-                        var userData = {};
+                    } else {
+                        this.setState(function (state) {
+                            return Object.assign({}, state, {
+                                testFinished: true,
+                                output: Object.assign({}, state.output, {
+                                    results: Object.assign({}, state.output.results, {
+                                        endTime: new Date().getTime()
+                                    })
+                                })
+                            });
+                        }, function () {
+                            var output = _this15.state.output;
+                            var userData = {};
 
-                        for (var k = 0; k < _this14.state.form.data.length; k++) {
-                            var input = _this14.state.form.data[k];
-                            userData[input.id] = input.value;
-                        }
+                            for (var k = 0; k < _this15.state.form.data.length; k++) {
+                                var input = _this15.state.form.data[k];
+                                userData[input.id] = input.value;
+                            }
 
-                        output = Object.assign({}, output, {
-                            user: userData
+                            output = Object.assign({}, output, {
+                                user: userData
+                            });
+
+                            console.log(output);
                         });
-
-                        console.log(output);
-                    });
+                    }
                 }
             }
         }, {
             key: 'render',
             value: function render() {
-                var _this15 = this;
+                var _this16 = this;
 
                 var _state = this.state,
                     error = _state.error,
@@ -1242,7 +1263,7 @@ window.onload = function () {
                                 )
                             ),
                             scenarios.map(function (scenario, index) {
-                                return React.createElement(Scenario, { key: index, index: index + 1, testStarted: _this15.state.testStarted, currentIndex: _this15.state.currentScenarioIndex, lastIndex: _this15.state.scenarios.length, scenario: scenario, onFinish: _this15.handleScenarioFinish, nodeRef: _this15.childNodeRef });
+                                return React.createElement(Scenario, { key: index, index: index + 1, testStarted: _this16.state.testStarted, currentIndex: _this16.state.currentScenarioIndex, lastIndex: _this16.state.scenarios.length, scenario: scenario, onFinish: _this16.handleScenarioFinish, nodeRef: _this16.childNodeRef });
                             }),
                             this.state.allScenariosFinished && React.createElement(
                                 'section',
@@ -1262,7 +1283,7 @@ window.onload = function () {
                                         'Ankieta uczestnika'
                                     ),
                                     this.state.form.data.map(function (item, index) {
-                                        return React.createElement(InputWrapper, Object.assign({ key: index, index: index, error: _this15.state.form.error, disabled: _this15.state.testFinished, onChange: _this15.handleFormChange }, item));
+                                        return React.createElement(InputWrapper, Object.assign({ key: index, index: index, error: _this16.state.form.error, disabled: _this16.state.testFinished, onChange: _this16.handleFormChange }, item));
                                     }),
                                     this.state.form.error && React.createElement(Paragraph, { 'class': 'on-form-error', content: 'Aby przej\u015B\u0107 dalej, popraw pola wyr\xF3\u017Cnione **tym kolorem.**' })
                                 ),

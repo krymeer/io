@@ -3,20 +3,22 @@
 // }
 
 window.onload = function() {
-    const emailRegex = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/;
-
-    const headerHeight = {
-        static : 256,
-        fixed  : 35
+    const globals = {
+        emailRegex     : /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/,
+        headerHeight   : {
+            static : 256,
+            fixed  : 35
+        },
+        maxLength      : {
+            input    : 64,
+            textarea : 255
+        }
     }
 
-    const maxInputLength    = 64;
-    const maxTextareaLength = 255;
-
     getRealOffsetTop = ( offsetTop ) => {
-        if( offsetTop > headerHeight.static )
+        if( offsetTop > globals.headerHeight.static )
         {
-            return offsetTop - headerHeight.fixed;
+            return offsetTop - globals.headerHeight.fixed;
         }
 
         return offsetTop;
@@ -82,7 +84,7 @@ window.onload = function() {
                     inputFocus     : false,
                     inputNonEmpty  : false,
                     inputValue     : ''
-                }
+                };
             }
 
             if( this.props.type === 'select' )
@@ -99,7 +101,7 @@ window.onload = function() {
 
         handleClickOutside( e )
         {
-            if( this.node.contains( e.target ) )
+            if( this.props.disabled || this.node.contains( e.target ) )
             {
                 return;
             }
@@ -117,9 +119,6 @@ window.onload = function() {
                 this.setState( {
                     inputFocus : true
                 } );
-
-                // This TEMPORARY call is necessary when filling the inputs programmatically
-                this.handleChange( event );
             }
         }
 
@@ -138,16 +137,21 @@ window.onload = function() {
         {
             if( !this.props.disabled )
             {
+                const eventType = event.type;
                 const inputValue = event.target.value;
                 const inputValid = ( typeof this.props.defaultValue !== 'undefined' )
                                     ? ( this.props.defaultValue === inputValue )
                                     : ( ( typeof this.props.regex !== 'undefined' )
                                         ? this.props.regex.test( inputValue )
                                         : ( inputValue !== '' ) );
-
                 this.setState( {
                     inputValue : inputValue,
                     inputValid : inputValid
+                }, () => {
+                    if( eventType === 'triggerChange' )
+                    {
+                        this.handleBlur();
+                    }
                 } );
 
                 this.props.onChange( {
@@ -239,6 +243,18 @@ window.onload = function() {
             }
         }
 
+        componentDidMount()
+        {
+            if( this.props.type === 'text' )
+            {
+                const _self = this;
+
+                this.inputNode.addEventListener( 'triggerChange', function( event ) {
+                    _self.handleChange( event );
+                } );
+            }
+        }
+
         render()
         {
             const wrapperClassName = ( 'wrapper' + ' ' + ( this.props.error ? 'on-form-error' : '' ) + ' ' + ( this.state.inputValid ? '' : 'on-input-invalid' ) ).trim().replace( /\s+/g, ' ' );
@@ -248,7 +264,7 @@ window.onload = function() {
                 <div className={ ( wrapperClassName !== "" ) ? wrapperClassName : undefined }>
                     <label className={ ( labelClassName !== "" ) ? labelClassName : undefined }>{ this.props.label }</label>
                     { this.props.type === "text" &&
-                        <input maxLength={ ( typeof this.props.maxLength !== "undefined" ) ? this.props.maxLength : maxInputLength } type="text" spellCheck="false" autoComplete="off" onFocus={ this.handleFocus } onBlur={ this.handleBlur } onChange={ this.handleChange } disabled={ this.props.disabled } value={ this.state.inputValue }/>
+                        <input ref={ node => this.inputNode = node } maxLength={ ( typeof this.props.maxLength !== "undefined" ) ? this.props.maxLength : globals.maxLength.input } type="text" spellCheck="false" autoComplete="off" onFocus={ this.handleFocus } onBlur={ this.handleBlur } onChange={ this.handleChange } disabled={ this.props.disabled } value={ this.state.inputValue }/>
                     }
                     { this.props.type === "radio" &&
                         <ul className="input-list radio-list">
@@ -289,7 +305,7 @@ window.onload = function() {
                                 </ul>
                             }
                             { this.state.otherOptionChosen &&
-                                <input className="select-other" maxLength={ ( typeof this.props.maxLength !== "undefined" ) ? this.props.maxLength : maxInputLength } type="text" spellCheck="false" autoComplete="off" disabled={ this.props.disabled } onFocus={ this.handleFocus } onBlur={ this.handleBlur } onChange={ this.handleChange } value={ this.state.inputValue }/>
+                                <input className="select-other" maxLength={ ( typeof this.props.maxLength !== "undefined" ) ? this.props.maxLength : globals.maxLength.input } type="text" spellCheck="false" autoComplete="off" disabled={ this.props.disabled } onFocus={ this.handleFocus } onBlur={ this.handleBlur } onChange={ this.handleChange } value={ this.state.inputValue }/>
                             }
                         </div>
                     }
@@ -321,7 +337,7 @@ window.onload = function() {
                     <h4>
                         { this.props.headerText }
                     </h4>
-                    <textarea spellCheck="false" maxLength={ ( typeof this.props.maxLength !== "undefined" ) ? this.props.maxLength : maxTextareaLength } onChange={ this.handleChange } disabled={ this.props.disabled } />
+                    <textarea spellCheck="false" maxLength={ ( typeof this.props.maxLength !== "undefined" ) ? this.props.maxLength : globals.maxLength.textarea } onChange={ this.handleChange } disabled={ this.props.disabled } />
                     <div>
                         <p className="note">
                             Pozostało znaków: <span className="text-important">{ this.props.maxLength - this.props.length }</span>
@@ -527,17 +543,16 @@ window.onload = function() {
             }
         }
 
-        // TEMPORARY
-        // Insert all the data by clicking only one button
+        // TEMPORARY: Insert all the data by clicking only one button
         insertEverything( e )
         {
             const inputs = e.target.parentElement.querySelectorAll( 'input' );
+            const _self  = this;
 
             for( let k = 0; k < inputs.length; k++ )
             {
-                inputs[ k ].value = this.props.task.data[ k ].defaultValue;
-                inputs[ k ].dispatchEvent( new Event( 'focus' ) );
-                inputs[ k ].dispatchEvent( new Event( 'blur' ) );
+                inputs[ k ].value = _self.props.task.data[ k ].defaultValue;
+                inputs[ k ].dispatchEvent( new Event( 'triggerChange' ) );
             }
         }
 
@@ -612,7 +627,7 @@ window.onload = function() {
                                     * Pole wymagane
                                 </p>
                                 { this.state.stats.rating > 0 &&
-                                    <Comment headerText="Czy masz jakieś uwagi lub sugestie związane z powyższym ćwiczeniem? **" noteText="** Pole opcjonalne" onChange={ this.handleCommentChange } length={ this.state.stats.comment.length } maxLength={ maxTextareaLength } disabled={ this.state.nextTask } />
+                                    <Comment headerText="Czy masz jakieś uwagi lub sugestie związane z powyższym ćwiczeniem? **" noteText="** Pole opcjonalne" onChange={ this.handleCommentChange } length={ this.state.stats.comment.length } maxLength={ globals.maxLength.textarea } disabled={ this.state.nextTask } />
                                 }
                             </section>
                         }
@@ -815,7 +830,7 @@ window.onload = function() {
                                     } ) }
                                     <p className="note">* Pole wymagane</p>
                                     { this.state.summary.currentQuestion >= this.state.summary.questions.length &&
-                                        <Comment headerText="Czy masz jakieś uwagi lub sugestie związane z ukończonym scenariuszem? **" noteText="** Pole opcjonalne" onChange={ this.handleSummaryComment } length={ this.state.summary.comment.length } maxLength={ maxTextareaLength } disabled={ this.state.nextScenario } />
+                                        <Comment headerText="Czy masz jakieś uwagi lub sugestie związane z ukończonym scenariuszem? **" noteText="** Pole opcjonalne" onChange={ this.handleSummaryComment } length={ this.state.summary.comment.length } maxLength={ globals.maxLength.textarea } disabled={ this.state.nextScenario } />
                                     }
                                 </section>
                             </section>
@@ -876,7 +891,7 @@ window.onload = function() {
                             label     : 'E-mail',
                             id        : 'email',
                             value     : '',
-                            regex     : emailRegex,
+                            regex     : globals.emailRegex,
                             maxLength : 128,
                             valid     : false
                         },
@@ -952,7 +967,7 @@ window.onload = function() {
 
         handleScroll()
         {
-            if( window.scrollY > 256 )
+            if( window.scrollY > globals.headerHeight.static )
             {
                 this.setState( {
                     headerFixed : true
@@ -968,41 +983,44 @@ window.onload = function() {
 
         handleFormChange( input )
         {
-            this.setState( state => {
-                const data = state.form.data.map( ( item, itemIndex ) => {
-                    if( itemIndex === input.index )
-                    {
-                        return {
-                            ...item,
-                            valid : input.valid,
-                            value : input.value
-                        };
-                    }
+            if( this.state.allScenariosFinished && !this.state.testFinished )
+            {
+                this.setState( state => {
+                    const data = state.form.data.map( ( item, itemIndex ) => {
+                        if( itemIndex === input.index )
+                        {
+                            return {
+                                ...item,
+                                valid : input.valid,
+                                value : input.value
+                            };
+                        }
 
-                    return item;
-                } );
-
-                return {
-                    ...state,
-                    form : {
-                        ...state.form,
-                        data
-                    }
-                };
-            }, () => {
-                if( this.state.form.data.filter( item => !item.valid ).length === 0 )
-                {
-                    this.setState( state => {
-                        return {
-                            ...state,
-                            form : {
-                                ...state.form,
-                                error : false
-                            }
-                        };
+                        return item;
                     } );
-                }
-            } );
+
+                    return {
+                        ...state,
+                        form : {
+                            ...state.form,
+                            data
+                        }
+                    };
+                }, () => {
+                    if( this.state.form.data.filter( item => !item.valid ).length === 0 )
+                    {
+                        this.setState( state => {
+                            return {
+                                ...state,
+                                form : {
+                                    ...state.form,
+                                    error : false
+                                }
+                            };
+                        } );
+                    }
+                } );
+            }
         }
 
         handleStart()
@@ -1064,49 +1082,52 @@ window.onload = function() {
 
         handleFinish()
         {
-            if( this.state.form.data.filter( input => !input.valid ).length > 0 )
+            if( this.state.allScenariosFinished && !this.state.testFinished )
             {
-                this.setState( state => {
-                    return {
-                        ...state,
-                        form : {
-                            ...state.form,
-                            error : true
-                        }
-                    };
-                } );
-            }
-            else
-            {
-                this.setState( state => {
-                    return {
-                        ...state,
-                        testFinished : true,
-                        output      : {
-                            ...state.output,
-                            results : {
-                                ...state.output.results,
-                                endTime : new Date().getTime()
+                if( this.state.form.data.filter( input => !input.valid ).length > 0 )
+                {
+                    this.setState( state => {
+                        return {
+                            ...state,
+                            form : {
+                                ...state.form,
+                                error : true
+                            }
+                        };
+                    } );
+                }
+                else
+                {
+                    this.setState( state => {
+                        return {
+                            ...state,
+                            testFinished : true,
+                            output      : {
+                                ...state.output,
+                                results : {
+                                    ...state.output.results,
+                                    endTime : new Date().getTime()
+                                }
                             }
                         }
-                    }
-                }, () => {
-                    let output   = this.state.output;
-                    let userData = {};
+                    }, () => {
+                        let output   = this.state.output;
+                        let userData = {};
 
-                    for( let k = 0; k < this.state.form.data.length; k++ )
-                    {
-                        const input = this.state.form.data[ k ];
-                        userData[ input.id ] = input.value;
-                    }
+                        for( let k = 0; k < this.state.form.data.length; k++ )
+                        {
+                            const input = this.state.form.data[ k ];
+                            userData[ input.id ] = input.value;
+                        }
 
-                    output = {
-                        ...output,
-                        user : userData
-                    };
+                        output = {
+                            ...output,
+                            user : userData
+                        };
 
-                    console.log( output );
-                } );
+                        console.log( output );
+                    } );
+                }
             }
         }
 
