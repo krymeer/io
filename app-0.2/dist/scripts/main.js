@@ -33,9 +33,11 @@ getRealOffsetTop = function getRealOffsetTop(offsetTop) {
 };
 
 insertNbsp = function insertNbsp(str) {
-    return str;
-    // This will not work in Firefox
-    // return str.replace( /(?<=(\s|>)\w)\s/g, '\u00a0' );
+    return str.replace(/(^|\s)\w\s/g, function (match, offset, string) {
+        var end = match.length > 2 ? 2 : 1;
+
+        return match.substring(0, end) + '\xA0';
+    });
 };
 
 getRandomString = function getRandomString() {
