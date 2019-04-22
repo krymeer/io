@@ -168,22 +168,19 @@ window.onload = function() {
         {
             fetch( './json/test-2.json' )
                 .then( res => res.json() )
-                .then(
-                    ( result ) => {
+                .then( ( result ) => {
                         this.setState( {
                             scenarios : result.scenarios,
                             isLoaded  : true
                         }, () => {
                             window.addEventListener( 'scroll', this.handleScroll );
                         } );
-                    },
-                    ( error ) => {
+                    }, ( error ) => {
                         this.setState( {
                             isLoaded : false,
                             error
                         } );
-                    }
-                );
+                    } );
         }
 
         backToTop()
@@ -330,7 +327,7 @@ window.onload = function() {
                             testFinished : true,
                             output      : {
                                 ...state.output,
-                                results : {
+                                test : {
                                     ...state.output.results,
                                     endTime : new Date().getTime()
                                 }
@@ -351,7 +348,19 @@ window.onload = function() {
                             user : userData
                         };
 
-                        console.log( output );
+                        // console.log( output );
+
+                        fetch( 'https://back.mgr/?do=send&what=data', {
+                            method  : 'POST',
+                            body    : JSON.stringify( output ),
+                            headers : {
+                                'Content-Type' : 'application/json'
+                            }
+                        } )
+                            .then( res  => res.json() )
+                            .then( ( response ) => {
+                                console.log( 'fetch()', response )
+                            } );
                     } );
                 }
             }

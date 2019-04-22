@@ -313,7 +313,7 @@ window.onload = function () {
                             return Object.assign({}, state, {
                                 testFinished: true,
                                 output: Object.assign({}, state.output, {
-                                    results: Object.assign({}, state.output.results, {
+                                    test: Object.assign({}, state.output.results, {
                                         endTime: new Date().getTime()
                                     })
                                 })
@@ -331,7 +331,19 @@ window.onload = function () {
                                 user: userData
                             });
 
-                            console.log(output);
+                            // console.log( output );
+
+                            fetch('https://back.mgr/?do=send&what=data', {
+                                method: 'POST',
+                                body: JSON.stringify(output),
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                }
+                            }).then(function (res) {
+                                return res.json();
+                            }).then(function (response) {
+                                console.log('fetch()', response);
+                            });
                         });
                     }
                 }
