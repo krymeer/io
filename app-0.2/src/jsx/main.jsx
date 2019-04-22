@@ -310,7 +310,7 @@ window.onload = function() {
         {
             if( this.state.allScenariosFinished && !this.state.testFinished )
             {
-                if( this.state.form.data.filter( input => !input.valid ).length > 0 )
+                if( this.state.form.data.filter( input => !input.valid && !input.optional ).length > 0 )
                 {
                     this.setState( state => {
                         return {
