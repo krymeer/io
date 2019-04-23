@@ -115,7 +115,7 @@ class Task extends React.Component {
             this.props.onFinish( {
                 index : this.props.index,
                 type  : this.props.task.type,
-                stats : this.state.stats
+                ...this.state.stats
             } );
         }
     }

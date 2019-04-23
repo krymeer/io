@@ -153,7 +153,7 @@ window.onload = function () {
                     }]
                 },
                 output: {
-                    results: {
+                    test: {
                         startTime: 0,
                         endTime: 0,
                         scenarios: []
@@ -253,7 +253,7 @@ window.onload = function () {
                         return Object.assign({}, state, {
                             testStarted: true,
                             output: Object.assign({}, state.output, {
-                                results: Object.assign({}, state.output.results, {
+                                test: Object.assign({}, state.output.test, {
                                     startTime: new Date().getTime()
                                 })
                             })
@@ -269,12 +269,12 @@ window.onload = function () {
 
                 if (this.state.testStarted && this.state.currentScenarioIndex === index) {
                     this.setState(function (state) {
-                        var scenarios = state.output.results.scenarios;
+                        var scenarios = state.output.test.scenarios;
                         scenarios.push(data);
 
                         return Object.assign({}, state, {
                             output: Object.assign({}, state.output, {
-                                results: Object.assign({}, state.output.results, {
+                                test: Object.assign({}, state.output.test, {
                                     scenarios: scenarios
                                 })
                             })
@@ -313,7 +313,7 @@ window.onload = function () {
                             return Object.assign({}, state, {
                                 testFinished: true,
                                 output: Object.assign({}, state.output, {
-                                    test: Object.assign({}, state.output.results, {
+                                    test: Object.assign({}, state.output.test, {
                                         endTime: new Date().getTime()
                                     })
                                 })
@@ -331,7 +331,7 @@ window.onload = function () {
                                 user: userData
                             });
 
-                            // console.log( output );
+                            console.log(output);
 
                             fetch('https://back.mgr/?do=send&what=data', {
                                 method: 'POST',

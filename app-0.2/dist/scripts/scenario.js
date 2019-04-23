@@ -58,12 +58,10 @@ var Scenario = function (_React$Component) {
                 this.props.onFinish({
                     index: this.props.index,
                     tasks: this.state.tasks,
-                    summary: {
-                        comment: this.state.summary.comment,
-                        answers: this.state.summary.questions.map(function (question) {
-                            return question.chosenAnswer;
-                        })
-                    }
+                    comment: this.state.summary.comment,
+                    summaryAnswers: this.state.summary.questions.map(function (question) {
+                        return question.answers[question.chosenAnswer];
+                    })
                 });
             }
         }

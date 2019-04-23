@@ -47,14 +47,12 @@ class Scenario extends React.Component {
             } );
 
             this.props.onFinish( {
-                index   : this.props.index,
-                tasks   : this.state.tasks,
-                summary : {
-                    comment : this.state.summary.comment,
-                    answers : this.state.summary.questions.map( ( question ) => {
-                        return question.chosenAnswer;
-                    } )
-                }
+                index          : this.props.index,
+                tasks          : this.state.tasks,
+                comment        : this.state.summary.comment,
+                summaryAnswers : this.state.summary.questions.map( ( question ) => {
+                        return question.answers[ question.chosenAnswer ];
+                } )
             } );
         }
     }

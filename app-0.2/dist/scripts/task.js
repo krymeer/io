@@ -119,11 +119,10 @@ var Task = function (_React$Component) {
                     nextTask: true
                 });
 
-                this.props.onFinish({
+                this.props.onFinish(Object.assign({
                     index: this.props.index,
-                    type: this.props.task.type,
-                    stats: this.state.stats
-                });
+                    type: this.props.task.type
+                }, this.state.stats));
             }
         }
     }, {
