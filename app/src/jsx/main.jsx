@@ -11,7 +11,8 @@ const globals = {
     maxLength      : {
         input    : 64,
         textarea : 255
-    }
+    },
+    backURI        : ( window.location.host === ( 'front.mgr' || 'localhost' || '127.0.0.1' ) ? 'https://back.mgr' : 'https://data-entry-handler.herokuapp.com' )
 }
 
 getRealOffsetTop = ( offsetTop ) => {
@@ -350,7 +351,7 @@ window.onload = function() {
 
                         console.log( output );
 
-                        fetch( 'https://back.mgr/?do=send&what=data', {
+                        fetch( globals.backURI + '/?do=send&what=data', {
                             method  : 'POST',
                             body    : JSON.stringify( output ),
                             headers : {

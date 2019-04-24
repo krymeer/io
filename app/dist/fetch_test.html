@@ -1,17 +1,17 @@
 <script>    
     var data = { "test": { "startTime": 1555916723254, "endTime": 1555916976499, "scenarios": [{ "tasks": [{ "type": "labels-align-left", "startTime": 1555916726100, "endTime": 1555916876060, "numberOfClicks": 10, "numberOfErrors": 1, "rating": 4, "comment": "Ćwiczenie nr 1, scenariusz nr 1" }, { "type": "labels-float-top", "startTime": 1555916896924, "endTime": 1555916907140, "numberOfClicks": 9, "numberOfErrors": 1, "rating": 7, "comment": "Ćwiczenie nr 2, scenariusz nr 1." }], "comment": "Scenariusz nr 1.", "summaryAnswers": [0, 0, 1] }] }, "user": { "firstName": "Krzysztof", "email": "krzysztof.radoslaw.osada@gmail.com", "birthYear": "1995", "sex": "Mężczyzna", "education": "Wyższe rolnicze", "job": "Uczeń", "frequency": "Trudno powiedzieć", "mainReason": "Modelarstwo", "difficulties": "Tak", "usability": "Trudno powiedzieć", "comment": "Nic kurwa nie wiem i nie zdam niczego." } }
 
-    fetch( 'https://back.mgr/?do=send&what=data', {
-        method  : 'POST',
-        body    : JSON.stringify( data ),
-        headers : {
-            'Content-Type' : 'application/json'
-        }
-    } )
-        // .then( res => res.text() )
+    const backURI = ( window.location.host === ( 'front.mgr' || 'localhost' || '127.0.0.1' ) ? 'https://back.mgr' : 'https://data-entry-handler.herokuapp.com' );
+
+    fetch( backURI + '/?do=send&what=data', {
+            method  : 'POST',
+            body    : JSON.stringify( data ),
+            headers : {
+                'Content-Type' : 'application/json'
+            }
+        } )
         .then( res => res.json() )
         .then( ( response ) => {
-            // console.log( response );
             for( var k = 0; k < response.length; k++ )
             {
                 console.log( response[ k ] );
