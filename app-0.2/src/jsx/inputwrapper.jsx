@@ -76,7 +76,7 @@ class InputWrapper extends React.Component {
 
     handleLabel()
     {
-        if( !this.props.disabled && typeof this.node.focus !== 'undefined' )
+        if( !this.props.disabled && typeof this.node !== 'undefined' )
         {
             this.node.focus();
         }

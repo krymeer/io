@@ -78,7 +78,7 @@ var InputWrapper = function (_React$Component) {
     }, {
         key: 'handleLabel',
         value: function handleLabel() {
-            if (!this.props.disabled && typeof this.node.focus !== 'undefined') {
+            if (!this.props.disabled && typeof this.node !== 'undefined') {
                 this.node.focus();
             }
         }
