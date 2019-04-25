@@ -74,6 +74,7 @@ window.onload = function() {
                 scenarios            : [],
                 currentScenarioIndex : 1,
                 allScenariosFinished : false,
+                dataSent             : false,
                 form                 : {
                     error : false,
                     data  : [
@@ -361,6 +362,13 @@ window.onload = function() {
                             .then( res  => res.json() )
                             .then( ( response ) => {
                                 console.log( 'fetch()', response )
+                            }, ( error ) => {
+                                console.error( error );
+                            } )
+                            .then( () => {
+                                this.setState( {
+                                    dataSent : true
+                                } );
                             } );
                     } );
                 }
@@ -428,9 +436,12 @@ window.onload = function() {
                                         }
                                     </section>
                                     <button onClick={ this.handleFinish } disabled={ this.state.testFinished }>Wyślij</button>
+                                    { this.state.testFinished &&
+                                        <Loader nodeRef={ this.childNodeRef } display={ !this.state.dataSent }/>
+                                    }
                                 </section>
                             }
-                            { this.state.testFinished &&
+                            { this.state.testFinished && this.state.dataSent &&
                                 <section ref={ this.childNodeRef }>
                                     <Paragraph content="**Serdecznie dziękuję za wzięcie udziału w badaniu!** Twoja pomoc jest naprawdę nieoceniona i przyczyni się do zrealizowania jednego z największych moich celów w życiu -- ukończenia studiów na Politechnice Wrocławskiej." />
                                 </section>

@@ -302,6 +302,35 @@ main {
         }
     }
 
+    .loader {
+        display: block;
+        width: 24px;
+        height: 24px;
+
+        &:after {
+            content: ' ';
+            display: block;
+            width: 23px;
+            height: 23px;
+            margin: .5px;
+            border-radius: 50%;
+            border-width: 2.5px;
+            border-style: solid;
+            border-color: $primary-color transparent $primary-color transparent;
+            animation: loader 1.2s linear infinite;
+        }
+    }
+
+    @keyframes loader {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
     button {
         @extend %radius;
         outline: none;
@@ -821,6 +850,10 @@ main {
 
         #user-form {
             width: 400px;
+
+            ~ .loader {
+                margin-top: $value-xl;
+            }
         }
     }
 

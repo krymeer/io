@@ -89,6 +89,7 @@ window.onload = function () {
                 scenarios: [],
                 currentScenarioIndex: 1,
                 allScenariosFinished: false,
+                dataSent: false,
                 form: {
                     error: false,
                     data: [{
@@ -344,6 +345,12 @@ window.onload = function () {
                                 return res.json();
                             }).then(function (response) {
                                 console.log('fetch()', response);
+                            }, function (error) {
+                                console.error(error);
+                            }).then(function () {
+                                _this4.setState({
+                                    dataSent: true
+                                });
                             });
                         });
                     }
@@ -439,9 +446,10 @@ window.onload = function () {
                                     'button',
                                     { onClick: this.handleFinish, disabled: this.state.testFinished },
                                     'Wy\u015Blij'
-                                )
+                                ),
+                                this.state.testFinished && React.createElement(Loader, { nodeRef: this.childNodeRef, display: !this.state.dataSent })
                             ),
-                            this.state.testFinished && React.createElement(
+                            this.state.testFinished && this.state.dataSent && React.createElement(
                                 'section',
                                 { ref: this.childNodeRef },
                                 React.createElement(Paragraph, { content: '**Serdecznie dzi\u0119kuj\u0119 za wzi\u0119cie udzia\u0142u w badaniu!** Twoja pomoc jest naprawd\u0119 nieoceniona i przyczyni si\u0119 do zrealizowania jednego z najwi\u0119kszych moich cel\xF3w w \u017Cyciu -- uko\u0144czenia studi\xF3w na Politechnice Wroc\u0142awskiej.' })

@@ -220,6 +220,31 @@ main > *:first-child {
 main > *:last-child {
   margin-bottom: 0 !important;
 }
+main .loader {
+  display: block;
+  width: 24px;
+  height: 24px;
+}
+main .loader:after {
+  content: " ";
+  display: block;
+  width: 23px;
+  height: 23px;
+  margin: 0.5px;
+  border-radius: 50%;
+  border-width: 2.5px;
+  border-style: solid;
+  border-color: #a63446 transparent #a63446 transparent;
+  animation: loader 1.2s linear infinite;
+}
+@keyframes loader {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 main button {
   outline: none;
   position: relative;
@@ -583,6 +608,9 @@ main section.task .seq > .seq-radios > li.seq-item:last-child > div:first-child 
 }
 main section #user-form {
   width: 400px;
+}
+main section #user-form ~ .loader {
+  margin-top: 28px;
 }
 
 /*# sourceMappingURL=main.css.map */
