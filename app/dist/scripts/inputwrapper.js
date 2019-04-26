@@ -20,11 +20,12 @@ var InputWrapper = function (_React$Component) {
 
         _this.inputMaxLength = typeof _this.props.maxLength !== "undefined" ? _this.props.maxLength : _this.props.type === 'textarea' ? globals.maxLength.textarea : globals.maxLength.input;
 
+        _this.handleLabel = _this.handleLabel.bind(_this);
+
         if (_this.props.type === 'textarea' || _this.props.type === 'text' || _this.props.type === 'select' && _this.props.otherOption) {
             _this.handleFocus = _this.handleFocus.bind(_this);
             _this.handleBlur = _this.handleBlur.bind(_this);
             _this.handleChange = _this.handleChange.bind(_this);
-            _this.handleLabel = _this.handleLabel.bind(_this);
 
             _this.state = Object.assign({}, _this.state, {
                 inputFocus: false,

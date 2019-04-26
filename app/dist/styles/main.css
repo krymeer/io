@@ -545,13 +545,13 @@ main section .form.labels-align-top {
 main section .form.labels-align-top > .wrapper {
   grid-row-gap: 3.5px;
 }
-main section .form.labels-float-top {
+main section .form.labels-placeholders, main section .form.labels-float-top {
   width: 240px;
 }
-main section .form.labels-float-top > .wrapper {
+main section .form.labels-placeholders > .wrapper, main section .form.labels-float-top > .wrapper {
   position: relative;
 }
-main section .form.labels-float-top > .wrapper > label {
+main section .form.labels-placeholders > .wrapper > label, main section .form.labels-float-top > .wrapper > label {
   cursor: text;
   position: absolute;
   left: 7px;
@@ -562,16 +562,19 @@ main section .form.labels-float-top > .wrapper > label {
   color: #b1b1b1;
   background: #fff;
 }
-main section .form.labels-float-top > .wrapper > label.on-input-disabled {
+main section .form.labels-placeholders > .wrapper > label.on-input-disabled, main section .form.labels-float-top > .wrapper > label.on-input-disabled {
   background: #eee;
+}
+main section .form.labels-placeholders > .wrapper > label.on-input-focus, main section .form.labels-placeholders > .wrapper > label.on-input-non-empty:not(.on-input-disabled), main section .form.labels-float-top > .wrapper > label.on-input-focus, main section .form.labels-float-top > .wrapper > label.on-input-non-empty:not(.on-input-disabled) {
+  color: #7e7e7e;
+}
+main section .form.labels-placeholders > .wrapper > label.on-input-disabled, main section .form.labels-placeholders > .wrapper > label.on-input-focus, main section .form.labels-placeholders > .wrapper > label.on-input-non-empty:not(.on-input-disabled) {
+  display: none;
 }
 main section .form.labels-float-top > .wrapper > label.on-input-focus, main section .form.labels-float-top > .wrapper > label.on-input-non-empty:not(.on-input-disabled) {
   font-size: 12px;
   margin-top: -16px;
   padding: 0 2px;
-}
-main section .form.labels-float-top > .wrapper > label.on-input-focus, main section .form.labels-float-top > .wrapper > label.on-input-non-empty:not(.on-input-disabled) {
-  color: #7e7e7e;
 }
 main section.task .seq {
   width: fit-content;

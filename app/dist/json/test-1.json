@@ -41,7 +41,7 @@
                 },
                 {
                     "title" : "Adres do wysyłki",
-                    "type"  : "labels-align-top",
+                    "type"  : "labels-placeholders",
                     "data"  : [
                         {
                             "type"         : "text",

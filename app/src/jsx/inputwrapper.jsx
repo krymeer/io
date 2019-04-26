@@ -12,12 +12,13 @@ class InputWrapper extends React.Component {
                                 ? globals.maxLength.textarea
                                 : globals.maxLength.input;
 
+        this.handleLabel    = this.handleLabel.bind( this );
+
         if( this.props.type === 'textarea' || this.props.type === 'text' || ( this.props.type === 'select' && this.props.otherOption ) )
         {
             this.handleFocus  = this.handleFocus.bind( this );
             this.handleBlur   = this.handleBlur.bind( this );
             this.handleChange = this.handleChange.bind( this );
-            this.handleLabel  = this.handleLabel.bind( this );
 
             this.state = {
                 ...this.state,

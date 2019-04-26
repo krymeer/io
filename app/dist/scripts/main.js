@@ -175,7 +175,7 @@ window.onload = function () {
             value: function componentDidMount() {
                 var _this2 = this;
 
-                fetch('./json/test-2.json').then(function (res) {
+                fetch('./json/test-1.json').then(function (res) {
                     return res.json();
                 }).then(function (result) {
                     _this2.setState({

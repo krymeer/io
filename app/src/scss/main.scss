@@ -756,6 +756,7 @@ main {
                 }
             }
 
+            &.labels-placeholders,
             &.labels-float-top {
                 width: 240px;
 
@@ -779,14 +780,31 @@ main {
 
                         &.on-input-focus,
                         &.on-input-non-empty:not(.on-input-disabled) {
+                            color: $input-color-b;
+                        }
+                    }
+                }
+            }
+
+            &.labels-placeholders {
+                > .wrapper {
+                    > label {
+                        &.on-input-disabled, &.on-input-focus,
+                        &.on-input-non-empty:not(.on-input-disabled) {
+                            display: none;
+                        }
+                    }
+                }
+            }
+
+            &.labels-float-top {
+                > .wrapper {
+                    > label {
+                        &.on-input-focus,
+                        &.on-input-non-empty:not(.on-input-disabled) {
                             font-size: 12px;
                             margin-top: -16px;
                             padding: 0 2px;
-                        }
-
-                        &.on-input-focus,
-                        &.on-input-non-empty:not(.on-input-disabled) {
-                            color: $input-color-b;
                         }
                     }
                 }
