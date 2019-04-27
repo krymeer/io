@@ -15,12 +15,18 @@ var InputWrapper = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (InputWrapper.__proto__ || Object.getPrototypeOf(InputWrapper)).call(this, props));
 
         _this.state = {
-            inputValid: _this.props.optional ? true : false
+            inputValid: _this.props.optional ? true : typeof _this.props.initialValue !== 'undefined' && typeof _this.props.defaultValue !== 'undefined' ? _this.props.initialValue === _this.props.defaultValue : false
         };
 
         _this.inputMaxLength = typeof _this.props.maxLength !== "undefined" ? _this.props.maxLength : _this.props.type === 'textarea' ? globals.maxLength.textarea : globals.maxLength.input;
 
         _this.handleLabel = _this.handleLabel.bind(_this);
+
+        if (_this.props.type === 'toggle-switch') {
+            _this.state = Object.assign({}, _this.state, {
+                chosenIndex: typeof _this.props.initialValue !== 'undefined' ? _this.props.options.indexOf(_this.props.initialValue) : 0
+            });
+        }
 
         if (_this.props.type === 'textarea' || _this.props.type === 'text' || _this.props.type === 'select' && _this.props.otherOption) {
             _this.handleFocus = _this.handleFocus.bind(_this);
@@ -212,6 +218,7 @@ var InputWrapper = function (_React$Component) {
                 this.props.type === "textarea" && React.createElement('textarea', { ref: function ref(node) {
                         return _this4.node = node;
                     }, spellCheck: 'false', maxLength: this.inputMaxLength, disabled: this.props.disabled, onFocus: this.handleFocus, onChange: this.handleChange, onBlur: this.handleBlur }),
+                this.props.type === "toggle-switch" && this.props.options.length === 2 && React.createElement('div', { className: ("toggle-switch " + (this.state.chosenIndex === 1 ? "on" : "off") + " " + (this.props.disabled ? "disabled" : "")).trim().replace(/\s+/g, " "), onClick: this.handleOption.bind(this, 1 - this.state.chosenIndex, this.props.options[1 - this.state.chosenIndex]) }),
                 this.props.type === "radio" && React.createElement(
                     'ul',
                     { className: 'input-list radio-list' },

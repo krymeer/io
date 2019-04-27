@@ -27,7 +27,7 @@ class Task extends React.Component {
             },
             inputs       : this.props.task.data.map( ( input ) => {
                 return {
-                    valid : false
+                    valid : ( typeof input.initialValue !== 'undefined' && typeof input.defaultValue !== 'undefined' ) ? ( input.initialValue === input.defaultValue ) : false
                 };
             } )
         }
@@ -230,7 +230,8 @@ class Task extends React.Component {
                     <button onClick={ this.handleStart } disabled={ this.state.taskStarted }>Rozpocznij ćwiczenie</button>
                     <section className={ "form " + this.props.task.type }>
                         <h3>{ this.props.task.title }</h3>
-                        { this.state.taskStarted && !this.state.taskFinished &&
+                        { this.state.taskStarted && !this.state.taskFinished && [ 'labels-align-top', 'labels-align-left', 'labels-align-right', 'labels-placeholders', 'labels-float-top' ].includes( this.props.type ) &&
+                            // The above condition is to check
                             <i className="material-icons insert-everything" onClick={ this.insertEverything.bind( this ) }>keyboard</i>
                         }
                         {

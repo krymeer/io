@@ -8,6 +8,8 @@ $input-color-b:      #7e7e7e;
 $placeholder-color:  #b1b1b1;
 $button-color-m:     #8b8b8b;
 $button-color-h:     #9c9c9c;
+$button-color-d:     #e0e0e0;
+$toggle-switch-on:   #668216;
 $transition:         .1s ease-in-out;
 
 $value-xs:  3.5px;
@@ -290,6 +292,12 @@ main {
             font-weight: 700;
             text-align: left;
         }
+
+        td {
+            &:last-child {
+                // text-align: right;
+            }
+        }
     }
 
     > * {
@@ -337,7 +345,7 @@ main {
         position: relative;
         cursor: pointer;
         border: 0;
-        background: #8b8b8b;
+        background: $button-color-m;
         color: #fff;
         font-family: 'Roboto', sans-serif;
         font-weight: 500;
@@ -349,12 +357,12 @@ main {
         transition: background $transition, color $transition;
 
         &:hover {
-            background: #9c9c9c;
+            background: $button-color-h;
         }
 
         &[disabled] {
             cursor: default;
-            background: #e0e0e0;
+            background: $button-color-d;
             color: #bebebe;
         }
     }
@@ -431,6 +439,59 @@ main {
 
     input {
         line-height: 1;
+    }
+
+    .toggle-switch {
+        @extend %radius;
+        display: grid;
+        cursor: pointer;
+        align-content: center;
+        width: 52px;
+        height: 30px;
+        padding: 4px;
+        background: $button-color-m;
+        transition: background $transition;
+
+        &:before {
+            @extend %radius;
+            display: block;
+            background: #fff;
+            line-height: 22px;
+            width: 22px;
+            height: 22px;
+            font-size: 10px;
+            content: '|||';
+            text-align: center;
+            transition: color $transition, justify-self $transition;
+        }
+
+        &:hover {
+            background: $button-color-h;
+
+            &:before {
+                color: $button-color-h;
+            }
+        }
+
+        &.disabled.on,
+        &.disabled.off,
+        &.disabled {
+            background: $button-color-d;
+            cursor: default;
+
+            &:before {
+                color: $button-color-d;
+            }
+        }
+
+        &.on {
+            background: $toggle-switch-on;
+
+            &:before {
+                color: $toggle-switch-on;
+                justify-self: end;
+            }
+        }
     }
 
     .radio-item {
@@ -698,6 +759,14 @@ main {
                         }
                     }
 
+                    .toggle-switch {
+                        background: $primary-color !important;
+
+                        &:before {
+                            color: $primary-color !important;
+                        }
+                    }
+
                     > ul.input-list {
                         > li {
                             &.radio-item {
@@ -807,6 +876,34 @@ main {
                             padding: 0 2px;
                         }
                     }
+                }
+            }
+
+            &.logic-values-toggle-switch {
+                width: 560px;
+
+                > .wrapper {
+                    grid-template-columns: auto 52px;
+                }
+            }
+
+            &.logic-values-radio {
+                width: 640px;
+
+                > .wrapper {
+                    grid-template-columns: auto 120px;
+
+                    > ul.input-list {
+                        justify-content: end;
+                    }
+                }
+            }
+
+            &.logic-values-select {
+                width: 600px;
+
+                > .wrapper {
+                    grid-template-columns: auto 75px;
                 }
             }
         }

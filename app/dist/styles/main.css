@@ -79,7 +79,7 @@ main .select-option, main .select-current, main textarea, main input {
   padding: 7px;
 }
 
-main section.task .seq, main section .form > .wrapper > .select-wrapper > .select-list, main section .form, main section.scenario .summary .questions > .question-wrapper > ul > li, main section.scenario .summary .questions, main .select-option, main .select-current, main textarea, main input, main button, main table {
+main section.task .seq, main section .form > .wrapper > .select-wrapper > .select-list, main section .form, main section.scenario .summary .questions > .question-wrapper > ul > li, main section.scenario .summary .questions, main .toggle-switch:before, main .toggle-switch, main .select-option, main .select-current, main textarea, main input, main button, main table {
   border-radius: 4px;
 }
 
@@ -322,6 +322,47 @@ main label {
 main input {
   line-height: 1;
 }
+main .toggle-switch {
+  display: grid;
+  cursor: pointer;
+  align-content: center;
+  width: 52px;
+  height: 30px;
+  padding: 4px;
+  background: #8b8b8b;
+  transition: background 0.1s ease-in-out;
+}
+main .toggle-switch:before {
+  display: block;
+  background: #fff;
+  line-height: 22px;
+  width: 22px;
+  height: 22px;
+  font-size: 10px;
+  content: "|||";
+  text-align: center;
+  transition: color 0.1s ease-in-out, justify-self 0.1s ease-in-out;
+}
+main .toggle-switch:hover {
+  background: #9c9c9c;
+}
+main .toggle-switch:hover:before {
+  color: #9c9c9c;
+}
+main .toggle-switch.disabled.on, main .toggle-switch.disabled.off, main .toggle-switch.disabled {
+  background: #e0e0e0;
+  cursor: default;
+}
+main .toggle-switch.disabled.on:before, main .toggle-switch.disabled.off:before, main .toggle-switch.disabled:before {
+  color: #e0e0e0;
+}
+main .toggle-switch.on {
+  background: #668216;
+}
+main .toggle-switch.on:before {
+  color: #668216;
+  justify-self: end;
+}
 main .radio-item {
   display: grid;
   grid-auto-flow: column;
@@ -510,6 +551,12 @@ main section .form > .wrapper.on-form-error.on-input-invalid > .select-wrapper >
 main section .form > .wrapper.on-form-error.on-input-invalid > .select-wrapper > .select-current, main section .form > .wrapper.on-form-error.on-input-invalid > .select-wrapper > .select-list > .select-option, main section .form > .wrapper.on-form-error.on-input-invalid > .select-wrapper > .select-other {
   color: #a63446 !important;
 }
+main section .form > .wrapper.on-form-error.on-input-invalid .toggle-switch {
+  background: #a63446 !important;
+}
+main section .form > .wrapper.on-form-error.on-input-invalid .toggle-switch:before {
+  color: #a63446 !important;
+}
 main section .form > .wrapper.on-form-error.on-input-invalid > ul.input-list > li.radio-item > div {
   border-color: #a63446 !important;
 }
@@ -575,6 +622,27 @@ main section .form.labels-float-top > .wrapper > label.on-input-focus, main sect
   font-size: 12px;
   margin-top: -16px;
   padding: 0 2px;
+}
+main section .form.logic-values-toggle-switch {
+  width: 560px;
+}
+main section .form.logic-values-toggle-switch > .wrapper {
+  grid-template-columns: auto 52px;
+}
+main section .form.logic-values-radio {
+  width: 640px;
+}
+main section .form.logic-values-radio > .wrapper {
+  grid-template-columns: auto 120px;
+}
+main section .form.logic-values-radio > .wrapper > ul.input-list {
+  justify-content: end;
+}
+main section .form.logic-values-select {
+  width: 600px;
+}
+main section .form.logic-values-select > .wrapper {
+  grid-template-columns: auto 75px;
 }
 main section.task .seq {
   width: fit-content;

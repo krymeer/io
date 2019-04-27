@@ -3,7 +3,11 @@ class InputWrapper extends React.Component {
     {
         super( props );
         this.state = {
-            inputValid : this.props.optional ? true : false
+            inputValid : this.props.optional
+                            ? true
+                            : ( typeof this.props.initialValue !== 'undefined' && typeof this.props.defaultValue !== 'undefined'
+                                ? this.props.initialValue === this.props.defaultValue
+                                : false )
         };
 
         this.inputMaxLength = ( typeof this.props.maxLength !== "undefined" )
@@ -13,6 +17,14 @@ class InputWrapper extends React.Component {
                                 : globals.maxLength.input;
 
         this.handleLabel    = this.handleLabel.bind( this );
+
+        if( this.props.type === 'toggle-switch' )
+        {
+            this.state = {
+                ...this.state,
+                chosenIndex : ( typeof this.props.initialValue !== 'undefined' ? this.props.options.indexOf( this.props.initialValue ) : 0 )
+            }
+        }
 
         if( this.props.type === 'textarea' || this.props.type === 'text' || ( this.props.type === 'select' && this.props.otherOption ) )
         {
@@ -226,6 +238,9 @@ class InputWrapper extends React.Component {
                 }
                 { this.props.type === "textarea" &&
                     <textarea ref={ node => this.node = node } spellCheck="false" maxLength={ this.inputMaxLength } disabled={ this.props.disabled } onFocus={ this.handleFocus } onChange={ this.handleChange } onBlur={ this.handleBlur } />
+                }
+                { this.props.type === "toggle-switch" && this.props.options.length === 2 &&
+                    <div className={ ( "toggle-switch "  + ( this.state.chosenIndex === 1 ? "on" : "off" ) + " " + ( this.props.disabled ? "disabled" : "" ) ).trim().replace( /\s+/g, " " ) }  onClick = { this.handleOption.bind( this, 1 - this.state.chosenIndex, this.props.options[ 1 - this.state.chosenIndex ] ) }/>
                 }
                 { this.props.type === "radio" &&
                     <ul className="input-list radio-list">

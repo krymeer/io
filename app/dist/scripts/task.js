@@ -41,7 +41,7 @@ var Task = function (_React$Component) {
             },
             inputs: _this.props.task.data.map(function (input) {
                 return {
-                    valid: false
+                    valid: typeof input.initialValue !== 'undefined' && typeof input.defaultValue !== 'undefined' ? input.initialValue === input.defaultValue : false
                 };
             })
         };
@@ -273,7 +273,9 @@ var Task = function (_React$Component) {
                             null,
                             this.props.task.title
                         ),
-                        this.state.taskStarted && !this.state.taskFinished && React.createElement(
+                        this.state.taskStarted && !this.state.taskFinished && ['labels-align-top', 'labels-align-left', 'labels-align-right', 'labels-placeholders', 'labels-float-top'].includes(this.props.type) &&
+                        // The above condition is to check
+                        React.createElement(
                             'i',
                             { className: 'material-icons insert-everything', onClick: this.insertEverything.bind(this) },
                             'keyboard'
