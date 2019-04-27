@@ -266,8 +266,27 @@ main button:hover {
 }
 main button[disabled] {
   cursor: default;
-  background: #e0e0e0;
-  color: #bebebe;
+  background: #e0e0e0 !important;
+  color: #bebebe !important;
+}
+main button.toggle {
+  text-transform: none;
+  letter-spacing: 0;
+  font-weight: 700;
+}
+main button.toggle.off {
+  background: #ddd;
+  color: #212121;
+}
+main button.toggle.off:hover {
+  background: #eee;
+}
+main button.toggle.on {
+  background: #212121;
+  color: #fff;
+}
+main button.toggle.on:hover {
+  background: #434343;
 }
 main .comment > div {
   display: grid;
@@ -551,6 +570,15 @@ main section .form > .wrapper.on-form-error.on-input-invalid > .select-wrapper >
 main section .form > .wrapper.on-form-error.on-input-invalid > .select-wrapper > .select-current, main section .form > .wrapper.on-form-error.on-input-invalid > .select-wrapper > .select-list > .select-option, main section .form > .wrapper.on-form-error.on-input-invalid > .select-wrapper > .select-other {
   color: #a63446 !important;
 }
+main section .form > .wrapper.on-form-error.on-input-invalid .toggle.off {
+  color: #a63446 !important;
+}
+main section .form > .wrapper.on-form-error.on-input-invalid .toggle.on {
+  background: #a63446 !important;
+}
+main section .form > .wrapper.on-form-error.on-input-invalid .toggle.on:hover {
+  background: #ca5467 !important;
+}
 main section .form > .wrapper.on-form-error.on-input-invalid .toggle-switch {
   background: #a63446 !important;
 }
@@ -607,7 +635,7 @@ main section .form.labels-placeholders > .wrapper > label, main section .form.la
   transition: all 0.1s ease-in-out;
   z-index: 1;
   color: #b1b1b1;
-  background: #fff;
+  background: transparent;
 }
 main section .form.labels-placeholders > .wrapper > label.on-input-disabled, main section .form.labels-float-top > .wrapper > label.on-input-disabled {
   background: #eee;
@@ -619,6 +647,7 @@ main section .form.labels-placeholders > .wrapper > label.on-input-disabled, mai
   display: none;
 }
 main section .form.labels-float-top > .wrapper > label.on-input-focus, main section .form.labels-float-top > .wrapper > label.on-input-non-empty:not(.on-input-disabled) {
+  background: #fff;
   font-size: 12px;
   margin-top: -16px;
   padding: 0 2px;
@@ -628,6 +657,12 @@ main section .form.logic-values-toggle-switch {
 }
 main section .form.logic-values-toggle-switch > .wrapper {
   grid-template-columns: auto 52px;
+}
+main section .form.logic-values-toggle-btn {
+  width: 620px;
+}
+main section .form.logic-values-toggle-btn > .wrapper {
+  grid-template-columns: auto 90px;
 }
 main section .form.logic-values-radio {
   width: 640px;

@@ -22,7 +22,7 @@ var InputWrapper = function (_React$Component) {
 
         _this.handleLabel = _this.handleLabel.bind(_this);
 
-        if (_this.props.type === 'toggle-switch') {
+        if (_this.props.type === 'toggle-switch' || _this.props.type === 'toggle-btn') {
             _this.state = Object.assign({}, _this.state, {
                 chosenIndex: typeof _this.props.initialValue !== 'undefined' ? _this.props.options.indexOf(_this.props.initialValue) : 0
             });
@@ -218,6 +218,11 @@ var InputWrapper = function (_React$Component) {
                 this.props.type === "textarea" && React.createElement('textarea', { ref: function ref(node) {
                         return _this4.node = node;
                     }, spellCheck: 'false', maxLength: this.inputMaxLength, disabled: this.props.disabled, onFocus: this.handleFocus, onChange: this.handleChange, onBlur: this.handleBlur }),
+                this.props.type === "toggle-btn" && this.props.options.length === 2 && React.createElement(
+                    'button',
+                    { className: ("toggle " + (this.state.chosenIndex === 1 ? "on" : "off")).trim(), onClick: this.handleOption.bind(this, 1 - this.state.chosenIndex, this.props.options[1 - this.state.chosenIndex]), disabled: this.props.disabled },
+                    this.props.options[this.state.chosenIndex]
+                ),
                 this.props.type === "toggle-switch" && this.props.options.length === 2 && React.createElement('div', { className: ("toggle-switch " + (this.state.chosenIndex === 1 ? "on" : "off") + " " + (this.props.disabled ? "disabled" : "")).trim().replace(/\s+/g, " "), onClick: this.handleOption.bind(this, 1 - this.state.chosenIndex, this.props.options[1 - this.state.chosenIndex]) }),
                 this.props.type === "radio" && React.createElement(
                     'ul',

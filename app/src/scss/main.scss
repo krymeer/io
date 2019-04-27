@@ -1,9 +1,11 @@
 $primary-color:      #a63446;
+$primary-color-h:    #ca5467;
 $bg-color:           #f9f9f9;
 $border-color-m:     #eee;
 $border-color-d:     #ddd;
 $text-color:         rgba(0, 0, 0, .7);
 $input-color-m:      #212121;
+$input-color-h:      #434343;
 $input-color-b:      #7e7e7e;
 $placeholder-color:  #b1b1b1;
 $button-color-m:     #8b8b8b;
@@ -356,8 +358,33 @@ main {
 
         &[disabled] {
             cursor: default;
-            background: $button-color-d;
-            color: #bebebe;
+            background: $button-color-d !important;
+            color: #bebebe !important;
+        }
+
+        &.toggle {
+            text-transform: none;
+            letter-spacing: 0;
+            font-weight: 700;
+
+
+            &.off {
+                background: $border-color-d;
+                color: $input-color-m;
+
+                &:hover {
+                    background: $border-color-m;
+                }
+            }
+
+            &.on {
+                background: $input-color-m;
+                color: #fff;
+
+                &:hover {
+                    background: $input-color-h;
+                }
+            }
         }
     }
 
@@ -753,6 +780,20 @@ main {
                         }
                     }
 
+                    .toggle {
+                        &.off {
+                            color: $primary-color !important;
+                        }
+
+                        &.on {
+                            background: $primary-color !important;
+
+                            &:hover {
+                                background: $primary-color-h !important;
+                            }
+                        }
+                    }
+
                     .toggle-switch {
                         background: $primary-color !important;
 
@@ -835,7 +876,7 @@ main {
                         transition: all $transition;
                         z-index: 1;
                         color: $placeholder-color;
-                        background: #fff;
+                        background: transparent;
 
                         &.on-input-disabled {
                             background: $border-color-m;
@@ -865,6 +906,7 @@ main {
                     > label {
                         &.on-input-focus,
                         &.on-input-non-empty:not(.on-input-disabled) {
+                            background: #fff;
                             font-size: 12px;
                             margin-top: -16px;
                             padding: 0 2px;
@@ -878,6 +920,14 @@ main {
 
                 > .wrapper {
                     grid-template-columns: auto 52px;
+                }
+            }
+
+            &.logic-values-toggle-btn {
+                width: 620px;
+
+                > .wrapper {
+                    grid-template-columns: auto 90px;
                 }
             }
 

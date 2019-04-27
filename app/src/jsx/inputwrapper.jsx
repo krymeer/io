@@ -18,7 +18,7 @@ class InputWrapper extends React.Component {
 
         this.handleLabel    = this.handleLabel.bind( this );
 
-        if( this.props.type === 'toggle-switch' )
+        if( this.props.type === 'toggle-switch' || this.props.type === 'toggle-btn' )
         {
             this.state = {
                 ...this.state,
@@ -239,8 +239,13 @@ class InputWrapper extends React.Component {
                 { this.props.type === "textarea" &&
                     <textarea ref={ node => this.node = node } spellCheck="false" maxLength={ this.inputMaxLength } disabled={ this.props.disabled } onFocus={ this.handleFocus } onChange={ this.handleChange } onBlur={ this.handleBlur } />
                 }
+                { this.props.type === "toggle-btn" && this.props.options.length === 2 &&
+                    <button className={ ( "toggle " + ( this.state.chosenIndex === 1 ? "on" : "off" ) ).trim()  } onClick={ this.handleOption.bind( this, 1 - this.state.chosenIndex, this.props.options[ 1 - this.state.chosenIndex ] ) } disabled={ this.props.disabled }>
+                        { this.props.options[ this.state.chosenIndex ] }
+                    </button>
+                }
                 { this.props.type === "toggle-switch" && this.props.options.length === 2 &&
-                    <div className={ ( "toggle-switch "  + ( this.state.chosenIndex === 1 ? "on" : "off" ) + " " + ( this.props.disabled ? "disabled" : "" ) ).trim().replace( /\s+/g, " " ) }  onClick = { this.handleOption.bind( this, 1 - this.state.chosenIndex, this.props.options[ 1 - this.state.chosenIndex ] ) }/>
+                    <div className={ ( "toggle-switch "  + ( this.state.chosenIndex === 1 ? "on" : "off" ) + " " + ( this.props.disabled ? "disabled" : "" ) ).trim().replace( /\s+/g, " " ) }  onClick={ this.handleOption.bind( this, 1 - this.state.chosenIndex, this.props.options[ 1 - this.state.chosenIndex ] ) }/>
                 }
                 { this.props.type === "radio" &&
                     <ul className="input-list radio-list">

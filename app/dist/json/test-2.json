@@ -118,6 +118,48 @@
                             "expectedValue" : "Tak"
                         }
                     ]
+                },
+                {
+                    "title"   : "Powiadomienia",
+                    "classes" : "labels-align-left logic-values-toggle-btn",
+                    "type"    : "logic-values-toggle-btn",
+                    "data"    : [
+                        {
+                            "type"          : "toggle-btn",
+                            "label"         : "Chcę otrzymywać powiadomienia o urodzinach",
+                            "options"       : [ "Wyłącz", "Włącz" ],
+                            "initialValue"  : "Wyłącz",
+                            "expectedValue" : "Włącz"
+                        },
+                        {
+                            "type"          : "toggle-btn",
+                            "label"         : "Chcę otrzymywać powiadomienia o nowych wiadomościach",
+                            "options"       : [ "Wyłącz", "Włącz" ],
+                            "initialValue"  : "Wyłącz",
+                            "expectedValue" : "Włącz"
+                        },
+                        {
+                            "type"          : "toggle-btn",
+                            "label"         : "Chcę otrzymywać powiadomienia o zaproszeniach do znajomych",
+                            "options"       : [ "Wyłącz", "Włącz" ],
+                            "initialValue"  : "Włącz",
+                            "expectedValue" : "Wyłącz"
+                        },
+                        {
+                            "type"          : "toggle-btn",
+                            "label"         : "Chcę otrzymywać powiadomienia dotyczące wspomnień",
+                            "options"       : [ "Wyłącz", "Włącz" ],
+                            "initialValue"  : "Włącz",
+                            "expectedValue" : "Wyłącz"
+                        },
+                        {
+                            "type"          : "toggle-btn",
+                            "label"         : "Chcę otrzymywać powiadomienia dotyczące aktywności znajomych",
+                            "options"       : [ "Wyłącz", "Włącz" ],
+                            "initialValue"  : "Wyłącz",
+                            "expectedValue" : "Włącz"
+                        }
+                    ]
                 }
             ]
         }
