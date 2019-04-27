@@ -9,33 +9,33 @@
                     "data"  : [
                         {
                             "type"         : "text",
-                            "label"        : "Imię",
-                            "defaultValue" : "Adam"
+                            "label"         : "Imię",
+                            "expectedValue" : "Adam"
                         },
                         {
                             "type"         : "text",
-                            "label"        : "Nazwisko",
-                            "defaultValue" : "Nowak"
+                            "label"         : "Nazwisko",
+                            "expectedValue" : "Nowak"
                         },
                         {
                             "type"         : "text",
-                            "label"        : "Ulica i numer",
-                            "defaultValue" : "plac Grunwaldzki 13"
+                            "label"         : "Ulica i numer",
+                            "expectedValue" : "plac Grunwaldzki 13"
                         },
                         {
                             "type"         : "text",
-                            "label"        : "Kod pocztowy",
-                            "defaultValue" : "50-377"
+                            "label"         : "Kod pocztowy",
+                            "expectedValue" : "50-377"
                         },
                         {
                             "type"         : "text",
-                            "label"        : "Miejscowość",
-                            "defaultValue" : "Wrocław"
+                            "label"         : "Miejscowość",
+                            "expectedValue" : "Wrocław"
                         },
                         {
                             "type"         : "text",
-                            "label"        : "Numer telefonu",
-                            "defaultValue" : "789 425 661"
+                            "label"         : "Numer telefonu",
+                            "expectedValue" : "789 425 661"
                         }
                     ]
                 },
@@ -45,33 +45,74 @@
                     "data"  : [
                         {
                             "type"         : "text",
-                            "label"        : "Imię",
-                            "defaultValue" : "Jarosław"
+                            "label"         : "Imię",
+                            "expectedValue" : "Jarosław"
                         },
                         {
                             "type"         : "text",
-                            "label"        : "Nazwisko",
-                            "defaultValue" : "Dębski"
+                            "label"         : "Nazwisko",
+                            "expectedValue" : "Dębski"
                         },
                         {
                             "type"         : "text",
-                            "label"        : "Ulica i numer",
-                            "defaultValue" : "Jedności Narodowej 72/80"
+                            "label"         : "Ulica i numer",
+                            "expectedValue" : "Jedności Narodowej 72/80"
                         },
                         {
                             "type"         : "text",
-                            "label"        : "Kod pocztowy",
-                            "defaultValue" : "50-261"
+                            "label"         : "Kod pocztowy",
+                            "expectedValue" : "50-261"
                         },
                         {
                             "type"         : "text",
-                            "label"        : "Miejscowość",
-                            "defaultValue" : "Wrocław"
+                            "label"         : "Miejscowość",
+                            "expectedValue" : "Wrocław"
                         },
                         {
                             "type"         : "text",
-                            "label"        : "Numer telefonu",
-                            "defaultValue" : "782 287 872"
+                            "label"         : "Numer telefonu",
+                            "expectedValue" : "782 287 872"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "intro" : "Posiadasz konto na jednym z popularnych portali społecznościowych. Od jakiegoś czasu otrzymujesz dużą liczbę nieistotnych dla Ciebie powiadomień. Aby temu zapobiec, musisz zmienić ustawienia swojego konta.",
+            "tasks" : [
+                {
+                    "title" : "Powiadomienia",
+                    "type"  : "labels-align-left logic-values-select",
+                    "data"  : [
+                        {
+                            "type"         : "select",
+                            "label"         : "Chcę otrzymywać powiadomienia o urodzinach",
+                            "options"      : [ "Tak", "Nie" ],
+                            "expectedValue" : "Nie"
+                        },
+                        {
+                            "type"         : "select",
+                            "label"         : "Chcę otrzymywać powiadomienia o nowych wiadomościach",
+                            "options"      : [ "Tak", "Nie" ],
+                            "expectedValue" : "Tak"
+                        },
+                        {
+                            "type"         : "select",
+                            "label"         : "Chcę otrzymywać powiadomienia o zaproszeniach do znajomych",
+                            "options"      : [ "Tak", "Nie" ],
+                            "expectedValue" : "Nie"
+                        },
+                        {
+                            "type"         : "select",
+                            "label"         : "Chcę otrzymywać powiadomienia dotyczące wspomnień",
+                            "options"      : [ "Tak", "Nie" ],
+                            "expectedValue" : "Tak"
+                        },
+                        {
+                            "type"         : "select",
+                            "label"         : "Chcę otrzymywać powiadomienia dotyczące aktywności znajomych",
+                            "options"      : [ "Tak", "Nie" ],
+                            "expectedValue" : "Tak"
                         }
                     ]
                 }

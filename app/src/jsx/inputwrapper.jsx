@@ -5,8 +5,8 @@ class InputWrapper extends React.Component {
         this.state = {
             inputValid : this.props.optional
                             ? true
-                            : ( typeof this.props.initialValue !== 'undefined' && typeof this.props.defaultValue !== 'undefined'
-                                ? this.props.initialValue === this.props.defaultValue
+                            : ( typeof this.props.initialValue !== 'undefined' && typeof this.props.expectedValue !== 'undefined'
+                                ? this.props.initialValue === this.props.expectedValue
                                 : false )
         };
 
@@ -103,8 +103,8 @@ class InputWrapper extends React.Component {
             const inputValue  = event.target.value;
             const inputValid  = this.props.optional
                                 ? true
-                                : ( ( typeof this.props.defaultValue !== 'undefined' )
-                                    ? ( this.props.defaultValue === inputValue )
+                                : ( ( typeof this.props.expectedValue !== 'undefined' )
+                                    ? ( this.props.expectedValue === inputValue )
                                     : ( ( typeof this.props.regex !== 'undefined' )
                                         ? this.props.regex.test( inputValue )
                                         : ( inputValue !== '' ) ) );
@@ -132,8 +132,8 @@ class InputWrapper extends React.Component {
         if( !this.props.disabled )
         {
             const otherOptionChosen = ( this.props.type === 'select' && this.props.otherOption && optionIndex === this.props.options.length - 1 );
-            const inputValid        = ( typeof this.props.defaultValue !== 'undefined' )
-                                        ? ( this.props.defaultValue === optionValue )
+            const inputValid        = ( typeof this.props.expectedValue !== 'undefined' )
+                                        ? ( this.props.expectedValue === optionValue )
                                         : ( otherOptionChosen
                                             ? ( this.state.inputValue !== '' )
                                             : true );

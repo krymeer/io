@@ -41,7 +41,7 @@ var Task = function (_React$Component) {
             },
             inputs: _this.props.task.data.map(function (input) {
                 return {
-                    valid: typeof input.initialValue !== 'undefined' && typeof input.defaultValue !== 'undefined' ? input.initialValue === input.defaultValue : false
+                    valid: typeof input.initialValue !== 'undefined' && typeof input.expectedValue !== 'undefined' ? input.initialValue === input.expectedValue : false
                 };
             })
         };
@@ -198,7 +198,7 @@ var Task = function (_React$Component) {
             var _self = this;
 
             for (var k = 0; k < inputs.length; k++) {
-                inputs[k].value = _self.props.task.data[k].defaultValue;
+                inputs[k].value = _self.props.task.data[k].expectedValue;
                 inputs[k].dispatchEvent(new Event('triggerChange'));
             }
         }
@@ -235,7 +235,7 @@ var Task = function (_React$Component) {
                                 React.createElement(
                                     'th',
                                     null,
-                                    'Warto\u015B\u0107 do wpisania'
+                                    'Prawid\u0142owa warto\u015B\u0107'
                                 )
                             )
                         ),
@@ -254,7 +254,7 @@ var Task = function (_React$Component) {
                                     React.createElement(
                                         'td',
                                         null,
-                                        row.defaultValue
+                                        row.expectedValue
                                     )
                                 );
                             })
@@ -273,9 +273,7 @@ var Task = function (_React$Component) {
                             null,
                             this.props.task.title
                         ),
-                        this.state.taskStarted && !this.state.taskFinished && ['labels-align-top', 'labels-align-left', 'labels-align-right', 'labels-placeholders', 'labels-float-top'].includes(this.props.type) &&
-                        // The above condition is to check
-                        React.createElement(
+                        this.state.taskStarted && !this.state.taskFinished && ['labels-align-top', 'labels-align-left', 'labels-align-right', 'labels-placeholders', 'labels-float-top'].includes(this.props.task.type) && React.createElement(
                             'i',
                             { className: 'material-icons insert-everything', onClick: this.insertEverything.bind(this) },
                             'keyboard'

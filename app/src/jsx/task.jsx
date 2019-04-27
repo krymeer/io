@@ -27,7 +27,7 @@ class Task extends React.Component {
             },
             inputs       : this.props.task.data.map( ( input ) => {
                 return {
-                    valid : ( typeof input.initialValue !== 'undefined' && typeof input.defaultValue !== 'undefined' ) ? ( input.initialValue === input.defaultValue ) : false
+                    valid : ( typeof input.initialValue !== 'undefined' && typeof input.expectedValue !== 'undefined' ) ? ( input.initialValue === input.expectedValue ) : false
                 };
             } )
         }
@@ -196,7 +196,7 @@ class Task extends React.Component {
 
         for( let k = 0; k < inputs.length; k++ )
         {
-            inputs[ k ].value = _self.props.task.data[ k ].defaultValue;
+            inputs[ k ].value = _self.props.task.data[ k ].expectedValue;
             inputs[ k ].dispatchEvent( new Event( 'triggerChange' ) );
         }
     }
@@ -213,7 +213,7 @@ class Task extends React.Component {
                         <thead>
                             <tr>
                                 <th>Nazwa pola</th>
-                                <th>Wartość do wpisania</th>
+                                <th>Prawidłowa wartość</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -221,7 +221,7 @@ class Task extends React.Component {
                                 this.props.task.data.map( ( row, index ) =>
                                     <tr key={ index }>
                                         <td>{ row.label }</td>
-                                        <td>{ row.defaultValue }</td>
+                                        <td>{ row.expectedValue }</td>
                                     </tr>
                                 )
                             }
@@ -230,8 +230,7 @@ class Task extends React.Component {
                     <button onClick={ this.handleStart } disabled={ this.state.taskStarted }>Rozpocznij ćwiczenie</button>
                     <section className={ "form " + this.props.task.type }>
                         <h3>{ this.props.task.title }</h3>
-                        { this.state.taskStarted && !this.state.taskFinished && [ 'labels-align-top', 'labels-align-left', 'labels-align-right', 'labels-placeholders', 'labels-float-top' ].includes( this.props.type ) &&
-                            // The above condition is to check
+                        { this.state.taskStarted && !this.state.taskFinished && [ 'labels-align-top', 'labels-align-left', 'labels-align-right', 'labels-placeholders', 'labels-float-top' ].includes( this.props.task.type ) &&
                             <i className="material-icons insert-everything" onClick={ this.insertEverything.bind( this ) }>keyboard</i>
                         }
                         {

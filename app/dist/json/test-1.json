@@ -8,34 +8,34 @@
                     "type"  : "labels-align-right",
                     "data"  : [
                         {
-                            "type"         : "text",
-                            "label"        : "Imię",
-                            "defaultValue" : "Jan"
+                            "type"          : "text",
+                            "label"         : "Imię",
+                            "expectedValue" : "Jan"
                         },
                         {
-                            "type"         : "text",
-                            "label"        : "Nazwisko",
-                            "defaultValue" : "Kowalski"
+                            "type"          : "text",
+                            "label"         : "Nazwisko",
+                            "expectedValue" : "Kowalski"
                         },
                         {
-                            "type"         : "text",
-                            "label"        : "Ulica i numer",
-                            "defaultValue" : "Kluczborska 24 m. 20"
+                            "type"          : "text",
+                            "label"         : "Ulica i numer",
+                            "expectedValue" : "Kluczborska 24 m. 20"
                         },
                         {
-                            "type"         : "text",
-                            "label"        : "Kod pocztowy",
-                            "defaultValue" : "50-322"
+                            "type"          : "text",
+                            "label"         : "Kod pocztowy",
+                            "expectedValue" : "50-322"
                         },
                         {
-                            "type"         : "text",
-                            "label"        : "Miejscowość",
-                            "defaultValue" : "Wrocław"
+                            "type"          : "text",
+                            "label"         : "Miejscowość",
+                            "expectedValue" : "Wrocław"
                         },
                         {
-                            "type"         : "text",
-                            "label"        : "Numer telefonu",
-                            "defaultValue" : "71 320 46 81"
+                            "type"          : "text",
+                            "label"         : "Numer telefonu",
+                            "expectedValue" : "71 320 46 81"
                         }
                     ]
                 },
@@ -44,34 +44,116 @@
                     "type"  : "labels-placeholders",
                     "data"  : [
                         {
-                            "type"         : "text",
-                            "label"        : "Imię",
-                            "defaultValue" : "Krzysztof"
+                            "type"          : "text",
+                            "label"         : "Imię",
+                            "expectedValue" : "Krzysztof"
                         },
                         {
-                            "type"         : "text",
-                            "label"        : "Nazwisko",
-                            "defaultValue" : "Wiśniewski"
+                            "type"          : "text",
+                            "label"         : "Nazwisko",
+                            "expectedValue" : "Wiśniewski"
                         },
                         {
-                            "type"         : "text",
-                            "label"        : "Ulica i numer",
-                            "defaultValue" : "Wałbrzyska 2B"
+                            "type"          : "text",
+                            "label"         : "Ulica i numer",
+                            "expectedValue" : "Wałbrzyska 2B"
                         },
                         {
-                            "type"         : "text",
-                            "label"        : "Kod pocztowy",
-                            "defaultValue" : "58-100"
+                            "type"          : "text",
+                            "label"         : "Kod pocztowy",
+                            "expectedValue" : "58-100"
                         },
                         {
-                            "type"         : "text",
-                            "label"        : "Miejscowość",
-                            "defaultValue" : "Świdnica"
+                            "type"          : "text",
+                            "label"         : "Miejscowość",
+                            "expectedValue" : "Świdnica"
                         },
                         {
-                            "type"         : "text",
-                            "label"        : "Numer telefonu",
-                            "defaultValue" : "590 290 390"
+                            "type"          : "text",
+                            "label"         : "Numer telefonu",
+                            "expectedValue" : "590 290 390"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "intro" : "Posiadasz konto na jednym z popularnych portali społecznościowych. Od jakiegoś czasu otrzymujesz dużą liczbę nieistotnych dla Ciebie powiadomień. Aby temu zapobiec, musisz zmienić ustawienia swojego konta.",
+            "tasks" : [
+                {
+                    "title" : "Powiadomienia",
+                    "type"  : "labels-align-left logic-values-radio",
+                    "data"  : [
+                        {
+                            "type"          : "radio",
+                            "label"         : "Chcę otrzymywać powiadomienia o urodzinach",
+                            "options"      : [ "Tak", "Nie" ],
+                            "expectedValue" : "Nie"
+                        },
+                        {
+                            "type"          : "radio",
+                            "label"         : "Chcę otrzymywać powiadomienia o nowych wiadomościach",
+                            "options"      : [ "Tak", "Nie" ],
+                            "expectedValue" : "Tak"
+                        },
+                        {
+                            "type"          : "radio",
+                            "label"         : "Chcę otrzymywać powiadomienia o zaproszeniach do znajomych",
+                            "options"      : [ "Tak", "Nie" ],
+                            "expectedValue" : "Nie"
+                        },
+                        {
+                            "type"          : "radio",
+                            "label"         : "Chcę otrzymywać powiadomienia dotyczące wspomnień",
+                            "options"      : [ "Tak", "Nie" ],
+                            "expectedValue" : "Tak"
+                        },
+                        {
+                            "type"          : "radio",
+                            "label"         : "Chcę otrzymywać powiadomienia dotyczące aktywności znajomych",
+                            "options"      : [ "Tak", "Nie" ],
+                            "expectedValue" : "Tak"
+                        }
+                    ]
+                },
+                {
+                    "title" : "Powiadomienia",
+                    "type"  : "labels-align-left logic-values-toggle-switch",
+                    "data"  : [
+                        {
+                            "type"          : "toggle-switch",
+                            "label"         : "Chcę otrzymywać powiadomienia o urodzinach",
+                            "options"      : [ "Wyłącz", "Włącz" ],
+                            "initialValue" : "Wyłącz",
+                            "expectedValue" : "Włącz"
+                        },
+                        {
+                            "type"          : "toggle-switch",
+                            "label"         : "Chcę otrzymywać powiadomienia o nowych wiadomościach",
+                            "options"      : [ "Wyłącz", "Włącz" ],
+                            "initialValue" : "Włącz",
+                            "expectedValue" : "Wyłącz"
+                        },
+                        {
+                            "type"          : "toggle-switch",
+                            "label"         : "Chcę otrzymywać powiadomienia o zaproszeniach do znajomych",
+                            "options"      : [ "Wyłącz", "Włącz" ],
+                            "initialValue" : "Włącz",
+                            "expectedValue" : "Włącz"
+                        },
+                        {
+                            "type"          : "toggle-switch",
+                            "label"         : "Chcę otrzymywać powiadomienia dotyczące wspomnień",
+                            "options"      : [ "Wyłącz", "Włącz" ],
+                            "initialValue" : "Wyłącz",
+                            "expectedValue" : "Włącz"
+                        },
+                        {
+                            "type"          : "toggle-switch",
+                            "label"         : "Chcę otrzymywać powiadomienia dotyczące aktywności znajomych",
+                            "options"      : [ "Wyłącz", "Włącz" ],
+                            "initialValue" : "Włącz",
+                            "expectedValue" : "Wyłącz"
                         }
                     ]
                 }

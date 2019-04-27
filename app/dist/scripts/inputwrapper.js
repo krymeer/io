@@ -15,7 +15,7 @@ var InputWrapper = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (InputWrapper.__proto__ || Object.getPrototypeOf(InputWrapper)).call(this, props));
 
         _this.state = {
-            inputValid: _this.props.optional ? true : typeof _this.props.initialValue !== 'undefined' && typeof _this.props.defaultValue !== 'undefined' ? _this.props.initialValue === _this.props.defaultValue : false
+            inputValid: _this.props.optional ? true : typeof _this.props.initialValue !== 'undefined' && typeof _this.props.expectedValue !== 'undefined' ? _this.props.initialValue === _this.props.expectedValue : false
         };
 
         _this.inputMaxLength = typeof _this.props.maxLength !== "undefined" ? _this.props.maxLength : _this.props.type === 'textarea' ? globals.maxLength.textarea : globals.maxLength.input;
@@ -97,7 +97,7 @@ var InputWrapper = function (_React$Component) {
             if (!this.props.disabled) {
                 var eventType = event.type;
                 var inputValue = event.target.value;
-                var inputValid = this.props.optional ? true : typeof this.props.defaultValue !== 'undefined' ? this.props.defaultValue === inputValue : typeof this.props.regex !== 'undefined' ? this.props.regex.test(inputValue) : inputValue !== '';
+                var inputValid = this.props.optional ? true : typeof this.props.expectedValue !== 'undefined' ? this.props.expectedValue === inputValue : typeof this.props.regex !== 'undefined' ? this.props.regex.test(inputValue) : inputValue !== '';
                 this.setState({
                     inputValue: inputValue,
                     inputValid: inputValid,
@@ -120,7 +120,7 @@ var InputWrapper = function (_React$Component) {
         value: function handleOption(optionIndex, optionValue) {
             if (!this.props.disabled) {
                 var otherOptionChosen = this.props.type === 'select' && this.props.otherOption && optionIndex === this.props.options.length - 1;
-                var inputValid = typeof this.props.defaultValue !== 'undefined' ? this.props.defaultValue === optionValue : otherOptionChosen ? this.state.inputValue !== '' : true;
+                var inputValid = typeof this.props.expectedValue !== 'undefined' ? this.props.expectedValue === optionValue : otherOptionChosen ? this.state.inputValue !== '' : true;
 
                 this.setState({
                     inputValid: inputValid,

@@ -147,7 +147,8 @@ window.onload = function() {
                             type        : 'textarea',
                             label       : 'Twój komentarz',
                             id          : 'comment',
-                            optional    : true
+                            optional    : true,
+                            value       : ''
                         }
                     ]
                 },
@@ -168,7 +169,7 @@ window.onload = function() {
 
         componentDidMount()
         {
-            fetch( './json/test-1.json' )
+            fetch( './json/test-2.json' )
                 .then( res => res.json() )
                 .then( ( result ) => {
                         this.setState( {

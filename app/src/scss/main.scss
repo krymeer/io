@@ -292,12 +292,6 @@ main {
             font-weight: 700;
             text-align: left;
         }
-
-        td {
-            &:last-child {
-                // text-align: right;
-            }
-        }
     }
 
     > * {
