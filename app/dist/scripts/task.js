@@ -267,7 +267,7 @@ var Task = function (_React$Component) {
                     ),
                     React.createElement(
                         'section',
-                        { className: "form " + this.props.task.type },
+                        { className: "form " + this.props.task.classes },
                         React.createElement(
                             'h3',
                             null,

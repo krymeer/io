@@ -228,7 +228,7 @@ class Task extends React.Component {
                         </tbody>
                     </table>
                     <button onClick={ this.handleStart } disabled={ this.state.taskStarted }>Rozpocznij ćwiczenie</button>
-                    <section className={ "form " + this.props.task.type }>
+                    <section className={ "form " + this.props.task.classes }>
                         <h3>{ this.props.task.title }</h3>
                         { this.state.taskStarted && !this.state.taskFinished && [ 'labels-align-top', 'labels-align-left', 'labels-align-right', 'labels-placeholders', 'labels-float-top' ].includes( this.props.task.type ) &&
                             <i className="material-icons insert-everything" onClick={ this.insertEverything.bind( this ) }>keyboard</i>

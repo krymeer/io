@@ -4,72 +4,74 @@
             "intro" : "Zamówiłeś(-aś) kilka produktów z popularnego sklepu internetowego. W ostatnim czasie zmieniłeś(-aś) miejsce zamieszkania, jednak jak dotąd nie otrzymałeś(-aś) żadnej przesyłki na ten adres. Czas to zmienić!",
             "tasks" : [
                 {
-                    "title" : "Adres do wysyłki",
-                    "type"  : "labels-align-left",
-                    "data"  : [
+                    "title"   : "Adres do wysyłki",
+                    "classes" : "labels-align-left",
+                    "type"    : "labels-align-left",
+                    "data"    : [
                         {
-                            "type"         : "text",
+                            "type"          : "text",
                             "label"         : "Imię",
                             "expectedValue" : "Adam"
                         },
                         {
-                            "type"         : "text",
+                            "type"          : "text",
                             "label"         : "Nazwisko",
                             "expectedValue" : "Nowak"
                         },
                         {
-                            "type"         : "text",
+                            "type"          : "text",
                             "label"         : "Ulica i numer",
                             "expectedValue" : "plac Grunwaldzki 13"
                         },
                         {
-                            "type"         : "text",
+                            "type"          : "text",
                             "label"         : "Kod pocztowy",
                             "expectedValue" : "50-377"
                         },
                         {
-                            "type"         : "text",
+                            "type"          : "text",
                             "label"         : "Miejscowość",
                             "expectedValue" : "Wrocław"
                         },
                         {
-                            "type"         : "text",
+                            "type"          : "text",
                             "label"         : "Numer telefonu",
                             "expectedValue" : "789 425 661"
                         }
                     ]
                 },
                 {
-                    "title" : "Adres do wysyłki",
-                    "type"  : "labels-float-top",
-                    "data"  : [
+                    "title"   : "Adres do wysyłki",
+                    "classes" : "labels-float-top",
+                    "type"    : "labels-float-top",
+                    "data"    : [
                         {
-                            "type"         : "text",
+                            "type"          : "text",
                             "label"         : "Imię",
                             "expectedValue" : "Jarosław"
                         },
                         {
-                            "type"         : "text",
+                            "type"          : "text",
                             "label"         : "Nazwisko",
                             "expectedValue" : "Dębski"
                         },
                         {
-                            "type"         : "text",
+                            "type"          : "text",
                             "label"         : "Ulica i numer",
                             "expectedValue" : "Jedności Narodowej 72/80"
                         },
                         {
-                            "type"         : "text",
+                            "type"          : "text",
                             "label"         : "Kod pocztowy",
                             "expectedValue" : "50-261"
                         },
                         {
-                            "type"         : "text",
+                            "type"          : "text",
                             "label"         : "Miejscowość",
                             "expectedValue" : "Wrocław"
                         },
                         {
-                            "type"         : "text",
+                            "type"          : "text",
                             "label"         : "Numer telefonu",
                             "expectedValue" : "782 287 872"
                         }
@@ -81,35 +83,36 @@
             "intro" : "Posiadasz konto na jednym z popularnych portali społecznościowych. Od jakiegoś czasu otrzymujesz dużą liczbę nieistotnych dla Ciebie powiadomień. Aby temu zapobiec, musisz zmienić ustawienia swojego konta.",
             "tasks" : [
                 {
-                    "title" : "Powiadomienia",
-                    "type"  : "labels-align-left logic-values-select",
-                    "data"  : [
+                    "title"   : "Powiadomienia",
+                    "classes" : "labels-align-left logic-values-select",
+                    "type"    : "logic-values-select",
+                    "data"    : [
                         {
-                            "type"         : "select",
+                            "type"          : "select",
                             "label"         : "Chcę otrzymywać powiadomienia o urodzinach",
                             "options"      : [ "Tak", "Nie" ],
                             "expectedValue" : "Nie"
                         },
                         {
-                            "type"         : "select",
+                            "type"          : "select",
                             "label"         : "Chcę otrzymywać powiadomienia o nowych wiadomościach",
                             "options"      : [ "Tak", "Nie" ],
                             "expectedValue" : "Tak"
                         },
                         {
-                            "type"         : "select",
+                            "type"          : "select",
                             "label"         : "Chcę otrzymywać powiadomienia o zaproszeniach do znajomych",
                             "options"      : [ "Tak", "Nie" ],
                             "expectedValue" : "Nie"
                         },
                         {
-                            "type"         : "select",
+                            "type"          : "select",
                             "label"         : "Chcę otrzymywać powiadomienia dotyczące wspomnień",
                             "options"      : [ "Tak", "Nie" ],
                             "expectedValue" : "Tak"
                         },
                         {
-                            "type"         : "select",
+                            "type"          : "select",
                             "label"         : "Chcę otrzymywać powiadomienia dotyczące aktywności znajomych",
                             "options"      : [ "Tak", "Nie" ],
                             "expectedValue" : "Tak"

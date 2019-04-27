@@ -4,9 +4,10 @@
             "intro" : "Zamówiłeś(-aś) kilka produktów z popularnego sklepu internetowego. W ostatnim czasie zmieniłeś(-aś) miejsce zamieszkania, jednak jak dotąd nie otrzymałeś(-aś) żadnej przesyłki na ten adres. Czas to zmienić!",
             "tasks" : [
                 {
-                    "title" : "Adres do wysyłki",
-                    "type"  : "labels-align-right",
-                    "data"  : [
+                    "title"   : "Adres do wysyłki",
+                    "classes" : "labels-align-right",
+                    "type"    : "labels-align-right",
+                    "data"    : [
                         {
                             "type"          : "text",
                             "label"         : "Imię",
@@ -40,9 +41,10 @@
                     ]
                 },
                 {
-                    "title" : "Adres do wysyłki",
-                    "type"  : "labels-placeholders",
-                    "data"  : [
+                    "title"   : "Adres do wysyłki",
+                    "classes" : "labels-placeholders",
+                    "type"    : "labels-placeholders",
+                    "data"    : [
                         {
                             "type"          : "text",
                             "label"         : "Imię",
@@ -81,78 +83,80 @@
             "intro" : "Posiadasz konto na jednym z popularnych portali społecznościowych. Od jakiegoś czasu otrzymujesz dużą liczbę nieistotnych dla Ciebie powiadomień. Aby temu zapobiec, musisz zmienić ustawienia swojego konta.",
             "tasks" : [
                 {
-                    "title" : "Powiadomienia",
-                    "type"  : "labels-align-left logic-values-radio",
-                    "data"  : [
+                    "title"   : "Powiadomienia",
+                    "classes" : "labels-align-left logic-values-radio",
+                    "type"    : "logic-values-radio",
+                    "data"    : [
                         {
                             "type"          : "radio",
                             "label"         : "Chcę otrzymywać powiadomienia o urodzinach",
-                            "options"      : [ "Tak", "Nie" ],
+                            "options"       : [ "Tak", "Nie" ],
                             "expectedValue" : "Nie"
                         },
                         {
                             "type"          : "radio",
                             "label"         : "Chcę otrzymywać powiadomienia o nowych wiadomościach",
-                            "options"      : [ "Tak", "Nie" ],
+                            "options"       : [ "Tak", "Nie" ],
                             "expectedValue" : "Tak"
                         },
                         {
                             "type"          : "radio",
                             "label"         : "Chcę otrzymywać powiadomienia o zaproszeniach do znajomych",
-                            "options"      : [ "Tak", "Nie" ],
+                            "options"       : [ "Tak", "Nie" ],
                             "expectedValue" : "Nie"
                         },
                         {
                             "type"          : "radio",
                             "label"         : "Chcę otrzymywać powiadomienia dotyczące wspomnień",
-                            "options"      : [ "Tak", "Nie" ],
+                            "options"       : [ "Tak", "Nie" ],
                             "expectedValue" : "Tak"
                         },
                         {
                             "type"          : "radio",
                             "label"         : "Chcę otrzymywać powiadomienia dotyczące aktywności znajomych",
-                            "options"      : [ "Tak", "Nie" ],
+                            "options"       : [ "Tak", "Nie" ],
                             "expectedValue" : "Tak"
                         }
                     ]
                 },
                 {
-                    "title" : "Powiadomienia",
-                    "type"  : "labels-align-left logic-values-toggle-switch",
-                    "data"  : [
+                    "title"   : "Powiadomienia",
+                    "classes" : "labels-align-left logic-values-toggle-switch",
+                    "type"    : "logic-values-toggle-switch",
+                    "data"    : [
                         {
                             "type"          : "toggle-switch",
                             "label"         : "Chcę otrzymywać powiadomienia o urodzinach",
-                            "options"      : [ "Wyłącz", "Włącz" ],
-                            "initialValue" : "Wyłącz",
+                            "options"       : [ "Wyłącz", "Włącz" ],
+                            "initialValue"  : "Wyłącz",
                             "expectedValue" : "Włącz"
                         },
                         {
                             "type"          : "toggle-switch",
                             "label"         : "Chcę otrzymywać powiadomienia o nowych wiadomościach",
-                            "options"      : [ "Wyłącz", "Włącz" ],
-                            "initialValue" : "Włącz",
+                            "options"       : [ "Wyłącz", "Włącz" ],
+                            "initialValue"  : "Włącz",
                             "expectedValue" : "Wyłącz"
                         },
                         {
                             "type"          : "toggle-switch",
                             "label"         : "Chcę otrzymywać powiadomienia o zaproszeniach do znajomych",
-                            "options"      : [ "Wyłącz", "Włącz" ],
-                            "initialValue" : "Włącz",
+                            "options"       : [ "Wyłącz", "Włącz" ],
+                            "initialValue"  : "Włącz",
                             "expectedValue" : "Włącz"
                         },
                         {
                             "type"          : "toggle-switch",
                             "label"         : "Chcę otrzymywać powiadomienia dotyczące wspomnień",
-                            "options"      : [ "Wyłącz", "Włącz" ],
-                            "initialValue" : "Wyłącz",
+                            "options"       : [ "Wyłącz", "Włącz" ],
+                            "initialValue"  : "Wyłącz",
                             "expectedValue" : "Włącz"
                         },
                         {
                             "type"          : "toggle-switch",
                             "label"         : "Chcę otrzymywać powiadomienia dotyczące aktywności znajomych",
-                            "options"      : [ "Wyłącz", "Włącz" ],
-                            "initialValue" : "Włącz",
+                            "options"       : [ "Wyłącz", "Włącz" ],
+                            "initialValue"  : "Włącz",
                             "expectedValue" : "Wyłącz"
                         }
                     ]
