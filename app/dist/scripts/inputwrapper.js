@@ -28,7 +28,7 @@ var InputWrapper = function (_React$Component) {
             });
         }
 
-        if (_this.props.type === 'textarea' || _this.props.type === 'text' || _this.props.type === 'select' && _this.props.otherOption) {
+        if (_this.props.type === 'mask' || _this.props.type === 'textarea' || _this.props.type === 'text' || _this.props.type === 'select' && _this.props.otherOption) {
             _this.handleFocus = _this.handleFocus.bind(_this);
             _this.handleBlur = _this.handleBlur.bind(_this);
             _this.handleChange = _this.handleChange.bind(_this);
@@ -212,6 +212,7 @@ var InputWrapper = function (_React$Component) {
                     this.props.label,
                     this.props.optional && " *"
                 ),
+                this.props.type === 'mask' && React.createElement(window.ReactInputMask, { maxLength: this.inputMaxLength, type: 'text', spellCheck: 'false', autoComplete: 'off', onFocus: this.handleFocus, onBlur: this.handleBlur, onChange: this.handleChange, disabled: this.props.disabled, value: this.state.inputValue, mask: this.props.mask, maskChar: null }),
                 this.props.type === "text" && React.createElement('input', { ref: function ref(node) {
                         return _this4.node = node;
                     }, maxLength: this.inputMaxLength, type: 'text', spellCheck: 'false', autoComplete: 'off', onFocus: this.handleFocus, onBlur: this.handleBlur, onChange: this.handleChange, disabled: this.props.disabled, value: this.state.inputValue }),

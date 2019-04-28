@@ -679,6 +679,12 @@ main section .form.logic-values-select {
 main section .form.logic-values-select > .wrapper {
   grid-template-columns: auto 75px;
 }
+main section .form.input-masks-on, main section .form.input-masks-off {
+  width: 530px;
+}
+main section .form.input-masks-on > .wrapper, main section .form.input-masks-off > .wrapper {
+  grid-template-columns: auto 250px;
+}
 main section.task .seq {
   width: fit-content;
 }

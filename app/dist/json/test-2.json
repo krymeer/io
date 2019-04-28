@@ -162,6 +162,36 @@
                     ]
                 }
             ]
+        },
+        {
+            "intro" : "Znalazłeś(-aś) niedawno zatrudnienie w dużej międzynarodowej korporacji. Pracownik działu kadr poprosił Cię o przesłanie kilku brakujących danych, bez których wypłata wynagrodzenia na koniec miesiąca nie będzie możliwa.",
+            "tasks" : [
+                {
+                    "title"   : "Dane do przelewu",
+                    "classes" : "labels-align-left input-masks-on",
+                    "type"    : "input-masks-on",
+                    "data"    : [
+                        {
+                            "type"          : "mask",
+                            "label"         : "Numer identyfikacji podatkowej",
+                            "mask"          : "999-99-99-999",
+                            "expectedValue" : "988-25-58-562"
+                        },
+                        {
+                            "type"          : "mask",
+                            "label"         : "Numer konta",
+                            "mask"          : "99 9999 9999 9999 9999 9999 9999",
+                            "expectedValue" : "90 4497 9640 5323 9591 1261 7635"
+                        },
+                        {
+                            "type"          : "mask",
+                            "label"         : "Numer telefonu",
+                            "mask"          : "999 999 999",
+                            "expectedValue" : "738 981 876"
+                        }
+                    ]
+                }
+            ]
         }
     ]
 }

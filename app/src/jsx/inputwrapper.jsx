@@ -26,7 +26,7 @@ class InputWrapper extends React.Component {
             }
         }
 
-        if( this.props.type === 'textarea' || this.props.type === 'text' || ( this.props.type === 'select' && this.props.otherOption ) )
+        if( this.props.type === 'mask' || this.props.type === 'textarea' || this.props.type === 'text' || ( this.props.type === 'select' && this.props.otherOption ) )
         {
             this.handleFocus  = this.handleFocus.bind( this );
             this.handleBlur   = this.handleBlur.bind( this );
@@ -233,6 +233,9 @@ class InputWrapper extends React.Component {
                         " *"
                     }
                 </label>
+                { this.props.type === 'mask' &&
+                    <window.ReactInputMask maxLength={ this.inputMaxLength } type="text" spellCheck="false" autoComplete="off" onFocus={ this.handleFocus } onBlur={ this.handleBlur } onChange={ this.handleChange } disabled={ this.props.disabled } value={ this.state.inputValue } mask={ this.props.mask } maskChar={ null }/>
+                }
                 { this.props.type === "text" &&
                     <input ref={ node => this.node = node } maxLength={ this.inputMaxLength } type="text" spellCheck="false" autoComplete="off" onFocus={ this.handleFocus } onBlur={ this.handleBlur } onChange={ this.handleChange } disabled={ this.props.disabled } value={ this.state.inputValue }/>
                 }

@@ -950,6 +950,15 @@ main {
                     grid-template-columns: auto 75px;
                 }
             }
+
+            &.input-masks-on,
+            &.input-masks-off {
+                width: 530px;
+
+                > .wrapper {
+                    grid-template-columns: auto 250px;
+                }
+            }
         }
 
         &.task {
