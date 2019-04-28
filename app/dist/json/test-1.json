@@ -164,6 +164,80 @@
             ]
         },
         {
+            "intro" : "Planujesz udać się na zasłużony urlop -- jesteś na etapie przegłądania ofert. Wyszukiwarka ofert biur podróży, z której korzystasz, wymaga wprowadzenia kilku parametrów, które umożliwią zawężenie wyników wyszukiwania.",
+            "tasks" : [
+                {
+                    "title"   : "Szczegóły wycieczki",
+                    "classes" : "labels-align-left small-numbers-select",
+                    "type"    : "small-numbers-select",
+                    "data"    : [
+                        {
+                            "type"          : "select",
+                            "label"         : "Liczba dorosłych",
+                            "options"       : [ "0", "1", "2", "3", "4", "5", "6" ],
+                            "expectedValue" : "5"
+                        },
+                        {
+                            "type"          : "select",
+                            "label"         : "Liczba dzieci",
+                            "options"       : [ "0", "1", "2", "3", "4", "5", "6" ],
+                            "expectedValue" : "3"
+                        },
+                        {
+                            "type"          : "select",
+                            "label"         : "Liczba dni",
+                            "options"       : [ "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" ],
+                            "expectedValue" : "9"
+                        },
+                        {
+                            "type"          : "select",
+                            "label"         : "Kategoria hotelu",
+                            "options"       : [ "1", "2", "3", "4", "5" ],
+                            "expectedValue" : "5"
+                        }
+                    ]
+                },
+                {
+                    "title"   : "Szczegóły wycieczki",
+                    "classes" : "labels-align-left small-numbers-inc-dec",
+                    "type"    : "small-numbers-inc-dec",
+                    "data"    : [
+                        {
+                            "type"          : "inc-dec",
+                            "label"         : "Liczba dorosłych",
+                            "minValue"      : 0,
+                            "maxValue"      : 6,
+                            "initialValue"  : 1,
+                            "expectedValue" : 3
+                        },
+                        {
+                            "type"          : "inc-dec",
+                            "label"         : "Liczba dzieci",
+                            "minValue"      : 0,
+                            "maxValue"      : 6,
+                            "initialValue"  : 5,
+                            "expectedValue" : 2
+                        },
+                        {
+                            "type"          : "inc-dec",
+                            "label"         : "Liczba dni",
+                            "minValue"      : 1,
+                            "maxValue"      : 10,
+                            "initialValue"  : 3,
+                            "expectedValue" : 10
+                        },
+                        {
+                            "type"          : "inc-dec",
+                            "label"         : "Kategoria hotelu",
+                            "minValue"      : 1,
+                            "maxValue"      : 5,
+                            "expectedValue" : 4
+                        }
+                    ]
+                }
+            ]
+        },
+        {
             "intro" : "Znalazłeś(-aś) niedawno zatrudnienie w dużej międzynarodowej korporacji. Pracownik działu kadr poprosił Cię o przesłanie kilku brakujących danych, bez których wypłata wynagrodzenia na koniec miesiąca nie będzie możliwa.",
             "tasks" : [
                 {

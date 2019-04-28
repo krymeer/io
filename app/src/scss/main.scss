@@ -462,6 +462,44 @@ main {
         line-height: 1;
     }
 
+    .inc-dec {
+        display: grid;
+        grid-auto-flow: column;
+        align-items: center;
+        justify-content: space-between;
+        grid-column-gap: $value-s;
+
+        > i {
+            @extend %radius;
+            @extend %padding-xs;
+            background: #616161;
+            color: #fff;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background $transition;
+
+            &:hover {
+                background: #838383;
+            }
+
+            &.disabled {
+                cursor: default;
+                background: $button-color-d !important;
+                color: #bebebe !important;
+            }
+        }
+
+        > span {
+            font-weight: 700;
+            font-size: 20px;
+            color: #616161;
+
+            &.disabled {
+                color: $border-color-d;
+            }
+        }
+    }
+
     .toggle-switch {
         @extend %radius;
         display: grid;
@@ -780,6 +818,20 @@ main {
                         }
                     }
 
+                    .inc-dec {
+                        > i:not(.disabled) {
+                            background: $primary-color !important;
+
+                            &:hover {
+                                background: $primary-color-h !important;
+                            }
+                        }
+
+                        > span {
+                            color: $primary-color !important;
+                        }
+                    }
+
                     .toggle {
                         &.off {
                             color: $primary-color !important;
@@ -957,6 +1009,35 @@ main {
 
                 > .wrapper {
                     grid-template-columns: auto 250px;
+                }
+            }
+
+            &.small-numbers-inc-dec {
+                width: 348px;
+
+                > .wrapper {
+                    grid-template-columns: auto 83px;
+                }
+            }
+
+
+            &.small-numbers-select {
+                width: 330px;
+
+                > .wrapper {
+                    grid-template-columns: auto 65px;
+                }
+            }
+
+            &.small-numbers-text {
+                width: 300px;
+
+                > .wrapper {
+                    grid-template-columns: auto 35px;
+
+                    > input {
+                        text-align: center;
+                    }
                 }
             }
         }

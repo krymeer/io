@@ -164,6 +164,38 @@
             ]
         },
         {
+            "intro" : "Planujesz udać się na zasłużony urlop -- jesteś na etapie przegłądania ofert. Wyszukiwarka ofert biur podróży, z której korzystasz, wymaga wprowadzenia kilku parametrów, które umożliwią zawężenie wyników wyszukiwania.",
+            "tasks" : [
+                {
+                    "title"   : "Szczegóły wycieczki",
+                    "classes" : "labels-align-left small-numbers-text",
+                    "type"    : "small-numbers-text",
+                    "data"    : [
+                        {
+                            "type"          : "text",
+                            "label"         : "Liczba dorosłych",
+                            "expectedValue" : "2"
+                        },
+                        {
+                            "type"          : "text",
+                            "label"         : "Liczba dzieci",
+                            "expectedValue" : "4"
+                        },
+                        {
+                            "type"          : "text",
+                            "label"         : "Liczba dni",
+                            "expectedValue" : "5"
+                        },
+                        {
+                            "type"          : "text",
+                            "label"         : "Kategoria hotelu",
+                            "expectedValue" : "4"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
             "intro" : "Znalazłeś(-aś) niedawno zatrudnienie w dużej międzynarodowej korporacji. Pracownik działu kadr poprosił Cię o przesłanie kilku brakujących danych, bez których wypłata wynagrodzenia na koniec miesiąca nie będzie możliwa.",
             "tasks" : [
                 {

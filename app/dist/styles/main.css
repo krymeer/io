@@ -79,7 +79,11 @@ main .select-option, main .select-current, main textarea, main input {
   padding: 7px;
 }
 
-main section.task .seq, main section .form > .wrapper > .select-wrapper > .select-list, main section .form, main section.scenario .summary .questions > .question-wrapper > ul > li, main section.scenario .summary .questions, main .toggle-switch:before, main .toggle-switch, main .select-option, main .select-current, main textarea, main input, main button, main table {
+main .inc-dec > i {
+  padding: 3.5px;
+}
+
+main section.task .seq, main section .form > .wrapper > .select-wrapper > .select-list, main section .form, main section.scenario .summary .questions > .question-wrapper > ul > li, main section.scenario .summary .questions, main .toggle-switch:before, main .toggle-switch, main .inc-dec > i, main .select-option, main .select-current, main textarea, main input, main button, main table {
   border-radius: 4px;
 }
 
@@ -341,6 +345,36 @@ main label {
 main input {
   line-height: 1;
 }
+main .inc-dec {
+  display: grid;
+  grid-auto-flow: column;
+  align-items: center;
+  justify-content: space-between;
+  grid-column-gap: 7px;
+}
+main .inc-dec > i {
+  background: #616161;
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.1s ease-in-out;
+}
+main .inc-dec > i:hover {
+  background: #838383;
+}
+main .inc-dec > i.disabled {
+  cursor: default;
+  background: #e0e0e0 !important;
+  color: #bebebe !important;
+}
+main .inc-dec > span {
+  font-weight: 700;
+  font-size: 20px;
+  color: #616161;
+}
+main .inc-dec > span.disabled {
+  color: #ddd;
+}
 main .toggle-switch {
   display: grid;
   cursor: pointer;
@@ -570,6 +604,15 @@ main section .form > .wrapper.on-form-error.on-input-invalid > .select-wrapper >
 main section .form > .wrapper.on-form-error.on-input-invalid > .select-wrapper > .select-current, main section .form > .wrapper.on-form-error.on-input-invalid > .select-wrapper > .select-list > .select-option, main section .form > .wrapper.on-form-error.on-input-invalid > .select-wrapper > .select-other {
   color: #a63446 !important;
 }
+main section .form > .wrapper.on-form-error.on-input-invalid .inc-dec > i:not(.disabled) {
+  background: #a63446 !important;
+}
+main section .form > .wrapper.on-form-error.on-input-invalid .inc-dec > i:not(.disabled):hover {
+  background: #ca5467 !important;
+}
+main section .form > .wrapper.on-form-error.on-input-invalid .inc-dec > span {
+  color: #a63446 !important;
+}
 main section .form > .wrapper.on-form-error.on-input-invalid .toggle.off {
   color: #a63446 !important;
 }
@@ -684,6 +727,27 @@ main section .form.input-masks-on, main section .form.input-masks-off {
 }
 main section .form.input-masks-on > .wrapper, main section .form.input-masks-off > .wrapper {
   grid-template-columns: auto 250px;
+}
+main section .form.small-numbers-inc-dec {
+  width: 348px;
+}
+main section .form.small-numbers-inc-dec > .wrapper {
+  grid-template-columns: auto 83px;
+}
+main section .form.small-numbers-select {
+  width: 330px;
+}
+main section .form.small-numbers-select > .wrapper {
+  grid-template-columns: auto 65px;
+}
+main section .form.small-numbers-text {
+  width: 300px;
+}
+main section .form.small-numbers-text > .wrapper {
+  grid-template-columns: auto 35px;
+}
+main section .form.small-numbers-text > .wrapper > input {
+  text-align: center;
 }
 main section.task .seq {
   width: fit-content;

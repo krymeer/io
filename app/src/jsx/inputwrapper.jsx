@@ -18,6 +18,16 @@ class InputWrapper extends React.Component {
 
         this.handleLabel    = this.handleLabel.bind( this );
 
+        if( this.props.type === 'inc-dec' )
+        {
+            this.state = {
+                ...this.state,
+                chosenIndex : ( typeof this.props.initialValue !== 'undefined' ? this.props.initialValue : this.props.minValue )
+            };
+
+            this.handleOption = this.handleOption.bind( this );
+        }
+
         if( this.props.type === 'toggle-switch' || this.props.type === 'toggle-btn' )
         {
             this.state = {
@@ -160,6 +170,19 @@ class InputWrapper extends React.Component {
         }
     }
 
+    handleIncDec( increment = true )
+    {
+        if( !this.props.disabled )
+        {
+            const value = increment ? ( this.state.chosenIndex + 1 ) : ( this.state.chosenIndex - 1 );
+
+            if( value >= this.props.minValue && value <= this.props.maxValue)
+            {
+                this.handleOption( value, value );
+            }
+        }
+    }
+
     handleSelect( event )
     {
         if( !this.props.disabled )
@@ -238,6 +261,13 @@ class InputWrapper extends React.Component {
                 }
                 { this.props.type === "text" &&
                     <input ref={ node => this.node = node } maxLength={ this.inputMaxLength } type="text" spellCheck="false" autoComplete="off" onFocus={ this.handleFocus } onBlur={ this.handleBlur } onChange={ this.handleChange } disabled={ this.props.disabled } value={ this.state.inputValue }/>
+                }
+                { this.props.type === "inc-dec" &&
+                    <p className="inc-dec">
+                        <i className={ "material-icons " + ( ( this.props.disabled || this.state.chosenIndex === this.props.minValue ) ? "disabled" : "" ) } onClick={ this.handleIncDec.bind( this, false ) }>remove</i>
+                        <span className={ ( this.props.disabled ? "disabled" : undefined ) }>{ this.state.chosenIndex }</span>
+                        <i className={ "material-icons " + ( ( this.props.disabled || this.state.chosenIndex === this.props.maxValue  ) ? "disabled" : "" ) } onClick={ this.handleIncDec.bind( this, true ) }>add</i>
+                    </p>
                 }
                 { this.props.type === "textarea" &&
                     <textarea ref={ node => this.node = node } spellCheck="false" maxLength={ this.inputMaxLength } disabled={ this.props.disabled } onFocus={ this.handleFocus } onChange={ this.handleChange } onBlur={ this.handleBlur } />

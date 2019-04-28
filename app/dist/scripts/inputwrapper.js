@@ -22,6 +22,14 @@ var InputWrapper = function (_React$Component) {
 
         _this.handleLabel = _this.handleLabel.bind(_this);
 
+        if (_this.props.type === 'inc-dec') {
+            _this.state = Object.assign({}, _this.state, {
+                chosenIndex: typeof _this.props.initialValue !== 'undefined' ? _this.props.initialValue : _this.props.minValue
+            });
+
+            _this.handleOption = _this.handleOption.bind(_this);
+        }
+
         if (_this.props.type === 'toggle-switch' || _this.props.type === 'toggle-btn') {
             _this.state = Object.assign({}, _this.state, {
                 chosenIndex: typeof _this.props.initialValue !== 'undefined' ? _this.props.options.indexOf(_this.props.initialValue) : 0
@@ -143,6 +151,19 @@ var InputWrapper = function (_React$Component) {
             }
         }
     }, {
+        key: 'handleIncDec',
+        value: function handleIncDec() {
+            var increment = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
+
+            if (!this.props.disabled) {
+                var value = increment ? this.state.chosenIndex + 1 : this.state.chosenIndex - 1;
+
+                if (value >= this.props.minValue && value <= this.props.maxValue) {
+                    this.handleOption(value, value);
+                }
+            }
+        }
+    }, {
         key: 'handleSelect',
         value: function handleSelect(event) {
             var _this3 = this;
@@ -216,6 +237,25 @@ var InputWrapper = function (_React$Component) {
                 this.props.type === "text" && React.createElement('input', { ref: function ref(node) {
                         return _this4.node = node;
                     }, maxLength: this.inputMaxLength, type: 'text', spellCheck: 'false', autoComplete: 'off', onFocus: this.handleFocus, onBlur: this.handleBlur, onChange: this.handleChange, disabled: this.props.disabled, value: this.state.inputValue }),
+                this.props.type === "inc-dec" && React.createElement(
+                    'p',
+                    { className: 'inc-dec' },
+                    React.createElement(
+                        'i',
+                        { className: "material-icons " + (this.props.disabled || this.state.chosenIndex === this.props.minValue ? "disabled" : ""), onClick: this.handleIncDec.bind(this, false) },
+                        'remove'
+                    ),
+                    React.createElement(
+                        'span',
+                        { className: this.props.disabled ? "disabled" : undefined },
+                        this.state.chosenIndex
+                    ),
+                    React.createElement(
+                        'i',
+                        { className: "material-icons " + (this.props.disabled || this.state.chosenIndex === this.props.maxValue ? "disabled" : ""), onClick: this.handleIncDec.bind(this, true) },
+                        'add'
+                    )
+                ),
                 this.props.type === "textarea" && React.createElement('textarea', { ref: function ref(node) {
                         return _this4.node = node;
                     }, spellCheck: 'false', maxLength: this.inputMaxLength, disabled: this.props.disabled, onFocus: this.handleFocus, onChange: this.handleChange, onBlur: this.handleBlur }),
