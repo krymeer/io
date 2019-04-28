@@ -41,15 +41,17 @@ insertNbsp = function insertNbsp(str) {
     });
 };
 
-getRandomString = function getRandomString() {
-    return Math.random().toString(36).substring(2);
+insertNdash = function insertNdash(str) {
+    return str.replace(/\-\-/g, '\u2013');
 };
 
-extractTextImportant = function extractTextImportant(string) {
+parseText = function parseText(string) {
     var chunks = [];
 
+    string = insertNbsp(string);
+    string = insertNdash(string);
+
     string.split(/(\*\*[^\*]*\*\*)/gi).map(function (chunk, index) {
-        chunk = insertNbsp(chunk);
 
         if (chunk.indexOf('**') !== -1) {
             chunk = React.createElement(
@@ -63,6 +65,10 @@ extractTextImportant = function extractTextImportant(string) {
     });
 
     return chunks;
+};
+
+getRandomString = function getRandomString() {
+    return Math.random().toString(36).substring(2);
 };
 
 window.onload = function () {

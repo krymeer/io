@@ -32,15 +32,17 @@ insertNbsp = ( str ) => {
     } );
 }
 
-getRandomString = () => {
-    return Math.random().toString( 36 ).substring( 2 );
+insertNdash = ( str ) => {
+    return str.replace( /\-\-/g, '\u2013' );
 }
 
-extractTextImportant = ( string ) => {
+parseText = ( string ) => {
     const chunks = [];
 
+    string = insertNbsp( string );
+    string = insertNdash( string );
+
     string.split( /(\*\*[^\*]*\*\*)/gi ).map( ( chunk, index ) => {
-        chunk = insertNbsp( chunk );
 
         if( chunk.indexOf( '**' ) !== -1 )
         {
@@ -51,6 +53,10 @@ extractTextImportant = ( string ) => {
     } );
 
     return chunks;
+}
+
+getRandomString = () => {
+    return Math.random().toString( 36 ).substring( 2 );
 }
 
 window.onload = function() {

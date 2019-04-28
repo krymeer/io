@@ -8,7 +8,7 @@ class Paragraph extends React.Component {
     {
         return (
             <p ref={ this.props.nodeRef } className={ this.props.class }>
-                { extractTextImportant( this.props.content ) }
+                { parseText( this.props.content ) }
             </p>
         );
     }

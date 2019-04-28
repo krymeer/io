@@ -21,7 +21,7 @@ var Paragraph = function (_React$Component) {
             return React.createElement(
                 "p",
                 { ref: this.props.nodeRef, className: this.props.class },
-                extractTextImportant(this.props.content)
+                parseText(this.props.content)
             );
         }
     }]);
