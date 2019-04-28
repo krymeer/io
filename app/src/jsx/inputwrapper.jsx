@@ -18,7 +18,7 @@ class InputWrapper extends React.Component {
 
         this.handleLabel    = this.handleLabel.bind( this );
 
-        if( this.props.type === 'inc-dec' )
+        if( this.props.type === 'inc-dec' || this.props.type === 'range' )
         {
             this.state = {
                 ...this.state,
@@ -134,6 +134,16 @@ class InputWrapper extends React.Component {
                 value : inputValue,
                 valid : inputValid
             } );
+        }
+    }
+
+    handleRange( event )
+    {
+        if( !this.props.disabled )
+        {
+            const rangeValue = parseInt( event.target.value );
+
+            this.handleOption( rangeValue, rangeValue );
         }
     }
 
@@ -256,7 +266,13 @@ class InputWrapper extends React.Component {
                         " *"
                     }
                 </label>
-                { this.props.type === 'mask' &&
+                { this.props.type === "range" &&
+                    <p className="range-wrapper">
+                        <input min={ this.props.minValue } type="range" max={ this.props.maxValue } value={ this.state.chosenIndex } onChange={ this.handleRange.bind( this ) } disabled={ this.props.disabled }/>
+                        <span>{ this.state.chosenIndex }</span>
+                    </p>
+                }
+                { this.props.type === "mask" &&
                     <window.ReactInputMask maxLength={ this.inputMaxLength } type="text" spellCheck="false" autoComplete="off" onFocus={ this.handleFocus } onBlur={ this.handleBlur } onChange={ this.handleChange } disabled={ this.props.disabled } value={ this.state.inputValue } mask={ this.props.mask } maskChar={ null }/>
                 }
                 { this.props.type === "text" &&

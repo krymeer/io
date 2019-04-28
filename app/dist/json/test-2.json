@@ -192,6 +192,45 @@
                             "expectedValue" : "4"
                         }
                     ]
+                },
+                {
+                    "title"   : "Szczegóły wycieczki",
+                    "classes" : "labels-align-left small-numbers-range",
+                    "type"    : "small-numbers-range",
+                    "data"    : [
+                        {
+                            "type"          : "range",
+                            "label"         : "Liczba dorosłych",
+                            "minValue"      : 0,
+                            "maxValue"      : 6,
+                            "initialValue"  : 0,
+                            "expectedValue" : 6
+                        },
+                        {
+                            "type"          : "range",
+                            "label"         : "Liczba dzieci",
+                            "minValue"      : 0,
+                            "maxValue"      : 6,
+                            "initialValue"  : 4,
+                            "expectedValue" : 2
+                        },
+                        {
+                            "type"          : "range",
+                            "label"         : "Liczba dni",
+                            "minValue"      : 1,
+                            "maxValue"      : 10,
+                            "initialValue"  : 9,
+                            "expectedValue" : 5
+                        },
+                        {
+                            "type"          : "range",
+                            "label"         : "Kategoria hotelu",
+                            "minValue"      : 1,
+                            "maxValue"      : 5,
+                            "initialValue"  : 1,
+                            "expectedValue" : 5
+                        }
+                    ]
                 }
             ]
         },

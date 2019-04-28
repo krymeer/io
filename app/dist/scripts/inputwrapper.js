@@ -22,7 +22,7 @@ var InputWrapper = function (_React$Component) {
 
         _this.handleLabel = _this.handleLabel.bind(_this);
 
-        if (_this.props.type === 'inc-dec') {
+        if (_this.props.type === 'inc-dec' || _this.props.type === 'range') {
             _this.state = Object.assign({}, _this.state, {
                 chosenIndex: typeof _this.props.initialValue !== 'undefined' ? _this.props.initialValue : _this.props.minValue
             });
@@ -121,6 +121,15 @@ var InputWrapper = function (_React$Component) {
                     value: inputValue,
                     valid: inputValid
                 });
+            }
+        }
+    }, {
+        key: 'handleRange',
+        value: function handleRange(event) {
+            if (!this.props.disabled) {
+                var rangeValue = parseInt(event.target.value);
+
+                this.handleOption(rangeValue, rangeValue);
             }
         }
     }, {
@@ -233,7 +242,17 @@ var InputWrapper = function (_React$Component) {
                     this.props.label,
                     this.props.optional && " *"
                 ),
-                this.props.type === 'mask' && React.createElement(window.ReactInputMask, { maxLength: this.inputMaxLength, type: 'text', spellCheck: 'false', autoComplete: 'off', onFocus: this.handleFocus, onBlur: this.handleBlur, onChange: this.handleChange, disabled: this.props.disabled, value: this.state.inputValue, mask: this.props.mask, maskChar: null }),
+                this.props.type === "range" && React.createElement(
+                    'p',
+                    { className: 'range-wrapper' },
+                    React.createElement('input', { min: this.props.minValue, type: 'range', max: this.props.maxValue, value: this.state.chosenIndex, onChange: this.handleRange.bind(this), disabled: this.props.disabled }),
+                    React.createElement(
+                        'span',
+                        null,
+                        this.state.chosenIndex
+                    )
+                ),
+                this.props.type === "mask" && React.createElement(window.ReactInputMask, { maxLength: this.inputMaxLength, type: 'text', spellCheck: 'false', autoComplete: 'off', onFocus: this.handleFocus, onBlur: this.handleBlur, onChange: this.handleChange, disabled: this.props.disabled, value: this.state.inputValue, mask: this.props.mask, maskChar: null }),
                 this.props.type === "text" && React.createElement('input', { ref: function ref(node) {
                         return _this4.node = node;
                     }, maxLength: this.inputMaxLength, type: 'text', spellCheck: 'false', autoComplete: 'off', onFocus: this.handleFocus, onBlur: this.handleBlur, onChange: this.handleChange, disabled: this.props.disabled, value: this.state.inputValue }),

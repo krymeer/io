@@ -345,6 +345,60 @@ main label {
 main input {
   line-height: 1;
 }
+main .range-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 20px;
+  align-items: center;
+  grid-column-gap: 14px;
+}
+main .range-wrapper > input {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 1px;
+  padding: 0;
+  outline: none;
+  border: none;
+  border-radius: 0;
+  background: #7e7e7e;
+  transition: background 0.1s ease-in-out;
+}
+main .range-wrapper > input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 10px;
+  height: 10px;
+  background: #212121;
+  border-radius: 50%;
+  cursor: pointer;
+}
+main .range-wrapper > input::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  width: 10px;
+  height: 10px;
+  background: #212121;
+  border-radius: 50%;
+  border: 0;
+  cursor: pointer;
+}
+main .range-wrapper > input[disabled] {
+  background: #e0e0e0 !important;
+}
+main .range-wrapper > input[disabled]::-webkit-slider-thumb {
+  cursor: default;
+  background: #bebebe !important;
+}
+main .range-wrapper > input[disabled]::-moz-range-thumb {
+  cursor: default;
+  background: #bebebe !important;
+}
+main .range-wrapper > input[disabled] + span {
+  color: #bebebe;
+}
+main .range-wrapper > span {
+  font-weight: 700;
+}
 main .inc-dec {
   display: grid;
   grid-auto-flow: column;
@@ -604,6 +658,18 @@ main section .form > .wrapper.on-form-error.on-input-invalid > .select-wrapper >
 main section .form > .wrapper.on-form-error.on-input-invalid > .select-wrapper > .select-current, main section .form > .wrapper.on-form-error.on-input-invalid > .select-wrapper > .select-list > .select-option, main section .form > .wrapper.on-form-error.on-input-invalid > .select-wrapper > .select-other {
   color: #a63446 !important;
 }
+main section .form > .wrapper.on-form-error.on-input-invalid .range-wrapper > input {
+  background: #a63446 !important;
+}
+main section .form > .wrapper.on-form-error.on-input-invalid .range-wrapper > input::-webkit-slider-thumb {
+  background: #a63446 !important;
+}
+main section .form > .wrapper.on-form-error.on-input-invalid .range-wrapper > input::-moz-range-thumb {
+  background: #a63446 !important;
+}
+main section .form > .wrapper.on-form-error.on-input-invalid .range-wrapper > span {
+  color: #a63446 !important;
+}
 main section .form > .wrapper.on-form-error.on-input-invalid .inc-dec > i:not(.disabled) {
   background: #a63446 !important;
 }
@@ -727,6 +793,12 @@ main section .form.input-masks-on, main section .form.input-masks-off {
 }
 main section .form.input-masks-on > .wrapper, main section .form.input-masks-off > .wrapper {
   grid-template-columns: auto 250px;
+}
+main section .form.small-numbers-range {
+  width: 350px;
+}
+main section .form.small-numbers-range > .wrapper {
+  grid-template-columns: auto 120px;
 }
 main section .form.small-numbers-inc-dec {
   width: 348px;
