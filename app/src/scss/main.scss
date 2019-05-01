@@ -878,7 +878,7 @@ main {
                         border-color: $primary-color !important;
                     }
 
-                    > .select-wrapper {
+                    > .select-wrapper:not(.on-input-part-valid) {
                         > .select-current, > .select-list, > .select-other  {
                             border-color: $primary-color !important;
                         }
@@ -888,7 +888,7 @@ main {
                         }
                     }
 
-                    .range-wrapper {
+                    > .range-wrapper {
                         > input {
                             background: $primary-color !important;
 
@@ -906,7 +906,7 @@ main {
                         }
                     }
 
-                    .inc-dec {
+                    > .inc-dec {
                         > i:not(.disabled) {
                             background: $primary-color !important;
 
@@ -920,7 +920,7 @@ main {
                         }
                     }
 
-                    .toggle {
+                    > .toggle {
                         &.off {
                             color: $primary-color !important;
                         }
@@ -934,7 +934,7 @@ main {
                         }
                     }
 
-                    .toggle-switch {
+                    > .toggle-switch {
                         background: $primary-color !important;
 
                         &:before {
@@ -1088,6 +1088,14 @@ main {
 
                 > .wrapper {
                     grid-template-columns: auto 75px;
+                }
+            }
+
+            &.time-multi-select {
+                width: 370px;
+
+                > .wrapper {
+                    grid-template-columns: auto 60px 60px;
                 }
             }
 

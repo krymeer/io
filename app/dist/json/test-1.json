@@ -263,6 +263,58 @@
                     ]
                 }
             ]
+        },
+        {
+            "intro" : "W najbliższych dniach wybierasz się do miasta odległego o kilkaset kilometrów. Zdecydowałeś(-aś) się na podróż pociągiem. Interesują Cię połączenia o odjazdach i przyjazdach w określonych przedziałach czasowych.",
+            "tasks" : [
+                {
+                    "title"   : "Wyszukiwarka połączeń",
+                    "classes" : "labels-align-left time-multi-select",
+                    "type"    : "time-multi-select",
+                    "data"    : [
+                        {
+                            "type"          : "multi-select",
+                            "label"         : "Odjazd po",
+                            "separator"     : ":",
+                            "expectedValue" : ["12", "30"],
+                            "options"       : [
+                                [ "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23" ],
+                                [ "00", "05", "10", "15", "20", "25", "30" , "35", "40", "45", "55" ]
+                            ]
+                        },
+                        {
+                            "type"          : "multi-select",
+                            "label"         : "Odjazd przed",
+                            "separator"     : ":",
+                            "expectedValue" : ["14", "45"],
+                            "options"       : [
+                                [ "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23" ],
+                                [ "00", "05", "10", "15", "20", "25", "30" , "35", "40", "45", "55" ]
+                            ]
+                        },
+                        {
+                            "type"          : "multi-select",
+                            "label"         : "Przejazd po",
+                            "separator"     : ":",
+                            "expectedValue" : ["22", "15"],
+                            "options"       : [
+                                [ "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23" ],
+                                [ "00", "05", "10", "15", "20", "25", "30" , "35", "40", "45", "55" ]
+                            ]
+                        },
+                        {
+                            "type"          : "multi-select",
+                            "label"         : "Przyjazd przed",
+                            "separator"     : ":",
+                            "expectedValue" : ["23", "20"],
+                            "options"       : [
+                                [ "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23" ],
+                                [ "00", "05", "10", "15", "20", "25", "30" , "35", "40", "45", "55" ]
+                            ]
+                        }
+                    ]
+                }
+            ]
         }
     ]
 }

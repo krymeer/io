@@ -2,21 +2,30 @@ class InputWrapper extends React.Component {
     constructor( props )
     {
         super( props );
-        this.state = {
+
+        this.state          = {
             inputValid : this.props.optional
                             ? true
                             : ( typeof this.props.initialValue !== 'undefined' && typeof this.props.expectedValue !== 'undefined'
                                 ? this.props.initialValue === this.props.expectedValue
                                 : false )
         };
-
-        this.inputMaxLength = ( typeof this.props.maxLength !== "undefined" )
+        this.multiPartInput = ( typeof this.props.options !== 'undefined' && this.props.options.filter( array => !Array.isArray( array ) ).length === 0 && typeof this.props.separator !== 'undefined' && Array.isArray( this.props.expectedValue ) );
+        this.handleLabel    = this.handleLabel.bind( this );
+        this.inputMaxLength = ( typeof this.props.maxLength !== 'undefined' )
                             ? this.props.maxLength
                             : ( this.props.type === 'textarea' )
                                 ? globals.maxLength.textarea
                                 : globals.maxLength.input;
 
-        this.handleLabel    = this.handleLabel.bind( this );
+        if( this.multiPartInput )
+        {
+            this.state = {
+                ...this.state,
+                chosenIndexes   : [ ...Array( this.props.options.length ) ],
+                inputPartsValid : [ ...Array( this.props.options.length ) ]
+            }
+        }
 
         if( this.props.type === 'inc-dec' || this.props.type === 'range' )
         {
@@ -123,20 +132,55 @@ class InputWrapper extends React.Component {
         }
     }
 
-    handleOption( optionIndex, optionValue, otherOptionChosen = false )
+    handleOption( optionIndex, optionValue, otherOptionChosen = false, inputIndex = -1 )
     {
         if( !this.props.disabled )
         {
-            const inputValid  = ( typeof this.props.expectedValue !== 'undefined' )
-                                ? ( this.props.expectedValue === optionValue )
-                                : ( otherOptionChosen
-                                    ? ( this.state.inputValue !== '' )
-                                    : true );
+            const inputValid  = ( this.multiPartInput && inputIndex !== -1 )
+                                ? ( this.props.options.map( ( optionsList, optionsListIndex ) => {
+                                        if( optionsListIndex === inputIndex )
+                                        {
+                                            return optionsList[ optionIndex ];
+                                        }
+                                        else
+                                        {
+                                            return optionsList[ this.state.chosenIndexes[ optionsListIndex ] ];
+                                        }
+                                    } ).join( this.props.separator ) === this.props.expectedValue.join( this.props.separator ) )
+                                : ( ( typeof this.props.expectedValue !== 'undefined' )
+                                    ? ( this.props.expectedValue === optionValue )
+                                    : ( otherOptionChosen
+                                        ? ( this.state.inputValue !== '' )
+                                        : true ) );
 
             this.setState( {
-                inputValid        : inputValid,
-                chosenIndex       : optionIndex
+                inputValid : inputValid
             } );
+
+            if( this.multiPartInput )
+            {
+                this.setState( state => {
+
+                    const chosenIndexes   = state.chosenIndexes.map( ( item, index ) => {
+                        return ( index === inputIndex ? optionIndex : item );
+                    } );
+
+                    const inputPartsValid = chosenIndexes.map( ( item, index ) => {
+                        return item ? ( this.props.expectedValue[ index ] === this.props.options[ index ][ item ] ) : false
+                    } );
+
+                    return {
+                        ...state,
+                        inputPartsValid : inputPartsValid,
+                        chosenIndexes   : chosenIndexes
+                    }
+                } );
+            }
+            else {
+                this.setState( {
+                    chosenIndex : optionIndex
+                } );
+            }
 
             this.props.onChange( {
                 index : this.props.index,
@@ -226,6 +270,9 @@ class InputWrapper extends React.Component {
                     }
                     </ul>
                 }
+                { this.props.type === "multi-select" && Array.isArray( this.props.options ) && this.props.options.map( ( options, index ) =>
+                    <Select class={ this.state.inputPartsValid[ index ] ? 'on-input-part-valid' : '' } key={ index } multiSelect={ true } selectIndex={ index } disabled={ this.props.disabled } options={ options } chosenIndex={ this.state.chosenIndexes[ index ] } onOption={ this.handleOption.bind( this ) } />
+                ) }
                 { this.props.type === "select" &&
                     <Select disabled={ this.props.disabled } otherOption={ this.props.otherOption } options={ this.props.options } onOption={ this.handleOption.bind( this ) } chosenIndex={ this.state.chosenIndex } inputNodeRef={ inputNode => this.node = inputNode } inputMaxLength={ this.inputMaxLength } inputValue={ this.state.inputValue } onInputFocus={ this.handleFocus } onInputBlur={ this.handleBlur } onInputChange={ this.handleChange } />
                 }

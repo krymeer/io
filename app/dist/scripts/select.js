@@ -80,13 +80,14 @@ var Select = function (_React$Component) {
         key: 'handleOption',
         value: function handleOption(optionIndex, optionValue) {
             var otherOptionChosen = this.props.otherOption && optionIndex === this.props.options.length - 1;
+            var selectIndex = this.props.multiSelect && typeof this.props.selectIndex !== 'undefined ' ? this.props.selectIndex : -1;
 
             this.setState({
                 otherOptionChosen: otherOptionChosen
             });
 
             this.handleSelect();
-            this.props.onOption(optionIndex, optionValue, otherOptionChosen);
+            this.props.onOption(optionIndex, optionValue, otherOptionChosen, selectIndex);
         }
     }, {
         key: 'render',
@@ -95,7 +96,7 @@ var Select = function (_React$Component) {
 
             return React.createElement(
                 'div',
-                { className: 'select-wrapper' },
+                { className: ('select-wrapper ' + this.props.class).trim() },
                 React.createElement(
                     'div',
                     { className: ("select-current " + (this.props.disabled ? "disabled" : "") + " " + (this.state.list.open ? "focus" : "")).trim().replace(/\s+/g, " "), onClick: this.handleSelect },
@@ -112,7 +113,7 @@ var Select = function (_React$Component) {
                 ),
                 this.state.list.open && React.createElement(
                     'ul',
-                    { className: ("select-list " + this.props.overflow).trim(), ref: function ref(listNode) {
+                    { className: ("select-list " + this.state.list.overflow).trim(), ref: function ref(listNode) {
                             return _this3.listNode = listNode;
                         } },
                     this.props.options.map(function (option, index) {

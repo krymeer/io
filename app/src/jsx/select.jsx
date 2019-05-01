@@ -75,19 +75,20 @@ class Select extends React.Component {
     handleOption( optionIndex, optionValue )
     {
         const otherOptionChosen = ( this.props.otherOption && optionIndex === this.props.options.length - 1 );
+        const selectIndex       = ( this.props.multiSelect && typeof this.props.selectIndex !== 'undefined ' ) ? this.props.selectIndex : -1;
 
         this.setState( {
             otherOptionChosen : otherOptionChosen
         } );
 
         this.handleSelect();
-        this.props.onOption( optionIndex, optionValue, otherOptionChosen );
+        this.props.onOption( optionIndex, optionValue, otherOptionChosen, selectIndex );
     }
 
     render()
     {
         return(
-            <div className="select-wrapper">
+            <div className={ ( 'select-wrapper ' + this.props.class ).trim() }>
                 <div className={ ( "select-current " + ( this.props.disabled ? "disabled" : "" ) + " " + ( this.state.list.open ? "focus" : "" ) ).trim().replace( /\s+/g, " " ) } onClick={ this.handleSelect }>
                     <span>{ this.props.chosenIndex >= 0 ? this.props.options[ this.props.chosenIndex ] : "" }</span>
                     <i className="material-icons">
@@ -95,7 +96,7 @@ class Select extends React.Component {
                     </i>
                 </div>
                 { this.state.list.open &&
-                    <ul className={ ( "select-list " + this.props.overflow ).trim() } ref={ listNode => this.listNode = listNode }>
+                    <ul className={ ( "select-list " + this.state.list.overflow ).trim() } ref={ listNode => this.listNode = listNode }>
                         { this.props.options.map( ( option, index ) => {
                             if( index !== this.props.chosenIndex )
                             {

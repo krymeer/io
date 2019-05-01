@@ -652,46 +652,46 @@ main section .form > .wrapper.on-form-error.on-input-invalid > input, main secti
 main section .form > .wrapper.on-form-error.on-input-invalid > textarea, main section .form > .wrapper.on-form-error.on-input-invalid > input {
   border-color: #a63446 !important;
 }
-main section .form > .wrapper.on-form-error.on-input-invalid > .select-wrapper > .select-current, main section .form > .wrapper.on-form-error.on-input-invalid > .select-wrapper > .select-list, main section .form > .wrapper.on-form-error.on-input-invalid > .select-wrapper > .select-other {
+main section .form > .wrapper.on-form-error.on-input-invalid > .select-wrapper:not(.on-input-part-valid) > .select-current, main section .form > .wrapper.on-form-error.on-input-invalid > .select-wrapper:not(.on-input-part-valid) > .select-list, main section .form > .wrapper.on-form-error.on-input-invalid > .select-wrapper:not(.on-input-part-valid) > .select-other {
   border-color: #a63446 !important;
 }
-main section .form > .wrapper.on-form-error.on-input-invalid > .select-wrapper > .select-current, main section .form > .wrapper.on-form-error.on-input-invalid > .select-wrapper > .select-list > .select-option, main section .form > .wrapper.on-form-error.on-input-invalid > .select-wrapper > .select-other {
+main section .form > .wrapper.on-form-error.on-input-invalid > .select-wrapper:not(.on-input-part-valid) > .select-current, main section .form > .wrapper.on-form-error.on-input-invalid > .select-wrapper:not(.on-input-part-valid) > .select-list > .select-option, main section .form > .wrapper.on-form-error.on-input-invalid > .select-wrapper:not(.on-input-part-valid) > .select-other {
   color: #a63446 !important;
 }
-main section .form > .wrapper.on-form-error.on-input-invalid .range-wrapper > input {
+main section .form > .wrapper.on-form-error.on-input-invalid > .range-wrapper > input {
   background: #a63446 !important;
 }
-main section .form > .wrapper.on-form-error.on-input-invalid .range-wrapper > input::-webkit-slider-thumb {
+main section .form > .wrapper.on-form-error.on-input-invalid > .range-wrapper > input::-webkit-slider-thumb {
   background: #a63446 !important;
 }
-main section .form > .wrapper.on-form-error.on-input-invalid .range-wrapper > input::-moz-range-thumb {
+main section .form > .wrapper.on-form-error.on-input-invalid > .range-wrapper > input::-moz-range-thumb {
   background: #a63446 !important;
 }
-main section .form > .wrapper.on-form-error.on-input-invalid .range-wrapper > span {
+main section .form > .wrapper.on-form-error.on-input-invalid > .range-wrapper > span {
   color: #a63446 !important;
 }
-main section .form > .wrapper.on-form-error.on-input-invalid .inc-dec > i:not(.disabled) {
+main section .form > .wrapper.on-form-error.on-input-invalid > .inc-dec > i:not(.disabled) {
   background: #a63446 !important;
 }
-main section .form > .wrapper.on-form-error.on-input-invalid .inc-dec > i:not(.disabled):hover {
+main section .form > .wrapper.on-form-error.on-input-invalid > .inc-dec > i:not(.disabled):hover {
   background: #ca5467 !important;
 }
-main section .form > .wrapper.on-form-error.on-input-invalid .inc-dec > span {
+main section .form > .wrapper.on-form-error.on-input-invalid > .inc-dec > span {
   color: #a63446 !important;
 }
-main section .form > .wrapper.on-form-error.on-input-invalid .toggle.off {
+main section .form > .wrapper.on-form-error.on-input-invalid > .toggle.off {
   color: #a63446 !important;
 }
-main section .form > .wrapper.on-form-error.on-input-invalid .toggle.on {
+main section .form > .wrapper.on-form-error.on-input-invalid > .toggle.on {
   background: #a63446 !important;
 }
-main section .form > .wrapper.on-form-error.on-input-invalid .toggle.on:hover {
+main section .form > .wrapper.on-form-error.on-input-invalid > .toggle.on:hover {
   background: #ca5467 !important;
 }
-main section .form > .wrapper.on-form-error.on-input-invalid .toggle-switch {
+main section .form > .wrapper.on-form-error.on-input-invalid > .toggle-switch {
   background: #a63446 !important;
 }
-main section .form > .wrapper.on-form-error.on-input-invalid .toggle-switch:before {
+main section .form > .wrapper.on-form-error.on-input-invalid > .toggle-switch:before {
   color: #a63446 !important;
 }
 main section .form > .wrapper.on-form-error.on-input-invalid > ul.input-list > li.radio-item > div {
@@ -787,6 +787,12 @@ main section .form.logic-values-select {
 }
 main section .form.logic-values-select > .wrapper {
   grid-template-columns: auto 75px;
+}
+main section .form.time-multi-select {
+  width: 370px;
+}
+main section .form.time-multi-select > .wrapper {
+  grid-template-columns: auto 60px 60px;
 }
 main section .form.input-masks-on, main section .form.input-masks-off {
   width: 530px;
