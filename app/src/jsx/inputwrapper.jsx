@@ -50,30 +50,6 @@ class InputWrapper extends React.Component {
                 inputLength    : 0
             };
         }
-
-        if( this.props.type === 'select' )
-        {
-            this.state = {
-                ...this.state,
-                selectList : {}
-            };
-
-            this.handleClickOutside = this.handleClickOutside.bind( this );
-            this.handleSelect       = this.handleSelect.bind( this );
-        }
-    }
-
-    handleClickOutside( e )
-    {
-        if( this.props.disabled || this.selectNode.contains( e.target ) )
-        {
-            return;
-        }
-
-        if( this.props.type === 'select' && this.state.selectList.open )
-        {
-            this.handleSelect();
-        }
     }
 
     handleFocus()
@@ -99,7 +75,7 @@ class InputWrapper extends React.Component {
 
     handleLabel()
     {
-        if( !this.props.disabled && this.node !== null )
+        if( !this.props.disabled && this.node )
         {
             this.node.focus();
         }
@@ -147,30 +123,20 @@ class InputWrapper extends React.Component {
         }
     }
 
-    handleOption( optionIndex, optionValue )
+    handleOption( optionIndex, optionValue, otherOptionChosen = false )
     {
         if( !this.props.disabled )
         {
-            const otherOptionChosen = ( this.props.type === 'select' && this.props.otherOption && optionIndex === this.props.options.length - 1 );
-            const inputValid        = ( typeof this.props.expectedValue !== 'undefined' )
-                                        ? ( this.props.expectedValue === optionValue )
-                                        : ( otherOptionChosen
-                                            ? ( this.state.inputValue !== '' )
-                                            : true );
+            const inputValid  = ( typeof this.props.expectedValue !== 'undefined' )
+                                ? ( this.props.expectedValue === optionValue )
+                                : ( otherOptionChosen
+                                    ? ( this.state.inputValue !== '' )
+                                    : true );
 
             this.setState( {
                 inputValid        : inputValid,
                 chosenIndex       : optionIndex
             } );
-
-            if( this.props.type === 'select' )
-            {
-                this.setState( {
-                    otherOptionChosen : otherOptionChosen,
-                } );
-
-                this.handleSelect();
-            }
 
             this.props.onChange( {
                 index : this.props.index,
@@ -190,54 +156,6 @@ class InputWrapper extends React.Component {
             {
                 this.handleOption( value, value );
             }
-        }
-    }
-
-    handleSelect( event )
-    {
-        if( !this.props.disabled )
-        {
-            const bodyScrollHeight = document.body.scrollHeight;
-            const currentNode      = ( typeof event !== 'undefined' ) ? event.target : '';
-
-            if( !this.state.selectList.open )
-            {
-                document.addEventListener( 'click', this.handleClickOutside, false );
-            }
-            else
-            {
-                document.removeEventListener( 'click', this.handleClickOutside, false );
-            }
-
-            this.setState( state => {
-                return {
-                    selectList : {
-                        ...state.selectList,
-                        open     : !state.selectList.open,
-                        overflow : undefined
-                    }
-                };
-            }, () => {
-                if( this.state.selectList.open )
-                {
-                    const listNode = currentNode.closest( '.select-current' ).nextElementSibling;
-
-                    if( listNode !== null )
-                    {
-                        const listNodeOffsetBtm = document.body.parentElement.scrollTop + listNode.getBoundingClientRect().top + listNode.offsetHeight;
-                        const overflowDirection = ( listNodeOffsetBtm > bodyScrollHeight ) ? 'top' : 'bottom';
-
-                        this.setState( state => {
-                            return {
-                                selectList : {
-                                    ...state.selectList,
-                                    overflow : overflowDirection
-                                }
-                            };
-                        } );
-                    }
-                }
-            } );
         }
     }
 
@@ -309,7 +227,7 @@ class InputWrapper extends React.Component {
                     </ul>
                 }
                 { this.props.type === "select" &&
-                    <Select disabled={ this.props.disabled } nodeRef={ selectNode => this.selectNode = selectNode } overflow={ this.state.selectList.overflow } open={ this.state.selectList.open } onSelect={ this.handleSelect } onOption={ this.handleOption.bind( this ) } options={ this.props.options } chosenIndex={ this.state.chosenIndex } otherOptionChosen={ this.state.otherOptionChosen } inputNodeRef={ inputNode => this.node = inputNode } inputMaxLength={ this.inputMaxLength } inputValue={ this.state.inputValue } onInputFocus={ this.handleFocus } onInputBlur={ this.handleBlur } onInputChange={ this.handleChange } />
+                    <Select disabled={ this.props.disabled } otherOption={ this.props.otherOption } options={ this.props.options } onOption={ this.handleOption.bind( this ) } chosenIndex={ this.state.chosenIndex } inputNodeRef={ inputNode => this.node = inputNode } inputMaxLength={ this.inputMaxLength } inputValue={ this.state.inputValue } onInputFocus={ this.handleFocus } onInputBlur={ this.handleBlur } onInputChange={ this.handleChange } />
                 }
                 <div className="notes-wrapper">
                     { this.props.type === "textarea" &&

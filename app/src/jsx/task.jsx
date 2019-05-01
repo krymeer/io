@@ -221,7 +221,11 @@ class Task extends React.Component {
                                 this.props.task.data.map( ( row, index ) =>
                                     <tr key={ index }>
                                         <td>{ row.label }</td>
-                                        <td>{ row.expectedValue }</td>
+                                        <td>
+                                            { Array.isArray( row.expectedValue ) && typeof row.separator !== 'undefined'
+                                            ? ( row.expectedValue.join( row.separator ) )
+                                            : ( row.expectedValue ) }
+                                        </td>
                                     </tr>
                                 )
                             }

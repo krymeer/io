@@ -254,7 +254,7 @@ var Task = function (_React$Component) {
                                     React.createElement(
                                         'td',
                                         null,
-                                        row.expectedValue
+                                        Array.isArray(row.expectedValue) && typeof row.separator !== 'undefined' ? row.expectedValue.join(row.separator) : row.expectedValue
                                     )
                                 );
                             })
