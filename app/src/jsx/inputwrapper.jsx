@@ -65,7 +65,7 @@ class InputWrapper extends React.Component {
 
     handleClickOutside( e )
     {
-        if( this.props.disabled || this.node.contains( e.target ) )
+        if( this.props.disabled || this.selectNode.contains( e.target ) )
         {
             return;
         }
@@ -99,7 +99,7 @@ class InputWrapper extends React.Component {
 
     handleLabel()
     {
-        if( !this.props.disabled && typeof this.node !== 'undefined' )
+        if( !this.props.disabled && this.node !== null )
         {
             this.node.focus();
         }
@@ -309,35 +309,7 @@ class InputWrapper extends React.Component {
                     </ul>
                 }
                 { this.props.type === "select" &&
-                    <div className="select-wrapper">
-                        <div className={ ( "select-current " + ( this.props.disabled ? "disabled" : "" ) + " " + ( this.state.selectList.open ? "focus" : "" ) ).trim().replace( /\s+/g, " " ) } onClick={ this.handleSelect }>
-                            <span>{ this.state.chosenIndex >= 0 ? this.props.options[ this.state.chosenIndex ] : "" }</span>
-                            <i className="material-icons">
-                                { ( this.state.selectList.open ) ? "keyboard_arrow_up" : "keyboard_arrow_down" }
-                            </i>
-                        </div>
-                        { this.state.selectList.open &&
-                            <ul className={ ( "select-list " + this.state.selectList.overflow ).trim() }  ref={ node => this.node = node }>
-                                { this.props.options.map( ( option, index ) => {
-                                    if( index !== this.state.chosenIndex )
-                                    {
-                                        return (
-                                            <li key={ index } className="select-option" onClick={ this.handleOption.bind( this, index, option ) }>
-                                                <span>{ option }</span>
-                                            </li>
-                                        );
-                                    }
-                                    else
-                                    {
-                                        return "";
-                                    }
-                                } ) }
-                            </ul>
-                        }
-                        { this.state.otherOptionChosen &&
-                            <input ref={ node => this.node = node } className="select-other" maxLength={ this.inputMaxLength } type="text" spellCheck="false" autoComplete="off" disabled={ this.props.disabled } onFocus={ this.handleFocus } onBlur={ this.handleBlur } onChange={ this.handleChange } value={ this.state.inputValue }/>
-                        }
-                    </div>
+                    <Select disabled={ this.props.disabled } nodeRef={ selectNode => this.selectNode = selectNode } overflow={ this.state.selectList.overflow } open={ this.state.selectList.open } onSelect={ this.handleSelect } onOption={ this.handleOption.bind( this ) } options={ this.props.options } chosenIndex={ this.state.chosenIndex } otherOptionChosen={ this.state.otherOptionChosen } inputNodeRef={ inputNode => this.node = inputNode } inputMaxLength={ this.inputMaxLength } inputValue={ this.state.inputValue } onInputFocus={ this.handleFocus } onInputBlur={ this.handleBlur } onInputChange={ this.handleChange } />
                 }
                 <div className="notes-wrapper">
                     { this.props.type === "textarea" &&

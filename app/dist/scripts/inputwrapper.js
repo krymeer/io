@@ -63,7 +63,7 @@ var InputWrapper = function (_React$Component) {
     _createClass(InputWrapper, [{
         key: 'handleClickOutside',
         value: function handleClickOutside(e) {
-            if (this.props.disabled || this.node.contains(e.target)) {
+            if (this.props.disabled || this.selectNode.contains(e.target)) {
                 return;
             }
 
@@ -93,7 +93,7 @@ var InputWrapper = function (_React$Component) {
     }, {
         key: 'handleLabel',
         value: function handleLabel() {
-            if (!this.props.disabled && typeof this.node !== 'undefined') {
+            if (!this.props.disabled && this.node !== null) {
                 this.node.focus();
             }
         }
@@ -300,48 +300,11 @@ var InputWrapper = function (_React$Component) {
                         );
                     })
                 ),
-                this.props.type === "select" && React.createElement(
-                    'div',
-                    { className: 'select-wrapper' },
-                    React.createElement(
-                        'div',
-                        { className: ("select-current " + (this.props.disabled ? "disabled" : "") + " " + (this.state.selectList.open ? "focus" : "")).trim().replace(/\s+/g, " "), onClick: this.handleSelect },
-                        React.createElement(
-                            'span',
-                            null,
-                            this.state.chosenIndex >= 0 ? this.props.options[this.state.chosenIndex] : ""
-                        ),
-                        React.createElement(
-                            'i',
-                            { className: 'material-icons' },
-                            this.state.selectList.open ? "keyboard_arrow_up" : "keyboard_arrow_down"
-                        )
-                    ),
-                    this.state.selectList.open && React.createElement(
-                        'ul',
-                        { className: ("select-list " + this.state.selectList.overflow).trim(), ref: function ref(node) {
-                                return _this4.node = node;
-                            } },
-                        this.props.options.map(function (option, index) {
-                            if (index !== _this4.state.chosenIndex) {
-                                return React.createElement(
-                                    'li',
-                                    { key: index, className: 'select-option', onClick: _this4.handleOption.bind(_this4, index, option) },
-                                    React.createElement(
-                                        'span',
-                                        null,
-                                        option
-                                    )
-                                );
-                            } else {
-                                return "";
-                            }
-                        })
-                    ),
-                    this.state.otherOptionChosen && React.createElement('input', { ref: function ref(node) {
-                            return _this4.node = node;
-                        }, className: 'select-other', maxLength: this.inputMaxLength, type: 'text', spellCheck: 'false', autoComplete: 'off', disabled: this.props.disabled, onFocus: this.handleFocus, onBlur: this.handleBlur, onChange: this.handleChange, value: this.state.inputValue })
-                ),
+                this.props.type === "select" && React.createElement(Select, { disabled: this.props.disabled, nodeRef: function nodeRef(selectNode) {
+                        return _this4.selectNode = selectNode;
+                    }, overflow: this.state.selectList.overflow, open: this.state.selectList.open, onSelect: this.handleSelect, onOption: this.handleOption.bind(this), options: this.props.options, chosenIndex: this.state.chosenIndex, otherOptionChosen: this.state.otherOptionChosen, inputNodeRef: function inputNodeRef(inputNode) {
+                        return _this4.node = inputNode;
+                    }, inputMaxLength: this.inputMaxLength, inputValue: this.state.inputValue, onInputFocus: this.handleFocus, onInputBlur: this.handleBlur, onInputChange: this.handleChange }),
                 React.createElement(
                     'div',
                     { className: 'notes-wrapper' },
