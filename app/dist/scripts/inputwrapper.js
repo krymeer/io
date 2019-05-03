@@ -158,7 +158,7 @@ var InputWrapper = function (_React$Component) {
                     } else {
                         return optionsList[_this3.state.chosenIndexes[optionsListIndex]];
                     }
-                }).join(this.props.separator) === this.props.expectedValue.join(this.props.separator) : typeof this.props.expectedValue !== 'undefined' ? this.props.expectedValue === optionValue : otherOptionChosen ? this.state.inputValue !== '' : true;
+                }).join(this.props.separator) === this.props.expectedValue.join(this.props.separator) : typeof this.props.expectedValue !== 'undefined' ? this.props.expectedValue === optionValue : otherOptionChosen !== true ? true : this.state.inputValue !== '';
 
                 this.setState({
                     inputValid: inputValid
@@ -194,7 +194,7 @@ var InputWrapper = function (_React$Component) {
                 this.props.onChange({
                     index: this.props.index,
                     valid: inputValid,
-                    value: optionValue
+                    value: otherOptionChosen !== true ? optionValue : this.state.inputValue
                 });
             }
         }

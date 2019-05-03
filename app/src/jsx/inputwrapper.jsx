@@ -179,9 +179,9 @@ class InputWrapper extends React.Component {
                                     } ).join( this.props.separator ) === this.props.expectedValue.join( this.props.separator ) )
                                 : ( ( typeof this.props.expectedValue !== 'undefined' )
                                     ? ( this.props.expectedValue === optionValue )
-                                    : ( otherOptionChosen
-                                        ? ( this.state.inputValue !== '' )
-                                        : true ) );
+                                    : ( otherOptionChosen !== true
+                                        ? true
+                                        : ( this.state.inputValue !== '' ) ) );
 
             this.setState( {
                 inputValid : inputValid
@@ -221,7 +221,7 @@ class InputWrapper extends React.Component {
             this.props.onChange( {
                 index : this.props.index,
                 valid : inputValid,
-                value : optionValue
+                value : ( ( otherOptionChosen !== true ) ? optionValue : this.state.inputValue )
             } );
         }
     }
