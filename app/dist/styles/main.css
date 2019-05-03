@@ -6,7 +6,7 @@
   line-height: 1.5;
 }
 
-main section.task .seq, main section .form, main section.scenario .summary .questions, main table, main p {
+main section.task .seq, main section .form.time-table > .wrapper > .timetable-list, main section .form, main section.scenario .summary .questions, main table, main p {
   letter-spacing: 0.1px;
 }
 
@@ -15,13 +15,13 @@ main p {
   font-size: 16px;
 }
 
-main section.task .seq, main section .form, main section.scenario .summary .questions, main table {
+main section.task .seq, main section .form.time-table > .wrapper > .timetable-list, main section .form, main section.scenario .summary .questions, main table {
   background: #fff;
   border: 2px solid #eee;
   color: #212121;
   font-size: 14px;
 }
-main section.task .seq p, main section .form p, main section.scenario .summary .questions p, main table p {
+main section.task .seq p, main section .form.time-table > .wrapper > .timetable-list p, main section .form p, main section.scenario .summary .questions p, main table p {
   color: inherit;
   line-height: inherit;
 }
@@ -67,7 +67,7 @@ main {
   padding-bottom: 56px;
 }
 
-main section.task .seq, main section .form, main section.scenario .summary .questions {
+main section.task .seq, main section .form.time-table > .wrapper > .timetable-list, main section .form, main section.scenario .summary .questions {
   padding: 21px;
 }
 
@@ -75,7 +75,7 @@ main table th, main table td {
   padding: 14px;
 }
 
-main .select-option, main .select-current, main textarea, main input {
+main .timetable-wrapper, main .select-option, main .select-current, main textarea, main input {
   padding: 7px;
 }
 
@@ -83,7 +83,7 @@ main .inc-dec > i {
   padding: 3.5px;
 }
 
-main section.task .seq, main section .form > .wrapper > .select-wrapper > .select-list, main section .form, main section.scenario .summary .questions > .question-wrapper > ul > li, main section.scenario .summary .questions, main .toggle-switch:before, main .toggle-switch, main .inc-dec > i, main .select-option, main .select-current, main textarea, main input, main button, main table {
+main section.task .seq, main section .form.time-text-arrows > .wrapper > i, main section .form > .wrapper > .select-wrapper > .select-list, main section .form, main section.scenario .summary .questions > .question-wrapper > ul > li, main section.scenario .summary .questions, main .toggle-switch:before, main .toggle-switch, main .inc-dec > i, main .timetable-wrapper, main .select-option, main .select-current, main textarea, main input, main button, main table {
   border-radius: 4px;
 }
 
@@ -312,17 +312,65 @@ main .comment-wrapper > label {
 main .comment-wrapper > textarea {
   margin: 3.5px 0 14px 0;
 }
-main .select-option, main .select-current, main textarea, main input {
+main .timetable-list li {
+  list-style-type: none;
+}
+main .timetable-list > li:nth-child(n+2) {
+  margin-top: 14px;
+}
+main .timetable-list > li > h4 {
+  font-size: 14px;
+}
+main .timetable-list > li > ul {
+  padding: 0;
+  margin-top: 3.5px;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-row-gap: 7px;
+}
+main .timetable-list > li > ul > li > p {
+  cursor: pointer;
+  margin: 0 auto;
+  font-size: 11px;
+  border-radius: 50%;
+  transition: background 0.1s ease-in-out;
+  width: 20px;
+  height: 20px;
+  line-height: 20px !important;
+  text-align: center;
+}
+main .timetable-list > li > ul > li > p:hover {
+  background: #dcdcdc;
+}
+main .timetable-list > li > ul > li > p.chosen {
+  background: #767676;
+  color: #fff !important;
+}
+main .timetable-list > li > ul > li > p.chosen:hover {
+  background: #545454;
+}
+main .timetable-wrapper {
+  text-align: center;
+  cursor: pointer;
+}
+main .timetable-wrapper.disabled {
+  cursor: default;
+  background: #eee;
+}
+main .timetable-wrapper.disabled > span {
+  color: #ddd;
+}
+main .timetable-wrapper, main .select-option, main .select-current, main textarea, main input {
   font-size: inherit;
   color: #212121;
   border: 2px solid #ddd;
   transition: color 0.1s ease-in-out, background 0.1s ease-in-out, border-color 0.1s ease-in-out;
 }
-main .select-option:disabled, main .select-current:disabled, main textarea:disabled, main input:disabled {
+main .timetable-wrapper:disabled, main .select-option:disabled, main .select-current:disabled, main textarea:disabled, main input:disabled {
   background: #eee;
   color: #ddd;
 }
-main .select-option:focus, main .select-current:focus, main textarea:focus, main input:focus {
+main .timetable-wrapper:focus, main .select-option:focus, main .select-current:focus, main textarea:focus, main input:focus {
   outline: none;
   border-color: #7e7e7e;
 }
@@ -652,11 +700,27 @@ main section .form > .wrapper.on-form-error.on-input-invalid > input, main secti
 main section .form > .wrapper.on-form-error.on-input-invalid > textarea, main section .form > .wrapper.on-form-error.on-input-invalid > input {
   border-color: #a63446 !important;
 }
+main section .form > .wrapper.on-form-error.on-input-invalid > i.arrow-left, main section .form > .wrapper.on-form-error.on-input-invalid > i.arrow-right {
+  background: #a63446 !important;
+}
+main section .form > .wrapper.on-form-error.on-input-invalid > i.arrow-left:hover, main section .form > .wrapper.on-form-error.on-input-invalid > i.arrow-right:hover {
+  background: #ca5467 !important;
+}
 main section .form > .wrapper.on-form-error.on-input-invalid > .select-wrapper:not(.on-input-part-valid) > .select-current, main section .form > .wrapper.on-form-error.on-input-invalid > .select-wrapper:not(.on-input-part-valid) > .select-list, main section .form > .wrapper.on-form-error.on-input-invalid > .select-wrapper:not(.on-input-part-valid) > .select-other {
   border-color: #a63446 !important;
 }
 main section .form > .wrapper.on-form-error.on-input-invalid > .select-wrapper:not(.on-input-part-valid) > .select-current, main section .form > .wrapper.on-form-error.on-input-invalid > .select-wrapper:not(.on-input-part-valid) > .select-list > .select-option, main section .form > .wrapper.on-form-error.on-input-invalid > .select-wrapper:not(.on-input-part-valid) > .select-other {
   color: #a63446 !important;
+}
+main section .form > .wrapper.on-form-error.on-input-invalid > .timetable-wrapper {
+  color: #a63446 !important;
+  border-color: #a63446 !important;
+}
+main section .form > .wrapper.on-form-error.on-input-invalid > .timetable-list > li > ul:not(.on-input-part-valid) > li > p.chosen {
+  background: #a63446 !important;
+}
+main section .form > .wrapper.on-form-error.on-input-invalid > .timetable-list > li > ul:not(.on-input-part-valid) > li > p.chosen:hover {
+  background: #ca5467 !important;
 }
 main section .form > .wrapper.on-form-error.on-input-invalid > .range-wrapper > input {
   background: #a63446 !important;
@@ -787,6 +851,71 @@ main section .form.logic-values-select {
 }
 main section .form.logic-values-select > .wrapper {
   grid-template-columns: auto 75px;
+}
+main section .form.time-table {
+  width: 250px;
+}
+main section .form.time-table > .wrapper {
+  grid-template-columns: auto 60px;
+  position: relative;
+}
+main section .form.time-table > .wrapper > .timetable-list {
+  position: absolute;
+  bottom: calc(100% + 7px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  min-width: 450px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+main section .form.time-text-arrows {
+  width: 348px;
+}
+main section .form.time-text-arrows > .wrapper {
+  grid-template-columns: auto 24px 60px 24px;
+  grid-column-gap: 0;
+}
+main section .form.time-text-arrows > .wrapper > i {
+  height: 100%;
+  display: grid;
+  align-content: center;
+  background: #ddd;
+  color: #fff;
+  transition: background 0.1s ease-in-out;
+  cursor: pointer;
+}
+main section .form.time-text-arrows > .wrapper > i.arrow-left {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+main section .form.time-text-arrows > .wrapper > i.arrow-right {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+main section .form.time-text-arrows > .wrapper > i:hover {
+  background: #7e7e7e;
+}
+main section .form.time-text-arrows > .wrapper > i.disabled {
+  cursor: default;
+  background: #eee;
+  color: #ddd;
+}
+main section .form.time-text-arrows > .wrapper > input {
+  border-radius: 0;
+  text-align: center;
+  font-size: 16px;
+}
+main section .form.time-text-arrows > .wrapper > input:disabled {
+  border-color: #eee;
+}
+main section .form.time-text {
+  width: 300px;
+}
+main section .form.time-text > .wrapper {
+  grid-template-columns: auto 60px;
+}
+main section .form.time-text > .wrapper > input {
+  text-align: center;
 }
 main section .form.time-multi-select {
   width: 370px;

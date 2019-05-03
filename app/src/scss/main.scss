@@ -424,7 +424,72 @@ main {
         }
     }
 
-    .select-option, .select-current, textarea, input {
+    .timetable-list {
+        li {
+            list-style-type: none;
+        }
+
+        > li {
+            &:nth-child(n+2) {
+                margin-top: $value-m;
+            }
+
+            > h4 {
+                font-size: 14px;
+            }
+
+            > ul {
+                padding: 0;
+                margin-top: $value-xs;
+                display: grid;
+                grid-template-columns: repeat(12, 1fr);
+                grid-row-gap: $value-s;
+
+                > li {
+                    > p {
+                        cursor: pointer;
+                        margin: 0 auto;
+                        font-size: 11px;
+                        border-radius: 50%;
+                        transition: background $transition;
+                        width: 20px;
+                        height: 20px;
+                        line-height: 20px !important;
+                        text-align: center;
+
+                        &:hover {
+                            background: #dcdcdc;
+                        }
+
+                        &.chosen {
+                            background: #767676;
+                            color: #fff !important;
+
+                            &:hover {
+                                background: #545454;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .timetable-wrapper {
+        text-align: center;
+        cursor: pointer;
+
+        &.disabled {
+            cursor: default;
+            background: $border-color-m;
+
+            > span {
+                color: $border-color-d;
+            }
+        }
+    }
+
+    .timetable-wrapper, .select-option, .select-current, textarea, input {
         @extend %padding-s;
         @extend %radius;
         font-size: inherit;
@@ -816,7 +881,7 @@ main {
                         margin: 0 $value-s;
                         background: transparent;
                         border: 2px solid $border-color-d;
-                        box-shadow: 0px 0px 10px rgba(0, 0, 0,.2);
+                        box-shadow: 0px 0px 10px rgba(0, 0, 0, .2);
                         z-index: 1;
 
                         &.top {
@@ -878,6 +943,14 @@ main {
                         border-color: $primary-color !important;
                     }
 
+                    > i.arrow-left, > i.arrow-right {
+                        background: $primary-color !important;
+
+                        &:hover {
+                            background: $primary-color-h !important;
+                        }
+                    }
+
                     > .select-wrapper:not(.on-input-part-valid) {
                         > .select-current, > .select-list, > .select-other  {
                             border-color: $primary-color !important;
@@ -885,6 +958,27 @@ main {
 
                         > .select-current, > .select-list > .select-option , > .select-other {
                             color: $primary-color !important;
+                        }
+                    }
+
+                    > .timetable-wrapper {
+                        color: $primary-color !important;
+                        border-color: $primary-color !important;
+                    }
+
+                    > .timetable-list {
+                        > li {
+                            > ul:not(.on-input-part-valid) {
+                                > li {
+                                    > p.chosen {
+                                        background: $primary-color !important;
+
+                                        &:hover {
+                                            background: $primary-color-h !important;
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
 
@@ -1088,6 +1182,89 @@ main {
 
                 > .wrapper {
                     grid-template-columns: auto 75px;
+                }
+            }
+
+            &.time-table {
+                width: 250px;
+
+                > .wrapper {
+                    grid-template-columns: auto 60px;
+                    position: relative;
+
+                    > .timetable-list {
+                        @extend %padding-l;
+                        @extend %block-alt;
+                        position: absolute;
+                        bottom: calc(100% + #{$value-s});
+                        left: 50%;
+                        transform: translateX(-50%);
+                        width: 100%;
+                        min-width: 450px;
+                        box-shadow: 0px 0px 10px rgba(0, 0, 0, .2);
+                    }
+                }
+            }
+
+            &.time-text-arrows {
+                width: 348px;
+
+                > .wrapper {
+                    grid-template-columns: auto 24px 60px 24px;
+                    grid-column-gap: 0;
+
+                    > i {
+                        @extend %radius;
+                        height: 100%;
+                        display: grid;
+                        align-content: center;
+                        background: $border-color-d;
+                        color: #fff;
+                        transition: background $transition;
+                        cursor: pointer;
+
+                        &.arrow-left {
+                            border-top-right-radius: 0;
+                            border-bottom-right-radius: 0;
+                        }
+
+                        &.arrow-right {
+                            border-top-left-radius: 0;
+                            border-bottom-left-radius: 0;
+                        }
+
+                        &:hover {
+                            background: $input-color-b;
+                        }
+
+                        &.disabled {
+                            cursor: default;
+                            background: $border-color-m;
+                            color: $border-color-d;
+                        }
+                    }
+
+                    > input {
+                        border-radius: 0;
+                        text-align: center;
+                        font-size: 16px;
+
+                        &:disabled {
+                            border-color: $border-color-m;
+                        }
+                    }
+                }
+            }
+
+            &.time-text {
+                width: 300px;
+
+                > .wrapper {
+                    grid-template-columns: auto 60px;
+
+                    > input {
+                        text-align: center;
+                    }
                 }
             }
 

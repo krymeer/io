@@ -32,6 +32,15 @@ var InputWrapper = function (_React$Component) {
             });
         }
 
+        if (_this.props.type === 'timetable') {
+            _this.state = Object.assign({}, _this.state, {
+                timetable: {}
+            });
+
+            _this.handleClickOutside = _this.handleClickOutside.bind(_this);
+            _this.handleOption = _this.handleOption.bind(_this);
+        }
+
         if (_this.props.type === 'inc-dec' || _this.props.type === 'range') {
             _this.state = Object.assign({}, _this.state, {
                 chosenIndex: typeof _this.props.initialValue !== 'undefined' ? _this.props.initialValue : _this.props.minValue
@@ -46,7 +55,7 @@ var InputWrapper = function (_React$Component) {
             });
         }
 
-        if (_this.props.type === 'mask' || _this.props.type === 'textarea' || _this.props.type === 'text' || _this.props.type === 'select' && _this.props.otherOption) {
+        if (_this.props.type === 'mask' || _this.props.type === 'textarea' || _this.props.type === 'text-arrows' || _this.props.type === 'text' || _this.props.type === 'select' && _this.props.otherOption) {
             _this.handleFocus = _this.handleFocus.bind(_this);
             _this.handleBlur = _this.handleBlur.bind(_this);
             _this.handleChange = _this.handleChange.bind(_this);
@@ -56,6 +65,12 @@ var InputWrapper = function (_React$Component) {
                 inputNonEmpty: false,
                 inputValue: '',
                 inputLength: 0
+            });
+        }
+
+        if (_this.props.type === 'text-arrows' && typeof _this.props.initialValue !== 'undefined') {
+            _this.state = Object.assign({}, _this.state, {
+                inputValue: _this.props.initialValue
             });
         }
         return _this;
@@ -93,9 +108,15 @@ var InputWrapper = function (_React$Component) {
             var _this2 = this;
 
             if (!this.props.disabled) {
-                var eventType = event.type;
-                var inputValue = event.target.value;
+                var eventType = typeof event !== 'undefined' ? event.type : undefined;
+                var inputValue = typeof event !== 'undefined' ? event.target.value : this.node && this.node.tagName.toLowerCase() === 'input' && this.node.type === 'text' ? this.node.value : undefined;
+
+                if (typeof inputValue === 'undefined') {
+                    return false;
+                }
+
                 var inputValid = this.props.optional ? true : typeof this.props.expectedValue !== 'undefined' ? this.props.expectedValue === inputValue : typeof this.props.regex !== 'undefined' ? this.props.regex.test(inputValue) : inputValue !== '';
+
                 this.setState({
                     inputValue: inputValue,
                     inputValid: inputValid,
@@ -144,14 +165,15 @@ var InputWrapper = function (_React$Component) {
                 });
 
                 if (this.multiPartInput) {
-                    this.setState(function (state) {
+                    var formerlyUndefined = typeof this.state.chosenIndexes[inputIndex] === 'undefined';
 
+                    this.setState(function (state) {
                         var chosenIndexes = state.chosenIndexes.map(function (item, index) {
                             return index === inputIndex ? optionIndex : item;
                         });
 
                         var inputPartsValid = chosenIndexes.map(function (item, index) {
-                            return item ? _this3.props.expectedValue[index] === _this3.props.options[index][item] : false;
+                            return typeof item !== 'undefined' ? _this3.props.expectedValue[index] === _this3.props.options[index][item] : false;
                         });
 
                         return Object.assign({}, state, {
@@ -159,6 +181,10 @@ var InputWrapper = function (_React$Component) {
                             chosenIndexes: chosenIndexes
                         });
                     });
+
+                    if (this.props.type === 'timetable' && (inputIndex === 1 && typeof this.state.chosenIndexes[0] !== 'undefined' || inputIndex === 0 && formerlyUndefined && typeof this.state.chosenIndexes[1] !== 'undefined')) {
+                        this.handleTimetableWrapper();
+                    }
                 } else {
                     this.setState({
                         chosenIndex: optionIndex
@@ -170,6 +196,58 @@ var InputWrapper = function (_React$Component) {
                     valid: inputValid,
                     value: optionValue
                 });
+            }
+        }
+    }, {
+        key: 'handleClickOutside',
+        value: function handleClickOutside(event) {
+            if (this.props.disabled || this.node.contains(event.target)) {
+                return;
+            }
+
+            if (this.props.type === 'timetable') {
+                this.handleTimetableWrapper();
+            }
+        }
+    }, {
+        key: 'handleTimeTableList',
+        value: function handleTimeTableList(optionIndex, optionValue, listIndex) {
+            this.handleOption(optionIndex, optionValue, false, listIndex);
+        }
+    }, {
+        key: 'handleTimetableWrapper',
+        value: function handleTimetableWrapper() {
+            if (!this.props.disabled) {
+                if (!this.state.timetable.open) {
+                    document.addEventListener('click', this.handleClickOutside, false);
+                } else {
+                    document.removeEventListener('click', this.handleClickOutside, false);
+                }
+
+                this.setState({
+                    timetable: Object.assign({}, this.state.timetable, {
+                        open: !this.state.timetable.open
+                    })
+                });
+            }
+        }
+    }, {
+        key: 'handleArrow',
+        value: function handleArrow() {
+            var arrowRight = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
+
+            if (!this.props.disabled && this.node && this.node.tagName.toLowerCase() === 'input' && this.node.type === 'text') {
+                var value = this.node.value;
+
+                if (value.match(/\d{2}\:\d{2}/) !== null) {
+                    var hoursMinutes = value.split(':');
+                    var sgn = arrowRight ? 1 : -1;
+                    var currDate = new Date(1970, 1, 1, hoursMinutes[0], hoursMinutes[1]);
+                    var newDate = new Date(currDate.getTime() + sgn * 600000);
+
+                    this.node.value = ('0' + newDate.getHours()).slice(-2) + ':' + ('0' + newDate.getMinutes()).slice(-2);
+                    this.handleChange();
+                }
             }
         }
     }, {
@@ -213,6 +291,49 @@ var InputWrapper = function (_React$Component) {
                     this.props.label,
                     this.props.optional && " *"
                 ),
+                this.props.type === "timetable" && this.state.timetable.open && React.createElement(
+                    'ul',
+                    { className: 'timetable-list', ref: function ref(node) {
+                            return _this4.node = node;
+                        } },
+                    this.props.options.map(function (list, listIndex) {
+                        return React.createElement(
+                            'li',
+                            { key: listIndex },
+                            typeof _this4.props.optionNames !== 'undefined' && React.createElement(
+                                'h4',
+                                null,
+                                _this4.props.optionNames[listIndex]
+                            ),
+                            React.createElement(
+                                'ul',
+                                { className: _this4.state.inputPartsValid[listIndex] ? "on-input-part-valid" : undefined },
+                                list.map(function (optionValue, optionIndex) {
+                                    return React.createElement(
+                                        'li',
+                                        { key: optionIndex },
+                                        React.createElement(
+                                            'p',
+                                            { className: _this4.state.chosenIndexes[listIndex] === optionIndex ? "chosen" : undefined, onClick: _this4.handleTimeTableList.bind(_this4, optionIndex, optionValue, listIndex) },
+                                            optionValue
+                                        )
+                                    );
+                                })
+                            )
+                        );
+                    })
+                ),
+                this.props.type === "timetable" && React.createElement(
+                    'p',
+                    { className: "timetable-wrapper " + (this.props.disabled ? "disabled" : "").trim(), onClick: this.handleTimetableWrapper.bind(this) },
+                    React.createElement(
+                        'span',
+                        null,
+                        typeof this.state.chosenIndexes[0] !== "undefined" ? this.props.options[0][this.state.chosenIndexes[0]] : '\u2013',
+                        ':',
+                        typeof this.state.chosenIndexes[1] !== "undefined" ? this.props.options[1][this.state.chosenIndexes[1]] : '\u2013'
+                    )
+                ),
                 this.props.type === "range" && React.createElement(
                     'p',
                     { className: 'range-wrapper' },
@@ -224,9 +345,19 @@ var InputWrapper = function (_React$Component) {
                     )
                 ),
                 this.props.type === "mask" && React.createElement(window.ReactInputMask, { maxLength: this.inputMaxLength, type: 'text', spellCheck: 'false', autoComplete: 'off', onFocus: this.handleFocus, onBlur: this.handleBlur, onChange: this.handleChange, disabled: this.props.disabled, value: this.state.inputValue, mask: this.props.mask, maskChar: null }),
-                this.props.type === "text" && React.createElement('input', { ref: function ref(node) {
+                this.props.type === 'text-arrows' && React.createElement(
+                    'i',
+                    { className: ("material-icons arrow-left " + (this.props.disabled ? "disabled" : "")).trim(), onClick: this.handleArrow.bind(this, false) },
+                    'keyboard_arrow_left'
+                ),
+                (this.props.type === "text" || this.props.type === 'text-arrows') && React.createElement('input', { ref: function ref(node) {
                         return _this4.node = node;
                     }, maxLength: this.inputMaxLength, type: 'text', spellCheck: 'false', autoComplete: 'off', onFocus: this.handleFocus, onBlur: this.handleBlur, onChange: this.handleChange, disabled: this.props.disabled, value: this.state.inputValue }),
+                this.props.type === 'text-arrows' && React.createElement(
+                    'i',
+                    { className: ("material-icons arrow-right " + (this.props.disabled ? "disabled" : "")).trim(), onClick: this.handleArrow.bind(this) },
+                    'keyboard_arrow_right'
+                ),
                 this.props.type === "inc-dec" && React.createElement(
                     'p',
                     { className: 'inc-dec' },
@@ -272,12 +403,12 @@ var InputWrapper = function (_React$Component) {
                     })
                 ),
                 this.props.type === "multi-select" && Array.isArray(this.props.options) && this.props.options.map(function (options, index) {
-                    return React.createElement(Select, { 'class': _this4.state.inputPartsValid[index] ? 'on-input-part-valid' : '', key: index, multiSelect: true, selectIndex: index, disabled: _this4.props.disabled, options: options, chosenIndex: _this4.state.chosenIndexes[index], onOption: _this4.handleOption.bind(_this4) });
+                    return React.createElement(Select, { 'class': _this4.state.inputPartsValid[index] ? "on-input-part-valid" : "", key: index, multiSelect: true, selectIndex: index, disabled: _this4.props.disabled, options: options, chosenIndex: _this4.state.chosenIndexes[index], onOption: _this4.handleOption.bind(_this4) });
                 }),
                 this.props.type === "select" && React.createElement(Select, { disabled: this.props.disabled, otherOption: this.props.otherOption, options: this.props.options, onOption: this.handleOption.bind(this), chosenIndex: this.state.chosenIndex, inputNodeRef: function inputNodeRef(inputNode) {
                         return _this4.node = inputNode;
                     }, inputMaxLength: this.inputMaxLength, inputValue: this.state.inputValue, onInputFocus: this.handleFocus, onInputBlur: this.handleBlur, onInputChange: this.handleChange }),
-                React.createElement(
+                (this.props.optional || this.props.type === "textarea") && React.createElement(
                     'div',
                     { className: 'notes-wrapper' },
                     this.props.type === "textarea" && React.createElement(

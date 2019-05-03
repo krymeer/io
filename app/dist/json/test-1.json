@@ -313,6 +313,41 @@
                             ]
                         }
                     ]
+                },
+                {
+                    "title"   : "Wyszukiwarka połączeń",
+                    "classes" : "labels-align-left time-text-arrows",
+                    "type"    : "time-text-arrows",
+                    "data"    : [
+                        {
+                            "type"          : "text-arrows",
+                            "label"         : "Odjazd po",
+                            "expectedValue" : "06:20",
+                            "initialValue"  : "19:00",
+                            "maxLength"     : 5
+                        },
+                        {
+                            "type"          : "text-arrows",
+                            "label"         : "Odjazd przed",
+                            "expectedValue" : "09:15",
+                            "initialValue"  : "20:25",
+                            "maxLength"     : 5
+                        },
+                        {
+                            "type"          : "text-arrows",
+                            "label"         : "Przyjazd po",
+                            "expectedValue" : "21:40",
+                            "initialValue"  : "20:40",
+                            "maxLength"     : 5
+                        },
+                        {
+                            "type"          : "text-arrows",
+                            "label"         : "Przyjazd przed",
+                            "expectedValue" : "22:55",
+                            "initialValue"  : "23:45",
+                            "maxLength"     : 5
+                        }
+                    ]
                 }
             ]
         }

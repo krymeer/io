@@ -263,6 +263,38 @@
                     ]
                 }
             ]
+        },
+        {
+            "intro" : "W najbliższych dniach wybierasz się do miasta odległego o kilkaset kilometrów. Zdecydowałeś(-aś) się na podróż pociągiem. Interesują Cię połączenia o odjazdach i przyjazdach w określonych przedziałach czasowych.",
+            "tasks" : [
+                {
+                    "title"   : "Wyszukiwarka połączeń",
+                    "classes" : "labels-align-left time-text",
+                    "type"    : "time-text",
+                    "data"    : [
+                        {
+                            "type"          : "text",
+                            "label"         : "Odjazd po",
+                            "expectedValue" : "9:05"
+                        },
+                        {
+                            "type"          : "text",
+                            "label"         : "Odjazd przed",
+                            "expectedValue" : "10:55"
+                        },
+                        {
+                            "type"          : "text",
+                            "label"         : "Przyjazd po",
+                            "expectedValue" : "17:00"
+                        },
+                        {
+                            "type"          : "text",
+                            "label"         : "Przyjazd przed",
+                            "expectedValue" : "18:45"
+                        }
+                    ]
+                }
+            ]
         }
     ]
 }

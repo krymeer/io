@@ -222,7 +222,7 @@ class Task extends React.Component {
                                     <tr key={ index }>
                                         <td>{ row.label }</td>
                                         <td>
-                                            { Array.isArray( row.expectedValue ) && typeof row.separator !== 'undefined'
+                                            { Array.isArray( row.expectedValue ) && typeof row.separator !== "undefined"
                                             ? ( row.expectedValue.join( row.separator ) )
                                             : ( row.expectedValue ) }
                                         </td>
