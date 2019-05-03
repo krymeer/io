@@ -239,7 +239,7 @@ var InputWrapper = function (_React$Component) {
             if (!this.props.disabled && this.node && this.node.tagName.toLowerCase() === 'input' && this.node.type === 'text') {
                 var value = this.node.value;
 
-                if (value.match(/\d{2}\:\d{2}/) !== null) {
+                if (value.match(/\d{1,2}\:\d{2}/) !== null) {
                     var hoursMinutes = value.split(':');
                     var sgn = arrowRight ? 1 : -1;
                     var currDate = new Date(1970, 1, 1, hoursMinutes[0], hoursMinutes[1]);

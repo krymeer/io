@@ -272,7 +272,7 @@ class InputWrapper extends React.Component {
         {
             const value = this.node.value;
 
-            if( value.match( /\d{2}\:\d{2}/ ) !== null )
+            if( value.match( /\d{1,2}\:\d{2}/ ) !== null )
             {
                 const hoursMinutes = value.split( ':' );
                 const sgn          = arrowRight ? 1 : ( -1 )
