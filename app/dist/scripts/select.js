@@ -19,7 +19,24 @@ var Select = function (_React$Component) {
         };
 
         _this.handleSelect = _this.handleSelect.bind(_this);
+        _this.handleOverflow = _this.handleOverflow.bind(_this);
         _this.handleClickOutside = _this.handleClickOutside.bind(_this);
+
+        if (_this.props.selectFiltered) {
+            var options = _this.props.options;
+
+            if (typeof options !== 'undefined') {
+                _this.state = Object.assign({}, _this.state, {
+                    list: Object.assign({}, _this.state.list, {
+                        filtered: _this.props.options
+                    })
+                });
+            }
+
+            _this.handleFilterFocus = _this.handleFilterFocus.bind(_this);
+            _this.handleFilterChange = _this.handleFilterChange.bind(_this);
+            _this.handleFilterBlur = _this.handleFilterBlur.bind(_this);
+        }
         return _this;
     }
 
@@ -35,69 +52,138 @@ var Select = function (_React$Component) {
             }
         }
     }, {
-        key: 'handleSelect',
-        value: function handleSelect(event) {
+        key: 'getListFiltered',
+        value: function getListFiltered(eventTarget) {
             var _this2 = this;
 
-            if (!this.props.disabled) {
+            if (!this.props.disabled && eventTarget) {
                 var bodyScrollHeight = document.body.scrollHeight;
-                var currentNode = typeof event !== 'undefined' ? event.target : '';
+                var listFiltered = this.props.options.filter(function (option) {
+                    return option.toLowerCase().indexOf(eventTarget.value.toLowerCase()) !== -1;
+                });
 
-                if (!this.state.list.open) {
-                    document.addEventListener('click', this.handleClickOutside, false);
-                } else {
-                    document.removeEventListener('click', this.handleClickOutside, false);
+                this.setState(function (state) {
+                    return Object.assign({}, state, {
+                        list: Object.assign({}, state.list, {
+                            filtered: listFiltered
+                        })
+                    });
+                }, function () {
+                    _this2.handleOverflow(eventTarget, bodyScrollHeight);
+                });
+            }
+        }
+    }, {
+        key: 'handleFilterFocus',
+        value: function handleFilterFocus(event) {
+            if (!this.props.disabled) {
+                this.props.onInputFocus();
+                this.getListFiltered(event.target);
+                this.handleSelect(event);
+            }
+        }
+    }, {
+        key: 'handleFilterChange',
+        value: function handleFilterChange(event) {
+            if (!this.props.disabled) {
+                this.props.onInputChange(event);
+                this.getListFiltered(event.target);
+            }
+        }
+    }, {
+        key: 'handleFilterBlur',
+        value: function handleFilterBlur(event) {
+            if (!this.props.disabled) {
+                this.props.onInputBlur();
+                this.handleSelect(event);
+            }
+        }
+    }, {
+        key: 'handleOverflow',
+        value: function handleOverflow(eventTarget, bodyScrollHeight) {
+            if (!this.props.disabled && this.state.list.open && typeof eventTarget !== 'undefined') {
+                var listNode = this.props.selectFiltered ? eventTarget.nextElementSibling : eventTarget.closest('.select-current').nextElementSibling;
+
+                if (listNode !== null) {
+                    var listNodeOffsetBtm = document.body.parentElement.scrollTop + eventTarget.getBoundingClientRect().bottom + listNode.offsetHeight;
+                    var overflowDirection = listNodeOffsetBtm > bodyScrollHeight ? 'top' : 'bottom';
+
+                    this.setState(function (state) {
+                        return {
+                            list: Object.assign({}, state.list, {
+                                overflow: overflowDirection
+                            })
+                        };
+                    });
+                }
+            }
+        }
+    }, {
+        key: 'handleSelect',
+        value: function handleSelect(event) {
+            var _this3 = this;
+
+            if (!this.props.disabled) {
+                var eventTarget = typeof event !== 'undefined' ? event.target : undefined;
+                var bodyScrollHeight = document.body.scrollHeight;
+
+                if (!this.props.selectFiltered) {
+                    if (!this.state.list.open) {
+                        document.addEventListener('click', this.handleClickOutside, false);
+                    } else {
+                        document.removeEventListener('click', this.handleClickOutside, false);
+                    }
                 }
 
                 this.setState(function (state) {
                     return {
                         list: Object.assign({}, state.list, {
                             open: !state.list.open,
-                            overflow: undefined
+                            overflow: ""
                         })
                     };
                 }, function () {
-                    if (_this2.state.list.open) {
-                        var listNode = currentNode.closest('.select-current').nextElementSibling;
-
-                        if (listNode !== null) {
-                            var listNodeOffsetBtm = document.body.parentElement.scrollTop + listNode.getBoundingClientRect().top + listNode.offsetHeight;
-                            var overflowDirection = listNodeOffsetBtm > bodyScrollHeight ? 'top' : 'bottom';
-
-                            _this2.setState(function (state) {
-                                return {
-                                    list: Object.assign({}, state.list, {
-                                        overflow: overflowDirection
-                                    })
-                                };
-                            });
-                        }
-                    }
+                    _this3.handleOverflow(eventTarget, bodyScrollHeight);
                 });
+            }
+        }
+    }, {
+        key: 'handleOptionFiltered',
+        value: function handleOptionFiltered(option) {
+            if (!this.props.disabled) {
+                var inputNode = this.listNode.previousElementSibling;
+
+                if (inputNode !== null) {
+                    inputNode.value = option;
+                    this.props.onInputChange();
+                }
             }
         }
     }, {
         key: 'handleOption',
         value: function handleOption(optionIndex, optionValue) {
-            var otherOptionChosen = this.props.otherOption && optionIndex === this.props.options.length - 1;
-            var selectIndex = this.props.multiSelect && typeof this.props.selectIndex !== 'undefined ' ? this.props.selectIndex : -1;
+            if (!this.props.disabled) {
+                var otherOptionChosen = this.props.otherOption && optionIndex === this.props.options.length - 1;
+                var selectIndex = this.props.multiSelect && typeof this.props.selectIndex !== 'undefined' ? this.props.selectIndex : -1;
 
-            this.setState({
-                otherOptionChosen: otherOptionChosen
-            });
+                this.setState({
+                    otherOptionChosen: otherOptionChosen
+                });
 
-            this.handleSelect();
-            this.props.onOption(optionIndex, optionValue, otherOptionChosen, selectIndex);
+                this.handleSelect();
+                this.props.onOption(optionIndex, optionValue, otherOptionChosen, selectIndex);
+            }
         }
     }, {
         key: 'render',
         value: function render() {
-            var _this3 = this;
+            var _this4 = this;
 
             return React.createElement(
                 'div',
-                { className: ('select-wrapper ' + this.props.class).trim() },
-                React.createElement(
+                { className: ("select-wrapper " + (typeof this.props.class !== "undefined" ? this.props.class : "")).trim() },
+                this.props.selectFiltered && React.createElement('input', { className: 'select-filter', ref: this.props.inputNodeRef, maxLength: this.props.inputMaxLength, type: 'text', spellCheck: 'false', autoComplete: 'off', disabled: this.props.disabled, onFocus: this.handleFilterFocus, onChange: this.handleFilterChange, onBlur: this.handleFilterBlur, value: this.props.inputValue }),
+                !this.props.selectFiltered && React.createElement(
                     'div',
                     { className: ("select-current " + (this.props.disabled ? "disabled" : "") + " " + (this.state.list.open ? "focus" : "")).trim().replace(/\s+/g, " "), onClick: this.handleSelect },
                     React.createElement(
@@ -113,14 +199,24 @@ var Select = function (_React$Component) {
                 ),
                 this.state.list.open && React.createElement(
                     'ul',
-                    { className: ("select-list " + this.state.list.overflow).trim(), ref: function ref(listNode) {
-                            return _this3.listNode = listNode;
+                    { className: ("select-list " + this.state.list.overflow + " " + (typeof this.state.list.filtered !== "undefined" && this.state.list.filtered.length === 0 ? "empty" : "")).trim().replace(/\s+/g, " "), ref: function ref(listNode) {
+                            return _this4.listNode = listNode;
                         } },
                     this.props.options.map(function (option, index) {
-                        if (index !== _this3.props.chosenIndex) {
+                        if (_this4.props.selectFiltered && typeof _this4.state.list.filtered !== "undefined" && _this4.state.list.filtered.indexOf(option) !== -1) {
                             return React.createElement(
                                 'li',
-                                { key: index, className: 'select-option', onClick: _this3.handleOption.bind(_this3, index, option) },
+                                { key: index, className: 'select-option', onMouseDown: _this4.handleOptionFiltered.bind(_this4, option) },
+                                React.createElement(
+                                    'span',
+                                    null,
+                                    option
+                                )
+                            );
+                        } else if (!_this4.props.selectFiltered && index !== _this4.props.chosenIndex) {
+                            return React.createElement(
+                                'li',
+                                { key: index, className: 'select-option', onClick: _this4.handleOption.bind(_this4, index, option) },
                                 React.createElement(
                                     'span',
                                     null,
@@ -132,7 +228,7 @@ var Select = function (_React$Component) {
                         }
                     })
                 ),
-                this.state.otherOptionChosen && React.createElement('input', { className: 'select-other', ref: this.props.inputNodeRef, maxLength: this.props.inputMaxLength, type: 'text', spellCheck: 'false', autoComplete: 'off', disabled: this.props.disabled, onFocus: this.props.onInputFocus, onBlur: this.props.onInputBlur, onChange: this.props.onInputChange, value: this.props.inputValue })
+                !this.props.selectFiltered && this.state.otherOptionChosen && React.createElement('input', { className: 'select-other', ref: this.props.inputNodeRef, maxLength: this.props.inputMaxLength, type: 'text', spellCheck: 'false', autoComplete: 'off', disabled: this.props.disabled, onFocus: this.props.onInputFocus, onBlur: this.props.onInputBlur, onChange: this.props.onInputChange, value: this.props.inputValue })
             );
         }
     }]);

@@ -87,7 +87,7 @@ main section.task .seq, main section .form.time-text-arrows > .wrapper > i, main
   border-radius: 4px;
 }
 
-main section.task .seq, button, p, h1, h2, h3, h4, a, label, span, td, th, i.material-icons {
+main section.task .seq, main .timetable-wrapper:disabled, main .select-option:disabled, main .select-current:disabled, main textarea:disabled, main input:disabled, button, p, h1, h2, h3, h4, a, label, span, td, th, i.material-icons {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
@@ -368,6 +368,10 @@ main .timetable-wrapper, main .select-option, main .select-current, main textare
 }
 main .timetable-wrapper:disabled, main .select-option:disabled, main .select-current:disabled, main textarea:disabled, main input:disabled {
   background: #eee;
+  color: #ddd;
+}
+main .timetable-wrapper:disabled::selection, main .select-option:disabled::selection, main .select-current:disabled::selection, main textarea:disabled::selection, main input:disabled::selection {
+  background: transparent;
   color: #ddd;
 }
 main .timetable-wrapper:focus, main .select-option:focus, main .select-current:focus, main textarea:focus, main input:focus {
@@ -669,6 +673,9 @@ main section .form > .wrapper > .select-wrapper > .select-list:not(.top) {
   border-top-right-radius: 0;
   border-top: none;
 }
+main section .form > .wrapper > .select-wrapper > .select-list.empty {
+  display: none;
+}
 main section .form > .wrapper > .select-wrapper > .select-list > .select-option {
   border: 0;
   border-radius: 0;
@@ -706,10 +713,10 @@ main section .form > .wrapper.on-form-error.on-input-invalid > i.arrow-left, mai
 main section .form > .wrapper.on-form-error.on-input-invalid > i.arrow-left:hover, main section .form > .wrapper.on-form-error.on-input-invalid > i.arrow-right:hover {
   background: #ca5467 !important;
 }
-main section .form > .wrapper.on-form-error.on-input-invalid > .select-wrapper:not(.on-input-part-valid) > .select-current, main section .form > .wrapper.on-form-error.on-input-invalid > .select-wrapper:not(.on-input-part-valid) > .select-list, main section .form > .wrapper.on-form-error.on-input-invalid > .select-wrapper:not(.on-input-part-valid) > .select-other {
+main section .form > .wrapper.on-form-error.on-input-invalid > .select-wrapper:not(.on-input-part-valid) > .select-filter, main section .form > .wrapper.on-form-error.on-input-invalid > .select-wrapper:not(.on-input-part-valid) > .select-current, main section .form > .wrapper.on-form-error.on-input-invalid > .select-wrapper:not(.on-input-part-valid) > .select-list, main section .form > .wrapper.on-form-error.on-input-invalid > .select-wrapper:not(.on-input-part-valid) > .select-other {
   border-color: #a63446 !important;
 }
-main section .form > .wrapper.on-form-error.on-input-invalid > .select-wrapper:not(.on-input-part-valid) > .select-current, main section .form > .wrapper.on-form-error.on-input-invalid > .select-wrapper:not(.on-input-part-valid) > .select-list > .select-option, main section .form > .wrapper.on-form-error.on-input-invalid > .select-wrapper:not(.on-input-part-valid) > .select-other {
+main section .form > .wrapper.on-form-error.on-input-invalid > .select-wrapper:not(.on-input-part-valid) > .select-filter, main section .form > .wrapper.on-form-error.on-input-invalid > .select-wrapper:not(.on-input-part-valid) > .select-current, main section .form > .wrapper.on-form-error.on-input-invalid > .select-wrapper:not(.on-input-part-valid) > .select-list > .select-option, main section .form > .wrapper.on-form-error.on-input-invalid > .select-wrapper:not(.on-input-part-valid) > .select-other {
   color: #a63446 !important;
 }
 main section .form > .wrapper.on-form-error.on-input-invalid > .timetable-wrapper {
@@ -922,6 +929,15 @@ main section .form.time-multi-select {
 }
 main section .form.time-multi-select > .wrapper {
   grid-template-columns: auto 60px 60px;
+}
+main section .form.autocomplete-on, main section .form.autocomplete-off {
+  width: 550px;
+}
+main section .form.autocomplete-on > .wrapper, main section .form.autocomplete-off > .wrapper {
+  grid-template-columns: auto 300px;
+}
+main section .form.autocomplete-on > .wrapper > .select-wrapper > input {
+  width: 100%;
 }
 main section .form.input-masks-on, main section .form.input-masks-off {
   width: 530px;

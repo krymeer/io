@@ -56,7 +56,7 @@ class InputWrapper extends React.Component {
             }
         }
 
-        if( this.props.type === 'mask' || this.props.type === 'textarea' || this.props.type === 'text-arrows' || this.props.type === 'text' || ( this.props.type === 'select' && this.props.otherOption ) )
+        if( this.props.type === 'mask' || this.props.type === 'textarea' || this.props.type === 'text-arrows' || this.props.type === 'text' || this.props.type === 'select-filtered' || ( this.props.type === 'select' && this.props.otherOption ) )
         {
             this.handleFocus  = this.handleFocus.bind( this );
             this.handleBlur   = this.handleBlur.bind( this );
@@ -405,6 +405,9 @@ class InputWrapper extends React.Component {
                         )
                     }
                     </ul>
+                }
+                { this.props.type === "select-filtered" &&
+                    <Select selectFiltered={ true } disabled={ this.props.disabled } options={ this.props.options } inputNodeRef={ inputNode => this.node = inputNode } inputMaxLength={ this.inputMaxLength } inputValue={ this.state.inputValue } onInputFocus={ this.handleFocus } onInputBlur={ this.handleBlur } onInputChange={ this.handleChange } inputValue={ this.state.inputValue } />
                 }
                 { this.props.type === "multi-select" && Array.isArray( this.props.options ) && this.props.options.map( ( options, index ) =>
                     <Select class={ this.state.inputPartsValid[ index ] ? "on-input-part-valid" : "" } key={ index } multiSelect={ true } selectIndex={ index } disabled={ this.props.disabled } options={ options } chosenIndex={ this.state.chosenIndexes[ index ] } onOption={ this.handleOption.bind( this ) } />
