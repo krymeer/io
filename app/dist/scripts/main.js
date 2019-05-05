@@ -41,6 +41,82 @@ insertNbsp = function insertNbsp(str) {
     });
 };
 
+merge = function merge(arr, p, q, r, aaa) {
+    var t = [];
+
+    for (var kk = p; kk <= r; kk++) {
+        t[kk] = arr[kk];
+    }
+
+    var i = p,
+        j = q + 1,
+        k = p;
+
+    while (i <= q && j <= r) {
+        if (t[i].value <= t[j].value) {
+            arr[k++] = t[i++];
+        } else {
+            arr[k++] = t[j++];
+        }
+    }
+
+    while (i <= q) {
+        arr[k++] = t[i++];
+    }
+
+    return arr;
+};
+
+mergeSort = function (_mergeSort) {
+    function mergeSort(_x, _x2, _x3) {
+        return _mergeSort.apply(this, arguments);
+    }
+
+    mergeSort.toString = function () {
+        return _mergeSort.toString();
+    };
+
+    return mergeSort;
+}(function (arr, p, r) {
+    if (p < r) {
+        var q = Math.floor((p + r) / 2);
+        arr = mergeSort(arr, p, q);
+        arr = mergeSort(arr, q + 1, r);
+
+        return merge(arr, p, q, r);
+    }
+
+    return arr;
+});
+
+editDistance = function editDistance(str1, str2) {
+    var dist = [];
+    var str1len = str1.length + 1;
+    var str2len = str2.length + 1;
+
+    for (var i1 = 0; i1 < str1len; i1++) {
+        dist.push([i1]);
+
+        for (var i2 = 1; i2 < str2len; i2++) {
+            var v = i1 > 0 ? 0 : i2;
+
+            dist[i1].push(v);
+        }
+    }
+
+    for (var _i = 1; _i < str2len; _i++) {
+        for (var _i2 = 1; _i2 < str1len; _i2++) {
+            if (str1[_i2 - 1] === str2[_i - 1]) {
+                dist[_i2][_i] = dist[_i2 - 1][_i - 1];
+            } else {
+                dist[_i2][_i] = Math.min(dist[_i2 - 1][_i] + 1, dist[_i2][_i - 1] + 1, dist[_i2 - 1][_i - 1] + 1);
+            }
+        }
+    }
+
+    return dist[str1len - 1][str2len - 1];
+};
+
 insertNdash = function insertNdash(str) {
     return str.replace(/\-\-/g, '\u2013');
 };

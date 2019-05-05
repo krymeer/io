@@ -346,6 +346,92 @@
                     ]
                 }
             ]
+        },
+        {
+            "intro" : "Znajomy poprosił Cię o wysłanie ważnej dla niego rzeczy, którą przez pomyłkę u Ciebie zostawił. Zdecydowałeś(-aś) się skorzystać z usług jednej z firm kurierskich. Przed nadaniem paczki musisz wskazać dwa punkty adresowe: pierwszy, z którego przesyłka zostanie wysłana, oraz drugi -- ten, z którego zostanie odebrana.",
+            "tasks" : [
+                {
+                    "title"   : "Nadanie przesyłki",
+                    "classes" : "labels-align-left autocomplete-on",
+                    "type"    : "autocomplete-on",
+                    "data"    : [
+                        {
+                            "type"          : "select-filtered",
+                            "label"         : "Punkt początkowy",
+                            "options"       : [
+                                "Bieszczadzka 2A, 38-606 Baligród",
+                                "Okrzei 10, 97-400 Bełchatów",
+                                "Skłodowskiej-Curie 262, 85-094 Bydgoszcz",
+                                "Frenzla 190, 41-923 Bytom",
+                                "Głęboka 59, 43-400 Cieszyn",
+                                "Bardowskiego 86, 42-216 Częstochowa",
+                                "Demptowska 81, 81-087 Gdynia",
+                                "Karola Miarki 14, 48-340 Głuchołazy",
+                                "Bałtycka 7, 05-825 Grodzisk Mazowiecki",
+                                "Dworcowa 23, 86-300 Grudziądz",
+                                "Thomasa Woodrowa Wilsona 15, 44-190 Knurów",
+                                "Szarych Szeregów 5, 62-500 Konin",
+                                "Romualda Traugutta 20, 67-120 Kożuchów",
+                                "Jana Kasprowicza 6, 64-100 Leszno",
+                                "Kazimierza Wielkiego 7, 59-800 Lubań",
+                                "Akacjowa 14B, 63-645 Łęka Opatowska",
+                                "Korfantego 61, 41-400 Mysłowice",
+                                "Traktorowa 5, 10-828 Olsztyn",
+                                "Jana Pawła II 20, 27-400 Ostrowiec Świętokrzyski",
+                                "Chrobrego 28, 14-100 Ostróda",
+                                "Studzienna 70, 87-100 Toruń",
+                                "Kolegialna 43, 09-100 Płock",
+                                "Jana Pawła II 8, 05-807 Podkowa Leśna",
+                                "Janasa 9, 41-700 Ruda Śląska",
+                                "Marszałkowska 10, 35-310 Rzeszów",
+                                "Warszawska 3, 16-100 Sokółka",
+                                "Milczańska 31, 70-117 Szczecin",
+                                "Tadeusza Joteyki 8, 05-077 Warszawa",
+                                "Długa 17, 53-633 Wrocław",
+                                "Objazdowa 2, 34-300 Żywiec"
+                            ],
+                            "expectedValue" : "Demptowska 81, 81-087 Gdynia"
+                        },
+                        {
+                            "type"          : "select-filtered",
+                            "label"         : "Punkt końcowy",
+                            "options"       : [
+                                "Bieszczadzka 2A, 38-606 Baligród",
+                                "Okrzei 10, 97-400 Bełchatów",
+                                "Skłodowskiej-Curie 262, 85-094 Bydgoszcz",
+                                "Frenzla 190, 41-923 Bytom",
+                                "Głęboka 59, 43-400 Cieszyn",
+                                "Bardowskiego 86, 42-216 Częstochowa",
+                                "Demptowska 81, 81-087 Gdynia",
+                                "Karola Miarki 14, 48-340 Głuchołazy",
+                                "Bałtycka 7, 05-825 Grodzisk Mazowiecki",
+                                "Dworcowa 23, 86-300 Grudziądz",
+                                "Thomasa Woodrowa Wilsona 15, 44-190 Knurów",
+                                "Szarych Szeregów 5, 62-500 Konin",
+                                "Romualda Traugutta 20, 67-120 Kożuchów",
+                                "Jana Kasprowicza 6, 64-100 Leszno",
+                                "Kazimierza Wielkiego 7, 59-800 Lubań",
+                                "Akacjowa 14B, 63-645 Łęka Opatowska",
+                                "Korfantego 61, 41-400 Mysłowice",
+                                "Traktorowa 5, 10-828 Olsztyn",
+                                "Jana Pawła II 20, 27-400 Ostrowiec Świętokrzyski",
+                                "Chrobrego 28, 14-100 Ostróda",
+                                "Studzienna 70, 87-100 Toruń",
+                                "Kolegialna 43, 09-100 Płock",
+                                "Jana Pawła II 8, 05-807 Podkowa Leśna",
+                                "Janasa 9, 41-700 Ruda Śląska",
+                                "Marszałkowska 10, 35-310 Rzeszów",
+                                "Warszawska 3, 16-100 Sokółka",
+                                "Milczańska 31, 70-117 Szczecin",
+                                "Tadeusza Joteyki 8, 05-077 Warszawa",
+                                "Długa 17, 53-633 Wrocław",
+                                "Objazdowa 2, 34-300 Żywiec"
+                            ],
+                            "expectedValue" : "Romualda Traugutta 20, 67-120 Kożuchów"
+                        }
+                    ]
+                }
+            ]
         }
     ]
 }

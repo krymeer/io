@@ -51,7 +51,12 @@ class Select extends React.Component {
         {
             const bodyScrollHeight = document.body.scrollHeight;
             const listFiltered     = this.props.options.filter( ( option ) => {
-                return option.toLowerCase().indexOf( eventTarget.value.toLowerCase() ) !== -1;
+                const optLowerCase = option.toLowerCase();
+                const matches      = eventTarget.value.toLowerCase().replace( /\s+/g, ' ' ).split( ' ' ).map( ( str ) => {
+                    return optLowerCase.indexOf( str ) !== -1
+                } );
+
+                return matches.filter( match => match === false ).length === 0;
             } );
 
             this.setState( state => {

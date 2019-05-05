@@ -32,6 +32,88 @@ insertNbsp = ( str ) => {
     } );
 }
 
+merge = ( arr, p, q, r, aaa ) => {
+    const t = [];
+
+    for( let kk = p; kk <= r; kk++ )
+    {
+        t[ kk ] = arr[ kk ];
+    }
+
+    let i = p, j = q + 1, k = p;
+
+    while( i <= q && j <= r )
+    {
+        if( t[ i ].value <= t[ j ].value )
+        {
+            arr[ k++ ] = t[ i++ ];
+        }
+        else
+        {
+            arr[ k++ ] = t[ j++ ];
+        }
+    }
+
+    while( i <= q )
+    {
+        arr[ k++ ] = t[ i++ ];
+    }
+
+    return arr;
+}
+
+mergeSort = ( arr, p, r ) => {
+    if( p < r )
+    {
+        const q = Math.floor( ( p + r ) / 2 );
+        arr = mergeSort( arr, p, q );
+        arr = mergeSort( arr, q + 1, r );
+
+        return merge( arr, p, q, r );
+    }
+
+    return arr;
+}
+
+editDistance = ( str1, str2 ) => {
+    const dist    = [];
+    const str1len = str1.length + 1;
+    const str2len = str2.length + 1;
+
+    for( let i1 = 0; i1 < str1len; i1++ )
+    {
+        dist.push( [ i1 ] );
+
+        for( let i2 = 1; i2 < str2len; i2++ )
+        {
+            const v = ( i1 > 0 ) ? 0 : i2;
+
+            dist[ i1 ].push( v );
+        }
+    }
+
+    for( let i2 = 1; i2 < str2len; i2++ )
+    {
+        for( let i1 = 1; i1 < str1len; i1++ )
+        {
+            if( str1[ i1 - 1 ] === str2[ i2 - 1 ] )
+            {
+                dist[ i1 ][ i2 ] = dist[ i1 - 1 ][ i2 - 1 ];
+            }
+            else
+            {
+                dist[ i1 ][ i2 ] = Math.min(
+                    dist[ i1 - 1 ][ i2 ] + 1,
+                    dist[ i1 ][ i2 - 1 ] + 1,
+                    dist[ i1 - 1 ][ i2 - 1 ] + 1,
+                );
+            }
+        }
+    }
+
+    return dist[ str1len - 1 ][ str2len - 1 ];
+}
+
 insertNdash = ( str ) => {
     return str.replace( /\-\-/g, '\u2013' );
 }

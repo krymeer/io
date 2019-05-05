@@ -59,7 +59,14 @@ var Select = function (_React$Component) {
             if (!this.props.disabled && eventTarget) {
                 var bodyScrollHeight = document.body.scrollHeight;
                 var listFiltered = this.props.options.filter(function (option) {
-                    return option.toLowerCase().indexOf(eventTarget.value.toLowerCase()) !== -1;
+                    var optLowerCase = option.toLowerCase();
+                    var matches = eventTarget.value.toLowerCase().replace(/\s+/g, ' ').split(' ').map(function (str) {
+                        return optLowerCase.indexOf(str) !== -1;
+                    });
+
+                    return matches.filter(function (match) {
+                        return match === false;
+                    }).length === 0;
                 });
 
                 this.setState(function (state) {
