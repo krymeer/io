@@ -234,9 +234,6 @@ class Task extends React.Component {
                     <button onClick={ this.handleStart } disabled={ this.state.taskStarted }>Rozpocznij ćwiczenie</button>
                     <section className={ "form " + this.props.task.classes }>
                         <h3>{ this.props.task.title }</h3>
-                        { this.state.taskStarted && !this.state.taskFinished && [ 'labels-align-top', 'labels-align-left', 'labels-align-right', 'labels-placeholders', 'labels-float-top' ].includes( this.props.task.type ) &&
-                            <i className="material-icons insert-everything" onClick={ this.insertEverything.bind( this ) }>keyboard</i>
-                        }
                         {
                             this.state.inputs.map( ( input, index ) =>
                                 <InputWrapper key={ index } index={ index } error={ this.state.taskError && this.state.taskStarted } disabled={ this.state.taskFinished || !this.state.taskStarted } onChange={ this.handleInputChange } { ...input } {...this.props.task.data[ index ] } />

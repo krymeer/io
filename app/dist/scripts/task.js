@@ -273,11 +273,6 @@ var Task = function (_React$Component) {
                             null,
                             this.props.task.title
                         ),
-                        this.state.taskStarted && !this.state.taskFinished && ['labels-align-top', 'labels-align-left', 'labels-align-right', 'labels-placeholders', 'labels-float-top'].includes(this.props.task.type) && React.createElement(
-                            'i',
-                            { className: 'material-icons insert-everything', onClick: this.insertEverything.bind(this) },
-                            'keyboard'
-                        ),
                         this.state.inputs.map(function (input, index) {
                             return React.createElement(InputWrapper, Object.assign({ key: index, index: index, error: _this3.state.taskError && _this3.state.taskStarted, disabled: _this3.state.taskFinished || !_this3.state.taskStarted, onChange: _this3.handleInputChange }, input, _this3.props.task.data[index]));
                         }),
