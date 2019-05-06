@@ -8,7 +8,10 @@ class Paragraph extends React.Component {
     {
         return (
             <p ref={ this.props.nodeRef } className={ this.props.class }>
-                { parseText( this.props.content ) }
+                { this.props.content.split( '\\n' ).map( ( line, index ) => [
+                    parseText( line ),
+                    <br key={ index } />
+                ] ) }
             </p>
         );
     }

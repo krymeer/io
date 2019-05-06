@@ -33,14 +33,6 @@ getRealOffsetTop = function getRealOffsetTop(offsetTop) {
     return offsetTop;
 };
 
-insertNbsp = function insertNbsp(str) {
-    return str.replace(/(^|\s)\w\s/g, function (match, offset, string) {
-        var end = match.length > 2 ? 2 : 1;
-
-        return match.substring(0, end) + '\xA0';
-    });
-};
-
 merge = function merge(arr, p, q, r, aaa) {
     var t = [];
 
@@ -117,6 +109,18 @@ editDistance = function editDistance(str1, str2) {
     return dist[str1len - 1][str2len - 1];
 };
 
+insertQuotes = function insertQuotes(str) {
+    return str.replace(/,,/g, '\u201E').replace(/''/g, '\u201D');
+};
+
+insertNbsp = function insertNbsp(str) {
+    return str.replace(/(^|\s)\w\s/g, function (match, offset, string) {
+        var end = match.length > 2 ? 2 : 1;
+
+        return match.substring(0, end) + '\xA0';
+    });
+};
+
 insertNdash = function insertNdash(str) {
     return str.replace(/\-\-/g, '\u2013');
 };
@@ -124,12 +128,16 @@ insertNdash = function insertNdash(str) {
 parseText = function parseText(string) {
     var chunks = [];
 
+    string = insertQuotes(string);
     string = insertNbsp(string);
     string = insertNdash(string);
 
     string.split(/(\*\*[^\*]*\*\*)/gi).map(function (chunk, index) {
+        if (chunk.indexOf('\\\*\\\*') !== -1) {
+            chunk = chunk.replace(/\\\*\\\*/g, '**');
+        }
 
-        if (chunk.indexOf('**') !== -1) {
+        if (chunk.indexOf('**') === 0 && chunk.lastIndexOf('**') === chunk.length - 2) {
             chunk = React.createElement(
                 'span',
                 { key: index, className: 'text-important' },
@@ -206,7 +214,7 @@ window.onload = function () {
                         type: 'select',
                         label: 'Twój zawód',
                         id: 'job',
-                        options: ['Uczeń', 'Student', 'Programista', 'Nauczyciel', 'Urzędnik', 'Bezrobotny', 'Inny (jaki?)'],
+                        options: ['Bezrobotny', 'Dziennikarz', 'Ekonomista', 'Inżynier', 'Lekarz', 'Pedagog', 'Pracownik biurowy', 'Programista', 'Student', 'Uczeń', 'Urzędnik', 'Inny (jaki?)'],
                         otherOption: true
                     }, {
                         type: 'select',
@@ -493,7 +501,10 @@ window.onload = function () {
                             React.createElement(
                                 'section',
                                 null,
-                                React.createElement(Paragraph, { content: 'Witaj! Niniejsze badanie ma na celu zbadanie u\u017Cyteczno\u015Bci wybranych wzorc\xF3w p\xF3l, kt\xF3re mo\u017Cesz na co dzie\u0144 znale\u017A\u0107 w wielu aplikacjach webowych i na stronach internetowych. Zostaniesz poproszony o wykonanie kilkunastu zada\u0144 polegaj\u0105cych na uzupe\u0142nieniu r\xF3\u017Cnego typu formularzy. **Ten tekst jeszcze si\u0119 zmieni.**' }),
+                                React.createElement(Paragraph, { content: 'Witaj! Niniejsze badanie jest cz\u0119\u015Bci\u0105 mojej pracy dyplomowej i ma na celu zbadanie u\u017Cyteczno\u015Bci wybranych wzorc\xF3w p\xF3l, kt\xF3re mo\u017Cesz na co dzie\u0144 znale\u017A\u0107 w wielu aplikacjach webowych i na stronach internetowych.' }),
+                                React.createElement(Paragraph, { content: '**Co b\u0119dziesz robi\u0142?** Zostaniesz poproszony(-a) o wykonanie kilkunastu \u0107wicze\u0144 polegaj\u0105cych na uzupe\u0142nieniu r\xF3\u017Cnego typu formularzy.\\n**Ile to potrwa?** Je\u015Bli korzystanie z klawiatury nie jest dla Ciebie wyzwaniem, to przej\u015Bcie przez wszystkie etapy badania powinno zaj\u0105\u0107 nie wi\u0119cej ni\u017C 15 min Twojego cennego czasu.\\n**Czy b\u0119d\u0119 musia\u0142(-a) podawa\u0107 jakie\u015B dane?** Absolutnie nie!* Potraktuj to badanie jako pewnego rodzaju zabaw\u0119. Ka\u017Cde \u0107wiczenie poprzedzone jest tabel\u0105 zawieraj\u0105c\u0105 nazwy p\xF3l w formularzu i dane, kt\xF3rymi te pola powinny zosta\u0107 uzupe\u0142nione -- Ty za\u015B b\u0119dziesz m\xF3g\u0142/mog\u0142a si\u0119 na tym, aby wstawi\u0107 te informacje we w\u0142a\u015Bciwe miejsca!\\n**Na co mam zwr\xF3ci\u0107 uwag\u0119?** Odst\u0119py, znaki pisarskie, interpunkcyjne s\u0105 niezwykle istotne w tym badaniu. \u0106wiczenie jest uznane za poprawnie rozwi\u0105zane wtedy i tylko wtedy, gdy wprowadzone dane odpowiadaj\u0105 danym wzorcowym.\\n**Ctrl+C, Ctrl+V? Nie tutaj!** Kopiowanie danych z tabeli poprzedzaj\u0105cej \u0107wiczenie jest zablokowane. Jasne jest, \u017Ce przy odrobinie sprytu i wiedzy z dziedziny informatyki by\u0142(a)by\u015B w stanie to zrobi\u0107, jednak nie r\xF3b tego, prosz\u0119. Celem tego badania jest zebranie relewantnych i wiarygodnych danych, kt\xF3re b\u0119d\u0119 m\xF3g\u0142 przedstawi\u0107 w swojej pracy, a b\u0119dzie to mo\u017Cliwe tylko wtedy, gdy wszystkie pola wype\u0142nisz r\u0119cznie.\\n**Nie musisz by\u0107 gadatliwy.** Po ka\u017Cdym \u0107wiczeniu b\u0119dziesz mia\u0142(a) mo\u017Cliwo\u015B\u0107 pozostawienia komentarza. Nie jednak na si\u0142\u0119 -- mo\u017Cesz pozostawi\u0107 takie pole bez tre\u015Bci i po prostu przej\u015B\u0107 dalej.' }),
+                                React.createElement(Paragraph, { content: '**Wszystko jasne?** Naci\u015Bnij przycisk ,,Rozpocznij badanie\'\', aby zmierzy\u0107 si\u0119 ze stoj\u0105cym przed Tob\u0105 wyzwaniem!' }),
+                                React.createElement(Paragraph, { 'class': 'text-smaller', content: '*) Badanie ko\u0144czy si\u0119 ankiet\u0105 u\u017Cytkownika, w kt\xF3rej podasz pewne dane osobowe (imi\u0119, adres e-mail, rok urodzenia itd.). Bez obaw -- **informacje te nie zostan\u0105 przekazane osobom trzecim,** a ich gromadzenie wynika wy\u0142\u0105cznie z potrzeby identyfikacji u\u017Cytkownik\xF3w oraz konieczno\u015Bci zbudowania statystyk. Twoje dane zostan\u0105 usuni\u0119te niezw\u0142ocznie po zamkni\u0119ciu badania u\u017Cyteczno\u015Bci i uko\u0144czeniu przeze mnie pracy dyplomowej.\\n**Masz dodatkowe pytania?** Skontaktuj si\u0119 ze mn\u0105 -- m\xF3j adres e-mail to **krzysztof.radoslaw.osada@gmail.com.**' }),
                                 React.createElement(
                                     'button',
                                     { onClick: this.handleStart, disabled: this.state.testStarted },
@@ -511,7 +522,8 @@ window.onload = function () {
                                     null,
                                     'Zako\u0144czenie'
                                 ),
-                                React.createElement(Paragraph, { content: 'Tutaj b\u0119dzie jaki\u015B akapit podsumowuj\u0105cy, jednak na razie nie wiem, co by w nim mog\u0142o si\u0119 znale\u017A\u0107.' }),
+                                React.createElement(Paragraph, { content: 'Gratulacje! **Uda\u0142o Ci si\u0119 uko\u0144czy\u0107 badanie u\u017Cyteczno\u015Bci.** Zanim zamkniesz t\u0119 kart\u0119 i wr\xF3cisz do swoich zaj\u0119\u0107, wype\u0142nij, prosz\u0119, poni\u017Csz\u0105 ankiet\u0119 -- podaj podstawowe informacje na sw\xF3j temat\\*\\* oraz podziel si\u0119 odczuciami zwi\u0105zanymi z formularzami na stronach internetowych.' }),
+                                React.createElement(Paragraph, { 'class': 'text-smaller', content: '\\*\\*) Administratorem danych osobowych jestem ja -- Krzysztof Osada. Informacje na Tw\xF3j temat **nie zostan\u0105** przekazane osobom trzecim i pos\u0142u\u017C\u0105 jedynie w celach identyfikacyjnych oraz statystycznych. Wprowadzone poni\u017Cej dane zostan\u0105 usuni\u0119te z bazy danych niezw\u0142ocznie po tym, gdy przestan\u0105 by\u0107 potrzebne, tj. **nie p\xF3\u017Aniej** ni\u017C po uko\u0144czeniu przeze mnie kursu ,,Praca dyplomowa II\'\'. Je\u015Bli masz jakie\u015B pytania, uwagi b\u0105d\u017A w\u0105tpliwo\u015Bci, skontaktuj si\u0119 ze mn\u0105 -- m\xF3j adres e-mail to **krzysztof.radoslaw.osada@gmail.com.**' }),
                                 React.createElement(
                                     'section',
                                     { className: 'form labels-align-top', id: 'user-form' },
@@ -535,7 +547,7 @@ window.onload = function () {
                             this.state.testFinished && this.state.dataSent && React.createElement(
                                 'section',
                                 { ref: this.childNodeRef },
-                                React.createElement(Paragraph, { content: '**Serdecznie dzi\u0119kuj\u0119 za wzi\u0119cie udzia\u0142u w badaniu!** Twoja pomoc jest naprawd\u0119 nieoceniona i przyczyni si\u0119 do zrealizowania jednego z najwi\u0119kszych moich cel\xF3w w \u017Cyciu -- uko\u0144czenia studi\xF3w na Politechnice Wroc\u0142awskiej.' })
+                                React.createElement(Paragraph, { content: '**To ju\u017C jest koniec!** Serdecznie dzi\u0119kuj\u0119 za udzia\u0142 w badaniu -- Twoja pomoc jest dla mnie naprawd\u0119 nieoceniona. Na podany wy\u017Cej adres e-mail otrzymasz **automatycznie wygenerowan\u0105** wiadomo\u015B\u0107 b\u0119d\u0105c\u0105 potwierdzeniem zapisania Twoich danych i wynik\xF3w badania przez aplikacj\u0119.' })
                             )
                         )
                     );

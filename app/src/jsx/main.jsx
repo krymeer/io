@@ -24,14 +24,6 @@ getRealOffsetTop = ( offsetTop ) => {
     return offsetTop;
 }
 
-insertNbsp = ( str ) => {
-    return str.replace( /(^|\s)\w\s/g, ( match, offset, string ) => {
-        const end = ( match.length > 2) ? 2 : 1;
-
-        return match.substring( 0, end ) + '\u00a0';
-    } );
-}
-
 merge = ( arr, p, q, r, aaa ) => {
     const t = [];
 
@@ -114,6 +106,18 @@ editDistance = ( str1, str2 ) => {
     return dist[ str1len - 1 ][ str2len - 1 ];
 }
 
+insertQuotes = ( str ) => {
+    return str.replace( /,,/g, '\u201e' ).replace( /''/g, '\u201d' );
+}
+
+insertNbsp = ( str ) => {
+    return str.replace( /(^|\s)\w\s/g, ( match, offset, string ) => {
+        const end = ( match.length > 2) ? 2 : 1;
+
+        return match.substring( 0, end ) + '\u00a0';
+    } );
+}
+
 insertNdash = ( str ) => {
     return str.replace( /\-\-/g, '\u2013' );
 }
@@ -121,12 +125,17 @@ insertNdash = ( str ) => {
 parseText = ( string ) => {
     const chunks = [];
 
+    string = insertQuotes( string );
     string = insertNbsp( string );
     string = insertNdash( string );
 
     string.split( /(\*\*[^\*]*\*\*)/gi ).map( ( chunk, index ) => {
+        if( chunk.indexOf( '\\\*\\\*' ) !== -1 )
+        {
+            chunk = chunk.replace( /\\\*\\\*/g, '**' );
+        }
 
-        if( chunk.indexOf( '**' ) !== -1 )
+        if( chunk.indexOf( '**' ) === 0 && chunk.lastIndexOf( '**' ) === chunk.length - 2 )
         {
             chunk = <span key={ index } className="text-important">{ chunk.substring( 2, chunk.length - 2 ) }</span>
         }
@@ -203,7 +212,7 @@ window.onload = function() {
                             type        : 'select',
                             label       : 'Twój zawód',
                             id          : 'job',
-                            options     : [ 'Uczeń', 'Student', 'Programista', 'Nauczyciel', 'Urzędnik', 'Bezrobotny', 'Inny (jaki?)' ],
+                            options     : [ 'Bezrobotny', 'Dziennikarz', 'Ekonomista', 'Inżynier', 'Lekarz', 'Pedagog', 'Pracownik biurowy', 'Programista', 'Student', 'Uczeń', 'Urzędnik', 'Inny (jaki?)' ],
                             otherOption : true
                         },
                         {
@@ -503,7 +512,10 @@ window.onload = function() {
                         </header>
                         <main>
                             <section>
-                                <Paragraph content="Witaj! Niniejsze badanie ma na celu zbadanie użyteczności wybranych wzorców pól, które możesz na co dzień znaleźć w wielu aplikacjach webowych i na stronach internetowych. Zostaniesz poproszony o wykonanie kilkunastu zadań polegających na uzupełnieniu różnego typu formularzy. **Ten tekst jeszcze się zmieni.**" />
+                                <Paragraph content="Witaj! Niniejsze badanie jest częścią mojej pracy dyplomowej i ma na celu zbadanie użyteczności wybranych wzorców pól, które możesz na co dzień znaleźć w wielu aplikacjach webowych i na stronach internetowych." />
+                                <Paragraph content="**Co będziesz robił?** Zostaniesz poproszony(-a) o wykonanie kilkunastu ćwiczeń polegających na uzupełnieniu różnego typu formularzy.\n**Ile to potrwa?** Jeśli korzystanie z klawiatury nie jest dla Ciebie wyzwaniem, to przejście przez wszystkie etapy badania powinno zająć nie więcej niż 15 min Twojego cennego czasu.\n**Czy będę musiał(-a) podawać jakieś dane?** Absolutnie nie!* Potraktuj to badanie jako pewnego rodzaju zabawę. Każde ćwiczenie poprzedzone jest tabelą zawierającą nazwy pól w formularzu i dane, którymi te pola powinny zostać uzupełnione -- Ty zaś będziesz mógł/mogła się na tym, aby wstawić te informacje we właściwe miejsca!\n**Na co mam zwrócić uwagę?** Odstępy, znaki pisarskie, interpunkcyjne są niezwykle istotne w tym badaniu. Ćwiczenie jest uznane za poprawnie rozwiązane wtedy i tylko wtedy, gdy wprowadzone dane odpowiadają danym wzorcowym.\n**Ctrl+C, Ctrl+V? Nie tutaj!** Kopiowanie danych z tabeli poprzedzającej ćwiczenie jest zablokowane. Jasne jest, że przy odrobinie sprytu i wiedzy z dziedziny informatyki był(a)byś w stanie to zrobić, jednak nie rób tego, proszę. Celem tego badania jest zebranie relewantnych i wiarygodnych danych, które będę mógł przedstawić w swojej pracy, a będzie to możliwe tylko wtedy, gdy wszystkie pola wypełnisz ręcznie.\n**Nie musisz być gadatliwy.** Po każdym ćwiczeniu będziesz miał(a) możliwość pozostawienia komentarza. Nie jednak na siłę -- możesz pozostawić takie pole bez treści i po prostu przejść dalej." />
+                                <Paragraph content="**Wszystko jasne?** Naciśnij przycisk ,,Rozpocznij badanie'', aby zmierzyć się ze stojącym przed Tobą wyzwaniem!" />
+                                <Paragraph class="text-smaller" content="*) Badanie kończy się ankietą użytkownika, w której podasz pewne dane osobowe (imię, adres e-mail, rok urodzenia itd.). Bez obaw -- **informacje te nie zostaną przekazane osobom trzecim,** a ich gromadzenie wynika wyłącznie z potrzeby identyfikacji użytkowników oraz konieczności zbudowania statystyk. Twoje dane zostaną usunięte niezwłocznie po zamknięciu badania użyteczności i ukończeniu przeze mnie pracy dyplomowej.\n**Masz dodatkowe pytania?** Skontaktuj się ze mną -- mój adres e-mail to **krzysztof.radoslaw.osada@gmail.com.**"/>
                                 <button onClick={ this.handleStart } disabled={ this.state.testStarted }>Rozpocznij badanie</button>
                             </section>
                             { scenarios.map( ( scenario, index ) =>
@@ -512,7 +524,8 @@ window.onload = function() {
                             { this.state.allScenariosFinished &&
                                 <section ref={ this.childNodeRef }>
                                     <h1>Zakończenie</h1>
-                                    <Paragraph content="Tutaj będzie jakiś akapit podsumowujący, jednak na razie nie wiem, co by w nim mogło się znaleźć." />
+                                    <Paragraph content="Gratulacje! **Udało Ci się ukończyć badanie użyteczności.** Zanim zamkniesz tę kartę i wrócisz do swoich zajęć, wypełnij, proszę, poniższą ankietę -- podaj podstawowe informacje na swój temat\*\* oraz podziel się odczuciami związanymi z formularzami na stronach internetowych." />
+                                    <Paragraph class="text-smaller" content="\*\*) Administratorem danych osobowych jestem ja -- Krzysztof Osada. Informacje na Twój temat **nie zostaną** przekazane osobom trzecim i posłużą jedynie w celach identyfikacyjnych oraz statystycznych. Wprowadzone poniżej dane zostaną usunięte z bazy danych niezwłocznie po tym, gdy przestaną być potrzebne, tj. **nie później** niż po ukończeniu przeze mnie kursu ,,Praca dyplomowa II''. Jeśli masz jakieś pytania, uwagi bądź wątpliwości, skontaktuj się ze mną -- mój adres e-mail to **krzysztof.radoslaw.osada@gmail.com.**" />
                                     <section className="form labels-align-top" id="user-form">
                                         <h3>Ankieta uczestnika</h3>
                                         {
@@ -532,7 +545,7 @@ window.onload = function() {
                             }
                             { this.state.testFinished && this.state.dataSent &&
                                 <section ref={ this.childNodeRef }>
-                                    <Paragraph content="**Serdecznie dziękuję za wzięcie udziału w badaniu!** Twoja pomoc jest naprawdę nieoceniona i przyczyni się do zrealizowania jednego z największych moich celów w życiu -- ukończenia studiów na Politechnice Wrocławskiej." />
+                                    <Paragraph content="**To już jest koniec!** Serdecznie dziękuję za udział w badaniu -- Twoja pomoc jest dla mnie naprawdę nieoceniona. Na podany wyżej adres e-mail otrzymasz **automatycznie wygenerowaną** wiadomość będącą potwierdzeniem zapisania Twoich danych i wyników badania przez aplikację." />
                                 </section>
                             }
                         </main>

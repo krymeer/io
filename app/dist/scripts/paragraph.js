@@ -16,12 +16,14 @@ var Paragraph = function (_React$Component) {
     }
 
     _createClass(Paragraph, [{
-        key: "render",
+        key: 'render',
         value: function render() {
             return React.createElement(
-                "p",
+                'p',
                 { ref: this.props.nodeRef, className: this.props.class },
-                parseText(this.props.content)
+                this.props.content.split('\\n').map(function (line, index) {
+                    return [parseText(line), React.createElement('br', { key: index })];
+                })
             );
         }
     }]);
