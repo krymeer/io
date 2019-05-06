@@ -36,7 +36,7 @@
                         {
                             "type"          : "text",
                             "label"         : "Numer telefonu",
-                            "expectedValue" : "789 425 661"
+                            "expectedValue" : "71 391 05 46"
                         }
                     ]
                 },
@@ -73,7 +73,7 @@
                         {
                             "type"          : "text",
                             "label"         : "Numer telefonu",
-                            "expectedValue" : "782 287 872"
+                            "expectedValue" : "681 083 542"
                         }
                     ]
                 }
@@ -258,7 +258,7 @@
                             "type"          : "mask",
                             "label"         : "Numer telefonu",
                             "mask"          : "999 999 999",
-                            "expectedValue" : "738 981 876"
+                            "expectedValue" : "738 921 506"
                         }
                     ]
                 }

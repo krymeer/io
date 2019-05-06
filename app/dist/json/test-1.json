@@ -73,7 +73,7 @@
                         {
                             "type"          : "text",
                             "label"         : "Numer telefonu",
-                            "expectedValue" : "590 290 390"
+                            "expectedValue" : "590 863 728"
                         }
                     ]
                 }
@@ -258,7 +258,7 @@
                         {
                             "type"          : "text",
                             "label"         : "Numer telefonu",
-                            "expectedValue" : "519 646 630"
+                            "expectedValue" : "519 649 307"
                         }
                     ]
                 }
