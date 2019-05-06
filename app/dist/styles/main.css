@@ -722,6 +722,10 @@ main section .form > .wrapper.on-form-error.on-input-invalid > .select-wrapper:n
 main section .form > .wrapper.on-form-error.on-input-invalid > .select-wrapper:not(.on-input-part-valid) > .select-filter, main section .form > .wrapper.on-form-error.on-input-invalid > .select-wrapper:not(.on-input-part-valid) > .select-current, main section .form > .wrapper.on-form-error.on-input-invalid > .select-wrapper:not(.on-input-part-valid) > .select-list > .select-option, main section .form > .wrapper.on-form-error.on-input-invalid > .select-wrapper:not(.on-input-part-valid) > .select-other {
   color: #a63446 !important;
 }
+main section .form > .wrapper.on-form-error.on-input-invalid > .multi-text-wrapper > input:not(.on-input-part-valid) {
+  color: #a63446 !important;
+  border-color: #a63446 !important;
+}
 main section .form > .wrapper.on-form-error.on-input-invalid > .timetable-wrapper {
   color: #a63446 !important;
   border-color: #a63446 !important;
@@ -861,6 +865,34 @@ main section .form.logic-values-select {
 }
 main section .form.logic-values-select > .wrapper {
   grid-template-columns: auto 75px;
+}
+main section .form.date-multi-text {
+  width: 600px;
+}
+main section .form.date-multi-text > .wrapper {
+  grid-template-columns: auto 150px;
+}
+main section .form.date-multi-text > .wrapper > .multi-text-wrapper {
+  display: grid;
+  grid-template-columns: 50px 15px 35px 15px 35px;
+  justify-content: start;
+  align-content: center;
+}
+main section .form.date-multi-text > .wrapper > .multi-text-wrapper > * {
+  text-align: center;
+}
+main section .form.date-multi-text > .wrapper > .multi-text-wrapper > input {
+  width: 100%;
+}
+main section .form.date-multi-text > .wrapper > .multi-text-wrapper > .separator {
+  align-self: center;
+  font-size: 20px;
+}
+main section .form.date-masks {
+  width: 500px;
+}
+main section .form.date-masks > .wrapper {
+  grid-template-columns: auto 90px;
 }
 main section .form.time-table {
   width: 250px;

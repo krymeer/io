@@ -57,6 +57,15 @@ var InputWrapper = function (_React$Component) {
             });
         }
 
+        if (_this.props.type === 'multi-text') {
+            _this.state = Object.assign({}, _this.state, {
+                inputPartsValid: [].concat(_toConsumableArray(Array(_this.props.expectedValue.length))),
+                inputFocus: false,
+                inputNonEmpty: [].concat(_toConsumableArray(Array(_this.props.expectedValue.length))),
+                inputValue: [].concat(_toConsumableArray(Array(_this.props.expectedValue.length)))
+            });
+        }
+
         if (_this.props.type === 'mask' || _this.props.type === 'textarea' || _this.props.type === 'text-arrows' || _this.props.type === 'text' || _this.props.type === 'select-filtered' || _this.props.type === 'select' && _this.props.otherOption) {
             _this.handleFocus = _this.handleFocus.bind(_this);
             _this.handleBlur = _this.handleBlur.bind(_this);
@@ -109,20 +118,38 @@ var InputWrapper = function (_React$Component) {
         value: function handleChange(event) {
             var _this2 = this;
 
+            var index = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : -1;
+
             if (!this.props.disabled) {
                 var eventType = typeof event !== 'undefined' ? event.type : undefined;
-                var inputValue = typeof event !== 'undefined' ? event.target.value : this.node && this.node.tagName.toLowerCase() === 'input' && this.node.type === 'text' ? this.node.value : undefined;
+                var inputValue = typeof event !== 'undefined' ? this.props.type === 'multi-text' ? this.state.inputValue.map(function (chunkStr, chunkIndex) {
+                    return index === chunkIndex ? event.target.value : chunkStr;
+                }) : event.target.value : this.node && this.node.tagName.toLowerCase() === 'input' && this.node.type === 'text' ? this.node.value : undefined;
 
                 if (typeof inputValue === 'undefined') {
                     return false;
                 }
 
-                var inputValid = this.props.optional ? true : typeof this.props.expectedValue !== 'undefined' ? this.props.expectedValue === inputValue : typeof this.props.regex !== 'undefined' ? this.props.regex.test(inputValue) : inputValue !== '';
+                var inputValid = this.props.optional ? true : typeof this.props.expectedValue !== 'undefined' ? this.props.type === 'multi-text' ? this.props.expectedValue.join(this.props.separator) === inputValue.join(this.props.separator) : this.props.expectedValue === inputValue : typeof this.props.regex !== 'undefined' ? this.props.regex.test(inputValue) : inputValue !== '';
+
+                var inputLength = this.props.type === 'multi-text' ? inputValue.reduce(function (a, b) {
+                    return a + (b ? b.length : 0);
+                }, 0) : inputValue.length;
+
+                if (this.props.type === 'multi-text') {
+                    var inputPartsValid = inputValue.map(function (chunkStr, chunkIndex) {
+                        return chunkStr === _this2.props.expectedValue[chunkIndex];
+                    });
+
+                    this.setState({
+                        inputPartsValid: inputPartsValid
+                    });
+                }
 
                 this.setState({
                     inputValue: inputValue,
                     inputValid: inputValid,
-                    inputLength: inputValue.length
+                    inputLength: inputLength
                 }, function () {
                     if (eventType === 'triggerChange') {
                         _this2.handleBlur();
@@ -355,6 +382,18 @@ var InputWrapper = function (_React$Component) {
                 (this.props.type === "text" || this.props.type === 'text-arrows') && React.createElement('input', { ref: function ref(node) {
                         return _this4.node = node;
                     }, maxLength: this.inputMaxLength, type: 'text', spellCheck: 'false', autoComplete: 'off', onFocus: this.handleFocus, onBlur: this.handleBlur, onChange: this.handleChange, disabled: this.props.disabled, value: this.state.inputValue }),
+                this.props.type === "multi-text" && Array.isArray(this.props.expectedValue) && React.createElement(
+                    'div',
+                    { className: 'multi-text-wrapper' },
+                    [].concat(_toConsumableArray(Array(this.props.expectedValue.length))).map(function (x, index, array) {
+                        var separator = typeof _this4.props.separator !== 'undefined' && index < array.length - 1 ? React.createElement(
+                            'span',
+                            { className: 'separator', key: index + "-span" },
+                            _this4.props.separator
+                        ) : "";
+                        return [React.createElement('input', { className: _this4.state.inputPartsValid[index] ? "on-input-part-valid" : "", key: index + "-input", maxLength: _this4.inputMaxLength[index], type: 'text', spellCheck: 'false', autoComplete: 'off', disabled: _this4.props.disabled, onChange: _this4.handleChange.bind(_this4, event, index) }), separator];
+                    })
+                ),
                 this.props.type === 'text-arrows' && React.createElement(
                     'i',
                     { className: ("material-icons arrow-right " + (this.props.disabled ? "disabled" : "")).trim(), onClick: this.handleArrow.bind(this) },

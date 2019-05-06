@@ -975,6 +975,13 @@ main {
                         }
                     }
 
+                    > .multi-text-wrapper {
+                        > input:not(.on-input-part-valid) {
+                            color: $primary-color !important;
+                            border-color: $primary-color !important;
+                        }
+                    }
+
                     > .timetable-wrapper {
                         color: $primary-color !important;
                         border-color: $primary-color !important;
@@ -1196,6 +1203,42 @@ main {
 
                 > .wrapper {
                     grid-template-columns: auto 75px;
+                }
+            }
+
+            &.date-multi-text {
+                width: 600px;
+
+                > .wrapper {
+                    grid-template-columns: auto 150px;
+
+                    > .multi-text-wrapper {
+                        display: grid;
+                        grid-template-columns: 50px 15px 35px 15px 35px;
+                        justify-content: start;
+                        align-content: center;
+
+                        > * {
+                            text-align: center;
+                        }
+
+                        > input {
+                            width: 100%;
+                        }
+
+                        > .separator {
+                            align-self: center;
+                            font-size: 20px;
+                        }
+                    }
+                }
+            }
+
+            &.date-masks {
+                width: 500px;
+
+                > .wrapper {
+                    grid-template-columns: auto 90px;
                 }
             }
 

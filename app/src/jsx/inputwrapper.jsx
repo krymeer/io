@@ -56,6 +56,17 @@ class InputWrapper extends React.Component {
             }
         }
 
+        if( this.props.type === 'multi-text' )
+        {
+            this.state = {
+                ...this.state,
+                inputPartsValid : [ ...Array( this.props.expectedValue.length ) ],
+                inputFocus      : false,
+                inputNonEmpty   : [ ...Array( this.props.expectedValue.length ) ],
+                inputValue      : [ ...Array( this.props.expectedValue.length ) ],
+            }
+        }
+
         if( this.props.type === 'mask' || this.props.type === 'textarea' || this.props.type === 'text-arrows' || this.props.type === 'text' || this.props.type === 'select-filtered' || ( this.props.type === 'select' && this.props.otherOption ) )
         {
             this.handleFocus  = this.handleFocus.bind( this );
@@ -109,13 +120,15 @@ class InputWrapper extends React.Component {
         }
     }
 
-    handleChange( event )
+    handleChange( event, index = -1 )
     {
         if( !this.props.disabled )
         {
             const eventType   = ( typeof event !== 'undefined' ) ? event.type : undefined;
             const inputValue  = ( typeof event !== 'undefined' )
-                                ? event.target.value
+                                ? ( this.props.type === 'multi-text'
+                                    ? this.state.inputValue.map( ( chunkStr, chunkIndex ) => ( index === chunkIndex ) ? event.target.value : chunkStr )
+                                    : event.target.value )
                                 : ( ( this.node && this.node.tagName.toLowerCase() === 'input' && this.node.type === 'text' )
                                     ? this.node.value
                                     : undefined );
@@ -128,15 +141,30 @@ class InputWrapper extends React.Component {
             const inputValid  = this.props.optional
                                 ? true
                                 : ( ( typeof this.props.expectedValue !== 'undefined' )
-                                    ? ( this.props.expectedValue === inputValue )
+                                    ? ( this.props.type === 'multi-text'
+                                        ? ( this.props.expectedValue.join( this.props.separator ) === inputValue.join( this.props.separator ) )
+                                        : ( this.props.expectedValue === inputValue ) )
                                     : ( ( typeof this.props.regex !== 'undefined' )
                                         ? this.props.regex.test( inputValue )
                                         : ( inputValue !== '' ) ) );
 
+            const inputLength = ( this.props.type === 'multi-text'
+                                    ? inputValue.reduce( ( a, b ) => a + ( b ? b.length : 0 ), 0 )
+                                    : inputValue.length );
+
+            if( this.props.type === 'multi-text' )
+            {
+                const inputPartsValid = inputValue.map( ( chunkStr, chunkIndex ) => chunkStr === this.props.expectedValue[ chunkIndex ] );
+
+                this.setState( {
+                    inputPartsValid : inputPartsValid
+                } )
+            }
+
             this.setState( {
                 inputValue  : inputValue,
                 inputValid  : inputValid,
-                inputLength : inputValue.length
+                inputLength : inputLength
             }, () => {
                 if( eventType === 'triggerChange' )
                 {
@@ -372,10 +400,22 @@ class InputWrapper extends React.Component {
                 { ( this.props.type === "text" || this.props.type === 'text-arrows' ) &&
                     <input ref={ node => this.node = node } maxLength={ this.inputMaxLength } type="text" spellCheck="false" autoComplete="off" onFocus={ this.handleFocus } onBlur={ this.handleBlur } onChange={ this.handleChange } disabled={ this.props.disabled } value={ this.state.inputValue }/>
                 }
+                { this.props.type === "multi-text" && Array.isArray( this.props.expectedValue ) &&
+                    <div className="multi-text-wrapper">
+                        { [ ...Array( this.props.expectedValue.length ) ].map( ( x, index, array ) => {
+                            const separator = ( typeof this.props.separator !== 'undefined' && index < array.length - 1 )
+                                                ? <span className="separator" key={ index + "-span" }>{ this.props.separator }</span>
+                                                : "";
+                            return [
+                                <input className={ this.state.inputPartsValid[ index ] ? "on-input-part-valid" : "" } key={ index + "-input" } maxLength={ this.inputMaxLength[ index ] } type="text" spellCheck="false" autoComplete="off" disabled={ this.props.disabled } onChange={ this.handleChange.bind( this, event, index ) }/>,
+                                separator
+                            ];
+                        } ) }
+                    </div>
+                }
                 { this.props.type === 'text-arrows' &&
                     <i className={ ( "material-icons arrow-right " + ( this.props.disabled ? "disabled" : "" ) ).trim() } onClick={ this.handleArrow.bind( this ) }>keyboard_arrow_right</i>
                 }
-                { }
                 { this.props.type === "inc-dec" &&
                     <p className="inc-dec">
                         <i className={ "material-icons " + ( ( this.props.disabled || this.state.chosenIndex === this.props.minValue ) ? "disabled" : "" ) } onClick={ this.handleIncDec.bind( this, false ) }>remove</i>
