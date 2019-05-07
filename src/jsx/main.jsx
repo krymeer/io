@@ -266,7 +266,7 @@ window.onload = function() {
 
         componentDidMount()
         {
-            fetch( './json/test-current.json' )
+            fetch( './json/test-1.json' )
                 .then( res => res.json() )
                 .then( ( result ) => {
                         this.setState( {
