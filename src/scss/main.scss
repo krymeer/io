@@ -493,6 +493,15 @@ main {
         }
     }
 
+    .mini-label {
+        font-size: 12px;
+        color: $input-color-m;
+
+        &.disabled {
+            color: $border-color-d;
+        }
+    }
+
     .timetable-wrapper, .select-option, .select-current, textarea, input {
         @extend %padding-s;
         @extend %radius;
@@ -848,7 +857,7 @@ main {
                 display: grid;
                 align-items: center;
 
-                > .select-wrapper {
+                .select-wrapper {
                     position: relative;
 
                     > .select-current {
@@ -965,7 +974,7 @@ main {
                         }
                     }
 
-                    > .select-wrapper:not(.on-input-part-valid) {
+                    .select-wrapper:not(.on-input-part-valid) {
                         > .select-filter, > .select-current, > .select-list, > .select-other  {
                             border-color: $primary-color !important;
                         }
@@ -975,6 +984,7 @@ main {
                         }
                     }
 
+                    > .text-select-text-wrapper,
                     > .multi-text-wrapper {
                         > input:not(.on-input-part-valid) {
                             color: $primary-color !important;
@@ -1203,6 +1213,21 @@ main {
 
                 > .wrapper {
                     grid-template-columns: auto 75px;
+                }
+            }
+
+            &.date-text-select-text {
+                width: 640px;
+
+                > .wrapper {
+                    grid-template-columns: auto 215px;
+
+                    > .text-select-text-wrapper {
+                        display: grid;
+                        grid-template-columns: 35px 120px 50px;
+                        justify-content: space-between;
+                        align-content: center;
+                    }
                 }
             }
 

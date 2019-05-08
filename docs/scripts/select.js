@@ -171,7 +171,7 @@ var Select = function (_React$Component) {
         value: function handleOption(optionIndex, optionValue) {
             if (!this.props.disabled) {
                 var otherOptionChosen = this.props.otherOption && optionIndex === this.props.options.length - 1;
-                var selectIndex = this.props.multiSelect && typeof this.props.selectIndex !== 'undefined' ? this.props.selectIndex : -1;
+                var selectIndex = this.props.selectIndex !== 'undefined' ? this.props.selectIndex : -1;
 
                 this.setState({
                     otherOptionChosen: otherOptionChosen

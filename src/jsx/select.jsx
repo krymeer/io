@@ -176,7 +176,7 @@ class Select extends React.Component {
         if( !this.props.disabled )
         {
             const otherOptionChosen = ( this.props.otherOption && optionIndex === this.props.options.length - 1 );
-            const selectIndex       = ( this.props.multiSelect && typeof this.props.selectIndex !== 'undefined' ) ? this.props.selectIndex : -1;
+            const selectIndex       = ( this.props.selectIndex !== 'undefined' ) ? this.props.selectIndex : -1;
 
             this.setState( {
                 otherOptionChosen : otherOptionChosen

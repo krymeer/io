@@ -83,7 +83,7 @@ main .inc-dec > i {
   padding: 3.5px;
 }
 
-main section.task .seq, main section .form.time-text-arrows > .wrapper > i, main section .form > .wrapper > .select-wrapper > .select-list, main section .form, main section.scenario .summary .questions > .question-wrapper > ul > li, main section.scenario .summary .questions, main .toggle-switch:before, main .toggle-switch, main .inc-dec > i, main .timetable-wrapper, main .select-option, main .select-current, main textarea, main input, main button, main table {
+main section.task .seq, main section .form.time-text-arrows > .wrapper > i, main section .form > .wrapper .select-wrapper > .select-list, main section .form, main section.scenario .summary .questions > .question-wrapper > ul > li, main section.scenario .summary .questions, main .toggle-switch:before, main .toggle-switch, main .inc-dec > i, main .timetable-wrapper, main .select-option, main .select-current, main textarea, main input, main button, main table {
   border-radius: 4px;
 }
 
@@ -363,6 +363,13 @@ main .timetable-wrapper.disabled {
 main .timetable-wrapper.disabled > span {
   color: #ddd;
 }
+main .mini-label {
+  font-size: 12px;
+  color: #212121;
+}
+main .mini-label.disabled {
+  color: #ddd;
+}
 main .timetable-wrapper, main .select-option, main .select-current, main textarea, main input {
   font-size: inherit;
   color: #212121;
@@ -622,10 +629,10 @@ main section .form > .wrapper {
   display: grid;
   align-items: center;
 }
-main section .form > .wrapper > .select-wrapper {
+main section .form > .wrapper .select-wrapper {
   position: relative;
 }
-main section .form > .wrapper > .select-wrapper > .select-current {
+main section .form > .wrapper .select-wrapper > .select-current {
   cursor: pointer;
   display: grid;
   grid-template-columns: 1fr 24px;
@@ -633,23 +640,23 @@ main section .form > .wrapper > .select-wrapper > .select-current {
   align-content: center;
   background: #fff;
 }
-main section .form > .wrapper > .select-wrapper > .select-current > span {
+main section .form > .wrapper .select-wrapper > .select-current > span {
   align-self: center;
 }
-main section .form > .wrapper > .select-wrapper > .select-current > i {
+main section .form > .wrapper .select-wrapper > .select-current > i {
   justify-self: end;
 }
-main section .form > .wrapper > .select-wrapper > .select-current.disabled {
+main section .form > .wrapper .select-wrapper > .select-current.disabled {
   cursor: default;
   background: #eee;
   color: #ddd;
 }
-main section .form > .wrapper > .select-wrapper > .select-current.focus {
+main section .form > .wrapper .select-wrapper > .select-current.focus {
   border-color: #7e7e7e;
   position: relative;
   z-index: 2;
 }
-main section .form > .wrapper > .select-wrapper > .select-list {
+main section .form > .wrapper .select-wrapper > .select-list {
   position: absolute;
   width: calc(100% - 14px);
   display: grid;
@@ -662,33 +669,33 @@ main section .form > .wrapper > .select-wrapper > .select-list {
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
   z-index: 1;
 }
-main section .form > .wrapper > .select-wrapper > .select-list.top {
+main section .form > .wrapper .select-wrapper > .select-list.top {
   bottom: 35px;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
   border-bottom: none;
 }
-main section .form > .wrapper > .select-wrapper > .select-list.top:not(:last-child) {
+main section .form > .wrapper .select-wrapper > .select-list.top:not(:last-child) {
   bottom: 75px;
 }
-main section .form > .wrapper > .select-wrapper > .select-list:not(.top) {
+main section .form > .wrapper .select-wrapper > .select-list:not(.top) {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
   border-top: none;
 }
-main section .form > .wrapper > .select-wrapper > .select-list.empty {
+main section .form > .wrapper .select-wrapper > .select-list.empty {
   display: none;
 }
-main section .form > .wrapper > .select-wrapper > .select-list > .select-option {
+main section .form > .wrapper .select-wrapper > .select-list > .select-option {
   border: 0;
   border-radius: 0;
   cursor: pointer;
   background: #fff;
 }
-main section .form > .wrapper > .select-wrapper > .select-list > .select-option:hover {
+main section .form > .wrapper .select-wrapper > .select-list > .select-option:hover {
   background: #eee;
 }
-main section .form > .wrapper > .select-wrapper > .select-other {
+main section .form > .wrapper .select-wrapper > .select-other {
   margin-top: 5px;
   width: 100%;
 }
@@ -716,12 +723,13 @@ main section .form > .wrapper.on-form-error.on-input-invalid > i.arrow-left, mai
 main section .form > .wrapper.on-form-error.on-input-invalid > i.arrow-left:hover, main section .form > .wrapper.on-form-error.on-input-invalid > i.arrow-right:hover {
   background: #ca5467 !important;
 }
-main section .form > .wrapper.on-form-error.on-input-invalid > .select-wrapper:not(.on-input-part-valid) > .select-filter, main section .form > .wrapper.on-form-error.on-input-invalid > .select-wrapper:not(.on-input-part-valid) > .select-current, main section .form > .wrapper.on-form-error.on-input-invalid > .select-wrapper:not(.on-input-part-valid) > .select-list, main section .form > .wrapper.on-form-error.on-input-invalid > .select-wrapper:not(.on-input-part-valid) > .select-other {
+main section .form > .wrapper.on-form-error.on-input-invalid .select-wrapper:not(.on-input-part-valid) > .select-filter, main section .form > .wrapper.on-form-error.on-input-invalid .select-wrapper:not(.on-input-part-valid) > .select-current, main section .form > .wrapper.on-form-error.on-input-invalid .select-wrapper:not(.on-input-part-valid) > .select-list, main section .form > .wrapper.on-form-error.on-input-invalid .select-wrapper:not(.on-input-part-valid) > .select-other {
   border-color: #a63446 !important;
 }
-main section .form > .wrapper.on-form-error.on-input-invalid > .select-wrapper:not(.on-input-part-valid) > .select-filter, main section .form > .wrapper.on-form-error.on-input-invalid > .select-wrapper:not(.on-input-part-valid) > .select-current, main section .form > .wrapper.on-form-error.on-input-invalid > .select-wrapper:not(.on-input-part-valid) > .select-list > .select-option, main section .form > .wrapper.on-form-error.on-input-invalid > .select-wrapper:not(.on-input-part-valid) > .select-other {
+main section .form > .wrapper.on-form-error.on-input-invalid .select-wrapper:not(.on-input-part-valid) > .select-filter, main section .form > .wrapper.on-form-error.on-input-invalid .select-wrapper:not(.on-input-part-valid) > .select-current, main section .form > .wrapper.on-form-error.on-input-invalid .select-wrapper:not(.on-input-part-valid) > .select-list > .select-option, main section .form > .wrapper.on-form-error.on-input-invalid .select-wrapper:not(.on-input-part-valid) > .select-other {
   color: #a63446 !important;
 }
+main section .form > .wrapper.on-form-error.on-input-invalid > .text-select-text-wrapper > input:not(.on-input-part-valid),
 main section .form > .wrapper.on-form-error.on-input-invalid > .multi-text-wrapper > input:not(.on-input-part-valid) {
   color: #a63446 !important;
   border-color: #a63446 !important;
@@ -865,6 +873,18 @@ main section .form.logic-values-select {
 }
 main section .form.logic-values-select > .wrapper {
   grid-template-columns: auto 75px;
+}
+main section .form.date-text-select-text {
+  width: 640px;
+}
+main section .form.date-text-select-text > .wrapper {
+  grid-template-columns: auto 215px;
+}
+main section .form.date-text-select-text > .wrapper > .text-select-text-wrapper {
+  display: grid;
+  grid-template-columns: 35px 120px 50px;
+  justify-content: space-between;
+  align-content: center;
 }
 main section .form.date-multi-text {
   width: 600px;
