@@ -188,9 +188,6 @@ var Task = function (_React$Component) {
                 });
             }
         }
-
-        // TEMPORARY: Insert all the data by clicking only one button
-
     }, {
         key: 'insertEverything',
         value: function insertEverything(e) {

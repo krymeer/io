@@ -27,6 +27,18 @@ class InputWrapper extends React.Component {
             }
         }
 
+        if( this.props.type === 'calendar' )
+        {
+            this.state = {
+                ...this.state,
+                calendar : {}
+            };
+
+            this.handleCalendarState = this.handleCalendarState.bind( this );
+            this.handleCalendarDate  = this.handleCalendarDate.bind( this );
+            this.handleClickOutside  = this.handleClickOutside.bind( this );
+        }
+
         if( this.props.type === 'timetable' )
         {
             this.state = {
@@ -299,6 +311,10 @@ class InputWrapper extends React.Component {
         {
             this.handleTimetableWrapper();
         }
+        else if( this.props.type === 'calendar' )
+        {
+            this.handleCalendarState();
+        }
     }
 
     handleTimeTableList( optionIndex, optionValue, listIndex )
@@ -361,6 +377,61 @@ class InputWrapper extends React.Component {
         }
     }
 
+    handleCalendarState()
+    {
+        if( !this.props.disabled )
+        {
+            if( !this.state.calendar.open )
+            {
+                document.addEventListener( 'click', this.handleClickOutside, false );
+            }
+            else
+            {
+                document.removeEventListener( 'click', this.handleClickOutside, false );
+            }
+
+            this.setState( state => {
+                return {
+                    ...state,
+                    calendar : {
+                        ...state.calendar,
+                        open : !state.calendar.open
+                    }
+                }
+            } );
+        }
+    }
+
+    handleCalendarDate( calendar, date )
+    {
+        if( !this.props.disabled && calendar )
+        {
+            calendar.set( date );
+
+            const inputValue = date.getFullYear() + '-' + ( '0' + ( date.getMonth() + 1 ) ).slice( -2 ) + '-' + ( '0' + date.getDate() ).slice( -2 );
+            const inputValid = inputValue === this.props.expectedValue;
+
+            console.log( inputValid );
+
+            this.setState( {
+                inputValue : inputValue
+            } );
+
+            this.handleCalendarState();
+
+            this.setState( {
+                inputValue : inputValue,
+                inputValid : inputValid
+            } );
+
+            this.props.onChange( {
+                index : this.props.index,
+                value : inputValue,
+                valid : inputValid
+            } );
+        }
+    }
+
     componentDidMount()
     {
         if( this.props.type === 'text' )
@@ -370,6 +441,17 @@ class InputWrapper extends React.Component {
             this.node.addEventListener( 'triggerChange', function( event ) {
                 _self.handleChange( event );
             } );
+        }
+        else if( this.props.type === 'calendar' )
+        {
+            if( jsCalendar && this.node )
+            {
+                const calendar = jsCalendar.new( this.node );
+
+                calendar.onDateClick( ( event, date ) => {
+                    this.handleCalendarDate( calendar, date );
+                } );
+            }
         }
     }
 
@@ -386,6 +468,14 @@ class InputWrapper extends React.Component {
                         " *"
                     }
                 </label>
+                { this.props.type === "calendar" &&
+                    <div className="calendar-wrapper">
+                        <div className={ ( "calendar-input " + ( this.props.disabled ? "disabled" : "") ).trim()  } onClick={ this.handleCalendarState }>
+                            { this.state.inputValue ? this.state.inputValue : "---" }
+                        </div>
+                        <div ref={ node => this.node = node } className={ ( "jsCalendar calendar-jsCalendar material-theme " + ( !this.state.calendar.open ? "hidden" : "" ) ).trim() } data-first-day-of-the-week="2" data-language="pl" data-month-format="month YYYY"></div>
+                    </div>
+                }
                 { this.props.type === "timetable" && this.state.timetable.open &&
                     <ul className="timetable-list" ref={ node => this.node = node }>
                         { this.props.options.map( ( list, listIndex ) =>
@@ -483,7 +573,7 @@ class InputWrapper extends React.Component {
                 { this.props.type === "text-select-text" &&
                     <div className="text-select-text-wrapper">
                         { this.props.miniLabels.map( ( miniLabel, index ) =>
-                            <span key={ index } className={ "mini-label " + ( this.props.disabled ? "disabled" : "" ) }>{ miniLabel }</span>
+                            <span key={ index } className={ ( "mini-label " + ( this.props.disabled ? "disabled" : "" ) + ( this.state.inputPartsValid[ index ] ? "on-input-part-valid" : "" ) ).trim().replace( /\s+/g, " " ) }>{ miniLabel }</span>
                         ) }
                         <input type="text" spellCheck="false" autoComplete="off" className={ this.state.inputPartsValid[ 0 ] ? "on-input-part-valid" : undefined } disabled={ this.props.disabled } maxLength={ this.props.maxLength[ 0 ] } onChange={ this.handleChange.bind( this, event, 0 ) } />
                         <Select class={ this.state.inputPartsValid[ 1 ] ? "on-input-part-valid" : undefined } disabled={ this.props.disabled } options={ this.props.selectOptions } chosenIndex={ this.state.chosenIndex } onOption={ this.handleOption.bind( this ) } selectIndex={ 1 } />

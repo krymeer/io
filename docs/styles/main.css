@@ -75,7 +75,7 @@ main table th, main table td {
   padding: 14px;
 }
 
-main .timetable-wrapper, main .select-option, main .select-current, main textarea, main input {
+main .calendar-input, main .timetable-wrapper, main .select-option, main .select-current, main textarea, main input {
   padding: 7px;
 }
 
@@ -83,11 +83,11 @@ main .inc-dec > i {
   padding: 3.5px;
 }
 
-main section.task .seq, main section .form.time-text-arrows > .wrapper > i, main section .form > .wrapper .select-wrapper > .select-list, main section .form, main section.scenario .summary .questions > .question-wrapper > ul > li, main section.scenario .summary .questions, main .toggle-switch:before, main .toggle-switch, main .inc-dec > i, main .timetable-wrapper, main .select-option, main .select-current, main textarea, main input, main button, main table {
+main section.task .seq, main section .form.time-text-arrows > .wrapper > i, main section .form > .wrapper .select-wrapper > .select-list, main section .form, main section.scenario .summary .questions > .question-wrapper > ul > li, main section.scenario .summary .questions, main .toggle-switch:before, main .toggle-switch, main .inc-dec > i, main .calendar-input, main .timetable-wrapper, main .select-option, main .select-current, main textarea, main input, main button, main table {
   border-radius: 4px;
 }
 
-main section.task .seq, main .timetable-wrapper:disabled, main .select-option:disabled, main .select-current:disabled, main textarea:disabled, main input:disabled, button, p, h1, h2, h3, h4, a, label, span, td, th, i.material-icons {
+main section.task .seq, main .calendar-input:disabled, main .calendar-input.disabled, main .timetable-wrapper:disabled, main .timetable-wrapper.disabled, main .select-option:disabled, main .select-option.disabled, main .select-current:disabled, main .select-current.disabled, main textarea:disabled, main textarea.disabled, main input:disabled, main input.disabled, button, p, h1, h2, h3, h4, a, label, span, td, th, i.material-icons {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
@@ -370,23 +370,62 @@ main .mini-label {
 main .mini-label.disabled {
   color: #ddd;
 }
-main .timetable-wrapper, main .select-option, main .select-current, main textarea, main input {
+main .calendar-input, main .timetable-wrapper, main .select-option, main .select-current, main textarea, main input {
   font-size: inherit;
   color: #212121;
   border: 2px solid #ddd;
   transition: color 0.1s ease-in-out, background 0.1s ease-in-out, border-color 0.1s ease-in-out;
 }
-main .timetable-wrapper:disabled, main .select-option:disabled, main .select-current:disabled, main textarea:disabled, main input:disabled {
+main .calendar-input:disabled, main .calendar-input.disabled, main .timetable-wrapper:disabled, main .timetable-wrapper.disabled, main .select-option:disabled, main .select-option.disabled, main .select-current:disabled, main .select-current.disabled, main textarea:disabled, main textarea.disabled, main input:disabled, main input.disabled {
   background: #eee;
   color: #ddd;
+  cursor: default;
 }
-main .timetable-wrapper:disabled::selection, main .select-option:disabled::selection, main .select-current:disabled::selection, main textarea:disabled::selection, main input:disabled::selection {
+main .calendar-input:disabled::selection, main .calendar-input.disabled::selection, main .timetable-wrapper:disabled::selection, main .timetable-wrapper.disabled::selection, main .select-option:disabled::selection, main .select-option.disabled::selection, main .select-current:disabled::selection, main .select-current.disabled::selection, main textarea:disabled::selection, main textarea.disabled::selection, main input:disabled::selection, main input.disabled::selection {
   background: transparent;
   color: #ddd;
 }
-main .timetable-wrapper:focus, main .select-option:focus, main .select-current:focus, main textarea:focus, main input:focus {
+main .calendar-input:focus, main .timetable-wrapper:focus, main .select-option:focus, main .select-current:focus, main textarea:focus, main input:focus {
   outline: none;
   border-color: #7e7e7e;
+}
+main .calendar-wrapper {
+  position: relative;
+}
+main .calendar-wrapper > .calendar-jsCalendar {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  right: 0;
+  width: 288px;
+  z-index: 2;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+main .calendar-wrapper > .calendar-jsCalendar table {
+  margin: 0;
+}
+main .calendar-wrapper > .calendar-jsCalendar tbody td {
+  cursor: pointer;
+}
+main .calendar-wrapper > .calendar-jsCalendar tbody td.jsCalendar-current {
+  background-color: #8b8b8b;
+}
+main .calendar-wrapper > .calendar-jsCalendar *::selection {
+  background: #8b8b8b;
+}
+main .calendar-wrapper > .calendar-jsCalendar *::-moz-selection {
+  background: #8b8b8b;
+}
+main .calendar-wrapper > .calendar-jsCalendar thead {
+  background-color: #8b8b8b;
+}
+main .calendar-wrapper > .calendar-jsCalendar thead .jsCalendar-nav-left:hover,
+main .calendar-wrapper > .calendar-jsCalendar thead .jsCalendar-nav-right:hover {
+  background-color: #9c9c9c;
+}
+main .calendar-wrapper > .calendar-jsCalendar thead .jsCalendar-title-name {
+  border-bottom: 0;
+  height: 40px;
+  line-height: 40px;
 }
 main textarea.error, main input.error {
   color: #a63446;
@@ -406,6 +445,9 @@ main label {
 }
 main input {
   line-height: 1;
+}
+main .calendar-wrapper {
+  cursor: pointer;
 }
 main .range-wrapper {
   display: grid;
@@ -729,9 +771,34 @@ main section .form > .wrapper.on-form-error.on-input-invalid .select-wrapper:not
 main section .form > .wrapper.on-form-error.on-input-invalid .select-wrapper:not(.on-input-part-valid) > .select-filter, main section .form > .wrapper.on-form-error.on-input-invalid .select-wrapper:not(.on-input-part-valid) > .select-current, main section .form > .wrapper.on-form-error.on-input-invalid .select-wrapper:not(.on-input-part-valid) > .select-list > .select-option, main section .form > .wrapper.on-form-error.on-input-invalid .select-wrapper:not(.on-input-part-valid) > .select-other {
   color: #a63446 !important;
 }
+main section .form > .wrapper.on-form-error.on-input-invalid > .calendar-wrapper > .calendar-input {
+  color: #a63446 !important;
+  border-color: #a63446 !important;
+}
+main section .form > .wrapper.on-form-error.on-input-invalid > .calendar-wrapper > .calendar-jsCalendar tbody td.jsCalendar-current {
+  background-color: #a63446;
+}
+main section .form > .wrapper.on-form-error.on-input-invalid > .calendar-wrapper > .calendar-jsCalendar *::selection {
+  background: #a63446;
+}
+main section .form > .wrapper.on-form-error.on-input-invalid > .calendar-wrapper > .calendar-jsCalendar *::-moz-selection {
+  background: #a63446;
+}
+main section .form > .wrapper.on-form-error.on-input-invalid > .calendar-wrapper > .calendar-jsCalendar thead {
+  background-color: #a63446;
+}
+main section .form > .wrapper.on-form-error.on-input-invalid > .calendar-wrapper > .calendar-jsCalendar thead .jsCalendar-nav-left:hover,
+main section .form > .wrapper.on-form-error.on-input-invalid > .calendar-wrapper > .calendar-jsCalendar thead .jsCalendar-nav-right:hover {
+  background-color: #ca5467;
+}
+main section .form > .wrapper.on-form-error.on-input-invalid > .text-select-text-wrapper > span:not(.on-input-part-valid),
 main section .form > .wrapper.on-form-error.on-input-invalid > .text-select-text-wrapper > input:not(.on-input-part-valid),
+main section .form > .wrapper.on-form-error.on-input-invalid > .multi-text-wrapper > span:not(.on-input-part-valid),
 main section .form > .wrapper.on-form-error.on-input-invalid > .multi-text-wrapper > input:not(.on-input-part-valid) {
   color: #a63446 !important;
+}
+main section .form > .wrapper.on-form-error.on-input-invalid > .text-select-text-wrapper > input:not(.on-input-part-valid),
+main section .form > .wrapper.on-form-error.on-input-invalid > .multi-text-wrapper > input:not(.on-input-part-valid) {
   border-color: #a63446 !important;
 }
 main section .form > .wrapper.on-form-error.on-input-invalid > .timetable-wrapper {
@@ -874,8 +941,17 @@ main section .form.logic-values-select {
 main section .form.logic-values-select > .wrapper {
   grid-template-columns: auto 75px;
 }
+main section .form.date-calendar {
+  width: 500px;
+}
+main section .form.date-calendar > .wrapper {
+  grid-template-columns: auto 90px;
+}
+main section .form.date-calendar > .wrapper > .calendar-wrapper {
+  text-align: center;
+}
 main section .form.date-text-select-text {
-  width: 640px;
+  width: 500px;
 }
 main section .form.date-text-select-text > .wrapper {
   grid-template-columns: auto 215px;
@@ -912,7 +988,7 @@ main section .form.date-masks {
   width: 500px;
 }
 main section .form.date-masks > .wrapper {
-  grid-template-columns: auto 90px;
+  grid-template-columns: auto 100px;
 }
 main section .form.time-table {
   width: 250px;

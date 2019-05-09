@@ -167,7 +167,7 @@ class Task extends React.Component {
                     {
                         return {
                             ...item,
-                            valid: input.valid
+                            valid : input.valid
                         };
                     }
 
@@ -188,7 +188,6 @@ class Task extends React.Component {
         }
     }
 
-    // TEMPORARY: Insert all the data by clicking only one button
     insertEverything( e )
     {
         const inputs = e.target.parentElement.querySelectorAll( 'input' );

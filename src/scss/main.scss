@@ -502,7 +502,7 @@ main {
         }
     }
 
-    .timetable-wrapper, .select-option, .select-current, textarea, input {
+    .calendar-input, .timetable-wrapper, .select-option, .select-current, textarea, input {
         @extend %padding-s;
         @extend %radius;
         font-size: inherit;
@@ -510,10 +510,11 @@ main {
         border: 2px solid $border-color-d;
         transition: color $transition, background $transition, border-color $transition;
 
-        &:disabled  {
+        &:disabled, &.disabled  {
             @extend %noselect;
             background: $border-color-m;
             color: $border-color-d;
+            cursor: default;
 
             &::selection {
                 background: transparent;
@@ -524,6 +525,54 @@ main {
         &:focus {
             outline: none;
             border-color: $input-color-b;
+        }
+    }
+
+    .calendar-wrapper {
+        position: relative;
+
+        > .calendar-jsCalendar {
+            position: absolute;
+            bottom: calc(100% + 10px);
+            right: 0;
+            width: 288px;
+            z-index: 2;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, .2);
+
+            table {
+                margin: 0;
+            }
+
+            tbody td {
+                cursor: pointer;
+            }
+
+            tbody td.jsCalendar-current {
+                background-color: $button-color-m;
+            }
+
+            *::selection {
+                background: $button-color-m;
+            }
+
+            *::-moz-selection {
+                background: $button-color-m;
+            }
+
+            thead {
+                background-color: $button-color-m;
+            }
+
+            thead .jsCalendar-nav-left:hover,
+            thead .jsCalendar-nav-right:hover {
+                background-color: $button-color-h;
+            }
+
+            thead .jsCalendar-title-name {
+                border-bottom: 0;
+                height: 40px;
+                line-height: 40px;
+            }
         }
     }
 
@@ -551,6 +600,10 @@ main {
 
     input {
         line-height: 1;
+    }
+
+    .calendar-wrapper {
+        cursor: pointer;
     }
 
     .range-wrapper {
@@ -984,10 +1037,44 @@ main {
                         }
                     }
 
+                    > .calendar-wrapper {
+                        > .calendar-input {
+                            color: $primary-color !important;
+                            border-color: $primary-color !important;
+                        }
+
+                        > .calendar-jsCalendar {
+                             tbody td.jsCalendar-current {
+                                background-color: $primary-color;
+                            }
+
+                            *::selection {
+                                background: $primary-color;
+                            }
+
+                            *::-moz-selection {
+                                background: $primary-color;
+                            }
+
+                            thead {
+                                background-color: $primary-color;
+                            }
+
+                            thead .jsCalendar-nav-left:hover,
+                            thead .jsCalendar-nav-right:hover {
+                                background-color: $primary-color-h;
+                            }
+                        }
+                    }
+
                     > .text-select-text-wrapper,
                     > .multi-text-wrapper {
+                        > span:not(.on-input-part-valid),
                         > input:not(.on-input-part-valid) {
                             color: $primary-color !important;
+                        }
+
+                        > input:not(.on-input-part-valid) {
                             border-color: $primary-color !important;
                         }
                     }
@@ -1216,8 +1303,20 @@ main {
                 }
             }
 
+            &.date-calendar {
+                width: 500px;
+
+                > .wrapper {
+                    grid-template-columns: auto 90px;
+
+                    > .calendar-wrapper {
+                        text-align: center;
+                    }
+                }
+            }
+
             &.date-text-select-text {
-                width: 640px;
+                width: 500px;
 
                 > .wrapper {
                     grid-template-columns: auto 215px;
@@ -1263,7 +1362,7 @@ main {
                 width: 500px;
 
                 > .wrapper {
-                    grid-template-columns: auto 90px;
+                    grid-template-columns: auto 100px;
                 }
             }
 

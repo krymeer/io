@@ -294,7 +294,7 @@
                         },
                         {
                             "type"          : "multi-select",
-                            "label"         : "Przejazd po",
+                            "label"         : "Przyjazd po",
                             "separator"     : ":",
                             "expectedValue" : ["22", "15"],
                             "options"       : [
