@@ -266,7 +266,10 @@ window.onload = function () {
             value: function componentDidMount() {
                 var _this2 = this;
 
-                fetch('./json/test-1.json').then(function (res) {
+                var ver = window.location.search.replace('?ver=', '');
+                var fileURI = './json/test-' + (ver === 'A' || ver === 'B' || ver === 'current' ? ver : 'A') + '.json';
+
+                fetch(fileURI).then(function (res) {
                     return res.json();
                 }).then(function (result) {
                     _this2.setState({

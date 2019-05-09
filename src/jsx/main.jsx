@@ -266,7 +266,10 @@ window.onload = function() {
 
         componentDidMount()
         {
-            fetch( './json/test-1.json' )
+            const ver     = window.location.search.replace( '?ver=', '' );
+            const fileURI = './json/test-' + ( ( ver === 'A' || ver === 'B' || ver === 'current' ) ? ver : 'A' ) + '.json';
+
+            fetch( fileURI )
                 .then( res => res.json() )
                 .then( ( result ) => {
                         this.setState( {
