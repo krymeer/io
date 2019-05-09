@@ -91,31 +91,31 @@
                         {
                             "type"          : "select",
                             "label"         : "Chcę otrzymywać powiadomienia o urodzinach",
-                            "options"      : [ "Tak", "Nie" ],
+                            "options"       : [ "Tak", "Nie" ],
                             "expectedValue" : "Nie"
                         },
                         {
                             "type"          : "select",
                             "label"         : "Chcę otrzymywać powiadomienia o nowych wiadomościach",
-                            "options"      : [ "Tak", "Nie" ],
+                            "options"       : [ "Tak", "Nie" ],
                             "expectedValue" : "Tak"
                         },
                         {
                             "type"          : "select",
                             "label"         : "Chcę otrzymywać powiadomienia o zaproszeniach do znajomych",
-                            "options"      : [ "Tak", "Nie" ],
+                            "options"       : [ "Tak", "Nie" ],
                             "expectedValue" : "Nie"
                         },
                         {
                             "type"          : "select",
                             "label"         : "Chcę otrzymywać powiadomienia dotyczące wspomnień",
-                            "options"      : [ "Tak", "Nie" ],
+                            "options"       : [ "Tak", "Nie" ],
                             "expectedValue" : "Tak"
                         },
                         {
                             "type"          : "select",
                             "label"         : "Chcę otrzymywać powiadomienia dotyczące aktywności znajomych",
-                            "options"      : [ "Tak", "Nie" ],
+                            "options"       : [ "Tak", "Nie" ],
                             "expectedValue" : "Tak"
                         }
                     ]
