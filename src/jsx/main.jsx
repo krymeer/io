@@ -24,6 +24,37 @@ getRealOffsetTop = ( offsetTop ) => {
     return offsetTop;
 }
 
+swap = ( arr, i, j ) => {
+    let tempVal;
+
+    tempVal  = arr[ i ];
+    arr[ i ] = arr[ j ];
+    arr[ j ] = tempVal;
+
+    return arr;
+}
+
+shuffle = ( arr ) => {
+    let currentIndex = arr.length, tempVal, randomIndex;
+
+    if( currentIndex === 2 && Math.random() > 0.5 )
+    {
+        swap( arr, 0, 1 );
+    }
+    else if( currentIndex > 2 )
+    {
+        while( 0 !== currentIndex )
+        {
+            randomIndex = Math.floor( Math.random() * currentIndex );
+            currentIndex -= 1;
+
+            swap( arr, currentIndex, randomIndex );
+        }
+    }
+
+    return arr;
+}
+
 merge = ( arr, p, q, r, aaa ) => {
     const t = [];
 
@@ -273,7 +304,7 @@ window.onload = function() {
                 .then( res => res.json() )
                 .then( ( result ) => {
                         this.setState( {
-                            scenarios : result.scenarios,
+                            scenarios : shuffle( result.scenarios ),
                             isLoaded  : true
                         }, () => {
                             window.addEventListener( 'scroll', this.handleScroll );
@@ -361,7 +392,8 @@ window.onload = function() {
                             ...state.output,
                             test : {
                                 ...state.output.test,
-                                startTime : new Date().getTime()
+                                startTime : new Date().getTime(),
+                                version   : this.props.version
                             }
                         }
                     }

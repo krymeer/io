@@ -26,6 +26,7 @@ class Scenario extends React.Component {
         this.childNodeRef     = child => {
             window.scrollTo( 0, getRealOffsetTop( child.offsetTop ) );
         };
+        this.randTasks        = shuffle( this.props.scenario.tasks );
     }
 
     handleStart()
@@ -73,7 +74,7 @@ class Scenario extends React.Component {
                 };
             } );
 
-            if( this.state.currentTaskIndex === this.props.scenario.tasks.length )
+            if( this.state.currentTaskIndex === this.randTasks.length )
             {
                 this.setState( {
                     scenarioFinished : true
@@ -146,7 +147,7 @@ class Scenario extends React.Component {
                     }
                     <button onClick={ this.handleStart } disabled={ this.state.scenarioStarted }>Rozpocznij scenariusz</button>
                     {
-                        this.props.scenario.tasks.map( ( task, index, tasks ) =>
+                        this.randTasks.map( ( task, index, tasks ) =>
                             <Task nodeRef={ this.childNodeRef } key={ index } index={ index + 1 } currentIndex={ this.state.currentTaskIndex } lastIndex={ tasks.length } onFinish={ this.handleTaskFinish } scenarioStarted={ this.state.scenarioStarted } task={ task } />
                         )
                     }

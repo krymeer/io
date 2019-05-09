@@ -33,6 +33,35 @@ getRealOffsetTop = function getRealOffsetTop(offsetTop) {
     return offsetTop;
 };
 
+swap = function swap(arr, i, j) {
+    var tempVal = void 0;
+
+    tempVal = arr[i];
+    arr[i] = arr[j];
+    arr[j] = tempVal;
+
+    return arr;
+};
+
+shuffle = function shuffle(arr) {
+    var currentIndex = arr.length,
+        tempVal = void 0,
+        randomIndex = void 0;
+
+    if (currentIndex === 2 && Math.random() > 0.5) {
+        swap(arr, 0, 1);
+    } else if (currentIndex > 2) {
+        while (0 !== currentIndex) {
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex -= 1;
+
+            swap(arr, currentIndex, randomIndex);
+        }
+    }
+
+    return arr;
+};
+
 merge = function merge(arr, p, q, r, aaa) {
     var t = [];
 
@@ -273,7 +302,7 @@ window.onload = function () {
                     return res.json();
                 }).then(function (result) {
                     _this2.setState({
-                        scenarios: result.scenarios,
+                        scenarios: shuffle(result.scenarios),
                         isLoaded: true
                     }, function () {
                         window.addEventListener('scroll', _this2.handleScroll);
@@ -344,13 +373,16 @@ window.onload = function () {
         }, {
             key: 'handleStart',
             value: function handleStart() {
+                var _this4 = this;
+
                 if (!this.state.testStarted) {
                     this.setState(function (state) {
                         return Object.assign({}, state, {
                             testStarted: true,
                             output: Object.assign({}, state.output, {
                                 test: Object.assign({}, state.output.test, {
-                                    startTime: new Date().getTime()
+                                    startTime: new Date().getTime(),
+                                    version: _this4.props.version
                                 })
                             })
                         });
@@ -391,7 +423,7 @@ window.onload = function () {
         }, {
             key: 'handleFinish',
             value: function handleFinish() {
-                var _this4 = this;
+                var _this5 = this;
 
                 if (this.state.allScenariosFinished && !this.state.testFinished) {
                     if (this.state.form.data.filter(function (input) {
@@ -415,11 +447,11 @@ window.onload = function () {
                                 })
                             });
                         }, function () {
-                            var output = _this4.state.output;
+                            var output = _this5.state.output;
                             var userData = {};
 
-                            for (var k = 0; k < _this4.state.form.data.length; k++) {
-                                var input = _this4.state.form.data[k];
+                            for (var k = 0; k < _this5.state.form.data.length; k++) {
+                                var input = _this5.state.form.data[k];
                                 userData[input.id] = input.value;
                             }
 
@@ -442,7 +474,7 @@ window.onload = function () {
                             }, function (error) {
                                 console.error(error);
                             }).then(function () {
-                                _this4.setState({
+                                _this5.setState({
                                     dataSent: true
                                 });
                             });
@@ -453,7 +485,7 @@ window.onload = function () {
         }, {
             key: 'render',
             value: function render() {
-                var _this5 = this;
+                var _this6 = this;
 
                 var _state = this.state,
                     error = _state.error,
@@ -515,7 +547,7 @@ window.onload = function () {
                                 )
                             ),
                             scenarios.map(function (scenario, index) {
-                                return React.createElement(Scenario, { key: index, index: index + 1, testStarted: _this5.state.testStarted, currentIndex: _this5.state.currentScenarioIndex, lastIndex: _this5.state.scenarios.length, scenario: scenario, onFinish: _this5.handleScenarioFinish, nodeRef: _this5.childNodeRef });
+                                return React.createElement(Scenario, { key: index, index: index + 1, testStarted: _this6.state.testStarted, currentIndex: _this6.state.currentScenarioIndex, lastIndex: _this6.state.scenarios.length, scenario: scenario, onFinish: _this6.handleScenarioFinish, nodeRef: _this6.childNodeRef });
                             }),
                             this.state.allScenariosFinished && React.createElement(
                                 'section',
@@ -536,7 +568,7 @@ window.onload = function () {
                                         'Ankieta uczestnika'
                                     ),
                                     this.state.form.data.map(function (item, index) {
-                                        return React.createElement(InputWrapper, Object.assign({ key: index, index: index, error: _this5.state.form.error, disabled: _this5.state.testFinished, onChange: _this5.handleFormChange }, item));
+                                        return React.createElement(InputWrapper, Object.assign({ key: index, index: index, error: _this6.state.form.error, disabled: _this6.state.testFinished, onChange: _this6.handleFormChange }, item));
                                     }),
                                     this.state.form.error && React.createElement(Paragraph, { 'class': 'on-form-error', content: 'Aby przej\u015B\u0107 dalej, popraw pola wyr\xF3\u017Cnione **tym kolorem.**' })
                                 ),

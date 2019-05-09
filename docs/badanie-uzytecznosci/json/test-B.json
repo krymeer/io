@@ -1,4 +1,5 @@
 {
+    "version"   : "B",
     "scenarios" : [
         {
             "intro" : "Zamówiłeś(-aś) kilka produktów z popularnego sklepu internetowego. W ostatnim czasie zmieniłeś(-aś) miejsce zamieszkania, jednak jak dotąd nie otrzymałeś(-aś) żadnej przesyłki na ten adres. Czas to zmienić!",
@@ -265,7 +266,7 @@
             ]
         },
         {
-            "intro" : "Niebawem wyruszysz na długą, kilkumiesięczną podróż. Ponieważ z natury jesteś człowiekiem rozsądnym i ostrożnym, chcesz wykupić na ten czas dodatkową ochronę. System porównujący oferty towarzystw ubezpieczeniowych, z którego korzystasz, wymaga podania okresu obowiązywania ubezpieczenia.",
+            "intro" : "Niebawem wyruszysz w długą, kilkumiesięczną podróż. Ponieważ z natury jesteś człowiekiem rozsądnym i ostrożnym, chcesz wykupić na ten czas dodatkową ochronę. System porównujący oferty towarzystw ubezpieczeniowych, z którego korzystasz, wymaga podania okresu obowiązywania ubezpieczenia.",
             "tasks" : [
                 {
                     "title"   : "Porównywarka ubezpieczeń podróżnych",
