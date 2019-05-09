@@ -265,6 +265,55 @@
             ]
         },
         {
+            "intro" : "Niebawem wyruszysz na długą, kilkumiesięczną podróż. Ponieważ z natury jesteś człowiekiem rozsądnym i ostrożnym, chcesz wykupić na ten czas dodatkową ochronę. System porównujący oferty towarzystw ubezpieczeniowych, z którego korzystasz, wymaga podania okresu obowiązywania ubezpieczenia.",
+            "tasks" : [
+                {
+                    "title"   : "Porównywarka ubezpieczeń podróżnych",
+                    "classes" : "labels-align-left date-text-select-text",
+                    "type"    : "date-text-select-text",
+                    "data"    : [
+                        {
+                            "type"          : "text-select-text",
+                            "label"         : "Początek ubezpieczenia",
+                            "miniLabels"    : [ "Dzień", "Miesiąc", "Rok" ],
+                            "separator"     : " ",
+                            "selectOptions" : [ "stycznia", "lutego", "marca", "kwietnia", "maja", "czerwca", "lipca", "sierpnia", "września", "października", "listopada", "grudnia" ],
+                            "expectedValue" : [ "30", "czerwca", "2019" ],
+                            "maxLength"     : [ 2, 0, 4 ]
+                        },
+                        {
+                            "type"          : "text-select-text",
+                            "label"         : "Koniec ubezpieczenia",
+                            "miniLabels"    : [ "Dzień", "Miesiąc", "Rok" ],
+                            "separator"     : " ",
+                            "selectOptions" : [ "stycznia", "lutego", "marca", "kwietnia", "maja", "czerwca", "lipca", "sierpnia", "września", "października", "listopada", "grudnia" ],
+                            "expectedValue" : [ "12", "stycznia", "2020" ],
+                            "maxLength"     : [ 2, 0, 4 ]
+                        }
+                    ]
+                },
+                {
+                    "title"   : "Porównywarka ubezpieczeń podróżnych",
+                    "classes" : "labels-align-left date-masks",
+                    "type"    : "date-masks",
+                    "data"    : [
+                        {
+                            "type"          : "mask",
+                            "label"         : "Początek ubezpieczenia",
+                            "mask"          : "99/99/9999",
+                            "expectedValue" : "11/07/2019"
+                        },
+                        {
+                            "type"          : "mask",
+                            "label"         : "Koniec ubezpieczenia",
+                            "mask"          : "99/99/9999",
+                            "expectedValue" : "12/01/2020"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
             "intro" : "W najbliższych dniach wybierasz się do miasta odległego o kilkaset kilometrów. Zdecydowałeś(-aś) się na podróż pociągiem. Interesują Cię połączenia o odjazdach i przyjazdach w określonych przedziałach czasowych.",
             "tasks" : [
                 {

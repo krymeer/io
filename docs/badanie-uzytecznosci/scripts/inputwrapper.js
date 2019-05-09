@@ -356,8 +356,6 @@ var InputWrapper = function (_React$Component) {
                 var inputValue = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
                 var inputValid = inputValue === this.props.expectedValue;
 
-                console.log(inputValid);
-
                 this.setState({
                     inputValue: inputValue
                 });

@@ -265,6 +265,49 @@
             ]
         },
         {
+            "intro" : "Niebawem wyruszysz na długą, kilkumiesięczną podróż. Ponieważ z natury jesteś człowiekiem rozsądnym i ostrożnym, chcesz wykupić na ten czas dodatkową ochronę. System porównujący oferty towarzystw ubezpieczeniowych, z którego korzystasz, wymaga podania okresu obowiązywania ubezpieczenia.",
+            "tasks" : [
+                {
+                    "title"   : "Porównywarka ubezpieczeń podróżnych",
+                    "classes" : "labels-align-left date-multi-text",
+                    "type"    : "date-multi-text",
+                    "data"    : [
+                        {
+                            "type"          : "multi-text",
+                            "label"         : "Początek ubezpieczenia",
+                            "separator"     : "-",
+                            "maxLength"     : [ "4", "2", "2" ],
+                            "expectedValue" : [ "2019", "07", "25" ]
+                        },
+                        {
+                            "type"          : "multi-text",
+                            "label"         : "Koniec ubezpieczenia",
+                            "separator"     : "-",
+                            "maxLength"     : [ "4", "2", "2" ],
+                            "expectedValue" : [ "2020", "02", "14" ]
+                        }
+                    ]
+                },
+                {
+                    "title"   : "Porównywarka ubezpieczeń podróżnych",
+                    "classes" : "labels-align-left date-calendar",
+                    "type"    : "date-calendar",
+                    "data"    : [
+                        {
+                            "type"          : "calendar",
+                            "label"         : "Początek ubezpieczenia",
+                            "expectedValue" : "2019-07-02"
+                        },
+                        {
+                            "type"          : "calendar",
+                            "label"         : "Koniec ubezpieczenia",
+                            "expectedValue" : "2020-01-02"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
             "intro" : "W najbliższych dniach wybierasz się do miasta odległego o kilkaset kilometrów. Zdecydowałeś(-aś) się na podróż pociągiem. Interesują Cię połączenia o odjazdach i przyjazdach w określonych przedziałach czasowych.",
             "tasks" : [
                 {
