@@ -297,15 +297,25 @@ window.onload = function() {
 
         componentDidMount()
         {
-            const ver     = window.location.search.replace( '?ver=', '' );
-            const fileURI = './json/test-' + ( ( ver === 'A' || ver === 'B' || ver === 'current' ) ? ver : 'A' ) + '.json';
+            const version = window.location.search.replace( '?ver=', '' );
+            const fileURI = './json/test-' + ( ( version === 'A' || version === 'B' || version === 'dev' ) ? version : 'A' ) + '.json';
 
             fetch( fileURI )
                 .then( res => res.json() )
                 .then( ( result ) => {
-                        this.setState( {
-                            scenarios : shuffle( result.scenarios ),
-                            isLoaded  : true
+                        this.setState( state => {
+                            return {
+                                ...state,
+                                scenarios : shuffle( result.scenarios ),
+                                isLoaded  : true,
+                                output    : {
+                                    ...state.output,
+                                    test : {
+                                        ...state.output.test,
+                                        version : version
+                                    }
+                                }
+                            }
                         }, () => {
                             window.addEventListener( 'scroll', this.handleScroll );
                         } );
@@ -392,8 +402,7 @@ window.onload = function() {
                             ...state.output,
                             test : {
                                 ...state.output.test,
-                                startTime : new Date().getTime(),
-                                version   : this.props.version
+                                startTime : new Date().getTime()
                             }
                         }
                     }

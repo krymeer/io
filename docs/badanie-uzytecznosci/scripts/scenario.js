@@ -25,7 +25,10 @@ var Scenario = function (_React$Component) {
             scenarioFinished: false,
             nextScenario: false,
             currentTaskIndex: 1,
-            tasks: [],
+            tasks: {
+                const: shuffle(_this.props.scenario.tasks),
+                results: []
+            },
             summary: {
                 currentQuestion: 0,
                 questions: [{ text: 'Czy treść ćwiczeń była jasna i zrozumiała?', chosenAnswer: -1, answers: ['Tak', 'Nie'] }, { text: 'Czy poziom trudności ćwiczeń był zgodny z Twoimi oczekiwaniami?', chosenAnswer: -1, answers: ['Tak', 'Nie'] }, { text: 'Czy podczas wykonywania ćwiczeń wystąpiły jakieś problemy?', chosenAnswer: -1, answers: ['Tak', 'Nie'] }],
@@ -35,7 +38,6 @@ var Scenario = function (_React$Component) {
         _this.childNodeRef = function (child) {
             window.scrollTo(0, getRealOffsetTop(child.offsetTop));
         };
-        _this.randTasks = shuffle(_this.props.scenario.tasks);
         return _this;
     }
 
@@ -58,7 +60,7 @@ var Scenario = function (_React$Component) {
 
                 this.props.onFinish({
                     index: this.props.index,
-                    tasks: this.state.tasks,
+                    tasks: this.state.tasks.results,
                     comment: this.state.summary.comment,
                     summaryAnswers: this.state.summary.questions.map(function (question) {
                         return question.answers[question.chosenAnswer];
@@ -74,15 +76,17 @@ var Scenario = function (_React$Component) {
 
             if (this.state.scenarioStarted && !this.state.scenarioFinished && this.state.currentTaskIndex === index) {
                 this.setState(function (state) {
-                    var tasks = state.tasks;
-                    tasks.push(data);
+                    var results = state.tasks.results;
+                    results.push(data);
 
                     return Object.assign({}, state, {
-                        tasks: tasks
+                        tasks: Object.assign({}, state.tasks, {
+                            results: results
+                        })
                     });
                 });
 
-                if (this.state.currentTaskIndex === this.randTasks.length) {
+                if (this.state.currentTaskIndex === this.state.tasks.const.length) {
                     this.setState({
                         scenarioFinished: true
                     });
@@ -153,7 +157,7 @@ var Scenario = function (_React$Component) {
                         { onClick: this.handleStart, disabled: this.state.scenarioStarted },
                         'Rozpocznij scenariusz'
                     ),
-                    this.randTasks.map(function (task, index, tasks) {
+                    this.state.tasks.const.map(function (task, index, tasks) {
                         return React.createElement(Task, { nodeRef: _this2.childNodeRef, key: index, index: index + 1, currentIndex: _this2.state.currentTaskIndex, lastIndex: tasks.length, onFinish: _this2.handleTaskFinish, scenarioStarted: _this2.state.scenarioStarted, task: task });
                     }),
                     this.state.scenarioFinished && React.createElement(
