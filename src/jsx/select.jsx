@@ -3,13 +3,16 @@ class Select extends React.Component {
     {
         super( props );
 
+        this.currentNodeHeight = 35;
+
         this.state = {
             list : {}
         };
 
-        this.handleSelect       = this.handleSelect.bind( this );
-        this.handleOverflow     = this.handleOverflow.bind( this );
-        this.handleClickOutside = this.handleClickOutside.bind( this );
+        this.handleSelect        = this.handleSelect.bind( this );
+        this.handleCurrentHeight = this.handleCurrentHeight.bind( this );
+        this.handleOverflow      = this.handleOverflow.bind( this );
+        this.handleClickOutside  = this.handleClickOutside.bind( this );
 
         if( this.props.selectFiltered )
         {
@@ -124,6 +127,19 @@ class Select extends React.Component {
         }
     }
 
+    handleCurrentHeight( eventTarget )
+    {
+        if( !this.props.disabled && this.currentNode )
+        {
+            const currentNodePadding = 2 * parseFloat( window.getComputedStyle( this.currentNode ).getPropertyValue( 'padding-top' ) );
+
+            this.currentNode.style.height = Math.max(
+                this.currentNode.children[ 0 ].offsetHeight + currentNodePadding,
+                this.currentNodeHeight
+            ) + 'px';
+        }
+    }
+
     handleSelect( event )
     {
         if( !this.props.disabled )
@@ -152,6 +168,11 @@ class Select extends React.Component {
                     }
                 };
             }, () => {
+                if( !this.state.list.open )
+                {
+                    this.handleCurrentHeight();
+                }
+
                 this.handleOverflow( eventTarget, bodyScrollHeight );
             } );
         }
@@ -195,7 +216,7 @@ class Select extends React.Component {
                     <input className="select-filter" ref={ this.props.inputNodeRef } maxLength={ this.props.inputMaxLength } type="text" spellCheck="false" autoComplete="off" disabled={ this.props.disabled } onFocus={ this.handleFilterFocus } onChange={ this.handleFilterChange } onBlur={ this.handleFilterBlur } value={ this.props.inputValue } />
                 }
                 { !this.props.selectFiltered &&
-                    <div className={ ( "select-current " + ( this.props.disabled ? "disabled" : "" ) + " " + ( this.state.list.open ? "focus" : "" ) ).trim().replace( /\s+/g, " " ) } onClick={ this.handleSelect }>
+                    <div ref={ currentNode => this.currentNode = currentNode } className={ ( "select-current " + ( this.props.disabled ? "disabled" : "" ) + " " + ( this.state.list.open ? "focus" : "" ) ).trim().replace( /\s+/g, " " ) } onClick={ this.handleSelect }>
                         <span>{ this.props.chosenIndex >= 0 ? this.props.options[ this.props.chosenIndex ] : "" }</span>
                         <i className="material-icons">
                             { ( this.state.list.open ) ? "keyboard_arrow_up" : "keyboard_arrow_down" }

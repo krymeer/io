@@ -14,11 +14,14 @@ var Select = function (_React$Component) {
 
         var _this = _possibleConstructorReturn(this, (Select.__proto__ || Object.getPrototypeOf(Select)).call(this, props));
 
+        _this.currentNodeHeight = 35;
+
         _this.state = {
             list: {}
         };
 
         _this.handleSelect = _this.handleSelect.bind(_this);
+        _this.handleCurrentHeight = _this.handleCurrentHeight.bind(_this);
         _this.handleOverflow = _this.handleOverflow.bind(_this);
         _this.handleClickOutside = _this.handleClickOutside.bind(_this);
 
@@ -126,6 +129,15 @@ var Select = function (_React$Component) {
             }
         }
     }, {
+        key: 'handleCurrentHeight',
+        value: function handleCurrentHeight(eventTarget) {
+            if (!this.props.disabled && this.currentNode) {
+                var currentNodePadding = 2 * parseFloat(window.getComputedStyle(this.currentNode).getPropertyValue('padding-top'));
+
+                this.currentNode.style.height = Math.max(this.currentNode.children[0].offsetHeight + currentNodePadding, this.currentNodeHeight) + 'px';
+            }
+        }
+    }, {
         key: 'handleSelect',
         value: function handleSelect(event) {
             var _this3 = this;
@@ -150,6 +162,10 @@ var Select = function (_React$Component) {
                         })
                     };
                 }, function () {
+                    if (!_this3.state.list.open) {
+                        _this3.handleCurrentHeight();
+                    }
+
                     _this3.handleOverflow(eventTarget, bodyScrollHeight);
                 });
             }
@@ -192,7 +208,9 @@ var Select = function (_React$Component) {
                 this.props.selectFiltered && React.createElement('input', { className: 'select-filter', ref: this.props.inputNodeRef, maxLength: this.props.inputMaxLength, type: 'text', spellCheck: 'false', autoComplete: 'off', disabled: this.props.disabled, onFocus: this.handleFilterFocus, onChange: this.handleFilterChange, onBlur: this.handleFilterBlur, value: this.props.inputValue }),
                 !this.props.selectFiltered && React.createElement(
                     'div',
-                    { className: ("select-current " + (this.props.disabled ? "disabled" : "") + " " + (this.state.list.open ? "focus" : "")).trim().replace(/\s+/g, " "), onClick: this.handleSelect },
+                    { ref: function ref(currentNode) {
+                            return _this4.currentNode = currentNode;
+                        }, className: ("select-current " + (this.props.disabled ? "disabled" : "") + " " + (this.state.list.open ? "focus" : "")).trim().replace(/\s+/g, " "), onClick: this.handleSelect },
                     React.createElement(
                         'span',
                         null,
