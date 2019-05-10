@@ -1068,10 +1068,10 @@ main section .form.time-multi-select > .wrapper {
   grid-template-columns: auto 60px 60px;
 }
 main section .form.autocomplete-on, main section .form.autocomplete-off {
-  width: 550px;
+  width: 600px;
 }
 main section .form.autocomplete-on > .wrapper, main section .form.autocomplete-off > .wrapper {
-  grid-template-columns: auto 300px;
+  grid-template-columns: auto 350px;
 }
 main section .form.autocomplete-on > .wrapper > .select-wrapper > input {
   width: 100%;

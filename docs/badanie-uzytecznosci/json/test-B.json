@@ -17,27 +17,27 @@
                         {
                             "type"          : "text",
                             "label"         : "Nazwisko",
-                            "expectedValue" : "Nowak"
+                            "expectedValue" : "Lewandowski"
                         },
                         {
                             "type"          : "text",
                             "label"         : "Ulica i numer",
-                            "expectedValue" : "plac Grunwaldzki 13"
+                            "expectedValue" : "Stanisława Spychalskiego 13"
                         },
                         {
                             "type"          : "text",
                             "label"         : "Kod pocztowy",
-                            "expectedValue" : "50-377"
+                            "expectedValue" : "45-716"
                         },
                         {
                             "type"          : "text",
                             "label"         : "Miejscowość",
-                            "expectedValue" : "Wrocław"
+                            "expectedValue" : "Opole"
                         },
                         {
                             "type"          : "text",
                             "label"         : "Numer telefonu",
-                            "expectedValue" : "71 391 05 46"
+                            "expectedValue" : "77 420 36 91"
                         }
                     ]
                 },
@@ -74,7 +74,7 @@
                         {
                             "type"          : "text",
                             "label"         : "Numer telefonu",
-                            "expectedValue" : "681 083 542"
+                            "expectedValue" : "539 081 284"
                         }
                     ]
                 }
@@ -250,7 +250,7 @@
                             "type"          : "mask",
                             "label"         : "Numer identyfikacji podatkowej",
                             "mask"          : "999-99-99-999",
-                            "expectedValue" : "988-25-58-562"
+                            "expectedValue" : "988-25-59-581"
                         },
                         {
                             "type"          : "mask",
@@ -262,7 +262,7 @@
                             "type"          : "mask",
                             "label"         : "Numer telefonu",
                             "mask"          : "999 999 999",
-                            "expectedValue" : "738 921 506"
+                            "expectedValue" : "739 021 576"
                         }
                     ]
                 }
@@ -415,75 +415,75 @@
                             "type"          : "select-filtered",
                             "label"         : "Punkt początkowy",
                             "options"       : [
-                                "Bieszczadzka 2A, 38-606 Baligród",
-                                "Okrzei 10, 97-400 Bełchatów",
-                                "Skłodowskiej-Curie 262, 85-094 Bydgoszcz",
-                                "Frenzla 190, 41-923 Bytom",
-                                "Głęboka 59, 43-400 Cieszyn",
-                                "Bardowskiego 86, 42-216 Częstochowa",
-                                "Demptowska 81, 81-087 Gdynia",
-                                "Karola Miarki 14, 48-340 Głuchołazy",
-                                "Bałtycka 7, 05-825 Grodzisk Mazowiecki",
-                                "Dworcowa 23, 86-300 Grudziądz",
-                                "Thomasa Woodrowa Wilsona 15, 44-190 Knurów",
-                                "Szarych Szeregów 5, 62-500 Konin",
-                                "Romualda Traugutta 20, 67-120 Kożuchów",
-                                "Jana Kasprowicza 6, 64-100 Leszno",
-                                "Kazimierza Wielkiego 7, 59-800 Lubań",
-                                "Akacjowa 14B, 63-645 Łęka Opatowska",
-                                "Korfantego 61, 41-400 Mysłowice",
-                                "Traktorowa 5, 10-828 Olsztyn",
-                                "Jana Pawła II 20, 27-400 Ostrowiec Świętokrzyski",
-                                "Chrobrego 28, 14-100 Ostróda",
-                                "Studzienna 70, 87-100 Toruń",
-                                "Kolegialna 43, 09-100 Płock",
-                                "Jana Pawła II 8, 05-807 Podkowa Leśna",
-                                "Janasa 9, 41-700 Ruda Śląska",
-                                "Marszałkowska 10, 35-310 Rzeszów",
-                                "Warszawska 3, 16-100 Sokółka",
-                                "Milczańska 31, 70-117 Szczecin",
-                                "Tadeusza Joteyki 8, 05-077 Warszawa",
-                                "Długa 17, 53-633 Wrocław",
-                                "Objazdowa 2, 34-300 Żywiec"
+                                "Baligród 38-606, Bieszczadzka 2A",
+                                "Bełchatów 97-400, Okrzei 10",
+                                "Bydgoszcz 85-094, Skłodowskiej-Curie 262",
+                                "Bytom 41-923, Frenzla 190",
+                                "Cieszyn 43-400, Głęboka 59",
+                                "Częstochowa 42-216, Bardowskiego 86",
+                                "Gdynia 81-087, Demptowska 81",
+                                "Głuchołazy 48-340, Karola Miarki 14",
+                                "Grodzisk Mazowiecki 05-825, Bałtycka 7",
+                                "Grudziądz 86-300, Dworcowa 23",
+                                "Knurów 44-190, Thomasa Woodrowa Wilsona 15",
+                                "Konin 62-500, Szarych Szeregów 5",
+                                "Kożuchów 67-120, Romualda Traugutta 20",
+                                "Leszno 64-100, Jana Kasprowicza 6",
+                                "Lubań 59-800, Kazimierza Wielkiego 7",
+                                "Łęka Opatowska 63-645, Akacjowa 14B",
+                                "Mysłowice 41-400, Korfantego 61",
+                                "Olsztyn 10-828, Traktorowa 5",
+                                "Ostrowiec Świętokrzyski 27-400, Jana Pawła II 20",
+                                "Ostróda 14-100, Chrobrego 28",
+                                "Toruń 87-100, Studzienna 70",
+                                "Płock 09-100, Kolegialna 43",
+                                "Podkowa Leśna 05-807, Jana Pawła II 8",
+                                "Ruda Śląska 41-700, Janasa 9",
+                                "Rzeszów 35-310, Marszałkowska 10",
+                                "Sokółka 16-100, Warszawska 3",
+                                "Szczecin 70-117, Milczańska 31",
+                                "Warszawa 05-077, Tadeusza Joteyki 8",
+                                "Wrocław 53-633, Długa 17",
+                                "Żywiec 34-300, Objazdowa 2"
                             ],
-                            "expectedValue" : "Demptowska 81, 81-087 Gdynia"
+                            "expectedValue" : "Łęka Opatowska 63-645, Akacjowa 14B"
                         },
                         {
                             "type"          : "select-filtered",
                             "label"         : "Punkt końcowy",
                             "options"       : [
-                                "Bieszczadzka 2A, 38-606 Baligród",
-                                "Okrzei 10, 97-400 Bełchatów",
-                                "Skłodowskiej-Curie 262, 85-094 Bydgoszcz",
-                                "Frenzla 190, 41-923 Bytom",
-                                "Głęboka 59, 43-400 Cieszyn",
-                                "Bardowskiego 86, 42-216 Częstochowa",
-                                "Demptowska 81, 81-087 Gdynia",
-                                "Karola Miarki 14, 48-340 Głuchołazy",
-                                "Bałtycka 7, 05-825 Grodzisk Mazowiecki",
-                                "Dworcowa 23, 86-300 Grudziądz",
-                                "Thomasa Woodrowa Wilsona 15, 44-190 Knurów",
-                                "Szarych Szeregów 5, 62-500 Konin",
-                                "Romualda Traugutta 20, 67-120 Kożuchów",
-                                "Jana Kasprowicza 6, 64-100 Leszno",
-                                "Kazimierza Wielkiego 7, 59-800 Lubań",
-                                "Akacjowa 14B, 63-645 Łęka Opatowska",
-                                "Korfantego 61, 41-400 Mysłowice",
-                                "Traktorowa 5, 10-828 Olsztyn",
-                                "Jana Pawła II 20, 27-400 Ostrowiec Świętokrzyski",
-                                "Chrobrego 28, 14-100 Ostróda",
-                                "Studzienna 70, 87-100 Toruń",
-                                "Kolegialna 43, 09-100 Płock",
-                                "Jana Pawła II 8, 05-807 Podkowa Leśna",
-                                "Janasa 9, 41-700 Ruda Śląska",
-                                "Marszałkowska 10, 35-310 Rzeszów",
-                                "Warszawska 3, 16-100 Sokółka",
-                                "Milczańska 31, 70-117 Szczecin",
-                                "Tadeusza Joteyki 8, 05-077 Warszawa",
-                                "Długa 17, 53-633 Wrocław",
-                                "Objazdowa 2, 34-300 Żywiec"
+                                "Baligród 38-606, Bieszczadzka 2A",
+                                "Bełchatów 97-400, Okrzei 10",
+                                "Bydgoszcz 85-094, Skłodowskiej-Curie 262",
+                                "Bytom 41-923, Frenzla 190",
+                                "Cieszyn 43-400, Głęboka 59",
+                                "Częstochowa 42-216, Bardowskiego 86",
+                                "Gdynia 81-087, Demptowska 81",
+                                "Głuchołazy 48-340, Karola Miarki 14",
+                                "Grodzisk Mazowiecki 05-825, Bałtycka 7",
+                                "Grudziądz 86-300, Dworcowa 23",
+                                "Knurów 44-190, Thomasa Woodrowa Wilsona 15",
+                                "Konin 62-500, Szarych Szeregów 5",
+                                "Kożuchów 67-120, Romualda Traugutta 20",
+                                "Leszno 64-100, Jana Kasprowicza 6",
+                                "Lubań 59-800, Kazimierza Wielkiego 7",
+                                "Łęka Opatowska 63-645, Akacjowa 14B",
+                                "Mysłowice 41-400, Korfantego 61",
+                                "Olsztyn 10-828, Traktorowa 5",
+                                "Ostrowiec Świętokrzyski 27-400, Jana Pawła II 20",
+                                "Ostróda 14-100, Chrobrego 28",
+                                "Toruń 87-100, Studzienna 70",
+                                "Płock 09-100, Kolegialna 43",
+                                "Podkowa Leśna 05-807, Jana Pawła II 8",
+                                "Ruda Śląska 41-700, Janasa 9",
+                                "Rzeszów 35-310, Marszałkowska 10",
+                                "Sokółka 16-100, Warszawska 3",
+                                "Szczecin 70-117, Milczańska 31",
+                                "Warszawa 05-077, Tadeusza Joteyki 8",
+                                "Wrocław 53-633, Długa 17",
+                                "Żywiec 34-300, Objazdowa 2"
                             ],
-                            "expectedValue" : "Romualda Traugutta 20, 67-120 Kożuchów"
+                            "expectedValue" : "Ostrowiec Świętokrzyski 27-400, Jana Pawła II 20"
                         }
                     ]
                 }

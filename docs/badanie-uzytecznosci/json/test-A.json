@@ -17,7 +17,7 @@
                         {
                             "type"          : "text",
                             "label"         : "Nazwisko",
-                            "expectedValue" : "Kowalski"
+                            "expectedValue" : "Kaczmarczyk"
                         },
                         {
                             "type"          : "text",
@@ -37,7 +37,7 @@
                         {
                             "type"          : "text",
                             "label"         : "Numer telefonu",
-                            "expectedValue" : "71 320 46 81"
+                            "expectedValue" : "71 325 46 81"
                         }
                     ]
                 },
@@ -54,7 +54,7 @@
                         {
                             "type"          : "text",
                             "label"         : "Nazwisko",
-                            "expectedValue" : "Wiśniewski"
+                            "expectedValue" : "Gołębiewski"
                         },
                         {
                             "type"          : "text",
@@ -74,7 +74,7 @@
                         {
                             "type"          : "text",
                             "label"         : "Numer telefonu",
-                            "expectedValue" : "590 863 728"
+                            "expectedValue" : "661 263 708"
                         }
                     ]
                 }
@@ -252,7 +252,7 @@
                         {
                             "type"          : "text",
                             "label"         : "Numer identyfikacji podatkowej",
-                            "expectedValue" : "226-59-60-478"
+                            "expectedValue" : "654-56-14-268"
                         },
                         {
                             "type"          : "text",
@@ -413,75 +413,75 @@
                             "type"          : "select",
                             "label"         : "Punkt początkowy",
                             "options"       : [
-                                "Stawowa 21, 85-323 Bydgoszcz",
-                                "Skwer Jagielloński 2, 74-500 Chojna",
-                                "Rynek 10, 59-225 Chojnów",
-                                "Hajducka 5, 41-500 Chorzów",
-                                "Polna 30, 86-200 Chełmno",
-                                "Węgrowska 16, 82-300 Elbląg",
-                                "Sadowa 33, 80-745 Gdańsk",
-                                "Starowiejska 21, 81-363 Gdynia",
-                                "plac Wolności 14, 59-400 Jawor",
-                                "Kolejowa 4, 57-240 Kamieniec Ząbkowicki",
-                                "Olszewskiego 20, 25-663 Kielce",
-                                "Josepha Conrada 21, 31-157 Kraków",
-                                "Słowackiego 3, 63-840 Krobia",
-                                "Łagiewnicka 2A, 91-839 Łódź",
-                                "11 Listopada 2, 28-366 Małogoszcz",
-                                "Długa 16, 67-124 Nowe Miasteczko",
-                                "Kościuszki 1, 82-230 Nowy Staw",
-                                "Mstowska 8, 42-256 Olsztyn",
-                                "Spółdzielcza 21, 44-145 Pilchowice",
-                                "Główna 65, 61-019 Poznań",
-                                "Okulickiego 11, 35-222 Rzeszów",
-                                "Grunwaldzka 19, 82-420 Ryjewo",
-                                "Spytkowice 100, 34-745 Spytkowice",
-                                "Zamenhofa 53, 58-105 Świdnica",
-                                "Warszawska 21, 89-500 Tuchola",
-                                "Bielska 10, 43-100 Tychy",
-                                "Jubilerska 1, 04-186 Warszawa",
-                                "Gałczyńskiego 9, 95-100 Zgierz",
-                                "Kilińskiego 12, 33-240 Żabno",
-                                "Pieniężnej 23, 88-400 Żnin"
+                                "Bydgoszcz 85-323, Stawowa 21",
+                                "Chojna 74-500, Skwer Jagielloński 2",
+                                "Chojnów 59-225, Rynek 10",
+                                "Chorzów 41-500, Hajducka 5",
+                                "Chełmno 86-200, Polna 30",
+                                "Elbląg 82-300, Węgrowska 16",
+                                "Gdańsk 80-745, Sadowa 33",
+                                "Gdynia 81-363, Starowiejska 21",
+                                "Jawor 59-400, plac Wolności 14",
+                                "Kamieniec Ząbkowicki 57-240, Kolejowa 4",
+                                "Kielce 25-663, Olszewskiego 20",
+                                "Kraków 31-157, Josepha Conrada 21",
+                                "Krobia 63-840, Słowackiego 3",
+                                "Łódź 91-839, Łagiewnicka 2A",
+                                "Małogoszcz 28-366, 11 Listopada 2",
+                                "Nowe Miasteczko 67-124, Długa 16",
+                                "Nowy Staw 82-230, Kościuszki 1",
+                                "Olsztyn 42-256, Mstowska 8",
+                                "Pilchowice 44-145, Spółdzielcza 21",
+                                "Poznań 61-019, Główna 65",
+                                "Rzeszów 35-222, Okulickiego 11",
+                                "Ryjewo 82-420, Grunwaldzka 19",
+                                "Spytkowice 34-745, Spytkowice 100",
+                                "Świdnica 58-105, Zamenhofa 53",
+                                "Tuchola 89-500, Warszawska 21",
+                                "Tychy 43-100, Bielska 10",
+                                "Warszawa 04-186, Jubilerska 1",
+                                "Zgierz 95-100, Gałczyńskiego 9",
+                                "Żabno 33-240, Kilińskiego 12",
+                                "Żnin 88-400, Pieniężnej 23"
                             ],
-                            "expectedValue" : "Josepha Conrada 21, 31-157 Kraków"
+                            "expectedValue" : "Nowy Staw 82-230, Kościuszki 1"
                         },
                         {
                             "type"          : "select",
                             "label"         : "Punkt końcowy",
                             "options"       : [
-                                "Stawowa 21, 85-323 Bydgoszcz",
-                                "Skwer Jagielloński 2, 74-500 Chojna",
-                                "Rynek 10, 59-225 Chojnów",
-                                "Hajducka 5, 41-500 Chorzów",
-                                "Polna 30, 86-200 Chełmno",
-                                "Węgrowska 16, 82-300 Elbląg",
-                                "Sadowa 33, 80-745 Gdańsk",
-                                "Starowiejska 21, 81-363 Gdynia",
-                                "plac Wolności 14, 59-400 Jawor",
-                                "Kolejowa 4, 57-240 Kamieniec Ząbkowicki",
-                                "Olszewskiego 20, 25-663 Kielce",
-                                "Josepha Conrada 21, 31-157 Kraków",
-                                "Słowackiego 3, 63-840 Krobia",
-                                "Łagiewnicka 2A, 91-839 Łódź",
-                                "11 Listopada 2, 28-366 Małogoszcz",
-                                "Długa 16, 67-124 Nowe Miasteczko",
-                                "Kościuszki 1, 82-230 Nowy Staw",
-                                "Mstowska 8, 42-256 Olsztyn",
-                                "Spółdzielcza 21, 44-145 Pilchowice",
-                                "Główna 65, 61-019 Poznań",
-                                "Okulickiego 11, 35-222 Rzeszów",
-                                "Grunwaldzka 19, 82-420 Ryjewo",
-                                "Spytkowice 100, 34-745 Spytkowice",
-                                "Zamenhofa 53, 58-105 Świdnica",
-                                "Warszawska 21, 89-500 Tuchola",
-                                "Bielska 10, 43-100 Tychy",
-                                "Jubilerska 1, 04-186 Warszawa",
-                                "Gałczyńskiego 9, 95-100 Zgierz",
-                                "Kilińskiego 12, 33-240 Żabno",
-                                "Pieniężnej 23, 88-400 Żnin"
+                                "Bydgoszcz 85-323, Stawowa 21",
+                                "Chojna 74-500, Skwer Jagielloński 2",
+                                "Chojnów 59-225, Rynek 10",
+                                "Chorzów 41-500, Hajducka 5",
+                                "Chełmno 86-200, Polna 30",
+                                "Elbląg 82-300, Węgrowska 16",
+                                "Gdańsk 80-745, Sadowa 33",
+                                "Gdynia 81-363, Starowiejska 21",
+                                "Jawor 59-400, plac Wolności 14",
+                                "Kamieniec Ząbkowicki 57-240, Kolejowa 4",
+                                "Kielce 25-663, Olszewskiego 20",
+                                "Kraków 31-157, Josepha Conrada 21",
+                                "Krobia 63-840, Słowackiego 3",
+                                "Łódź 91-839, Łagiewnicka 2A",
+                                "Małogoszcz 28-366, 11 Listopada 2",
+                                "Nowe Miasteczko 67-124, Długa 16",
+                                "Nowy Staw 82-230, Kościuszki 1",
+                                "Olsztyn 42-256, Mstowska 8",
+                                "Pilchowice 44-145, Spółdzielcza 21",
+                                "Poznań 61-019, Główna 65",
+                                "Rzeszów 35-222, Okulickiego 11",
+                                "Ryjewo 82-420, Grunwaldzka 19",
+                                "Spytkowice 34-745, Spytkowice 100",
+                                "Świdnica 58-105, Zamenhofa 53",
+                                "Tuchola 89-500, Warszawska 21",
+                                "Tychy 43-100, Bielska 10",
+                                "Warszawa 04-186, Jubilerska 1",
+                                "Zgierz 95-100, Gałczyńskiego 9",
+                                "Żabno 33-240, Kilińskiego 12",
+                                "Żnin 88-400, Pieniężnej 23"
                             ],
-                            "expectedValue" : "Mstowska 8, 42-256 Olsztyn"
+                            "expectedValue" : "Kamieniec Ząbkowicki 57-240, Kolejowa 4"
                         }
                     ]
                 }
