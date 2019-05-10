@@ -21,7 +21,7 @@ class Scenario extends React.Component {
                 questions : [
                     { text : 'Czy treść ćwiczeń była jasna i zrozumiała?', chosenAnswer : -1, answers : [ 'Tak', 'Nie' ] },
                     { text : 'Czy poziom trudności ćwiczeń był zgodny z Twoimi oczekiwaniami?', chosenAnswer : -1, answers : [ 'Tak', 'Nie' ] },
-                    { text : 'Czy podczas wykonywania ćwiczeń wystąpiły jakieś problemy?', chosenAnswer : -1, answers : [ 'Tak', 'Nie' ] }
+                    { text : 'Czy metody wprowadzania danych zaprezentowane w tym scenariuszu były dla Ciebie intuicyjne?', chosenAnswer : -1, answers : [ 'Tak', 'Nie' ] }
                 ],
                 comment   : ''
             }
@@ -159,7 +159,7 @@ class Scenario extends React.Component {
                     { this.state.scenarioFinished &&
                         <section className="summary" ref={ this.childNodeRef }>
                             <h2>Podsumowanie</h2>
-                            <Paragraph content={ "Gratulacje! Wszystko wskazuje na to, że udało Ci się ukończyć **scenariusz nr " + this.props.index + ".** Zanim przejdziesz dalej, udziel odpowiedzi na poniższe pytania." } />
+                            <Paragraph content={ "Udało się! Właśnie ukończyłeś **scenariusz nr " + this.props.index + "** i możesz przejść do kolejnej części badania. Zanim jednak to zrobisz, proszę, udziel odpowiedzi na poniższe pytania." } />
                             <section className="questions">
                                 { this.state.summary.questions.map( ( question, qIndex ) => {
                                     if( this.state.summary.currentQuestion >= qIndex )
@@ -182,7 +182,7 @@ class Scenario extends React.Component {
                                     }
                                 } ) }
                                 { this.state.summary.currentQuestion >= this.state.summary.questions.length &&
-                                    <InputWrapper wrapperClass="comment-wrapper" label="Czy masz jakieś uwagi lub sugestie związane z ukończonym scenariuszem?" optional={ true } type="textarea" disabled={ this.state.nextScenario } onChange={ this.handleSummaryComment } />
+                                    <InputWrapper wrapperClass="comment-wrapper" label="Jaki jest, Twoim zdaniem, najlepszy sposób na wprowadzanie tego typu danych?" optional={ true } type="textarea" disabled={ this.state.nextScenario } onChange={ this.handleSummaryComment } />
                                 }
                             </section>
                         </section>

@@ -627,10 +627,12 @@ main section > *:last-child {
   margin-bottom: 0 !important;
 }
 main section.scenario .summary .questions {
-  width: 615px;
+  width: 600px;
 }
 main section.scenario .summary .questions > .question-wrapper > h4 {
   margin-top: 0;
+  line-height: 1.25;
+  text-align: justify;
 }
 main section.scenario .summary .questions > .question-wrapper > ul {
   padding: 0;
@@ -651,6 +653,10 @@ main section.scenario .summary .questions > .question-wrapper > ul > li > * {
 }
 main section.scenario .summary .questions > .question-wrapper > ul > li > span {
   font-size: 14px;
+}
+main section.scenario .summary .questions > .comment-wrapper > label {
+  line-height: 1.25;
+  text-align: justify;
 }
 main section.scenario .summary .questions > .comment-wrapper > textarea {
   margin-top: 3.5px;
@@ -1136,6 +1142,10 @@ main section.task .seq > .seq-radios > li.seq-item:first-child > div:first-child
 }
 main section.task .seq > .seq-radios > li.seq-item:last-child > div:first-child {
   text-align: right;
+}
+main section.task .seq > .wrapper label {
+  line-height: 1.25;
+  text-align: justify;
 }
 main section #user-form {
   width: 400px;

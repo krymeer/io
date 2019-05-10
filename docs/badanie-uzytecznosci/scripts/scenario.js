@@ -31,7 +31,7 @@ var Scenario = function (_React$Component) {
             },
             summary: {
                 currentQuestion: 0,
-                questions: [{ text: 'Czy treść ćwiczeń była jasna i zrozumiała?', chosenAnswer: -1, answers: ['Tak', 'Nie'] }, { text: 'Czy poziom trudności ćwiczeń był zgodny z Twoimi oczekiwaniami?', chosenAnswer: -1, answers: ['Tak', 'Nie'] }, { text: 'Czy podczas wykonywania ćwiczeń wystąpiły jakieś problemy?', chosenAnswer: -1, answers: ['Tak', 'Nie'] }],
+                questions: [{ text: 'Czy treść ćwiczeń była jasna i zrozumiała?', chosenAnswer: -1, answers: ['Tak', 'Nie'] }, { text: 'Czy poziom trudności ćwiczeń był zgodny z Twoimi oczekiwaniami?', chosenAnswer: -1, answers: ['Tak', 'Nie'] }, { text: 'Czy metody wprowadzania danych zaprezentowane w tym scenariuszu były dla Ciebie intuicyjne?', chosenAnswer: -1, answers: ['Tak', 'Nie'] }],
                 comment: ''
             }
         };
@@ -168,7 +168,7 @@ var Scenario = function (_React$Component) {
                             null,
                             'Podsumowanie'
                         ),
-                        React.createElement(Paragraph, { content: "Gratulacje! Wszystko wskazuje na to, że udało Ci się ukończyć **scenariusz nr " + this.props.index + ".** Zanim przejdziesz dalej, udziel odpowiedzi na poniższe pytania." }),
+                        React.createElement(Paragraph, { content: "Udało się! Właśnie ukończyłeś **scenariusz nr " + this.props.index + "** i możesz przejść do kolejnej części badania. Zanim jednak to zrobisz, proszę, udziel odpowiedzi na poniższe pytania." }),
                         React.createElement(
                             'section',
                             { className: 'questions' },
@@ -203,7 +203,7 @@ var Scenario = function (_React$Component) {
                                     return "";
                                 }
                             }),
-                            this.state.summary.currentQuestion >= this.state.summary.questions.length && React.createElement(InputWrapper, { wrapperClass: 'comment-wrapper', label: 'Czy masz jakie\u015B uwagi lub sugestie zwi\u0105zane z uko\u0144czonym scenariuszem?', optional: true, type: 'textarea', disabled: this.state.nextScenario, onChange: this.handleSummaryComment })
+                            this.state.summary.currentQuestion >= this.state.summary.questions.length && React.createElement(InputWrapper, { wrapperClass: 'comment-wrapper', label: 'Jaki jest, Twoim zdaniem, najlepszy spos\xF3b na wprowadzanie tego typu danych?', optional: true, type: 'textarea', disabled: this.state.nextScenario, onChange: this.handleSummaryComment })
                         )
                     ),
                     this.state.scenarioFinished && this.state.summary.currentQuestion >= this.state.summary.questions.length && React.createElement(

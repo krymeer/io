@@ -842,7 +842,7 @@ main {
                     @extend %block-alt;
                     @extend %radius;
                     @extend %padding-l;
-                    width: 615px;
+                    width: 600px;
 
                     > .question-wrapper {
                         @extend %margin-top-btm-l;
@@ -850,6 +850,8 @@ main {
                         > h4 {
                             @extend %margin-top-btm-xs;
                             margin-top: 0;
+                            line-height: 1.25;
+                            text-align: justify;
                         }
 
                         > ul {
@@ -879,6 +881,11 @@ main {
                     }
 
                     > .comment-wrapper {
+                        > label {
+                            line-height: 1.25;
+                            text-align: justify;
+                        }
+
                         > textarea {
                             margin-top: $value-xs;
                         }
@@ -1574,6 +1581,13 @@ main {
                                 }
                             }
                         }
+                    }
+                }
+
+                > .wrapper {
+                    label {
+                        line-height: 1.25;
+                        text-align: justify;
                     }
                 }
             }
