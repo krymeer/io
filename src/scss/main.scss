@@ -1531,6 +1531,7 @@ main {
                 @extend %padding-l;
                 @extend %noselect;
                 width: fit-content;
+                max-width: 600px;
 
                 > .seq-radios {
                     display: grid;

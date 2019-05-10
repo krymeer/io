@@ -2,6 +2,7 @@
     "scenarios" : [
         {
             "intro" : "Zamówiłeś(-aś) kilka produktów z popularnego sklepu internetowego. W ostatnim czasie zmieniłeś(-aś) miejsce zamieszkania, jednak jak dotąd nie otrzymałeś(-aś) żadnej przesyłki na ten adres. Czas to zmienić!",
+            "question" : "Co sądzisz o zaprezentowanym sposobie na ułożenie pól i etykiet w formularzu?",
             "tasks" : [
                 {
                     "title"   : "Adres do wysyłki",
@@ -81,6 +82,7 @@
         },
         {
             "intro" : "Posiadasz konto na jednym z popularnych portali społecznościowych. Od jakiegoś czasu otrzymujesz dużą liczbę nieistotnych dla Ciebie powiadomień. Aby temu zapobiec, musisz zmienić ustawienia swojego konta.",
+            "question" : "Co sądzisz o zaprezentowanej metodzie wybierania 1 z 2 wartości logicznych?",
             "tasks" : [
                 {
                     "title"   : "Powiadomienia",
@@ -165,6 +167,7 @@
         },
         {
             "intro" : "Planujesz udać się na zasłużony urlop -- jesteś na etapie przegłądania ofert. Wyszukiwarka ofert biur podróży, z której korzystasz, wymaga wprowadzenia kilku parametrów, które umożliwią zawężenie wyników wyszukiwania.",
+            "question" : "Co sądzisz o zaprezentowanej metodzie wprowadzania niewielkiej liczby?",
             "tasks" : [
                 {
                     "title"   : "Szczegóły wycieczki",
@@ -236,6 +239,7 @@
         },
         {
             "intro" : "Znalazłeś(-aś) niedawno zatrudnienie w dużej międzynarodowej korporacji. Pracownik działu kadr poprosił Cię o przesłanie kilku brakujących danych, bez których wypłata wynagrodzenia na koniec miesiąca nie będzie możliwa.",
+            "question" : "Co sądzisz o wprowadzaniu długich ciągów liczb z automatycznym wstawianiem znaków (np. spacji)?",
             "tasks" : [
                 {
                     "title"   : "Dane do przelewu",
@@ -266,6 +270,7 @@
         },
         {
             "intro" : "Niebawem wyruszysz w długą, kilkumiesięczną podróż. Ponieważ z natury jesteś człowiekiem rozsądnym i ostrożnym, chcesz wykupić na ten czas dodatkową ochronę. System porównujący oferty towarzystw ubezpieczeniowych, z którego korzystasz, wymaga podania okresu obowiązywania ubezpieczenia.",
+            "question" : "Co sądzisz o zaprezentowanej metodzie wprowadzania daty?",
             "tasks" : [
                 {
                     "title"   : "Porównywarka ubezpieczeń podróżnych",
@@ -315,6 +320,7 @@
         },
         {
             "intro" : "W najbliższych dniach wybierasz się do miasta odległego o kilkaset kilometrów. Zdecydowałeś(-aś) się na podróż pociągiem. Interesują Cię połączenia o odjazdach i przyjazdach w określonych przedziałach czasowych.",
+            "question" : "Co sądzisz o zaprezentowanej metodzie wprowadzania czasu?",
             "tasks" : [
                 {
                     "title"   : "Wyszukiwarka połączeń",
@@ -398,6 +404,7 @@
         },
         {
             "intro" : "Znajomy poprosił Cię o wysłanie ważnej dla niego rzeczy, którą przez pomyłkę u Ciebie zostawił. Zdecydowałeś(-aś) się skorzystać z usług jednej z firm kurierskich. Przed nadaniem paczki musisz wskazać dwa punkty adresowe: pierwszy, z którego przesyłka zostanie wysłana, oraz drugi -- ten, z którego zostanie odebrana.",
+            "question" : "Co sądzisz o zaprezentowanej metodzie wybierania pozycji z listy?",
             "tasks" : [
                 {
                     "title"   : "Nadanie przesyłki",

@@ -1105,6 +1105,7 @@ main section .form.small-numbers-text > .wrapper > input {
 }
 main section.task .seq {
   width: fit-content;
+  max-width: 600px;
 }
 main section.task .seq > .seq-radios {
   display: grid;
@@ -1142,5 +1143,3 @@ main section #user-form {
 main section #user-form ~ .loader {
   margin-top: 28px;
 }
-
-/*# sourceMappingURL=main.css.map */

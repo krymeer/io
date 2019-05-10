@@ -208,19 +208,6 @@ window.onload = function() {
                     data  : [
                         {
                             type        : 'text',
-                            label       : 'Twoje imię',
-                            id          : 'firstName',
-                            maxLength   : 32
-                        },
-                        {
-                            type        : 'text',
-                            label       : 'Twój adres e-mail',
-                            id          : 'email',
-                            regex       : globals.emailRegex,
-                            maxLength   : 128
-                        },
-                        {
-                            type        : 'text',
                             label       : 'Twój rok urodzenia',
                             id          : 'birthYear',
                             regex       : /^\d{4}$/,
@@ -236,27 +223,26 @@ window.onload = function() {
                             type        : 'select',
                             label       : 'Twoje wykształcenie',
                             id          : 'education',
-                            options     : [ 'Podstawowe', 'Gimnazjalne', 'Zasadnicze zawodowe', 'Zasadnicze branżowe', 'Średnie branżowe', 'Średnie', 'Wyższe', 'Inne (jakie?)' ],
-                            otherOption : true
+                            options     : [ 'Podstawowe lub gimnazjalne', 'Średnie', 'Wyższe' ]
                         },
                         {
                             type        : 'select',
                             label       : 'Twój zawód',
                             id          : 'job',
-                            options     : [ 'Bezrobotny', 'Dziennikarz', 'Ekonomista', 'Inżynier', 'Lekarz', 'Pedagog', 'Pracownik biurowy', 'Programista', 'Student', 'Uczeń', 'Urzędnik', 'Inny (jaki?)' ],
+                            options     : [ 'Bezrobotny', 'Ekonomista', 'Informatyk', 'Lekarz', 'Pedagog', 'Pracownik biurowy', 'Prawnik', 'Student', 'Uczeń', 'Inny (jaki?)' ],
                             otherOption : true
                         },
                         {
                             type        : 'select',
                             label       : 'Jak często przeglądasz strony WWW?',
                             id          : 'frequency',
-                            options     : [ 'Kilka razy dziennie', 'Raz dziennie', 'Co kilka dni', 'Raz w tygodniu', 'Sporadycznie', 'Trudno powiedzieć' ]
+                            options     : [ '1 raz dziennie lub więcej', '1 raz w tygodniu lub więcej', 'Rzadziej niż 1 raz w tygodniu lub sporadycznie', 'Trudno powiedzieć' ]
                         },
                         {
                             type        : 'select',
                             label       : 'Główny powód, dla którego przeglądasz strony WWW',
                             id          : 'mainReason',
-                            options     : [ 'Praca', 'Rozrywka', 'Kontakt ze znajomymi', 'Nauka', 'Zakupy online', 'Inny (jaki?)' ],
+                            options     : [ 'Lektura wiadomości i artykułów w serwisach informacyjnych, branżowych lub specjalistycznych', 'Hobby', 'Kontakt ze znajomymi', 'Nauka', 'Praca', 'Rozrywka', 'Szybkie wyszukiwanie informacji', 'Zakupy online', 'Inny (jaki?)' ],
                             otherOption : true
                         },
                         {
@@ -273,7 +259,7 @@ window.onload = function() {
                         },
                         {
                             type        : 'textarea',
-                            label       : 'Twój komentarz',
+                            label       : 'Czy którakolwiek z zaprezentowanych metod wprowadzania danych była dla Ciebie wyjątkowo uciążliwa lub niepraktyczna?',
                             id          : 'comment',
                             optional    : true,
                             value       : ''
@@ -557,9 +543,9 @@ window.onload = function() {
                         <main>
                             <section>
                                 <Paragraph content="Witaj! Niniejsze badanie jest częścią mojej pracy dyplomowej i ma na celu zbadanie użyteczności wybranych wzorców pól, które możesz na co dzień znaleźć w wielu aplikacjach webowych i na stronach internetowych." />
-                                <Paragraph content="**Co będziesz robił?** Zostaniesz poproszony(-a) o wykonanie kilkunastu ćwiczeń polegających na uzupełnieniu różnego typu formularzy.\n**Ile to potrwa?** Jeśli korzystanie z klawiatury nie jest dla Ciebie wyzwaniem, to przejście przez wszystkie etapy badania powinno zająć nie więcej niż 15 min Twojego cennego czasu.\n**Czy będę musiał(-a) podawać jakieś dane?** Absolutnie nie!* Potraktuj to badanie jako pewnego rodzaju zabawę. Każde ćwiczenie poprzedzone jest tabelą zawierającą nazwy pól w formularzu i dane, którymi te pola powinny zostać uzupełnione -- Ty zaś będziesz mógł/mogła się na tym, aby wstawić te informacje we właściwe miejsca!\n**Na co mam zwrócić uwagę?** Odstępy, znaki pisarskie, interpunkcyjne są niezwykle istotne w tym badaniu. Ćwiczenie jest uznane za poprawnie rozwiązane wtedy i tylko wtedy, gdy wprowadzone dane odpowiadają danym wzorcowym.\n**Ctrl+C, Ctrl+V? Nie tutaj!** Kopiowanie danych z tabeli poprzedzającej ćwiczenie jest zablokowane. Jasne jest, że przy odrobinie sprytu i wiedzy z dziedziny informatyki był(a)byś w stanie to zrobić, jednak nie rób tego, proszę. Celem tego badania jest zebranie relewantnych i wiarygodnych danych, które będę mógł przedstawić w swojej pracy, a będzie to możliwe tylko wtedy, gdy wszystkie pola wypełnisz ręcznie.\n**Nie musisz być gadatliwy.** Po każdym ćwiczeniu będziesz miał(a) możliwość pozostawienia komentarza. Nie jednak na siłę -- możesz pozostawić takie pole bez treści i po prostu przejść dalej." />
+                                <Paragraph content="**Co będziesz robił?** Zostaniesz poproszony(-a) o wykonanie kilkunastu ćwiczeń polegających na uzupełnieniu różnego typu formularzy.\n**Ile to potrwa?** Jeśli korzystanie z klawiatury nie jest dla Ciebie wyzwaniem, to przejście przez wszystkie etapy badania powinno zająć nie więcej niż 15 min Twojego cennego czasu.\n**Czy będę musiał(-a) podawać jakieś dane?** Absolutnie nie!* Potraktuj to badanie jako pewnego rodzaju zabawę. Każde ćwiczenie poprzedzone jest tabelą zawierającą nazwy pól w formularzu i dane, którymi te pola powinny zostać uzupełnione -- Ty zaś będziesz mógł/mogła się na tym, aby wstawić te informacje we właściwe miejsca!\n**Na co mam zwrócić uwagę?** Odstępy, znaki pisarskie, interpunkcyjne są niezwykle istotne w tym badaniu. Ćwiczenie jest uznane za poprawnie rozwiązane wtedy i tylko wtedy, gdy wprowadzone dane odpowiadają danym wzorcowym.\n**Ctrl+C, Ctrl+V? Nie tutaj!** Kopiowanie danych z tabeli poprzedzającej ćwiczenie jest zablokowane. Jasne jest, że przy odrobinie sprytu i wiedzy z dziedziny informatyki był(a)byś w stanie to zrobić, jednak nie rób tego, proszę. Celem tego badania jest zebranie relewantnych i wiarygodnych danych, które będę mógł przedstawić w swojej pracy, a będzie to możliwe tylko wtedy, gdy wszystkie pola wypełnisz ręcznie.\n**Twoja opinia ma znaczenie.** Po każdym ćwiczeniu będziesz miał(a) możliwość pozostawienia komentarza odnoszącego się do właśnie wypróbowanej metody wprowadzania danych. Komentarz nie jest obowiązkowy, jednak dzięki niemu będę mógł poznać Twój punkt widzenia." />
                                 <Paragraph content="**Wszystko jasne?** Naciśnij przycisk ,,Rozpocznij badanie'', aby zmierzyć się ze stojącym przed Tobą wyzwaniem!" />
-                                <Paragraph class="text-smaller" content="*) Badanie kończy się ankietą użytkownika, w której podasz pewne dane osobowe (imię, adres e-mail, rok urodzenia itd.). Bez obaw -- **informacje te nie zostaną przekazane osobom trzecim,** a ich gromadzenie wynika wyłącznie z potrzeby identyfikacji użytkowników oraz konieczności zbudowania statystyk. Twoje dane zostaną usunięte niezwłocznie po zamknięciu badania użyteczności i ukończeniu przeze mnie pracy dyplomowej.\n**Masz dodatkowe pytania?** Skontaktuj się ze mną -- mój adres e-mail to **krzysztof.radoslaw.osada@gmail.com.**"/>
+                                <Paragraph class="text-smaller" content="*) Badanie kończy się ankietą użytkownika, w której podasz dane związane z Twoją osobą, m.in. rok urodzenia, wykształcenie, zawód itd. Informacje te umożliwią przypisanie Twojej osoby pod względem uzyskanych wyników do poszczególnych grup całej populacji uczestników badania. Jeżeli masz jakieś uwagi, pytania lub sugestie związane z gromadzeniem tych danych, napisz do mnie na adres **krzysztof.radoslaw.osada@gmail.com.**"/>
                                 <button onClick={ this.handleStart } disabled={ this.state.testStarted }>Rozpocznij badanie</button>
                             </section>
                             { scenarios.map( ( scenario, index ) =>
@@ -568,8 +554,8 @@ window.onload = function() {
                             { this.state.allScenariosFinished &&
                                 <section ref={ this.childNodeRef }>
                                     <h1>Zakończenie</h1>
-                                    <Paragraph content="Gratulacje! **Udało Ci się ukończyć badanie użyteczności.** Zanim zamkniesz tę kartę i wrócisz do swoich zajęć, wypełnij, proszę, poniższą ankietę -- podaj podstawowe informacje na swój temat\*\* oraz podziel się odczuciami związanymi z formularzami na stronach internetowych." />
-                                    <Paragraph class="text-smaller" content="\*\*) Administratorem danych osobowych jestem ja -- Krzysztof Osada. Informacje na Twój temat **nie zostaną** przekazane osobom trzecim i posłużą jedynie w celach identyfikacyjnych oraz statystycznych. Wprowadzone poniżej dane zostaną usunięte z bazy danych niezwłocznie po tym, gdy przestaną być potrzebne, tj. **nie później** niż po ukończeniu przeze mnie kursu ,,Praca dyplomowa II''. Jeśli masz jakieś pytania, uwagi bądź wątpliwości, skontaktuj się ze mną -- mój adres e-mail to **krzysztof.radoslaw.osada@gmail.com.**" />
+                                    <Paragraph content="Świetnie! **Właśnie zakończyłeś badanie użyteczności.** Zanim jednak zamkniesz tę kartę i wrócisz do swoich zajęć, wypełnij, proszę, poniższą ankietę -- podaj podstawowe informacje na swój temat\*\* oraz podziel się odczuciami związanymi z formularzami na stronach internetowych." />
+                                    <Paragraph class="text-smaller" content="\*\*) **W badaniu nie są rejestrowane żadne informacje umożliwiające jednoznaczne zidentyfikowane danej osoby.** Celem niniejszej ankiety jest kategoryzacja uczestników badania według cech mogących mieć wpływ na szybkość, poprawność i dokładność wprowadzania danych w formularzach internetowych. Poniższe informacje pozwolą więc na dostrzeżenie zależności między wynikami uzyskanymi przez Ciebie w badaniu a parametrami dotyczącymi Twojego wykształcenia, wieku, Twoich doświadczeń ze stronami internetowymi itp. Jeżeli masz jakieś pytania lub uwagi związane z poniższą ankietą, wyślij do mnie wiadomość na adres  **krzysztof.radoslaw.osada@gmail.com.**" />
                                     <section className="form labels-align-top" id="user-form">
                                         <h3>Ankieta uczestnika</h3>
                                         {
@@ -589,7 +575,7 @@ window.onload = function() {
                             }
                             { this.state.testFinished && this.state.dataSent &&
                                 <section ref={ this.childNodeRef }>
-                                    <Paragraph content="**To już jest koniec!** Serdecznie dziękuję za udział w badaniu -- Twoja pomoc jest dla mnie naprawdę nieoceniona. Na podany wyżej adres e-mail otrzymasz **automatycznie wygenerowaną** wiadomość będącą potwierdzeniem zapisania Twoich danych i wyników badania przez aplikację." />
+                                    <Paragraph content="**To już jest koniec!** Serdecznie dziękuję za udział w badaniu -- Twoja pomoc jest dla mnie naprawdę nieoceniona. Uzyskane przez Ciebie wyniki zostaną uwzględnione w części badawczej mojej pracy dyplomowej ,,Badanie użyteczności metod wprowadzania danych w aplikacjach webowych'', którą piszę pod kierunkiem dr. hab. inż. Bogdana Trawińskiego, prof. PWr." />
                                 </section>
                             }
                         </main>

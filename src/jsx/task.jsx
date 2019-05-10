@@ -269,7 +269,7 @@ class Task extends React.Component {
                                 ) }
                             </ul>
                             { this.state.stats.rating > 0 &&
-                                <InputWrapper wrapperClass="comment-wrapper" label="Czy masz jakieś uwagi lub sugestie związane z powyższym ćwiczeniem?" optional={ true } type="textarea" disabled={ this.state.nextTask } onChange={ this.handleCommentChange } />
+                                <InputWrapper wrapperClass="comment-wrapper" label={ ( typeof this.props.question !== "undefined" ) ? insertNbsp( this.props.question )  : "Co sądzisz o wprowadzaniu danych przy użyciu zaprezentowanej metody?" } optional={ true } type="textarea" disabled={ this.state.nextTask } onChange={ this.handleCommentChange } />
                             }
                         </section>
                     }

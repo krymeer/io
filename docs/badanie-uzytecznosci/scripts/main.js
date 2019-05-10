@@ -213,17 +213,6 @@ window.onload = function () {
                     error: false,
                     data: [{
                         type: 'text',
-                        label: 'Twoje imię',
-                        id: 'firstName',
-                        maxLength: 32
-                    }, {
-                        type: 'text',
-                        label: 'Twój adres e-mail',
-                        id: 'email',
-                        regex: globals.emailRegex,
-                        maxLength: 128
-                    }, {
-                        type: 'text',
                         label: 'Twój rok urodzenia',
                         id: 'birthYear',
                         regex: /^\d{4}$/,
@@ -237,24 +226,23 @@ window.onload = function () {
                         type: 'select',
                         label: 'Twoje wykształcenie',
                         id: 'education',
-                        options: ['Podstawowe', 'Gimnazjalne', 'Zasadnicze zawodowe', 'Zasadnicze branżowe', 'Średnie branżowe', 'Średnie', 'Wyższe', 'Inne (jakie?)'],
-                        otherOption: true
+                        options: ['Podstawowe lub gimnazjalne', 'Średnie', 'Wyższe']
                     }, {
                         type: 'select',
                         label: 'Twój zawód',
                         id: 'job',
-                        options: ['Bezrobotny', 'Dziennikarz', 'Ekonomista', 'Inżynier', 'Lekarz', 'Pedagog', 'Pracownik biurowy', 'Programista', 'Student', 'Uczeń', 'Urzędnik', 'Inny (jaki?)'],
+                        options: ['Bezrobotny', 'Ekonomista', 'Informatyk', 'Lekarz', 'Pedagog', 'Pracownik biurowy', 'Prawnik', 'Student', 'Uczeń', 'Inny (jaki?)'],
                         otherOption: true
                     }, {
                         type: 'select',
                         label: 'Jak często przeglądasz strony WWW?',
                         id: 'frequency',
-                        options: ['Kilka razy dziennie', 'Raz dziennie', 'Co kilka dni', 'Raz w tygodniu', 'Sporadycznie', 'Trudno powiedzieć']
+                        options: ['1 raz dziennie lub więcej', '1 raz w tygodniu lub więcej', 'Rzadziej niż 1 raz w tygodniu lub sporadycznie', 'Trudno powiedzieć']
                     }, {
                         type: 'select',
                         label: 'Główny powód, dla którego przeglądasz strony WWW',
                         id: 'mainReason',
-                        options: ['Praca', 'Rozrywka', 'Kontakt ze znajomymi', 'Nauka', 'Zakupy online', 'Inny (jaki?)'],
+                        options: ['Lektura wiadomości i artykułów w serwisach informacyjnych, branżowych lub specjalistycznych', 'Hobby', 'Kontakt ze znajomymi', 'Nauka', 'Praca', 'Rozrywka', 'Szybkie wyszukiwanie informacji', 'Zakupy online', 'Inny (jaki?)'],
                         otherOption: true
                     }, {
                         type: 'radio',
@@ -268,7 +256,7 @@ window.onload = function () {
                         options: ['Tak', 'Nie', 'Trudno powiedzieć']
                     }, {
                         type: 'textarea',
-                        label: 'Twój komentarz',
+                        label: 'Czy którakolwiek z zaprezentowanych metod wprowadzania danych była dla Ciebie wyjątkowo uciążliwa lub niepraktyczna?',
                         id: 'comment',
                         optional: true,
                         value: ''
@@ -541,9 +529,9 @@ window.onload = function () {
                                 'section',
                                 null,
                                 React.createElement(Paragraph, { content: 'Witaj! Niniejsze badanie jest cz\u0119\u015Bci\u0105 mojej pracy dyplomowej i ma na celu zbadanie u\u017Cyteczno\u015Bci wybranych wzorc\xF3w p\xF3l, kt\xF3re mo\u017Cesz na co dzie\u0144 znale\u017A\u0107 w wielu aplikacjach webowych i na stronach internetowych.' }),
-                                React.createElement(Paragraph, { content: '**Co b\u0119dziesz robi\u0142?** Zostaniesz poproszony(-a) o wykonanie kilkunastu \u0107wicze\u0144 polegaj\u0105cych na uzupe\u0142nieniu r\xF3\u017Cnego typu formularzy.\\n**Ile to potrwa?** Je\u015Bli korzystanie z klawiatury nie jest dla Ciebie wyzwaniem, to przej\u015Bcie przez wszystkie etapy badania powinno zaj\u0105\u0107 nie wi\u0119cej ni\u017C 15 min Twojego cennego czasu.\\n**Czy b\u0119d\u0119 musia\u0142(-a) podawa\u0107 jakie\u015B dane?** Absolutnie nie!* Potraktuj to badanie jako pewnego rodzaju zabaw\u0119. Ka\u017Cde \u0107wiczenie poprzedzone jest tabel\u0105 zawieraj\u0105c\u0105 nazwy p\xF3l w formularzu i dane, kt\xF3rymi te pola powinny zosta\u0107 uzupe\u0142nione -- Ty za\u015B b\u0119dziesz m\xF3g\u0142/mog\u0142a si\u0119 na tym, aby wstawi\u0107 te informacje we w\u0142a\u015Bciwe miejsca!\\n**Na co mam zwr\xF3ci\u0107 uwag\u0119?** Odst\u0119py, znaki pisarskie, interpunkcyjne s\u0105 niezwykle istotne w tym badaniu. \u0106wiczenie jest uznane za poprawnie rozwi\u0105zane wtedy i tylko wtedy, gdy wprowadzone dane odpowiadaj\u0105 danym wzorcowym.\\n**Ctrl+C, Ctrl+V? Nie tutaj!** Kopiowanie danych z tabeli poprzedzaj\u0105cej \u0107wiczenie jest zablokowane. Jasne jest, \u017Ce przy odrobinie sprytu i wiedzy z dziedziny informatyki by\u0142(a)by\u015B w stanie to zrobi\u0107, jednak nie r\xF3b tego, prosz\u0119. Celem tego badania jest zebranie relewantnych i wiarygodnych danych, kt\xF3re b\u0119d\u0119 m\xF3g\u0142 przedstawi\u0107 w swojej pracy, a b\u0119dzie to mo\u017Cliwe tylko wtedy, gdy wszystkie pola wype\u0142nisz r\u0119cznie.\\n**Nie musisz by\u0107 gadatliwy.** Po ka\u017Cdym \u0107wiczeniu b\u0119dziesz mia\u0142(a) mo\u017Cliwo\u015B\u0107 pozostawienia komentarza. Nie jednak na si\u0142\u0119 -- mo\u017Cesz pozostawi\u0107 takie pole bez tre\u015Bci i po prostu przej\u015B\u0107 dalej.' }),
+                                React.createElement(Paragraph, { content: '**Co b\u0119dziesz robi\u0142?** Zostaniesz poproszony(-a) o wykonanie kilkunastu \u0107wicze\u0144 polegaj\u0105cych na uzupe\u0142nieniu r\xF3\u017Cnego typu formularzy.\\n**Ile to potrwa?** Je\u015Bli korzystanie z klawiatury nie jest dla Ciebie wyzwaniem, to przej\u015Bcie przez wszystkie etapy badania powinno zaj\u0105\u0107 nie wi\u0119cej ni\u017C 15 min Twojego cennego czasu.\\n**Czy b\u0119d\u0119 musia\u0142(-a) podawa\u0107 jakie\u015B dane?** Absolutnie nie!* Potraktuj to badanie jako pewnego rodzaju zabaw\u0119. Ka\u017Cde \u0107wiczenie poprzedzone jest tabel\u0105 zawieraj\u0105c\u0105 nazwy p\xF3l w formularzu i dane, kt\xF3rymi te pola powinny zosta\u0107 uzupe\u0142nione -- Ty za\u015B b\u0119dziesz m\xF3g\u0142/mog\u0142a si\u0119 na tym, aby wstawi\u0107 te informacje we w\u0142a\u015Bciwe miejsca!\\n**Na co mam zwr\xF3ci\u0107 uwag\u0119?** Odst\u0119py, znaki pisarskie, interpunkcyjne s\u0105 niezwykle istotne w tym badaniu. \u0106wiczenie jest uznane za poprawnie rozwi\u0105zane wtedy i tylko wtedy, gdy wprowadzone dane odpowiadaj\u0105 danym wzorcowym.\\n**Ctrl+C, Ctrl+V? Nie tutaj!** Kopiowanie danych z tabeli poprzedzaj\u0105cej \u0107wiczenie jest zablokowane. Jasne jest, \u017Ce przy odrobinie sprytu i wiedzy z dziedziny informatyki by\u0142(a)by\u015B w stanie to zrobi\u0107, jednak nie r\xF3b tego, prosz\u0119. Celem tego badania jest zebranie relewantnych i wiarygodnych danych, kt\xF3re b\u0119d\u0119 m\xF3g\u0142 przedstawi\u0107 w swojej pracy, a b\u0119dzie to mo\u017Cliwe tylko wtedy, gdy wszystkie pola wype\u0142nisz r\u0119cznie.\\n**Twoja opinia ma znaczenie.** Po ka\u017Cdym \u0107wiczeniu b\u0119dziesz mia\u0142(a) mo\u017Cliwo\u015B\u0107 pozostawienia komentarza odnosz\u0105cego si\u0119 do w\u0142a\u015Bnie wypr\xF3bowanej metody wprowadzania danych. Komentarz nie jest obowi\u0105zkowy, jednak dzi\u0119ki niemu b\u0119d\u0119 m\xF3g\u0142 pozna\u0107 Tw\xF3j punkt widzenia.' }),
                                 React.createElement(Paragraph, { content: '**Wszystko jasne?** Naci\u015Bnij przycisk ,,Rozpocznij badanie\'\', aby zmierzy\u0107 si\u0119 ze stoj\u0105cym przed Tob\u0105 wyzwaniem!' }),
-                                React.createElement(Paragraph, { 'class': 'text-smaller', content: '*) Badanie ko\u0144czy si\u0119 ankiet\u0105 u\u017Cytkownika, w kt\xF3rej podasz pewne dane osobowe (imi\u0119, adres e-mail, rok urodzenia itd.). Bez obaw -- **informacje te nie zostan\u0105 przekazane osobom trzecim,** a ich gromadzenie wynika wy\u0142\u0105cznie z potrzeby identyfikacji u\u017Cytkownik\xF3w oraz konieczno\u015Bci zbudowania statystyk. Twoje dane zostan\u0105 usuni\u0119te niezw\u0142ocznie po zamkni\u0119ciu badania u\u017Cyteczno\u015Bci i uko\u0144czeniu przeze mnie pracy dyplomowej.\\n**Masz dodatkowe pytania?** Skontaktuj si\u0119 ze mn\u0105 -- m\xF3j adres e-mail to **krzysztof.radoslaw.osada@gmail.com.**' }),
+                                React.createElement(Paragraph, { 'class': 'text-smaller', content: '*) Badanie ko\u0144czy si\u0119 ankiet\u0105 u\u017Cytkownika, w kt\xF3rej podasz dane zwi\u0105zane z Twoj\u0105 osob\u0105, m.in. rok urodzenia, wykszta\u0142cenie, zaw\xF3d itd. Informacje te umo\u017Cliwi\u0105 przypisanie Twojej osoby pod wzgl\u0119dem uzyskanych wynik\xF3w do poszczeg\xF3lnych grup ca\u0142ej populacji uczestnik\xF3w badania. Je\u017Celi masz jakie\u015B uwagi, pytania lub sugestie zwi\u0105zane z gromadzeniem tych danych, napisz do mnie na adres **krzysztof.radoslaw.osada@gmail.com.**' }),
                                 React.createElement(
                                     'button',
                                     { onClick: this.handleStart, disabled: this.state.testStarted },
@@ -561,8 +549,8 @@ window.onload = function () {
                                     null,
                                     'Zako\u0144czenie'
                                 ),
-                                React.createElement(Paragraph, { content: 'Gratulacje! **Uda\u0142o Ci si\u0119 uko\u0144czy\u0107 badanie u\u017Cyteczno\u015Bci.** Zanim zamkniesz t\u0119 kart\u0119 i wr\xF3cisz do swoich zaj\u0119\u0107, wype\u0142nij, prosz\u0119, poni\u017Csz\u0105 ankiet\u0119 -- podaj podstawowe informacje na sw\xF3j temat\\*\\* oraz podziel si\u0119 odczuciami zwi\u0105zanymi z formularzami na stronach internetowych.' }),
-                                React.createElement(Paragraph, { 'class': 'text-smaller', content: '\\*\\*) Administratorem danych osobowych jestem ja -- Krzysztof Osada. Informacje na Tw\xF3j temat **nie zostan\u0105** przekazane osobom trzecim i pos\u0142u\u017C\u0105 jedynie w celach identyfikacyjnych oraz statystycznych. Wprowadzone poni\u017Cej dane zostan\u0105 usuni\u0119te z bazy danych niezw\u0142ocznie po tym, gdy przestan\u0105 by\u0107 potrzebne, tj. **nie p\xF3\u017Aniej** ni\u017C po uko\u0144czeniu przeze mnie kursu ,,Praca dyplomowa II\'\'. Je\u015Bli masz jakie\u015B pytania, uwagi b\u0105d\u017A w\u0105tpliwo\u015Bci, skontaktuj si\u0119 ze mn\u0105 -- m\xF3j adres e-mail to **krzysztof.radoslaw.osada@gmail.com.**' }),
+                                React.createElement(Paragraph, { content: '\u015Awietnie! **W\u0142a\u015Bnie zako\u0144czy\u0142e\u015B badanie u\u017Cyteczno\u015Bci.** Zanim jednak zamkniesz t\u0119 kart\u0119 i wr\xF3cisz do swoich zaj\u0119\u0107, wype\u0142nij, prosz\u0119, poni\u017Csz\u0105 ankiet\u0119 -- podaj podstawowe informacje na sw\xF3j temat\\*\\* oraz podziel si\u0119 odczuciami zwi\u0105zanymi z formularzami na stronach internetowych.' }),
+                                React.createElement(Paragraph, { 'class': 'text-smaller', content: '\\*\\*) **W badaniu nie s\u0105 rejestrowane \u017Cadne informacje umo\u017Cliwiaj\u0105ce jednoznaczne zidentyfikowane danej osoby.** Celem niniejszej ankiety jest kategoryzacja uczestnik\xF3w badania wed\u0142ug cech mog\u0105cych mie\u0107 wp\u0142yw na szybko\u015B\u0107, poprawno\u015B\u0107 i dok\u0142adno\u015B\u0107 wprowadzania danych w formularzach internetowych. Poni\u017Csze informacje pozwol\u0105 wi\u0119c na dostrze\u017Cenie zale\u017Cno\u015Bci mi\u0119dzy wynikami uzyskanymi przez Ciebie w badaniu a parametrami dotycz\u0105cymi Twojego wykszta\u0142cenia, wieku, Twoich do\u015Bwiadcze\u0144 ze stronami internetowymi itp. Je\u017Celi masz jakie\u015B pytania lub uwagi zwi\u0105zane z poni\u017Csz\u0105 ankiet\u0105, wy\u015Blij do mnie wiadomo\u015B\u0107 na adres  **krzysztof.radoslaw.osada@gmail.com.**' }),
                                 React.createElement(
                                     'section',
                                     { className: 'form labels-align-top', id: 'user-form' },
@@ -586,7 +574,7 @@ window.onload = function () {
                             this.state.testFinished && this.state.dataSent && React.createElement(
                                 'section',
                                 { ref: this.childNodeRef },
-                                React.createElement(Paragraph, { content: '**To ju\u017C jest koniec!** Serdecznie dzi\u0119kuj\u0119 za udzia\u0142 w badaniu -- Twoja pomoc jest dla mnie naprawd\u0119 nieoceniona. Na podany wy\u017Cej adres e-mail otrzymasz **automatycznie wygenerowan\u0105** wiadomo\u015B\u0107 b\u0119d\u0105c\u0105 potwierdzeniem zapisania Twoich danych i wynik\xF3w badania przez aplikacj\u0119.' })
+                                React.createElement(Paragraph, { content: '**To ju\u017C jest koniec!** Serdecznie dzi\u0119kuj\u0119 za udzia\u0142 w badaniu -- Twoja pomoc jest dla mnie naprawd\u0119 nieoceniona. Uzyskane przez Ciebie wyniki zostan\u0105 uwzgl\u0119dnione w cz\u0119\u015Bci badawczej mojej pracy dyplomowej ,,Badanie u\u017Cyteczno\u015Bci metod wprowadzania danych w aplikacjach webowych\'\', kt\xF3r\u0105 pisz\u0119 pod kierunkiem dr. hab. in\u017C. Bogdana Trawi\u0144skiego, prof. PWr.' })
                             )
                         )
                     );

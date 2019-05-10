@@ -158,7 +158,7 @@ var Scenario = function (_React$Component) {
                         'Rozpocznij scenariusz'
                     ),
                     this.state.tasks.const.map(function (task, index, tasks) {
-                        return React.createElement(Task, { nodeRef: _this2.childNodeRef, key: index, index: index + 1, currentIndex: _this2.state.currentTaskIndex, lastIndex: tasks.length, onFinish: _this2.handleTaskFinish, scenarioStarted: _this2.state.scenarioStarted, task: task });
+                        return React.createElement(Task, { question: _this2.props.scenario.question, nodeRef: _this2.childNodeRef, key: index, index: index + 1, currentIndex: _this2.state.currentTaskIndex, lastIndex: tasks.length, onFinish: _this2.handleTaskFinish, scenarioStarted: _this2.state.scenarioStarted, task: task });
                     }),
                     this.state.scenarioFinished && React.createElement(
                         'section',

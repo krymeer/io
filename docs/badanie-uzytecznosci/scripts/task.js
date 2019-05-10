@@ -314,7 +314,7 @@ var Task = function (_React$Component) {
                                 );
                             })
                         ),
-                        this.state.stats.rating > 0 && React.createElement(InputWrapper, { wrapperClass: 'comment-wrapper', label: 'Czy masz jakie\u015B uwagi lub sugestie zwi\u0105zane z powy\u017Cszym \u0107wiczeniem?', optional: true, type: 'textarea', disabled: this.state.nextTask, onChange: this.handleCommentChange })
+                        this.state.stats.rating > 0 && React.createElement(InputWrapper, { wrapperClass: 'comment-wrapper', label: typeof this.props.question !== "undefined" ? insertNbsp(this.props.question) : "Co sądzisz o wprowadzaniu danych przy użyciu zaprezentowanej metody?", optional: true, type: 'textarea', disabled: this.state.nextTask, onChange: this.handleCommentChange })
                     ),
                     this.state.stats.rating > 0 && React.createElement(
                         'button',
