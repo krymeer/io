@@ -1067,13 +1067,13 @@ main section .form.time-multi-select {
 main section .form.time-multi-select > .wrapper {
   grid-template-columns: auto 60px 60px;
 }
-main section .form.autocomplete-on, main section .form.autocomplete-off {
+main section .form.filtering-on, main section .form.filtering-off {
   width: 600px;
 }
-main section .form.autocomplete-on > .wrapper, main section .form.autocomplete-off > .wrapper {
+main section .form.filtering-on > .wrapper, main section .form.filtering-off > .wrapper {
   grid-template-columns: auto 350px;
 }
-main section .form.autocomplete-on > .wrapper > .select-wrapper > input {
+main section .form.filtering-on > .wrapper > .select-wrapper > input {
   width: 100%;
 }
 main section .form.input-masks-on, main section .form.input-masks-off {
