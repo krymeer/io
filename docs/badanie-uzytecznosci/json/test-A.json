@@ -406,8 +406,8 @@
             "tasks" : [
                 {
                     "title"   : "Nadanie przesyłki",
-                    "classes" : "labels-align-left autocomplete-off",
-                    "type"    : "autocomplete-off",
+                    "classes" : "labels-align-left filtering-off",
+                    "type"    : "filtering-off",
                     "data"    : [
                         {
                             "type"          : "select",

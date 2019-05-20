@@ -408,8 +408,8 @@
             "tasks" : [
                 {
                     "title"   : "Nadanie przesyłki",
-                    "classes" : "labels-align-left autocomplete-on",
-                    "type"    : "autocomplete-on",
+                    "classes" : "labels-align-left filtering-on",
+                    "type"    : "filtering-on",
                     "data"    : [
                         {
                             "type"          : "select-filtered",
