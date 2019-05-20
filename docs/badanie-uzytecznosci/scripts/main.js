@@ -12,19 +12,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 //     return '';
 // }
 
-var globals = {
-    emailRegex: /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/,
-    headerHeight: {
-        static: 256,
-        fixed: 35
-    },
-    maxLength: {
-        input: 64,
-        textarea: 255
-    },
-    backURI: window.location.host === ('front.mgr' || 'localhost' || '127.0.0.1') ? 'https://back.mgr' : 'https://data-entry-handler.herokuapp.com'
-};
-
 getRealOffsetTop = function getRealOffsetTop(offsetTop) {
     if (offsetTop > globals.headerHeight.static) {
         return offsetTop - globals.headerHeight.fixed;
@@ -184,6 +171,41 @@ getRandomString = function getRandomString() {
     return Math.random().toString(36).substring(2);
 };
 
+getParameterByName = function getParameterByName(name, url) {
+    if (!url) {
+        url = window.location.href;
+    }
+
+    name = name.replace(/[\[\]]/g, '\\$&');
+
+    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+        results = regex.exec(url);
+
+    if (!results) {
+        return null;
+    }
+
+    if (!results[2]) {
+        return '';
+    }
+
+    return decodeURIComponent(results[2].replace(/\+/g, ' '));
+};
+
+var globals = {
+    emailRegex: /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/,
+    headerHeight: {
+        static: 256,
+        fixed: 35
+    },
+    maxLength: {
+        input: 64,
+        textarea: 255
+    },
+    backURI: window.location.host === ('front.mgr' || 'localhost' || '127.0.0.1') ? 'https://back.mgr' : 'https://data-entry-handler.herokuapp.com',
+    dev: getParameterByName('dev') !== null
+};
+
 window.onload = function () {
     var Main = function (_React$Component) {
         _inherits(Main, _React$Component);
@@ -279,12 +301,39 @@ window.onload = function () {
         }
 
         _createClass(Main, [{
-            key: 'componentDidMount',
-            value: function componentDidMount() {
+            key: 'getTestVersion',
+            value: function getTestVersion() {
+                return fetch(globals.backURI + '?do=get&what=count').then(function (res) {
+                    return res.json();
+                }).then(function (response) {
+                    var count = void 0;
+
+                    for (var k = 0; k < response.length; k++) {
+                        if (typeof response[k].count !== 'undefined') {
+                            count = response[k].count;
+                            break;
+                        }
+                    }
+
+                    if (count.A > count.B) {
+                        return 'B';
+                    } else if (count.B > count.A) {
+                        return 'A';
+                    }
+
+                    return Math.random() > 0.5 ? 'A' : 'B';
+                }).catch(function (error) {
+                    console.error(error);
+
+                    return false;
+                });
+            }
+        }, {
+            key: 'loadTest',
+            value: function loadTest(version) {
                 var _this2 = this;
 
-                var version = window.location.search.replace('?ver=', '');
-                var fileURI = './json/test-' + (version === 'A' || version === 'B' || version === 'dev' ? version : 'A') + '.json';
+                var fileURI = './json/test-' + version + '.json';
 
                 fetch(fileURI).then(function (res) {
                     return res.json();
@@ -310,6 +359,25 @@ window.onload = function () {
                 });
             }
         }, {
+            key: 'componentDidMount',
+            value: function componentDidMount() {
+                var _this3 = this;
+
+                if (!globals.dev) {
+                    this.getTestVersion().then(function (version) {
+                        if (version !== false) {
+                            console.log('The randomly chosen version is: ' + version);
+                            _this3.loadTest(version);
+                        }
+                    });
+                } else {
+                    var searchValue = getParameterByName('ver');
+                    var version = searchValue === 'A' || searchValue === 'B' || searchValue === 'dev' ? searchValue : 'A';
+
+                    this.loadTest(version);
+                }
+            }
+        }, {
             key: 'backToTop',
             value: function backToTop() {
                 window.scrollTo(0, 0);
@@ -330,7 +398,7 @@ window.onload = function () {
         }, {
             key: 'handleFormChange',
             value: function handleFormChange(input) {
-                var _this3 = this;
+                var _this4 = this;
 
                 if (this.state.allScenariosFinished && !this.state.testFinished) {
                     this.setState(function (state) {
@@ -351,10 +419,10 @@ window.onload = function () {
                             })
                         });
                     }, function () {
-                        if (_this3.state.form.data.filter(function (item) {
+                        if (_this4.state.form.data.filter(function (item) {
                             return !item.valid;
                         }).length === 0) {
-                            _this3.setState(function (state) {
+                            _this4.setState(function (state) {
                                 return Object.assign({}, state, {
                                     form: Object.assign({}, state.form, {
                                         error: false
@@ -415,7 +483,7 @@ window.onload = function () {
         }, {
             key: 'handleFinish',
             value: function handleFinish() {
-                var _this4 = this;
+                var _this5 = this;
 
                 if (this.state.allScenariosFinished && !this.state.testFinished) {
                     if (this.state.form.data.filter(function (input) {
@@ -439,11 +507,11 @@ window.onload = function () {
                                 })
                             });
                         }, function () {
-                            var output = _this4.state.output;
+                            var output = _this5.state.output;
                             var userData = {};
 
-                            for (var k = 0; k < _this4.state.form.data.length; k++) {
-                                var input = _this4.state.form.data[k];
+                            for (var k = 0; k < _this5.state.form.data.length; k++) {
+                                var input = _this5.state.form.data[k];
                                 userData[input.id] = input.value;
                             }
 
@@ -451,7 +519,9 @@ window.onload = function () {
                                 user: userData
                             });
 
-                            console.log(output);
+                            if (globals.dev) {
+                                console.log(output);
+                            }
 
                             fetch(globals.backURI + '/?do=send&what=data', {
                                 method: 'POST',
@@ -462,11 +532,13 @@ window.onload = function () {
                             }).then(function (res) {
                                 return res.json();
                             }).then(function (response) {
-                                console.log('fetch()', response);
-                            }, function (error) {
+                                if (globals.dev) {
+                                    console.log('fetch()', response);
+                                }
+                            }).catch(function (error) {
                                 console.error(error);
                             }).then(function () {
-                                _this4.setState({
+                                _this5.setState({
                                     dataSent: true
                                 });
                             });
@@ -477,7 +549,7 @@ window.onload = function () {
         }, {
             key: 'render',
             value: function render() {
-                var _this5 = this;
+                var _this6 = this;
 
                 var _state = this.state,
                     error = _state.error,
@@ -539,7 +611,7 @@ window.onload = function () {
                                 )
                             ),
                             scenarios.map(function (scenario, index) {
-                                return React.createElement(Scenario, { key: index, index: index + 1, testStarted: _this5.state.testStarted, currentIndex: _this5.state.currentScenarioIndex, lastIndex: _this5.state.scenarios.length, scenario: scenario, onFinish: _this5.handleScenarioFinish, nodeRef: _this5.childNodeRef });
+                                return React.createElement(Scenario, { key: index, index: index + 1, testStarted: _this6.state.testStarted, currentIndex: _this6.state.currentScenarioIndex, lastIndex: _this6.state.scenarios.length, scenario: scenario, onFinish: _this6.handleScenarioFinish, nodeRef: _this6.childNodeRef });
                             }),
                             this.state.allScenariosFinished && React.createElement(
                                 'section',
@@ -560,7 +632,7 @@ window.onload = function () {
                                         'Ankieta uczestnika'
                                     ),
                                     this.state.form.data.map(function (item, index) {
-                                        return React.createElement(InputWrapper, Object.assign({ key: index, index: index, error: _this5.state.form.error, disabled: _this5.state.testFinished, onChange: _this5.handleFormChange }, item));
+                                        return React.createElement(InputWrapper, Object.assign({ key: index, index: index, error: _this6.state.form.error, disabled: _this6.state.testFinished, onChange: _this6.handleFormChange }, item));
                                     }),
                                     this.state.form.error && React.createElement(Paragraph, { 'class': 'on-form-error', content: 'Aby przej\u015B\u0107 dalej, popraw pola wyr\xF3\u017Cnione **tym kolorem.**' })
                                 ),

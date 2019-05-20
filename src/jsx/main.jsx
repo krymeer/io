@@ -2,19 +2,6 @@
 //     return '';
 // }
 
-const globals = {
-    emailRegex     : /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/,
-    headerHeight   : {
-        static : 256,
-        fixed  : 35
-    },
-    maxLength      : {
-        input    : 64,
-        textarea : 255
-    },
-    backURI        : ( window.location.host === ( 'front.mgr' || 'localhost' || '127.0.0.1' ) ? 'https://back.mgr' : 'https://data-entry-handler.herokuapp.com' )
-}
-
 getRealOffsetTop = ( offsetTop ) => {
     if( offsetTop > globals.headerHeight.static )
     {
@@ -181,6 +168,44 @@ getRandomString = () => {
     return Math.random().toString( 36 ).substring( 2 );
 }
 
+getParameterByName = ( name, url ) => {
+    if( !url )
+    {
+        url = window.location.href;
+    }
+
+    name = name.replace( /[\[\]]/g, '\\$&' );
+
+    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+        results = regex.exec(url);
+
+    if( !results )
+    {
+        return null;
+    }
+
+    if( !results[ 2 ] )
+    {
+        return '';
+    }
+
+    return decodeURIComponent( results[ 2 ].replace( /\+/g, ' ' ) );
+}
+
+const globals = {
+    emailRegex     : /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/,
+    headerHeight   : {
+        static : 256,
+        fixed  : 35
+    },
+    maxLength      : {
+        input    : 64,
+        textarea : 255
+    },
+    backURI        : ( window.location.host === ( 'front.mgr' || 'localhost' || '127.0.0.1' ) ? 'https://back.mgr' : 'https://data-entry-handler.herokuapp.com' ),
+    dev            : getParameterByName( 'dev' ) !== null
+}
+
 window.onload = function() {
     class Main extends React.Component {
         constructor( props )
@@ -281,36 +306,89 @@ window.onload = function() {
             }
         }
 
+        getTestVersion()
+        {
+            return fetch( globals.backURI + '?do=get&what=count' ).then(
+                res => res.json()
+            ).then( response => {
+                let count;
+
+                for( let k = 0; k < response.length; k++ )
+                {
+                    if( typeof response[ k ].count !== 'undefined' )
+                    {
+                        count = response[ k ].count;
+                        break;
+                    }
+                }
+
+                if( count.A > count.B )
+                {
+                    return 'B';
+                }
+                else if( count.B > count.A )
+                {
+                    return 'A';
+                }
+
+                return ( ( Math.random() > 0.5 ) ? 'A' : 'B' );
+            } ).catch( error => {
+                console.error( error );
+
+                return false;
+            } );
+        }
+
+        loadTest( version )
+        {
+            const fileURI = './json/test-' + version + '.json';
+
+            fetch( fileURI ).then(
+                res => res.json()
+            ).then( result => {
+                this.setState( state => {
+                    return {
+                        ...state,
+                        scenarios : shuffle( result.scenarios ),
+                        isLoaded  : true,
+                        output    : {
+                            ...state.output,
+                            test : {
+                                ...state.output.test,
+                                version : version
+                            }
+                        }
+                    }
+                }, () => {
+                    window.addEventListener( 'scroll', this.handleScroll );
+                } );
+            }, error => {
+                this.setState( {
+                    isLoaded : false,
+                    error
+                } );
+            } );
+        }
+
         componentDidMount()
         {
-            const version = window.location.search.replace( '?ver=', '' );
-            const fileURI = './json/test-' + ( ( version === 'A' || version === 'B' || version === 'dev' ) ? version : 'A' ) + '.json';
+            if( !globals.dev )
+            {
+                this.getTestVersion().then( version => {
+                    if( version !== false )
+                    {
+                        console.log( 'The randomly chosen version is: ' + version );
+                        this.loadTest( version );
+                    }
+                } );
+            }
+            else
+            {
+                const searchValue = getParameterByName( 'ver' );
+                const version     = ( ( searchValue === 'A' || searchValue === 'B' || searchValue === 'dev' ) ? searchValue : 'A' )
 
-            fetch( fileURI )
-                .then( res => res.json() )
-                .then( ( result ) => {
-                        this.setState( state => {
-                            return {
-                                ...state,
-                                scenarios : shuffle( result.scenarios ),
-                                isLoaded  : true,
-                                output    : {
-                                    ...state.output,
-                                    test : {
-                                        ...state.output.test,
-                                        version : version
-                                    }
-                                }
-                            }
-                        }, () => {
-                            window.addEventListener( 'scroll', this.handleScroll );
-                        } );
-                    }, ( error ) => {
-                        this.setState( {
-                            isLoaded : false,
-                            error
-                        } );
-                    } );
+                this.loadTest( version );
+            }
         }
 
         backToTop()
@@ -478,7 +556,10 @@ window.onload = function() {
                             user : userData
                         };
 
-                        console.log( output );
+                        if( globals.dev )
+                        {
+                            console.log( output );
+                        }
 
                         fetch( globals.backURI + '/?do=send&what=data', {
                             method  : 'POST',
@@ -486,18 +567,20 @@ window.onload = function() {
                             headers : {
                                 'Content-Type' : 'application/json'
                             }
-                        } )
-                            .then( res  => res.json() )
-                            .then( ( response ) => {
+                        } ).then(
+                            res => res.json()
+                        ).then( response => {
+                            if( globals.dev )
+                            {
                                 console.log( 'fetch()', response )
-                            }, ( error ) => {
-                                console.error( error );
-                            } )
-                            .then( () => {
-                                this.setState( {
-                                    dataSent : true
-                                } );
+                            }
+                        } ).catch( error => {
+                            console.error( error );
+                        } ).then( () => {
+                            this.setState( {
+                                dataSent : true
                             } );
+                        } );
                     } );
                 }
             }
