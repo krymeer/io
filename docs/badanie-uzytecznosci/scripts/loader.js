@@ -18,7 +18,7 @@ var Loader = function (_React$Component) {
     _createClass(Loader, [{
         key: "render",
         value: function render() {
-            return React.createElement("div", { style: { display: this.props.display ? "block" : "none" }, ref: this.props.nodeRef, className: "loader" });
+            return React.createElement("div", { style: { display: this.props.display ? "block" : "none" }, ref: this.props.nodeRef, className: ("loader " + (this.props.big ? "big-loader" : "") + " " + (this.props.alignCenter ? "align-center" : "")).trim().replace(/\s+/, " ") });
         }
     }]);
 

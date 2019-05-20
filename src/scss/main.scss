@@ -232,6 +232,53 @@ button, p, h1, h2, h3, h4, a, label, span, td, th, i.material-icons {
     }
 }
 
+.loader {
+    display: block;
+    width: 24px;
+    height: 24px;
+
+    &:after {
+        content: ' ';
+        display: block;
+        width: 23px;
+        height: 23px;
+        margin: .5px;
+        border-radius: 50%;
+        border-width: 2.5px;
+        border-style: solid;
+        border-color: $primary-color transparent $primary-color transparent;
+        animation: loader 1.2s linear infinite;
+    }
+
+    &.big-loader {
+        width: 72px;
+        height: 72px;
+
+        &:after {
+            width: 69px;
+            height: 69px;
+            border-width: 7.5px;
+        }
+    }
+
+    &.align-center {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+}
+
+@keyframes loader {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
 main {
     background: $bg-color;
     @extend %padding-top-btm-xxl;
@@ -314,35 +361,6 @@ main {
 
         &:last-child {
             margin-bottom: 0 !important;
-        }
-    }
-
-    .loader {
-        display: block;
-        width: 24px;
-        height: 24px;
-
-        &:after {
-            content: ' ';
-            display: block;
-            width: 23px;
-            height: 23px;
-            margin: .5px;
-            border-radius: 50%;
-            border-width: 2.5px;
-            border-style: solid;
-            border-color: $primary-color transparent $primary-color transparent;
-            animation: loader 1.2s linear infinite;
-        }
-    }
-
-    @keyframes loader {
-        0% {
-            transform: rotate(0deg);
-        }
-
-        100% {
-            transform: rotate(360deg);
         }
     }
 

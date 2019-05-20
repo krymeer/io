@@ -596,7 +596,7 @@ window.onload = function() {
             }
             else if( !isLoaded )
             {
-                return "";
+                return <Loader display={ true } big={ true } alignCenter={ true } />;
             }
             else
             {

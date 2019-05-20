@@ -565,7 +565,7 @@ window.onload = function () {
                         error.message
                     );
                 } else if (!isLoaded) {
-                    return "";
+                    return React.createElement(Loader, { display: true, big: true, alignCenter: true });
                 } else {
                     return React.createElement(
                         'div',
