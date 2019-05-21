@@ -331,13 +331,11 @@ window.onload = function () {
         }, {
             key: 'getIPAddress',
             value: function getIPAddress() {
-                return fetch(globals.backURI + '?do=get&what=ip').then(function (res) {
+                return fetch('https://api.ipify.org/?format=json').then(function (res) {
                     return res.json();
                 }).then(function (response) {
-                    for (var k = 0; k < response.length; k++) {
-                        if (typeof response[k].ip !== 'undefined') {
-                            return response[k].ip;
-                        }
+                    if (typeof response.ip !== 'undefined') {
+                        return response.ip;
                     }
 
                     return false;
@@ -381,7 +379,7 @@ window.onload = function () {
                 var _this3 = this;
 
                 this.getIPAddress().then(function (ipAddress) {
-                    if (ipAddress !== false) {
+                    if (ipAddress) {
                         _this3.setState(function (state) {
                             return Object.assign({}, state, {
                                 output: Object.assign({}, state.output, {
