@@ -339,6 +339,25 @@ window.onload = function() {
             } );
         }
 
+        getIPAddress()
+        {
+            return fetch( globals.backURI + '?do=get&what=ip' ).then(
+                res => res.json()
+            ).then( response => {
+                for( let k = 0; k < response.length; k++ )
+                {
+                    if( typeof response[ k ].ip !== 'undefined' )
+                    {
+                        return response[ k ].ip;
+                    }
+                }
+
+                return false;
+            } ).catch( error => {
+                return false;
+            } );
+        }
+
         loadTest( version )
         {
             const fileURI = './json/test-' + version + '.json';
@@ -372,12 +391,30 @@ window.onload = function() {
 
         componentDidMount()
         {
+            this.getIPAddress().then( ipAddress => {
+                if( ipAddress !== false )
+                {
+                    this.setState( state => {
+                        return {
+                            ...state,
+                            output    : {
+                                ...state.output,
+                                user : {
+                                    ...state.output.user,
+                                    ipAddress : ipAddress
+                                }
+                            }
+                        }
+                    } );
+                }
+            } );
+
             if( !globals.dev )
             {
                 this.getTestVersion().then( version => {
                     if( version !== false )
                     {
-                        console.log( 'The randomly chosen version is: ' + version );
+                        console.log( 'Chosen version of the test: ' + version );
                         this.loadTest( version );
                     }
                 } );

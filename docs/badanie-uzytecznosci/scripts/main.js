@@ -329,6 +329,23 @@ window.onload = function () {
                 });
             }
         }, {
+            key: 'getIPAddress',
+            value: function getIPAddress() {
+                return fetch(globals.backURI + '?do=get&what=ip').then(function (res) {
+                    return res.json();
+                }).then(function (response) {
+                    for (var k = 0; k < response.length; k++) {
+                        if (typeof response[k].ip !== 'undefined') {
+                            return response[k].ip;
+                        }
+                    }
+
+                    return false;
+                }).catch(function (error) {
+                    return false;
+                });
+            }
+        }, {
             key: 'loadTest',
             value: function loadTest(version) {
                 var _this2 = this;
@@ -363,10 +380,24 @@ window.onload = function () {
             value: function componentDidMount() {
                 var _this3 = this;
 
+                this.getIPAddress().then(function (ipAddress) {
+                    if (ipAddress !== false) {
+                        _this3.setState(function (state) {
+                            return Object.assign({}, state, {
+                                output: Object.assign({}, state.output, {
+                                    user: Object.assign({}, state.output.user, {
+                                        ipAddress: ipAddress
+                                    })
+                                })
+                            });
+                        });
+                    }
+                });
+
                 if (!globals.dev) {
                     this.getTestVersion().then(function (version) {
                         if (version !== false) {
-                            console.log('The randomly chosen version is: ' + version);
+                            console.log('Chosen version of the test: ' + version);
                             _this3.loadTest(version);
                         }
                     });
