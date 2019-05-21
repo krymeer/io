@@ -232,10 +232,11 @@ window.onload = function() {
                     error : false,
                     data  : [
                         {
-                            type        : 'text',
+                            type        : 'mask',
                             label       : 'Twój rok urodzenia',
                             id          : 'birthYear',
                             regex       : /^\d{4}$/,
+                            mask        : '9999',
                             maxLength   : 4
                         },
                         {
@@ -388,8 +389,8 @@ window.onload = function() {
 
         componentDidMount()
         {
-            this.getIPAddress().then( ipAddress => {
-                if( ipAddress )
+            this.getIPAddress().then( ip => {
+                if( ip )
                 {
                     this.setState( state => {
                         return {
@@ -398,7 +399,7 @@ window.onload = function() {
                                 ...state.output,
                                 user : {
                                     ...state.output.user,
-                                    ipAddress : ipAddress
+                                    ip : ip
                                 }
                             }
                         }
@@ -472,7 +473,7 @@ window.onload = function() {
                         }
                     };
                 }, () => {
-                    if( this.state.form.data.filter( item => !item.valid ).length === 0 )
+                    if( this.state.form.data.filter( item => !item.optional && !item.valid ).length === 0 )
                     {
                         this.setState( state => {
                             return {
@@ -577,7 +578,7 @@ window.onload = function() {
                         }
                     }, () => {
                         let output   = this.state.output;
-                        let userData = {};
+                        let userData = output.user;
 
                         for( let k = 0; k < this.state.form.data.length; k++ )
                         {

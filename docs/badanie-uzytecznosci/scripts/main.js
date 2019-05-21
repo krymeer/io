@@ -234,10 +234,11 @@ window.onload = function () {
                 form: {
                     error: false,
                     data: [{
-                        type: 'text',
+                        type: 'mask',
                         label: 'Twój rok urodzenia',
                         id: 'birthYear',
                         regex: /^\d{4}$/,
+                        mask: '9999',
                         maxLength: 4
                     }, {
                         type: 'radio',
@@ -378,13 +379,13 @@ window.onload = function () {
             value: function componentDidMount() {
                 var _this3 = this;
 
-                this.getIPAddress().then(function (ipAddress) {
-                    if (ipAddress) {
+                this.getIPAddress().then(function (ip) {
+                    if (ip) {
                         _this3.setState(function (state) {
                             return Object.assign({}, state, {
                                 output: Object.assign({}, state.output, {
                                     user: Object.assign({}, state.output.user, {
-                                        ipAddress: ipAddress
+                                        ip: ip
                                     })
                                 })
                             });
@@ -449,7 +450,7 @@ window.onload = function () {
                         });
                     }, function () {
                         if (_this4.state.form.data.filter(function (item) {
-                            return !item.valid;
+                            return !item.optional && !item.valid;
                         }).length === 0) {
                             _this4.setState(function (state) {
                                 return Object.assign({}, state, {
@@ -537,7 +538,7 @@ window.onload = function () {
                             });
                         }, function () {
                             var output = _this5.state.output;
-                            var userData = {};
+                            var userData = output.user;
 
                             for (var k = 0; k < _this5.state.form.data.length; k++) {
                                 var input = _this5.state.form.data[k];
