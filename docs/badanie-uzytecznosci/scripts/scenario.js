@@ -148,8 +148,9 @@ var Scenario = function (_React$Component) {
                     React.createElement(
                         'h1',
                         null,
-                        'Scenariusz nr ',
-                        this.props.index
+                        'Scenariusz ',
+                        this.props.index,
+                        '.'
                     ),
                     typeof this.props.scenario.intro !== "undefined" && React.createElement(Paragraph, { content: this.props.scenario.intro }),
                     typeof this.props.scenario.warning !== 'undefined' && React.createElement(Paragraph, { 'class': 'alert warning', content: this.props.scenario.warning }),
@@ -159,7 +160,7 @@ var Scenario = function (_React$Component) {
                         'Rozpocznij scenariusz'
                     ),
                     this.state.tasks.const.map(function (task, index, tasks) {
-                        return React.createElement(Task, { question: _this2.props.scenario.question, nodeRef: _this2.childNodeRef, key: index, index: index + 1, currentIndex: _this2.state.currentTaskIndex, lastIndex: tasks.length, onFinish: _this2.handleTaskFinish, scenarioStarted: _this2.state.scenarioStarted, task: task });
+                        return React.createElement(Task, { question: _this2.props.scenario.question, nodeRef: _this2.childNodeRef, key: index, index: index + 1, currentIndex: _this2.state.currentTaskIndex, lastIndex: tasks.length, onFinish: _this2.handleTaskFinish, scenarioIndex: _this2.props.index, scenarioStarted: _this2.state.scenarioStarted, task: task });
                     }),
                     this.state.scenarioFinished && React.createElement(
                         'section',
@@ -169,7 +170,7 @@ var Scenario = function (_React$Component) {
                             null,
                             'Podsumowanie'
                         ),
-                        React.createElement(Paragraph, { content: "Udało się! Właśnie ukończyłeś **scenariusz nr " + this.props.index + "** i możesz przejść do kolejnej części badania. Zanim jednak to zrobisz, proszę, udziel odpowiedzi na poniższe pytania." }),
+                        React.createElement(Paragraph, { content: "Udało się! Właśnie ukończyłeś **scenariusz " + this.props.index + ".** i możesz przejść do kolejnej części badania. Zanim jednak to zrobisz, proszę, udziel odpowiedzi na poniższe pytania." }),
                         React.createElement(
                             'section',
                             { className: 'questions' },

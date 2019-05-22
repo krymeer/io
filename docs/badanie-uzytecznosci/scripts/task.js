@@ -265,8 +265,11 @@ var Task = function (_React$Component) {
                     React.createElement(
                         'h2',
                         null,
-                        '\u0106wiczenie nr ',
-                        this.props.index
+                        '\u0106wiczenie ',
+                        this.props.scenarioIndex,
+                        '.',
+                        this.props.index,
+                        '.'
                     ),
                     React.createElement(Paragraph, { 'class': 'task-description', content: 'Wype\u0142nij formularz, korzystaj\u0105c z danych zawartych **w poni\u017Cszej tabeli:**' }),
                     React.createElement(

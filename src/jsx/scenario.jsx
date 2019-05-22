@@ -146,7 +146,7 @@ class Scenario extends React.Component {
         {
             return (
                 <section className="scenario" ref={ this.props.nodeRef }>
-                    <h1>Scenariusz nr { ( this.props.index ) }</h1>
+                    <h1>Scenariusz { this.props.index }.</h1>
                     { typeof this.props.scenario.intro !== "undefined" &&
                         <Paragraph content={ this.props.scenario.intro } />
                     }
@@ -156,13 +156,13 @@ class Scenario extends React.Component {
                     <button onClick={ this.handleStart } disabled={ this.state.scenarioStarted }>Rozpocznij scenariusz</button>
                     {
                         this.state.tasks.const.map( ( task, index, tasks ) =>
-                            <Task question={ this.props.scenario.question } nodeRef={ this.childNodeRef } key={ index } index={ index + 1 } currentIndex={ this.state.currentTaskIndex } lastIndex={ tasks.length } onFinish={ this.handleTaskFinish } scenarioStarted={ this.state.scenarioStarted } task={ task } />
+                            <Task question={ this.props.scenario.question } nodeRef={ this.childNodeRef } key={ index } index={ index + 1 } currentIndex={ this.state.currentTaskIndex } lastIndex={ tasks.length } onFinish={ this.handleTaskFinish } scenarioIndex={ this.props.index } scenarioStarted={ this.state.scenarioStarted } task={ task } />
                         )
                     }
                     { this.state.scenarioFinished &&
                         <section className="summary" ref={ this.childNodeRef }>
                             <h2>Podsumowanie</h2>
-                            <Paragraph content={ "Udało się! Właśnie ukończyłeś **scenariusz nr " + this.props.index + "** i możesz przejść do kolejnej części badania. Zanim jednak to zrobisz, proszę, udziel odpowiedzi na poniższe pytania." } />
+                            <Paragraph content={ "Udało się! Właśnie ukończyłeś **scenariusz " + this.props.index + ".** i możesz przejść do kolejnej części badania. Zanim jednak to zrobisz, proszę, udziel odpowiedzi na poniższe pytania." } />
                             <section className="questions">
                                 { this.state.summary.questions.map( ( question, qIndex ) => {
                                     if( this.state.summary.currentQuestion >= qIndex )

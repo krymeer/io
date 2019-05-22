@@ -269,7 +269,7 @@ class Task extends React.Component {
         {
             return (
                 <section className="task" onClick={ this.handleClick } ref={ this.props.nodeRef }>
-                    <h2>Ćwiczenie nr { this.props.index }</h2>
+                    <h2>Ćwiczenie { this.props.scenarioIndex }.{ this.props.index }.</h2>
                     <Paragraph class="task-description" content="Wypełnij formularz, korzystając z danych zawartych **w poniższej tabeli:**" />
                     <table ref={ ( this.state.taskStarted ) ? this.childNodeRef : undefined }>
                         <thead>
