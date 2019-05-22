@@ -570,7 +570,7 @@ var InputWrapper = function (_React$Component) {
                 this.props.type === "select" && React.createElement(Select, { disabled: this.props.disabled, otherOption: this.props.otherOption, options: this.props.options, onOption: this.handleOption.bind(this), chosenIndex: this.state.chosenIndex, inputNodeRef: function inputNodeRef(inputNode) {
                         return _this5.node = inputNode;
                     }, inputMaxLength: this.inputMaxLength, inputValue: this.state.inputValue, onInputFocus: this.handleFocus, onInputBlur: this.handleBlur, onInputChange: this.handleChange }),
-                (this.props.optional || this.props.type === "textarea") && React.createElement(
+                (this.props.optional || this.props.type === "textarea" && !this.props.insideTask) && React.createElement(
                     'div',
                     { className: 'notes-wrapper' },
                     this.props.type === "textarea" && React.createElement(
@@ -588,6 +588,11 @@ var InputWrapper = function (_React$Component) {
                         { className: 'note' },
                         '* Pole opcjonalne'
                     )
+                ),
+                this.props.speechToText && React.createElement(
+                    'i',
+                    { className: ("material-icons mic-btn " + (this.props.disabled ? "disabled" : "")).trim() },
+                    'mic'
                 )
             );
         }

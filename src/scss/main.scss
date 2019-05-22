@@ -345,7 +345,7 @@ main {
         th, td {
             @extend %block-alt-child;
             @extend %padding-m;
-            line-height: 1;
+            line-height: 1.25;
         }
 
         th {
@@ -356,6 +356,18 @@ main {
         tfoot {
             .note {
                 font-size: 10px;
+            }
+        }
+
+        &[data-for='speech-recognition'] {
+            th, td {
+                &:first-child {
+                    width: 103px;
+                }
+
+                &:last-child {
+                    width: 425px;
+                }
             }
         }
     }
@@ -1076,7 +1088,7 @@ main {
                 }
 
                 &.on-form-error.on-input-invalid {
-                    > input, > label {
+                    > .mic-btn, > input, > label, > textarea {
                         color: $primary-color !important;
                     }
 
@@ -1328,6 +1340,49 @@ main {
                             margin-top: -16px;
                             padding: 0 2px;
                         }
+                    }
+                }
+            }
+
+            &.speech-recognition {
+                width: 530px;
+
+                > .wrapper {
+                    grid-template-columns: auto 360px;
+                    position: relative;
+
+                    > .mic-btn {
+                        position: absolute;
+                        right: $value-s;
+                        top: $value-s;
+                        cursor: pointer;
+                        font-size: 24px;
+                        width: 24px;
+                        height: 24px;
+                        color: $input-color-m;
+                        transition: color $transition;
+
+                        &:hover {
+                            color: $input-color-h;
+                        }
+
+                        &.disabled {
+                            color: $border-color-d;
+                            cursor: default;
+                        }
+                    }
+
+                    > input, > textarea {
+                        padding-right: $value-s + 24px;
+                    }
+
+                    > input + .mic-btn {
+                        top: 50%;
+                        transform: translateY(-50%);
+                    }
+
+                    > textarea {
+                        height: 150px;
                     }
                 }
             }

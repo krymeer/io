@@ -589,7 +589,7 @@ class InputWrapper extends React.Component {
                 { this.props.type === "select" &&
                     <Select disabled={ this.props.disabled } otherOption={ this.props.otherOption } options={ this.props.options } onOption={ this.handleOption.bind( this ) } chosenIndex={ this.state.chosenIndex } inputNodeRef={ inputNode => this.node = inputNode } inputMaxLength={ this.inputMaxLength } inputValue={ this.state.inputValue } onInputFocus={ this.handleFocus } onInputBlur={ this.handleBlur } onInputChange={ this.handleChange } />
                 }
-                { ( this.props.optional || this.props.type ===  "textarea" ) &&
+                { ( this.props.optional || ( this.props.type === "textarea" && !this.props.insideTask ) ) &&
                     <div className="notes-wrapper">
                         { this.props.type === "textarea" &&
                             <p className="note">
@@ -600,6 +600,9 @@ class InputWrapper extends React.Component {
                             <p className="note">* Pole opcjonalne</p>
                         }
                     </div>
+                }
+                { this.props.speechToText &&
+                    <i className={ ( "material-icons mic-btn " + ( this.props.disabled ? "disabled" : "" ) ).trim() }>mic</i>
                 }
             </div>
         );

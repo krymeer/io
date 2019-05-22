@@ -256,7 +256,7 @@ main table {
   border-collapse: collapse;
 }
 main table th, main table td {
-  line-height: 1;
+  line-height: 1.25;
 }
 main table th {
   font-weight: 700;
@@ -264,6 +264,12 @@ main table th {
 }
 main table tfoot .note {
   font-size: 10px;
+}
+main table[data-for=speech-recognition] th:first-child, main table[data-for=speech-recognition] td:first-child {
+  width: 103px;
+}
+main table[data-for=speech-recognition] th:last-child, main table[data-for=speech-recognition] td:last-child {
+  width: 425px;
 }
 main > *:first-child {
   margin-top: 0 !important;
@@ -803,7 +809,7 @@ main section .form > .wrapper > ul.input-list > li {
 main section .form > .wrapper > ul.input-list > li:nth-child(n+2) {
   margin-left: 14px;
 }
-main section .form > .wrapper.on-form-error.on-input-invalid > input, main section .form > .wrapper.on-form-error.on-input-invalid > label {
+main section .form > .wrapper.on-form-error.on-input-invalid > .mic-btn, main section .form > .wrapper.on-form-error.on-input-invalid > input, main section .form > .wrapper.on-form-error.on-input-invalid > label, main section .form > .wrapper.on-form-error.on-input-invalid > textarea {
   color: #a63446 !important;
 }
 main section .form > .wrapper.on-form-error.on-input-invalid > textarea, main section .form > .wrapper.on-form-error.on-input-invalid > input {
@@ -963,6 +969,41 @@ main section .form.labels-float-top > .wrapper > label.on-input-focus, main sect
   font-size: 12px;
   margin-top: -16px;
   padding: 0 2px;
+}
+main section .form.speech-recognition {
+  width: 530px;
+}
+main section .form.speech-recognition > .wrapper {
+  grid-template-columns: auto 360px;
+  position: relative;
+}
+main section .form.speech-recognition > .wrapper > .mic-btn {
+  position: absolute;
+  right: 7px;
+  top: 7px;
+  cursor: pointer;
+  font-size: 24px;
+  width: 24px;
+  height: 24px;
+  color: #212121;
+  transition: color 0.1s ease-in-out;
+}
+main section .form.speech-recognition > .wrapper > .mic-btn:hover {
+  color: #434343;
+}
+main section .form.speech-recognition > .wrapper > .mic-btn.disabled {
+  color: #ddd;
+  cursor: default;
+}
+main section .form.speech-recognition > .wrapper > input, main section .form.speech-recognition > .wrapper > textarea {
+  padding-right: 31px;
+}
+main section .form.speech-recognition > .wrapper > input + .mic-btn {
+  top: 50%;
+  transform: translateY(-50%);
+}
+main section .form.speech-recognition > .wrapper > textarea {
+  height: 150px;
 }
 main section .form.logic-values-toggle-switch {
   width: 560px;

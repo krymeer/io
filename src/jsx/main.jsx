@@ -279,7 +279,7 @@ window.onload = function() {
                         },
                         {
                             type        : 'radio',
-                            label       : 'Czy Twoim zdaniem formularze na stronach WWW są odpowiednio zaprojektowane?',
+                            label       : 'Czy, Twoim zdaniem, formularze na stronach WWW są odpowiednio zaprojektowane?',
                             id          : 'usability',
                             options     : [ 'Tak', 'Nie', 'Trudno powiedzieć' ]
                         },
@@ -672,8 +672,8 @@ window.onload = function() {
                             { this.state.allScenariosFinished &&
                                 <section ref={ this.childNodeRef }>
                                     <h1>Zakończenie</h1>
-                                    <Paragraph content="Świetnie! **Właśnie zakończyłeś badanie użyteczności.** Zanim jednak zamkniesz tę kartę i wrócisz do swoich zajęć, wypełnij, proszę, poniższą ankietę -- podaj podstawowe informacje na swój temat\*\* oraz podziel się odczuciami związanymi z formularzami na stronach internetowych." />
-                                    <Paragraph class="text-smaller" content="\*\*) **W badaniu nie są rejestrowane żadne informacje umożliwiające jednoznaczne zidentyfikowane danej osoby.** Celem niniejszej ankiety jest kategoryzacja uczestników badania według cech mogących mieć wpływ na szybkość, poprawność i dokładność wprowadzania danych w formularzach internetowych. Poniższe informacje pozwolą więc na dostrzeżenie zależności między wynikami uzyskanymi przez Ciebie w badaniu a parametrami dotyczącymi Twojego wykształcenia, wieku, Twoich doświadczeń ze stronami internetowymi itp. Jeżeli masz jakieś pytania lub uwagi związane z poniższą ankietą, wyślij do mnie wiadomość na adres  **krzysztof.radoslaw.osada@gmail.com.**" />
+                                    <Paragraph content="Świetnie! **Właśnie zakończyłeś badanie użyteczności.** Zanim jednak zamkniesz tę kartę i wrócisz do swoich zajęć, wypełnij, proszę, poniższą ankietę -- podaj podstawowe informacje na swój temat* oraz podziel się odczuciami związanymi z formularzami na stronach internetowych." />
+                                    <Paragraph class="text-smaller" content="*) **W badaniu nie są rejestrowane żadne informacje umożliwiające jednoznaczne zidentyfikowane danej osoby.** Celem niniejszej ankiety jest kategoryzacja uczestników badania według cech mogących mieć wpływ na szybkość, poprawność i dokładność wprowadzania danych w formularzach internetowych. Poniższe informacje pozwolą więc na dostrzeżenie zależności między wynikami uzyskanymi przez Ciebie w badaniu a parametrami dotyczącymi Twojego wykształcenia, wieku, Twoich doświadczeń ze stronami internetowymi itp. Jeżeli masz jakieś pytania lub uwagi związane z poniższą ankietą, wyślij do mnie wiadomość na adres  **krzysztof.radoslaw.osada@gmail.com.**" />
                                     <section className="form labels-align-top" id="user-form">
                                         <h3>Ankieta uczestnika</h3>
                                         {

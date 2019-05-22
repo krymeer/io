@@ -274,7 +274,7 @@ var Task = function (_React$Component) {
                     React.createElement(Paragraph, { 'class': 'task-description', content: 'Wype\u0142nij formularz, korzystaj\u0105c z danych zawartych **w poni\u017Cszej tabeli:**' }),
                     React.createElement(
                         'table',
-                        { ref: this.state.taskStarted ? this.childNodeRef : undefined },
+                        { 'data-for': this.props.task.type, ref: this.state.taskStarted ? this.childNodeRef : undefined },
                         React.createElement(
                             'thead',
                             null,
@@ -312,7 +312,7 @@ var Task = function (_React$Component) {
                                             'em',
                                             null,
                                             'dowolna*'
-                                        ) : row.expectedValue
+                                        ) : insertNbsp(row.expectedValue)
                                     )
                                 );
                             })
@@ -350,7 +350,7 @@ var Task = function (_React$Component) {
                             this.props.task.title
                         ),
                         this.state.inputs.map(function (input, index) {
-                            return React.createElement(InputWrapper, Object.assign({ key: index, index: index, error: _this5.state.taskError && _this5.state.taskStarted, disabled: _this5.state.taskFinished || !_this5.state.taskStarted, onChange: _this5.handleInputChange }, input, _this5.props.task.data[index]));
+                            return React.createElement(InputWrapper, Object.assign({ key: index, index: index, error: _this5.state.taskError && _this5.state.taskStarted, disabled: _this5.state.taskFinished || !_this5.state.taskStarted, onChange: _this5.handleInputChange }, input, _this5.props.task.data[index], { insideTask: true, speechToText: _this5.props.task.type === "speech-recognition" }));
                         }),
                         this.state.taskError && React.createElement(Paragraph, { 'class': 'on-form-error', content: 'Aby przej\u015B\u0107 dalej, popraw pola wyr\xF3\u017Cnione **tym kolorem.**' })
                     ),

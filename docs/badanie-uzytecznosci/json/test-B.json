@@ -491,7 +491,7 @@
         },
         {
             "intro"    : "Niedawno rozpocząłeś(-aś) poszukiwania nowej pracy. Zadecydowałeś(-aś) na umieszczenie swojego CV w popularnym serwisie rekrutacyjnym. Portal wymaga określenia Twojej lokalizacji, która może ułatwić znalezienie Twojego ogłoszenia przez pracodawców.",
-            "warning"  : "**Uwaga!** Podstawowym sposobem na rozwiązanie tego zadania jest skorzystanie z usługi pobierania lokalizacji przez przeglądarkę internetową. Dane dotyczące Twojej lokalizacji nie zostaną udostępnione osobom trzecim. Jeśli nie wyrażasz zgody na pobranie lokalizacji, wprowadź inne dane adekwatne do etykiet pól wejściowych.",
+            "warning"  : "**Uwaga!** Podstawowym sposobem na rozwiązanie tego ćwiczenia jest skorzystanie z usługi pobierania lokalizacji przez przeglądarkę internetową. Dane dotyczące Twojej lokalizacji nie zostaną udostępnione osobom trzecim. Jeśli nie wyrażasz zgody na pobranie lokalizacji, wprowadź inne dane adekwatne do etykiet pól wejściowych.",
             "question" : "Co sądzisz o zaprezentowanej funkcjonalności automatycznego wypełniania formularza?",
             "seqQuestion" : "Kiedy, Twoim zdaniem, funkcjonalność automatycznego wprowadzania danych jest najbardziej przydatna?",
             "tasks"    : [

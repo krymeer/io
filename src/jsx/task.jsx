@@ -271,7 +271,7 @@ class Task extends React.Component {
                 <section className="task" onClick={ this.handleClick } ref={ this.props.nodeRef }>
                     <h2>Ćwiczenie { this.props.scenarioIndex }.{ this.props.index }.</h2>
                     <Paragraph class="task-description" content="Wypełnij formularz, korzystając z danych zawartych **w poniższej tabeli:**" />
-                    <table ref={ ( this.state.taskStarted ) ? this.childNodeRef : undefined }>
+                    <table data-for={ this.props.task.type } ref={ ( this.state.taskStarted ) ? this.childNodeRef : undefined }>
                         <thead>
                             <tr>
                                 <th>Nazwa pola</th>
@@ -288,7 +288,7 @@ class Task extends React.Component {
                                             ? ( row.expectedValue.join( row.separator ) )
                                             : ( row.anyValue
                                                 ? <em>dowolna*</em>
-                                                : row.expectedValue ) }
+                                                : insertNbsp( row.expectedValue ) ) }
                                         </td>
                                     </tr>
                                 )
@@ -312,7 +312,7 @@ class Task extends React.Component {
                         <h3>{ this.props.task.title }</h3>
                         {
                             this.state.inputs.map( ( input, index ) =>
-                                <InputWrapper key={ index } index={ index } error={ this.state.taskError && this.state.taskStarted } disabled={ this.state.taskFinished || !this.state.taskStarted } onChange={ this.handleInputChange } { ...input } {...this.props.task.data[ index ] } />
+                                <InputWrapper key={ index } index={ index } error={ this.state.taskError && this.state.taskStarted } disabled={ this.state.taskFinished || !this.state.taskStarted } onChange={ this.handleInputChange } { ...input } {...this.props.task.data[ index ] } insideTask={ true } speechToText={ this.props.task.type === "speech-recognition" } />
                             )
                         }
                         { this.state.taskError &&
