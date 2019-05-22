@@ -73,7 +73,12 @@ var Task = function (_React$Component) {
                     _this2.handlePosition(position.coords.latitude, position.coords.longitude);
                 });
             } else {
-                // Your browser does not support the Geolocation API
+                this.setState({
+                    alert: {
+                        type: 'warning',
+                        msg: 'Twoja przeglądarka **uniemożliwia** pobranie informacji na temat Twojej lokalizacji (szerokości i długości geograficznej) Proszę, wpisz swoje dane ręcznie.'
+                    }
+                });
             }
         }
     }, {
@@ -100,12 +105,14 @@ var Task = function (_React$Component) {
                 }
             }).catch(function (error) {
                 console.error(error);
-                // Something went wrong and we cannot insert your location data
+                _this3.setState({
+                    alert: {
+                        type: 'error',
+                        msg: '**Przepraszam!** Wystąpił nieznany błąd, który uniemożliwił pobranie danych o miejscu, w którym się znajdujesz. Wpisz swoje dane ręcznie.'
+                    }
+                });
             });
         }
-    }, {
-        key: 'displayLocation',
-        value: function displayLocation(location) {}
     }, {
         key: 'handleStart',
         value: function handleStart() {
@@ -333,6 +340,7 @@ var Task = function (_React$Component) {
                         { ref: function ref(formWrapperNode) {
                                 return _this5.formWrapperNode = formWrapperNode;
                             }, className: "form " + this.props.task.classes },
+                        this.state.alert && React.createElement(Paragraph, { content: this.state.alert.msg, 'class': "alert " + this.state.alert.type }),
                         React.createElement(
                             'h3',
                             null,

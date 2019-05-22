@@ -784,6 +784,35 @@ main {
         }
     }
 
+    .alert {
+        @extend %padding-s;
+        font-size: 12px;
+        color: #000;
+        border: 3px dashed #000;
+
+        > .text-important {
+            font-weight: 700;
+        }
+
+        &.error {
+            border-color: #570000;
+            background: #ffcece;
+
+            > .text-important {
+                color: #570000;
+            }
+        }
+
+        &.warning {
+            border-color: #a50104;
+            background: #fcba04;
+
+            > .text-important {
+                color: #a50104;
+            }
+        }
+    }
+
     .radio-item {
         display: grid;
         grid-auto-flow: column;
@@ -855,19 +884,6 @@ main {
 
             &:last-child {
                 margin-bottom: 0 !important;
-            }
-
-            &.warning {
-                border: 3px dashed #a50104;
-                background: #fcba04;
-                color: #000;
-                font-size: 12px;
-                @extend %padding-s;
-
-                > .text-important {
-                    color: #a50104;
-                    font-weight: 700;
-                }
             }
         }
 
@@ -948,6 +964,11 @@ main {
                 margin: 0;
                 color: $primary-color;
             }
+
+            > .alert {
+                margin-bottom: $value-l;
+            }
+
 
             > .wrapper {
                 @extend %margin-top-btm-l;

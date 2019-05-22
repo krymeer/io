@@ -152,7 +152,7 @@ var Scenario = function (_React$Component) {
                         this.props.index
                     ),
                     typeof this.props.scenario.intro !== "undefined" && React.createElement(Paragraph, { content: this.props.scenario.intro }),
-                    typeof this.props.scenario.warning !== 'undefined' && React.createElement(Paragraph, { 'class': 'warning', content: this.props.scenario.warning }),
+                    typeof this.props.scenario.warning !== 'undefined' && React.createElement(Paragraph, { 'class': 'alert warning', content: this.props.scenario.warning }),
                     React.createElement(
                         'button',
                         { onClick: this.handleStart, disabled: this.state.scenarioStarted },
@@ -204,7 +204,7 @@ var Scenario = function (_React$Component) {
                                     return "";
                                 }
                             }),
-                            this.state.summary.currentQuestion >= this.state.summary.questions.length && React.createElement(InputWrapper, { wrapperClass: 'comment-wrapper', label: 'Jaki jest, Twoim zdaniem, najlepszy spos\xF3b na wprowadzanie tego typu danych?', optional: true, type: 'textarea', disabled: this.state.nextScenario, onChange: this.handleSummaryComment })
+                            this.state.summary.currentQuestion >= this.state.summary.questions.length && React.createElement(InputWrapper, { wrapperClass: 'comment-wrapper', label: this.props.scenario.seqQuestion ? this.props.scenario.seqQuestion : "Jaki jest, Twoim zdaniem, najlepszy sposób na wprowadzanie tego typu danych?", optional: true, type: 'textarea', disabled: this.state.nextScenario, onChange: this.handleSummaryComment })
                         )
                     ),
                     this.state.scenarioFinished && this.state.summary.currentQuestion >= this.state.summary.questions.length && React.createElement(

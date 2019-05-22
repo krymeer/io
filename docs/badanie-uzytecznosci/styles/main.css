@@ -75,7 +75,7 @@ main table th, main table td {
   padding: 14px;
 }
 
-main section > *.warning, main .calendar-input, main .timetable-wrapper, main .select-option, main .select-current, main textarea, main input {
+main .alert, main .calendar-input, main .timetable-wrapper, main .select-option, main .select-current, main textarea, main input {
   padding: 7px;
 }
 
@@ -593,6 +593,28 @@ main .toggle-switch.on:before {
   color: #668216;
   justify-self: end;
 }
+main .alert {
+  font-size: 12px;
+  color: #000;
+  border: 3px dashed #000;
+}
+main .alert > .text-important {
+  font-weight: 700;
+}
+main .alert.error {
+  border-color: #570000;
+  background: #ffcece;
+}
+main .alert.error > .text-important {
+  color: #570000;
+}
+main .alert.warning {
+  border-color: #a50104;
+  background: #fcba04;
+}
+main .alert.warning > .text-important {
+  color: #a50104;
+}
 main .radio-item {
   display: grid;
   grid-auto-flow: column;
@@ -645,16 +667,6 @@ main section > *:first-child {
 main section > *:last-child {
   margin-bottom: 0 !important;
 }
-main section > *.warning {
-  border: 3px dashed #a50104;
-  background: #fcba04;
-  color: #000;
-  font-size: 12px;
-}
-main section > *.warning > .text-important {
-  color: #a50104;
-  font-weight: 700;
-}
 main section.scenario .summary .questions {
   width: 600px;
 }
@@ -701,6 +713,9 @@ main section .form > i.insert-everything {
   right: 21px;
   margin: 0;
   color: #a63446;
+}
+main section .form > .alert {
+  margin-bottom: 21px;
 }
 main section .form > .wrapper {
   display: grid;

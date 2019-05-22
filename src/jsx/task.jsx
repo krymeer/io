@@ -60,7 +60,12 @@ class Task extends React.Component {
         }
         else
         {
-            // Your browser does not support the Geolocation API
+            this.setState( {
+                alert : {
+                    type : 'warning',
+                    msg  : 'Twoja przeglądarka **uniemożliwia** pobranie informacji na temat Twojej lokalizacji (szerokości i długości geograficznej) Proszę, wpisz swoje dane ręcznie.'
+                }
+            } );
         }
     }
 
@@ -94,13 +99,13 @@ class Task extends React.Component {
             }
         } ).catch( error => {
             console.error( error );
-            // Something went wrong and we cannot insert your location data
+            this.setState( {
+                alert : {
+                    type : 'error',
+                    msg  : '**Przepraszam!** Wystąpił nieznany błąd, który uniemożliwił pobranie danych o miejscu, w którym się znajdujesz. Wpisz swoje dane ręcznie.'
+                }
+            } );
         } );
-    }
-
-    displayLocation( location )
-    {
-
     }
 
     handleStart()
@@ -301,6 +306,9 @@ class Task extends React.Component {
                     </table>
                     <button onClick={ this.handleStart } disabled={ this.state.taskStarted }>Rozpocznij ćwiczenie</button>
                     <section ref={ formWrapperNode => this.formWrapperNode = formWrapperNode } className={ "form " + this.props.task.classes }>
+                        { this.state.alert &&
+                            <Paragraph content={ this.state.alert.msg } class={ "alert " + this.state.alert.type } />
+                        }
                         <h3>{ this.props.task.title }</h3>
                         {
                             this.state.inputs.map( ( input, index ) =>
