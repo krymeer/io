@@ -1,0 +1,48 @@
+{
+    "scenarios" : [
+                {
+            "intro"    : "Niedawno rozpocząłeś/aś poszukiwania nowej pracy. Zdecydowałeś/aś się na umieszczenie swojego CV w popularnym serwisie rekrutacyjnym. Portal wymaga określenia Twojej lokalizacji, która może ułatwić znalezienie Twojego ogłoszenia przez pracodawców.",
+            "warning"  : "**Uwaga!** Podstawowym sposobem na rozwiązanie tego zadania jest skorzystanie z usługi pobierania lokalizacji przez przeglądarkę internetową. Dane dotyczące Twojej lokalizacji nie zostaną udostępnione osobom trzecim. Jeśli nie wyrażasz zgody na pobranie lokalizacji, wprowadź inne dane adekwatne do etykiet pól wejściowych.",
+            "question" : "Co sądzisz o zaprezentowanej funkcjonalności automatycznego wypełniania formularza?",
+            "tasks"    : [
+                {
+                    "title"   : "Curriculum vitae",
+                    "classes" : "labels-align-left geolocation",
+                    "type"    : "geolocation",
+                    "data"    : [
+                        {
+                            "type"          : "text",
+                            "label"         : "Kraj",
+                            "anyValue"      : true, 
+                            "regexp"        : [ "^[A-ZĄĆĘŁŃÓŚŹŻ\\s\\-]+$", "i" ]
+                        },
+                        {
+                            "type"          : "text",
+                            "label"         : "Województwo",
+                            "anyValue"      : true, 
+                            "regexp"        : [ "^[A-ZĄĆĘŁŃÓŚŹŻ\\s\\-]+$", "i" ]
+                        },
+                        {
+                            "type"          : "text",
+                            "label"         : "Powiat",
+                            "anyValue"      : true, 
+                            "regexp"        : [ "^[A-ZĄĆĘŁŃÓŚŹŻ\\s\\-]+$", "i" ]
+                        },
+                        {
+                            "type"          : "text",
+                            "label"         : "Miejscowość",
+                            "anyValue"      : true, 
+                            "regexp"        : [ "^[A-ZĄĆĘŁŃÓŚŹŻ\\s\\-]+$", "i" ]
+                        },
+                        {
+                            "type"          : "text",
+                            "label"         : "Kod pocztowy",
+                            "anyValue"      : true, 
+                            "regexp"        : [ "^\\d{2}-\\d{3}$" ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

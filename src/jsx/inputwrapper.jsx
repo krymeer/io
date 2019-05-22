@@ -166,9 +166,11 @@ class InputWrapper extends React.Component {
                                     ? ( this.props.type === 'multi-text' || this.props.type === 'text-select-text'
                                         ? ( this.props.expectedValue.join( this.props.separator ) === inputValue.join( this.props.separator ) )
                                         : ( this.props.expectedValue === inputValue ) )
-                                    : ( ( typeof this.props.regex !== 'undefined' )
+                                    : ( typeof this.props.regex !== 'undefined'
                                         ? this.props.regex.test( inputValue )
-                                        : ( inputValue !== '' ) ) );
+                                        : ( typeof this.props.regexp !== 'undefined'
+                                            ? new RegExp( ...this.props.regexp ).test( inputValue )
+                                            : ( inputValue !== '' ) ) ) );
 
             const inputLength = ( this.props.type === 'multi-text'
                                     ? inputValue.reduce( ( a, b ) => a + ( b ? b.length : 0 ), 0 )

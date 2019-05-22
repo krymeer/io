@@ -64,6 +64,49 @@ var Task = function (_React$Component) {
             }
         }
     }, {
+        key: 'handleGeolocation',
+        value: function handleGeolocation() {
+            var _this2 = this;
+
+            if ('geolocation' in navigator) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    _this2.handlePosition(position.coords.latitude, position.coords.longitude);
+                });
+            } else {
+                // Your browser does not support the Geolocation API
+            }
+        }
+    }, {
+        key: 'handlePosition',
+        value: function handlePosition(lat, lon) {
+            var _this3 = this;
+
+            fetch('https://api.opencagedata.com/geocode/v1/json?key=66599c796ba2423db096258e034bf93b&q=' + lat + '+' + lon + '&pretty=1&no_annotations=1').then(function (res) {
+                return res.json();
+            }).then(function (response) {
+                var results = response.results ? response.results[0].components : undefined;
+
+                if (typeof results !== 'undefined') {
+                    var location = [results.country, results.state.replace(/^województwo\s+/i, ''), results.county, results.city, results.postcode];
+
+                    var inputs = _this3.formWrapperNode.querySelectorAll('input');
+
+                    if (inputs) {
+                        for (var k = 0; k < inputs.length; k++) {
+                            inputs[k].value = location[k];
+                            inputs[k].dispatchEvent(new Event('triggerChange'));
+                        }
+                    }
+                }
+            }).catch(function (error) {
+                console.error(error);
+                // Something went wrong and we cannot insert your location data
+            });
+        }
+    }, {
+        key: 'displayLocation',
+        value: function displayLocation(location) {}
+    }, {
         key: 'handleStart',
         value: function handleStart() {
             if (!this.state.taskStarted && !this.state.taskFinished) {
@@ -77,6 +120,10 @@ var Task = function (_React$Component) {
                         taskStarted: true
                     };
                 });
+
+                if (this.props.task.type === 'geolocation') {
+                    this.handleGeolocation();
+                }
             }
         }
     }, {
@@ -160,7 +207,7 @@ var Task = function (_React$Component) {
     }, {
         key: 'handleInputChange',
         value: function handleInputChange(input) {
-            var _this2 = this;
+            var _this4 = this;
 
             if (this.state.taskStarted && !this.state.taskFinished) {
                 this.setState(function (state) {
@@ -178,10 +225,10 @@ var Task = function (_React$Component) {
                         inputs: inputs
                     };
                 }, function () {
-                    if (_this2.state.inputs.filter(function (item) {
+                    if (_this4.state.inputs.filter(function (item) {
                         return !item.valid;
                     }).length === 0) {
-                        _this2.setState({
+                        _this4.setState({
                             taskError: false
                         });
                     }
@@ -202,7 +249,7 @@ var Task = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
-            var _this3 = this;
+            var _this5 = this;
 
             if (this.props.scenarioStarted && this.props.currentIndex >= this.props.index) {
                 return React.createElement(
@@ -251,10 +298,29 @@ var Task = function (_React$Component) {
                                     React.createElement(
                                         'td',
                                         null,
-                                        Array.isArray(row.expectedValue) && typeof row.separator !== "undefined" ? row.expectedValue.join(row.separator) : row.expectedValue
+                                        Array.isArray(row.expectedValue) && typeof row.separator !== "undefined" ? row.expectedValue.join(row.separator) : row.anyValue ? React.createElement(
+                                            'em',
+                                            null,
+                                            'dowolna*'
+                                        ) : row.expectedValue
                                     )
                                 );
                             })
+                        ),
+                        this.props.task.data.filter(function (row) {
+                            return row.anyValue;
+                        }).length > 0 && React.createElement(
+                            'tfoot',
+                            null,
+                            React.createElement(
+                                'tr',
+                                null,
+                                React.createElement(
+                                    'td',
+                                    { className: 'note', colSpan: '2' },
+                                    '*) Ka\u017Cda niepusta warto\u015B\u0107, kt\xF3ra jest zgodna z tre\u015Bci\u0105 scenariusza.'
+                                )
+                            )
                         )
                     ),
                     React.createElement(
@@ -264,14 +330,16 @@ var Task = function (_React$Component) {
                     ),
                     React.createElement(
                         'section',
-                        { className: "form " + this.props.task.classes },
+                        { ref: function ref(formWrapperNode) {
+                                return _this5.formWrapperNode = formWrapperNode;
+                            }, className: "form " + this.props.task.classes },
                         React.createElement(
                             'h3',
                             null,
                             this.props.task.title
                         ),
                         this.state.inputs.map(function (input, index) {
-                            return React.createElement(InputWrapper, Object.assign({ key: index, index: index, error: _this3.state.taskError && _this3.state.taskStarted, disabled: _this3.state.taskFinished || !_this3.state.taskStarted, onChange: _this3.handleInputChange }, input, _this3.props.task.data[index]));
+                            return React.createElement(InputWrapper, Object.assign({ key: index, index: index, error: _this5.state.taskError && _this5.state.taskStarted, disabled: _this5.state.taskFinished || !_this5.state.taskStarted, onChange: _this5.handleInputChange }, input, _this5.props.task.data[index]));
                         }),
                         this.state.taskError && React.createElement(Paragraph, { 'class': 'on-form-error', content: 'Aby przej\u015B\u0107 dalej, popraw pola wyr\xF3\u017Cnione **tym kolorem.**' })
                     ),
@@ -294,7 +362,7 @@ var Task = function (_React$Component) {
                             [].concat(_toConsumableArray(Array(7))).map(function (x, key, array) {
                                 return React.createElement(
                                     'li',
-                                    { className: ("seq-item radio-item " + (_this3.state.stats.rating === key + 1 ? "chosen" : "") + " " + (_this3.state.nextTask ? "disabled" : "")).trim().replace(/\s+/g, " "), key: key },
+                                    { className: ("seq-item radio-item " + (_this5.state.stats.rating === key + 1 ? "chosen" : "") + " " + (_this5.state.nextTask ? "disabled" : "")).trim().replace(/\s+/g, " "), key: key },
                                     key === 0 && React.createElement(
                                         'div',
                                         null,
@@ -310,7 +378,7 @@ var Task = function (_React$Component) {
                                         null,
                                         key + 1
                                     ),
-                                    React.createElement('div', { className: 'radio', onClick: _this3.handleRatingChange.bind(_this3, key + 1) })
+                                    React.createElement('div', { className: 'radio', onClick: _this5.handleRatingChange.bind(_this5, key + 1) })
                                 );
                             })
                         ),

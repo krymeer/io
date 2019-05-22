@@ -352,6 +352,12 @@ main {
             font-weight: 700;
             text-align: left;
         }
+
+        tfoot {
+            .note {
+                font-size: 10px;
+            }
+        }
     }
 
     > * {
@@ -849,6 +855,19 @@ main {
 
             &:last-child {
                 margin-bottom: 0 !important;
+            }
+
+            &.warning {
+                border: 3px dashed #a50104;
+                background: #fcba04;
+                color: #000;
+                font-size: 12px;
+                @extend %padding-s;
+
+                > .text-important {
+                    color: #a50104;
+                    font-weight: 700;
+                }
             }
         }
 

@@ -150,6 +150,9 @@ class Scenario extends React.Component {
                     { typeof this.props.scenario.intro !== "undefined" &&
                         <Paragraph content={ this.props.scenario.intro } />
                     }
+                    { typeof this.props.scenario.warning !== 'undefined' &&
+                        <Paragraph class="warning" content={ this.props.scenario.warning } />
+                    }
                     <button onClick={ this.handleStart } disabled={ this.state.scenarioStarted }>Rozpocznij scenariusz</button>
                     {
                         this.state.tasks.const.map( ( task, index, tasks ) =>

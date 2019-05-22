@@ -50,6 +50,59 @@ class Task extends React.Component {
         }
     }
 
+    handleGeolocation()
+    {
+        if( 'geolocation' in navigator )
+        {
+            navigator.geolocation.getCurrentPosition( position => {
+                this.handlePosition( position.coords.latitude, position.coords.longitude );
+            } )
+        }
+        else
+        {
+            // Your browser does not support the Geolocation API
+        }
+    }
+
+    handlePosition( lat, lon )
+    {
+        fetch( 'https://api.opencagedata.com/geocode/v1/json?key=66599c796ba2423db096258e034bf93b&q=' + lat + '+' + lon + '&pretty=1&no_annotations=1' ).then(
+            res => res.json()
+        ).then( response => {
+            const results = response.results ? response.results[ 0 ].components : undefined;
+
+            if( typeof results !== 'undefined' )
+            {
+                const location = [
+                    results.country,
+                    results.state.replace( /^województwo\s+/i, '' ),
+                    results.county,
+                    results.city,
+                    results.postcode
+                ]
+
+                const inputs = this.formWrapperNode.querySelectorAll( 'input' );
+
+                if( inputs )
+                {
+                    for( let k = 0; k < inputs.length; k++ )
+                    {
+                        inputs[ k ].value = location[ k ];
+                        inputs[ k ].dispatchEvent( new Event( 'triggerChange' ) );
+                    }
+                }
+            }
+        } ).catch( error => {
+            console.error( error );
+            // Something went wrong and we cannot insert your location data
+        } );
+    }
+
+    displayLocation( location )
+    {
+
+    }
+
     handleStart()
     {
         if( !this.state.taskStarted && !this.state.taskFinished )
@@ -65,6 +118,11 @@ class Task extends React.Component {
                     taskStarted  : true
                 };
             } );
+
+            if( this.props.task.type === 'geolocation' )
+            {
+                this.handleGeolocation();
+            }
         }
     }
 
@@ -223,15 +281,26 @@ class Task extends React.Component {
                                         <td>
                                             { Array.isArray( row.expectedValue ) && typeof row.separator !== "undefined"
                                             ? ( row.expectedValue.join( row.separator ) )
-                                            : ( row.expectedValue ) }
+                                            : ( row.anyValue
+                                                ? <em>dowolna*</em>
+                                                : row.expectedValue ) }
                                         </td>
                                     </tr>
                                 )
                             }
                         </tbody>
+                        { ( this.props.task.data.filter( row => row.anyValue ).length > 0 ) &&
+                            <tfoot>
+                                <tr>
+                                    <td className="note" colSpan="2">
+                                        *) Każda niepusta wartość, która jest zgodna z treścią scenariusza.
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        }
                     </table>
                     <button onClick={ this.handleStart } disabled={ this.state.taskStarted }>Rozpocznij ćwiczenie</button>
-                    <section className={ "form " + this.props.task.classes }>
+                    <section ref={ formWrapperNode => this.formWrapperNode = formWrapperNode } className={ "form " + this.props.task.classes }>
                         <h3>{ this.props.task.title }</h3>
                         {
                             this.state.inputs.map( ( input, index ) =>

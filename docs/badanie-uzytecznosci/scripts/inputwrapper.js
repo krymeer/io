@@ -147,7 +147,7 @@ var InputWrapper = function (_React$Component) {
                     return false;
                 }
 
-                var inputValid = this.props.optional ? true : typeof this.props.expectedValue !== 'undefined' ? this.props.type === 'multi-text' || this.props.type === 'text-select-text' ? this.props.expectedValue.join(this.props.separator) === inputValue.join(this.props.separator) : this.props.expectedValue === inputValue : typeof this.props.regex !== 'undefined' ? this.props.regex.test(inputValue) : inputValue !== '';
+                var inputValid = this.props.optional ? true : typeof this.props.expectedValue !== 'undefined' ? this.props.type === 'multi-text' || this.props.type === 'text-select-text' ? this.props.expectedValue.join(this.props.separator) === inputValue.join(this.props.separator) : this.props.expectedValue === inputValue : typeof this.props.regex !== 'undefined' ? this.props.regex.test(inputValue) : typeof this.props.regexp !== 'undefined' ? new (Function.prototype.bind.apply(RegExp, [null].concat(_toConsumableArray(this.props.regexp))))().test(inputValue) : inputValue !== '';
 
                 var inputLength = this.props.type === 'multi-text' ? inputValue.reduce(function (a, b) {
                     return a + (b ? b.length : 0);

@@ -152,6 +152,7 @@ var Scenario = function (_React$Component) {
                         this.props.index
                     ),
                     typeof this.props.scenario.intro !== "undefined" && React.createElement(Paragraph, { content: this.props.scenario.intro }),
+                    typeof this.props.scenario.warning !== 'undefined' && React.createElement(Paragraph, { 'class': 'warning', content: this.props.scenario.warning }),
                     React.createElement(
                         'button',
                         { onClick: this.handleStart, disabled: this.state.scenarioStarted },

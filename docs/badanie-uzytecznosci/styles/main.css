@@ -75,7 +75,7 @@ main table th, main table td {
   padding: 14px;
 }
 
-main .calendar-input, main .timetable-wrapper, main .select-option, main .select-current, main textarea, main input {
+main section > *.warning, main .calendar-input, main .timetable-wrapper, main .select-option, main .select-current, main textarea, main input {
   padding: 7px;
 }
 
@@ -261,6 +261,9 @@ main table th, main table td {
 main table th {
   font-weight: 700;
   text-align: left;
+}
+main table tfoot .note {
+  font-size: 10px;
 }
 main > *:first-child {
   margin-top: 0 !important;
@@ -641,6 +644,16 @@ main section > *:first-child {
 }
 main section > *:last-child {
   margin-bottom: 0 !important;
+}
+main section > *.warning {
+  border: 3px dashed #a50104;
+  background: #fcba04;
+  color: #000;
+  font-size: 12px;
+}
+main section > *.warning > .text-important {
+  color: #a50104;
+  font-weight: 700;
 }
 main section.scenario .summary .questions {
   width: 600px;
