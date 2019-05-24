@@ -141,7 +141,7 @@ var InputWrapper = function (_React$Component) {
                 var eventType = typeof event !== 'undefined' ? event.type : undefined;
                 var inputValue = typeof event !== 'undefined' ? this.props.type === 'multi-text' || this.props.type === 'text-select-text' ? this.state.inputValue.map(function (chunkStr, chunkIndex) {
                     return index === chunkIndex ? event.target.value : chunkStr;
-                }) : event.target.value : this.node && this.node.tagName.toLowerCase() === 'input' && this.node.type === 'text' ? this.node.value : undefined;
+                }) : event.target.value : this.node && this.node.tagName.toLowerCase() === 'input' && this.node.type === 'text' ? this.node.value : typeof this.props.speechRecognition !== 'undefined' ? this.props.speechRecognition.inputValue : undefined;
 
                 if (typeof inputValue === 'undefined') {
                     return false;
@@ -396,6 +396,13 @@ var InputWrapper = function (_React$Component) {
             }
         }
     }, {
+        key: 'componentDidUpdate',
+        value: function componentDidUpdate(prevProps) {
+            if (typeof this.props.speechRecognition !== 'undefined' && prevProps.speechRecognition.inputValue !== this.props.speechRecognition.inputValue) {
+                this.handleChange();
+            }
+        }
+    }, {
         key: 'render',
         value: function render() {
             var _this5 = this;
@@ -589,10 +596,24 @@ var InputWrapper = function (_React$Component) {
                         '* Pole opcjonalne'
                     )
                 ),
-                this.props.speechToText && React.createElement(
-                    'i',
-                    { className: ("material-icons mic-btn " + (this.props.disabled ? "disabled" : "")).trim() },
-                    'mic'
+                this.props.speechRecognition && React.createElement(
+                    'div',
+                    { className: ("sr-wrapper " + (this.props.disabled ? "disabled" : "") + " " + (this.props.speechRecognition.currentIndex === this.props.index ? "active" : "")).trim().replace(/\s+/g, " ") },
+                    React.createElement(
+                        'i',
+                        { onClick: this.props.onSpeechRecognitionTimesClick, 'data-input-index': this.props.index, className: 'material-icons' },
+                        'close'
+                    ),
+                    React.createElement(
+                        'span',
+                        null,
+                        this.props.speechRecognition.inputValue
+                    ),
+                    React.createElement(
+                        'i',
+                        { onClick: this.props.onSpeechRecognitionMicClick, 'data-input-index': this.props.index, className: 'material-icons' },
+                        'mic'
+                    )
                 )
             );
         }

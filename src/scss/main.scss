@@ -155,7 +155,7 @@ html, body {
     height: 100%;
 }
 
-button, p, h1, h2, h3, h4, a, label, span, td, th, i.material-icons {
+.wrapper, button, p, h1, h2, h3, h4, a, label, span, td, th, i.material-icons {
     @extend %noselect;
 }
 
@@ -359,17 +359,17 @@ main {
             }
         }
 
-        &[data-for='speech-recognition'] {
-            th, td {
-                &:first-child {
-                    width: 103px;
-                }
+        // &[data-for='speech-recognition'] {
+        //     th, td {
+        //         &:first-child {
+        //             width: 103px;
+        //         }
 
-                &:last-child {
-                    width: 425px;
-                }
-            }
-        }
+        //         &:last-child {
+        //             width: 425px;
+        //         }
+        //     }
+        // }
     }
 
     > * {
@@ -1088,8 +1088,31 @@ main {
                 }
 
                 &.on-form-error.on-input-invalid {
+                    > .sr-wrapper:not(.active) {
+                        > i {
+                            background: $primary-color;
+
+                            &:hover {
+                                background: $primary-color-h;
+                            }
+
+                            &:first-child {
+                                background: #eabcc3;
+                            }
+                        }
+
+                        > span {
+                            color: $primary-color;
+                            border-color: $primary-color;
+                        }
+                    }
+
                     > .mic-btn, > input, > label, > textarea {
                         color: $primary-color !important;
+                    }
+
+                    > .mic-btn.active {
+                        background: #eabcc3 !important;
                     }
 
                     > textarea, > input {
@@ -1345,44 +1368,77 @@ main {
             }
 
             &.speech-recognition {
-                width: 530px;
+                width: 520px;
 
                 > .wrapper {
-                    grid-template-columns: auto 360px;
+                    grid-template-columns: auto 270px;
                     position: relative;
 
-                    > .mic-btn {
-                        position: absolute;
-                        right: $value-s;
-                        top: $value-s;
-                        cursor: pointer;
-                        font-size: 24px;
-                        width: 24px;
-                        height: 24px;
-                        color: $input-color-m;
-                        transition: color $transition;
+                    > .sr-wrapper {
+                        display: grid;
+                        grid-template-columns: 39px 1fr 39px;
 
-                        &:hover {
-                            color: $input-color-h;
+                        > i {
+                            @extend %radius;
+                            width: 39p;
+                            height: 39px;
+                            line-height: 39px;
+                            text-align: center;
+                            font-size: 24px;
+                            color: #fff;
+                            background: $button-color-m;
+                            transition: background $transition;
+                            cursor: pointer;
+
+                            &:first-child {
+                                border-top-right-radius: 0;
+                                border-bottom-right-radius: 0;
+                            }
+
+                            &:last-child {
+                                border-top-left-radius: 0;
+                                border-bottom-left-radius: 0;
+                            }
+
+                            &:hover {
+                                background: $button-color-h;
+                            }
+
                         }
 
-                        &.disabled {
-                            color: $border-color-d;
+                        > span {
+                            @extend %padding-s;
+                            font-size: inherit;
+                            border: 2px solid $border-color-d;
+                            min-height: 39px;
+                            color: $input-color-m;
+
+                        }
+
+                        &.disabled > i,
+                        &:not(.active) > i:first-child {
                             cursor: default;
+                            background: $button-color-d;
                         }
-                    }
 
-                    > input, > textarea {
-                        padding-right: $value-s + 24px;
-                    }
+                        &.active {
+                            > i {
+                                background: #4392f1;
 
-                    > input + .mic-btn {
-                        top: 50%;
-                        transform: translateY(-50%);
-                    }
+                                &:hover {
+                                    background: #116fdf;
+                                }
+                            }
 
-                    > textarea {
-                        height: 150px;
+                            > span {
+                                border-color: #2380ef;
+                            }
+                        }
+
+                        &.disabled > span {
+                            color: $border-color-d;
+                            background: $border-color-m;
+                        }
                     }
                 }
             }

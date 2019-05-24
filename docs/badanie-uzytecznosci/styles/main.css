@@ -75,7 +75,7 @@ main table th, main table td {
   padding: 14px;
 }
 
-main .alert, main .calendar-input, main .timetable-wrapper, main .select-option, main .select-current, main textarea, main input {
+main section .form.speech-recognition > .wrapper > .sr-wrapper > span, main .alert, main .calendar-input, main .timetable-wrapper, main .select-option, main .select-current, main textarea, main input {
   padding: 7px;
 }
 
@@ -83,11 +83,11 @@ main .inc-dec > i {
   padding: 3.5px;
 }
 
-main section.task .seq, main section .form.time-text-arrows > .wrapper > i, main section .form > .wrapper .select-wrapper > .select-list, main section .form, main section.scenario .summary .questions > .question-wrapper > ul > li, main section.scenario .summary .questions, main .toggle-switch:before, main .toggle-switch, main .inc-dec > i, main .calendar-input, main .timetable-wrapper, main .select-option, main .select-current, main textarea, main input, main button, main table {
+main section.task .seq, main section .form.time-text-arrows > .wrapper > i, main section .form.speech-recognition > .wrapper > .sr-wrapper > i, main section .form > .wrapper .select-wrapper > .select-list, main section .form, main section.scenario .summary .questions > .question-wrapper > ul > li, main section.scenario .summary .questions, main .toggle-switch:before, main .toggle-switch, main .inc-dec > i, main .calendar-input, main .timetable-wrapper, main .select-option, main .select-current, main textarea, main input, main button, main table {
   border-radius: 4px;
 }
 
-main section.task .seq, main .calendar-input:disabled, main .calendar-input.disabled, main .timetable-wrapper:disabled, main .timetable-wrapper.disabled, main .select-option:disabled, main .select-option.disabled, main .select-current:disabled, main .select-current.disabled, main textarea:disabled, main textarea.disabled, main input:disabled, main input.disabled, button, p, h1, h2, h3, h4, a, label, span, td, th, i.material-icons {
+main section.task .seq, main .calendar-input:disabled, main .calendar-input.disabled, main .timetable-wrapper:disabled, main .timetable-wrapper.disabled, main .select-option:disabled, main .select-option.disabled, main .select-current:disabled, main .select-current.disabled, main textarea:disabled, main textarea.disabled, main input:disabled, main input.disabled, .wrapper, button, p, h1, h2, h3, h4, a, label, span, td, th, i.material-icons {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
@@ -264,12 +264,6 @@ main table th {
 }
 main table tfoot .note {
   font-size: 10px;
-}
-main table[data-for=speech-recognition] th:first-child, main table[data-for=speech-recognition] td:first-child {
-  width: 103px;
-}
-main table[data-for=speech-recognition] th:last-child, main table[data-for=speech-recognition] td:last-child {
-  width: 425px;
 }
 main > *:first-child {
   margin-top: 0 !important;
@@ -809,8 +803,24 @@ main section .form > .wrapper > ul.input-list > li {
 main section .form > .wrapper > ul.input-list > li:nth-child(n+2) {
   margin-left: 14px;
 }
+main section .form > .wrapper.on-form-error.on-input-invalid > .sr-wrapper:not(.active) > i {
+  background: #a63446;
+}
+main section .form > .wrapper.on-form-error.on-input-invalid > .sr-wrapper:not(.active) > i:hover {
+  background: #ca5467;
+}
+main section .form > .wrapper.on-form-error.on-input-invalid > .sr-wrapper:not(.active) > i:first-child {
+  background: #eabcc3;
+}
+main section .form > .wrapper.on-form-error.on-input-invalid > .sr-wrapper:not(.active) > span {
+  color: #a63446;
+  border-color: #a63446;
+}
 main section .form > .wrapper.on-form-error.on-input-invalid > .mic-btn, main section .form > .wrapper.on-form-error.on-input-invalid > input, main section .form > .wrapper.on-form-error.on-input-invalid > label, main section .form > .wrapper.on-form-error.on-input-invalid > textarea {
   color: #a63446 !important;
+}
+main section .form > .wrapper.on-form-error.on-input-invalid > .mic-btn.active {
+  background: #eabcc3 !important;
 }
 main section .form > .wrapper.on-form-error.on-input-invalid > textarea, main section .form > .wrapper.on-form-error.on-input-invalid > input {
   border-color: #a63446 !important;
@@ -971,39 +981,60 @@ main section .form.labels-float-top > .wrapper > label.on-input-focus, main sect
   padding: 0 2px;
 }
 main section .form.speech-recognition {
-  width: 530px;
+  width: 520px;
 }
 main section .form.speech-recognition > .wrapper {
-  grid-template-columns: auto 360px;
+  grid-template-columns: auto 270px;
   position: relative;
 }
-main section .form.speech-recognition > .wrapper > .mic-btn {
-  position: absolute;
-  right: 7px;
-  top: 7px;
-  cursor: pointer;
+main section .form.speech-recognition > .wrapper > .sr-wrapper {
+  display: grid;
+  grid-template-columns: 39px 1fr 39px;
+}
+main section .form.speech-recognition > .wrapper > .sr-wrapper > i {
+  width: 39p;
+  height: 39px;
+  line-height: 39px;
+  text-align: center;
   font-size: 24px;
-  width: 24px;
-  height: 24px;
+  color: #fff;
+  background: #8b8b8b;
+  transition: background 0.1s ease-in-out;
+  cursor: pointer;
+}
+main section .form.speech-recognition > .wrapper > .sr-wrapper > i:first-child {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+main section .form.speech-recognition > .wrapper > .sr-wrapper > i:last-child {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+main section .form.speech-recognition > .wrapper > .sr-wrapper > i:hover {
+  background: #9c9c9c;
+}
+main section .form.speech-recognition > .wrapper > .sr-wrapper > span {
+  font-size: inherit;
+  border: 2px solid #ddd;
+  min-height: 39px;
   color: #212121;
-  transition: color 0.1s ease-in-out;
 }
-main section .form.speech-recognition > .wrapper > .mic-btn:hover {
-  color: #434343;
-}
-main section .form.speech-recognition > .wrapper > .mic-btn.disabled {
-  color: #ddd;
+main section .form.speech-recognition > .wrapper > .sr-wrapper.disabled > i, main section .form.speech-recognition > .wrapper > .sr-wrapper:not(.active) > i:first-child {
   cursor: default;
+  background: #e0e0e0;
 }
-main section .form.speech-recognition > .wrapper > input, main section .form.speech-recognition > .wrapper > textarea {
-  padding-right: 31px;
+main section .form.speech-recognition > .wrapper > .sr-wrapper.active > i {
+  background: #4392f1;
 }
-main section .form.speech-recognition > .wrapper > input + .mic-btn {
-  top: 50%;
-  transform: translateY(-50%);
+main section .form.speech-recognition > .wrapper > .sr-wrapper.active > i:hover {
+  background: #116fdf;
 }
-main section .form.speech-recognition > .wrapper > textarea {
-  height: 150px;
+main section .form.speech-recognition > .wrapper > .sr-wrapper.active > span {
+  border-color: #2380ef;
+}
+main section .form.speech-recognition > .wrapper > .sr-wrapper.disabled > span {
+  color: #ddd;
+  background: #eee;
 }
 main section .form.logic-values-toggle-switch {
   width: 560px;

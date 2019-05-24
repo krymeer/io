@@ -153,7 +153,9 @@ class InputWrapper extends React.Component {
                                     : event.target.value )
                                 : ( ( this.node && this.node.tagName.toLowerCase() === 'input' && this.node.type === 'text' )
                                     ? this.node.value
-                                    : undefined );
+                                    : ( typeof this.props.speechRecognition !== 'undefined'
+                                        ? this.props.speechRecognition.inputValue
+                                        : undefined ) );
 
             if( typeof inputValue === 'undefined' )
             {
@@ -455,6 +457,14 @@ class InputWrapper extends React.Component {
         }
     }
 
+    componentDidUpdate( prevProps )
+    {
+        if( typeof this.props.speechRecognition !== 'undefined' && prevProps.speechRecognition.inputValue !== this.props.speechRecognition.inputValue )
+        {
+            this.handleChange();
+        }
+    }
+
     render()
     {
         const wrapperClassName = ( 'wrapper' + ' ' + ( this.props.error ? 'on-form-error' : '' ) + ' ' + ( this.state.inputValid ? '' : 'on-input-invalid' ) + ' ' + ( typeof this.props.wrapperClass !== 'undefined' ? this.props.wrapperClass : '' ) ).trim().replace( /\s+/g, ' ' );
@@ -601,8 +611,12 @@ class InputWrapper extends React.Component {
                         }
                     </div>
                 }
-                { this.props.speechToText &&
-                    <i className={ ( "material-icons mic-btn " + ( this.props.disabled ? "disabled" : "" ) ).trim() }>mic</i>
+                { this.props.speechRecognition &&
+                    <div className={ ( "sr-wrapper " + ( this.props.disabled ? "disabled" : "" ) + " " + ( ( this.props.speechRecognition.currentIndex === this.props.index ) ? "active" : "" ) ).trim().replace( /\s+/g, " " ) }>
+                        <i onClick={ this.props.onSpeechRecognitionTimesClick } data-input-index={ this.props.index } className="material-icons">close</i>
+                        <span>{ this.props.speechRecognition.inputValue }</span>
+                        <i onClick={ this.props.onSpeechRecognitionMicClick } data-input-index={ this.props.index } className="material-icons">mic</i>
+                    </div>
                 }
             </div>
         );

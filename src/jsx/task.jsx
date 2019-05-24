@@ -25,11 +25,128 @@ class Task extends React.Component {
                 rating         : 0,
                 comment        : ''
             },
-            inputs       : this.props.task.data.map( ( input ) => {
-                return {
+            inputs       : this.props.task.data.map( input => ( {
                     valid : ( typeof input.initialValue !== 'undefined' && typeof input.expectedValue !== 'undefined' ) ? ( input.initialValue === input.expectedValue ) : false
+            } ) )
+        };
+
+        if( this.props.task.type === 'speech-recognition' )
+        {
+            this.state = {
+                ...this.state,
+                speechRecognition : {
+                    values       : [ ...Array( this.props.task.data.length ) ],
+                    currentIndex : -1,
+                }
+            };
+
+            this.handleSpeechRecognitionTimesClick = this.handleSpeechRecognitionTimesClick.bind( this );
+            this.handleSpeechRecognitionMicClick   = this.handleSpeechRecognitionMicClick.bind( this );
+            this.handleSpeechRecognitionInterface();
+        }
+    }
+
+    handleSpeechRecognitionInterface()
+    {
+        this.webkitSpeechRecognition = new webkitSpeechRecognition();
+
+        this.webkitSpeechRecognition.lang            = 'pl-PL';
+        this.webkitSpeechRecognition.continuous      = true;
+        this.webkitSpeechRecognition.interimResults  = true;
+        this.webkitSpeechRecognition.maxAlternatives = 1;
+
+        this.webkitSpeechRecognition.onresult = ( event ) => {
+            if( this.state.speechRecognition.currentIndex < 0 || !this.state.taskStarted || this.state.taskFinished )
+            {
+                return false;
+            }
+
+            this.setState( state => {
+                return {
+                    ...state,
+                    speechRecognition : {
+                        ...state.speechRecognition,
+                        values : state.speechRecognition.values.map( ( v, i ) =>
+                            ( i === state.speechRecognition.currentIndex )
+                                ? event.results[ event.results.length - 1 ][ 0 ].transcript
+                                : v
+                        )
+                    }
                 };
-            } )
+            } );
+        };
+
+        this.webkitSpeechRecognition.onend = ( event ) => {
+            if( this.state.speechRecognition.continue )
+            {
+                this.setState( state => {
+                    return {
+                        ...state,
+                        speechRecognition : {
+                            ...state.speechRecognition,
+                            continue : false
+                        }
+                    }
+                } );
+
+                this.webkitSpeechRecognition.start();
+            }
+            else if( this.state.speechRecognition.currentIndex !== -1 )
+            {
+                this.handleSpeechRecognitionMicClick();
+            }
+        };
+    }
+
+    handleSpeechRecognitionMicClick( event )
+    {
+        if( this.props.task.type === 'speech-recognition' && this.state.taskStarted && !this.state.taskFinished )
+        {
+            const inputIndex = ( typeof event !== 'undefined' ) ? parseInt( event.target.dataset.inputIndex ) : -1;
+            const otherIndex = ( inputIndex !== -1 && this.state.speechRecognition.currentIndex !== inputIndex );
+
+            this.setState( state => {
+                if( state.speechRecognition.currentIndex < 0 )
+                {
+                    this.webkitSpeechRecognition.start();
+                }
+                else
+                {
+                    this.webkitSpeechRecognition.abort();
+                }
+
+                return {
+                    ...state,
+                    speechRecognition : {
+                        ...state.speechRecognition,
+                        currentIndex : otherIndex ? inputIndex : -1,
+                        continue     : otherIndex
+                    }
+                }
+            } );
+        }
+    }
+
+    handleSpeechRecognitionTimesClick( event )
+    {
+        if( this.state.speechRecognition.currentIndex !== -1 && this.state.speechRecognition.currentIndex === parseInt( event.target.dataset.inputIndex ) && this.state.taskStarted && !this.state.taskFinished )
+        {
+            this.webkitSpeechRecognition.abort();
+
+            this.setState( state => {
+                return {
+                    ...state,
+                    speechRecognition : {
+                        ...state.speechRecognition,
+                        continue : true,
+                        values   : state.speechRecognition.values.map( ( v, i ) =>
+                            ( i === state.speechRecognition.currentIndex )
+                                ? ''
+                                : v
+                        )
+                    }
+                }
+            } );
         }
     }
 
@@ -56,7 +173,7 @@ class Task extends React.Component {
         {
             navigator.geolocation.getCurrentPosition( position => {
                 this.handlePosition( position.coords.latitude, position.coords.longitude );
-            } )
+            } );
         }
         else
         {
@@ -151,6 +268,25 @@ class Task extends React.Component {
             }
             else
             {
+                if( this.props.task.type === 'speech-recognition' )
+                {
+                    if( this.state.speechRecognition.currentIndex !== -1 )
+                    {
+                        this.webkitSpeechRecognition.abort();
+                    }
+
+                    this.setState( state => {
+                        return {
+                            ...state,
+                            speechRecognition : {
+                                ...state.speechRecognition,
+                                currentIndex : -1,
+                                continue     : false
+                            }
+                        }
+                    } );
+                }
+
                 this.setState( state => {
                     const stats = {
                         ...state.stats,
@@ -171,6 +307,8 @@ class Task extends React.Component {
     {
         if( this.state.taskStarted && this.state.taskFinished )
         {
+
+
             this.setState( {
                 nextTask : true
             } );
@@ -311,9 +449,20 @@ class Task extends React.Component {
                         }
                         <h3>{ this.props.task.title }</h3>
                         {
-                            this.state.inputs.map( ( input, index ) =>
-                                <InputWrapper key={ index } index={ index } error={ this.state.taskError && this.state.taskStarted } disabled={ this.state.taskFinished || !this.state.taskStarted } onChange={ this.handleInputChange } { ...input } {...this.props.task.data[ index ] } insideTask={ true } speechToText={ this.props.task.type === "speech-recognition" } />
-                            )
+                            this.state.inputs.map( ( input, index ) => {
+                                const speechRecognitionProps = ( this.props.task.type === 'speech-recognition' ) ? {
+                                    onSpeechRecognitionTimesClick : this.handleSpeechRecognitionTimesClick,
+                                    onSpeechRecognitionMicClick   : this.handleSpeechRecognitionMicClick,
+                                    speechRecognition             : {
+                                        currentIndex  : this.state.speechRecognition.currentIndex,
+                                        inputValue    : this.state.speechRecognition.values[ index ]
+                                    }
+                                } : undefined;
+
+                                return (
+                                    <InputWrapper key={ index } index={ index } error={ this.state.taskError && this.state.taskStarted } disabled={ this.state.taskFinished || !this.state.taskStarted } onChange={ this.handleInputChange } { ...input } {...this.props.task.data[ index ] } insideTask={ true } { ...speechRecognitionProps } />
+                                );
+                            } )
                         }
                         { this.state.taskError &&
                             <Paragraph class="on-form-error" content="Aby przejść dalej, popraw pola wyróżnione **tym kolorem.**" />

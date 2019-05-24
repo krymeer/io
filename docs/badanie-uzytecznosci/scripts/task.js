@@ -45,10 +45,110 @@ var Task = function (_React$Component) {
                 };
             })
         };
+
+        if (_this.props.task.type === 'speech-recognition') {
+            _this.state = Object.assign({}, _this.state, {
+                speechRecognition: {
+                    values: [].concat(_toConsumableArray(Array(_this.props.task.data.length))),
+                    currentIndex: -1
+                }
+            });
+
+            _this.handleSpeechRecognitionTimesClick = _this.handleSpeechRecognitionTimesClick.bind(_this);
+            _this.handleSpeechRecognitionMicClick = _this.handleSpeechRecognitionMicClick.bind(_this);
+            _this.handleSpeechRecognitionInterface();
+        }
         return _this;
     }
 
     _createClass(Task, [{
+        key: 'handleSpeechRecognitionInterface',
+        value: function handleSpeechRecognitionInterface() {
+            var _this2 = this;
+
+            this.webkitSpeechRecognition = new webkitSpeechRecognition();
+
+            this.webkitSpeechRecognition.lang = 'pl-PL';
+            this.webkitSpeechRecognition.continuous = true;
+            this.webkitSpeechRecognition.interimResults = true;
+            this.webkitSpeechRecognition.maxAlternatives = 1;
+
+            this.webkitSpeechRecognition.onresult = function (event) {
+                if (_this2.state.speechRecognition.currentIndex < 0 || !_this2.state.taskStarted || _this2.state.taskFinished) {
+                    return false;
+                }
+
+                _this2.setState(function (state) {
+                    return Object.assign({}, state, {
+                        speechRecognition: Object.assign({}, state.speechRecognition, {
+                            values: state.speechRecognition.values.map(function (v, i) {
+                                return i === state.speechRecognition.currentIndex ? event.results[event.results.length - 1][0].transcript : v;
+                            })
+                        })
+                    });
+                });
+            };
+
+            this.webkitSpeechRecognition.onend = function (event) {
+                if (_this2.state.speechRecognition.continue) {
+                    _this2.setState(function (state) {
+                        return Object.assign({}, state, {
+                            speechRecognition: Object.assign({}, state.speechRecognition, {
+                                continue: false
+                            })
+                        });
+                    });
+
+                    _this2.webkitSpeechRecognition.start();
+                } else if (_this2.state.speechRecognition.currentIndex !== -1) {
+                    _this2.handleSpeechRecognitionMicClick();
+                }
+            };
+        }
+    }, {
+        key: 'handleSpeechRecognitionMicClick',
+        value: function handleSpeechRecognitionMicClick(event) {
+            var _this3 = this;
+
+            if (this.props.task.type === 'speech-recognition' && this.state.taskStarted && !this.state.taskFinished) {
+                var inputIndex = typeof event !== 'undefined' ? parseInt(event.target.dataset.inputIndex) : -1;
+                var otherIndex = inputIndex !== -1 && this.state.speechRecognition.currentIndex !== inputIndex;
+
+                this.setState(function (state) {
+                    if (state.speechRecognition.currentIndex < 0) {
+                        _this3.webkitSpeechRecognition.start();
+                    } else {
+                        _this3.webkitSpeechRecognition.abort();
+                    }
+
+                    return Object.assign({}, state, {
+                        speechRecognition: Object.assign({}, state.speechRecognition, {
+                            currentIndex: otherIndex ? inputIndex : -1,
+                            continue: otherIndex
+                        })
+                    });
+                });
+            }
+        }
+    }, {
+        key: 'handleSpeechRecognitionTimesClick',
+        value: function handleSpeechRecognitionTimesClick(event) {
+            if (this.state.speechRecognition.currentIndex !== -1 && this.state.speechRecognition.currentIndex === parseInt(event.target.dataset.inputIndex) && this.state.taskStarted && !this.state.taskFinished) {
+                this.webkitSpeechRecognition.abort();
+
+                this.setState(function (state) {
+                    return Object.assign({}, state, {
+                        speechRecognition: Object.assign({}, state.speechRecognition, {
+                            continue: true,
+                            values: state.speechRecognition.values.map(function (v, i) {
+                                return i === state.speechRecognition.currentIndex ? '' : v;
+                            })
+                        })
+                    });
+                });
+            }
+        }
+    }, {
         key: 'handleClick',
         value: function handleClick() {
             if (this.state.taskStarted && !this.state.taskFinished) {
@@ -66,11 +166,11 @@ var Task = function (_React$Component) {
     }, {
         key: 'handleGeolocation',
         value: function handleGeolocation() {
-            var _this2 = this;
+            var _this4 = this;
 
             if ('geolocation' in navigator) {
                 navigator.geolocation.getCurrentPosition(function (position) {
-                    _this2.handlePosition(position.coords.latitude, position.coords.longitude);
+                    _this4.handlePosition(position.coords.latitude, position.coords.longitude);
                 });
             } else {
                 this.setState({
@@ -84,7 +184,7 @@ var Task = function (_React$Component) {
     }, {
         key: 'handlePosition',
         value: function handlePosition(lat, lon) {
-            var _this3 = this;
+            var _this5 = this;
 
             fetch('https://api.opencagedata.com/geocode/v1/json?key=66599c796ba2423db096258e034bf93b&q=' + lat + '+' + lon + '&pretty=1&no_annotations=1').then(function (res) {
                 return res.json();
@@ -94,7 +194,7 @@ var Task = function (_React$Component) {
                 if (typeof results !== 'undefined') {
                     var location = [results.country, results.state.replace(/^województwo\s+/i, ''), results.county, results.city, results.postcode];
 
-                    var inputs = _this3.formWrapperNode.querySelectorAll('input');
+                    var inputs = _this5.formWrapperNode.querySelectorAll('input');
 
                     if (inputs) {
                         for (var k = 0; k < inputs.length; k++) {
@@ -105,7 +205,7 @@ var Task = function (_React$Component) {
                 }
             }).catch(function (error) {
                 console.error(error);
-                _this3.setState({
+                _this5.setState({
                     alert: {
                         type: 'error',
                         msg: '**Przepraszam!** Wystąpił nieznany błąd, który uniemożliwił pobranie danych o miejscu, w którym się znajdujesz. Wpisz swoje dane ręcznie.'
@@ -151,6 +251,21 @@ var Task = function (_React$Component) {
                         };
                     });
                 } else {
+                    if (this.props.task.type === 'speech-recognition') {
+                        if (this.state.speechRecognition.currentIndex !== -1) {
+                            this.webkitSpeechRecognition.abort();
+                        }
+
+                        this.setState(function (state) {
+                            return Object.assign({}, state, {
+                                speechRecognition: Object.assign({}, state.speechRecognition, {
+                                    currentIndex: -1,
+                                    continue: false
+                                })
+                            });
+                        });
+                    }
+
                     this.setState(function (state) {
                         var stats = Object.assign({}, state.stats, {
                             endTime: new Date().getTime()
@@ -169,6 +284,7 @@ var Task = function (_React$Component) {
         key: 'handleNext',
         value: function handleNext() {
             if (this.state.taskStarted && this.state.taskFinished) {
+
                 this.setState({
                     nextTask: true
                 });
@@ -214,7 +330,7 @@ var Task = function (_React$Component) {
     }, {
         key: 'handleInputChange',
         value: function handleInputChange(input) {
-            var _this4 = this;
+            var _this6 = this;
 
             if (this.state.taskStarted && !this.state.taskFinished) {
                 this.setState(function (state) {
@@ -232,10 +348,10 @@ var Task = function (_React$Component) {
                         inputs: inputs
                     };
                 }, function () {
-                    if (_this4.state.inputs.filter(function (item) {
+                    if (_this6.state.inputs.filter(function (item) {
                         return !item.valid;
                     }).length === 0) {
-                        _this4.setState({
+                        _this6.setState({
                             taskError: false
                         });
                     }
@@ -256,7 +372,7 @@ var Task = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
-            var _this5 = this;
+            var _this7 = this;
 
             if (this.props.scenarioStarted && this.props.currentIndex >= this.props.index) {
                 return React.createElement(
@@ -341,7 +457,7 @@ var Task = function (_React$Component) {
                     React.createElement(
                         'section',
                         { ref: function ref(formWrapperNode) {
-                                return _this5.formWrapperNode = formWrapperNode;
+                                return _this7.formWrapperNode = formWrapperNode;
                             }, className: "form " + this.props.task.classes },
                         this.state.alert && React.createElement(Paragraph, { content: this.state.alert.msg, 'class': "alert " + this.state.alert.type }),
                         React.createElement(
@@ -350,7 +466,16 @@ var Task = function (_React$Component) {
                             this.props.task.title
                         ),
                         this.state.inputs.map(function (input, index) {
-                            return React.createElement(InputWrapper, Object.assign({ key: index, index: index, error: _this5.state.taskError && _this5.state.taskStarted, disabled: _this5.state.taskFinished || !_this5.state.taskStarted, onChange: _this5.handleInputChange }, input, _this5.props.task.data[index], { insideTask: true, speechToText: _this5.props.task.type === "speech-recognition" }));
+                            var speechRecognitionProps = _this7.props.task.type === 'speech-recognition' ? {
+                                onSpeechRecognitionTimesClick: _this7.handleSpeechRecognitionTimesClick,
+                                onSpeechRecognitionMicClick: _this7.handleSpeechRecognitionMicClick,
+                                speechRecognition: {
+                                    currentIndex: _this7.state.speechRecognition.currentIndex,
+                                    inputValue: _this7.state.speechRecognition.values[index]
+                                }
+                            } : undefined;
+
+                            return React.createElement(InputWrapper, Object.assign({ key: index, index: index, error: _this7.state.taskError && _this7.state.taskStarted, disabled: _this7.state.taskFinished || !_this7.state.taskStarted, onChange: _this7.handleInputChange }, input, _this7.props.task.data[index], { insideTask: true }, speechRecognitionProps));
                         }),
                         this.state.taskError && React.createElement(Paragraph, { 'class': 'on-form-error', content: 'Aby przej\u015B\u0107 dalej, popraw pola wyr\xF3\u017Cnione **tym kolorem.**' })
                     ),
@@ -373,7 +498,7 @@ var Task = function (_React$Component) {
                             [].concat(_toConsumableArray(Array(7))).map(function (x, key, array) {
                                 return React.createElement(
                                     'li',
-                                    { className: ("seq-item radio-item " + (_this5.state.stats.rating === key + 1 ? "chosen" : "") + " " + (_this5.state.nextTask ? "disabled" : "")).trim().replace(/\s+/g, " "), key: key },
+                                    { className: ("seq-item radio-item " + (_this7.state.stats.rating === key + 1 ? "chosen" : "") + " " + (_this7.state.nextTask ? "disabled" : "")).trim().replace(/\s+/g, " "), key: key },
                                     key === 0 && React.createElement(
                                         'div',
                                         null,
@@ -389,7 +514,7 @@ var Task = function (_React$Component) {
                                         null,
                                         key + 1
                                     ),
-                                    React.createElement('div', { className: 'radio', onClick: _this5.handleRatingChange.bind(_this5, key + 1) })
+                                    React.createElement('div', { className: 'radio', onClick: _this7.handleRatingChange.bind(_this7, key + 1) })
                                 );
                             })
                         ),
