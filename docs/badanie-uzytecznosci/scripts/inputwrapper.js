@@ -1,3 +1,5 @@
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -19,7 +21,7 @@ var InputWrapper = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (InputWrapper.__proto__ || Object.getPrototypeOf(InputWrapper)).call(this, props));
 
         _this.state = {
-            inputValid: _this.props.optional ? true : typeof _this.props.initialValue !== 'undefined' && typeof _this.props.expectedValue !== 'undefined' ? _this.props.initialValue === _this.props.expectedValue : false
+            inputValid: _this.props.optional ? true : typeof _this.props.initialValue !== 'undefined' && typeof _this.props.expectedValue !== 'undefined' ? _this.props.initialValue === _this.props.expectedValue : typeof _this.props.ignoreValidity !== 'undefined' && _this.props.ignoreValidity
         };
         _this.multiPartInput = typeof _this.props.options !== 'undefined' && _this.props.options.filter(function (array) {
             return !Array.isArray(array);
@@ -173,11 +175,20 @@ var InputWrapper = function (_React$Component) {
                     }
                 });
 
-                this.props.onChange({
-                    index: this.props.index,
+                var dataPassed = {
                     value: inputValue,
                     valid: inputValid
-                });
+                };
+
+                if (typeof this.props.index !== 'undefined') {
+                    dataPassed.index = this.props.index;
+                }
+
+                if (_typeof(this.props.context)) {
+                    dataPassed.context = this.props.context;
+                }
+
+                this.props.onChange(dataPassed);
             }
         }
     }, {

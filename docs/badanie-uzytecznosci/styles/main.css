@@ -47,7 +47,7 @@ main section > * {
   margin-bottom: 14px;
 }
 
-main > section > section, main section .form > .wrapper, main section.scenario .summary .questions > .question-wrapper {
+main > section > section, main section.task .seq > .comment-wrapper, main section .form > .wrapper, main section.scenario .summary .questions > .question-wrapper {
   margin-top: 21px;
   margin-bottom: 21px;
 }
@@ -295,6 +295,17 @@ main button[disabled] {
   background: #e0e0e0 !important;
   color: #bebebe !important;
 }
+main button.special {
+  background: #fcba04;
+  color: #a50104;
+}
+main button.special:hover {
+  background: #fdc836;
+}
+main button.special[disabled] {
+  background: #fef1cd !important;
+  color: #ffb7b8 !important;
+}
 main button.toggle {
   text-transform: none;
   letter-spacing: 0;
@@ -333,6 +344,10 @@ main .comment-wrapper > label {
 }
 main .comment-wrapper > textarea {
   margin: 3.5px 0 14px 0;
+}
+main .comment-wrapper.on-form-error > textarea {
+  border-color: #a63446;
+  color: #a63446;
 }
 main .timetable-list li {
   list-style-type: none;
@@ -628,6 +643,7 @@ main .radio-item > .radio {
   border-radius: 50%;
   position: relative;
   margin-right: 5px;
+  transition: border-color 0.1s ease-in-out;
 }
 main .radio-item > .radio:before {
   display: block;
@@ -666,6 +682,15 @@ main section > *:first-child {
 }
 main section > *:last-child {
   margin-bottom: 0 !important;
+}
+main section.button-wrapper {
+  display: grid;
+  grid-auto-flow: column;
+  grid-column-gap: 14px;
+  justify-content: center;
+}
+main section.button-wrapper > button {
+  margin: 0 !important;
 }
 main section.scenario .summary .questions {
   width: 600px;
@@ -1246,6 +1271,7 @@ main section.task .seq > .seq-radios > li.seq-item {
 main section.task .seq > .seq-radios > li.seq-item > div {
   font-size: 11px;
   text-align: center;
+  transition: color 0.1s ease-in-out;
 }
 main section.task .seq > .seq-radios > li.seq-item > div.radio {
   margin: 0 auto;
@@ -1259,7 +1285,16 @@ main section.task .seq > .seq-radios > li.seq-item:first-child > div:first-child
 main section.task .seq > .seq-radios > li.seq-item:last-child > div:first-child {
   text-align: right;
 }
-main section.task .seq > .wrapper label {
+main section.task .seq > .seq-radios.error > li > div {
+  color: #a63446;
+}
+main section.task .seq > .seq-radios.error > li > div.radio {
+  border-color: #a63446;
+}
+main section.task .seq > .seq-radios.error > li > div.radio:before {
+  background: #a63446;
+}
+main section.task .seq > .comment-wrapper > label {
   line-height: 1.25;
   text-align: justify;
 }

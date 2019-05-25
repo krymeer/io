@@ -170,7 +170,7 @@ var Scenario = function (_React$Component) {
                             null,
                             'Podsumowanie'
                         ),
-                        React.createElement(Paragraph, { content: "Udało się! Właśnie ukończyłeś **scenariusz " + this.props.index + ".** i możesz przejść do kolejnej części badania. Zanim jednak to zrobisz, proszę, udziel odpowiedzi na poniższe pytania." }),
+                        React.createElement(Paragraph, { content: "Udało się! Właśnie ukończyłeś(-aś) **scenariusz " + this.props.index + ".** i możesz przejść do kolejnej części badania. Zanim jednak to zrobisz, proszę, udziel odpowiedzi na poniższe pytania." }),
                         React.createElement(
                             'section',
                             { className: 'questions' },

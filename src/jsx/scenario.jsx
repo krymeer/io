@@ -162,7 +162,7 @@ class Scenario extends React.Component {
                     { this.state.scenarioFinished &&
                         <section className="summary" ref={ this.childNodeRef }>
                             <h2>Podsumowanie</h2>
-                            <Paragraph content={ "Udało się! Właśnie ukończyłeś **scenariusz " + this.props.index + ".** i możesz przejść do kolejnej części badania. Zanim jednak to zrobisz, proszę, udziel odpowiedzi na poniższe pytania." } />
+                            <Paragraph content={ "Udało się! Właśnie ukończyłeś(-aś) **scenariusz " + this.props.index + ".** i możesz przejść do kolejnej części badania. Zanim jednak to zrobisz, proszę, udziel odpowiedzi na poniższe pytania." } />
                             <section className="questions">
                                 { this.state.summary.questions.map( ( question, qIndex ) => {
                                     if( this.state.summary.currentQuestion >= qIndex )

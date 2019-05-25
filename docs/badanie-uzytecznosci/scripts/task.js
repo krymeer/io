@@ -1,5 +1,7 @@
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -16,6 +18,7 @@ var Task = function (_React$Component) {
 
         var _this = _possibleConstructorReturn(this, (Task.__proto__ || Object.getPrototypeOf(Task)).call(this, props));
 
+        _this.handleAbort = _this.handleAbort.bind(_this);
         _this.handleClick = _this.handleClick.bind(_this);
         _this.handleStart = _this.handleStart.bind(_this);
         _this.handleFinish = _this.handleFinish.bind(_this);
@@ -37,7 +40,7 @@ var Task = function (_React$Component) {
                 numberOfClicks: 0,
                 numberOfErrors: 0,
                 rating: 0,
-                comment: ''
+                comments: {}
             },
             inputs: _this.props.task.data.map(function (input) {
                 return {
@@ -234,23 +237,21 @@ var Task = function (_React$Component) {
             }
         }
     }, {
+        key: 'handleAbort',
+        value: function handleAbort() {
+            this.handleFinish(true);
+        }
+    }, {
         key: 'handleFinish',
         value: function handleFinish() {
+            var abort = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+
             if (this.state.taskStarted && !this.state.taskFinished) {
+                var taskAborted = abort === true;
+
                 if (this.state.inputs.filter(function (input) {
                     return !input.valid;
-                }).length > 0) {
-                    this.setState(function (state) {
-                        var stats = Object.assign({}, state.stats, {
-                            numberOfErrors: state.stats.numberOfErrors + 1
-                        });
-
-                        return {
-                            stats: stats,
-                            taskError: true
-                        };
-                    });
-                } else {
+                }).length === 0 || taskAborted) {
                     if (this.props.task.type === 'speech-recognition') {
                         if (this.state.speechRecognition.currentIndex !== -1) {
                             this.webkitSpeechRecognition.abort();
@@ -274,7 +275,19 @@ var Task = function (_React$Component) {
                         return {
                             stats: stats,
                             taskError: false,
-                            taskFinished: true
+                            taskFinished: true,
+                            taskAborted: taskAborted
+                        };
+                    });
+                } else {
+                    this.setState(function (state) {
+                        var stats = Object.assign({}, state.stats, {
+                            numberOfErrors: state.stats.numberOfErrors + 1
+                        });
+
+                        return {
+                            stats: stats,
+                            taskError: true
                         };
                     });
                 }
@@ -284,15 +297,22 @@ var Task = function (_React$Component) {
         key: 'handleNext',
         value: function handleNext() {
             if (this.state.taskStarted && this.state.taskFinished) {
+                if (this.state.stats.rating <= 0 || this.state.taskAborted && !(this.state.stats.comments.taskAborted && this.state.stats.comments.taskAborted.length >= 10)) {
+                    this.setState({
+                        missingSummaryData: true
+                    });
+                } else {
+                    this.setState({
+                        nextTask: true,
+                        missingSummaryData: false
+                    });
 
-                this.setState({
-                    nextTask: true
-                });
-
-                this.props.onFinish(Object.assign({
-                    index: this.props.index,
-                    type: this.props.task.type
-                }, this.state.stats));
+                    this.props.onFinish({
+                        index: this.props.index,
+                        type: this.props.task.type,
+                        stats: this.state.stats
+                    });
+                }
             }
         }
     }, {
@@ -300,14 +320,18 @@ var Task = function (_React$Component) {
         value: function handleRatingChange(k) {
             if (this.state.taskFinished && !this.state.nextTask) {
                 if (k !== this.state.rating) {
-                    this.setState(function (state) {
-                        var stats = Object.assign({}, state.stats, {
-                            rating: k
+                    this.setState(function (oldState) {
+                        var newState = Object.assign({}, oldState, {
+                            stats: Object.assign({}, oldState.stats, {
+                                rating: k
+                            })
                         });
 
-                        return {
-                            stats: stats
-                        };
+                        if (oldState.missingSummaryData && (!oldState.taskAborted || oldState.stats.comments.taskAborted && oldState.stats.comments.taskAborted.length >= 10)) {
+                            newState.missingSummaryData = false;
+                        }
+
+                        return newState;
                     });
                 }
             }
@@ -316,14 +340,18 @@ var Task = function (_React$Component) {
         key: 'handleCommentChange',
         value: function handleCommentChange(input) {
             if (this.state.taskFinished && !this.state.nextTask) {
-                this.setState(function (state) {
-                    var stats = Object.assign({}, state.stats, {
-                        comment: input.value
+                this.setState(function (oldState) {
+                    var newState = Object.assign({}, oldState, {
+                        stats: Object.assign({}, oldState.stats, {
+                            comments: Object.assign({}, oldState.stats.comments, _defineProperty({}, input.context, input.value))
+                        })
                     });
 
-                    return {
-                        stats: stats
-                    };
+                    if (oldState.missingSummaryData && oldState.stats.rating > 0 && oldState.taskAborted && input.context === 'taskAborted' && input.value.length >= 10) {
+                        newState.missingSummaryData = false;
+                    }
+
+                    return newState;
                 });
             }
         }
@@ -480,9 +508,18 @@ var Task = function (_React$Component) {
                         this.state.taskError && React.createElement(Paragraph, { 'class': 'on-form-error', content: 'Aby przej\u015B\u0107 dalej, popraw pola wyr\xF3\u017Cnione **tym kolorem.**' })
                     ),
                     this.state.taskStarted && React.createElement(
-                        'button',
-                        { onClick: this.handleFinish, disabled: this.state.taskFinished },
-                        'Zako\u0144cz \u0107wiczenie'
+                        'section',
+                        { className: 'button-wrapper' },
+                        React.createElement(
+                            'button',
+                            { onClick: this.handleFinish, disabled: this.state.taskFinished },
+                            'Zako\u0144cz \u0107wiczenie'
+                        ),
+                        this.props.task.canBeAborted && React.createElement(
+                            'button',
+                            { className: 'special', onClick: this.handleAbort, disabled: this.state.taskFinished },
+                            'Przerwij \u0107wiczenie'
+                        )
                     ),
                     this.state.taskFinished && React.createElement(
                         'section',
@@ -494,7 +531,7 @@ var Task = function (_React$Component) {
                         ),
                         React.createElement(
                             'ul',
-                            { className: 'seq-radios' },
+                            { className: ("seq-radios " + (this.state.missingSummaryData && this.state.stats.rating <= 0 ? "error" : "")).trim() },
                             [].concat(_toConsumableArray(Array(7))).map(function (x, key, array) {
                                 return React.createElement(
                                     'li',
@@ -518,11 +555,13 @@ var Task = function (_React$Component) {
                                 );
                             })
                         ),
-                        this.state.stats.rating > 0 && React.createElement(InputWrapper, { wrapperClass: 'comment-wrapper', label: typeof this.props.question !== "undefined" ? insertNbsp(this.props.question) : "Co sądzisz o wprowadzaniu danych przy użyciu zaprezentowanej metody?", optional: true, type: 'textarea', disabled: this.state.nextTask, onChange: this.handleCommentChange })
+                        this.state.taskAborted && React.createElement(InputWrapper, { wrapperClass: 'comment-wrapper', ignoreValidity: true, error: this.state.missingSummaryData && !(this.state.stats.comments.taskAborted && this.state.stats.comments.taskAborted.length >= 10), context: 'taskAborted', label: 'Dlaczego nie wykona\u0142e\u015B(-a\u015B) tego \u0107wiczenia do ko\u0144ca?', type: 'textarea', disabled: this.state.nextTask, onChange: this.handleCommentChange }),
+                        React.createElement(InputWrapper, { wrapperClass: 'comment-wrapper', context: 'taskFinished', label: typeof this.props.question !== "undefined" ? insertNbsp(this.props.question) : "Co sądzisz o wprowadzaniu danych przy użyciu zaprezentowanej metody?", optional: true, type: 'textarea', disabled: this.state.nextTask, onChange: this.handleCommentChange }),
+                        this.state.missingSummaryData && React.createElement(Paragraph, { 'class': 'note', content: "Aby przejść dalej, **oceń poziom trudności powyższego ćwiczenia" + (!(this.state.stats.comments.taskAborted && this.state.stats.comments.taskAborted.length >= 10) ? ",** a także **wyjaśnij, dlaczego zdecydowałeś(-aś) się je przerwać.**" : ".**") })
                     ),
-                    this.state.stats.rating > 0 && React.createElement(
+                    this.state.taskFinished && React.createElement(
                         'button',
-                        { onClick: this.handleNext, ref: this.childNodeRef, disabled: this.state.nextTask },
+                        { onClick: this.handleNext, disabled: this.state.nextTask },
                         this.props.index < this.props.lastIndex && "Następne ćwiczenie",
                         this.props.index === this.props.lastIndex && "Zakończ scenariusz"
                     )

@@ -2,6 +2,7 @@ class Task extends React.Component {
     constructor( props )
     {
         super( props );
+        this.handleAbort         = this.handleAbort.bind( this );
         this.handleClick         = this.handleClick.bind( this );
         this.handleStart         = this.handleStart.bind( this );
         this.handleFinish        = this.handleFinish.bind( this );
@@ -23,7 +24,7 @@ class Task extends React.Component {
                 numberOfClicks : 0,
                 numberOfErrors : 0,
                 rating         : 0,
-                comment        : ''
+                comments       : {}
             },
             inputs       : this.props.task.data.map( input => ( {
                     valid : ( typeof input.initialValue !== 'undefined' && typeof input.expectedValue !== 'undefined' ) ? ( input.initialValue === input.expectedValue ) : false
@@ -248,25 +249,18 @@ class Task extends React.Component {
         }
     }
 
-    handleFinish()
+    handleAbort()
+    {
+        this.handleFinish( true );
+    }
+
+    handleFinish( abort = false )
     {
         if( this.state.taskStarted && !this.state.taskFinished )
         {
-            if( this.state.inputs.filter( input => !input.valid ).length > 0 )
-            {
-                this.setState( state => {
-                    const stats = {
-                        ...state.stats,
-                        numberOfErrors : state.stats.numberOfErrors + 1
-                    };
+            const taskAborted = ( abort === true );
 
-                    return {
-                        stats,
-                        taskError : true
-                    }
-                } );
-            }
-            else
+            if( this.state.inputs.filter( input => !input.valid ).length === 0 || taskAborted )
             {
                 if( this.props.task.type === 'speech-recognition' )
                 {
@@ -296,8 +290,23 @@ class Task extends React.Component {
                     return {
                         stats,
                         taskError    : false,
-                        taskFinished : true
+                        taskFinished : true,
+                        taskAborted  : taskAborted
                     };
+                } );
+            }
+            else
+            {
+                this.setState( state => {
+                    const stats = {
+                        ...state.stats,
+                        numberOfErrors : state.stats.numberOfErrors + 1
+                    };
+
+                    return {
+                        stats,
+                        taskError : true
+                    }
                 } );
             }
         }
@@ -307,17 +316,25 @@ class Task extends React.Component {
     {
         if( this.state.taskStarted && this.state.taskFinished )
         {
+            if( this.state.stats.rating <= 0 || ( this.state.taskAborted && !( this.state.stats.comments.taskAborted && this.state.stats.comments.taskAborted.length >= 10 ) ) )
+            {
+                this.setState( {
+                    missingSummaryData : true
+                } );
+            }
+            else
+            {
+                this.setState( {
+                    nextTask           : true,
+                    missingSummaryData : false
+                } );
 
-
-            this.setState( {
-                nextTask : true
-            } );
-
-            this.props.onFinish( {
-                index : this.props.index,
-                type  : this.props.task.type,
-                ...this.state.stats
-            } );
+                this.props.onFinish( {
+                    index : this.props.index,
+                    type  : this.props.task.type,
+                    stats : this.state.stats
+                } );
+            }
         }
     }
 
@@ -327,15 +344,21 @@ class Task extends React.Component {
         {
             if( k !== this.state.rating )
             {
-                this.setState( state => {
-                    const stats = {
-                        ...state.stats,
-                        rating : k
+                this.setState( oldState => {
+                    const newState = {
+                        ...oldState,
+                        stats : {
+                            ...oldState.stats,
+                            rating : k
+                        }
                     }
 
-                    return {
-                        stats
-                    };
+                    if( oldState.missingSummaryData && ( !oldState.taskAborted || ( oldState.stats.comments.taskAborted && oldState.stats.comments.taskAborted.length >= 10 ) ) )
+                    {
+                        newState.missingSummaryData = false;
+                    }
+
+                    return newState;
                 } );
             }
         }
@@ -345,15 +368,24 @@ class Task extends React.Component {
     {
         if( this.state.taskFinished && !this.state.nextTask )
         {
-            this.setState( state => {
-                const stats = {
-                    ...state.stats,
-                    comment : input.value
+            this.setState( oldState => {
+                const newState = {
+                    ...oldState,
+                    stats : {
+                        ...oldState.stats,
+                        comments : {
+                            ...oldState.stats.comments,
+                            [ input.context ] : input.value
+                        }
+                    }
+                };
+
+                if( oldState.missingSummaryData && oldState.stats.rating > 0 && oldState.taskAborted && input.context === 'taskAborted' && input.value.length >= 10 )
+                {
+                    newState.missingSummaryData = false;
                 }
 
-                return {
-                    stats
-                };
+                return newState;
             } );
         }
     }
@@ -469,14 +501,17 @@ class Task extends React.Component {
                         }
                     </section>
                     { this.state.taskStarted &&
-                        <button onClick={ this.handleFinish } disabled={ this.state.taskFinished }>Zakończ ćwiczenie</button>
+                        <section className="button-wrapper">
+                            <button onClick={ this.handleFinish } disabled={ this.state.taskFinished }>Zakończ ćwiczenie</button>
+                            { this.props.task.canBeAborted &&
+                                <button className="special" onClick={ this.handleAbort } disabled={ this.state.taskFinished }>Przerwij ćwiczenie</button>
+                            }
+                        </section>
                     }
                     { this.state.taskFinished &&
                         <section className="seq" ref={ this.childNodeRef }>
-                            <h3>
-                                Jaki jest, Twoim zdaniem, poziom trudności powyższego ćwiczenia?
-                            </h3>
-                            <ul className="seq-radios">
+                            <h3>Jaki jest, Twoim zdaniem, poziom trudności powyższego ćwiczenia?</h3>
+                            <ul className={ ( "seq-radios " + ( ( this.state.missingSummaryData && this.state.stats.rating <= 0 ) ? "error" : "" ) ).trim() }>
                                 { [ ...Array( 7 ) ].map( ( x, key, array ) =>
                                     <li className={ ( "seq-item radio-item " + ( this.state.stats.rating === key + 1  ? "chosen" : "" ) + " " + ( this.state.nextTask ? "disabled" : "" ) ).trim().replace( /\s+/g, " " ) } key={ key }>
                                         { key === 0 &&
@@ -494,13 +529,17 @@ class Task extends React.Component {
                                     </li>
                                 ) }
                             </ul>
-                            { this.state.stats.rating > 0 &&
-                                <InputWrapper wrapperClass="comment-wrapper" label={ ( typeof this.props.question !== "undefined" ) ? insertNbsp( this.props.question )  : "Co sądzisz o wprowadzaniu danych przy użyciu zaprezentowanej metody?" } optional={ true } type="textarea" disabled={ this.state.nextTask } onChange={ this.handleCommentChange } />
+                            { this.state.taskAborted &&
+                                <InputWrapper wrapperClass="comment-wrapper" ignoreValidity={ true } error={ this.state.missingSummaryData && !( this.state.stats.comments.taskAborted && this.state.stats.comments.taskAborted.length >= 10 ) } context="taskAborted" label="Dlaczego nie wykonałeś(-aś) tego ćwiczenia do końca?" type="textarea" disabled={ this.state.nextTask } onChange={ this.handleCommentChange } />
+                            }
+                            <InputWrapper wrapperClass="comment-wrapper" context="taskFinished" label={ ( typeof this.props.question !== "undefined" ) ? insertNbsp( this.props.question ) : "Co sądzisz o wprowadzaniu danych przy użyciu zaprezentowanej metody?" } optional={ true } type="textarea" disabled={ this.state.nextTask } onChange={ this.handleCommentChange } />
+                            { this.state.missingSummaryData &&
+                                <Paragraph class="note" content={ "Aby przejść dalej, **oceń poziom trudności powyższego ćwiczenia" + ( !( this.state.stats.comments.taskAborted && this.state.stats.comments.taskAborted.length >= 10 ) ? ",** a także **wyjaśnij, dlaczego zdecydowałeś(-aś) się je przerwać.**" :  ".**" ) } />
                             }
                         </section>
                     }
-                    { this.state.stats.rating > 0 &&
-                        <button onClick={ this.handleNext } ref={ this.childNodeRef } disabled={ this.state.nextTask }>
+                    { this.state.taskFinished &&
+                        <button onClick={ this.handleNext } disabled={ this.state.nextTask }>
                             { this.props.index < this.props.lastIndex &&
                                 "Następne ćwiczenie"
                             }

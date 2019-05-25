@@ -8,7 +8,7 @@ class InputWrapper extends React.Component {
                             ? true
                             : ( typeof this.props.initialValue !== 'undefined' && typeof this.props.expectedValue !== 'undefined'
                                 ? this.props.initialValue === this.props.expectedValue
-                                : false )
+                                : ( typeof this.props.ignoreValidity !== 'undefined' && this.props.ignoreValidity ) )
         };
         this.multiPartInput = ( typeof this.props.options !== 'undefined' && this.props.options.filter( array => !Array.isArray( array ) ).length === 0 && typeof this.props.separator !== 'undefined' && Array.isArray( this.props.expectedValue ) );
         this.handleLabel    = this.handleLabel.bind( this );
@@ -198,11 +198,22 @@ class InputWrapper extends React.Component {
                 }
             } );
 
-            this.props.onChange( {
-                index : this.props.index,
+            const dataPassed = {
                 value : inputValue,
                 valid : inputValid
-            } );
+            }
+
+            if( typeof this.props.index !== 'undefined' )
+            {
+                dataPassed.index = this.props.index;
+            }
+
+            if( typeof this.props.context )
+            {
+                dataPassed.context = this.props.context;
+            }
+
+            this.props.onChange( dataPassed );
         }
     }
 

@@ -409,6 +409,20 @@ main {
             color: #bebebe !important;
         }
 
+        &.special {
+            background: #fcba04;
+            color: #a50104;
+
+            &:hover {
+                background: #fdc836;
+            }
+
+            &[disabled] {
+                background: #fef1cd !important;
+                color: #ffb7b8 !important;
+            }
+        }
+
         &.toggle {
             text-transform: none;
             letter-spacing: 0;
@@ -461,6 +475,13 @@ main {
 
         > textarea {
             margin: $value-xs 0 $value-m 0;
+        }
+
+        &.on-form-error {
+            > textarea {
+                border-color: $primary-color;
+                color: $primary-color;
+            }
         }
     }
 
@@ -838,6 +859,7 @@ main {
             border-radius: 50%;
             position: relative;
             margin-right: 5px;
+            transition: border-color $transition;
 
             &:before {
                 display: block;
@@ -896,6 +918,17 @@ main {
 
             &:last-child {
                 margin-bottom: 0 !important;
+            }
+        }
+
+        &.button-wrapper {
+            display: grid;
+            grid-auto-flow: column;
+            grid-column-gap: $value-m;
+            justify-content: center;
+
+            > button {
+                margin: 0 !important;
             }
         }
 
@@ -1726,6 +1759,7 @@ main {
                             > div {
                                 font-size: 11px;
                                 text-align: center;
+                                transition: color $transition;
 
                                 &.radio {
                                     margin: 0 auto;
@@ -1751,10 +1785,28 @@ main {
                             }
                         }
                     }
+
+                    &.error {
+                        > li {
+                            > div {
+                                color: $primary-color;
+
+                                &.radio {
+                                    border-color: $primary-color;
+
+                                    &:before  {
+                                        background: $primary-color;
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
 
-                > .wrapper {
-                    label {
+                > .comment-wrapper {
+                    @extend %margin-top-btm-l;
+
+                    > label {
                         line-height: 1.25;
                         text-align: justify;
                     }
