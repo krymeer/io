@@ -49,6 +49,7 @@ class Task extends React.Component {
 
     handleSpeechRecognitionInterface()
     {
+        const rules                  = this.props.task.rules;
         this.webkitSpeechRecognition = new webkitSpeechRecognition();
 
         this.webkitSpeechRecognition.lang            = 'pl-PL';
@@ -56,10 +57,21 @@ class Task extends React.Component {
         this.webkitSpeechRecognition.interimResults  = true;
         this.webkitSpeechRecognition.maxAlternatives = 1;
 
+
         this.webkitSpeechRecognition.onresult = ( event ) => {
             if( this.state.speechRecognition.currentIndex < 0 || !this.state.taskStarted || this.state.taskFinished )
             {
                 return false;
+            }
+
+            let transcript = event.results[ event.results.length - 1 ][ 0 ].transcript;
+
+            if( rules )
+            {
+                for( let rule of rules )
+                {
+                    transcript = transcript.replace( new RegExp( rule.in, "gi" ), rule.out )
+                }
             }
 
             this.setState( state => {
@@ -69,7 +81,7 @@ class Task extends React.Component {
                         ...state.speechRecognition,
                         values : state.speechRecognition.values.map( ( v, i ) =>
                             ( i === state.speechRecognition.currentIndex )
-                                ? event.results[ event.results.length - 1 ][ 0 ].transcript
+                                ? transcript
                                 : v
                         )
                     }

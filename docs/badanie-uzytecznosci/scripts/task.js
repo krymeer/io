@@ -69,6 +69,7 @@ var Task = function (_React$Component) {
         value: function handleSpeechRecognitionInterface() {
             var _this2 = this;
 
+            var rules = this.props.task.rules;
             this.webkitSpeechRecognition = new webkitSpeechRecognition();
 
             this.webkitSpeechRecognition.lang = 'pl-PL';
@@ -81,11 +82,40 @@ var Task = function (_React$Component) {
                     return false;
                 }
 
+                var transcript = event.results[event.results.length - 1][0].transcript;
+
+                if (rules) {
+                    var _iteratorNormalCompletion = true;
+                    var _didIteratorError = false;
+                    var _iteratorError = undefined;
+
+                    try {
+                        for (var _iterator = rules[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                            var rule = _step.value;
+
+                            transcript = transcript.replace(new RegExp(rule.in, "gi"), rule.out);
+                        }
+                    } catch (err) {
+                        _didIteratorError = true;
+                        _iteratorError = err;
+                    } finally {
+                        try {
+                            if (!_iteratorNormalCompletion && _iterator.return) {
+                                _iterator.return();
+                            }
+                        } finally {
+                            if (_didIteratorError) {
+                                throw _iteratorError;
+                            }
+                        }
+                    }
+                }
+
                 _this2.setState(function (state) {
                     return Object.assign({}, state, {
                         speechRecognition: Object.assign({}, state.speechRecognition, {
                             values: state.speechRecognition.values.map(function (v, i) {
-                                return i === state.speechRecognition.currentIndex ? event.results[event.results.length - 1][0].transcript : v;
+                                return i === state.speechRecognition.currentIndex ? transcript : v;
                             })
                         })
                     });
