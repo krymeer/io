@@ -83,7 +83,7 @@ main .inc-dec > i {
   padding: 3.5px;
 }
 
-main section.task .seq, main section .form.time-text-arrows > .wrapper > i, main section .form.speech-recognition > .wrapper > .sr-wrapper > i, main section .form > .wrapper .select-wrapper > .select-list, main section .form, main section.scenario .summary .questions > .question-wrapper > ul > li, main section.scenario .summary .questions, main .toggle-switch:before, main .toggle-switch, main .inc-dec > i, main .calendar-input, main .timetable-wrapper, main .select-option, main .select-current, main textarea, main input, main button, main table {
+main section.task .seq, main section .form.time-text-arrows > .wrapper > i, main section .form.speech-recognition > .wrapper > .sr-wrapper > i, main section .form > .wrapper.on-form-error.on-input-invalid > .sr-wrapper.active, main section .form > .wrapper .select-wrapper > .select-list, main section .form, main section.scenario .summary .questions > .question-wrapper > ul > li, main section.scenario .summary .questions, main .toggle-switch:before, main .toggle-switch, main .inc-dec > i, main .calendar-input, main .timetable-wrapper, main .select-option, main .select-current, main textarea, main input, main button, main table {
   border-radius: 4px;
 }
 
@@ -630,6 +630,13 @@ main .alert.warning {
 main .alert.warning > a, main .alert.warning > .text-important {
   color: #a50104;
 }
+main .alert.info {
+  border-color: #4392f1;
+  background: #e1eefd;
+}
+main .alert.info > a, main .alert.info > .text-important {
+  color: #4392f1;
+}
 main .radio-item {
   display: grid;
   grid-auto-flow: column;
@@ -828,6 +835,9 @@ main section .form > .wrapper > ul.input-list > li {
 main section .form > .wrapper > ul.input-list > li:nth-child(n+2) {
   margin-left: 14px;
 }
+main section .form > .wrapper.on-form-error.on-input-invalid > .sr-wrapper.active {
+  border: 2px solid #a63446;
+}
 main section .form > .wrapper.on-form-error.on-input-invalid > .sr-wrapper:not(.active) > i {
   background: #a63446;
 }
@@ -1017,10 +1027,9 @@ main section .form.speech-recognition > .wrapper > .sr-wrapper {
   grid-template-columns: 39px 1fr 39px;
 }
 main section .form.speech-recognition > .wrapper > .sr-wrapper > i {
-  width: 39p;
-  height: 39px;
-  line-height: 39px;
-  text-align: center;
+  display: grid;
+  place-content: center;
+  width: 39px;
   font-size: 24px;
   color: #fff;
   background: #8b8b8b;
@@ -1060,10 +1069,18 @@ main section .form.speech-recognition > .wrapper > .sr-wrapper.active > span {
 main section .form.speech-recognition > .wrapper > .sr-wrapper.active > span.sr-placeholder {
   font-style: italic;
   color: #4392f1;
+  display: grid;
+  align-content: center;
 }
 main section .form.speech-recognition > .wrapper > .sr-wrapper.disabled > span {
   color: #ddd;
   background: #eee;
+}
+main section .form.speech-recognition > .wrapper > .sr-wrapper.sr-textarea {
+  min-height: 132px;
+}
+main section .form.speech-recognition > .wrapper > .sr-wrapper.sr-textarea > span:not(.sr-placeholder) {
+  font-size: 13px;
 }
 main section .form.logic-values-toggle-switch {
   width: 560px;

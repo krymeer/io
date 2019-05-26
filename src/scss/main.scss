@@ -844,6 +844,15 @@ main {
                 color: #a50104;
             }
         }
+
+        &.info {
+            border-color: #4392f1;
+            background: #e1eefd;
+
+            > a, > .text-important {
+                color: #4392f1;
+            }
+        }
     }
 
     .radio-item {
@@ -1121,23 +1130,31 @@ main {
                 }
 
                 &.on-form-error.on-input-invalid {
-                    > .sr-wrapper:not(.active) {
-                        > i {
-                            background: $primary-color;
+                    > .sr-wrapper {
+                        &.active {
+                            border: 2px solid $primary-color;
+                            @extend %radius;
+                        }
 
-                            &:hover {
-                                background: $primary-color-h;
+                        &:not(.active) {
+                            > i {
+                                background: $primary-color;
+
+                                &:hover {
+                                    background: $primary-color-h;
+                                }
+
+                                &:first-child {
+                                    background: #eabcc3;
+                                }
                             }
 
-                            &:first-child {
-                                background: #eabcc3;
+                            > span {
+                                color: $primary-color;
+                                border-color: $primary-color;
                             }
                         }
 
-                        > span {
-                            color: $primary-color;
-                            border-color: $primary-color;
-                        }
                     }
 
                     > .mic-btn, > input, > label, > textarea {
@@ -1413,10 +1430,9 @@ main {
 
                         > i {
                             @extend %radius;
-                            width: 39p;
-                            height: 39px;
-                            line-height: 39px;
-                            text-align: center;
+                            display: grid;
+                            place-content: center;
+                            width: 39px;
                             font-size: 24px;
                             color: #fff;
                             background: $button-color-m;
@@ -1445,7 +1461,6 @@ main {
                             border: 2px solid $border-color-d;
                             min-height: 39px;
                             color: $input-color-m;
-
                         }
 
                         &.disabled > i,
@@ -1469,6 +1484,8 @@ main {
                                 &.sr-placeholder {
                                     font-style: italic;
                                     color: #4392f1;
+                                    display: grid;
+                                    align-content: center;
                                 }
                             }
                         }
@@ -1476,6 +1493,14 @@ main {
                         &.disabled > span {
                             color: $border-color-d;
                             background: $border-color-m;
+                        }
+
+                        &.sr-textarea {
+                            min-height: 132px;
+
+                            > span:not(.sr-placeholder) {
+                                font-size: 13px;
+                            }
                         }
                     }
                 }

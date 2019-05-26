@@ -31,13 +31,21 @@ class Task extends React.Component {
             } ) )
         };
 
-        if( this.props.task.type === 'speech-recognition' )
+        if( this.props.task.type.indexOf( 'speech-recognition' ) !== -1 )
         {
             this.state = {
                 ...this.state,
                 speechRecognition : {
                     values       : [ ...Array( this.props.task.data.length ) ],
                     currentIndex : -1,
+                    timesClicks  : 0
+                },
+                stats            : {
+                    ...this.state.stats,
+                    speechRecognition : {
+                        micClicks   : 0,
+                        timesClicks : 0
+                    }
                 }
             };
 
@@ -113,7 +121,7 @@ class Task extends React.Component {
 
     handleSpeechRecognitionMicClick( event )
     {
-        if( this.props.task.type === 'speech-recognition' && this.state.taskStarted && !this.state.taskFinished )
+        if( this.props.task.type.indexOf( 'speech-recognition' ) !== -1 && this.state.taskStarted && !this.state.taskFinished )
         {
             const inputIndex = ( typeof event !== 'undefined' ) ? parseInt( event.target.dataset.inputIndex ) : -1;
             const otherIndex = ( inputIndex !== -1 && this.state.speechRecognition.currentIndex !== inputIndex );
@@ -134,6 +142,13 @@ class Task extends React.Component {
                         ...state.speechRecognition,
                         currentIndex : otherIndex ? inputIndex : -1,
                         continue     : otherIndex
+                    },
+                    stats : {
+                        ...state.stats,
+                        speechRecognition : {
+                            ...state.stats.speechRecognition,
+                            micClicks : state.stats.speechRecognition.micClicks + 1
+                        }
                     }
                 }
             } );
@@ -157,6 +172,13 @@ class Task extends React.Component {
                                 ? ''
                                 : v
                         )
+                    },
+                    stats : {
+                        ...state.stats,
+                        speechRecognition : {
+                            ...state.stats.speechRecognition,
+                            timesClicks : state.stats.speechRecognition.micClicks + 1
+                        }
                     }
                 }
             } );
@@ -274,7 +296,7 @@ class Task extends React.Component {
 
             if( this.state.inputs.filter( input => !input.valid ).length === 0 || taskAborted )
             {
-                if( this.props.task.type === 'speech-recognition' )
+                if( this.props.task.type.indexOf( 'speech-recognition' ) !== -1 )
                 {
                     if( this.state.speechRecognition.currentIndex !== -1 )
                     {
@@ -467,10 +489,20 @@ class Task extends React.Component {
                                         <td>{ row.label }</td>
                                         <td>
                                             { Array.isArray( row.expectedValue ) && typeof row.separator !== "undefined"
-                                            ? ( row.expectedValue.join( row.separator ) )
-                                            : ( row.anyValue
-                                                ? <em>dowolna*</em>
-                                                : insertNbsp( row.expectedValue ) ) }
+                                                ? ( row.expectedValue.join( row.separator ) )
+                                                : ( row.anyValue
+                                                    ? <em>dowolna*</em>
+                                                    : row.expectedValue.split( '\n' ).map( ( line, lineIndex, lineArr ) => {
+                                                        line = insertNbsp( line );
+
+                                                        return ( lineIndex < lineArr.length - 1 )
+                                                            ? [
+                                                                line,
+                                                                <br key={ index } />
+                                                            ]
+                                                            : line;
+                                                    } ) )
+                                            }
                                         </td>
                                     </tr>
                                 )
@@ -486,6 +518,9 @@ class Task extends React.Component {
                             </tfoot>
                         }
                     </table>
+                    { this.props.task.alert &&
+                        <Paragraph content={ this.props.task.alert.msg } class={ "alert " + this.props.task.alert.type } />
+                    }
                     <button onClick={ this.handleStart } disabled={ this.state.taskStarted }>Rozpocznij ćwiczenie</button>
                     <section ref={ formWrapperNode => this.formWrapperNode = formWrapperNode } className={ "form " + this.props.task.classes }>
                         { this.state.alert &&
@@ -494,7 +529,7 @@ class Task extends React.Component {
                         <h3>{ this.props.task.title }</h3>
                         {
                             this.state.inputs.map( ( input, index ) => {
-                                const speechRecognitionProps = ( this.props.task.type === 'speech-recognition' ) ? {
+                                const speechRecognitionProps = ( this.props.task.type.indexOf( 'speech-recognition' ) !== -1 ) ? {
                                     onSpeechRecognitionTimesClick : this.handleSpeechRecognitionTimesClick,
                                     onSpeechRecognitionMicClick   : this.handleSpeechRecognitionMicClick,
                                     speechRecognition             : {
@@ -504,7 +539,7 @@ class Task extends React.Component {
                                 } : undefined;
 
                                 return (
-                                    <InputWrapper key={ index } index={ index } error={ this.state.taskError && this.state.taskStarted } disabled={ this.state.taskFinished || !this.state.taskStarted } onChange={ this.handleInputChange } { ...input } {...this.props.task.data[ index ] } insideTask={ true } { ...speechRecognitionProps } />
+                                    <InputWrapper key={ index } index={ index } error={ this.state.taskError && this.state.taskStarted } disabled={ this.state.taskFinished || !this.state.taskStarted } onChange={ this.handleInputChange } { ...input } {...this.props.task.data[ index ] } insideTask={ true } { ...speechRecognitionProps } ignoreCaseAndLines={ this.props.task.ignoreCaseAndLines === true } />
                                 );
                             } )
                         }
@@ -514,10 +549,10 @@ class Task extends React.Component {
                     </section>
                     { this.state.taskStarted &&
                         <section className="button-wrapper">
-                            <button onClick={ this.handleFinish } disabled={ this.state.taskFinished }>Zakończ ćwiczenie</button>
                             { this.props.task.canBeAborted &&
                                 <button className="special" onClick={ this.handleAbort } disabled={ this.state.taskFinished }>Przerwij ćwiczenie</button>
                             }
+                            <button onClick={ this.handleFinish } disabled={ this.state.taskFinished }>Zakończ ćwiczenie</button>
                         </section>
                     }
                     { this.state.taskFinished &&
@@ -546,7 +581,7 @@ class Task extends React.Component {
                             }
                             <InputWrapper wrapperClass="comment-wrapper" context="taskFinished" label={ ( typeof this.props.question !== "undefined" ) ? insertNbsp( this.props.question ) : "Co sądzisz o wprowadzaniu danych przy użyciu zaprezentowanej metody?" } optional={ true } type="textarea" disabled={ this.state.nextTask } onChange={ this.handleCommentChange } />
                             { this.state.missingSummaryData &&
-                                <Paragraph class="note" content={ "Aby przejść dalej, **oceń poziom trudności powyższego ćwiczenia" + ( !( this.state.stats.comments.taskAborted && this.state.stats.comments.taskAborted.length >= 10 ) ? ",** a także **wyjaśnij, dlaczego zdecydowałeś(-aś) się je przerwać.**" :  ".**" ) } />
+                                <Paragraph class="note" content={ "Aby przejść dalej, **oceń poziom trudności powyższego ćwiczenia" + ( ( this.state.taskAborted && this.state.stats.comments.taskAborted && this.state.stats.comments.taskAborted.length < 10 ) ? ",** a także **wyjaśnij, dlaczego zdecydowałeś(-aś) się je przerwać.**" :  ".**" ) } />
                             }
                         </section>
                     }

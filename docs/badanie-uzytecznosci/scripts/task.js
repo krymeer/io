@@ -49,12 +49,19 @@ var Task = function (_React$Component) {
             })
         };
 
-        if (_this.props.task.type === 'speech-recognition') {
+        if (_this.props.task.type.indexOf('speech-recognition') !== -1) {
             _this.state = Object.assign({}, _this.state, {
                 speechRecognition: {
                     values: [].concat(_toConsumableArray(Array(_this.props.task.data.length))),
-                    currentIndex: -1
-                }
+                    currentIndex: -1,
+                    timesClicks: 0
+                },
+                stats: Object.assign({}, _this.state.stats, {
+                    speechRecognition: {
+                        micClicks: 0,
+                        timesClicks: 0
+                    }
+                })
             });
 
             _this.handleSpeechRecognitionTimesClick = _this.handleSpeechRecognitionTimesClick.bind(_this);
@@ -143,7 +150,7 @@ var Task = function (_React$Component) {
         value: function handleSpeechRecognitionMicClick(event) {
             var _this3 = this;
 
-            if (this.props.task.type === 'speech-recognition' && this.state.taskStarted && !this.state.taskFinished) {
+            if (this.props.task.type.indexOf('speech-recognition') !== -1 && this.state.taskStarted && !this.state.taskFinished) {
                 var inputIndex = typeof event !== 'undefined' ? parseInt(event.target.dataset.inputIndex) : -1;
                 var otherIndex = inputIndex !== -1 && this.state.speechRecognition.currentIndex !== inputIndex;
 
@@ -158,6 +165,11 @@ var Task = function (_React$Component) {
                         speechRecognition: Object.assign({}, state.speechRecognition, {
                             currentIndex: otherIndex ? inputIndex : -1,
                             continue: otherIndex
+                        }),
+                        stats: Object.assign({}, state.stats, {
+                            speechRecognition: Object.assign({}, state.stats.speechRecognition, {
+                                micClicks: state.stats.speechRecognition.micClicks + 1
+                            })
                         })
                     });
                 });
@@ -175,6 +187,11 @@ var Task = function (_React$Component) {
                             continue: true,
                             values: state.speechRecognition.values.map(function (v, i) {
                                 return i === state.speechRecognition.currentIndex ? '' : v;
+                            })
+                        }),
+                        stats: Object.assign({}, state.stats, {
+                            speechRecognition: Object.assign({}, state.stats.speechRecognition, {
+                                timesClicks: state.stats.speechRecognition.micClicks + 1
                             })
                         })
                     });
@@ -282,7 +299,7 @@ var Task = function (_React$Component) {
                 if (this.state.inputs.filter(function (input) {
                     return !input.valid;
                 }).length === 0 || taskAborted) {
-                    if (this.props.task.type === 'speech-recognition') {
+                    if (this.props.task.type.indexOf('speech-recognition') !== -1) {
                         if (this.state.speechRecognition.currentIndex !== -1) {
                             this.webkitSpeechRecognition.abort();
                         }
@@ -486,7 +503,11 @@ var Task = function (_React$Component) {
                                             'em',
                                             null,
                                             'dowolna*'
-                                        ) : insertNbsp(row.expectedValue)
+                                        ) : row.expectedValue.split('\n').map(function (line, lineIndex, lineArr) {
+                                            line = insertNbsp(line);
+
+                                            return lineIndex < lineArr.length - 1 ? [line, React.createElement('br', { key: index })] : line;
+                                        })
                                     )
                                 );
                             })
@@ -507,6 +528,7 @@ var Task = function (_React$Component) {
                             )
                         )
                     ),
+                    this.props.task.alert && React.createElement(Paragraph, { content: this.props.task.alert.msg, 'class': "alert " + this.props.task.alert.type }),
                     React.createElement(
                         'button',
                         { onClick: this.handleStart, disabled: this.state.taskStarted },
@@ -524,7 +546,7 @@ var Task = function (_React$Component) {
                             this.props.task.title
                         ),
                         this.state.inputs.map(function (input, index) {
-                            var speechRecognitionProps = _this7.props.task.type === 'speech-recognition' ? {
+                            var speechRecognitionProps = _this7.props.task.type.indexOf('speech-recognition') !== -1 ? {
                                 onSpeechRecognitionTimesClick: _this7.handleSpeechRecognitionTimesClick,
                                 onSpeechRecognitionMicClick: _this7.handleSpeechRecognitionMicClick,
                                 speechRecognition: {
@@ -533,22 +555,22 @@ var Task = function (_React$Component) {
                                 }
                             } : undefined;
 
-                            return React.createElement(InputWrapper, Object.assign({ key: index, index: index, error: _this7.state.taskError && _this7.state.taskStarted, disabled: _this7.state.taskFinished || !_this7.state.taskStarted, onChange: _this7.handleInputChange }, input, _this7.props.task.data[index], { insideTask: true }, speechRecognitionProps));
+                            return React.createElement(InputWrapper, Object.assign({ key: index, index: index, error: _this7.state.taskError && _this7.state.taskStarted, disabled: _this7.state.taskFinished || !_this7.state.taskStarted, onChange: _this7.handleInputChange }, input, _this7.props.task.data[index], { insideTask: true }, speechRecognitionProps, { ignoreCaseAndLines: _this7.props.task.ignoreCaseAndLines === true }));
                         }),
                         this.state.taskError && React.createElement(Paragraph, { 'class': 'on-form-error', content: 'Aby przej\u015B\u0107 dalej, popraw pola wyr\xF3\u017Cnione **tym kolorem.**' })
                     ),
                     this.state.taskStarted && React.createElement(
                         'section',
                         { className: 'button-wrapper' },
-                        React.createElement(
-                            'button',
-                            { onClick: this.handleFinish, disabled: this.state.taskFinished },
-                            'Zako\u0144cz \u0107wiczenie'
-                        ),
                         this.props.task.canBeAborted && React.createElement(
                             'button',
                             { className: 'special', onClick: this.handleAbort, disabled: this.state.taskFinished },
                             'Przerwij \u0107wiczenie'
+                        ),
+                        React.createElement(
+                            'button',
+                            { onClick: this.handleFinish, disabled: this.state.taskFinished },
+                            'Zako\u0144cz \u0107wiczenie'
                         )
                     ),
                     this.state.taskFinished && React.createElement(
@@ -587,7 +609,7 @@ var Task = function (_React$Component) {
                         ),
                         this.state.taskAborted && React.createElement(InputWrapper, { wrapperClass: 'comment-wrapper', ignoreValidity: true, error: this.state.missingSummaryData && !(this.state.stats.comments.taskAborted && this.state.stats.comments.taskAborted.length >= 10), context: 'taskAborted', label: 'Dlaczego nie wykona\u0142e\u015B(-a\u015B) tego \u0107wiczenia do ko\u0144ca?', type: 'textarea', disabled: this.state.nextTask, onChange: this.handleCommentChange }),
                         React.createElement(InputWrapper, { wrapperClass: 'comment-wrapper', context: 'taskFinished', label: typeof this.props.question !== "undefined" ? insertNbsp(this.props.question) : "Co sądzisz o wprowadzaniu danych przy użyciu zaprezentowanej metody?", optional: true, type: 'textarea', disabled: this.state.nextTask, onChange: this.handleCommentChange }),
-                        this.state.missingSummaryData && React.createElement(Paragraph, { 'class': 'note', content: "Aby przejść dalej, **oceń poziom trudności powyższego ćwiczenia" + (!(this.state.stats.comments.taskAborted && this.state.stats.comments.taskAborted.length >= 10) ? ",** a także **wyjaśnij, dlaczego zdecydowałeś(-aś) się je przerwać.**" : ".**") })
+                        this.state.missingSummaryData && React.createElement(Paragraph, { 'class': 'note', content: "Aby przejść dalej, **oceń poziom trudności powyższego ćwiczenia" + (this.state.taskAborted && this.state.stats.comments.taskAborted && this.state.stats.comments.taskAborted.length < 10 ? ",** a także **wyjaśnij, dlaczego zdecydowałeś(-aś) się je przerwać.**" : ".**") })
                     ),
                     this.state.taskFinished && React.createElement(
                         'button',

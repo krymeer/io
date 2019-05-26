@@ -167,7 +167,9 @@ class InputWrapper extends React.Component {
                                 : ( ( typeof this.props.expectedValue !== 'undefined' )
                                     ? ( this.props.type === 'multi-text' || this.props.type === 'text-select-text'
                                         ? ( this.props.expectedValue.join( this.props.separator ) === inputValue.join( this.props.separator ) )
-                                        : ( this.props.expectedValue === inputValue ) )
+                                        : ( this.props.ignoreCaseAndLines
+                                            ? ( this.props.expectedValue.toLowerCase().replace( /\n/g, ' ' ) === inputValue.toLowerCase() )
+                                            : ( this.props.expectedValue === inputValue ) ) )
                                     : ( typeof this.props.regex !== 'undefined'
                                         ? this.props.regex.test( inputValue )
                                         : ( typeof this.props.regexp !== 'undefined'
@@ -623,8 +625,8 @@ class InputWrapper extends React.Component {
                     </div>
                 }
                 { this.props.speechRecognition &&
-                    <div className={ ( "sr-wrapper " + ( this.props.disabled ? "disabled" : "" ) + " " + ( ( this.props.speechRecognition.currentIndex === this.props.index ) ? "active" : "" ) ).trim().replace( /\s+/g, " " ) }>
-                        <i onClick={ this.props.onSpeechRecognitionTimesClick } data-input-index={ this.props.index } className="material-icons">close</i>
+                    <div className={ ( "sr-wrapper " + ( this.props.disabled ? "disabled" : "" ) + " " + ( ( this.props.speechRecognition.currentIndex === this.props.index ) ? "active" : "" ) + " " + this.props.type ).trim().replace( /\s+/g, " " ) }>
+                        <i onClick={ this.props.onSpeechRecognitionTimesClick } data-input-index={ this.props.index } className="material-icons"=>close</i>
                         { ( this.props.speechRecognition.currentIndex === this.props.index && !this.props.speechRecognition.inputValue ) ? (
                             <span className="sr-placeholder">Mów teraz</span>
                         ) : (
