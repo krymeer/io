@@ -141,6 +141,22 @@ insertNdash = function insertNdash(str) {
     return str.replace(/\-\-/g, '\u2013');
 };
 
+insertLinks = function insertLinks(string) {
+    return string.split(/(\[.*?\]\(.*?\))/gi).map(function (chunk, index) {
+        if (chunk.indexOf('[') === 0 && chunk.lastIndexOf(')') === chunk.length - 1) {
+            var linkHref = chunk.substring(1, chunk.lastIndexOf(']'));
+            var linkName = chunk.substring(chunk.indexOf('(') + 1, chunk.length - 1);
+            return React.createElement(
+                'a',
+                { key: index, target: '_blank', href: linkHref },
+                linkName
+            );
+        }
+
+        return chunk;
+    });
+};
+
 parseText = function parseText(string) {
     var chunks = [];
 
@@ -148,23 +164,35 @@ parseText = function parseText(string) {
     string = insertNbsp(string);
     string = insertNdash(string);
 
-    string.split(/(\*\*[^\*]*\*\*)/gi).map(function (chunk, index) {
+    return string.split(/(\*\*[^\*]*\*\*)/gi).map(function (chunk, index) {
         if (chunk.indexOf('\\\*\\\*') !== -1) {
             chunk = chunk.replace(/\\\*\\\*/g, '**');
         }
 
-        if (chunk.indexOf('**') === 0 && chunk.lastIndexOf('**') === chunk.length - 2) {
-            chunk = React.createElement(
-                'span',
-                { key: index, className: 'text-important' },
-                chunk.substring(2, chunk.length - 2)
-            );
-        }
+        chunk = insertLinks(chunk);
+        chunk = chunk.map(function (smallerChunk, smallerChunkIndex) {
+            var jsxElem = typeof smallerChunk !== 'string';
+            var childStr = jsxElem ? smallerChunk.props.children : smallerChunk;
 
-        chunks.push(chunk);
+            if (childStr.indexOf('**') === 0 && childStr.lastIndexOf('**') === childStr.length - 2) {
+                var jsxChildElem = React.createElement(
+                    'span',
+                    { key: smallerChunkIndex, className: 'text-important' },
+                    childStr.substring(2, smallerChunk.length - 2)
+                );
+
+                return jsxElem ? Object.assign({}, jsxElem, {
+                    props: Object.assign({}, jsxElem.props, {
+                        children: jsxChildElem
+                    })
+                }) : jsxChildElem;
+            }
+
+            return smallerChunk;
+        });
+
+        return chunk;
     });
-
-    return chunks;
 };
 
 getRandomString = function getRandomString() {
@@ -354,16 +382,31 @@ window.onload = function () {
                 fetch(fileURI).then(function (res) {
                     return res.json();
                 }).then(function (result) {
-                    _this2.setState(function (state) {
-                        return Object.assign({}, state, {
+                    _this2.setState(function (oldState) {
+                        var newState = Object.assign({}, oldState, {
                             scenarios: shuffle(result.scenarios),
                             isLoaded: true,
-                            output: Object.assign({}, state.output, {
-                                test: Object.assign({}, state.output.test, {
+                            output: Object.assign({}, oldState.output, {
+                                test: Object.assign({}, oldState.output.test, {
                                     version: version
                                 })
                             })
                         });
+
+                        var isChrome = navigator.userAgent.toLowerCase().indexOf('opr') === -1 && !!window.chrome && (!!window.chrome.webstore || !!window.chrome.runtime);
+                        var noSpeechRecogniton = !(isChrome && window.hasOwnProperty('webkitSpeechRecognition'));
+                        var noGeolocation = !('geolocation' in navigator);
+
+                        if (noSpeechRecogniton || noGeolocation) {
+                            var alertMsg = 'Przeglądarka internetowa, której właśnie używasz, nie posiada funkcjonalności' + (noSpeechRecogniton || noGeolocation ? ' ' : '') + (noSpeechRecogniton ? 'rozpoznawania mowy' : '') + (noSpeechRecogniton && noGeolocation ? ' i ' : '') + (noGeolocation ? 'pobierania lokalizacji użytkownika' : '') + (!noSpeechRecogniton || !noGeolocation ? ' wykorzystywanej ' : ' wykorzystywanych ') + 'w części ćwiczeń. Jeśli istnieje taka możliwość, uruchom, proszę, tę stronę w przeglądarce Google Chrome -- możesz ją pobrać [https://www.google.com/intl/pl/chrome/](tutaj).';
+
+                            newState.alert = {
+                                type: 'warning',
+                                msg: alertMsg
+                            };
+                        }
+
+                        return newState;
                     }, function () {
                         window.addEventListener('scroll', _this2.handleScroll);
                     });
@@ -633,7 +676,8 @@ window.onload = function () {
                                 React.createElement(Paragraph, { content: 'Witaj! Niniejsze badanie jest cz\u0119\u015Bci\u0105 mojej pracy dyplomowej i ma na celu zbadanie u\u017Cyteczno\u015Bci wybranych wzorc\xF3w p\xF3l, kt\xF3re mo\u017Cesz na co dzie\u0144 znale\u017A\u0107 w wielu aplikacjach webowych i na stronach internetowych.' }),
                                 React.createElement(Paragraph, { content: '**Co b\u0119dziesz robi\u0142?** Zostaniesz poproszony(-a) o wykonanie kilkunastu \u0107wicze\u0144 polegaj\u0105cych na uzupe\u0142nieniu r\xF3\u017Cnego typu formularzy.\\n**Ile to potrwa?** Je\u015Bli korzystanie z klawiatury nie jest dla Ciebie wyzwaniem, to przej\u015Bcie przez wszystkie etapy badania powinno zaj\u0105\u0107 nie wi\u0119cej ni\u017C 15 min Twojego cennego czasu.\\n**Czy b\u0119d\u0119 musia\u0142(-a) podawa\u0107 jakie\u015B dane?** Absolutnie nie!* Potraktuj to badanie jako pewnego rodzaju zabaw\u0119. Ka\u017Cde \u0107wiczenie poprzedzone jest tabel\u0105 zawieraj\u0105c\u0105 nazwy p\xF3l w formularzu i dane, kt\xF3rymi te pola powinny zosta\u0107 uzupe\u0142nione -- Ty za\u015B b\u0119dziesz m\xF3g\u0142/mog\u0142a si\u0119 na tym, aby wstawi\u0107 te informacje we w\u0142a\u015Bciwe miejsca!\\n**Na co mam zwr\xF3ci\u0107 uwag\u0119?** Odst\u0119py, znaki pisarskie, interpunkcyjne s\u0105 niezwykle istotne w tym badaniu. \u0106wiczenie jest uznane za poprawnie rozwi\u0105zane wtedy i tylko wtedy, gdy wprowadzone dane odpowiadaj\u0105 danym wzorcowym.\\n**Ctrl+C, Ctrl+V? Nie tutaj!** Kopiowanie danych z tabeli poprzedzaj\u0105cej \u0107wiczenie jest zablokowane. Jasne jest, \u017Ce przy odrobinie sprytu i wiedzy z dziedziny informatyki by\u0142(a)by\u015B w stanie to zrobi\u0107, jednak nie r\xF3b tego, prosz\u0119. Celem tego badania jest zebranie relewantnych i wiarygodnych danych, kt\xF3re b\u0119d\u0119 m\xF3g\u0142 przedstawi\u0107 w swojej pracy, a b\u0119dzie to mo\u017Cliwe tylko wtedy, gdy wszystkie pola wype\u0142nisz r\u0119cznie.\\n**Twoja opinia ma znaczenie.** Po ka\u017Cdym \u0107wiczeniu b\u0119dziesz mia\u0142(a) mo\u017Cliwo\u015B\u0107 pozostawienia komentarza odnosz\u0105cego si\u0119 do w\u0142a\u015Bnie wypr\xF3bowanej metody wprowadzania danych. Komentarz nie jest obowi\u0105zkowy, jednak dzi\u0119ki niemu b\u0119d\u0119 m\xF3g\u0142 pozna\u0107 Tw\xF3j punkt widzenia.' }),
                                 React.createElement(Paragraph, { content: '**Wszystko jasne?** Naci\u015Bnij przycisk ,,Rozpocznij badanie\'\', aby zmierzy\u0107 si\u0119 ze stoj\u0105cym przed Tob\u0105 wyzwaniem!' }),
-                                React.createElement(Paragraph, { 'class': 'text-smaller', content: '*) Badanie ko\u0144czy si\u0119 ankiet\u0105 u\u017Cytkownika, w kt\xF3rej podasz dane zwi\u0105zane z Twoj\u0105 osob\u0105, m.in. rok urodzenia, wykszta\u0142cenie, zaw\xF3d itd. Informacje te umo\u017Cliwi\u0105 przypisanie Twojej osoby pod wzgl\u0119dem uzyskanych wynik\xF3w do poszczeg\xF3lnych grup ca\u0142ej populacji uczestnik\xF3w badania. Je\u017Celi masz jakie\u015B uwagi, pytania lub sugestie zwi\u0105zane z gromadzeniem tych danych, napisz do mnie na adres **krzysztof.radoslaw.osada@gmail.com.**' }),
+                                React.createElement(Paragraph, { 'class': 'text-smaller', content: '*) Badanie ko\u0144czy si\u0119 ankiet\u0105 u\u017Cytkownika, w kt\xF3rej podasz dane zwi\u0105zane z Twoj\u0105 osob\u0105, m.in. rok urodzenia, wykszta\u0142cenie, zaw\xF3d itd. Informacje te umo\u017Cliwi\u0105 przypisanie Twojej osoby pod wzgl\u0119dem uzyskanych wynik\xF3w do poszczeg\xF3lnych grup ca\u0142ej populacji uczestnik\xF3w badania. Je\u017Celi masz jakie\u015B uwagi, pytania lub sugestie zwi\u0105zane z gromadzeniem tych danych, napisz do mnie na adres [mailto:krzysztof.radoslaw.osada@gmail.com](krzysztof.radoslaw.osada@gmail.com).' }),
+                                this.state.alert && React.createElement(Paragraph, { content: this.state.alert.msg, 'class': "alert " + this.state.alert.type }),
                                 React.createElement(
                                     'button',
                                     { onClick: this.handleStart, disabled: this.state.testStarted },

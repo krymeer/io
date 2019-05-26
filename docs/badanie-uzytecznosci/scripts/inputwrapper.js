@@ -615,7 +615,11 @@ var InputWrapper = function (_React$Component) {
                         { onClick: this.props.onSpeechRecognitionTimesClick, 'data-input-index': this.props.index, className: 'material-icons' },
                         'close'
                     ),
-                    React.createElement(
+                    this.props.speechRecognition.currentIndex === this.props.index && !this.props.speechRecognition.inputValue ? React.createElement(
+                        'span',
+                        { className: 'sr-placeholder' },
+                        'M\xF3w teraz'
+                    ) : React.createElement(
                         'span',
                         null,
                         this.props.speechRecognition.inputValue

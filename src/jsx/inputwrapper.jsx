@@ -625,7 +625,11 @@ class InputWrapper extends React.Component {
                 { this.props.speechRecognition &&
                     <div className={ ( "sr-wrapper " + ( this.props.disabled ? "disabled" : "" ) + " " + ( ( this.props.speechRecognition.currentIndex === this.props.index ) ? "active" : "" ) ).trim().replace( /\s+/g, " " ) }>
                         <i onClick={ this.props.onSpeechRecognitionTimesClick } data-input-index={ this.props.index } className="material-icons">close</i>
-                        <span>{ this.props.speechRecognition.inputValue }</span>
+                        { ( this.props.speechRecognition.currentIndex === this.props.index && !this.props.speechRecognition.inputValue ) ? (
+                            <span className="sr-placeholder">Mów teraz</span>
+                        ) : (
+                            <span>{ this.props.speechRecognition.inputValue }</span>
+                        ) }
                         <i onClick={ this.props.onSpeechRecognitionMicClick } data-input-index={ this.props.index } className="material-icons">mic</i>
                     </div>
                 }

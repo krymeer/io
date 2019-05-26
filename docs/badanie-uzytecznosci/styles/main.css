@@ -613,21 +613,21 @@ main .alert {
   color: #000;
   border: 3px dashed #000;
 }
-main .alert > .text-important {
+main .alert > a, main .alert > .text-important {
   font-weight: 700;
 }
 main .alert.error {
   border-color: #570000;
   background: #ffcece;
 }
-main .alert.error > .text-important {
+main .alert.error > a, main .alert.error > .text-important {
   color: #570000;
 }
 main .alert.warning {
   border-color: #a50104;
   background: #fcba04;
 }
-main .alert.warning > .text-important {
+main .alert.warning > a, main .alert.warning > .text-important {
   color: #a50104;
 }
 main .radio-item {
@@ -1055,7 +1055,11 @@ main section .form.speech-recognition > .wrapper > .sr-wrapper.active > i:hover 
   background: #116fdf;
 }
 main section .form.speech-recognition > .wrapper > .sr-wrapper.active > span {
-  border-color: #2380ef;
+  border-color: #4392f1;
+}
+main section .form.speech-recognition > .wrapper > .sr-wrapper.active > span.sr-placeholder {
+  font-style: italic;
+  color: #4392f1;
 }
 main section .form.speech-recognition > .wrapper > .sr-wrapper.disabled > span {
   color: #ddd;

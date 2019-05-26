@@ -140,6 +140,19 @@ insertNdash = ( str ) => {
     return str.replace( /\-\-/g, '\u2013' );
 }
 
+insertLinks = ( string ) => {
+    return string.split( /(\[.*?\]\(.*?\))/gi ).map( ( chunk, index ) => {
+        if( chunk.indexOf( '[' ) === 0 && chunk.lastIndexOf( ')' ) === chunk.length - 1 )
+        {
+            const linkHref = chunk.substring( 1, chunk.lastIndexOf( ']' ) );
+            const linkName = chunk.substring( chunk.indexOf( '(' ) + 1, chunk.length - 1 );
+            return <a key={ index } target="_blank" href={ linkHref }>{ linkName }</a>;
+        }
+
+        return chunk;
+    } );
+}
+
 parseText = ( string ) => {
     const chunks = [];
 
@@ -147,21 +160,35 @@ parseText = ( string ) => {
     string = insertNbsp( string );
     string = insertNdash( string );
 
-    string.split( /(\*\*[^\*]*\*\*)/gi ).map( ( chunk, index ) => {
+    return string.split( /(\*\*[^\*]*\*\*)/gi ).map( ( chunk, index ) => {
         if( chunk.indexOf( '\\\*\\\*' ) !== -1 )
         {
             chunk = chunk.replace( /\\\*\\\*/g, '**' );
         }
 
-        if( chunk.indexOf( '**' ) === 0 && chunk.lastIndexOf( '**' ) === chunk.length - 2 )
-        {
-            chunk = <span key={ index } className="text-important">{ chunk.substring( 2, chunk.length - 2 ) }</span>
-        }
+        chunk = insertLinks( chunk );
+        chunk = chunk.map( ( smallerChunk, smallerChunkIndex ) => {
+            const jsxElem  = ( typeof smallerChunk !== 'string' );
+            const childStr = jsxElem ? smallerChunk.props.children : smallerChunk;
 
-        chunks.push( chunk );
+            if( childStr.indexOf( '**' ) === 0 && childStr.lastIndexOf( '**' ) === childStr.length - 2 )
+            {
+                const jsxChildElem = <span key={ smallerChunkIndex } className="text-important">{ childStr.substring( 2, smallerChunk.length - 2 ) }</span>
+
+                return jsxElem ? {
+                    ...jsxElem,
+                    props : {
+                        ...jsxElem.props,
+                        children : jsxChildElem
+                    }
+                } : jsxChildElem
+            }
+
+            return smallerChunk;
+        } );
+
+        return chunk;
     } );
-
-    return chunks;
 }
 
 getRandomString = () => {
@@ -363,19 +390,35 @@ window.onload = function() {
             fetch( fileURI ).then(
                 res => res.json()
             ).then( result => {
-                this.setState( state => {
-                    return {
-                        ...state,
+                this.setState( oldState => {
+                    const newState = {
+                        ...oldState,
                         scenarios : shuffle( result.scenarios ),
                         isLoaded  : true,
                         output    : {
-                            ...state.output,
+                            ...oldState.output,
                             test : {
-                                ...state.output.test,
+                                ...oldState.output.test,
                                 version : version
                             }
                         }
                     }
+
+                    const isChrome           = ( navigator.userAgent.toLowerCase().indexOf( 'opr' ) === -1 ) && !!window.chrome && ( !!window.chrome.webstore || !!window.chrome.runtime );
+                    const noSpeechRecogniton = !( isChrome && window.hasOwnProperty( 'webkitSpeechRecognition' ) );
+                    const noGeolocation      = !( 'geolocation' in navigator );
+
+                    if( noSpeechRecogniton || noGeolocation )
+                    {
+                        const alertMsg = 'Przeglądarka internetowa, której właśnie używasz, nie posiada funkcjonalności' + ( noSpeechRecogniton || noGeolocation ? ' ' : '' ) + ( noSpeechRecogniton ? 'rozpoznawania mowy' : '' ) + ( noSpeechRecogniton && noGeolocation ? ' i ' : '' ) + ( noGeolocation ? 'pobierania lokalizacji użytkownika' : '' ) + ( !noSpeechRecogniton || !noGeolocation ? ' wykorzystywanej ' : ' wykorzystywanych ' )  + 'w części ćwiczeń. Jeśli istnieje taka możliwość, uruchom, proszę, tę stronę w przeglądarce Google Chrome -- możesz ją pobrać [https://www.google.com/intl/pl/chrome/](tutaj).';
+
+                        newState.alert = {
+                            type : 'warning',
+                            msg  : alertMsg
+                        }
+                    }
+
+                    return newState;
                 }, () => {
                     window.addEventListener( 'scroll', this.handleScroll );
                 } );
@@ -663,7 +706,10 @@ window.onload = function() {
                                 <Paragraph content="Witaj! Niniejsze badanie jest częścią mojej pracy dyplomowej i ma na celu zbadanie użyteczności wybranych wzorców pól, które możesz na co dzień znaleźć w wielu aplikacjach webowych i na stronach internetowych." />
                                 <Paragraph content="**Co będziesz robił?** Zostaniesz poproszony(-a) o wykonanie kilkunastu ćwiczeń polegających na uzupełnieniu różnego typu formularzy.\n**Ile to potrwa?** Jeśli korzystanie z klawiatury nie jest dla Ciebie wyzwaniem, to przejście przez wszystkie etapy badania powinno zająć nie więcej niż 15 min Twojego cennego czasu.\n**Czy będę musiał(-a) podawać jakieś dane?** Absolutnie nie!* Potraktuj to badanie jako pewnego rodzaju zabawę. Każde ćwiczenie poprzedzone jest tabelą zawierającą nazwy pól w formularzu i dane, którymi te pola powinny zostać uzupełnione -- Ty zaś będziesz mógł/mogła się na tym, aby wstawić te informacje we właściwe miejsca!\n**Na co mam zwrócić uwagę?** Odstępy, znaki pisarskie, interpunkcyjne są niezwykle istotne w tym badaniu. Ćwiczenie jest uznane za poprawnie rozwiązane wtedy i tylko wtedy, gdy wprowadzone dane odpowiadają danym wzorcowym.\n**Ctrl+C, Ctrl+V? Nie tutaj!** Kopiowanie danych z tabeli poprzedzającej ćwiczenie jest zablokowane. Jasne jest, że przy odrobinie sprytu i wiedzy z dziedziny informatyki był(a)byś w stanie to zrobić, jednak nie rób tego, proszę. Celem tego badania jest zebranie relewantnych i wiarygodnych danych, które będę mógł przedstawić w swojej pracy, a będzie to możliwe tylko wtedy, gdy wszystkie pola wypełnisz ręcznie.\n**Twoja opinia ma znaczenie.** Po każdym ćwiczeniu będziesz miał(a) możliwość pozostawienia komentarza odnoszącego się do właśnie wypróbowanej metody wprowadzania danych. Komentarz nie jest obowiązkowy, jednak dzięki niemu będę mógł poznać Twój punkt widzenia." />
                                 <Paragraph content="**Wszystko jasne?** Naciśnij przycisk ,,Rozpocznij badanie'', aby zmierzyć się ze stojącym przed Tobą wyzwaniem!" />
-                                <Paragraph class="text-smaller" content="*) Badanie kończy się ankietą użytkownika, w której podasz dane związane z Twoją osobą, m.in. rok urodzenia, wykształcenie, zawód itd. Informacje te umożliwią przypisanie Twojej osoby pod względem uzyskanych wyników do poszczególnych grup całej populacji uczestników badania. Jeżeli masz jakieś uwagi, pytania lub sugestie związane z gromadzeniem tych danych, napisz do mnie na adres **krzysztof.radoslaw.osada@gmail.com.**"/>
+                                <Paragraph class="text-smaller" content="*) Badanie kończy się ankietą użytkownika, w której podasz dane związane z Twoją osobą, m.in. rok urodzenia, wykształcenie, zawód itd. Informacje te umożliwią przypisanie Twojej osoby pod względem uzyskanych wyników do poszczególnych grup całej populacji uczestników badania. Jeżeli masz jakieś uwagi, pytania lub sugestie związane z gromadzeniem tych danych, napisz do mnie na adres [mailto:krzysztof.radoslaw.osada@gmail.com](krzysztof.radoslaw.osada@gmail.com)."/>
+                                { this.state.alert &&
+                                    <Paragraph content={ this.state.alert.msg } class={ "alert " + this.state.alert.type } />
+                                }
                                 <button onClick={ this.handleStart } disabled={ this.state.testStarted }>Rozpocznij badanie</button>
                             </section>
                             { scenarios.map( ( scenario, index ) =>

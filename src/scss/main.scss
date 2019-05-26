@@ -823,7 +823,7 @@ main {
         color: #000;
         border: 3px dashed #000;
 
-        > .text-important {
+        > a, > .text-important {
             font-weight: 700;
         }
 
@@ -831,7 +831,7 @@ main {
             border-color: #570000;
             background: #ffcece;
 
-            > .text-important {
+            > a, > .text-important {
                 color: #570000;
             }
         }
@@ -840,7 +840,7 @@ main {
             border-color: #a50104;
             background: #fcba04;
 
-            > .text-important {
+            > a, > .text-important {
                 color: #a50104;
             }
         }
@@ -1464,7 +1464,12 @@ main {
                             }
 
                             > span {
-                                border-color: #2380ef;
+                                border-color: #4392f1;
+
+                                &.sr-placeholder {
+                                    font-style: italic;
+                                    color: #4392f1;
+                                }
                             }
                         }
 
