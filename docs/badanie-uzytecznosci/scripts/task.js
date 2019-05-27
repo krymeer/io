@@ -503,7 +503,7 @@ var Task = function (_React$Component) {
                                             'em',
                                             null,
                                             'dowolna*'
-                                        ) : row.expectedValue.split('\n').map(function (line, lineIndex, lineArr) {
+                                        ) : String(row.expectedValue).split('\n').map(function (line, lineIndex, lineArr) {
                                             line = insertNbsp(line);
 
                                             return lineIndex < lineArr.length - 1 ? [line, React.createElement('br', { key: index })] : line;

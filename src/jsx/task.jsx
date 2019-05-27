@@ -492,7 +492,7 @@ class Task extends React.Component {
                                                 ? ( row.expectedValue.join( row.separator ) )
                                                 : ( row.anyValue
                                                     ? <em>dowolna*</em>
-                                                    : row.expectedValue.split( '\n' ).map( ( line, lineIndex, lineArr ) => {
+                                                    : String( row.expectedValue ).split( '\n' ).map( ( line, lineIndex, lineArr ) => {
                                                         line = insertNbsp( line );
 
                                                         return ( lineIndex < lineArr.length - 1 )
