@@ -29,9 +29,12 @@ class Select extends React.Component {
                 };
             }
 
-            this.handleFilterFocus  = this.handleFilterFocus.bind( this );
-            this.handleFilterChange = this.handleFilterChange.bind( this );
-            this.handleFilterBlur   = this.handleFilterBlur.bind( this );
+            this.handleFilterHover    = this.handleFilterHover.bind( this );
+            this.handleFilterKey      = this.handleFilterKey.bind( this );
+            this.handleFilterFocus    = this.handleFilterFocus.bind( this );
+            this.handleFilterChange   = this.handleFilterChange.bind( this );
+            this.handleFilterBlur     = this.handleFilterBlur.bind( this );
+            this.handleFilterOption = this.handleFilterOption.bind( this );
         }
     }
 
@@ -53,18 +56,23 @@ class Select extends React.Component {
         if( !this.props.disabled && eventTarget )
         {
             const bodyScrollHeight = document.body.scrollHeight;
-            const listFiltered     = this.props.options.filter( ( option ) => {
-                const optLowerCase = option.toLowerCase();
-                const matches      = eventTarget.value.toLowerCase().replace( /\s+/g, ' ' ).split( ' ' ).map( ( str ) => {
-                    return optLowerCase.indexOf( str ) !== -1
-                } );
+            const eventTargetValue = eventTarget.value.toLowerCase().replace( /\s+/g, ' ' );
+            const listFiltered     = ( eventTargetValue.trim() !== '' )
+                                        ? this.props.options.filter( option => {
+                                            const optLowerCase = option.toLowerCase();
+                                            const matches      = eventTargetValue.split( ' ' ).map( ( str ) => {
+                                                return optLowerCase.indexOf( str ) !== -1;
+                                            } );
 
-                return matches.filter( match => match === false ).length === 0;
-            } );
+                                            return matches.filter( match => match === false ).length === 0;
+                                        } )
+                                        : undefined;
+
+            // TODO
+            // implement LCS or something similar
 
             this.setState( state => {
                 return {
-                    ...state,
                     list : {
                         ...state.list,
                         filtered : listFiltered
@@ -73,6 +81,68 @@ class Select extends React.Component {
             }, () => {
                 this.handleOverflow( eventTarget, bodyScrollHeight );
             } );
+        }
+    }
+
+    handleFilterKey( event )
+    {
+        if( !this.props.disabled )
+        {
+            if( event.key === 'Escape' || event.key === 'Enter' )
+            {
+                event.target.blur();
+            }
+            else if( event.key === 'ArrowUp' || event.key === 'ArrowDown' )
+            {
+                this.handleFilterHover( event );
+            }
+        }
+    }
+
+    handleFilterHover( event )
+    {
+        let newHoverIndex = this.state.list.hoverIndex;
+        const onHover     = event.type === 'mouseover';
+        const node        = event.target.closest( 'li' );
+
+        if( !this.props.disabled && typeof newHoverIndex !== 'undefined' && this.state.list.filtered && this.state.list.filtered.length > 0 )
+        {
+
+            if( event.key === 'ArrowUp' )
+            {
+                newHoverIndex -= 1;
+            }
+            else if( event.key === 'ArrowDown' )
+            {
+                newHoverIndex += 1;
+            }
+            else if( onHover && node )
+            {
+                newHoverIndex = Array.from( node.parentElement.children ).indexOf( node );
+            }
+
+            if( newHoverIndex < 0 )
+            {
+                newHoverIndex = this.state.list.filtered.length - 1;
+            }
+            else if( newHoverIndex > this.state.list.filtered.length - 1 )
+            {
+                newHoverIndex = 0;
+            }
+
+            if( newHoverIndex !== this.state.list.hoverIndex )
+            {
+                this.handleFilterOption( null, newHoverIndex )
+                this.setState( state => {
+                    return {
+                        ...state,
+                        list : {
+                            ...state.list,
+                            hoverIndex : newHoverIndex
+                        }
+                    }
+                } );
+            }
         }
     }
 
@@ -116,11 +186,18 @@ class Select extends React.Component {
                 const overflowDirection = ( listNodeOffsetBtm > bodyScrollHeight ) ? 'top' : 'bottom';
 
                 this.setState( state => {
+                    const list = {
+                        ...state.list,
+                        overflow : overflowDirection
+                    };
+
+                    if( this.props.selectFiltered )
+                    {
+                        list.hoverIndex = ( overflowDirection === 'bottom' ? -1 : this.state.list.filtered.length );
+                    }
+
                     return {
-                        list : {
-                            ...state.list,
-                            overflow : overflowDirection
-                        }
+                        list
                     };
                 } );
             }
@@ -164,7 +241,7 @@ class Select extends React.Component {
                     list : {
                         ...state.list,
                         open     : !state.list.open,
-                        overflow : ""
+                        overflow : ''
                     }
                 };
             }, () => {
@@ -178,15 +255,18 @@ class Select extends React.Component {
         }
     }
 
-    handleOptionFiltered( option )
+    handleFilterOption( event, index = -1 )
     {
         if( !this.props.disabled )
         {
             const inputNode = this.listNode.previousElementSibling;
+            const value     = ( index !== -1 )
+                                ? this.listNode.children[ index ].children[ 0 ].innerText
+                                : event.target.closest( '.select-option' ).querySelector( 'span' ).innerText;
 
-            if( inputNode !== null )
+            if( inputNode && value )
             {
-                inputNode.value = option;
+                inputNode.value = value;
                 this.props.onInputChange();
             }
         }
@@ -213,7 +293,7 @@ class Select extends React.Component {
         return(
             <div className={ ( "select-wrapper " + ( typeof this.props.class !== "undefined" ? this.props.class : "" ) ).trim() }>
                 { this.props.selectFiltered &&
-                    <input className="select-filter" ref={ this.props.inputNodeRef } maxLength={ this.props.inputMaxLength } type="text" spellCheck="false" autoComplete="off" disabled={ this.props.disabled } onFocus={ this.handleFilterFocus } onChange={ this.handleFilterChange } onBlur={ this.handleFilterBlur } value={ this.props.inputValue } />
+                    <input onKeyDown={ this.handleFilterKey } className="select-filter" ref={ this.props.inputNodeRef } maxLength={ this.props.inputMaxLength } type="text" spellCheck="false" autoComplete="off" disabled={ this.props.disabled } onFocus={ this.handleFilterFocus } onChange={ this.handleFilterChange } onBlur={ this.handleFilterBlur } value={ this.props.inputValue } />
                 }
                 { !this.props.selectFiltered &&
                     <div ref={ currentNode => this.currentNode = currentNode } className={ ( "select-current " + ( this.props.disabled ? "disabled" : "" ) + " " + ( this.state.list.open ? "focus" : "" ) ).trim().replace( /\s+/g, " " ) } onClick={ this.handleSelect }>
@@ -224,12 +304,14 @@ class Select extends React.Component {
                     </div>
                 }
                 { this.state.list.open &&
-                    <ul className={ ( "select-list " + this.state.list.overflow + " " + ( ( typeof this.state.list.filtered !== "undefined" && this.state.list.filtered.length === 0 ) ? "empty" : "" ) ).trim().replace( /\s+/g, " " ) } ref={ listNode => this.listNode = listNode }>
+                    <ul className={ ( "select-list " + this.state.list.overflow + " " + ( this.props.selectFiltered ? "select-list-filtered" : "" ) + " " + ( ( typeof this.state.list.filtered === "undefined" || this.state.list.filtered.length === 0 ) ? "empty" : "" ) ).trim().replace( /\s+/g, " " ) } ref={ listNode => this.listNode = listNode }>
                         { this.props.options.map( ( option, index ) => {
-                            if( this.props.selectFiltered && typeof this.state.list.filtered !== "undefined" && this.state.list.filtered.indexOf( option ) !== -1 )
+                            const optionFilteredIndex = ( this.state.list.filtered ? this.state.list.filtered.indexOf( option ) : undefined );
+
+                            if( this.props.selectFiltered && optionFilteredIndex >= 0 )
                             {
                                 return (
-                                    <li key={ index } className="select-option" onMouseDown={ this.handleOptionFiltered.bind( this, option ) }>
+                                    <li key={ index } className={ ( "select-option " + ( this.state.list.hoverIndex === optionFilteredIndex ? "hover" : "" ) ).trim() } onMouseOver={ this.handleFilterHover } onMouseDown={ this.handleFilterOption }>
                                         <span>{ option }</span>
                                     </li>
                                 );
@@ -244,7 +326,7 @@ class Select extends React.Component {
                             }
                             else
                             {
-                                return "";
+                                return null;
                             }
                         } ) }
                     </ul>

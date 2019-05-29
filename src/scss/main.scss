@@ -645,6 +645,10 @@ main {
         resize: none;
         width: 100%;
         height: 102px;
+
+        &:disabled {
+            overflow: hidden;
+        }
     }
 
     label, input {
@@ -1101,10 +1105,12 @@ main {
                             border-radius: 0;
                             cursor: pointer;
                             background: #fff;
+                            transition: none;
+                        }
 
-                            &:hover {
-                                background: $border-color-m;
-                            }
+                        &.select-list-filtered > .select-option.hover,
+                        &:not(.select-list-filtered) > .select-option:hover {
+                            background: $border-color-m;
                         }
                     }
 

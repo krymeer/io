@@ -471,6 +471,9 @@ main textarea {
   width: 100%;
   height: 102px;
 }
+main textarea:disabled {
+  overflow: hidden;
+}
 main label, main input {
   display: block;
 }
@@ -815,8 +818,9 @@ main section .form > .wrapper .select-wrapper > .select-list > .select-option {
   border-radius: 0;
   cursor: pointer;
   background: #fff;
+  transition: none;
 }
-main section .form > .wrapper .select-wrapper > .select-list > .select-option:hover {
+main section .form > .wrapper .select-wrapper > .select-list.select-list-filtered > .select-option.hover, main section .form > .wrapper .select-wrapper > .select-list:not(.select-list-filtered) > .select-option:hover {
   background: #eee;
 }
 main section .form > .wrapper .select-wrapper > .select-other {
