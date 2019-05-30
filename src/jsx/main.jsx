@@ -72,6 +72,45 @@ merge = ( arr, p, q, r, aaa ) => {
     return arr;
 }
 
+longestCommonSubstring = ( str1, str2 ) => {
+    const lArr = Array( str1.length ).fill( Array( str2.length ) );
+    let z      = 0;
+    let lcs    = '';
+
+
+    for( let i = 0; i < str1.length; i++ )
+    {
+        for( let j = 0; j < str2.length; j++ )
+        {
+            if( str1[ i ] === str2[ j ] )
+            {
+                if( i === 0 || j === 0 )
+                {
+                    lArr[ i ][ j ] = 1
+                }
+                else
+                {
+                    lArr[ i ][ j ] = lArr[ i - 1 ][ j - 1 ] + 1;
+                }
+
+                const str1str2 = str1.substring( i - z, i + 1 );
+
+                if( lArr[ i ][ j ] > z )
+                {
+                    z   = lArr[ i ][ j ];
+                    lcs = str1str2;
+                }
+                else if( lArr[ i ][ j ] === z )
+                {
+                    lcs += str1str2;
+                }
+            }
+        }
+    }
+
+    return lcs;
+}
+
 mergeSort = ( arr, p, r ) => {
     if( p < r )
     {
@@ -437,6 +476,9 @@ window.onload = function() {
                     return newState;
                 }, () => {
                     window.addEventListener( 'scroll', this.handleScroll );
+
+                    // ONLY FOR DEVELOPMENT
+                    // this.handleStart();
                 } );
             }, error => {
                 this.setState( {

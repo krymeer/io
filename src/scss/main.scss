@@ -358,18 +358,6 @@ main {
                 font-size: 10px;
             }
         }
-
-        // &[data-for='speech-recognition'] {
-        //     th, td {
-        //         &:first-child {
-        //             width: 103px;
-        //         }
-
-        //         &:last-child {
-        //             width: 425px;
-        //         }
-        //     }
-        // }
     }
 
     > * {
@@ -1699,6 +1687,37 @@ main {
 
                 > .wrapper {
                     grid-template-columns: auto 60px 60px;
+                }
+            }
+
+            &.autocomplete-on {
+                > .wrapper {
+                    position: relative;
+
+                    > input {
+                        position: relative;
+                        background: rgba(255, 255, 255, .25);
+                        z-index: 1;
+                    }
+
+                    > div {
+                        padding: ($value-s - 1px) $value-s $value-s ($value-s + 2px);
+                        width: 200px;
+                        position: absolute;
+                        top: 50%;
+                        right: 0;
+                        transform: translateY(-50%);
+
+                        > span {
+                            &:first-child {
+                                color: #fff;
+                            }
+
+                            &:last-child {
+                                color: #4392f1;
+                            }
+                        }
+                    }
                 }
             }
 

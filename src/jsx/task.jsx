@@ -55,6 +55,13 @@ class Task extends React.Component {
         }
     }
 
+    // ONLY FOR DEVELOPMENT
+
+    // componentDidMount()
+    // {
+    //     this.handleStart();
+    // }
+
     handleSpeechRecognitionInterface()
     {
         const rules                  = this.props.task.rules;

@@ -75,6 +75,35 @@ merge = function merge(arr, p, q, r, aaa) {
     return arr;
 };
 
+longestCommonSubstring = function longestCommonSubstring(str1, str2) {
+    var lArr = Array(str1.length).fill(Array(str2.length));
+    var z = 0;
+    var lcs = '';
+
+    for (var i = 0; i < str1.length; i++) {
+        for (var j = 0; j < str2.length; j++) {
+            if (str1[i] === str2[j]) {
+                if (i === 0 || j === 0) {
+                    lArr[i][j] = 1;
+                } else {
+                    lArr[i][j] = lArr[i - 1][j - 1] + 1;
+                }
+
+                var str1str2 = str1.substring(i - z, i + 1);
+
+                if (lArr[i][j] > z) {
+                    z = lArr[i][j];
+                    lcs = str1str2;
+                } else if (lArr[i][j] === z) {
+                    lcs += str1str2;
+                }
+            }
+        }
+    }
+
+    return lcs;
+};
+
 mergeSort = function (_mergeSort) {
     function mergeSort(_x, _x2, _x3) {
         return _mergeSort.apply(this, arguments);
@@ -425,6 +454,9 @@ window.onload = function () {
                         return newState;
                     }, function () {
                         window.addEventListener('scroll', _this2.handleScroll);
+
+                        // ONLY FOR DEVELOPMENT
+                        // this.handleStart();
                     });
                 }, function (error) {
                     _this2.setState({

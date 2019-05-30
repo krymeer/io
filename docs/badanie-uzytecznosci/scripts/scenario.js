@@ -41,6 +41,13 @@ var Scenario = function (_React$Component) {
         return _this;
     }
 
+    // ONLY FOR DEVELOPMENT
+
+    // componentDidMount()
+    // {
+    //     this.handleStart();
+    // }
+
     _createClass(Scenario, [{
         key: 'handleStart',
         value: function handleStart() {
