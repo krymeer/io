@@ -85,7 +85,7 @@ var InputWrapper = function (_React$Component) {
             });
         }
 
-        if (_this.props.type === 'mask' || _this.props.type === 'textarea' || _this.props.type === 'text-arrows' || _this.props.type === 'text' || _this.props.type === 'select-filtered' || _this.props.type === 'select' && _this.props.otherOption) {
+        if (_this.props.type === 'mask' || _this.props.type === 'textarea' || _this.props.type === 'text-arrows' || _this.props.type === 'text' || _this.props.type === 'select-filtered' || _this.props.type === 'select' && _this.props.otherOption || _this.props.type === 'autocomplete') {
             _this.handleFocus = _this.handleFocus.bind(_this);
             _this.handleBlur = _this.handleBlur.bind(_this);
             _this.handleChange = _this.handleChange.bind(_this);
@@ -98,6 +98,12 @@ var InputWrapper = function (_React$Component) {
             });
         }
 
+        if (_this.props.type === 'autocomplete') {
+            _this.state = Object.assign({}, _this.state, {
+                suggestion: undefined
+            });
+        }
+
         if (_this.props.type === 'text-arrows' && typeof _this.props.initialValue !== 'undefined') {
             _this.state = Object.assign({}, _this.state, {
                 inputValue: _this.props.initialValue
@@ -107,12 +113,67 @@ var InputWrapper = function (_React$Component) {
     }
 
     _createClass(InputWrapper, [{
+        key: 'getSuggestion',
+        value: function getSuggestion(inputValue) {
+            var _this2 = this;
+
+            if (!this.props || this.props.type !== 'autocomplete' && !this.props.suggestions) {
+                return false;
+            }
+
+            var inputValLoCase = inputValue.toLowerCase();
+            var suggestions = this.props.suggestions.map(function (suggestion) {
+                return suggestion.toLowerCase();
+            });
+
+            suggestions = suggestions.filter(function (suggestion) {
+                if (!inputValLoCase || !suggestion) {
+                    return false;
+                } else if (_this2.props.isRegex) {
+                    var regExp = new RegExp('^' + suggestion);
+                    // TODO
+                    // Implement Longest Commmon Substring
+                }
+
+                return suggestion.indexOf(inputValLoCase) !== -1;
+            });
+
+            var complement = void 0,
+                commonPart = void 0,
+                prefix = void 0;
+
+            if (suggestions.length === 1) {
+                commonPart = inputValLoCase;
+
+                if (commonPart) {
+                    complement = suggestions[0].replace(commonPart, '');
+
+                    console.log(this.props);
+
+                    if (this.props.isSuffix) {
+                        prefix = inputValLoCase.replace(new RegExp(commonPart + '$'), '');
+                        commonPart = commonPart.replace(new RegExp('^' + prefix), '');
+                    }
+                }
+            }
+
+            this.setState({
+                suggestion: commonPart && complement ? {
+                    prefix: prefix,
+                    commonPart: commonPart,
+                    complement: complement
+                } : undefined
+            });
+        }
+    }, {
         key: 'handleFocus',
-        value: function handleFocus() {
+        value: function handleFocus(event) {
             if (!this.props.disabled) {
                 this.setState({
                     inputFocus: true
                 });
+
+                this.getSuggestion(event.target.value);
             }
         }
     }, {
@@ -123,6 +184,12 @@ var InputWrapper = function (_React$Component) {
                     inputFocus: false,
                     inputNonEmpty: this.state.inputValue !== ''
                 });
+
+                if (this.props.type === 'autocomplete') {
+                    this.setState({
+                        suggestion: undefined
+                    });
+                }
             }
         }
     }, {
@@ -135,7 +202,7 @@ var InputWrapper = function (_React$Component) {
     }, {
         key: 'handleChange',
         value: function handleChange(event) {
-            var _this2 = this;
+            var _this3 = this;
 
             var index = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : -1;
 
@@ -157,7 +224,7 @@ var InputWrapper = function (_React$Component) {
 
                 if (this.props.type === 'multi-text' || this.props.type === 'text-select-text') {
                     var inputPartsValid = inputValue.map(function (chunkStr, chunkIndex) {
-                        return chunkStr === _this2.props.expectedValue[chunkIndex];
+                        return chunkStr === _this3.props.expectedValue[chunkIndex];
                     });
 
                     this.setState({
@@ -165,13 +232,15 @@ var InputWrapper = function (_React$Component) {
                     });
                 }
 
+                this.getSuggestion(inputValue);
+
                 this.setState({
                     inputValue: inputValue,
                     inputValid: inputValid,
                     inputLength: inputLength
                 }, function () {
                     if (eventType === 'triggerChange') {
-                        _this2.handleBlur();
+                        _this3.handleBlur();
                     }
                 });
 
@@ -203,7 +272,7 @@ var InputWrapper = function (_React$Component) {
     }, {
         key: 'handleOption',
         value: function handleOption(optionIndex, optionValue) {
-            var _this3 = this;
+            var _this4 = this;
 
             var otherOptionChosen = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
             var inputIndex = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : -1;
@@ -216,7 +285,7 @@ var InputWrapper = function (_React$Component) {
                     if (optionsListIndex === inputIndex) {
                         return optionsList[optionIndex];
                     } else {
-                        return optionsList[_this3.state.chosenIndexes[optionsListIndex]];
+                        return optionsList[_this4.state.chosenIndexes[optionsListIndex]];
                     }
                 }).join(this.props.separator) === this.props.expectedValue.join(this.props.separator) : typeof this.props.expectedValue !== 'undefined' ? this.props.type === 'text-select-text' ? this.props.expectedValue.join(this.props.separator) === inputValue.join(this.props.separator) : this.props.expectedValue === optionValue : otherOptionChosen !== true ? true : this.state.inputValue !== '';
 
@@ -231,7 +300,7 @@ var InputWrapper = function (_React$Component) {
                             inputValue: inputValue,
                             inputPartsValid: state.inputPartsValid.map(function (chunkBool, chunkIndex) {
                                 if (chunkIndex === 1) {
-                                    return _this3.props.expectedValue[chunkIndex] === optionValue;
+                                    return _this4.props.expectedValue[chunkIndex] === optionValue;
                                 }
 
                                 return chunkBool;
@@ -247,7 +316,7 @@ var InputWrapper = function (_React$Component) {
                         });
 
                         var inputPartsValid = chosenIndexes.map(function (item, index) {
-                            return typeof item !== 'undefined' ? _this3.props.expectedValue[index] === _this3.props.options[index][item] : false;
+                            return typeof item !== 'undefined' ? _this4.props.expectedValue[index] === _this4.props.options[index][item] : false;
                         });
 
                         return Object.assign({}, state, {
@@ -388,7 +457,7 @@ var InputWrapper = function (_React$Component) {
     }, {
         key: 'componentDidMount',
         value: function componentDidMount() {
-            var _this4 = this;
+            var _this5 = this;
 
             if (this.props.type === 'text') {
                 var _self = this;
@@ -401,7 +470,7 @@ var InputWrapper = function (_React$Component) {
                     var calendar = jsCalendar.new(this.node);
 
                     calendar.onDateClick(function (event, date) {
-                        _this4.handleCalendarDate(calendar, date);
+                        _this5.handleCalendarDate(calendar, date);
                     });
                 }
             }
@@ -416,7 +485,7 @@ var InputWrapper = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
-            var _this5 = this;
+            var _this6 = this;
 
             var wrapperClassName = ('wrapper' + ' ' + (this.props.error ? 'on-form-error' : '') + ' ' + (this.state.inputValid ? '' : 'on-input-invalid') + ' ' + (typeof this.props.wrapperClass !== 'undefined' ? this.props.wrapperClass : '')).trim().replace(/\s+/g, ' ');
             var labelClassName = ((this.props.disabled ? 'on-input-disabled' : '') + ' ' + (this.state.inputFocus ? 'on-input-focus' : '') + ' ' + (this.state.inputNonEmpty ? 'on-input-non-empty' : '')).trim().replace(/\s+/g, ' ');
@@ -439,33 +508,33 @@ var InputWrapper = function (_React$Component) {
                         this.state.inputValue ? this.state.inputValue : "---"
                     ),
                     React.createElement('div', { ref: function ref(node) {
-                            return _this5.node = node;
+                            return _this6.node = node;
                         }, className: ("jsCalendar calendar-jsCalendar material-theme " + (!this.state.calendar.open ? "hidden" : "")).trim(), 'data-first-day-of-the-week': '2', 'data-language': 'pl', 'data-month-format': 'month YYYY' })
                 ),
                 this.props.type === "timetable" && this.state.timetable.open && React.createElement(
                     'ul',
                     { className: 'timetable-list', ref: function ref(node) {
-                            return _this5.node = node;
+                            return _this6.node = node;
                         } },
                     this.props.options.map(function (list, listIndex) {
                         return React.createElement(
                             'li',
                             { key: listIndex },
-                            typeof _this5.props.optionNames !== 'undefined' && React.createElement(
+                            typeof _this6.props.optionNames !== 'undefined' && React.createElement(
                                 'h4',
                                 null,
-                                _this5.props.optionNames[listIndex]
+                                _this6.props.optionNames[listIndex]
                             ),
                             React.createElement(
                                 'ul',
-                                { className: _this5.state.inputPartsValid[listIndex] ? "on-input-part-valid" : undefined },
+                                { className: _this6.state.inputPartsValid[listIndex] ? "on-input-part-valid" : undefined },
                                 list.map(function (optionValue, optionIndex) {
                                     return React.createElement(
                                         'li',
                                         { key: optionIndex },
                                         React.createElement(
                                             'p',
-                                            { className: _this5.state.chosenIndexes[listIndex] === optionIndex ? "chosen" : undefined, onClick: _this5.handleTimeTableList.bind(_this5, optionIndex, optionValue, listIndex) },
+                                            { className: _this6.state.chosenIndexes[listIndex] === optionIndex ? "chosen" : undefined, onClick: _this6.handleTimeTableList.bind(_this6, optionIndex, optionValue, listIndex) },
                                             optionValue
                                         )
                                     );
@@ -501,19 +570,38 @@ var InputWrapper = function (_React$Component) {
                     { className: ("material-icons arrow-left " + (this.props.disabled ? "disabled" : "")).trim(), onClick: this.handleArrow.bind(this, false) },
                     'keyboard_arrow_left'
                 ),
-                (this.props.type === "text" || this.props.type === 'text-arrows') && React.createElement('input', { ref: function ref(node) {
-                        return _this5.node = node;
+                (this.props.type === "text" || this.props.type === "text-arrows" || this.props.type === "autocomplete") && React.createElement('input', { ref: function ref(node) {
+                        return _this6.node = node;
                     }, maxLength: this.inputMaxLength, type: 'text', spellCheck: 'false', autoComplete: 'off', onFocus: this.handleFocus, onBlur: this.handleBlur, onChange: this.handleChange, disabled: this.props.disabled, value: this.state.inputValue }),
+                this.props.type === "autocomplete" && this.state.suggestion && this.state.suggestion.commonPart && this.state.suggestion.complement ? React.createElement(
+                    'div',
+                    null,
+                    this.state.suggestion.prefix ? React.createElement(
+                        'span',
+                        null,
+                        this.state.suggestion.prefix
+                    ) : null,
+                    React.createElement(
+                        'span',
+                        null,
+                        this.state.suggestion.commonPart
+                    ),
+                    React.createElement(
+                        'span',
+                        null,
+                        this.state.suggestion.complement
+                    )
+                ) : null,
                 this.props.type === "multi-text" && Array.isArray(this.props.expectedValue) && React.createElement(
                     'div',
                     { className: 'multi-text-wrapper' },
                     [].concat(_toConsumableArray(Array(this.props.expectedValue.length))).map(function (x, index, array) {
-                        var separator = typeof _this5.props.separator !== 'undefined' && index < array.length - 1 ? React.createElement(
+                        var separator = typeof _this6.props.separator !== 'undefined' && index < array.length - 1 ? React.createElement(
                             'span',
                             { className: 'separator', key: index + "-span" },
-                            _this5.props.separator
+                            _this6.props.separator
                         ) : "";
-                        return [React.createElement('input', { className: _this5.state.inputPartsValid[index] ? "on-input-part-valid" : "", key: index + "-input", maxLength: _this5.inputMaxLength[index], type: 'text', spellCheck: 'false', autoComplete: 'off', disabled: _this5.props.disabled, onChange: _this5.handleChange.bind(_this5, event, index) }), separator];
+                        return [React.createElement('input', { className: _this6.state.inputPartsValid[index] ? "on-input-part-valid" : "", key: index + "-input", maxLength: _this6.inputMaxLength[index], type: 'text', spellCheck: 'false', autoComplete: 'off', disabled: _this6.props.disabled, onChange: _this6.handleChange.bind(_this6, event, index) }), separator];
                     })
                 ),
                 this.props.type === 'text-arrows' && React.createElement(
@@ -541,7 +629,7 @@ var InputWrapper = function (_React$Component) {
                     )
                 ),
                 this.props.type === "textarea" && React.createElement('textarea', { ref: function ref(node) {
-                        return _this5.node = node;
+                        return _this6.node = node;
                     }, spellCheck: 'false', maxLength: this.inputMaxLength, disabled: this.props.disabled, onFocus: this.handleFocus, onChange: this.handleChange, onBlur: this.handleBlur }),
                 this.props.type === "toggle-btn" && this.props.options.length === 2 && React.createElement(
                     'button',
@@ -555,8 +643,8 @@ var InputWrapper = function (_React$Component) {
                     this.props.options.map(function (option, index) {
                         return React.createElement(
                             'li',
-                            { className: ("radio-item " + (_this5.state.chosenIndex === index ? "chosen" : "") + " " + (_this5.props.disabled ? "disabled" : "")).trim().replace(/\s+/g, " "), key: index },
-                            React.createElement('div', { className: 'radio', onClick: _this5.handleOption.bind(_this5, index, option) }),
+                            { className: ("radio-item " + (_this6.state.chosenIndex === index ? "chosen" : "") + " " + (_this6.props.disabled ? "disabled" : "")).trim().replace(/\s+/g, " "), key: index },
+                            React.createElement('div', { className: 'radio', onClick: _this6.handleOption.bind(_this6, index, option) }),
                             React.createElement(
                                 'span',
                                 null,
@@ -571,7 +659,7 @@ var InputWrapper = function (_React$Component) {
                     this.props.miniLabels.map(function (miniLabel, index) {
                         return React.createElement(
                             'span',
-                            { key: index, className: ("mini-label " + (_this5.props.disabled ? "disabled" : "") + (_this5.state.inputPartsValid[index] ? "on-input-part-valid" : "")).trim().replace(/\s+/g, " ") },
+                            { key: index, className: ("mini-label " + (_this6.props.disabled ? "disabled" : "") + (_this6.state.inputPartsValid[index] ? "on-input-part-valid" : "")).trim().replace(/\s+/g, " ") },
                             miniLabel
                         );
                     }),
@@ -580,13 +668,13 @@ var InputWrapper = function (_React$Component) {
                     React.createElement('input', { type: 'text', spellCheck: 'false', autoComplete: 'off', className: this.state.inputPartsValid[2] ? "on-input-part-valid" : undefined, disabled: this.props.disabled, maxLength: this.props.maxLength[2], onChange: this.handleChange.bind(this, event, 2) })
                 ),
                 this.props.type === "select-filtered" && React.createElement(Select, _defineProperty({ selectFiltered: true, disabled: this.props.disabled, options: this.props.options, inputNodeRef: function inputNodeRef(inputNode) {
-                        return _this5.node = inputNode;
+                        return _this6.node = inputNode;
                     }, inputMaxLength: this.inputMaxLength, inputValue: this.state.inputValue, onInputFocus: this.handleFocus, onInputBlur: this.handleBlur, onInputChange: this.handleChange }, 'inputValue', this.state.inputValue)),
                 this.props.type === "multi-select" && Array.isArray(this.props.options) && this.props.options.map(function (options, index) {
-                    return React.createElement(Select, { 'class': _this5.state.inputPartsValid[index] ? "on-input-part-valid" : "", key: index, multiSelect: true, selectIndex: index, disabled: _this5.props.disabled, options: options, chosenIndex: _this5.state.chosenIndexes[index], onOption: _this5.handleOption.bind(_this5) });
+                    return React.createElement(Select, { 'class': _this6.state.inputPartsValid[index] ? "on-input-part-valid" : "", key: index, multiSelect: true, selectIndex: index, disabled: _this6.props.disabled, options: options, chosenIndex: _this6.state.chosenIndexes[index], onOption: _this6.handleOption.bind(_this6) });
                 }),
                 this.props.type === "select" && React.createElement(Select, { disabled: this.props.disabled, otherOption: this.props.otherOption, options: this.props.options, onOption: this.handleOption.bind(this), chosenIndex: this.state.chosenIndex, inputNodeRef: function inputNodeRef(inputNode) {
-                        return _this5.node = inputNode;
+                        return _this6.node = inputNode;
                     }, inputMaxLength: this.inputMaxLength, inputValue: this.state.inputValue, onInputFocus: this.handleFocus, onInputBlur: this.handleBlur, onInputChange: this.handleChange }),
                 (this.props.optional || this.props.type === "textarea" && !this.props.insideTask) && React.createElement(
                     'div',

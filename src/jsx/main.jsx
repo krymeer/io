@@ -279,6 +279,15 @@ const globals = {
 }
 
 window.onload = function() {
+    document.onkeydown = event => {
+        event = event || window.event;
+
+        if( event.key === 'ArrowUp' || event.key === 'ArrowDown' )
+        {
+            return false;
+        }
+    };
+
     class Main extends React.Component {
         constructor( props )
         {

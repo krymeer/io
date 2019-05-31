@@ -820,7 +820,7 @@ main section .form > .wrapper .select-wrapper > .select-list > .select-option {
   background: #fff;
   transition: none;
 }
-main section .form > .wrapper .select-wrapper > .select-list.select-list-filtered > .select-option.hover, main section .form > .wrapper .select-wrapper > .select-list:not(.select-list-filtered) > .select-option:hover {
+main section .form > .wrapper .select-wrapper > .select-list > .select-option.hover {
   background: #eee;
 }
 main section .form > .wrapper .select-wrapper > .select-other {

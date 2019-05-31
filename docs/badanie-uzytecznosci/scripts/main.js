@@ -272,6 +272,14 @@ var globals = {
 };
 
 window.onload = function () {
+    document.onkeydown = function (event) {
+        event = event || window.event;
+
+        if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
+            return false;
+        }
+    };
+
     var Main = function (_React$Component) {
         _inherits(Main, _React$Component);
 

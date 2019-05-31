@@ -24,6 +24,8 @@ var Select = function (_React$Component) {
         _this.handleCurrentHeight = _this.handleCurrentHeight.bind(_this);
         _this.handleOverflow = _this.handleOverflow.bind(_this);
         _this.handleClickOutside = _this.handleClickOutside.bind(_this);
+        _this.handleHover = _this.handleHover.bind(_this);
+        _this.handleKey = _this.handleKey.bind(_this);
 
         if (_this.props.selectFiltered) {
             var options = _this.props.options;
@@ -36,12 +38,14 @@ var Select = function (_React$Component) {
                 });
             }
 
-            _this.handleFilterHover = _this.handleFilterHover.bind(_this);
-            _this.handleFilterKey = _this.handleFilterKey.bind(_this);
             _this.handleFilterFocus = _this.handleFilterFocus.bind(_this);
             _this.handleFilterChange = _this.handleFilterChange.bind(_this);
             _this.handleFilterBlur = _this.handleFilterBlur.bind(_this);
             _this.handleFilterOption = _this.handleFilterOption.bind(_this);
+        } else {
+            _this.handleOption = _this.handleOption.bind(_this);
+            _this.handleFocus = _this.handleFocus.bind(_this);
+            _this.handleBlur = _this.handleBlur.bind(_this);
         }
         return _this;
     }
@@ -91,24 +95,34 @@ var Select = function (_React$Component) {
             }
         }
     }, {
-        key: 'handleFilterKey',
-        value: function handleFilterKey(event) {
+        key: 'handleKey',
+        value: function handleKey(event) {
             if (!this.props.disabled) {
                 if (event.key === 'Escape' || event.key === 'Enter') {
                     event.target.blur();
                 } else if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
-                    this.handleFilterHover(event);
+                    this.handleHover(event);
+                }
+
+                if (!this.props.selectFiltered) {
+                    if (event.key === 'Tab') {
+                        this.handleSelect(event);
+                    }
                 }
             }
+
+            return false;
         }
     }, {
-        key: 'handleFilterHover',
-        value: function handleFilterHover(event) {
+        key: 'handleHover',
+        value: function handleHover(event) {
+            var _this3 = this;
+
             var newHoverIndex = this.state.list.hoverIndex;
             var onHover = event.type === 'mouseover';
             var node = event.target.closest('li');
 
-            if (!this.props.disabled && typeof newHoverIndex !== 'undefined' && this.state.list.filtered && this.state.list.filtered.length > 0) {
+            if (!this.props.disabled && typeof newHoverIndex !== 'undefined') {
 
                 if (event.key === 'ArrowUp') {
                     newHoverIndex -= 1;
@@ -119,19 +133,26 @@ var Select = function (_React$Component) {
                 }
 
                 if (newHoverIndex < 0) {
-                    newHoverIndex = this.state.list.filtered.length - 1;
-                } else if (newHoverIndex > this.state.list.filtered.length - 1) {
+                    newHoverIndex = this.props.selectFiltered ? this.state.list.filtered.length - 1 : this.props.options.length - 1;
+                } else if (this.props.selectFiltered && newHoverIndex > this.state.list.filtered.length - 1 || !this.props.selectFiltered && newHoverIndex > this.props.options.length - 1) {
                     newHoverIndex = 0;
                 }
 
                 if (newHoverIndex !== this.state.list.hoverIndex) {
-                    this.handleFilterOption(null, newHoverIndex);
+                    if (this.props.selectFiltered) {
+                        this.handleFilterOption(null, newHoverIndex);
+                    } else {
+                        this.handleOption(newHoverIndex);
+                    }
+
                     this.setState(function (state) {
                         return Object.assign({}, state, {
                             list: Object.assign({}, state.list, {
                                 hoverIndex: newHoverIndex
                             })
                         });
+                    }, function () {
+                        _this3.handleCurrentHeight();
                     });
                 }
             }
@@ -164,7 +185,7 @@ var Select = function (_React$Component) {
     }, {
         key: 'handleOverflow',
         value: function handleOverflow(eventTarget, bodyScrollHeight) {
-            var _this3 = this;
+            var _this4 = this;
 
             if (!this.props.disabled && this.state.list.open && typeof eventTarget !== 'undefined') {
                 var listNode = this.props.selectFiltered ? eventTarget.nextElementSibling : eventTarget.closest('.select-current').nextElementSibling;
@@ -178,9 +199,7 @@ var Select = function (_React$Component) {
                             overflow: overflowDirection
                         });
 
-                        if (_this3.props.selectFiltered) {
-                            list.hoverIndex = overflowDirection === 'bottom' ? -1 : _this3.state.list.filtered.length;
-                        }
+                        list.hoverIndex = overflowDirection === 'bottom' ? -1 : _this4.props.selectFiltered ? _this4.state.list.filtered.length : _this4.props.options.length;
 
                         return {
                             list: list
@@ -199,21 +218,27 @@ var Select = function (_React$Component) {
             }
         }
     }, {
+        key: 'handleFocus',
+        value: function handleFocus(event) {
+            if (!this.state.list.open) {
+                this.handleSelect(event);
+            }
+        }
+    }, {
+        key: 'handleBlur',
+        value: function handleBlur(event) {
+            if (this.state.list.open) {
+                this.handleSelect(event);
+            }
+        }
+    }, {
         key: 'handleSelect',
         value: function handleSelect(event) {
-            var _this4 = this;
+            var _this5 = this;
 
             if (!this.props.disabled) {
                 var eventTarget = typeof event !== 'undefined' ? event.target : undefined;
                 var bodyScrollHeight = document.body.scrollHeight;
-
-                if (!this.props.selectFiltered) {
-                    if (!this.state.list.open) {
-                        document.addEventListener('click', this.handleClickOutside, false);
-                    } else {
-                        document.removeEventListener('click', this.handleClickOutside, false);
-                    }
-                }
 
                 this.setState(function (state) {
                     return {
@@ -223,11 +248,7 @@ var Select = function (_React$Component) {
                         })
                     };
                 }, function () {
-                    if (!_this4.state.list.open) {
-                        _this4.handleCurrentHeight();
-                    }
-
-                    _this4.handleOverflow(eventTarget, bodyScrollHeight);
+                    _this5.handleOverflow(eventTarget, bodyScrollHeight);
                 });
             }
         }
@@ -237,6 +258,8 @@ var Select = function (_React$Component) {
             var index = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : -1;
 
             if (!this.props.disabled) {
+                // TO CHECK
+                // if the event is really needed
                 var inputNode = this.listNode.previousElementSibling;
                 var value = index !== -1 ? this.listNode.children[index].children[0].innerText : event.target.closest('.select-option').querySelector('span').innerText;
 
@@ -248,8 +271,9 @@ var Select = function (_React$Component) {
         }
     }, {
         key: 'handleOption',
-        value: function handleOption(optionIndex, optionValue) {
+        value: function handleOption(optionIndex) {
             if (!this.props.disabled) {
+                var optionValue = this.listNode.children[optionIndex].children[0].innerText;
                 var otherOptionChosen = this.props.otherOption && optionIndex === this.props.options.length - 1;
                 var selectIndex = this.props.selectIndex !== 'undefined' ? this.props.selectIndex : -1;
 
@@ -257,24 +281,23 @@ var Select = function (_React$Component) {
                     otherOptionChosen: otherOptionChosen
                 });
 
-                this.handleSelect();
                 this.props.onOption(optionIndex, optionValue, otherOptionChosen, selectIndex);
             }
         }
     }, {
         key: 'render',
         value: function render() {
-            var _this5 = this;
+            var _this6 = this;
 
             return React.createElement(
                 'div',
                 { className: ("select-wrapper " + (typeof this.props.class !== "undefined" ? this.props.class : "")).trim() },
-                this.props.selectFiltered && React.createElement('input', { onKeyDown: this.handleFilterKey, className: 'select-filter', ref: this.props.inputNodeRef, maxLength: this.props.inputMaxLength, type: 'text', spellCheck: 'false', autoComplete: 'off', disabled: this.props.disabled, onFocus: this.handleFilterFocus, onChange: this.handleFilterChange, onBlur: this.handleFilterBlur, value: this.props.inputValue }),
+                this.props.selectFiltered && React.createElement('input', { onKeyDown: this.handleKey, className: 'select-filter', ref: this.props.inputNodeRef, maxLength: this.props.inputMaxLength, type: 'text', spellCheck: 'false', autoComplete: 'off', disabled: this.props.disabled, onFocus: this.handleFilterFocus, onChange: this.handleFilterChange, onBlur: this.handleFilterBlur, value: this.props.inputValue }),
                 !this.props.selectFiltered && React.createElement(
                     'div',
-                    { ref: function ref(currentNode) {
-                            return _this5.currentNode = currentNode;
-                        }, className: ("select-current " + (this.props.disabled ? "disabled" : "") + " " + (this.state.list.open ? "focus" : "")).trim().replace(/\s+/g, " "), onClick: this.handleSelect },
+                    { tabIndex: '0', ref: function ref(currentNode) {
+                            return _this6.currentNode = currentNode;
+                        }, className: ("select-current " + (this.props.disabled ? "disabled" : "") + " " + (this.state.list.open ? "focus" : "")).trim().replace(/\s+/g, " "), onFocus: this.handleFocus, onBlur: this.handleBlur, onKeyDown: this.handleKey },
                     React.createElement(
                         'span',
                         null,
@@ -288,35 +311,34 @@ var Select = function (_React$Component) {
                 ),
                 this.state.list.open && React.createElement(
                     'ul',
-                    { className: ("select-list " + this.state.list.overflow + " " + (this.props.selectFiltered ? "select-list-filtered" : "") + " " + (typeof this.state.list.filtered === "undefined" || this.state.list.filtered.length === 0 ? "empty" : "")).trim().replace(/\s+/g, " "), ref: function ref(listNode) {
-                            return _this5.listNode = listNode;
+                    { className: ("select-list " + this.state.list.overflow + " " + (this.props.selectFiltered ? "select-list-filtered" : "") + " " + (this.props.selectFiltered && (typeof this.state.list.filtered === "undefined" || this.state.list.filtered).length === 0 ? "empty" : "")).trim().replace(/\s+/g, " "), ref: function ref(listNode) {
+                            return _this6.listNode = listNode;
                         } },
                     this.props.options.map(function (option, index) {
-                        var optionFilteredIndex = _this5.state.list.filtered ? _this5.state.list.filtered.indexOf(option) : undefined;
+                        var realIndex = _this6.state.list.filtered ? _this6.state.list.filtered.indexOf(option) : index;
+                        var attrs = {};
 
-                        if (_this5.props.selectFiltered && optionFilteredIndex >= 0) {
-                            return React.createElement(
-                                'li',
-                                { key: index, className: ("select-option " + (_this5.state.list.hoverIndex === optionFilteredIndex ? "hover" : "")).trim(), onMouseOver: _this5.handleFilterHover, onMouseDown: _this5.handleFilterOption },
-                                React.createElement(
-                                    'span',
-                                    null,
-                                    option
-                                )
-                            );
-                        } else if (!_this5.props.selectFiltered && index !== _this5.props.chosenIndex) {
-                            return React.createElement(
-                                'li',
-                                { key: index, className: 'select-option', onClick: _this5.handleOption.bind(_this5, index, option) },
-                                React.createElement(
-                                    'span',
-                                    null,
-                                    option
-                                )
-                            );
+                        if (_this6.props.selectFiltered && optionFilteredIndex >= 0) {
+                            attrs = {
+                                onMouseDown: _this6.handleFilterOption
+                            };
+                        } else if (!_this6.props.selectFiltered) {
+                            attrs = {
+                                onClick: _this6.handleSelect
+                            };
                         } else {
                             return null;
                         }
+
+                        return React.createElement(
+                            'li',
+                            Object.assign({ key: index, className: ("select-option " + (_this6.state.list.hoverIndex === realIndex ? "hover" : "")).trim(), onMouseOver: _this6.handleHover }, attrs),
+                            React.createElement(
+                                'span',
+                                null,
+                                option
+                            )
+                        );
                     })
                 ),
                 !this.props.selectFiltered && this.state.otherOptionChosen && React.createElement('input', { className: 'select-other', ref: this.props.inputNodeRef, maxLength: this.props.inputMaxLength, type: 'text', spellCheck: 'false', autoComplete: 'off', disabled: this.props.disabled, onFocus: this.props.onInputFocus, onBlur: this.props.onInputBlur, onChange: this.props.onInputChange, value: this.props.inputValue })

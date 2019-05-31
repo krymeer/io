@@ -1094,11 +1094,10 @@ main {
                             cursor: pointer;
                             background: #fff;
                             transition: none;
-                        }
 
-                        &.select-list-filtered > .select-option.hover,
-                        &:not(.select-list-filtered) > .select-option:hover {
-                            background: $border-color-m;
+                            &.hover {
+                                background: $border-color-m;
+                            }
                         }
                     }
 

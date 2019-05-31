@@ -13,6 +13,8 @@ class Select extends React.Component {
         this.handleCurrentHeight = this.handleCurrentHeight.bind( this );
         this.handleOverflow      = this.handleOverflow.bind( this );
         this.handleClickOutside  = this.handleClickOutside.bind( this );
+        this.handleHover         = this.handleHover.bind( this );
+        this.handleKey           = this.handleKey.bind( this );
 
         if( this.props.selectFiltered )
         {
@@ -29,12 +31,16 @@ class Select extends React.Component {
                 };
             }
 
-            this.handleFilterHover    = this.handleFilterHover.bind( this );
-            this.handleFilterKey      = this.handleFilterKey.bind( this );
             this.handleFilterFocus    = this.handleFilterFocus.bind( this );
             this.handleFilterChange   = this.handleFilterChange.bind( this );
             this.handleFilterBlur     = this.handleFilterBlur.bind( this );
             this.handleFilterOption = this.handleFilterOption.bind( this );
+        }
+        else
+        {
+            this.handleOption = this.handleOption.bind( this );
+            this.handleFocus  = this.handleFocus.bind( this );
+            this.handleBlur   = this.handleBlur.bind( this );
         }
     }
 
@@ -84,7 +90,7 @@ class Select extends React.Component {
         }
     }
 
-    handleFilterKey( event )
+    handleKey( event )
     {
         if( !this.props.disabled )
         {
@@ -94,18 +100,28 @@ class Select extends React.Component {
             }
             else if( event.key === 'ArrowUp' || event.key === 'ArrowDown' )
             {
-                this.handleFilterHover( event );
+                this.handleHover( event );
+            }
+
+            if( !this.props.selectFiltered )
+            {
+                if( event.key === 'Tab' )
+                {
+                    this.handleSelect( event );
+                }
             }
         }
+
+        return false;
     }
 
-    handleFilterHover( event )
+    handleHover( event )
     {
         let newHoverIndex = this.state.list.hoverIndex;
         const onHover     = event.type === 'mouseover';
         const node        = event.target.closest( 'li' );
 
-        if( !this.props.disabled && typeof newHoverIndex !== 'undefined' && this.state.list.filtered && this.state.list.filtered.length > 0 )
+        if( !this.props.disabled && typeof newHoverIndex !== 'undefined' )
         {
 
             if( event.key === 'ArrowUp' )
@@ -123,16 +139,24 @@ class Select extends React.Component {
 
             if( newHoverIndex < 0 )
             {
-                newHoverIndex = this.state.list.filtered.length - 1;
+                newHoverIndex = this.props.selectFiltered ? ( this.state.list.filtered.length - 1 ) : ( this.props.options.length - 1 ) ;
             }
-            else if( newHoverIndex > this.state.list.filtered.length - 1 )
+            else if( ( this.props.selectFiltered && newHoverIndex > this.state.list.filtered.length - 1 ) || ( !this.props.selectFiltered && newHoverIndex > this.props.options.length - 1 ) )
             {
                 newHoverIndex = 0;
             }
 
             if( newHoverIndex !== this.state.list.hoverIndex )
             {
-                this.handleFilterOption( null, newHoverIndex )
+                if( this.props.selectFiltered )
+                {
+                    this.handleFilterOption( null, newHoverIndex );
+                }
+                else
+                {
+                    this.handleOption( newHoverIndex );
+                }
+
                 this.setState( state => {
                     return {
                         ...state,
@@ -141,6 +165,8 @@ class Select extends React.Component {
                             hoverIndex : newHoverIndex
                         }
                     }
+                }, () => {
+                    this.handleCurrentHeight();
                 } );
             }
         }
@@ -191,10 +217,12 @@ class Select extends React.Component {
                         overflow : overflowDirection
                     };
 
-                    if( this.props.selectFiltered )
-                    {
-                        list.hoverIndex = ( overflowDirection === 'bottom' ? -1 : this.state.list.filtered.length );
-                    }
+                    list.hoverIndex = ( overflowDirection === 'bottom'
+                                        ? -1
+                                        : ( this.props.selectFiltered
+                                            ? this.state.list.filtered.length
+                                            : this.props.options.length )
+                                        );
 
                     return {
                         list
@@ -217,24 +245,28 @@ class Select extends React.Component {
         }
     }
 
+    handleFocus( event )
+    {
+        if( !this.state.list.open )
+        {
+            this.handleSelect( event );
+        }
+    }
+
+    handleBlur( event )
+    {
+        if( this.state.list.open )
+        {
+            this.handleSelect( event );
+        }
+    }
+
     handleSelect( event )
     {
         if( !this.props.disabled )
         {
             const eventTarget      = ( typeof event !== 'undefined' ) ? event.target : undefined;
             const bodyScrollHeight = document.body.scrollHeight;
-
-            if( !this.props.selectFiltered )
-            {
-                if( !this.state.list.open )
-                {
-                    document.addEventListener( 'click', this.handleClickOutside, false );
-                }
-                else
-                {
-                    document.removeEventListener( 'click', this.handleClickOutside, false );
-                }
-            }
 
             this.setState( state => {
                 return {
@@ -245,11 +277,6 @@ class Select extends React.Component {
                     }
                 };
             }, () => {
-                if( !this.state.list.open )
-                {
-                    this.handleCurrentHeight();
-                }
-
                 this.handleOverflow( eventTarget, bodyScrollHeight );
             } );
         }
@@ -259,6 +286,8 @@ class Select extends React.Component {
     {
         if( !this.props.disabled )
         {
+            // TO CHECK
+            // if the event is really needed
             const inputNode = this.listNode.previousElementSibling;
             const value     = ( index !== -1 )
                                 ? this.listNode.children[ index ].children[ 0 ].innerText
@@ -272,10 +301,11 @@ class Select extends React.Component {
         }
     }
 
-    handleOption( optionIndex, optionValue )
+    handleOption( optionIndex )
     {
         if( !this.props.disabled )
         {
+            const optionValue       = this.listNode.children[ optionIndex ].children[ 0 ].innerText;
             const otherOptionChosen = ( this.props.otherOption && optionIndex === this.props.options.length - 1 );
             const selectIndex       = ( this.props.selectIndex !== 'undefined' ) ? this.props.selectIndex : -1;
 
@@ -283,7 +313,6 @@ class Select extends React.Component {
                 otherOptionChosen : otherOptionChosen
             } );
 
-            this.handleSelect();
             this.props.onOption( optionIndex, optionValue, otherOptionChosen, selectIndex );
         }
     }
@@ -293,10 +322,10 @@ class Select extends React.Component {
         return(
             <div className={ ( "select-wrapper " + ( typeof this.props.class !== "undefined" ? this.props.class : "" ) ).trim() }>
                 { this.props.selectFiltered &&
-                    <input onKeyDown={ this.handleFilterKey } className="select-filter" ref={ this.props.inputNodeRef } maxLength={ this.props.inputMaxLength } type="text" spellCheck="false" autoComplete="off" disabled={ this.props.disabled } onFocus={ this.handleFilterFocus } onChange={ this.handleFilterChange } onBlur={ this.handleFilterBlur } value={ this.props.inputValue } />
+                    <input onKeyDown={ this.handleKey } className="select-filter" ref={ this.props.inputNodeRef } maxLength={ this.props.inputMaxLength } type="text" spellCheck="false" autoComplete="off" disabled={ this.props.disabled } onFocus={ this.handleFilterFocus } onChange={ this.handleFilterChange } onBlur={ this.handleFilterBlur } value={ this.props.inputValue } />
                 }
                 { !this.props.selectFiltered &&
-                    <div ref={ currentNode => this.currentNode = currentNode } className={ ( "select-current " + ( this.props.disabled ? "disabled" : "" ) + " " + ( this.state.list.open ? "focus" : "" ) ).trim().replace( /\s+/g, " " ) } onClick={ this.handleSelect }>
+                    <div tabIndex="0" ref={ currentNode => this.currentNode = currentNode } className={ ( "select-current " + ( this.props.disabled ? "disabled" : "" ) + " " + ( this.state.list.open ? "focus" : "" ) ).trim().replace( /\s+/g, " " ) } onFocus={ this.handleFocus } onBlur={ this.handleBlur } onKeyDown={ this.handleKey } >
                         <span>{ this.props.chosenIndex >= 0 ? this.props.options[ this.props.chosenIndex ] : "" }</span>
                         <i className="material-icons">
                             { ( this.state.list.open ) ? "keyboard_arrow_up" : "keyboard_arrow_down" }
@@ -304,30 +333,33 @@ class Select extends React.Component {
                     </div>
                 }
                 { this.state.list.open &&
-                    <ul className={ ( "select-list " + this.state.list.overflow + " " + ( this.props.selectFiltered ? "select-list-filtered" : "" ) + " " + ( ( typeof this.state.list.filtered === "undefined" || this.state.list.filtered.length === 0 ) ? "empty" : "" ) ).trim().replace( /\s+/g, " " ) } ref={ listNode => this.listNode = listNode }>
+                    <ul className={ ( "select-list " + this.state.list.overflow + " " + ( this.props.selectFiltered ? "select-list-filtered" : "" ) + " " + ( ( this.props.selectFiltered && ( typeof this.state.list.filtered === "undefined" || this.state.list.filtered ).length === 0 ) ? "empty" : "" ) ).trim().replace( /\s+/g, " " ) } ref={ listNode => this.listNode = listNode }>
                         { this.props.options.map( ( option, index ) => {
-                            const optionFilteredIndex = ( this.state.list.filtered ? this.state.list.filtered.indexOf( option ) : undefined );
+                            const realIndex = ( this.state.list.filtered ? this.state.list.filtered.indexOf( option ) : index );
+                            let attrs       = {};
 
                             if( this.props.selectFiltered && optionFilteredIndex >= 0 )
                             {
-                                return (
-                                    <li key={ index } className={ ( "select-option " + ( this.state.list.hoverIndex === optionFilteredIndex ? "hover" : "" ) ).trim() } onMouseOver={ this.handleFilterHover } onMouseDown={ this.handleFilterOption }>
-                                        <span>{ option }</span>
-                                    </li>
-                                );
+                                attrs = {
+                                    onMouseDown : this.handleFilterOption
+                                };
                             }
-                            else if( !this.props.selectFiltered && index !== this.props.chosenIndex )
+                            else if( !this.props.selectFiltered )
                             {
-                                return (
-                                    <li key={ index } className="select-option" onClick={ this.handleOption.bind( this, index, option ) }>
-                                        <span>{ option }</span>
-                                    </li>
-                                );
+                                attrs = {
+                                    onClick : this.handleSelect
+                                };
                             }
                             else
                             {
                                 return null;
                             }
+
+                            return (
+                                <li key={ index } className={ ( "select-option " + ( this.state.list.hoverIndex === realIndex ? "hover" : "" ) ).trim() } onMouseOver={ this.handleHover } { ...attrs }>
+                                    <span>{ option }</span>
+                                </li>
+                            );
                         } ) }
                     </ul>
                 }
