@@ -75,10 +75,56 @@ merge = function merge(arr, p, q, r, aaa) {
     return arr;
 };
 
+longestCommonSubsequence = function longestCommonSubsequence(str1, str2) {
+    var lArr = new Array(str1.length + 1);
+
+    for (var i1 = 0; i1 <= str1.length; i1++) {
+        lArr[i1] = new Array(str2.length + 1).fill(0);
+    }
+
+    for (var _i = 1; _i <= str1.length; _i++) {
+        for (var i2 = 1; i2 <= str2.length; i2++) {
+            if (str1.charAt(_i - 1) === str2.charAt(i2 - 1)) {
+                lArr[_i][i2] = lArr[_i - 1][i2 - 1] + 1;
+            } else {
+                lArr[_i][i2] = Math.max(lArr[_i][i2 - 1], lArr[_i - 1][i2]);
+            }
+        }
+    }
+
+    backtrack = function (_backtrack) {
+        function backtrack(_x, _x2, _x3, _x4, _x5) {
+            return _backtrack.apply(this, arguments);
+        }
+
+        backtrack.toString = function () {
+            return _backtrack.toString();
+        };
+
+        return backtrack;
+    }(function (arr, s1, s2, i, j) {
+        if (i - 1 < 0 || j - 1 < 0) {
+            return '';
+        } else if (s1[i - 1] === s2[j - 1]) {
+            return backtrack(arr, s1, s2, i - 1, j - 1) + s1[i - 1];
+        } else if (arr[i][j - 1] > arr[i - 1][j]) {
+            return backtrack(arr, s1, s2, i, j - 1);
+        }
+
+        return backtrack(arr, s1, s2, i - 1, j);
+    });
+
+    return backtrack(lArr, str1, str2, str1.length, str2.length);
+};
+
 longestCommonSubstring = function longestCommonSubstring(str1, str2) {
-    var lArr = Array(str1.length).fill(Array(str2.length));
+    var lArr = Array(str1.length);
     var z = 0;
     var lcs = '';
+
+    for (var i1 = 0; i1 < str1.length; i1++) {
+        lArr[i1] = new Array(str2.length).fill(0);
+    }
 
     for (var i = 0; i < str1.length; i++) {
         for (var j = 0; j < str2.length; j++) {
@@ -105,7 +151,7 @@ longestCommonSubstring = function longestCommonSubstring(str1, str2) {
 };
 
 mergeSort = function (_mergeSort) {
-    function mergeSort(_x, _x2, _x3) {
+    function mergeSort(_x6, _x7, _x8) {
         return _mergeSort.apply(this, arguments);
     }
 
@@ -141,12 +187,12 @@ editDistance = function editDistance(str1, str2) {
         }
     }
 
-    for (var _i = 1; _i < str2len; _i++) {
-        for (var _i2 = 1; _i2 < str1len; _i2++) {
-            if (str1[_i2 - 1] === str2[_i - 1]) {
-                dist[_i2][_i] = dist[_i2 - 1][_i - 1];
+    for (var _i2 = 1; _i2 < str2len; _i2++) {
+        for (var _i3 = 1; _i3 < str1len; _i3++) {
+            if (str1[_i3 - 1] === str2[_i2 - 1]) {
+                dist[_i3][_i2] = dist[_i3 - 1][_i2 - 1];
             } else {
-                dist[_i2][_i] = Math.min(dist[_i2 - 1][_i] + 1, dist[_i2][_i - 1] + 1, dist[_i2 - 1][_i - 1] + 1);
+                dist[_i3][_i2] = Math.min(dist[_i3 - 1][_i2] + 1, dist[_i3][_i2 - 1] + 1, dist[_i3 - 1][_i2 - 1] + 1);
             }
         }
     }

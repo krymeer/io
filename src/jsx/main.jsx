@@ -72,11 +72,58 @@ merge = ( arr, p, q, r, aaa ) => {
     return arr;
 }
 
+longestCommonSubsequence = ( str1, str2 ) => {
+    const lArr = new Array( str1.length + 1 );
+
+    for( let i1 = 0; i1 <= str1.length; i1++ )
+    {
+        lArr[ i1 ] = new Array( str2.length + 1 ).fill( 0 );
+    }
+
+    for( let i1 = 1; i1 <= str1.length; i1++ )
+    {
+        for( let i2 = 1; i2 <= str2.length; i2++ )
+        {
+            if( str1.charAt( i1 - 1 ) ===  str2.charAt( i2 - 1 ) )
+            {
+                lArr[ i1 ][ i2 ] = lArr[ i1 - 1 ][ i2 - 1 ] + 1;
+            }
+            else
+            {
+                lArr[ i1 ][ i2 ] = Math.max( lArr[ i1 ][ i2 - 1 ], lArr[ i1 - 1 ][ i2 ] );
+            }
+        }
+    }
+
+    backtrack = ( arr, s1, s2, i, j ) => {
+        if( i - 1 < 0 || j - 1 < 0 )
+        {
+            return '';
+        }
+        else if( s1[ i - 1 ] === s2[ j - 1 ] )
+        {
+            return backtrack( arr, s1, s2, i - 1, j - 1 ) + s1[ i - 1 ];
+        }
+        else if( arr[ i ][ j - 1 ] > arr[ i - 1 ][ j ] )
+        {
+            return backtrack( arr, s1, s2, i, j - 1 );
+        }
+
+        return backtrack( arr, s1, s2, i - 1, j );
+    }
+
+    return backtrack( lArr, str1, str2, str1.length, str2.length );
+}
+
 longestCommonSubstring = ( str1, str2 ) => {
-    const lArr = Array( str1.length ).fill( Array( str2.length ) );
+    const lArr = Array( str1.length );
     let z      = 0;
     let lcs    = '';
 
+    for( let i1 = 0; i1 < str1.length; i1++ )
+    {
+        lArr[ i1 ] = new Array( str2.length ).fill( 0 );
+    }
 
     for( let i = 0; i < str1.length; i++ )
     {
