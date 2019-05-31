@@ -122,58 +122,54 @@ class InputWrapper extends React.Component {
 
     getSuggestion( inputValue )
     {
-        if( !this.props || this.props.type !== 'autocomplete' && !this.props.suggestions )
+        if( !this.props.disabled )
         {
-            return false;
-        }
+            const inputValLoCase = inputValue.toLowerCase();
+            let suggestions      = this.props.suggestions.map( suggestion => suggestion.toLowerCase() );
 
-        const inputValLoCase = inputValue.toLowerCase();
-        let suggestions      = this.props.suggestions.map( suggestion => suggestion.toLowerCase() );
-
-        suggestions = suggestions.filter( suggestion => {
-            if( !inputValLoCase || !suggestion )
-            {
-                return false;
-            }
-            else if( this.props.isRegex )
-            {
-                const regExp = new RegExp( '^' + suggestion  )
-                // TODO
-                // Implement Longest Commmon Substring
-            }
-
-            return suggestion.indexOf( inputValLoCase ) !== -1;
-        } );
-
-        let complement, commonPart, prefix;
-
-        if( suggestions.length === 1 )
-        {
-            commonPart = inputValLoCase;
-
-            if( commonPart )
-            {
-                complement = suggestions[ 0 ].replace( commonPart, '' );
-
-                console.log( this.props );
-
-                if( this.props.isSuffix )
+            suggestions = suggestions.filter( suggestion => {
+                if( !inputValLoCase || !suggestion )
                 {
-                    prefix     = inputValLoCase.replace( new RegExp( commonPart + '$' ), '' );
-                    commonPart = commonPart.replace( new RegExp( '^' + prefix ), '' );
+                    return false;
+                }
+                else if( this.props.isRegex )
+                {
+                    const regExp = new RegExp( '^' + suggestion  )
+                    // TODO
+                    // Implement Longest Commmon Substring
+                }
+
+                return suggestion.indexOf( inputValLoCase ) !== -1;
+            } );
+
+            let complement, commonPart, prefix;
+
+            if( suggestions.length === 1 )
+            {
+                commonPart = inputValLoCase;
+
+                if( commonPart )
+                {
+                    complement = suggestions[ 0 ].replace( commonPart, '' );
+
+                    if( this.props.isSuffix )
+                    {
+                        prefix     = inputValLoCase.replace( new RegExp( commonPart + '$' ), '' );
+                        commonPart = commonPart.replace( new RegExp( '^' + prefix ), '' );
+                    }
                 }
             }
-        }
 
-        this.setState( {
-            suggestion : ( commonPart && complement )
-                            ? {
-                                prefix,
-                                commonPart,
-                                complement
-                            }
-                            : undefined
-        } );
+            this.setState( {
+                suggestion : ( commonPart && complement )
+                                ? {
+                                    prefix,
+                                    commonPart,
+                                    complement
+                                }
+                                : undefined
+            } );
+        }
     }
 
     handleFocus( event )
@@ -184,7 +180,10 @@ class InputWrapper extends React.Component {
                 inputFocus : true
             } );
 
-            this.getSuggestion( event.target.value );
+            if( this.props.type === 'autocomplete' )
+            {
+                this.getSuggestion( event.target.value );
+            }
         }
     }
 
@@ -261,7 +260,10 @@ class InputWrapper extends React.Component {
                 } )
             }
 
-            this.getSuggestion( inputValue );
+            if( this.props.type === 'autocomplete' )
+            {
+                this.getSuggestion( inputValue );
+            }
 
             this.setState( {
                 inputValue  : inputValue,

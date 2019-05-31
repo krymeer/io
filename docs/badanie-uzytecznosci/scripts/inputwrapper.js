@@ -117,53 +117,49 @@ var InputWrapper = function (_React$Component) {
         value: function getSuggestion(inputValue) {
             var _this2 = this;
 
-            if (!this.props || this.props.type !== 'autocomplete' && !this.props.suggestions) {
-                return false;
-            }
+            if (!this.props.disabled) {
+                var inputValLoCase = inputValue.toLowerCase();
+                var suggestions = this.props.suggestions.map(function (suggestion) {
+                    return suggestion.toLowerCase();
+                });
 
-            var inputValLoCase = inputValue.toLowerCase();
-            var suggestions = this.props.suggestions.map(function (suggestion) {
-                return suggestion.toLowerCase();
-            });
+                suggestions = suggestions.filter(function (suggestion) {
+                    if (!inputValLoCase || !suggestion) {
+                        return false;
+                    } else if (_this2.props.isRegex) {
+                        var regExp = new RegExp('^' + suggestion);
+                        // TODO
+                        // Implement Longest Commmon Substring
+                    }
 
-            suggestions = suggestions.filter(function (suggestion) {
-                if (!inputValLoCase || !suggestion) {
-                    return false;
-                } else if (_this2.props.isRegex) {
-                    var regExp = new RegExp('^' + suggestion);
-                    // TODO
-                    // Implement Longest Commmon Substring
-                }
+                    return suggestion.indexOf(inputValLoCase) !== -1;
+                });
 
-                return suggestion.indexOf(inputValLoCase) !== -1;
-            });
+                var complement = void 0,
+                    commonPart = void 0,
+                    prefix = void 0;
 
-            var complement = void 0,
-                commonPart = void 0,
-                prefix = void 0;
+                if (suggestions.length === 1) {
+                    commonPart = inputValLoCase;
 
-            if (suggestions.length === 1) {
-                commonPart = inputValLoCase;
+                    if (commonPart) {
+                        complement = suggestions[0].replace(commonPart, '');
 
-                if (commonPart) {
-                    complement = suggestions[0].replace(commonPart, '');
-
-                    console.log(this.props);
-
-                    if (this.props.isSuffix) {
-                        prefix = inputValLoCase.replace(new RegExp(commonPart + '$'), '');
-                        commonPart = commonPart.replace(new RegExp('^' + prefix), '');
+                        if (this.props.isSuffix) {
+                            prefix = inputValLoCase.replace(new RegExp(commonPart + '$'), '');
+                            commonPart = commonPart.replace(new RegExp('^' + prefix), '');
+                        }
                     }
                 }
-            }
 
-            this.setState({
-                suggestion: commonPart && complement ? {
-                    prefix: prefix,
-                    commonPart: commonPart,
-                    complement: complement
-                } : undefined
-            });
+                this.setState({
+                    suggestion: commonPart && complement ? {
+                        prefix: prefix,
+                        commonPart: commonPart,
+                        complement: complement
+                    } : undefined
+                });
+            }
         }
     }, {
         key: 'handleFocus',
@@ -173,7 +169,9 @@ var InputWrapper = function (_React$Component) {
                     inputFocus: true
                 });
 
-                this.getSuggestion(event.target.value);
+                if (this.props.type === 'autocomplete') {
+                    this.getSuggestion(event.target.value);
+                }
             }
         }
     }, {
@@ -232,7 +230,9 @@ var InputWrapper = function (_React$Component) {
                     });
                 }
 
-                this.getSuggestion(inputValue);
+                if (this.props.type === 'autocomplete') {
+                    this.getSuggestion(inputValue);
+                }
 
                 this.setState({
                     inputValue: inputValue,

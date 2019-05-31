@@ -1720,8 +1720,8 @@ main {
                 }
             }
 
-            &.filtering-on,
-            &.filtering-off {
+            &.autosuggestion-on,
+            &.autosuggestion-off {
                 width: 600px;
 
                 > .wrapper {
@@ -1729,7 +1729,7 @@ main {
                 }
             }
 
-            &.filtering-on {
+            &.autosuggestion-on {
                 > .wrapper {
                     > .select-wrapper {
                         > input {

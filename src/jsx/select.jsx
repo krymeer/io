@@ -18,18 +18,13 @@ class Select extends React.Component {
 
         if( this.props.selectFiltered )
         {
-            const options = this.props.options;
-
-            if( typeof options !== 'undefined' )
-            {
-                this.state = {
-                    ...this.state,
-                    list : {
-                        ...this.state.list,
-                        filtered : this.props.options
-                    }
-                };
-            }
+            this.state = {
+                ...this.state,
+                list : {
+                    ...this.state.list,
+                    filtered : []
+                }
+            };
 
             this.handleFilterFocus    = this.handleFilterFocus.bind( this );
             this.handleFilterChange   = this.handleFilterChange.bind( this );
@@ -63,25 +58,25 @@ class Select extends React.Component {
         {
             const bodyScrollHeight = document.body.scrollHeight;
             const eventTargetValue = eventTarget.value.toLowerCase().replace( /\s+/g, ' ' );
-            const listFiltered     = ( eventTargetValue.trim() !== '' )
-                                        ? this.props.options.filter( option => {
-                                            const optLowerCase = option.toLowerCase();
-                                            const matches      = eventTargetValue.split( ' ' ).map( ( str ) => {
-                                                return optLowerCase.indexOf( str ) !== -1;
-                                            } );
-
-                                            return matches.filter( match => match === false ).length === 0;
-                                        } )
-                                        : undefined;
-
-            // TODO
-            // implement LCS or something similar
+            const bestMatches      = ( eventTargetValue.trim() !== '' )
+                                    ? this.props.options.filter( option => {
+                                        const matches = eventTargetValue.split( ' ' ).map( chunk => option.toLowerCase().indexOf( chunk ) !== -1 );
+                                        return matches.filter( match => match === false ).length === 0;
+                                    } ).map( option => {
+                                        return {
+                                            value   : option,
+                                            missing : option.length - longestCommonSubsequence( option.toLowerCase(), eventTargetValue ).length
+                                        };
+                                    } ).sort( ( a, b ) => {
+                                        return a.missing - b.missing
+                                    } ).slice( 0, 10 ).map( option => option.value )
+                                    : [];
 
             this.setState( state => {
                 return {
                     list : {
                         ...state.list,
-                        filtered : listFiltered
+                        filtered : this.props.options.filter( option => bestMatches.indexOf( option ) !== -1 )
                     }
                 };
             }, () => {
@@ -139,7 +134,9 @@ class Select extends React.Component {
 
             if( newHoverIndex < 0 )
             {
-                newHoverIndex = this.props.selectFiltered ? ( this.state.list.filtered.length - 1 ) : ( this.props.options.length - 1 ) ;
+                newHoverIndex = this.props.selectFiltered
+                                ? this.state.list.filtered.length - 1
+                                : this.props.options.length - 1;
             }
             else if( ( this.props.selectFiltered && newHoverIndex > this.state.list.filtered.length - 1 ) || ( !this.props.selectFiltered && newHoverIndex > this.props.options.length - 1 ) )
             {
@@ -150,7 +147,7 @@ class Select extends React.Component {
             {
                 if( this.props.selectFiltered )
                 {
-                    this.handleFilterOption( null, newHoverIndex );
+                    this.handleFilterOption( newHoverIndex );
                 }
                 else
                 {
@@ -282,16 +279,12 @@ class Select extends React.Component {
         }
     }
 
-    handleFilterOption( event, index = -1 )
+    handleFilterOption( index )
     {
         if( !this.props.disabled )
         {
-            // TO CHECK
-            // if the event is really needed
             const inputNode = this.listNode.previousElementSibling;
-            const value     = ( index !== -1 )
-                                ? this.listNode.children[ index ].children[ 0 ].innerText
-                                : event.target.closest( '.select-option' ).querySelector( 'span' ).innerText;
+            const value     = this.listNode.children[ index ].children[ 0 ].innerText;
 
             if( inputNode && value )
             {
@@ -333,26 +326,27 @@ class Select extends React.Component {
                     </div>
                 }
                 { this.state.list.open &&
-                    <ul className={ ( "select-list " + this.state.list.overflow + " " + ( this.props.selectFiltered ? "select-list-filtered" : "" ) + " " + ( ( this.props.selectFiltered && ( typeof this.state.list.filtered === "undefined" || this.state.list.filtered ).length === 0 ) ? "empty" : "" ) ).trim().replace( /\s+/g, " " ) } ref={ listNode => this.listNode = listNode }>
+                    <ul className={ ( "select-list " + this.state.list.overflow + " " + ( this.props.selectFiltered ? "select-list-filtered" : "" ) + " " + ( ( this.props.selectFiltered && this.state.list.filtered.length === 0 ) ? "empty" : "" ) ).trim().replace( /\s+/g, " " ) } ref={ listNode => this.listNode = listNode }>
                         { this.props.options.map( ( option, index ) => {
                             const realIndex = ( this.state.list.filtered ? this.state.list.filtered.indexOf( option ) : index );
                             let attrs       = {};
 
-                            if( this.props.selectFiltered && optionFilteredIndex >= 0 )
+                            if( this.props.selectFiltered )
                             {
+                                if( realIndex < 0 )
+                                {
+                                    return null;
+                                }
+
                                 attrs = {
-                                    onMouseDown : this.handleFilterOption
-                                };
-                            }
-                            else if( !this.props.selectFiltered )
-                            {
-                                attrs = {
-                                    onClick : this.handleSelect
+                                    onMouseDown : this.handleFilterBlur
                                 };
                             }
                             else
                             {
-                                return null;
+                                attrs = {
+                                    onClick : this.handleSelect
+                                };
                             }
 
                             return (

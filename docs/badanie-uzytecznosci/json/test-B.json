@@ -403,93 +403,6 @@
             ]
         },
         {
-            "intro" : "Znajomy poprosił Cię o wysłanie ważnej dla niego rzeczy, którą przez pomyłkę u Ciebie zostawił. Zdecydowałeś(-aś) się skorzystać z usług jednej z firm kurierskich. Przed nadaniem paczki musisz wskazać dwa punkty adresowe: pierwszy, z którego przesyłka zostanie wysłana, oraz drugi -- ten, z którego zostanie odebrana.",
-            "question" : "Co sądzisz o zaprezentowanej metodzie wybierania pozycji z listy?",
-            "tasks" : [
-                {
-                    "title"   : "Nadanie przesyłki",
-                    "classes" : "labels-align-left filtering-on",
-                    "type"    : "filtering-on",
-                    "data"    : [
-                        {
-                            "type"          : "select-filtered",
-                            "label"         : "Punkt początkowy",
-                            "options"       : [
-                                "Baligród 38-606, Bieszczadzka 2A",
-                                "Bełchatów 97-400, Okrzei 10",
-                                "Bydgoszcz 85-094, Skłodowskiej-Curie 262",
-                                "Bytom 41-923, Frenzla 190",
-                                "Cieszyn 43-400, Głęboka 59",
-                                "Częstochowa 42-216, Bardowskiego 86",
-                                "Gdynia 81-087, Demptowska 81",
-                                "Głuchołazy 48-340, Karola Miarki 14",
-                                "Grodzisk Mazowiecki 05-825, Bałtycka 7",
-                                "Grudziądz 86-300, Dworcowa 23",
-                                "Knurów 44-190, Thomasa Woodrowa Wilsona 15",
-                                "Konin 62-500, Szarych Szeregów 5",
-                                "Kożuchów 67-120, Romualda Traugutta 20",
-                                "Leszno 64-100, Jana Kasprowicza 6",
-                                "Lubań 59-800, Kazimierza Wielkiego 7",
-                                "Łęka Opatowska 63-645, Akacjowa 14B",
-                                "Mysłowice 41-400, Korfantego 61",
-                                "Olsztyn 10-828, Traktorowa 5",
-                                "Ostrowiec Świętokrzyski 27-400, Jana Pawła II 20",
-                                "Ostróda 14-100, Chrobrego 28",
-                                "Toruń 87-100, Studzienna 70",
-                                "Płock 09-100, Kolegialna 43",
-                                "Podkowa Leśna 05-807, Jana Pawła II 8",
-                                "Ruda Śląska 41-700, Janasa 9",
-                                "Rzeszów 35-310, Marszałkowska 10",
-                                "Sokółka 16-100, Warszawska 3",
-                                "Szczecin 70-117, Milczańska 31",
-                                "Warszawa 05-077, Tadeusza Joteyki 8",
-                                "Wrocław 53-633, Długa 17",
-                                "Żywiec 34-300, Objazdowa 2"
-                            ],
-                            "expectedValue" : "Łęka Opatowska 63-645, Akacjowa 14B"
-                        },
-                        {
-                            "type"          : "select-filtered",
-                            "label"         : "Punkt końcowy",
-                            "options"       : [
-                                "Baligród 38-606, Bieszczadzka 2A",
-                                "Bełchatów 97-400, Okrzei 10",
-                                "Bydgoszcz 85-094, Skłodowskiej-Curie 262",
-                                "Bytom 41-923, Frenzla 190",
-                                "Cieszyn 43-400, Głęboka 59",
-                                "Częstochowa 42-216, Bardowskiego 86",
-                                "Gdynia 81-087, Demptowska 81",
-                                "Głuchołazy 48-340, Karola Miarki 14",
-                                "Grodzisk Mazowiecki 05-825, Bałtycka 7",
-                                "Grudziądz 86-300, Dworcowa 23",
-                                "Knurów 44-190, Thomasa Woodrowa Wilsona 15",
-                                "Konin 62-500, Szarych Szeregów 5",
-                                "Kożuchów 67-120, Romualda Traugutta 20",
-                                "Leszno 64-100, Jana Kasprowicza 6",
-                                "Lubań 59-800, Kazimierza Wielkiego 7",
-                                "Łęka Opatowska 63-645, Akacjowa 14B",
-                                "Mysłowice 41-400, Korfantego 61",
-                                "Olsztyn 10-828, Traktorowa 5",
-                                "Ostrowiec Świętokrzyski 27-400, Jana Pawła II 20",
-                                "Ostróda 14-100, Chrobrego 28",
-                                "Toruń 87-100, Studzienna 70",
-                                "Płock 09-100, Kolegialna 43",
-                                "Podkowa Leśna 05-807, Jana Pawła II 8",
-                                "Ruda Śląska 41-700, Janasa 9",
-                                "Rzeszów 35-310, Marszałkowska 10",
-                                "Sokółka 16-100, Warszawska 3",
-                                "Szczecin 70-117, Milczańska 31",
-                                "Warszawa 05-077, Tadeusza Joteyki 8",
-                                "Wrocław 53-633, Długa 17",
-                                "Żywiec 34-300, Objazdowa 2"
-                            ],
-                            "expectedValue" : "Ostrowiec Świętokrzyski 27-400, Jana Pawła II 20"
-                        }
-                    ]
-                }
-            ]
-        },
-        {
             "intro"    : "Niedawno rozpocząłeś(-aś) poszukiwania nowej pracy. Zadecydowałeś(-aś) na umieszczenie swojego CV w popularnym serwisie rekrutacyjnym. Portal wymaga określenia Twojej lokalizacji, która może ułatwić znalezienie Twojego ogłoszenia przez pracodawców.",
             "warning"  : "**Uwaga!** Podstawowym sposobem na rozwiązanie tego ćwiczenia jest skorzystanie z usługi pobierania lokalizacji przez przeglądarkę internetową. Dane dotyczące Twojej lokalizacji nie zostaną udostępnione osobom trzecim. Jeśli nie wyrażasz zgody na pobranie lokalizacji, wprowadź inne dane adekwatne do etykiet pól wejściowych.",
             "question" : "Co sądzisz o zaprezentowanej funkcjonalności automatycznego wypełniania formularza?",
@@ -610,6 +523,93 @@
                             "type"          : "sr-text sr-textarea",
                             "label"         : "Treść wiadomości",
                             "expectedValue" : "dzień dobry\ndwa tygodnie temu kupiłem kilka produktów na Pańskich aukcjach\nczy mogę prosić o podanie numeru przesyłki\npozdrawiam"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "intro" : "Znajomy poprosił Cię o wysłanie ważnej dla niego rzeczy, którą przez pomyłkę u Ciebie zostawił. Zdecydowałeś(-aś) się skorzystać z usług jednej z firm kurierskich. Przed nadaniem paczki musisz wskazać dwa punkty adresowe: pierwszy, z którego przesyłka zostanie wysłana, oraz drugi -- ten, z którego zostanie odebrana.",
+            "question" : "Co sądzisz o zaprezentowanej metodzie wybierania pozycji z listy?",
+            "tasks" : [
+                {
+                    "title"   : "Nadanie przesyłki",
+                    "classes" : "labels-align-left autosuggestion-on",
+                    "type"    : "autosuggestion-on",
+                    "data"    : [
+                        {
+                            "type"          : "select-filtered",
+                            "label"         : "Punkt początkowy",
+                            "options"       : [
+                                "Baligród 38-606, Bieszczadzka 2A",
+                                "Bełchatów 97-400, Okrzei 10",
+                                "Bydgoszcz 85-094, Skłodowskiej-Curie 262",
+                                "Bytom 41-923, Frenzla 190",
+                                "Cieszyn 43-400, Głęboka 59",
+                                "Częstochowa 42-216, Bardowskiego 86",
+                                "Gdynia 81-087, Demptowska 81",
+                                "Głuchołazy 48-340, Karola Miarki 14",
+                                "Grodzisk Mazowiecki 05-825, Bałtycka 7",
+                                "Grudziądz 86-300, Dworcowa 23",
+                                "Knurów 44-190, Thomasa Woodrowa Wilsona 15",
+                                "Konin 62-500, Szarych Szeregów 5",
+                                "Kożuchów 67-120, Romualda Traugutta 20",
+                                "Leszno 64-100, Jana Kasprowicza 6",
+                                "Lubań 59-800, Kazimierza Wielkiego 7",
+                                "Łęka Opatowska 63-645, Akacjowa 14B",
+                                "Mysłowice 41-400, Korfantego 61",
+                                "Olsztyn 10-828, Traktorowa 5",
+                                "Ostrowiec Świętokrzyski 27-400, Jana Pawła II 20",
+                                "Ostróda 14-100, Chrobrego 28",
+                                "Toruń 87-100, Studzienna 70",
+                                "Płock 09-100, Kolegialna 43",
+                                "Podkowa Leśna 05-807, Jana Pawła II 8",
+                                "Ruda Śląska 41-700, Janasa 9",
+                                "Rzeszów 35-310, Marszałkowska 10",
+                                "Sokółka 16-100, Warszawska 3",
+                                "Szczecin 70-117, Milczańska 31",
+                                "Warszawa 05-077, Tadeusza Joteyki 8",
+                                "Wrocław 53-633, Długa 17",
+                                "Żywiec 34-300, Objazdowa 2"
+                            ],
+                            "expectedValue" : "Łęka Opatowska 63-645, Akacjowa 14B"
+                        },
+                        {
+                            "type"          : "select-filtered",
+                            "label"         : "Punkt końcowy",
+                            "options"       : [
+                                "Baligród 38-606, Bieszczadzka 2A",
+                                "Bełchatów 97-400, Okrzei 10",
+                                "Bydgoszcz 85-094, Skłodowskiej-Curie 262",
+                                "Bytom 41-923, Frenzla 190",
+                                "Cieszyn 43-400, Głęboka 59",
+                                "Częstochowa 42-216, Bardowskiego 86",
+                                "Gdynia 81-087, Demptowska 81",
+                                "Głuchołazy 48-340, Karola Miarki 14",
+                                "Grodzisk Mazowiecki 05-825, Bałtycka 7",
+                                "Grudziądz 86-300, Dworcowa 23",
+                                "Knurów 44-190, Thomasa Woodrowa Wilsona 15",
+                                "Konin 62-500, Szarych Szeregów 5",
+                                "Kożuchów 67-120, Romualda Traugutta 20",
+                                "Leszno 64-100, Jana Kasprowicza 6",
+                                "Lubań 59-800, Kazimierza Wielkiego 7",
+                                "Łęka Opatowska 63-645, Akacjowa 14B",
+                                "Mysłowice 41-400, Korfantego 61",
+                                "Olsztyn 10-828, Traktorowa 5",
+                                "Ostrowiec Świętokrzyski 27-400, Jana Pawła II 20",
+                                "Ostróda 14-100, Chrobrego 28",
+                                "Toruń 87-100, Studzienna 70",
+                                "Płock 09-100, Kolegialna 43",
+                                "Podkowa Leśna 05-807, Jana Pawła II 8",
+                                "Ruda Śląska 41-700, Janasa 9",
+                                "Rzeszów 35-310, Marszałkowska 10",
+                                "Sokółka 16-100, Warszawska 3",
+                                "Szczecin 70-117, Milczańska 31",
+                                "Warszawa 05-077, Tadeusza Joteyki 8",
+                                "Wrocław 53-633, Długa 17",
+                                "Żywiec 34-300, Objazdowa 2"
+                            ],
+                            "expectedValue" : "Ostrowiec Świętokrzyski 27-400, Jana Pawła II 20"
                         }
                     ]
                 }

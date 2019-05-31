@@ -401,93 +401,6 @@
             ]
         },
         {
-            "intro" : "Znajomy poprosił Cię o wysłanie ważnej dla niego rzeczy, którą przez pomyłkę u Ciebie zostawił. Zdecydowałeś(-aś) się skorzystać z usług jednej z firm kurierskich. Przed nadaniem paczki musisz wskazać dwa punkty adresowe: pierwszy, z którego przesyłka zostanie wysłana, oraz drugi -- ten, z którego zostanie odebrana.",
-            "question" : "Co sądzisz o zaprezentowanej metodzie wybierania pozycji z listy?",
-            "tasks" : [
-                {
-                    "title"   : "Nadanie przesyłki",
-                    "classes" : "labels-align-left filtering-off",
-                    "type"    : "filtering-off",
-                    "data"    : [
-                        {
-                            "type"          : "select",
-                            "label"         : "Punkt początkowy",
-                            "options"       : [
-                                "Bydgoszcz 85-323, Stawowa 21",
-                                "Chojna 74-500, Skwer Jagielloński 2",
-                                "Chojnów 59-225, Rynek 10",
-                                "Chorzów 41-500, Hajducka 5",
-                                "Chełmno 86-200, Polna 30",
-                                "Elbląg 82-300, Węgrowska 16",
-                                "Gdańsk 80-745, Sadowa 33",
-                                "Gdynia 81-363, Starowiejska 21",
-                                "Jawor 59-400, plac Wolności 14",
-                                "Kamieniec Ząbkowicki 57-240, Kolejowa 4",
-                                "Kielce 25-663, Olszewskiego 20",
-                                "Kraków 31-157, Josepha Conrada 21",
-                                "Krobia 63-840, Słowackiego 3",
-                                "Łódź 91-839, Łagiewnicka 2A",
-                                "Małogoszcz 28-366, 11 Listopada 2",
-                                "Nowe Miasteczko 67-124, Długa 16",
-                                "Nowy Staw 82-230, Kościuszki 1",
-                                "Olsztyn 42-256, Mstowska 8",
-                                "Pilchowice 44-145, Spółdzielcza 21",
-                                "Poznań 61-019, Główna 65",
-                                "Rzeszów 35-222, Okulickiego 11",
-                                "Ryjewo 82-420, Grunwaldzka 19",
-                                "Spytkowice 34-745, Spytkowice 100",
-                                "Świdnica 58-105, Zamenhofa 53",
-                                "Tuchola 89-500, Warszawska 21",
-                                "Tychy 43-100, Bielska 10",
-                                "Warszawa 04-186, Jubilerska 1",
-                                "Zgierz 95-100, Gałczyńskiego 9",
-                                "Żabno 33-240, Kilińskiego 12",
-                                "Żnin 88-400, Pieniężnej 23"
-                            ],
-                            "expectedValue" : "Nowy Staw 82-230, Kościuszki 1"
-                        },
-                        {
-                            "type"          : "select",
-                            "label"         : "Punkt końcowy",
-                            "options"       : [
-                                "Bydgoszcz 85-323, Stawowa 21",
-                                "Chojna 74-500, Skwer Jagielloński 2",
-                                "Chojnów 59-225, Rynek 10",
-                                "Chorzów 41-500, Hajducka 5",
-                                "Chełmno 86-200, Polna 30",
-                                "Elbląg 82-300, Węgrowska 16",
-                                "Gdańsk 80-745, Sadowa 33",
-                                "Gdynia 81-363, Starowiejska 21",
-                                "Jawor 59-400, plac Wolności 14",
-                                "Kamieniec Ząbkowicki 57-240, Kolejowa 4",
-                                "Kielce 25-663, Olszewskiego 20",
-                                "Kraków 31-157, Josepha Conrada 21",
-                                "Krobia 63-840, Słowackiego 3",
-                                "Łódź 91-839, Łagiewnicka 2A",
-                                "Małogoszcz 28-366, 11 Listopada 2",
-                                "Nowe Miasteczko 67-124, Długa 16",
-                                "Nowy Staw 82-230, Kościuszki 1",
-                                "Olsztyn 42-256, Mstowska 8",
-                                "Pilchowice 44-145, Spółdzielcza 21",
-                                "Poznań 61-019, Główna 65",
-                                "Rzeszów 35-222, Okulickiego 11",
-                                "Ryjewo 82-420, Grunwaldzka 19",
-                                "Spytkowice 34-745, Spytkowice 100",
-                                "Świdnica 58-105, Zamenhofa 53",
-                                "Tuchola 89-500, Warszawska 21",
-                                "Tychy 43-100, Bielska 10",
-                                "Warszawa 04-186, Jubilerska 1",
-                                "Zgierz 95-100, Gałczyńskiego 9",
-                                "Żabno 33-240, Kilińskiego 12",
-                                "Żnin 88-400, Pieniężnej 23"
-                            ],
-                            "expectedValue" : "Kamieniec Ząbkowicki 57-240, Kolejowa 4"
-                        }
-                    ]
-                }
-            ]
-        },
-        {
             "intro"    : "Niedawno rozpocząłeś(-aś) poszukiwania nowej pracy. Zadecydowałeś(-aś) na umieszczenie swojego CV w popularnym serwisie rekrutacyjnym. Portal wymaga określenia Twojej lokalizacji, która może ułatwić znalezienie Twojego ogłoszenia przez pracodawców.",
             "warning"  : "**Uwaga!** Podstawowym sposobem na rozwiązanie tego ćwiczenia jest skorzystanie z usługi pobierania lokalizacji przez przeglądarkę internetową. Dane dotyczące Twojej lokalizacji nie zostaną udostępnione osobom trzecim. Jeśli nie wyrażasz zgody na pobranie lokalizacji, wprowadź inne dane adekwatne do etykiet pól wejściowych.",
             "question" : "Co sądzisz o zaprezentowanej funkcjonalności automatycznego wypełniania formularza?",
@@ -608,6 +521,93 @@
                             "type"          : "sr-text sr-textarea",
                             "label"         : "Treść wiadomości",
                             "expectedValue" : "dzień dobry\ndwa tygodnie temu kupiłem kilka produktów na Pańskich aukcjach\nczy mogę prosić o podanie numeru przesyłki\npozdrawiam"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "intro" : "Znajomy poprosił Cię o wysłanie ważnej dla niego rzeczy, którą przez pomyłkę u Ciebie zostawił. Zdecydowałeś(-aś) się skorzystać z usług jednej z firm kurierskich. Przed nadaniem paczki musisz wskazać dwa punkty adresowe: pierwszy, z którego przesyłka zostanie wysłana, oraz drugi -- ten, z którego zostanie odebrana.",
+            "question" : "Co sądzisz o zaprezentowanej metodzie wybierania pozycji z listy?",
+            "tasks" : [
+                {
+                    "title"   : "Nadanie przesyłki",
+                    "classes" : "labels-align-left autosuggestion-off",
+                    "type"    : "autosuggestion-off",
+                    "data"    : [
+                        {
+                            "type"          : "select",
+                            "label"         : "Punkt początkowy",
+                            "options"       : [
+                                "Bydgoszcz 85-323, Stawowa 21",
+                                "Chojna 74-500, Skwer Jagielloński 2",
+                                "Chojnów 59-225, Rynek 10",
+                                "Chorzów 41-500, Hajducka 5",
+                                "Chełmno 86-200, Polna 30",
+                                "Elbląg 82-300, Węgrowska 16",
+                                "Gdańsk 80-745, Sadowa 33",
+                                "Gdynia 81-363, Starowiejska 21",
+                                "Jawor 59-400, plac Wolności 14",
+                                "Kamieniec Ząbkowicki 57-240, Kolejowa 4",
+                                "Kielce 25-663, Olszewskiego 20",
+                                "Kraków 31-157, Josepha Conrada 21",
+                                "Krobia 63-840, Słowackiego 3",
+                                "Łódź 91-839, Łagiewnicka 2A",
+                                "Małogoszcz 28-366, 11 Listopada 2",
+                                "Nowe Miasteczko 67-124, Długa 16",
+                                "Nowy Staw 82-230, Kościuszki 1",
+                                "Olsztyn 42-256, Mstowska 8",
+                                "Pilchowice 44-145, Spółdzielcza 21",
+                                "Poznań 61-019, Główna 65",
+                                "Rzeszów 35-222, Okulickiego 11",
+                                "Ryjewo 82-420, Grunwaldzka 19",
+                                "Spytkowice 34-745, Spytkowice 100",
+                                "Świdnica 58-105, Zamenhofa 53",
+                                "Tuchola 89-500, Warszawska 21",
+                                "Tychy 43-100, Bielska 10",
+                                "Warszawa 04-186, Jubilerska 1",
+                                "Zgierz 95-100, Gałczyńskiego 9",
+                                "Żabno 33-240, Kilińskiego 12",
+                                "Żnin 88-400, Pieniężnej 23"
+                            ],
+                            "expectedValue" : "Nowy Staw 82-230, Kościuszki 1"
+                        },
+                        {
+                            "type"          : "select",
+                            "label"         : "Punkt końcowy",
+                            "options"       : [
+                                "Bydgoszcz 85-323, Stawowa 21",
+                                "Chojna 74-500, Skwer Jagielloński 2",
+                                "Chojnów 59-225, Rynek 10",
+                                "Chorzów 41-500, Hajducka 5",
+                                "Chełmno 86-200, Polna 30",
+                                "Elbląg 82-300, Węgrowska 16",
+                                "Gdańsk 80-745, Sadowa 33",
+                                "Gdynia 81-363, Starowiejska 21",
+                                "Jawor 59-400, plac Wolności 14",
+                                "Kamieniec Ząbkowicki 57-240, Kolejowa 4",
+                                "Kielce 25-663, Olszewskiego 20",
+                                "Kraków 31-157, Josepha Conrada 21",
+                                "Krobia 63-840, Słowackiego 3",
+                                "Łódź 91-839, Łagiewnicka 2A",
+                                "Małogoszcz 28-366, 11 Listopada 2",
+                                "Nowe Miasteczko 67-124, Długa 16",
+                                "Nowy Staw 82-230, Kościuszki 1",
+                                "Olsztyn 42-256, Mstowska 8",
+                                "Pilchowice 44-145, Spółdzielcza 21",
+                                "Poznań 61-019, Główna 65",
+                                "Rzeszów 35-222, Okulickiego 11",
+                                "Ryjewo 82-420, Grunwaldzka 19",
+                                "Spytkowice 34-745, Spytkowice 100",
+                                "Świdnica 58-105, Zamenhofa 53",
+                                "Tuchola 89-500, Warszawska 21",
+                                "Tychy 43-100, Bielska 10",
+                                "Warszawa 04-186, Jubilerska 1",
+                                "Zgierz 95-100, Gałczyńskiego 9",
+                                "Żabno 33-240, Kilińskiego 12",
+                                "Żnin 88-400, Pieniężnej 23"
+                            ],
+                            "expectedValue" : "Kamieniec Ząbkowicki 57-240, Kolejowa 4"
                         }
                     ]
                 }

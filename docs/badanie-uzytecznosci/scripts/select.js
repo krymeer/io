@@ -28,15 +28,11 @@ var Select = function (_React$Component) {
         _this.handleKey = _this.handleKey.bind(_this);
 
         if (_this.props.selectFiltered) {
-            var options = _this.props.options;
-
-            if (typeof options !== 'undefined') {
-                _this.state = Object.assign({}, _this.state, {
-                    list: Object.assign({}, _this.state.list, {
-                        filtered: _this.props.options
-                    })
-                });
-            }
+            _this.state = Object.assign({}, _this.state, {
+                list: Object.assign({}, _this.state.list, {
+                    filtered: []
+                })
+            });
 
             _this.handleFilterFocus = _this.handleFilterFocus.bind(_this);
             _this.handleFilterChange = _this.handleFilterChange.bind(_this);
@@ -69,24 +65,30 @@ var Select = function (_React$Component) {
             if (!this.props.disabled && eventTarget) {
                 var bodyScrollHeight = document.body.scrollHeight;
                 var eventTargetValue = eventTarget.value.toLowerCase().replace(/\s+/g, ' ');
-                var listFiltered = eventTargetValue.trim() !== '' ? this.props.options.filter(function (option) {
-                    var optLowerCase = option.toLowerCase();
-                    var matches = eventTargetValue.split(' ').map(function (str) {
-                        return optLowerCase.indexOf(str) !== -1;
+                var bestMatches = eventTargetValue.trim() !== '' ? this.props.options.filter(function (option) {
+                    var matches = eventTargetValue.split(' ').map(function (chunk) {
+                        return option.toLowerCase().indexOf(chunk) !== -1;
                     });
-
                     return matches.filter(function (match) {
                         return match === false;
                     }).length === 0;
-                }) : undefined;
-
-                // TODO
-                // implement LCS or something similar
+                }).map(function (option) {
+                    return {
+                        value: option,
+                        missing: option.length - longestCommonSubsequence(option.toLowerCase(), eventTargetValue).length
+                    };
+                }).sort(function (a, b) {
+                    return a.missing - b.missing;
+                }).slice(0, 10).map(function (option) {
+                    return option.value;
+                }) : [];
 
                 this.setState(function (state) {
                     return {
                         list: Object.assign({}, state.list, {
-                            filtered: listFiltered
+                            filtered: _this2.props.options.filter(function (option) {
+                                return bestMatches.indexOf(option) !== -1;
+                            })
                         })
                     };
                 }, function () {
@@ -140,7 +142,7 @@ var Select = function (_React$Component) {
 
                 if (newHoverIndex !== this.state.list.hoverIndex) {
                     if (this.props.selectFiltered) {
-                        this.handleFilterOption(null, newHoverIndex);
+                        this.handleFilterOption(newHoverIndex);
                     } else {
                         this.handleOption(newHoverIndex);
                     }
@@ -254,14 +256,10 @@ var Select = function (_React$Component) {
         }
     }, {
         key: 'handleFilterOption',
-        value: function handleFilterOption(event) {
-            var index = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : -1;
-
+        value: function handleFilterOption(index) {
             if (!this.props.disabled) {
-                // TO CHECK
-                // if the event is really needed
                 var inputNode = this.listNode.previousElementSibling;
-                var value = index !== -1 ? this.listNode.children[index].children[0].innerText : event.target.closest('.select-option').querySelector('span').innerText;
+                var value = this.listNode.children[index].children[0].innerText;
 
                 if (inputNode && value) {
                     inputNode.value = value;
@@ -311,23 +309,25 @@ var Select = function (_React$Component) {
                 ),
                 this.state.list.open && React.createElement(
                     'ul',
-                    { className: ("select-list " + this.state.list.overflow + " " + (this.props.selectFiltered ? "select-list-filtered" : "") + " " + (this.props.selectFiltered && (typeof this.state.list.filtered === "undefined" || this.state.list.filtered).length === 0 ? "empty" : "")).trim().replace(/\s+/g, " "), ref: function ref(listNode) {
+                    { className: ("select-list " + this.state.list.overflow + " " + (this.props.selectFiltered ? "select-list-filtered" : "") + " " + (this.props.selectFiltered && this.state.list.filtered.length === 0 ? "empty" : "")).trim().replace(/\s+/g, " "), ref: function ref(listNode) {
                             return _this6.listNode = listNode;
                         } },
                     this.props.options.map(function (option, index) {
                         var realIndex = _this6.state.list.filtered ? _this6.state.list.filtered.indexOf(option) : index;
                         var attrs = {};
 
-                        if (_this6.props.selectFiltered && optionFilteredIndex >= 0) {
+                        if (_this6.props.selectFiltered) {
+                            if (realIndex < 0) {
+                                return null;
+                            }
+
                             attrs = {
-                                onMouseDown: _this6.handleFilterOption
+                                onMouseDown: _this6.handleFilterBlur
                             };
-                        } else if (!_this6.props.selectFiltered) {
+                        } else {
                             attrs = {
                                 onClick: _this6.handleSelect
                             };
-                        } else {
-                            return null;
                         }
 
                         return React.createElement(
