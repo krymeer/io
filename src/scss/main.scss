@@ -1695,8 +1695,11 @@ main {
 
                     > input {
                         position: relative;
-                        background: rgba(255, 255, 255, .25);
                         z-index: 1;
+
+                        &:not([disabled]) {
+                            background: rgba(255, 255, 255, .25);
+                        }
                     }
 
                     > div {

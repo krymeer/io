@@ -1238,8 +1238,10 @@ main section .form.autocomplete-on > .wrapper {
 }
 main section .form.autocomplete-on > .wrapper > input {
   position: relative;
-  background: rgba(255, 255, 255, 0.25);
   z-index: 1;
+}
+main section .form.autocomplete-on > .wrapper > input:not([disabled]) {
+  background: rgba(255, 255, 255, 0.25);
 }
 main section .form.autocomplete-on > .wrapper > div {
   padding: 6px 7px 7px 9px;

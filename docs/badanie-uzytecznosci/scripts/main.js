@@ -49,45 +49,37 @@ shuffle = function shuffle(arr) {
     return arr;
 };
 
-merge = function merge(arr, p, q, r, aaa) {
-    var t = [];
+commonPart = function commonPart(prefix, suffix) {
+    var result = '';
+    var i = 1;
 
-    for (var kk = p; kk <= r; kk++) {
-        t[kk] = arr[kk];
-    }
+    while (i <= suffix.length) {
+        var newCommonPart = suffix.substring(0, i);
+        var index = prefix.indexOf(newCommonPart);
 
-    var i = p,
-        j = q + 1,
-        k = p;
-
-    while (i <= q && j <= r) {
-        if (t[i].value <= t[j].value) {
-            arr[k++] = t[i++];
-        } else {
-            arr[k++] = t[j++];
+        if (index === prefix.length - newCommonPart.length) {
+            result = newCommonPart;
         }
+
+        i++;
     }
 
-    while (i <= q) {
-        arr[k++] = t[i++];
-    }
-
-    return arr;
+    return result;
 };
 
 longestCommonSubsequence = function longestCommonSubsequence(str1, str2) {
     var lArr = new Array(str1.length + 1);
 
-    for (var i1 = 0; i1 <= str1.length; i1++) {
-        lArr[i1] = new Array(str2.length + 1).fill(0);
+    for (var _i = 0; _i <= str1.length; _i++) {
+        lArr[_i] = new Array(str2.length + 1).fill(0);
     }
 
-    for (var _i = 1; _i <= str1.length; _i++) {
-        for (var i2 = 1; i2 <= str2.length; i2++) {
-            if (str1.charAt(_i - 1) === str2.charAt(i2 - 1)) {
-                lArr[_i][i2] = lArr[_i - 1][i2 - 1] + 1;
+    for (var _i2 = 1; _i2 <= str1.length; _i2++) {
+        for (var _i3 = 1; _i3 <= str2.length; _i3++) {
+            if (str1[_i2 - 1] === str2[_i3 - 1]) {
+                lArr[_i2][_i3] = lArr[_i2 - 1][_i3 - 1] + 1;
             } else {
-                lArr[_i][i2] = Math.max(lArr[_i][i2 - 1], lArr[_i - 1][i2]);
+                lArr[_i2][_i3] = Math.max(lArr[_i2][_i3 - 1], lArr[_i2 - 1][_i3]);
             }
         }
     }
@@ -118,36 +110,67 @@ longestCommonSubsequence = function longestCommonSubsequence(str1, str2) {
 };
 
 longestCommonSubstring = function longestCommonSubstring(str1, str2) {
-    var lArr = Array(str1.length);
-    var z = 0;
+    var lArr = new Array(str1.length + 1);
+    var len = -1;
     var lcs = '';
+    var r = 0;
+    var c = 0;
 
-    for (var i1 = 0; i1 < str1.length; i1++) {
-        lArr[i1] = new Array(str2.length).fill(0);
+    for (i1 = 0; i1 <= str1.length; i1++) {
+        lArr[i1] = new Array(str2.length + 1).fill(0);
     }
 
-    for (var i = 0; i < str1.length; i++) {
-        for (var j = 0; j < str2.length; j++) {
-            if (str1[i] === str2[j]) {
-                if (i === 0 || j === 0) {
-                    lArr[i][j] = 1;
-                } else {
-                    lArr[i][j] = lArr[i - 1][j - 1] + 1;
-                }
+    for (i1 = 1; i1 <= str1.length; i1++) {
+        for (i2 = 1; i2 <= str2.length; i2++) {
+            if (str1[i1 - 1] === str2[i2 - 1]) {
+                lArr[i1][i2] = lArr[i1 - 1][i2 - 1] + 1;
 
-                var str1str2 = str1.substring(i - z, i + 1);
-
-                if (lArr[i][j] > z) {
-                    z = lArr[i][j];
-                    lcs = str1str2;
-                } else if (lArr[i][j] === z) {
-                    lcs += str1str2;
+                if (len < lArr[i1][i2]) {
+                    len = lArr[i1][i2];
+                    r = i1;
+                    c = i2;
                 }
+            } else {
+                lArr[i1][i2] = 0;
             }
         }
     }
 
+    if (len > 0) {
+        while (lArr[r][c] !== 0) {
+            lcs = str1[r - 1] + lcs;
+            r--;
+            c--;
+        }
+    }
+
     return lcs;
+};
+
+merge = function merge(arr, p, q, r, aaa) {
+    var t = [];
+
+    for (var kk = p; kk <= r; kk++) {
+        t[kk] = arr[kk];
+    }
+
+    var i = p,
+        j = q + 1,
+        k = p;
+
+    while (i <= q && j <= r) {
+        if (t[i].value <= t[j].value) {
+            arr[k++] = t[i++];
+        } else {
+            arr[k++] = t[j++];
+        }
+    }
+
+    while (i <= q) {
+        arr[k++] = t[i++];
+    }
+
+    return arr;
 };
 
 mergeSort = function (_mergeSort) {
@@ -177,22 +200,22 @@ editDistance = function editDistance(str1, str2) {
     var str1len = str1.length + 1;
     var str2len = str2.length + 1;
 
-    for (var i1 = 0; i1 < str1len; i1++) {
-        dist.push([i1]);
+    for (var _i4 = 0; _i4 < str1len; _i4++) {
+        dist.push([_i4]);
 
-        for (var i2 = 1; i2 < str2len; i2++) {
-            var v = i1 > 0 ? 0 : i2;
+        for (var _i5 = 1; _i5 < str2len; _i5++) {
+            var v = _i4 > 0 ? 0 : _i5;
 
-            dist[i1].push(v);
+            dist[_i4].push(v);
         }
     }
 
-    for (var _i2 = 1; _i2 < str2len; _i2++) {
-        for (var _i3 = 1; _i3 < str1len; _i3++) {
-            if (str1[_i3 - 1] === str2[_i2 - 1]) {
-                dist[_i3][_i2] = dist[_i3 - 1][_i2 - 1];
+    for (var _i6 = 1; _i6 < str2len; _i6++) {
+        for (var _i7 = 1; _i7 < str1len; _i7++) {
+            if (str1[_i7 - 1] === str2[_i6 - 1]) {
+                dist[_i7][_i6] = dist[_i7 - 1][_i6 - 1];
             } else {
-                dist[_i3][_i2] = Math.min(dist[_i3 - 1][_i2] + 1, dist[_i3][_i2 - 1] + 1, dist[_i3 - 1][_i2 - 1] + 1);
+                dist[_i7][_i6] = Math.min(dist[_i7 - 1][_i6] + 1, dist[_i7][_i6 - 1] + 1, dist[_i7 - 1][_i6 - 1] + 1);
             }
         }
     }

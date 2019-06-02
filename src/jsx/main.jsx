@@ -42,34 +42,24 @@ shuffle = ( arr ) => {
     return arr;
 }
 
-merge = ( arr, p, q, r, aaa ) => {
-    const t = [];
+commonPart = ( prefix, suffix ) => {
+    let result = '';
+    let i = 1;
 
-    for( let kk = p; kk <= r; kk++ )
+    while( i <= suffix.length )
     {
-        t[ kk ] = arr[ kk ];
-    }
+        let newCommonPart = suffix.substring( 0, i );
+        let index         = prefix.indexOf( newCommonPart );
 
-    let i = p, j = q + 1, k = p;
-
-    while( i <= q && j <= r )
-    {
-        if( t[ i ].value <= t[ j ].value )
+        if( index === prefix.length - newCommonPart.length )
         {
-            arr[ k++ ] = t[ i++ ];
+            result = newCommonPart;
         }
-        else
-        {
-            arr[ k++ ] = t[ j++ ];
-        }
+
+        i++;
     }
 
-    while( i <= q )
-    {
-        arr[ k++ ] = t[ i++ ];
-    }
-
-    return arr;
+    return result;
 }
 
 longestCommonSubsequence = ( str1, str2 ) => {
@@ -84,7 +74,7 @@ longestCommonSubsequence = ( str1, str2 ) => {
     {
         for( let i2 = 1; i2 <= str2.length; i2++ )
         {
-            if( str1.charAt( i1 - 1 ) ===  str2.charAt( i2 - 1 ) )
+            if( str1[ i1 - 1 ] === str2[ i2 - 1 ] )
             {
                 lArr[ i1 ][ i2 ] = lArr[ i1 - 1 ][ i2 - 1 ] + 1;
             }
@@ -116,46 +106,80 @@ longestCommonSubsequence = ( str1, str2 ) => {
 }
 
 longestCommonSubstring = ( str1, str2 ) => {
-    const lArr = Array( str1.length );
-    let z      = 0;
+    const lArr = new Array( str1.length + 1 );
+    let len    = -1;
     let lcs    = '';
+    let r      = 0;
+    let c      = 0;
 
-    for( let i1 = 0; i1 < str1.length; i1++ )
+    for( i1 = 0; i1 <= str1.length; i1++ )
     {
-        lArr[ i1 ] = new Array( str2.length ).fill( 0 );
+        lArr[ i1 ] = new Array( str2.length + 1 ).fill( 0 );
     }
 
-    for( let i = 0; i < str1.length; i++ )
+    for( i1 = 1; i1 <= str1.length; i1++ )
     {
-        for( let j = 0; j < str2.length; j++ )
+        for( i2 = 1; i2 <= str2.length; i2++ )
         {
-            if( str1[ i ] === str2[ j ] )
+            if( str1[ i1 - 1 ] === str2[ i2 - 1 ] )
             {
-                if( i === 0 || j === 0 )
-                {
-                    lArr[ i ][ j ] = 1
-                }
-                else
-                {
-                    lArr[ i ][ j ] = lArr[ i - 1 ][ j - 1 ] + 1;
-                }
+                lArr[ i1 ][ i2 ] = lArr[ i1 - 1 ][ i2 - 1 ] + 1;
 
-                const str1str2 = str1.substring( i - z, i + 1 );
-
-                if( lArr[ i ][ j ] > z )
+                if( len < lArr[ i1 ][ i2 ] )
                 {
-                    z   = lArr[ i ][ j ];
-                    lcs = str1str2;
+                    len = lArr[ i1 ][ i2 ];
+                    r   = i1;
+                    c   = i2;
                 }
-                else if( lArr[ i ][ j ] === z )
-                {
-                    lcs += str1str2;
-                }
+            }
+            else
+            {
+                lArr[ i1 ][ i2 ] = 0;
             }
         }
     }
 
+    if( len > 0 )
+    {
+        while( lArr[ r ][ c ] !== 0 )
+        {
+            lcs = str1[ r - 1 ] + lcs;
+            r--;
+            c--;
+        }
+    }
+
     return lcs;
+}
+
+merge = ( arr, p, q, r, aaa ) => {
+    const t = [];
+
+    for( let kk = p; kk <= r; kk++ )
+    {
+        t[ kk ] = arr[ kk ];
+    }
+
+    let i = p, j = q + 1, k = p;
+
+    while( i <= q && j <= r )
+    {
+        if( t[ i ].value <= t[ j ].value )
+        {
+            arr[ k++ ] = t[ i++ ];
+        }
+        else
+        {
+            arr[ k++ ] = t[ j++ ];
+        }
+    }
+
+    while( i <= q )
+    {
+        arr[ k++ ] = t[ i++ ];
+    }
+
+    return arr;
 }
 
 mergeSort = ( arr, p, r ) => {
