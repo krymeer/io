@@ -806,7 +806,7 @@ window.onload = function () {
                                 React.createElement(
                                     'button',
                                     { onClick: this.handleStart, disabled: this.state.testStarted },
-                                    'Rozpocznij badanie'
+                                    'OK, zaczynajmy'
                                 )
                             ),
                             scenarios.map(function (scenario, index) {
@@ -821,7 +821,7 @@ window.onload = function () {
                                     'Zako\u0144czenie'
                                 ),
                                 React.createElement(Paragraph, { content: '\u015Awietnie! **W\u0142a\u015Bnie zako\u0144czy\u0142e\u015B badanie u\u017Cyteczno\u015Bci.** Zanim jednak zamkniesz t\u0119 kart\u0119 i wr\xF3cisz do swoich zaj\u0119\u0107, wype\u0142nij, prosz\u0119, poni\u017Csz\u0105 ankiet\u0119 -- podaj podstawowe informacje na sw\xF3j temat* oraz podziel si\u0119 odczuciami zwi\u0105zanymi z formularzami na stronach internetowych.' }),
-                                React.createElement(Paragraph, { 'class': 'text-smaller', content: '*) **W badaniu nie s\u0105 rejestrowane \u017Cadne informacje umo\u017Cliwiaj\u0105ce jednoznaczne zidentyfikowane danej osoby.** Celem niniejszej ankiety jest kategoryzacja uczestnik\xF3w badania wed\u0142ug cech mog\u0105cych mie\u0107 wp\u0142yw na szybko\u015B\u0107, poprawno\u015B\u0107 i dok\u0142adno\u015B\u0107 wprowadzania danych w formularzach internetowych. Poni\u017Csze informacje pozwol\u0105 wi\u0119c na dostrze\u017Cenie zale\u017Cno\u015Bci mi\u0119dzy wynikami uzyskanymi przez Ciebie w badaniu a parametrami dotycz\u0105cymi Twojego wykszta\u0142cenia, wieku, Twoich do\u015Bwiadcze\u0144 ze stronami internetowymi itp. Je\u017Celi masz jakie\u015B pytania lub uwagi zwi\u0105zane z poni\u017Csz\u0105 ankiet\u0105, wy\u015Blij do mnie wiadomo\u015B\u0107 na adres  **krzysztof.radoslaw.osada@gmail.com.**' }),
+                                React.createElement(Paragraph, { 'class': 'text-smaller', content: '*) **W badaniu nie s\u0105 rejestrowane \u017Cadne informacje umo\u017Cliwiaj\u0105ce jednoznaczne zidentyfikowane danej osoby.** Celem niniejszej ankiety jest kategoryzacja uczestnik\xF3w badania wed\u0142ug cech mog\u0105cych mie\u0107 wp\u0142yw na szybko\u015B\u0107, poprawno\u015B\u0107 i dok\u0142adno\u015B\u0107 wprowadzania danych w formularzach internetowych. Poni\u017Csze informacje pozwol\u0105 wi\u0119c na dostrze\u017Cenie zale\u017Cno\u015Bci mi\u0119dzy wynikami uzyskanymi przez Ciebie w badaniu a parametrami dotycz\u0105cymi Twojego wykszta\u0142cenia, wieku, Twoich do\u015Bwiadcze\u0144 ze stronami internetowymi itp. Je\u017Celi masz jakie\u015B pytania lub uwagi zwi\u0105zane z poni\u017Csz\u0105 ankiet\u0105, wy\u015Blij do mnie wiadomo\u015B\u0107 na adres [mailto:krzysztof.radoslaw.osada@gmail.com](krzysztof.radoslaw.osada@gmail.com).' }),
                                 React.createElement(
                                     'section',
                                     { className: 'form labels-align-top', id: 'user-form' },

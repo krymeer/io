@@ -160,7 +160,7 @@ class Scenario extends React.Component {
                     { typeof this.props.scenario.warning !== 'undefined' &&
                         <Paragraph class="alert warning" content={ this.props.scenario.warning } />
                     }
-                    <button onClick={ this.handleStart } disabled={ this.state.scenarioStarted }>Rozpocznij scenariusz</button>
+                    <button onClick={ this.handleStart } disabled={ this.state.scenarioStarted }>OK, dalej</button>
                     {
                         this.state.tasks.const.map( ( task, index, tasks ) =>
                             <Task question={ this.props.scenario.question } nodeRef={ this.childNodeRef } key={ index } index={ index + 1 } currentIndex={ this.state.currentTaskIndex } lastIndex={ tasks.length } onFinish={ this.handleTaskFinish } scenarioIndex={ this.props.index } scenarioStarted={ this.state.scenarioStarted } task={ task } />
@@ -198,14 +198,7 @@ class Scenario extends React.Component {
                         </section>
                     }
                     { this.state.scenarioFinished && this.state.summary.currentQuestion >= this.state.summary.questions.length &&
-                        <button onClick={ this.handleFinish } ref={ this.childNodeRef } disabled={ this.state.nextScenario }>
-                            { this.props.index < this.props.lastIndex &&
-                                "Następny scenariusz"
-                            }
-                            { this.props.index === this.props.lastIndex &&
-                                "Zakończ badanie"
-                            }
-                        </button>
+                        <button onClick={ this.handleFinish } ref={ this.childNodeRef } disabled={ this.state.nextScenario }>OK, dalej</button>
                     }
                 </section>
             );

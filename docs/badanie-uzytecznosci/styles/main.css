@@ -109,7 +109,7 @@ html, body {
 }
 
 ::selection {
-  background: #a63446;
+  background: #2892d7;
   color: #fff;
 }
 
@@ -122,7 +122,7 @@ html, body {
   width: 760px;
 }
 #page-container > header {
-  background: #a63446;
+  background: #2892d7;
   height: 256px;
   padding: 115px 0 0 0;
   color: #fff;
@@ -158,7 +158,7 @@ html, body {
 #page-container.header-fixed > header > p > i {
   cursor: pointer;
   font-size: 21px;
-  color: #a63446;
+  color: #2892d7;
   background: white;
   border-radius: 50%;
   transition: background 0.1s ease-in-out;
@@ -181,7 +181,7 @@ html, body {
   border-radius: 50%;
   border-width: 2.5px;
   border-style: solid;
-  border-color: #a63446 transparent #a63446 transparent;
+  border-color: #2892d7 transparent #2892d7 transparent;
   animation: loader 1.2s linear infinite;
 }
 .loader.big-loader {
@@ -213,10 +213,10 @@ main {
   min-height: calc(100% - 256px);
 }
 main .text-important {
-  color: #a63446;
+  color: #2892d7;
 }
 main a {
-  color: #a63446;
+  color: #2892d7;
   text-decoration: none;
 }
 main p {
@@ -231,7 +231,7 @@ main p.text-smaller {
   font-size: 12px;
 }
 main h1, main h2, main h3, main h4 {
-  color: #a63446;
+  color: #2892d7;
 }
 main h1 {
   font-size: 30px;
@@ -276,7 +276,7 @@ main button {
   position: relative;
   cursor: pointer;
   border: 0;
-  background: #8b8b8b;
+  background: #2892d7;
   color: #fff;
   font-family: "Roboto", sans-serif;
   font-weight: 500;
@@ -288,23 +288,31 @@ main button {
   transition: background 0.1s ease-in-out, color 0.1s ease-in-out;
 }
 main button:hover {
-  background: #9c9c9c;
+  background: #45a1dc;
 }
 main button[disabled] {
   cursor: default;
   background: #e0e0e0 !important;
   color: #bebebe !important;
 }
-main button.special {
-  background: #fcba04;
-  color: #a50104;
+main button.abort {
+  background: #ff0022;
+  color: #fff;
 }
-main button.special:hover {
-  background: #fdc836;
+main button.abort:hover {
+  background: #dd001d;
 }
-main button.special[disabled] {
-  background: #fef1cd !important;
-  color: #ffb7b8 !important;
+main button.start {
+  background: #ffa400;
+}
+main button.start:hover {
+  background: #ffbc44;
+}
+main button.okay {
+  background: #2ccf13;
+}
+main button.okay:hover {
+  background: #30de15;
 }
 main button.toggle {
   text-transform: none;
@@ -338,7 +346,7 @@ main .notes-wrapper {
   justify-content: space-between;
 }
 main .comment-wrapper > label {
-  color: #a63446;
+  color: #2892d7;
   font-size: 16px;
   line-height: 1.5;
 }
@@ -346,8 +354,8 @@ main .comment-wrapper > textarea {
   margin: 3.5px 0 14px 0;
 }
 main .comment-wrapper.on-form-error > textarea {
-  border-color: #a63446;
-  color: #a63446;
+  border-color: #ff0022;
+  color: #ff0022;
 }
 main .timetable-list li {
   list-style-type: none;
@@ -441,20 +449,20 @@ main .calendar-wrapper > .calendar-jsCalendar tbody td {
   cursor: pointer;
 }
 main .calendar-wrapper > .calendar-jsCalendar tbody td.jsCalendar-current {
-  background-color: #8b8b8b;
+  background-color: #2892d7;
 }
 main .calendar-wrapper > .calendar-jsCalendar *::selection {
-  background: #8b8b8b;
+  background: #2892d7;
 }
 main .calendar-wrapper > .calendar-jsCalendar *::-moz-selection {
-  background: #8b8b8b;
+  background: #2892d7;
 }
 main .calendar-wrapper > .calendar-jsCalendar thead {
-  background-color: #8b8b8b;
+  background-color: #2892d7;
 }
 main .calendar-wrapper > .calendar-jsCalendar thead .jsCalendar-nav-left:hover,
 main .calendar-wrapper > .calendar-jsCalendar thead .jsCalendar-nav-right:hover {
-  background-color: #9c9c9c;
+  background-color: #45a1dc;
 }
 main .calendar-wrapper > .calendar-jsCalendar thead .jsCalendar-title-name {
   border-bottom: 0;
@@ -462,8 +470,8 @@ main .calendar-wrapper > .calendar-jsCalendar thead .jsCalendar-title-name {
   line-height: 40px;
 }
 main textarea.error, main input.error {
-  color: #a63446;
-  border-color: #a63446;
+  color: #ff0022;
+  border-color: #ff0022;
 }
 main textarea {
   display: block;
@@ -605,40 +613,48 @@ main .toggle-switch.disabled.on:before, main .toggle-switch.disabled.off:before,
   color: #e0e0e0;
 }
 main .toggle-switch.on {
-  background: #668216;
+  background: #212121;
 }
 main .toggle-switch.on:before {
-  color: #668216;
+  color: #212121;
   justify-self: end;
+}
+main .toggle-switch.on:hover {
+  background: #434343;
+}
+main .toggle-switch.on:hover:before {
+  color: #434343;
 }
 main .alert {
   font-size: 12px;
   color: #000;
   border: 3px dashed #000;
+  background: #f9f9f9;
+  font-style: italic;
 }
 main .alert > a, main .alert > .text-important {
   font-weight: 700;
 }
 main .alert.error {
-  border-color: #570000;
-  background: #ffcece;
+  border-color: #ff0022;
+  color: #ff0022;
 }
 main .alert.error > a, main .alert.error > .text-important {
-  color: #570000;
+  color: #ff0022;
 }
 main .alert.warning {
-  border-color: #a50104;
-  background: #fcba04;
+  border-color: #efa00b;
+  color: #efa00b;
 }
 main .alert.warning > a, main .alert.warning > .text-important {
-  color: #a50104;
+  color: #efa00b;
 }
 main .alert.info {
-  border-color: #4392f1;
-  background: #e1eefd;
+  border-color: #2892d7;
+  color: #2892d7;
 }
 main .alert.info > a, main .alert.info > .text-important {
-  color: #4392f1;
+  color: #2892d7;
 }
 main .radio-item {
   display: grid;
@@ -741,14 +757,6 @@ main section .form {
   position: relative;
   width: fit-content;
 }
-main section .form > i.insert-everything {
-  cursor: pointer;
-  position: absolute;
-  top: 21px;
-  right: 21px;
-  margin: 0;
-  color: #a63446;
-}
 main section .form > .alert {
   margin-bottom: 21px;
 }
@@ -840,130 +848,133 @@ main section .form > .wrapper > ul.input-list > li:nth-child(n+2) {
   margin-left: 14px;
 }
 main section .form > .wrapper.on-form-error.on-input-invalid > .sr-wrapper.active {
-  border: 2px solid #a63446;
+  border: 2px solid #ff0022;
 }
 main section .form > .wrapper.on-form-error.on-input-invalid > .sr-wrapper:not(.active) > i {
-  background: #a63446;
+  background: #ff0022;
 }
 main section .form > .wrapper.on-form-error.on-input-invalid > .sr-wrapper:not(.active) > i:hover {
-  background: #ca5467;
+  background: #dd001d;
 }
 main section .form > .wrapper.on-form-error.on-input-invalid > .sr-wrapper:not(.active) > i:first-child {
   background: #eabcc3;
 }
 main section .form > .wrapper.on-form-error.on-input-invalid > .sr-wrapper:not(.active) > span {
-  color: #a63446;
-  border-color: #a63446;
+  color: #ff0022;
+  border-color: #ff0022;
 }
 main section .form > .wrapper.on-form-error.on-input-invalid > .mic-btn, main section .form > .wrapper.on-form-error.on-input-invalid > input, main section .form > .wrapper.on-form-error.on-input-invalid > label, main section .form > .wrapper.on-form-error.on-input-invalid > textarea {
-  color: #a63446 !important;
+  color: #ff0022 !important;
 }
 main section .form > .wrapper.on-form-error.on-input-invalid > .mic-btn.active {
   background: #eabcc3 !important;
 }
 main section .form > .wrapper.on-form-error.on-input-invalid > textarea, main section .form > .wrapper.on-form-error.on-input-invalid > input {
-  border-color: #a63446 !important;
+  border-color: #ff0022 !important;
 }
 main section .form > .wrapper.on-form-error.on-input-invalid > i.arrow-left, main section .form > .wrapper.on-form-error.on-input-invalid > i.arrow-right {
-  background: #a63446 !important;
+  background: #ff0022 !important;
 }
 main section .form > .wrapper.on-form-error.on-input-invalid > i.arrow-left:hover, main section .form > .wrapper.on-form-error.on-input-invalid > i.arrow-right:hover {
-  background: #ca5467 !important;
+  background: #dd001d !important;
 }
 main section .form > .wrapper.on-form-error.on-input-invalid .select-wrapper:not(.on-input-part-valid) > .select-filter, main section .form > .wrapper.on-form-error.on-input-invalid .select-wrapper:not(.on-input-part-valid) > .select-current, main section .form > .wrapper.on-form-error.on-input-invalid .select-wrapper:not(.on-input-part-valid) > .select-list, main section .form > .wrapper.on-form-error.on-input-invalid .select-wrapper:not(.on-input-part-valid) > .select-other {
-  border-color: #a63446 !important;
+  border-color: #ff0022 !important;
 }
 main section .form > .wrapper.on-form-error.on-input-invalid .select-wrapper:not(.on-input-part-valid) > .select-filter, main section .form > .wrapper.on-form-error.on-input-invalid .select-wrapper:not(.on-input-part-valid) > .select-current, main section .form > .wrapper.on-form-error.on-input-invalid .select-wrapper:not(.on-input-part-valid) > .select-list > .select-option, main section .form > .wrapper.on-form-error.on-input-invalid .select-wrapper:not(.on-input-part-valid) > .select-other {
-  color: #a63446 !important;
+  color: #ff0022 !important;
 }
 main section .form > .wrapper.on-form-error.on-input-invalid > .calendar-wrapper > .calendar-input {
-  color: #a63446 !important;
-  border-color: #a63446 !important;
+  color: #ff0022 !important;
+  border-color: #ff0022 !important;
 }
 main section .form > .wrapper.on-form-error.on-input-invalid > .calendar-wrapper > .calendar-jsCalendar tbody td.jsCalendar-current {
-  background-color: #a63446;
+  background-color: #ff0022;
 }
 main section .form > .wrapper.on-form-error.on-input-invalid > .calendar-wrapper > .calendar-jsCalendar *::selection {
-  background: #a63446;
+  background: #ff0022;
 }
 main section .form > .wrapper.on-form-error.on-input-invalid > .calendar-wrapper > .calendar-jsCalendar *::-moz-selection {
-  background: #a63446;
+  background: #ff0022;
 }
 main section .form > .wrapper.on-form-error.on-input-invalid > .calendar-wrapper > .calendar-jsCalendar thead {
-  background-color: #a63446;
+  background-color: #ff0022;
 }
 main section .form > .wrapper.on-form-error.on-input-invalid > .calendar-wrapper > .calendar-jsCalendar thead .jsCalendar-nav-left:hover,
 main section .form > .wrapper.on-form-error.on-input-invalid > .calendar-wrapper > .calendar-jsCalendar thead .jsCalendar-nav-right:hover {
-  background-color: #ca5467;
+  background-color: #dd001d;
 }
 main section .form > .wrapper.on-form-error.on-input-invalid > .text-select-text-wrapper > span:not(.on-input-part-valid),
 main section .form > .wrapper.on-form-error.on-input-invalid > .text-select-text-wrapper > input:not(.on-input-part-valid),
 main section .form > .wrapper.on-form-error.on-input-invalid > .multi-text-wrapper > span:not(.on-input-part-valid),
 main section .form > .wrapper.on-form-error.on-input-invalid > .multi-text-wrapper > input:not(.on-input-part-valid) {
-  color: #a63446 !important;
+  color: #ff0022 !important;
 }
 main section .form > .wrapper.on-form-error.on-input-invalid > .text-select-text-wrapper > input:not(.on-input-part-valid),
 main section .form > .wrapper.on-form-error.on-input-invalid > .multi-text-wrapper > input:not(.on-input-part-valid) {
-  border-color: #a63446 !important;
+  border-color: #ff0022 !important;
 }
 main section .form > .wrapper.on-form-error.on-input-invalid > .timetable-wrapper {
-  color: #a63446 !important;
-  border-color: #a63446 !important;
+  color: #ff0022 !important;
+  border-color: #ff0022 !important;
 }
 main section .form > .wrapper.on-form-error.on-input-invalid > .timetable-list > li > ul:not(.on-input-part-valid) > li > p.chosen {
-  background: #a63446 !important;
+  background: #ff0022 !important;
 }
 main section .form > .wrapper.on-form-error.on-input-invalid > .timetable-list > li > ul:not(.on-input-part-valid) > li > p.chosen:hover {
-  background: #ca5467 !important;
+  background: #dd001d !important;
 }
 main section .form > .wrapper.on-form-error.on-input-invalid > .range-wrapper > input {
-  background: #a63446 !important;
+  background: #ff0022 !important;
 }
 main section .form > .wrapper.on-form-error.on-input-invalid > .range-wrapper > input::-webkit-slider-thumb {
-  background: #a63446 !important;
+  background: #ff0022 !important;
 }
 main section .form > .wrapper.on-form-error.on-input-invalid > .range-wrapper > input::-moz-range-thumb {
-  background: #a63446 !important;
+  background: #ff0022 !important;
 }
 main section .form > .wrapper.on-form-error.on-input-invalid > .range-wrapper > span {
-  color: #a63446 !important;
+  color: #ff0022 !important;
 }
 main section .form > .wrapper.on-form-error.on-input-invalid > .inc-dec > i:not(.disabled) {
-  background: #a63446 !important;
+  background: #ff0022 !important;
 }
 main section .form > .wrapper.on-form-error.on-input-invalid > .inc-dec > i:not(.disabled):hover {
-  background: #ca5467 !important;
+  background: #dd001d !important;
 }
 main section .form > .wrapper.on-form-error.on-input-invalid > .inc-dec > span {
-  color: #a63446 !important;
+  color: #ff0022 !important;
 }
 main section .form > .wrapper.on-form-error.on-input-invalid > .toggle.off {
-  color: #a63446 !important;
+  color: #ff0022 !important;
 }
 main section .form > .wrapper.on-form-error.on-input-invalid > .toggle.on {
-  background: #a63446 !important;
+  background: #ff0022 !important;
 }
 main section .form > .wrapper.on-form-error.on-input-invalid > .toggle.on:hover {
-  background: #ca5467 !important;
+  background: #dd001d !important;
 }
 main section .form > .wrapper.on-form-error.on-input-invalid > .toggle-switch {
-  background: #a63446 !important;
+  background: #ff0022 !important;
 }
 main section .form > .wrapper.on-form-error.on-input-invalid > .toggle-switch:before {
-  color: #a63446 !important;
+  color: #ff0022 !important;
 }
 main section .form > .wrapper.on-form-error.on-input-invalid > ul.input-list > li.radio-item > div {
-  border-color: #a63446 !important;
+  border-color: #ff0022 !important;
 }
 main section .form > .wrapper.on-form-error.on-input-invalid > ul.input-list > li.radio-item > div:before {
-  background: #a63446;
+  background: #ff0022;
 }
 main section .form > .wrapper.on-form-error.on-input-invalid > ul.input-list > li.radio-item > span {
-  color: #a63446 !important;
+  color: #ff0022 !important;
 }
 main section .form > p.on-form-error {
   font-size: 14px;
   text-align: center;
+}
+main section .form > p.on-form-error > .text-important {
+  color: #ff0022;
 }
 main section .form.labels-align-left > .wrapper, main section .form.labels-align-right > .wrapper {
   grid-template-columns: auto 200px;
@@ -1036,7 +1047,7 @@ main section .form.speech-recognition > .wrapper > .sr-wrapper > i {
   width: 39px;
   font-size: 24px;
   color: #fff;
-  background: #8b8b8b;
+  background: #2892d7;
   transition: background 0.1s ease-in-out;
   cursor: pointer;
 }
@@ -1049,7 +1060,7 @@ main section .form.speech-recognition > .wrapper > .sr-wrapper > i:last-child {
   border-bottom-left-radius: 0;
 }
 main section .form.speech-recognition > .wrapper > .sr-wrapper > i:hover {
-  background: #9c9c9c;
+  background: #45a1dc;
 }
 main section .form.speech-recognition > .wrapper > .sr-wrapper > span {
   font-size: inherit;
@@ -1062,17 +1073,17 @@ main section .form.speech-recognition > .wrapper > .sr-wrapper.disabled > i, mai
   background: #e0e0e0;
 }
 main section .form.speech-recognition > .wrapper > .sr-wrapper.active > i {
-  background: #4392f1;
+  background: #212121;
 }
 main section .form.speech-recognition > .wrapper > .sr-wrapper.active > i:hover {
-  background: #116fdf;
+  background: #434343;
 }
 main section .form.speech-recognition > .wrapper > .sr-wrapper.active > span {
-  border-color: #4392f1;
+  border-color: #212121;
 }
 main section .form.speech-recognition > .wrapper > .sr-wrapper.active > span.sr-placeholder {
   font-style: italic;
-  color: #4392f1;
+  color: #434343;
   display: grid;
   align-content: center;
 }
@@ -1261,7 +1272,7 @@ main section .form.autocomplete-on > .wrapper > div > span:last-child {
   color: #4392f1;
 }
 main section .form.autocomplete-on > .wrapper.on-form-error.on-input-invalid > div > span:last-child {
-  color: #da8895;
+  color: #ff445d;
 }
 main section .form.autosuggestion-on, main section .form.autosuggestion-off {
   width: 600px;
@@ -1341,13 +1352,13 @@ main section.task .seq > .seq-radios > li.seq-item:last-child > div:first-child 
   text-align: right;
 }
 main section.task .seq > .seq-radios.error > li > div {
-  color: #a63446;
+  color: #ff0022;
 }
 main section.task .seq > .seq-radios.error > li > div.radio {
-  border-color: #a63446;
+  border-color: #ff0022;
 }
 main section.task .seq > .seq-radios.error > li > div.radio:before {
-  background: #a63446;
+  background: #ff0022;
 }
 main section.task .seq > .comment-wrapper > label {
   line-height: 1.25;

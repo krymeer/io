@@ -528,7 +528,7 @@ class Task extends React.Component {
                     { this.props.task.alert &&
                         <Paragraph content={ this.props.task.alert.msg } class={ "alert " + this.props.task.alert.type } />
                     }
-                    <button onClick={ this.handleStart } disabled={ this.state.taskStarted }>Rozpocznij ćwiczenie</button>
+                    <button className="start" onClick={ this.handleStart } disabled={ this.state.taskStarted }>Zaczynam ćwiczenie</button>
                     <section ref={ formWrapperNode => this.formWrapperNode = formWrapperNode } className={ "form " + this.props.task.classes }>
                         { this.state.alert &&
                             <Paragraph content={ this.state.alert.msg } class={ "alert " + this.state.alert.type } />
@@ -557,9 +557,9 @@ class Task extends React.Component {
                     { this.state.taskStarted &&
                         <section className="button-wrapper">
                             { this.props.task.canBeAborted &&
-                                <button className="special" onClick={ this.handleAbort } disabled={ this.state.taskFinished }>Przerwij ćwiczenie</button>
+                                <button className="abort" onClick={ this.handleAbort } disabled={ this.state.taskFinished }>Przerywam ćwiczenie</button>
                             }
-                            <button onClick={ this.handleFinish } disabled={ this.state.taskFinished }>Zakończ ćwiczenie</button>
+                            <button className="okay" onClick={ this.handleFinish } disabled={ this.state.taskFinished }>OK, gotowe</button>
                         </section>
                     }
                     { this.state.taskFinished &&
@@ -593,14 +593,7 @@ class Task extends React.Component {
                         </section>
                     }
                     { this.state.taskFinished &&
-                        <button onClick={ this.handleNext } disabled={ this.state.nextTask }>
-                            { this.props.index < this.props.lastIndex &&
-                                "Następne ćwiczenie"
-                            }
-                            { this.props.index === this.props.lastIndex &&
-                                "Zakończ scenariusz"
-                            }
-                        </button>
+                        <button onClick={ this.handleNext } disabled={ this.state.nextTask }>OK, dalej</button>
                     }
                 </section>
             );

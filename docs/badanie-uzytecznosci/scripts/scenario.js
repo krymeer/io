@@ -164,7 +164,7 @@ var Scenario = function (_React$Component) {
                     React.createElement(
                         'button',
                         { onClick: this.handleStart, disabled: this.state.scenarioStarted },
-                        'Rozpocznij scenariusz'
+                        'OK, dalej'
                     ),
                     this.state.tasks.const.map(function (task, index, tasks) {
                         return React.createElement(Task, { question: _this2.props.scenario.question, nodeRef: _this2.childNodeRef, key: index, index: index + 1, currentIndex: _this2.state.currentTaskIndex, lastIndex: tasks.length, onFinish: _this2.handleTaskFinish, scenarioIndex: _this2.props.index, scenarioStarted: _this2.state.scenarioStarted, task: task });
@@ -218,8 +218,7 @@ var Scenario = function (_React$Component) {
                     this.state.scenarioFinished && this.state.summary.currentQuestion >= this.state.summary.questions.length && React.createElement(
                         'button',
                         { onClick: this.handleFinish, ref: this.childNodeRef, disabled: this.state.nextScenario },
-                        this.props.index < this.props.lastIndex && "Następny scenariusz",
-                        this.props.index === this.props.lastIndex && "Zakończ badanie"
+                        'OK, dalej'
                     )
                 );
             } else {

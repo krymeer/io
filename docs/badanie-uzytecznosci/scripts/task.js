@@ -538,8 +538,8 @@ var Task = function (_React$Component) {
                     this.props.task.alert && React.createElement(Paragraph, { content: this.props.task.alert.msg, 'class': "alert " + this.props.task.alert.type }),
                     React.createElement(
                         'button',
-                        { onClick: this.handleStart, disabled: this.state.taskStarted },
-                        'Rozpocznij \u0107wiczenie'
+                        { className: 'start', onClick: this.handleStart, disabled: this.state.taskStarted },
+                        'Zaczynam \u0107wiczenie'
                     ),
                     React.createElement(
                         'section',
@@ -571,13 +571,13 @@ var Task = function (_React$Component) {
                         { className: 'button-wrapper' },
                         this.props.task.canBeAborted && React.createElement(
                             'button',
-                            { className: 'special', onClick: this.handleAbort, disabled: this.state.taskFinished },
-                            'Przerwij \u0107wiczenie'
+                            { className: 'abort', onClick: this.handleAbort, disabled: this.state.taskFinished },
+                            'Przerywam \u0107wiczenie'
                         ),
                         React.createElement(
                             'button',
-                            { onClick: this.handleFinish, disabled: this.state.taskFinished },
-                            'Zako\u0144cz \u0107wiczenie'
+                            { className: 'okay', onClick: this.handleFinish, disabled: this.state.taskFinished },
+                            'OK, gotowe'
                         )
                     ),
                     this.state.taskFinished && React.createElement(
@@ -621,8 +621,7 @@ var Task = function (_React$Component) {
                     this.state.taskFinished && React.createElement(
                         'button',
                         { onClick: this.handleNext, disabled: this.state.nextTask },
-                        this.props.index < this.props.lastIndex && "Następne ćwiczenie",
-                        this.props.index === this.props.lastIndex && "Zakończ scenariusz"
+                        'OK, dalej'
                     )
                 );
             }
