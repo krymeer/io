@@ -127,7 +127,9 @@ html, body {
 #page-container > * > *.task-main-container {
   display: grid;
   grid-template-columns: auto auto;
+  align-items: start;
   width: fit-content;
+  max-width: 960px;
   grid-gap: 21px;
 }
 #page-container > * > *.task-main-container > * {
@@ -144,6 +146,9 @@ html, body {
 }
 #page-container > * > *.task-main-container > table th {
   color: #efa00b;
+}
+#page-container > * > *.task-main-container > table[data-for=input-masks-on] td:last-child, #page-container > * > *.task-main-container > table[data-for=input-masks-off] td:last-child {
+  white-space: nowrap;
 }
 #page-container > * > *.task-main-container > .form {
   grid-row: 1;
@@ -416,11 +421,11 @@ main button.toggle.off:hover {
   background: #eee;
 }
 main button.toggle.on {
-  background: #212121;
+  background: #2ccf13;
   color: #fff;
 }
 main button.toggle.on:hover {
-  background: #434343;
+  background: #30de15;
 }
 main .comment > div {
   display: grid;
@@ -454,6 +459,7 @@ main .timetable-list > li:nth-child(n+2) {
 }
 main .timetable-list > li > h4 {
   font-size: 14px;
+  color: #2ccf13;
 }
 main .timetable-list > li > ul {
   padding: 0;
@@ -474,14 +480,14 @@ main .timetable-list > li > ul > li > p {
   text-align: center;
 }
 main .timetable-list > li > ul > li > p:hover {
-  background: #dcdcdc;
+  background: #bef8b6;
 }
 main .timetable-list > li > ul > li > p.chosen {
-  background: #767676;
+  background: #2ccf13;
   color: #fff !important;
 }
 main .timetable-list > li > ul > li > p.chosen:hover {
-  background: #545454;
+  background: #30de15;
 }
 main .timetable-wrapper {
   text-align: center;
@@ -538,20 +544,20 @@ main .calendar-wrapper > .calendar-jsCalendar tbody td {
   cursor: pointer;
 }
 main .calendar-wrapper > .calendar-jsCalendar tbody td.jsCalendar-current {
-  background-color: #2892d7;
+  background-color: #2ccf13;
 }
 main .calendar-wrapper > .calendar-jsCalendar *::selection {
-  background: #2892d7;
+  background: #2ccf13;
 }
 main .calendar-wrapper > .calendar-jsCalendar *::-moz-selection {
-  background: #2892d7;
+  background: #2ccf13;
 }
 main .calendar-wrapper > .calendar-jsCalendar thead {
-  background-color: #2892d7;
+  background-color: #2ccf13;
 }
 main .calendar-wrapper > .calendar-jsCalendar thead .jsCalendar-nav-left:hover,
 main .calendar-wrapper > .calendar-jsCalendar thead .jsCalendar-nav-right:hover {
-  background-color: #45a1dc;
+  background-color: #30de15;
 }
 main .calendar-wrapper > .calendar-jsCalendar thead .jsCalendar-title-name {
   border-bottom: 0;
@@ -606,7 +612,7 @@ main .range-wrapper > input::-webkit-slider-thumb {
   appearance: none;
   width: 10px;
   height: 10px;
-  background: #212121;
+  background: #2ccf13;
   border-radius: 50%;
   cursor: pointer;
 }
@@ -615,7 +621,7 @@ main .range-wrapper > input::-moz-range-thumb {
   height: 25px;
   width: 10px;
   height: 10px;
-  background: #212121;
+  background: #2ccf13;
   border-radius: 50%;
   border: 0;
   cursor: pointer;
@@ -645,14 +651,14 @@ main .inc-dec {
   grid-column-gap: 7px;
 }
 main .inc-dec > i {
-  background: #616161;
+  background: #2ccf13;
   color: #fff;
   cursor: pointer;
   font-size: 16px;
   transition: background 0.1s ease-in-out;
 }
 main .inc-dec > i:hover {
-  background: #838383;
+  background: #30de15;
 }
 main .inc-dec > i.disabled {
   cursor: default;
@@ -662,7 +668,6 @@ main .inc-dec > i.disabled {
 main .inc-dec > span {
   font-weight: 700;
   font-size: 20px;
-  color: #616161;
 }
 main .inc-dec > span.disabled {
   color: #ddd;
@@ -674,12 +679,13 @@ main .toggle-switch {
   width: 52px;
   height: 30px;
   padding: 4px;
-  background: #8b8b8b;
+  background: #bef8b6;
   transition: background 0.1s ease-in-out;
 }
 main .toggle-switch:before {
   display: block;
   background: #fff;
+  color: #bef8b6;
   line-height: 22px;
   width: 22px;
   height: 22px;
@@ -689,10 +695,10 @@ main .toggle-switch:before {
   transition: color 0.1s ease-in-out, justify-self 0.1s ease-in-out;
 }
 main .toggle-switch:hover {
-  background: #9c9c9c;
+  background: #a3f596;
 }
 main .toggle-switch:hover:before {
-  color: #9c9c9c;
+  color: #a3f596;
 }
 main .toggle-switch.disabled.on, main .toggle-switch.disabled.off, main .toggle-switch.disabled {
   background: #e0e0e0;
@@ -702,17 +708,17 @@ main .toggle-switch.disabled.on:before, main .toggle-switch.disabled.off:before,
   color: #e0e0e0;
 }
 main .toggle-switch.on {
-  background: #212121;
+  background: #2ccf13;
 }
 main .toggle-switch.on:before {
-  color: #212121;
+  color: #2ccf13;
   justify-self: end;
 }
 main .toggle-switch.on:hover {
-  background: #434343;
+  background: #30de15;
 }
 main .toggle-switch.on:hover:before {
-  color: #434343;
+  color: #30de15;
 }
 main .alert {
   font-size: 12px;
@@ -1193,7 +1199,7 @@ main section .form.logic-values-toggle-btn > .wrapper {
   grid-template-columns: auto 90px;
 }
 main section .form.logic-values-radio {
-  width: 640px;
+  width: 560px;
 }
 main section .form.logic-values-radio > .wrapper {
   grid-template-columns: auto 120px;
@@ -1283,7 +1289,7 @@ main section .form.time-text-arrows > .wrapper > i {
   height: 100%;
   display: grid;
   align-content: center;
-  background: #ddd;
+  background: #2ccf13;
   color: #fff;
   transition: background 0.1s ease-in-out;
   cursor: pointer;
@@ -1297,7 +1303,7 @@ main section .form.time-text-arrows > .wrapper > i.arrow-right {
   border-bottom-left-radius: 0;
 }
 main section .form.time-text-arrows > .wrapper > i:hover {
-  background: #7e7e7e;
+  background: #30de15;
 }
 main section .form.time-text-arrows > .wrapper > i.disabled {
   cursor: default;
@@ -1306,8 +1312,12 @@ main section .form.time-text-arrows > .wrapper > i.disabled {
 }
 main section .form.time-text-arrows > .wrapper > input {
   border-radius: 0;
+  border-color: #2ccf13;
   text-align: center;
   font-size: 16px;
+}
+main section .form.time-text-arrows > .wrapper > input:focus {
+  border-color: #7e7e7e;
 }
 main section .form.time-text-arrows > .wrapper > input:disabled {
   border-color: #eee;
@@ -1367,7 +1377,7 @@ main section .form.autosuggestion-on > .wrapper > .select-wrapper > input {
   width: 100%;
 }
 main section .form.input-masks-on, main section .form.input-masks-off {
-  width: 530px;
+  width: 500px;
 }
 main section .form.input-masks-on > .wrapper, main section .form.input-masks-off > .wrapper {
   grid-template-columns: auto 250px;

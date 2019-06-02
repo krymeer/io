@@ -241,7 +241,6 @@ insertQuotes = ( str ) => {
 insertNbsp = ( str ) => {
     return str.replace( /(^|\s)\w\s/g, ( match, offset, string ) => {
         const end = ( match.length > 2) ? 2 : 1;
-
         return match.substring( 0, end ) + '\u00a0';
     } );
 }

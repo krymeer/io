@@ -480,11 +480,11 @@ class Task extends React.Component {
         {
             return (
                 <React.Fragment>
-                    <section className="task-intro" onClick={ this.handleClick } ref={ this.props.nodeRef }>
+                    <section className="task-intro" ref={ this.props.nodeRef }>
                         <h2>Ćwiczenie { this.props.scenarioIndex }.{ this.props.index }.</h2>
                         <Paragraph class="task-description" content="Wypełnij formularz, korzystając z danych zawartych **w poniższej tabeli:**" />
                     </section>
-                    <section className="task-main-container">
+                    <section className="task-main-container" onClick={ this.handleClick }>
                         <table data-for={ this.props.task.type } ref={ ( this.state.taskStarted ) ? this.childNodeRef : undefined }>
                             <thead>
                                 <tr>
@@ -496,7 +496,7 @@ class Task extends React.Component {
                                 {
                                     this.props.task.data.map( ( row, index ) =>
                                         <tr key={ index }>
-                                            <td>{ row.label }</td>
+                                            <td>{ insertNbsp( row.label ) }</td>
                                             <td>
                                                 { Array.isArray( row.expectedValue ) && typeof row.separator !== "undefined"
                                                     ? ( row.expectedValue.join( row.separator ) )
@@ -554,7 +554,7 @@ class Task extends React.Component {
                                 } )
                             }
                             { this.state.taskError &&
-                                <Paragraph class="on-form-error" content="Aby przejść dalej, popraw pola wyróżnione **tym kolorem.**" />
+                                <Paragraph class="on-form-error" content={ "Aby przejść dalej, popraw pola wyróżnione **tym\u00a0kolorem.**" } />
                             }
                         </section>
                         { this.state.taskStarted &&
@@ -568,7 +568,7 @@ class Task extends React.Component {
                     </section>
                     { this.state.taskFinished &&
                         <section className="task-seq" ref={ this.childNodeRef }>
-                            <h3 className={ ( this.state.missingSummaryData && this.state.stats.rating <= 0 ) ? "error" : undefined } >Jaki jest, Twoim zdaniem, poziom trudności powyższego ćwiczenia?</h3>
+                            <h3 className={ ( this.state.missingSummaryData && this.state.stats.rating <= 0 ) ? "error" : undefined } >Jak byś ocenił poziom trudności powyższego ćwiczenia?</h3>
                             <ul className={ ( "seq-radios " + ( ( this.state.missingSummaryData && this.state.stats.rating <= 0 ) ? "error" : "" ) ).trim() }>
                                 { [ ...Array( 7 ) ].map( ( x, key, array ) =>
                                     <li className={ ( "seq-item radio-item " + ( this.state.stats.rating === key + 1  ? "chosen" : "" ) + " " + ( this.state.nextTask ? "disabled" : "" ) ).trim().replace( /\s+/g, " " ) } key={ key }>

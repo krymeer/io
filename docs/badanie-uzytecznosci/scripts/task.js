@@ -462,7 +462,7 @@ var Task = function (_React$Component) {
                     null,
                     React.createElement(
                         'section',
-                        { className: 'task-intro', onClick: this.handleClick, ref: this.props.nodeRef },
+                        { className: 'task-intro', ref: this.props.nodeRef },
                         React.createElement(
                             'h2',
                             null,
@@ -476,7 +476,7 @@ var Task = function (_React$Component) {
                     ),
                     React.createElement(
                         'section',
-                        { className: 'task-main-container' },
+                        { className: 'task-main-container', onClick: this.handleClick },
                         React.createElement(
                             'table',
                             { 'data-for': this.props.task.type, ref: this.state.taskStarted ? this.childNodeRef : undefined },
@@ -508,7 +508,7 @@ var Task = function (_React$Component) {
                                         React.createElement(
                                             'td',
                                             null,
-                                            row.label
+                                            insertNbsp(row.label)
                                         ),
                                         React.createElement(
                                             'td',
@@ -571,7 +571,7 @@ var Task = function (_React$Component) {
 
                                 return React.createElement(InputWrapper, Object.assign({ key: index, index: index, error: _this7.state.taskError && _this7.state.taskStarted, disabled: _this7.state.taskFinished || !_this7.state.taskStarted, onChange: _this7.handleInputChange }, input, _this7.props.task.data[index], { insideTask: true }, speechRecognitionProps, { ignoreCaseAndLines: _this7.props.task.ignoreCaseAndLines === true }));
                             }),
-                            this.state.taskError && React.createElement(Paragraph, { 'class': 'on-form-error', content: 'Aby przej\u015B\u0107 dalej, popraw pola wyr\xF3\u017Cnione **tym kolorem.**' })
+                            this.state.taskError && React.createElement(Paragraph, { 'class': 'on-form-error', content: 'Aby przej\u015B\u0107 dalej, popraw pola wyr\xF3\u017Cnione **tym\xA0kolorem.**' })
                         ),
                         this.state.taskStarted && React.createElement(
                             'section',
@@ -594,7 +594,7 @@ var Task = function (_React$Component) {
                         React.createElement(
                             'h3',
                             { className: this.state.missingSummaryData && this.state.stats.rating <= 0 ? "error" : undefined },
-                            'Jaki jest, Twoim zdaniem, poziom trudno\u015Bci powy\u017Cszego \u0107wiczenia?'
+                            'Jak by\u015B oceni\u0142 poziom trudno\u015Bci powy\u017Cszego \u0107wiczenia?'
                         ),
                         React.createElement(
                             'ul',

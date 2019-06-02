@@ -242,7 +242,7 @@
         },
         {
             "intro" : "Znalazłeś(-aś) niedawno zatrudnienie w dużej międzynarodowej korporacji. Pracownik działu kadr poprosił Cię o przesłanie kilku brakujących danych, bez których wypłata wynagrodzenia na koniec miesiąca nie będzie możliwa.",
-            "question" : "Co sądzisz o wprowadzaniu długich ciągów liczb bez automatycznego wstawiania znaków (np. spacji)?",
+            "question" : "Co sądzisz o wprowadzaniu długich ciągów liczb, które wymagają ręcznego formatowania (np. wstawiania spacji)?",
             "tasks" : [
                 {
                     "title"   : "Dane do przelewu",

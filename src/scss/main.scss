@@ -12,6 +12,8 @@ $input-color-focus:     #7e7e7e;
 $alert-color:           #efa00b;
 $okay-color:            #2ccf13;
 $okay-color-hover:      #30de15;
+$okay-color-light:      #bef8b6;
+$okay-color-light-hover: #a3f596;
 $start-color:           #ffa400;
 $start-color-hover:     #ffbc44;
 $transition:            .1s ease-in-out;
@@ -188,7 +190,9 @@ html, body {
         &.task-main-container {
             display: grid;
             grid-template-columns: auto auto;
+            align-items: start;
             width: fit-content;
+            max-width: 960px;
             grid-gap: $value-l;
 
             > * {
@@ -207,6 +211,13 @@ html, body {
 
                 th {
                     color: $alert-color;
+                }
+
+                &[data-for="input-masks-on"],
+                &[data-for="input-masks-off"] {
+                    td:last-child {
+                        white-space: nowrap;
+                    }
                 }
             }
 
@@ -580,11 +591,11 @@ main {
             }
 
             &.on {
-                background: $input-color-main;
+                background: $okay-color;
                 color: #fff;
 
                 &:hover {
-                    background: $input-color-hover;
+                    background: $okay-color-hover;
                 }
             }
         }
@@ -638,6 +649,7 @@ main {
 
             > h4 {
                 font-size: 14px;
+                color: $okay-color;
             }
 
             > ul {
@@ -660,15 +672,15 @@ main {
                         text-align: center;
 
                         &:hover {
-                            background: #dcdcdc;
+                            background: $okay-color-light;
                         }
 
                         &.chosen {
-                            background: #767676;
+                            background: $okay-color;
                             color: #fff !important;
 
                             &:hover {
-                                background: #545454;
+                                background: $okay-color-hover;
                             }
                         }
                     }
@@ -746,24 +758,24 @@ main {
             }
 
             tbody td.jsCalendar-current {
-                background-color: $primary-color;
+                background-color: $okay-color;
             }
 
             *::selection {
-                background: $primary-color;
+                background: $okay-color;
             }
 
             *::-moz-selection {
-                background: $primary-color;
+                background: $okay-color;
             }
 
             thead {
-                background-color: $primary-color;
+                background-color: $okay-color;
             }
 
             thead .jsCalendar-nav-left:hover,
             thead .jsCalendar-nav-right:hover {
-                background-color: $primary-color-hover;
+                background-color: $okay-color-hover;
             }
 
             thead .jsCalendar-title-name {
@@ -831,7 +843,7 @@ main {
                 appearance: none;
                 width: 10px;
                 height: 10px;
-                background: $input-color-main;
+                background: $okay-color;
                 border-radius: 50%;
                 cursor: pointer;
             }
@@ -841,7 +853,7 @@ main {
                 height: 25px;
                 width: 10px;
                 height: 10px;
-                background: $input-color-main;
+                background: $okay-color;
                 border-radius: 50%;
                 border: 0;
                 cursor: pointer;
@@ -881,14 +893,14 @@ main {
         > i {
             @extend %radius;
             @extend %padding-xs;
-            background: #616161;
+            background: $okay-color;
             color: #fff;
             cursor: pointer;
             font-size: 16px;
             transition: background $transition;
 
             &:hover {
-                background: #838383;
+                background: $okay-color-hover;
             }
 
             &.disabled {
@@ -901,7 +913,6 @@ main {
         > span {
             font-weight: 700;
             font-size: 20px;
-            color: #616161;
 
             &.disabled {
                 color: $border-color-disabled;
@@ -917,13 +928,14 @@ main {
         width: 52px;
         height: 30px;
         padding: 4px;
-        background: #8b8b8b;
+        background: $okay-color-light;
         transition: background $transition;
 
         &:before {
             @extend %radius;
             display: block;
             background: #fff;
+            color: $okay-color-light;
             line-height: 22px;
             width: 22px;
             height: 22px;
@@ -934,10 +946,10 @@ main {
         }
 
         &:hover {
-            background: #9c9c9c;
+            background: $okay-color-light-hover;
 
             &:before {
-                color: #9c9c9c;
+                color: $okay-color-light-hover;
             }
         }
 
@@ -953,18 +965,18 @@ main {
         }
 
         &.on {
-            background: $input-color-main;
+            background: $okay-color;
 
             &:before {
-                color: $input-color-main;
+                color: $okay-color;
                 justify-self: end;
             }
 
             &:hover {
-                background: $input-color-hover;
+                background: $okay-color-hover;
 
                 &:before {
-                    color: $input-color-hover;
+                    color: $okay-color-hover;
                 }
             }
         }
@@ -1663,7 +1675,7 @@ main {
             }
 
             &.logic-values-radio {
-                width: 640px;
+                width: 560px;
 
                 > .wrapper {
                     grid-template-columns: auto 120px;
@@ -1778,7 +1790,7 @@ main {
                         height: 100%;
                         display: grid;
                         align-content: center;
-                        background: $border-color-disabled;
+                        background: $okay-color;
                         color: #fff;
                         transition: background $transition;
                         cursor: pointer;
@@ -1794,7 +1806,7 @@ main {
                         }
 
                         &:hover {
-                            background: $input-color-focus;
+                            background: $okay-color-hover;
                         }
 
                         &.disabled {
@@ -1806,8 +1818,13 @@ main {
 
                     > input {
                         border-radius: 0;
+                        border-color: $okay-color;
                         text-align: center;
                         font-size: 16px;
+
+                        &:focus {
+                            border-color: $input-color-focus;
+                        }
 
                         &:disabled {
                             border-color: $border-color-main;
@@ -1903,7 +1920,7 @@ main {
 
             &.input-masks-on,
             &.input-masks-off {
-                width: 530px;
+                width: 500px;
 
                 > .wrapper {
                     grid-template-columns: auto 250px;

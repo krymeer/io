@@ -230,7 +230,6 @@ insertQuotes = function insertQuotes(str) {
 insertNbsp = function insertNbsp(str) {
     return str.replace(/(^|\s)\w\s/g, function (match, offset, string) {
         var end = match.length > 2 ? 2 : 1;
-
         return match.substring(0, end) + '\xA0';
     });
 };

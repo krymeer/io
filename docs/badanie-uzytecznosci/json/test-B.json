@@ -177,21 +177,25 @@
                         {
                             "type"          : "text",
                             "label"         : "Liczba dorosłych",
+                            "maxLength"     : 2,
                             "expectedValue" : "2"
                         },
                         {
                             "type"          : "text",
                             "label"         : "Liczba dzieci",
+                            "maxLength"     : 2,
                             "expectedValue" : "4"
                         },
                         {
                             "type"          : "text",
                             "label"         : "Liczba dni",
+                            "maxLength"     : 2,
                             "expectedValue" : "5"
                         },
                         {
                             "type"          : "text",
                             "label"         : "Kategoria hotelu",
+                            "maxLength"     : 2,
                             "expectedValue" : "4"
                         }
                     ]
@@ -239,7 +243,7 @@
         },
         {
             "intro" : "Znalazłeś(-aś) niedawno zatrudnienie w dużej międzynarodowej korporacji. Pracownik działu kadr poprosił Cię o przesłanie kilku brakujących danych, bez których wypłata wynagrodzenia na koniec miesiąca nie będzie możliwa.",
-            "question" : "Co sądzisz o wprowadzaniu długich ciągów liczb z automatycznym wstawianiem znaków (np. spacji)?",
+            "question" : "Co sądzisz o wprowadzaniu długich ciągów liczb z automatycznym formatowaniem (np. wstawianiem spacji)?",
             "tasks" : [
                 {
                     "title"   : "Dane do przelewu",
@@ -330,21 +334,25 @@
                         {
                             "type"          : "text",
                             "label"         : "Odjazd po",
+                            "maxLength"     : 5,
                             "expectedValue" : "9:05"
                         },
                         {
                             "type"          : "text",
                             "label"         : "Odjazd przed",
+                            "maxLength"     : 5,
                             "expectedValue" : "10:55"
                         },
                         {
                             "type"          : "text",
                             "label"         : "Przyjazd po",
+                            "maxLength"     : 5,
                             "expectedValue" : "17:00"
                         },
                         {
                             "type"          : "text",
                             "label"         : "Przyjazd przed",
+                            "maxLength"     : 5,
                             "expectedValue" : "18:45"
                         }
                     ]
