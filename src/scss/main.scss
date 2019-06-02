@@ -1711,12 +1711,24 @@ main {
                         transform: translateY(-50%);
 
                         > span {
-                            &:first-child {
+                            letter-spacing: normal;
+
+                            &:not(:last-child) {
                                 color: #fff;
                             }
 
                             &:last-child {
                                 color: #4392f1;
+                            }
+                        }
+                    }
+
+                    &.on-form-error.on-input-invalid {
+                        > div {
+                            > span {
+                                &:last-child {
+                                    color: #da8895;
+                                }
                             }
                         }
                     }

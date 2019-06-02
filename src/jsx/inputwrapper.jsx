@@ -12,6 +12,7 @@ class InputWrapper extends React.Component {
         };
         this.multiPartInput = ( typeof this.props.options !== 'undefined' && this.props.options.filter( array => !Array.isArray( array ) ).length === 0 && typeof this.props.separator !== 'undefined' && Array.isArray( this.props.expectedValue ) );
         this.handleLabel    = this.handleLabel.bind( this );
+        this.handleKeyDown  = this.handleKeyDown.bind( this );
         this.inputMaxLength = ( typeof this.props.maxLength !== 'undefined' )
                             ? this.props.maxLength
                             : ( this.props.type === 'textarea' )
@@ -105,7 +106,8 @@ class InputWrapper extends React.Component {
 
         if( this.props.type === 'autocomplete' )
         {
-            this.state = {
+            this.getSuggestion = this.getSuggestion.bind( this );
+            this.state         = {
                 ...this.state,
                 suggestion : undefined
             }
@@ -120,52 +122,102 @@ class InputWrapper extends React.Component {
         }
     }
 
+    handleKeyDown( event )
+    {
+        if( !this.props.disabled )
+        {
+            const eventTargetTagName = event.target.tagName.toLowerCase();
+
+            if( eventTargetTagName === 'input' && this.props.type === 'autocomplete' )
+            {
+                if( this.state.suggestion )
+                {
+                    if( event.key === 'ArrowLeft' )
+                    {
+                        event.preventDefault();
+
+                        this.setState( {
+                            suggestion : undefined
+                        } );
+                    }
+                    else if( event.key === 'ArrowRight' || event.key === 'Tab' )
+                    {
+                        if( event.key === 'Tab' )
+                        {
+                            event.preventDefault();
+                        }
+
+                        this.acceptSuggestion( event );
+                    }
+                }
+            }
+
+            if( eventTargetTagName === 'input' )
+            {
+                if( event.key === 'Escape' )
+                {
+                   event.target.blur();
+                }
+            }
+        }
+    }
+
+    acceptSuggestion( event )
+    {
+        if( !this.props.disabled && this.state.suggestion )
+        {
+            this.setState( {
+                inputValue : this.state.suggestion.prefix + this.state.suggestion.original,
+                suggestion : undefined
+            }, () => {
+                this.handleChange( event.persist() );
+            } );
+        }
+    }
+
     getSuggestion( inputValue )
     {
         if( !this.props.disabled )
         {
             const inputValLoCase = inputValue.toLowerCase();
-            let suggestions      = this.props.suggestions.map( suggestion => suggestion.toLowerCase() );
-
-            suggestions = suggestions.filter( suggestion => {
+            let suggestions      = this.props.suggestions.filter( suggestion => {
                 if( !inputValLoCase || !suggestion )
                 {
                     return false;
                 }
-                else if( this.props.isRegex )
+
+                suggestion = suggestion.toLowerCase();
+
+                if( this.props.isRegex )
                 {
-                    const regExp = new RegExp( '^' + suggestion  )
-                    // TODO
-                    // Implement Longest Commmon Substring
+                    return commonSubstring( inputValLoCase, suggestion );
                 }
 
-                return suggestion.indexOf( inputValLoCase ) !== -1;
+                return suggestion.indexOf( inputValLoCase ) === 0;
             } );
 
-            let complement, commonPart, prefix;
+            let complement, commonSubstr, original, prefix;
 
             if( suggestions.length === 1 )
             {
-                commonPart = inputValLoCase;
+                original     = suggestions[ 0 ];
+                commonSubstr = this.props.isRegex ? commonSubstring( inputValLoCase, original.toLowerCase() ) : inputValLoCase;
 
-                if( commonPart )
+                if( commonSubstr )
                 {
-                    complement = suggestions[ 0 ].replace( commonPart, '' );
-
-                    if( this.props.isSuffix )
-                    {
-                        prefix     = inputValLoCase.replace( new RegExp( commonPart + '$' ), '' );
-                        commonPart = commonPart.replace( new RegExp( '^' + prefix ), '' );
-                    }
+                    prefix       = this.props.isRegex ? inputValue.substring( 0, inputValLoCase.lastIndexOf( commonSubstr ) ) : '';
+                    complement   = original.substring( commonSubstr.length );
+                    commonSubstr = inputValue.substring( 0, inputValLoCase.lastIndexOf( commonSubstr ) + commonSubstr.length );
                 }
             }
 
             this.setState( {
-                suggestion : ( commonPart && complement )
+                suggestion : ( commonSubstr && complement )
                                 ? {
                                     prefix,
-                                    commonPart,
-                                    complement
+                                    commonSubstr,
+                                    complement,
+                                    original
                                 }
                                 : undefined
             } );
@@ -621,14 +673,11 @@ class InputWrapper extends React.Component {
                     <i className={ ( "material-icons arrow-left " + ( this.props.disabled ? "disabled" : "" ) ).trim() } onClick={ this.handleArrow.bind( this, false ) }>keyboard_arrow_left</i>
                 }
                 { ( this.props.type === "text" || this.props.type === "text-arrows" || this.props.type === "autocomplete" ) &&
-                    <input ref={ node => this.node = node } maxLength={ this.inputMaxLength } type="text" spellCheck="false" autoComplete="off" onFocus={ this.handleFocus } onBlur={ this.handleBlur } onChange={ this.handleChange } disabled={ this.props.disabled } value={ this.state.inputValue } />
+                    <input ref={ node => this.node = node } maxLength={ this.inputMaxLength } type="text" spellCheck="false" autoComplete="off" onFocus={ this.handleFocus } onBlur={ this.handleBlur } onChange={ this.handleChange } disabled={ this.props.disabled } value={ this.state.inputValue } onKeyDown={ this.handleKeyDown } />
                 }
-                { this.props.type === "autocomplete" && ( this.state.suggestion && this.state.suggestion.commonPart && this.state.suggestion.complement ) ? (
+                { this.props.type === "autocomplete" && ( this.state.suggestion && this.state.suggestion.commonSubstr && this.state.suggestion.complement ) ? (
                     <div>
-                        { this.state.suggestion.prefix ? (
-                            <span>{ this.state.suggestion.prefix }</span>
-                        ) : null }
-                        <span>{ this.state.suggestion.commonPart }</span>
+                        <span>{ this.state.suggestion.commonSubstr }</span>
                         <span>{ this.state.suggestion.complement }</span>
                     </div>
                 ) : null }

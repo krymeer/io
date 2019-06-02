@@ -49,22 +49,22 @@ shuffle = function shuffle(arr) {
     return arr;
 };
 
-commonPart = function commonPart(prefix, suffix) {
-    var result = '';
+commonSubstring = function commonSubstring(prefix, suffix) {
+    var commonSubstr = '';
     var i = 1;
 
     while (i <= suffix.length) {
-        var newCommonPart = suffix.substring(0, i);
-        var index = prefix.indexOf(newCommonPart);
+        var str = suffix.substring(0, i);
+        var index = prefix.indexOf(str);
 
-        if (index === prefix.length - newCommonPart.length) {
-            result = newCommonPart;
+        if (index !== -1 && index === prefix.length - str.length) {
+            commonSubstr = str;
         }
 
         i++;
     }
 
-    return result;
+    return commonSubstr;
 };
 
 longestCommonSubsequence = function longestCommonSubsequence(str1, str2) {

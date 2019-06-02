@@ -42,24 +42,24 @@ shuffle = ( arr ) => {
     return arr;
 }
 
-commonPart = ( prefix, suffix ) => {
-    let result = '';
+commonSubstring = ( prefix, suffix ) => {
+    let commonSubstr = '';
     let i = 1;
 
     while( i <= suffix.length )
     {
-        let newCommonPart = suffix.substring( 0, i );
-        let index         = prefix.indexOf( newCommonPart );
+        let str   = suffix.substring( 0, i );
+        let index = prefix.indexOf( str );
 
-        if( index === prefix.length - newCommonPart.length )
+        if( index !== -1 && index === prefix.length - str.length )
         {
-            result = newCommonPart;
+            commonSubstr = str;
         }
 
         i++;
     }
 
-    return result;
+    return commonSubstr;
 }
 
 longestCommonSubsequence = ( str1, str2 ) => {
