@@ -150,28 +150,36 @@ var Scenario = function (_React$Component) {
 
             if (this.props.testStarted && this.props.currentIndex >= this.props.index) {
                 return React.createElement(
-                    'section',
-                    { className: 'scenario', ref: this.props.nodeRef },
+                    React.Fragment,
+                    null,
                     React.createElement(
-                        'h1',
+                        'section',
+                        { className: 'scenario-intro', ref: this.props.nodeRef },
+                        React.createElement(
+                            'h1',
+                            null,
+                            'Scenariusz ',
+                            this.props.index,
+                            '.'
+                        ),
+                        typeof this.props.scenario.intro !== "undefined" && React.createElement(Paragraph, { content: this.props.scenario.intro }),
+                        typeof this.props.scenario.alert !== 'undefined' && React.createElement(Paragraph, { 'class': 'alert', content: this.props.scenario.alert }),
+                        React.createElement(
+                            'button',
+                            { onClick: this.handleStart, disabled: this.state.scenarioStarted },
+                            'OK, dalej'
+                        )
+                    ),
+                    React.createElement(
+                        React.Fragment,
                         null,
-                        'Scenariusz ',
-                        this.props.index,
-                        '.'
+                        this.state.tasks.const.map(function (task, index, tasks) {
+                            return React.createElement(Task, { question: _this2.props.scenario.question, nodeRef: _this2.childNodeRef, key: index, index: index + 1, currentIndex: _this2.state.currentTaskIndex, lastIndex: tasks.length, onFinish: _this2.handleTaskFinish, scenarioIndex: _this2.props.index, scenarioStarted: _this2.state.scenarioStarted, task: task });
+                        })
                     ),
-                    typeof this.props.scenario.intro !== "undefined" && React.createElement(Paragraph, { content: this.props.scenario.intro }),
-                    typeof this.props.scenario.warning !== 'undefined' && React.createElement(Paragraph, { 'class': 'alert warning', content: this.props.scenario.warning }),
-                    React.createElement(
-                        'button',
-                        { onClick: this.handleStart, disabled: this.state.scenarioStarted },
-                        'OK, dalej'
-                    ),
-                    this.state.tasks.const.map(function (task, index, tasks) {
-                        return React.createElement(Task, { question: _this2.props.scenario.question, nodeRef: _this2.childNodeRef, key: index, index: index + 1, currentIndex: _this2.state.currentTaskIndex, lastIndex: tasks.length, onFinish: _this2.handleTaskFinish, scenarioIndex: _this2.props.index, scenarioStarted: _this2.state.scenarioStarted, task: task });
-                    }),
                     this.state.scenarioFinished && React.createElement(
                         'section',
-                        { className: 'summary', ref: this.childNodeRef },
+                        { className: 'scenario-summary', ref: this.childNodeRef },
                         React.createElement(
                             'h2',
                             null,
@@ -209,16 +217,20 @@ var Scenario = function (_React$Component) {
                                         )
                                     );
                                 } else {
-                                    return "";
+                                    return null;
                                 }
                             }),
                             this.state.summary.currentQuestion >= this.state.summary.questions.length && React.createElement(InputWrapper, { wrapperClass: 'comment-wrapper', label: this.props.scenario.seqQuestion ? this.props.scenario.seqQuestion : "Jaki jest, Twoim zdaniem, najlepszy sposób na wprowadzanie tego typu danych?", optional: true, type: 'textarea', disabled: this.state.nextScenario, onChange: this.handleSummaryComment })
                         )
                     ),
                     this.state.scenarioFinished && this.state.summary.currentQuestion >= this.state.summary.questions.length && React.createElement(
-                        'button',
-                        { onClick: this.handleFinish, ref: this.childNodeRef, disabled: this.state.nextScenario },
-                        'OK, dalej'
+                        'section',
+                        { className: 'button-wrapper' },
+                        React.createElement(
+                            'button',
+                            { onClick: this.handleFinish, ref: this.childNodeRef, disabled: this.state.nextScenario },
+                            'OK, dalej'
+                        )
                     )
                 );
             } else {

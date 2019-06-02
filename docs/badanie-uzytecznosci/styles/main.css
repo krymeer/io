@@ -6,7 +6,7 @@
   line-height: 1.5;
 }
 
-main section.task .seq, main section .form.time-table > .wrapper > .timetable-list, main section .form, main section.scenario .summary .questions, main table, main p {
+main section .form.time-table > .wrapper > .timetable-list, main section .form, main section.scenario-summary .questions, main table, #page-container > * > *.task-seq, main p {
   letter-spacing: 0.1px;
 }
 
@@ -15,13 +15,13 @@ main p {
   font-size: 16px;
 }
 
-main section.task .seq, main section .form.time-table > .wrapper > .timetable-list, main section .form, main section.scenario .summary .questions, main table {
+main section .form.time-table > .wrapper > .timetable-list, main section .form, main section.scenario-summary .questions, main table, #page-container > * > *.task-seq {
   background: #fff;
   border: 2px solid #eee;
   color: #212121;
   font-size: 14px;
 }
-main section.task .seq p, main section .form.time-table > .wrapper > .timetable-list p, main section .form p, main section.scenario .summary .questions p, main table p {
+main section .form.time-table > .wrapper > .timetable-list p, main section .form p, main section.scenario-summary .questions p, main table p, #page-container > * > *.task-seq p {
   color: inherit;
   line-height: inherit;
 }
@@ -37,7 +37,7 @@ main section .form, main section > *, #page-container > * > * {
   margin-right: auto;
 }
 
-main section.scenario .summary .questions > .question-wrapper > h4 {
+main section.scenario-summary .questions > .question-wrapper > h4 {
   margin-top: 3.5px;
   margin-bottom: 3.5px;
 }
@@ -47,12 +47,12 @@ main section > * {
   margin-bottom: 14px;
 }
 
-main > section > section, main section.task .seq > .comment-wrapper, main section .form > .wrapper, main section.scenario .summary .questions > .question-wrapper {
+main > section > section, main section .form > .wrapper, main section.scenario-summary .questions > .question-wrapper, #page-container > * > *.task-seq > .comment-wrapper {
   margin-top: 21px;
   margin-bottom: 21px;
 }
 
-main > section, main section.task .seq, main section .form, main section.scenario .summary .questions, main table {
+main > section, main section .form, main section.scenario-summary .questions, main table, #page-container > * > *.task-seq {
   margin-top: 28px;
   margin-bottom: 28px;
 }
@@ -67,7 +67,7 @@ main {
   padding-bottom: 56px;
 }
 
-main section.task .seq, main section .form.time-table > .wrapper > .timetable-list, main section .form, main section.scenario .summary .questions {
+main section .form.time-table > .wrapper > .timetable-list, main section .form, main section.scenario-summary .questions, #page-container > * > *.task-seq {
   padding: 21px;
 }
 
@@ -83,11 +83,11 @@ main .inc-dec > i {
   padding: 3.5px;
 }
 
-main section.task .seq, main section .form.time-text-arrows > .wrapper > i, main section .form.speech-recognition > .wrapper > .sr-wrapper > i, main section .form > .wrapper.on-form-error.on-input-invalid > .sr-wrapper.active, main section .form > .wrapper .select-wrapper > .select-list, main section .form, main section.scenario .summary .questions > .question-wrapper > ul > li, main section.scenario .summary .questions, main .toggle-switch:before, main .toggle-switch, main .inc-dec > i, main .calendar-input, main .timetable-wrapper, main .select-option, main .select-current, main textarea, main input, main button, main table {
+main section .form.time-text-arrows > .wrapper > i, main section .form.speech-recognition > .wrapper > .sr-wrapper > i, main section .form > .wrapper.on-form-error.on-input-invalid > .sr-wrapper.active, main section .form > .wrapper .select-wrapper > .select-list, main section .form, main section.scenario-summary .questions > .question-wrapper > ul > li, main section.scenario-summary .questions, main .toggle-switch:before, main .toggle-switch, main .inc-dec > i, main .calendar-input, main .timetable-wrapper, main .select-option, main .select-current, main textarea, main input, main button, main table, #page-container > * > *.task-seq {
   border-radius: 4px;
 }
 
-main section.task .seq, main .calendar-input:disabled, main .calendar-input.disabled, main .timetable-wrapper:disabled, main .timetable-wrapper.disabled, main .select-option:disabled, main .select-option.disabled, main .select-current:disabled, main .select-current.disabled, main textarea:disabled, main textarea.disabled, main input:disabled, main input.disabled, .wrapper, button, p, h1, h2, h3, h4, a, label, span, td, th, i.material-icons {
+main .calendar-input:disabled, main .calendar-input.disabled, main .timetable-wrapper:disabled, main .timetable-wrapper.disabled, main .select-option:disabled, main .select-option.disabled, main .select-current:disabled, main .select-current.disabled, main textarea:disabled, main textarea.disabled, main input:disabled, main input.disabled, #page-container > * > *.task-seq, .wrapper, button, p, h1, h2, h3, h4, a, label, span, td, th, i.material-icons {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
@@ -120,6 +120,95 @@ html, body {
 
 #page-container > * > * {
   width: 760px;
+}
+#page-container > * > *.task-intro > .task-description > .text-important {
+  color: #efa00b;
+}
+#page-container > * > *.task-main-container {
+  display: grid;
+  grid-template-columns: auto auto;
+  width: fit-content;
+  grid-gap: 21px;
+}
+#page-container > * > *.task-main-container > * {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+#page-container > * > *.task-main-container > table {
+  grid-row: 1;
+  grid-column: 1;
+  border-color: #efa00b;
+}
+#page-container > * > *.task-main-container > table th, #page-container > * > *.task-main-container > table td {
+  border-bottom: none;
+}
+#page-container > * > *.task-main-container > table th {
+  color: #efa00b;
+}
+#page-container > * > *.task-main-container > .form {
+  grid-row: 1;
+  grid-column: 2;
+  border-color: #2ccf13;
+}
+#page-container > * > *.task-main-container > .form > h3 {
+  color: #2ccf13;
+}
+#page-container > * > *.task-seq {
+  width: fit-content;
+  max-width: 600px;
+}
+#page-container > * > *.task-seq > h3.error {
+  color: #ff0022;
+}
+#page-container > * > *.task-seq > .seq-radios {
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: center;
+  padding: 0;
+}
+#page-container > * > *.task-seq > .seq-radios > li {
+  list-style-type: none;
+}
+#page-container > * > *.task-seq > .seq-radios > li.seq-item {
+  display: block;
+  width: 36px;
+  align-self: end;
+}
+#page-container > * > *.task-seq > .seq-radios > li.seq-item > div {
+  font-size: 11px;
+  text-align: center;
+  transition: color 0.1s ease-in-out;
+}
+#page-container > * > *.task-seq > .seq-radios > li.seq-item > div.radio {
+  margin: 0 auto;
+}
+#page-container > * > *.task-seq > .seq-radios > li.seq-item:first-child > div:first-child, #page-container > * > *.task-seq > .seq-radios > li.seq-item:last-child > div:first-child {
+  margin-bottom: 3.5px;
+}
+#page-container > * > *.task-seq > .seq-radios > li.seq-item:first-child > div:first-child {
+  text-align: left;
+}
+#page-container > * > *.task-seq > .seq-radios > li.seq-item:last-child > div:first-child {
+  text-align: right;
+}
+#page-container > * > *.task-seq > .seq-radios.error > li > div {
+  color: #ff0022;
+}
+#page-container > * > *.task-seq > .seq-radios.error > li > div.radio {
+  border-color: #ff0022;
+}
+#page-container > * > *.task-seq > .seq-radios.error > li > div.radio:before {
+  background: #ff0022;
+}
+#page-container > * > *.task-seq > .comment-wrapper > label {
+  line-height: 1.25;
+  text-align: justify;
+}
+#page-container > * > *.task-seq > .comment-wrapper.on-form-error > label {
+  color: #ff0022;
+}
+#page-container > * > *.task-seq > .note.error > .text-important {
+  color: #ff0022;
 }
 #page-container > header {
   background: #2892d7;
@@ -627,19 +716,13 @@ main .toggle-switch.on:hover:before {
 }
 main .alert {
   font-size: 12px;
-  color: #000;
-  border: 3px dashed #000;
+  color: #ff0022;
+  border: 3px dashed #ff0022;
   background: #f9f9f9;
   font-style: italic;
 }
 main .alert > a, main .alert > .text-important {
   font-weight: 700;
-}
-main .alert.error {
-  border-color: #ff0022;
-  color: #ff0022;
-}
-main .alert.error > a, main .alert.error > .text-important {
   color: #ff0022;
 }
 main .alert.warning {
@@ -710,7 +793,7 @@ main section > *:last-child {
   margin-bottom: 0 !important;
 }
 main section.button-wrapper {
-  display: grid;
+  display: grid !important;
   grid-auto-flow: column;
   grid-column-gap: 14px;
   justify-content: center;
@@ -718,21 +801,21 @@ main section.button-wrapper {
 main section.button-wrapper > button {
   margin: 0 !important;
 }
-main section.scenario .summary .questions {
+main section.scenario-summary .questions {
   width: 600px;
 }
-main section.scenario .summary .questions > .question-wrapper > h4 {
+main section.scenario-summary .questions > .question-wrapper > h4 {
   margin-top: 0;
   line-height: 1.25;
   text-align: justify;
 }
-main section.scenario .summary .questions > .question-wrapper > ul {
+main section.scenario-summary .questions > .question-wrapper > ul {
   padding: 0;
   display: grid;
   grid-auto-flow: column;
   place-items: center;
 }
-main section.scenario .summary .questions > .question-wrapper > ul > li {
+main section.scenario-summary .questions > .question-wrapper > ul > li {
   list-style-type: none;
   display: grid;
   justify-content: center;
@@ -740,17 +823,17 @@ main section.scenario .summary .questions > .question-wrapper > ul > li {
   grid-auto-flow: column;
   grid-column-gap: 7px;
 }
-main section.scenario .summary .questions > .question-wrapper > ul > li > * {
+main section.scenario-summary .questions > .question-wrapper > ul > li > * {
   line-height: 1;
 }
-main section.scenario .summary .questions > .question-wrapper > ul > li > span {
+main section.scenario-summary .questions > .question-wrapper > ul > li > span {
   font-size: 14px;
 }
-main section.scenario .summary .questions > .comment-wrapper > label {
+main section.scenario-summary .questions > .comment-wrapper > label {
   line-height: 1.25;
   text-align: justify;
 }
-main section.scenario .summary .questions > .comment-wrapper > textarea {
+main section.scenario-summary .questions > .comment-wrapper > textarea {
   margin-top: 3.5px;
 }
 main section .form {
@@ -1047,7 +1130,7 @@ main section .form.speech-recognition > .wrapper > .sr-wrapper > i {
   width: 39px;
   font-size: 24px;
   color: #fff;
-  background: #2892d7;
+  background: #2ccf13;
   transition: background 0.1s ease-in-out;
   cursor: pointer;
 }
@@ -1060,7 +1143,7 @@ main section .form.speech-recognition > .wrapper > .sr-wrapper > i:last-child {
   border-bottom-left-radius: 0;
 }
 main section .form.speech-recognition > .wrapper > .sr-wrapper > i:hover {
-  background: #45a1dc;
+  background: #30de15;
 }
 main section .form.speech-recognition > .wrapper > .sr-wrapper > span {
   font-size: inherit;
@@ -1315,54 +1398,6 @@ main section .form.small-numbers-text > .wrapper {
 }
 main section .form.small-numbers-text > .wrapper > input {
   text-align: center;
-}
-main section.task .seq {
-  width: fit-content;
-  max-width: 600px;
-}
-main section.task .seq > .seq-radios {
-  display: grid;
-  grid-auto-flow: column;
-  justify-content: center;
-  padding: 0;
-}
-main section.task .seq > .seq-radios > li {
-  list-style-type: none;
-}
-main section.task .seq > .seq-radios > li.seq-item {
-  display: block;
-  width: 36px;
-  align-self: end;
-}
-main section.task .seq > .seq-radios > li.seq-item > div {
-  font-size: 11px;
-  text-align: center;
-  transition: color 0.1s ease-in-out;
-}
-main section.task .seq > .seq-radios > li.seq-item > div.radio {
-  margin: 0 auto;
-}
-main section.task .seq > .seq-radios > li.seq-item:first-child > div:first-child, main section.task .seq > .seq-radios > li.seq-item:last-child > div:first-child {
-  margin-bottom: 3.5px;
-}
-main section.task .seq > .seq-radios > li.seq-item:first-child > div:first-child {
-  text-align: left;
-}
-main section.task .seq > .seq-radios > li.seq-item:last-child > div:first-child {
-  text-align: right;
-}
-main section.task .seq > .seq-radios.error > li > div {
-  color: #ff0022;
-}
-main section.task .seq > .seq-radios.error > li > div.radio {
-  border-color: #ff0022;
-}
-main section.task .seq > .seq-radios.error > li > div.radio:before {
-  background: #ff0022;
-}
-main section.task .seq > .comment-wrapper > label {
-  line-height: 1.25;
-  text-align: justify;
 }
 main section #user-form {
   width: 400px;

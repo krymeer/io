@@ -176,6 +176,146 @@ html, body {
         @extend %block-centered;
         // max-width: 760px;
         width: 760px;
+
+        &.task-intro {
+            > .task-description {
+                > .text-important {
+                    color: $alert-color;
+                }
+            }
+        }
+
+        &.task-main-container {
+            display: grid;
+            grid-template-columns: auto auto;
+            width: fit-content;
+            grid-gap: $value-l;
+
+            > * {
+                margin-top: 0;
+                margin-bottom: 0;
+            }
+
+            > table {
+                grid-row: 1;
+                grid-column: 1;
+                border-color: $alert-color;
+
+                th, td {
+                    border-bottom: none;
+                }
+
+                th {
+                    color: $alert-color;
+                }
+            }
+
+            > .form {
+                grid-row: 1;
+                grid-column: 2;
+                border-color: $okay-color;
+
+                > h3 {
+                    color: $okay-color;
+                }
+            }
+        }
+
+        &.task-seq {
+            @extend %margin-top-btm-xl;
+            @extend %block-alt;
+            @extend %radius;
+            @extend %padding-l;
+            @extend %noselect;
+            width: fit-content;
+            max-width: 600px;
+
+            > h3.error {
+                color: $error-color;
+            }
+
+            > .seq-radios {
+                display: grid;
+                grid-auto-flow: column;
+                justify-content: center;
+                padding: 0;
+
+                > li {
+                    list-style-type: none;
+
+                    &.seq-item {
+                        display: block;
+                        width: 36px;
+                        align-self: end;
+
+                        > div {
+                            font-size: 11px;
+                            text-align: center;
+                            transition: color $transition;
+
+                            &.radio {
+                                margin: 0 auto;
+                            }
+                        }
+
+                        &:first-child, &:last-child {
+                            > div:first-child {
+                                margin-bottom: $value-xs;
+                            }
+                        }
+
+                        &:first-child {
+                            > div:first-child {
+                                text-align: left;
+                            }
+                        }
+
+                        &:last-child {
+                            > div:first-child {
+                                text-align: right;
+                            }
+                        }
+                    }
+                }
+
+                &.error {
+                    > li {
+                        > div {
+                            color: $error-color;
+
+                            &.radio {
+                                border-color: $error-color;
+
+                                &:before  {
+                                    background: $error-color;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            > .comment-wrapper {
+                @extend %margin-top-btm-l;
+
+                > label {
+                    line-height: 1.25;
+                    text-align: justify;
+                }
+
+                &.on-form-error {
+                    > label {
+                        color: $error-color;
+                    }
+                }
+            }
+
+            > .note.error {
+                > .text-important {
+                    color: $error-color;
+                }
+            }
+        }
     }
 
     > header {
@@ -833,22 +973,14 @@ main {
     .alert {
         @extend %padding-s;
         font-size: 12px;
-        color: #000;
-        border: 3px dashed #000;
+        color: $error-color;
+        border: 3px dashed $error-color;
         background: $bg-color;
         font-style: italic;
 
         > a, > .text-important {
             font-weight: 700;
-        }
-
-        &.error {
-            border-color: $error-color;
             color: $error-color;
-
-            > a, > .text-important {
-                color: $error-color;
-            }
         }
 
         &.warning {
@@ -946,7 +1078,7 @@ main {
         }
 
         &.button-wrapper {
-            display: grid;
+            display: grid !important;
             grid-auto-flow: column;
             grid-column-gap: $value-m;
             justify-content: center;
@@ -956,61 +1088,59 @@ main {
             }
         }
 
-        &.scenario {
-            .summary {
-                .questions {
-                    @extend %block-alt;
-                    @extend %margin-top-btm-xl;
-                    @extend %block-alt;
-                    @extend %radius;
-                    @extend %padding-l;
-                    width: 600px;
+        &.scenario-summary {
+            .questions {
+                @extend %block-alt;
+                @extend %margin-top-btm-xl;
+                @extend %block-alt;
+                @extend %radius;
+                @extend %padding-l;
+                width: 600px;
 
-                    > .question-wrapper {
-                        @extend %margin-top-btm-l;
+                > .question-wrapper {
+                    @extend %margin-top-btm-l;
 
-                        > h4 {
-                            @extend %margin-top-btm-xs;
-                            margin-top: 0;
-                            line-height: 1.25;
-                            text-align: justify;
-                        }
+                    > h4 {
+                        @extend %margin-top-btm-xs;
+                        margin-top: 0;
+                        line-height: 1.25;
+                        text-align: justify;
+                    }
 
-                        > ul {
-                            padding: 0;
+                    > ul {
+                        padding: 0;
+                        display: grid;
+                        grid-auto-flow: column;
+                        place-items: center;
+
+                        > li {
+                            @extend %radius;
+                            list-style-type: none;
                             display: grid;
+                            justify-content: center;
+                            align-items: center;
                             grid-auto-flow: column;
-                            place-items: center;
+                            grid-column-gap: $value-s;
 
-                            > li {
-                                @extend %radius;
-                                list-style-type: none;
-                                display: grid;
-                                justify-content: center;
-                                align-items: center;
-                                grid-auto-flow: column;
-                                grid-column-gap: $value-s;
+                            > * {
+                                line-height: 1;
+                            }
 
-                                > * {
-                                    line-height: 1;
-                                }
-
-                                > span {
-                                    font-size: 14px;
-                                }
+                            > span {
+                                font-size: 14px;
                             }
                         }
                     }
+                }
 
-                    > .comment-wrapper {
-                        > label {
-                            line-height: 1.25;
-                            text-align: justify;
-                        }
+                > .comment-wrapper {
+                    > label {
+                        line-height: 1.25;
+                        text-align: justify;
+                    }
 
-                        > textarea {
-                            margin-top: $value-xs;
-                        }
+                    > textarea {
+                        margin-top: $value-xs;
                     }
                 }
             }
@@ -1445,7 +1575,7 @@ main {
                             width: 39px;
                             font-size: 24px;
                             color: #fff;
-                            background: $primary-color;
+                            background: $okay-color;
                             transition: background $transition;
                             cursor: pointer;
 
@@ -1460,7 +1590,7 @@ main {
                             }
 
                             &:hover {
-                                background: $primary-color-hover;
+                                background: $okay-color-hover;
                             }
 
                         }
@@ -1818,87 +1948,6 @@ main {
             }
         }
 
-        &.task {
-            .seq {
-                @extend %margin-top-btm-xl;
-                @extend %block-alt;
-                @extend %radius;
-                @extend %padding-l;
-                @extend %noselect;
-                width: fit-content;
-                max-width: 600px;
-
-                > .seq-radios {
-                    display: grid;
-                    grid-auto-flow: column;
-                    justify-content: center;
-                    padding: 0;
-
-                    > li {
-                        list-style-type: none;
-
-                        &.seq-item {
-                            display: block;
-                            width: 36px;
-                            align-self: end;
-
-                            > div {
-                                font-size: 11px;
-                                text-align: center;
-                                transition: color $transition;
-
-                                &.radio {
-                                    margin: 0 auto;
-                                }
-                            }
-
-                            &:first-child, &:last-child {
-                                > div:first-child {
-                                    margin-bottom: $value-xs;
-                                }
-                            }
-
-                            &:first-child {
-                                > div:first-child {
-                                    text-align: left;
-                                }
-                            }
-
-                            &:last-child {
-                                > div:first-child {
-                                    text-align: right;
-                                }
-                            }
-                        }
-                    }
-
-                    &.error {
-                        > li {
-                            > div {
-                                color: $error-color;
-
-                                &.radio {
-                                    border-color: $error-color;
-
-                                    &:before  {
-                                        background: $error-color;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-
-                > .comment-wrapper {
-                    @extend %margin-top-btm-l;
-
-                    > label {
-                        line-height: 1.25;
-                        text-align: justify;
-                    }
-                }
-            }
-        }
 
         #user-form {
             width: 400px;

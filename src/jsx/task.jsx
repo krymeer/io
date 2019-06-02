@@ -221,7 +221,7 @@ class Task extends React.Component {
         {
             this.setState( {
                 alert : {
-                    type : 'warning',
+                    type : 'error',
                     msg  : 'Twoja przeglądarka **uniemożliwia** pobranie informacji na temat Twojej lokalizacji (szerokości i długości geograficznej) Proszę, wpisz swoje dane ręcznie.'
                 }
             } );
@@ -479,92 +479,96 @@ class Task extends React.Component {
         if( this.props.scenarioStarted && this.props.currentIndex >= this.props.index )
         {
             return (
-                <section className="task" onClick={ this.handleClick } ref={ this.props.nodeRef }>
-                    <h2>Ćwiczenie { this.props.scenarioIndex }.{ this.props.index }.</h2>
-                    <Paragraph class="task-description" content="Wypełnij formularz, korzystając z danych zawartych **w poniższej tabeli:**" />
-                    <table data-for={ this.props.task.type } ref={ ( this.state.taskStarted ) ? this.childNodeRef : undefined }>
-                        <thead>
-                            <tr>
-                                <th>Nazwa pola</th>
-                                <th>Prawidłowa wartość</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {
-                                this.props.task.data.map( ( row, index ) =>
-                                    <tr key={ index }>
-                                        <td>{ row.label }</td>
-                                        <td>
-                                            { Array.isArray( row.expectedValue ) && typeof row.separator !== "undefined"
-                                                ? ( row.expectedValue.join( row.separator ) )
-                                                : ( row.anyValue
-                                                    ? <em>dowolna*</em>
-                                                    : String( row.expectedValue ).split( '\n' ).map( ( line, lineIndex, lineArr ) => {
-                                                        line = insertNbsp( line );
+                <React.Fragment>
+                    <section className="task-intro" onClick={ this.handleClick } ref={ this.props.nodeRef }>
+                        <h2>Ćwiczenie { this.props.scenarioIndex }.{ this.props.index }.</h2>
+                        <Paragraph class="task-description" content="Wypełnij formularz, korzystając z danych zawartych **w poniższej tabeli:**" />
+                    </section>
+                    <section className="task-main-container">
+                        <table data-for={ this.props.task.type } ref={ ( this.state.taskStarted ) ? this.childNodeRef : undefined }>
+                            <thead>
+                                <tr>
+                                    <th>Nazwa pola</th>
+                                    <th>Prawidłowa wartość</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    this.props.task.data.map( ( row, index ) =>
+                                        <tr key={ index }>
+                                            <td>{ row.label }</td>
+                                            <td>
+                                                { Array.isArray( row.expectedValue ) && typeof row.separator !== "undefined"
+                                                    ? ( row.expectedValue.join( row.separator ) )
+                                                    : ( row.anyValue
+                                                        ? <em>dowolna*</em>
+                                                        : String( row.expectedValue ).split( '\n' ).map( ( line, lineIndex, lineArr ) => {
+                                                            line = insertNbsp( line );
 
-                                                        return ( lineIndex < lineArr.length - 1 )
-                                                            ? [
-                                                                line,
-                                                                <br key={ index } />
-                                                            ]
-                                                            : line;
-                                                    } ) )
-                                            }
+                                                            return ( lineIndex < lineArr.length - 1 )
+                                                                ? [
+                                                                    line,
+                                                                    <br key={ index } />
+                                                                ]
+                                                                : line;
+                                                        } ) )
+                                                }
+                                            </td>
+                                        </tr>
+                                    )
+                                }
+                            </tbody>
+                            { ( this.props.task.data.filter( row => row.anyValue ).length > 0 ) &&
+                                <tfoot>
+                                    <tr>
+                                        <td className="note" colSpan="2">
+                                            *) Każda niepusta wartość, która jest zgodna z treścią scenariusza.
                                         </td>
                                     </tr>
-                                )
+                                </tfoot>
                             }
-                        </tbody>
-                        { ( this.props.task.data.filter( row => row.anyValue ).length > 0 ) &&
-                            <tfoot>
-                                <tr>
-                                    <td className="note" colSpan="2">
-                                        *) Każda niepusta wartość, która jest zgodna z treścią scenariusza.
-                                    </td>
-                                </tr>
-                            </tfoot>
+                        </table>
+                        { this.props.task.alert &&
+                            <Paragraph content={ this.props.task.alert.msg } class={ "alert " + this.props.task.alert.type } />
                         }
-                    </table>
-                    { this.props.task.alert &&
-                        <Paragraph content={ this.props.task.alert.msg } class={ "alert " + this.props.task.alert.type } />
-                    }
-                    <button className="start" onClick={ this.handleStart } disabled={ this.state.taskStarted }>Zaczynam ćwiczenie</button>
-                    <section ref={ formWrapperNode => this.formWrapperNode = formWrapperNode } className={ "form " + this.props.task.classes }>
-                        { this.state.alert &&
-                            <Paragraph content={ this.state.alert.msg } class={ "alert " + this.state.alert.type } />
-                        }
-                        <h3>{ this.props.task.title }</h3>
-                        {
-                            this.state.inputs.map( ( input, index ) => {
-                                const speechRecognitionProps = ( this.props.task.type.indexOf( 'speech-recognition' ) !== -1 ) ? {
-                                    onSpeechRecognitionTimesClick : this.handleSpeechRecognitionTimesClick,
-                                    onSpeechRecognitionMicClick   : this.handleSpeechRecognitionMicClick,
-                                    speechRecognition             : {
-                                        currentIndex  : this.state.speechRecognition.currentIndex,
-                                        inputValue    : this.state.speechRecognition.values[ index ]
-                                    }
-                                } : undefined;
+                        <button className="start" onClick={ this.handleStart } disabled={ this.state.taskStarted }>Zaczynam ćwiczenie</button>
+                        <section ref={ formWrapperNode => this.formWrapperNode = formWrapperNode } className={ "form " + this.props.task.classes }>
+                            { this.state.alert &&
+                                <Paragraph content={ this.state.alert.msg } class={ "alert " + this.state.alert.type } />
+                            }
+                            <h3>{ this.props.task.title }</h3>
+                            {
+                                this.state.inputs.map( ( input, index ) => {
+                                    const speechRecognitionProps = ( this.props.task.type.indexOf( 'speech-recognition' ) !== -1 ) ? {
+                                        onSpeechRecognitionTimesClick : this.handleSpeechRecognitionTimesClick,
+                                        onSpeechRecognitionMicClick   : this.handleSpeechRecognitionMicClick,
+                                        speechRecognition             : {
+                                            currentIndex  : this.state.speechRecognition.currentIndex,
+                                            inputValue    : this.state.speechRecognition.values[ index ]
+                                        }
+                                    } : undefined;
 
-                                return (
-                                    <InputWrapper key={ index } index={ index } error={ this.state.taskError && this.state.taskStarted } disabled={ this.state.taskFinished || !this.state.taskStarted } onChange={ this.handleInputChange } { ...input } {...this.props.task.data[ index ] } insideTask={ true } { ...speechRecognitionProps } ignoreCaseAndLines={ this.props.task.ignoreCaseAndLines === true } />
-                                );
-                            } )
-                        }
-                        { this.state.taskError &&
-                            <Paragraph class="on-form-error" content="Aby przejść dalej, popraw pola wyróżnione **tym kolorem.**" />
+                                    return (
+                                        <InputWrapper key={ index } index={ index } error={ this.state.taskError && this.state.taskStarted } disabled={ this.state.taskFinished || !this.state.taskStarted } onChange={ this.handleInputChange } { ...input } {...this.props.task.data[ index ] } insideTask={ true } { ...speechRecognitionProps } ignoreCaseAndLines={ this.props.task.ignoreCaseAndLines === true } />
+                                    );
+                                } )
+                            }
+                            { this.state.taskError &&
+                                <Paragraph class="on-form-error" content="Aby przejść dalej, popraw pola wyróżnione **tym kolorem.**" />
+                            }
+                        </section>
+                        { this.state.taskStarted &&
+                            <section className="button-wrapper">
+                                { this.props.task.canBeAborted &&
+                                    <button className="abort" onClick={ this.handleAbort } disabled={ this.state.taskFinished }>Przerywam ćwiczenie</button>
+                                }
+                                <button className="okay" onClick={ this.handleFinish } disabled={ this.state.taskFinished }>OK, gotowe</button>
+                            </section>
                         }
                     </section>
-                    { this.state.taskStarted &&
-                        <section className="button-wrapper">
-                            { this.props.task.canBeAborted &&
-                                <button className="abort" onClick={ this.handleAbort } disabled={ this.state.taskFinished }>Przerywam ćwiczenie</button>
-                            }
-                            <button className="okay" onClick={ this.handleFinish } disabled={ this.state.taskFinished }>OK, gotowe</button>
-                        </section>
-                    }
                     { this.state.taskFinished &&
-                        <section className="seq" ref={ this.childNodeRef }>
-                            <h3>Jaki jest, Twoim zdaniem, poziom trudności powyższego ćwiczenia?</h3>
+                        <section className="task-seq" ref={ this.childNodeRef }>
+                            <h3 className={ ( this.state.missingSummaryData && this.state.stats.rating <= 0 ) ? "error" : undefined } >Jaki jest, Twoim zdaniem, poziom trudności powyższego ćwiczenia?</h3>
                             <ul className={ ( "seq-radios " + ( ( this.state.missingSummaryData && this.state.stats.rating <= 0 ) ? "error" : "" ) ).trim() }>
                                 { [ ...Array( 7 ) ].map( ( x, key, array ) =>
                                     <li className={ ( "seq-item radio-item " + ( this.state.stats.rating === key + 1  ? "chosen" : "" ) + " " + ( this.state.nextTask ? "disabled" : "" ) ).trim().replace( /\s+/g, " " ) } key={ key }>
@@ -588,17 +592,19 @@ class Task extends React.Component {
                             }
                             <InputWrapper wrapperClass="comment-wrapper" context="taskFinished" label={ ( typeof this.props.question !== "undefined" ) ? insertNbsp( this.props.question ) : "Co sądzisz o wprowadzaniu danych przy użyciu zaprezentowanej metody?" } optional={ true } type="textarea" disabled={ this.state.nextTask } onChange={ this.handleCommentChange } />
                             { this.state.missingSummaryData &&
-                                <Paragraph class="note" content={ "Aby przejść dalej, **oceń poziom trudności powyższego ćwiczenia" + ( ( this.state.taskAborted && this.state.stats.comments.taskAborted && this.state.stats.comments.taskAborted.length < 10 ) ? ",** a także **wyjaśnij, dlaczego zdecydowałeś(-aś) się je przerwać.**" :  ".**" ) } />
+                                <Paragraph class="note error" content={ "Aby przejść dalej, **oceń poziom trudności powyższego ćwiczenia" + ( ( this.state.missingSummaryData && !( this.state.stats.comments.taskAborted && this.state.stats.comments.taskAborted.length >= 10 ) ) ? ",** a także **wyjaśnij, dlaczego zdecydowałeś(-aś) się je przerwać.**" :  ".**" ) } />
                             }
                         </section>
                     }
                     { this.state.taskFinished &&
-                        <button onClick={ this.handleNext } disabled={ this.state.nextTask }>OK, dalej</button>
+                        <section className="button-wrapper">
+                            <button onClick={ this.handleNext } disabled={ this.state.nextTask }>OK, dalej</button>
+                        </section>
                     }
-                </section>
+                </React.Fragment>
             );
         }
 
-        return "";
+        return null;
     }
 }

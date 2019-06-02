@@ -232,7 +232,7 @@ var Task = function (_React$Component) {
             } else {
                 this.setState({
                     alert: {
-                        type: 'warning',
+                        type: 'error',
                         msg: 'Twoja przeglądarka **uniemożliwia** pobranie informacji na temat Twojej lokalizacji (szerokości i długości geograficznej) Proszę, wpisz swoje dane ręcznie.'
                     }
                 });
@@ -458,134 +458,142 @@ var Task = function (_React$Component) {
 
             if (this.props.scenarioStarted && this.props.currentIndex >= this.props.index) {
                 return React.createElement(
-                    'section',
-                    { className: 'task', onClick: this.handleClick, ref: this.props.nodeRef },
+                    React.Fragment,
+                    null,
                     React.createElement(
-                        'h2',
-                        null,
-                        '\u0106wiczenie ',
-                        this.props.scenarioIndex,
-                        '.',
-                        this.props.index,
-                        '.'
-                    ),
-                    React.createElement(Paragraph, { 'class': 'task-description', content: 'Wype\u0142nij formularz, korzystaj\u0105c z danych zawartych **w poni\u017Cszej tabeli:**' }),
-                    React.createElement(
-                        'table',
-                        { 'data-for': this.props.task.type, ref: this.state.taskStarted ? this.childNodeRef : undefined },
+                        'section',
+                        { className: 'task-intro', onClick: this.handleClick, ref: this.props.nodeRef },
                         React.createElement(
-                            'thead',
+                            'h2',
                             null,
+                            '\u0106wiczenie ',
+                            this.props.scenarioIndex,
+                            '.',
+                            this.props.index,
+                            '.'
+                        ),
+                        React.createElement(Paragraph, { 'class': 'task-description', content: 'Wype\u0142nij formularz, korzystaj\u0105c z danych zawartych **w poni\u017Cszej tabeli:**' })
+                    ),
+                    React.createElement(
+                        'section',
+                        { className: 'task-main-container' },
+                        React.createElement(
+                            'table',
+                            { 'data-for': this.props.task.type, ref: this.state.taskStarted ? this.childNodeRef : undefined },
                             React.createElement(
-                                'tr',
+                                'thead',
                                 null,
                                 React.createElement(
-                                    'th',
-                                    null,
-                                    'Nazwa pola'
-                                ),
-                                React.createElement(
-                                    'th',
-                                    null,
-                                    'Prawid\u0142owa warto\u015B\u0107'
-                                )
-                            )
-                        ),
-                        React.createElement(
-                            'tbody',
-                            null,
-                            this.props.task.data.map(function (row, index) {
-                                return React.createElement(
                                     'tr',
-                                    { key: index },
+                                    null,
                                     React.createElement(
-                                        'td',
+                                        'th',
                                         null,
-                                        row.label
+                                        'Nazwa pola'
                                     ),
                                     React.createElement(
-                                        'td',
+                                        'th',
                                         null,
-                                        Array.isArray(row.expectedValue) && typeof row.separator !== "undefined" ? row.expectedValue.join(row.separator) : row.anyValue ? React.createElement(
-                                            'em',
-                                            null,
-                                            'dowolna*'
-                                        ) : String(row.expectedValue).split('\n').map(function (line, lineIndex, lineArr) {
-                                            line = insertNbsp(line);
-
-                                            return lineIndex < lineArr.length - 1 ? [line, React.createElement('br', { key: index })] : line;
-                                        })
+                                        'Prawid\u0142owa warto\u015B\u0107'
                                     )
-                                );
-                            })
-                        ),
-                        this.props.task.data.filter(function (row) {
-                            return row.anyValue;
-                        }).length > 0 && React.createElement(
-                            'tfoot',
-                            null,
+                                )
+                            ),
                             React.createElement(
-                                'tr',
+                                'tbody',
+                                null,
+                                this.props.task.data.map(function (row, index) {
+                                    return React.createElement(
+                                        'tr',
+                                        { key: index },
+                                        React.createElement(
+                                            'td',
+                                            null,
+                                            row.label
+                                        ),
+                                        React.createElement(
+                                            'td',
+                                            null,
+                                            Array.isArray(row.expectedValue) && typeof row.separator !== "undefined" ? row.expectedValue.join(row.separator) : row.anyValue ? React.createElement(
+                                                'em',
+                                                null,
+                                                'dowolna*'
+                                            ) : String(row.expectedValue).split('\n').map(function (line, lineIndex, lineArr) {
+                                                line = insertNbsp(line);
+
+                                                return lineIndex < lineArr.length - 1 ? [line, React.createElement('br', { key: index })] : line;
+                                            })
+                                        )
+                                    );
+                                })
+                            ),
+                            this.props.task.data.filter(function (row) {
+                                return row.anyValue;
+                            }).length > 0 && React.createElement(
+                                'tfoot',
                                 null,
                                 React.createElement(
-                                    'td',
-                                    { className: 'note', colSpan: '2' },
-                                    '*) Ka\u017Cda niepusta warto\u015B\u0107, kt\xF3ra jest zgodna z tre\u015Bci\u0105 scenariusza.'
+                                    'tr',
+                                    null,
+                                    React.createElement(
+                                        'td',
+                                        { className: 'note', colSpan: '2' },
+                                        '*) Ka\u017Cda niepusta warto\u015B\u0107, kt\xF3ra jest zgodna z tre\u015Bci\u0105 scenariusza.'
+                                    )
                                 )
                             )
-                        )
-                    ),
-                    this.props.task.alert && React.createElement(Paragraph, { content: this.props.task.alert.msg, 'class': "alert " + this.props.task.alert.type }),
-                    React.createElement(
-                        'button',
-                        { className: 'start', onClick: this.handleStart, disabled: this.state.taskStarted },
-                        'Zaczynam \u0107wiczenie'
-                    ),
-                    React.createElement(
-                        'section',
-                        { ref: function ref(formWrapperNode) {
-                                return _this7.formWrapperNode = formWrapperNode;
-                            }, className: "form " + this.props.task.classes },
-                        this.state.alert && React.createElement(Paragraph, { content: this.state.alert.msg, 'class': "alert " + this.state.alert.type }),
-                        React.createElement(
-                            'h3',
-                            null,
-                            this.props.task.title
                         ),
-                        this.state.inputs.map(function (input, index) {
-                            var speechRecognitionProps = _this7.props.task.type.indexOf('speech-recognition') !== -1 ? {
-                                onSpeechRecognitionTimesClick: _this7.handleSpeechRecognitionTimesClick,
-                                onSpeechRecognitionMicClick: _this7.handleSpeechRecognitionMicClick,
-                                speechRecognition: {
-                                    currentIndex: _this7.state.speechRecognition.currentIndex,
-                                    inputValue: _this7.state.speechRecognition.values[index]
-                                }
-                            } : undefined;
+                        this.props.task.alert && React.createElement(Paragraph, { content: this.props.task.alert.msg, 'class': "alert " + this.props.task.alert.type }),
+                        React.createElement(
+                            'button',
+                            { className: 'start', onClick: this.handleStart, disabled: this.state.taskStarted },
+                            'Zaczynam \u0107wiczenie'
+                        ),
+                        React.createElement(
+                            'section',
+                            { ref: function ref(formWrapperNode) {
+                                    return _this7.formWrapperNode = formWrapperNode;
+                                }, className: "form " + this.props.task.classes },
+                            this.state.alert && React.createElement(Paragraph, { content: this.state.alert.msg, 'class': "alert " + this.state.alert.type }),
+                            React.createElement(
+                                'h3',
+                                null,
+                                this.props.task.title
+                            ),
+                            this.state.inputs.map(function (input, index) {
+                                var speechRecognitionProps = _this7.props.task.type.indexOf('speech-recognition') !== -1 ? {
+                                    onSpeechRecognitionTimesClick: _this7.handleSpeechRecognitionTimesClick,
+                                    onSpeechRecognitionMicClick: _this7.handleSpeechRecognitionMicClick,
+                                    speechRecognition: {
+                                        currentIndex: _this7.state.speechRecognition.currentIndex,
+                                        inputValue: _this7.state.speechRecognition.values[index]
+                                    }
+                                } : undefined;
 
-                            return React.createElement(InputWrapper, Object.assign({ key: index, index: index, error: _this7.state.taskError && _this7.state.taskStarted, disabled: _this7.state.taskFinished || !_this7.state.taskStarted, onChange: _this7.handleInputChange }, input, _this7.props.task.data[index], { insideTask: true }, speechRecognitionProps, { ignoreCaseAndLines: _this7.props.task.ignoreCaseAndLines === true }));
-                        }),
-                        this.state.taskError && React.createElement(Paragraph, { 'class': 'on-form-error', content: 'Aby przej\u015B\u0107 dalej, popraw pola wyr\xF3\u017Cnione **tym kolorem.**' })
-                    ),
-                    this.state.taskStarted && React.createElement(
-                        'section',
-                        { className: 'button-wrapper' },
-                        this.props.task.canBeAborted && React.createElement(
-                            'button',
-                            { className: 'abort', onClick: this.handleAbort, disabled: this.state.taskFinished },
-                            'Przerywam \u0107wiczenie'
+                                return React.createElement(InputWrapper, Object.assign({ key: index, index: index, error: _this7.state.taskError && _this7.state.taskStarted, disabled: _this7.state.taskFinished || !_this7.state.taskStarted, onChange: _this7.handleInputChange }, input, _this7.props.task.data[index], { insideTask: true }, speechRecognitionProps, { ignoreCaseAndLines: _this7.props.task.ignoreCaseAndLines === true }));
+                            }),
+                            this.state.taskError && React.createElement(Paragraph, { 'class': 'on-form-error', content: 'Aby przej\u015B\u0107 dalej, popraw pola wyr\xF3\u017Cnione **tym kolorem.**' })
                         ),
-                        React.createElement(
-                            'button',
-                            { className: 'okay', onClick: this.handleFinish, disabled: this.state.taskFinished },
-                            'OK, gotowe'
+                        this.state.taskStarted && React.createElement(
+                            'section',
+                            { className: 'button-wrapper' },
+                            this.props.task.canBeAborted && React.createElement(
+                                'button',
+                                { className: 'abort', onClick: this.handleAbort, disabled: this.state.taskFinished },
+                                'Przerywam \u0107wiczenie'
+                            ),
+                            React.createElement(
+                                'button',
+                                { className: 'okay', onClick: this.handleFinish, disabled: this.state.taskFinished },
+                                'OK, gotowe'
+                            )
                         )
                     ),
                     this.state.taskFinished && React.createElement(
                         'section',
-                        { className: 'seq', ref: this.childNodeRef },
+                        { className: 'task-seq', ref: this.childNodeRef },
                         React.createElement(
                             'h3',
-                            null,
+                            { className: this.state.missingSummaryData && this.state.stats.rating <= 0 ? "error" : undefined },
                             'Jaki jest, Twoim zdaniem, poziom trudno\u015Bci powy\u017Cszego \u0107wiczenia?'
                         ),
                         React.createElement(
@@ -616,17 +624,21 @@ var Task = function (_React$Component) {
                         ),
                         this.state.taskAborted && React.createElement(InputWrapper, { wrapperClass: 'comment-wrapper', ignoreValidity: true, error: this.state.missingSummaryData && !(this.state.stats.comments.taskAborted && this.state.stats.comments.taskAborted.length >= 10), context: 'taskAborted', label: 'Dlaczego nie wykona\u0142e\u015B(-a\u015B) tego \u0107wiczenia do ko\u0144ca?', type: 'textarea', disabled: this.state.nextTask, onChange: this.handleCommentChange }),
                         React.createElement(InputWrapper, { wrapperClass: 'comment-wrapper', context: 'taskFinished', label: typeof this.props.question !== "undefined" ? insertNbsp(this.props.question) : "Co sądzisz o wprowadzaniu danych przy użyciu zaprezentowanej metody?", optional: true, type: 'textarea', disabled: this.state.nextTask, onChange: this.handleCommentChange }),
-                        this.state.missingSummaryData && React.createElement(Paragraph, { 'class': 'note', content: "Aby przejść dalej, **oceń poziom trudności powyższego ćwiczenia" + (this.state.taskAborted && this.state.stats.comments.taskAborted && this.state.stats.comments.taskAborted.length < 10 ? ",** a także **wyjaśnij, dlaczego zdecydowałeś(-aś) się je przerwać.**" : ".**") })
+                        this.state.missingSummaryData && React.createElement(Paragraph, { 'class': 'note error', content: "Aby przejść dalej, **oceń poziom trudności powyższego ćwiczenia" + (this.state.missingSummaryData && !(this.state.stats.comments.taskAborted && this.state.stats.comments.taskAborted.length >= 10) ? ",** a także **wyjaśnij, dlaczego zdecydowałeś(-aś) się je przerwać.**" : ".**") })
                     ),
                     this.state.taskFinished && React.createElement(
-                        'button',
-                        { onClick: this.handleNext, disabled: this.state.nextTask },
-                        'OK, dalej'
+                        'section',
+                        { className: 'button-wrapper' },
+                        React.createElement(
+                            'button',
+                            { onClick: this.handleNext, disabled: this.state.nextTask },
+                            'OK, dalej'
+                        )
                     )
                 );
             }
 
-            return "";
+            return null;
         }
     }]);
 

@@ -152,22 +152,24 @@ class Scenario extends React.Component {
         if( this.props.testStarted && this.props.currentIndex >= this.props.index )
         {
             return (
-                <section className="scenario" ref={ this.props.nodeRef }>
-                    <h1>Scenariusz { this.props.index }.</h1>
-                    { typeof this.props.scenario.intro !== "undefined" &&
-                        <Paragraph content={ this.props.scenario.intro } />
-                    }
-                    { typeof this.props.scenario.warning !== 'undefined' &&
-                        <Paragraph class="alert warning" content={ this.props.scenario.warning } />
-                    }
-                    <button onClick={ this.handleStart } disabled={ this.state.scenarioStarted }>OK, dalej</button>
-                    {
-                        this.state.tasks.const.map( ( task, index, tasks ) =>
+                <React.Fragment>
+                    <section className="scenario-intro" ref={ this.props.nodeRef }>
+                        <h1>Scenariusz { this.props.index }.</h1>
+                        { typeof this.props.scenario.intro !== "undefined" &&
+                            <Paragraph content={ this.props.scenario.intro } />
+                        }
+                        { typeof this.props.scenario.alert !== 'undefined' &&
+                            <Paragraph class="alert" content={ this.props.scenario.alert } />
+                        }
+                        <button onClick={ this.handleStart } disabled={ this.state.scenarioStarted }>OK, dalej</button>
+                    </section>
+                    <React.Fragment>
+                        { this.state.tasks.const.map( ( task, index, tasks ) =>
                             <Task question={ this.props.scenario.question } nodeRef={ this.childNodeRef } key={ index } index={ index + 1 } currentIndex={ this.state.currentTaskIndex } lastIndex={ tasks.length } onFinish={ this.handleTaskFinish } scenarioIndex={ this.props.index } scenarioStarted={ this.state.scenarioStarted } task={ task } />
-                        )
-                    }
+                        ) }
+                    </React.Fragment>
                     { this.state.scenarioFinished &&
-                        <section className="summary" ref={ this.childNodeRef }>
+                        <section className="scenario-summary" ref={ this.childNodeRef }>
                             <h2>Podsumowanie</h2>
                             <Paragraph content={ "Udało się! Właśnie ukończyłeś(-aś) **scenariusz " + this.props.index + ".** i możesz przejść do kolejnej części badania. Zanim jednak to zrobisz, proszę, udziel odpowiedzi na poniższe pytania." } />
                             <section className="questions">
@@ -188,7 +190,7 @@ class Scenario extends React.Component {
                                     }
                                     else
                                     {
-                                        return "";
+                                        return null;
                                     }
                                 } ) }
                                 { this.state.summary.currentQuestion >= this.state.summary.questions.length &&
@@ -198,9 +200,11 @@ class Scenario extends React.Component {
                         </section>
                     }
                     { this.state.scenarioFinished && this.state.summary.currentQuestion >= this.state.summary.questions.length &&
-                        <button onClick={ this.handleFinish } ref={ this.childNodeRef } disabled={ this.state.nextScenario }>OK, dalej</button>
+                        <section className="button-wrapper">
+                            <button onClick={ this.handleFinish } ref={ this.childNodeRef } disabled={ this.state.nextScenario }>OK, dalej</button>
+                        </section>
                     }
-                </section>
+                </React.Fragment>
             );
         }
         else
