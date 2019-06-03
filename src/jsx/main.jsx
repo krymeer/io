@@ -423,6 +423,19 @@ window.onload = function() {
                             otherOption : true
                         },
                         {
+                            type        : 'select',
+                            label       : 'Którego urządzenia wskazującego używasz najczęściej do obsługi komputera stacjonarnego lub laptopa?',
+                            id          : 'pointingDevice',
+                            options     : [ 'Myszy', 'Touchpada (gładzika)', 'Ekranu dotykowego', 'Pióra świetlnego', 'Innego (jakiego?)' ],
+                            otherOption : true
+                        },
+                        {
+                            type        : 'radio',
+                            label       : 'Czy przechodzisz od jednego do drugiego pola w formularzu przy użyciu klawisza Tab (o ile jest to możliwe)?',
+                            id          : 'usingTab',
+                            options     : [ 'Tak', 'Nie' ]
+                        },
+                        {
                             type        : 'radio',
                             label       : 'Czy prawidłowe wypełnianie formularzy na stronach WWW jest dla Ciebie czymś trudnym?',
                             id          : 'difficulties',
@@ -431,7 +444,7 @@ window.onload = function() {
                         {
                             type        : 'radio',
                             label       : 'Czy, Twoim zdaniem, formularze na stronach WWW są odpowiednio zaprojektowane?',
-                            id          : 'usability',
+                            id          : 'properDesign',
                             options     : [ 'Tak', 'Nie', 'Trudno powiedzieć' ]
                         },
                         {

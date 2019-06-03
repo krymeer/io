@@ -614,7 +614,7 @@ class InputWrapper extends React.Component {
         return (
             <div className={ ( wrapperClassName !== "" ) ? wrapperClassName : undefined }>
                 <label className={ ( labelClassName !== "" ) ? labelClassName : undefined } onClick={ this.handleLabel }>
-                    { this.props.label }
+                    { insertNbsp( this.props.label ) }
                     { this.props.optional &&
                         " *"
                     }

@@ -541,7 +541,7 @@ var InputWrapper = function (_React$Component) {
                 React.createElement(
                     'label',
                     { className: labelClassName !== "" ? labelClassName : undefined, onClick: this.handleLabel },
-                    this.props.label,
+                    insertNbsp(this.props.label),
                     this.props.optional && " *"
                 ),
                 this.props.type === "calendar" && React.createElement(
