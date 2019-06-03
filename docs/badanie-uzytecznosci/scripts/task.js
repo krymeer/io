@@ -541,9 +541,9 @@ var Task = function (_React$Component) {
                                     );
                                 })
                             ),
-                            this.props.task.data.filter(function (row) {
+                            (this.props.task.copy || this.props.task.data.filter(function (row) {
                                 return row.anyValue;
-                            }).length > 0 && React.createElement(
+                            }).length > 0) && React.createElement(
                                 'tfoot',
                                 null,
                                 React.createElement(
@@ -552,7 +552,7 @@ var Task = function (_React$Component) {
                                     React.createElement(
                                         'td',
                                         { className: 'note', colSpan: '2' },
-                                        '*) Ka\u017Cda niepusta warto\u015B\u0107, kt\xF3ra jest adekwatna do nazwy danego pola.'
+                                        this.props.task.copy ? this.props.task.copy : "*) Każda niepusta wartość, która jest adekwatna do nazwy danego pola."
                                     )
                                 )
                             )

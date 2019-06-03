@@ -149,6 +149,9 @@ html, body {
 #page-container > * > *.task-main-container > table th {
   color: #efa00b;
 }
+#page-container > * > *.task-main-container > table td:first-child {
+  vertical-align: top;
+}
 #page-container > * > *.task-main-container > table[data-for=input-masks-on] td:last-child, #page-container > * > *.task-main-container > table[data-for=input-masks-off] td:last-child {
   white-space: nowrap;
 }
@@ -1126,6 +1129,12 @@ main section .form.labels-float-top > .wrapper > label.on-input-focus, main sect
   font-size: 12px;
   margin-top: -16px;
   padding: 0 2px;
+}
+main section .form.long-text {
+  width: 470px;
+}
+main section .form.long-text > .wrapper > textarea {
+  height: 256px;
 }
 main section .form.speech-recognition-off[data-type=speech-recognition-off-sentences] {
   width: 470px;

@@ -537,11 +537,13 @@ class Task extends React.Component {
                                     )
                                 }
                             </tbody>
-                            { ( this.props.task.data.filter( row => row.anyValue ).length > 0 ) &&
+                            { ( this.props.task.copy || this.props.task.data.filter( row => row.anyValue ).length > 0 ) &&
                                 <tfoot>
                                     <tr>
                                         <td className="note" colSpan="2">
-                                            *) Każda niepusta wartość, która jest adekwatna do nazwy danego pola.
+                                            { ( this.props.task.copy ? this.props.task.copy : (
+                                                "*) Każda niepusta wartość, która jest adekwatna do nazwy danego pola."
+                                            ) ) }
                                         </td>
                                     </tr>
                                 </tfoot>

@@ -216,10 +216,18 @@ html, body {
                     color: $alert-color;
                 }
 
+                td {
+                    &:first-child {
+                        vertical-align: top;
+                    }
+                }
+
                 &[data-for='input-masks-on'],
                 &[data-for='input-masks-off'] {
-                    td:last-child {
-                        white-space: nowrap;
+                    td {
+                        &:last-child {
+                            white-space: nowrap;
+                        }
                     }
                 }
             }
@@ -1577,6 +1585,16 @@ main {
                             margin-top: -16px;
                             padding: 0 2px;
                         }
+                    }
+                }
+            }
+
+            &.long-text {
+                width: 470px;
+
+                > .wrapper {
+                    > textarea {
+                        height: 256px;
                     }
                 }
             }
