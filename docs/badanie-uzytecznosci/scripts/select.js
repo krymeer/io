@@ -42,6 +42,7 @@ var Select = function (_React$Component) {
             _this.handleOption = _this.handleOption.bind(_this);
             _this.handleFocus = _this.handleFocus.bind(_this);
             _this.handleBlur = _this.handleBlur.bind(_this);
+            _this.handleMouseUp = _this.handleMouseUp.bind(_this);
             _this.handleMouseDown = _this.handleMouseDown.bind(_this);
         }
         return _this;
@@ -100,14 +101,35 @@ var Select = function (_React$Component) {
     }, {
         key: 'handleMouseDown',
         value: function handleMouseDown(event) {
-            if (!this.props.disabled && event.target.closest('.select-current:focus') !== null) {
-                this.handleSelect(event);
+            if (!this.props.disabled) {
+                this.setState({
+                    eventBefore: 'mousedown'
+                });
+            }
+        }
+    }, {
+        key: 'handleMouseUp',
+        value: function handleMouseUp(event) {
+            if (!this.props.disabled) {
+                var node = event.target.closest('.select-current');
+
+                if (this.state.eventBefore === 'mousedown' && node) {
+                    node.blur();
+                }
+
+                this.setState({
+                    eventBefore: 'mouseup'
+                });
             }
         }
     }, {
         key: 'handleKey',
         value: function handleKey(event) {
             if (!this.props.disabled) {
+                this.setState({
+                    eventBefore: 'keydown'
+                });
+
                 if (event.key === 'Escape' || event.key === 'Enter') {
                     event.target.blur();
                 } else if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
@@ -230,14 +252,22 @@ var Select = function (_React$Component) {
     }, {
         key: 'handleFocus',
         value: function handleFocus(event) {
-            if (!this.state.list.open) {
+            if (!this.props.disabled && !this.state.list.open) {
+                this.setState({
+                    eventBefore: 'focus'
+                });
+
                 this.handleSelect(event);
             }
         }
     }, {
         key: 'handleBlur',
         value: function handleBlur(event) {
-            if (this.state.list.open) {
+            if (!this.props.disabled && this.state.list.open) {
+                this.setState({
+                    eventBefore: 'blur'
+                });
+
                 this.handleSelect(event);
             }
         }
@@ -301,9 +331,9 @@ var Select = function (_React$Component) {
                 this.props.selectFiltered && React.createElement('input', { onKeyDown: this.handleKey, className: 'select-filter', ref: this.props.inputNodeRef, maxLength: this.props.inputMaxLength, type: 'text', spellCheck: 'false', autoComplete: 'off', disabled: this.props.disabled, onFocus: this.handleFilterFocus, onChange: this.handleFilterChange, onBlur: this.handleFilterBlur, value: this.props.inputValue }),
                 !this.props.selectFiltered && React.createElement(
                     'div',
-                    { tabIndex: '0', ref: function ref(currentNode) {
+                    { onMouseUp: this.handleMouseUp, onMouseDown: this.handleMouseDown, tabIndex: '0', ref: function ref(currentNode) {
                             return _this6.currentNode = currentNode;
-                        }, className: ("select-current " + (this.props.disabled ? "disabled" : "") + " " + (this.state.list.open ? "focus" : "")).trim().replace(/\s+/g, " "), onMouseDown: this.handleMouseDown, onFocus: this.handleFocus, onBlur: this.handleBlur, onKeyDown: this.handleKey },
+                        }, className: ("select-current " + (this.props.disabled ? "disabled" : "") + " " + (this.state.list.open ? "focus" : "")).trim().replace(/\s+/g, " "), onFocus: this.handleFocus, onBlur: this.handleBlur, onKeyDown: this.handleKey },
                     React.createElement(
                         'span',
                         null,

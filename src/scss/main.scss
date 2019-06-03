@@ -200,8 +200,11 @@ html, body {
                 margin-bottom: 0;
             }
 
-            > table {
+            > table, > .form {
                 grid-row: 1;
+            }
+
+            > table {
                 grid-column: 1;
                 border-color: $alert-color;
 
@@ -213,8 +216,8 @@ html, body {
                     color: $alert-color;
                 }
 
-                &[data-for="input-masks-on"],
-                &[data-for="input-masks-off"] {
+                &[data-for='input-masks-on'],
+                &[data-for='input-masks-off'] {
                     td:last-child {
                         white-space: nowrap;
                     }
@@ -222,7 +225,6 @@ html, body {
             }
 
             > .form {
-                grid-row: 1;
                 grid-column: 2;
                 border-color: $okay-color;
 
@@ -230,6 +232,16 @@ html, body {
                     color: $okay-color;
                 }
             }
+
+            > .alert {
+                grid-row: 1;
+                grid-column: span 2;
+
+                ~ table, ~ .form {
+                    grid-row: 2;
+                }
+            }
+
         }
 
         &.task-seq {
@@ -1569,8 +1581,26 @@ main {
                 }
             }
 
-            &.speech-recognition {
+            &.speech-recognition-off {
+                &[data-type='speech-recognition-off-sentences'] {
+                    width: 470px;
+
+                    > .wrapper {
+                        grid-template-columns: auto 300px;
+
+                        > textarea {
+                            height: 124px;
+                        }
+                    }
+                }
+            }
+
+            &.speech-recognition-on {
                 width: 520px;
+
+                &[data-type='speech-recognition-on-sentences'] {
+                    width: 470px;
+                }
 
                 > .wrapper {
                     grid-template-columns: auto 270px;

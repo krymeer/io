@@ -49,7 +49,7 @@ var Task = function (_React$Component) {
             })
         };
 
-        if (_this.props.task.type.indexOf('speech-recognition') !== -1) {
+        if (_this.props.task.type.indexOf('speech-recognition-on') !== -1) {
             _this.state = Object.assign({}, _this.state, {
                 speechRecognition: {
                     values: [].concat(_toConsumableArray(Array(_this.props.task.data.length))),
@@ -125,6 +125,10 @@ var Task = function (_React$Component) {
                     }
                 }
 
+                if (_this2.props.numbersOnly && /^[\d\+]+$/.test(transcript) === false) {
+                    return false;
+                }
+
                 _this2.setState(function (state) {
                     return Object.assign({}, state, {
                         speechRecognition: Object.assign({}, state.speechRecognition, {
@@ -157,7 +161,7 @@ var Task = function (_React$Component) {
         value: function handleSpeechRecognitionMicClick(event) {
             var _this3 = this;
 
-            if (this.props.task.type.indexOf('speech-recognition') !== -1 && this.state.taskStarted && !this.state.taskFinished) {
+            if (this.props.task.type.indexOf('speech-recognition-on') !== -1 && this.state.taskStarted && !this.state.taskFinished) {
                 var inputIndex = typeof event !== 'undefined' ? parseInt(event.target.dataset.inputIndex) : -1;
                 var otherIndex = inputIndex !== -1 && this.state.speechRecognition.currentIndex !== inputIndex;
 
@@ -310,7 +314,7 @@ var Task = function (_React$Component) {
                 if (this.state.inputs.filter(function (input) {
                     return !input.valid;
                 }).length === 0 || taskAborted) {
-                    if (this.props.task.type.indexOf('speech-recognition') !== -1) {
+                    if (this.props.task.type.indexOf('speech-recognition-on') !== -1) {
                         if (this.state.speechRecognition.currentIndex !== -1) {
                             this.webkitSpeechRecognition.abort();
                         }
@@ -487,6 +491,7 @@ var Task = function (_React$Component) {
                     React.createElement(
                         'section',
                         { className: 'task-main-container', onClick: this.handleClick },
+                        this.props.task.alert && React.createElement(Paragraph, { content: this.props.task.alert.msg, 'class': "alert " + this.props.task.alert.type }),
                         React.createElement(
                             'table',
                             { 'data-for': this.props.task.type, ref: this.state.taskStarted ? this.childNodeRef : undefined },
@@ -552,7 +557,6 @@ var Task = function (_React$Component) {
                                 )
                             )
                         ),
-                        this.props.task.alert && React.createElement(Paragraph, { content: this.props.task.alert.msg, 'class': "alert " + this.props.task.alert.type }),
                         React.createElement(
                             'button',
                             { className: 'start', onClick: this.handleStart, disabled: this.state.taskStarted },
@@ -562,7 +566,7 @@ var Task = function (_React$Component) {
                             'section',
                             { ref: function ref(formWrapperNode) {
                                     return _this7.formWrapperNode = formWrapperNode;
-                                }, className: "form " + this.props.task.classes },
+                                }, className: "form " + this.props.task.classes, 'data-type': this.props.task.type },
                             this.state.alert && React.createElement(Paragraph, { content: this.state.alert.msg, 'class': "alert " + this.state.alert.type }),
                             React.createElement(
                                 'h3',
@@ -570,7 +574,7 @@ var Task = function (_React$Component) {
                                 this.props.task.title
                             ),
                             this.state.inputs.map(function (input, index) {
-                                var speechRecognitionProps = _this7.props.task.type.indexOf('speech-recognition') !== -1 ? {
+                                var speechRecognitionProps = _this7.props.task.type.indexOf('speech-recognition-on') !== -1 ? {
                                     onSpeechRecognitionTimesClick: _this7.handleSpeechRecognitionTimesClick,
                                     onSpeechRecognitionMicClick: _this7.handleSpeechRecognitionMicClick,
                                     speechRecognition: {

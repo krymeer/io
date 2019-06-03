@@ -31,7 +31,7 @@ class Task extends React.Component {
             } ) )
         };
 
-        if( this.props.task.type.indexOf( 'speech-recognition' ) !== -1 )
+        if( this.props.task.type.indexOf( 'speech-recognition-on' ) !== -1 )
         {
             this.state = {
                 ...this.state,
@@ -89,6 +89,11 @@ class Task extends React.Component {
                 }
             }
 
+            if( this.props.numbersOnly && /^[\d\+]+$/.test( transcript ) === false )
+            {
+                return false;
+            }
+
             this.setState( state => {
                 return {
                     ...state,
@@ -128,7 +133,7 @@ class Task extends React.Component {
 
     handleSpeechRecognitionMicClick( event )
     {
-        if( this.props.task.type.indexOf( 'speech-recognition' ) !== -1 && this.state.taskStarted && !this.state.taskFinished )
+        if( this.props.task.type.indexOf( 'speech-recognition-on' ) !== -1 && this.state.taskStarted && !this.state.taskFinished )
         {
             const inputIndex = ( typeof event !== 'undefined' ) ? parseInt( event.target.dataset.inputIndex ) : -1;
             const otherIndex = ( inputIndex !== -1 && this.state.speechRecognition.currentIndex !== inputIndex );
@@ -307,7 +312,7 @@ class Task extends React.Component {
 
             if( this.state.inputs.filter( input => !input.valid ).length === 0 || taskAborted )
             {
-                if( this.props.task.type.indexOf( 'speech-recognition' ) !== -1 )
+                if( this.props.task.type.indexOf( 'speech-recognition-on' ) !== -1 )
                 {
                     if( this.state.speechRecognition.currentIndex !== -1 )
                     {
@@ -496,6 +501,9 @@ class Task extends React.Component {
                         <Paragraph class="task-description" content="Wypełnij formularz, korzystając z danych zawartych **w poniższej tabeli:**" />
                     </section>
                     <section className="task-main-container" onClick={ this.handleClick }>
+                        { this.props.task.alert &&
+                            <Paragraph content={ this.props.task.alert.msg } class={ "alert " + this.props.task.alert.type } />
+                        }
                         <table data-for={ this.props.task.type } ref={ ( this.state.taskStarted ) ? this.childNodeRef : undefined }>
                             <thead>
                                 <tr>
@@ -539,18 +547,15 @@ class Task extends React.Component {
                                 </tfoot>
                             }
                         </table>
-                        { this.props.task.alert &&
-                            <Paragraph content={ this.props.task.alert.msg } class={ "alert " + this.props.task.alert.type } />
-                        }
                         <button className="start" onClick={ this.handleStart } disabled={ this.state.taskStarted }>Zaczynam ćwiczenie</button>
-                        <section ref={ formWrapperNode => this.formWrapperNode = formWrapperNode } className={ "form " + this.props.task.classes }>
+                        <section ref={ formWrapperNode => this.formWrapperNode = formWrapperNode } className={ "form " + this.props.task.classes } data-type={ this.props.task.type }>
                             { this.state.alert &&
                                 <Paragraph content={ this.state.alert.msg } class={ "alert " + this.state.alert.type } />
                             }
                             <h3>{ this.props.task.title }</h3>
                             {
                                 this.state.inputs.map( ( input, index ) => {
-                                    const speechRecognitionProps = ( this.props.task.type.indexOf( 'speech-recognition' ) !== -1 ) ? {
+                                    const speechRecognitionProps = ( this.props.task.type.indexOf( 'speech-recognition-on' ) !== -1 ) ? {
                                         onSpeechRecognitionTimesClick : this.handleSpeechRecognitionTimesClick,
                                         onSpeechRecognitionMicClick   : this.handleSpeechRecognitionMicClick,
                                         speechRecognition             : {

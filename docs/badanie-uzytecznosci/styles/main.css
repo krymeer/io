@@ -75,7 +75,7 @@ main table th, main table td {
   padding: 14px;
 }
 
-main section .form.speech-recognition > .wrapper > .sr-wrapper > span, main .alert, main .calendar-input, main .timetable-wrapper, main .select-option, main .select-current, main textarea, main input {
+main section .form.speech-recognition-on > .wrapper > .sr-wrapper > span, main .alert, main .calendar-input, main .timetable-wrapper, main .select-option, main .select-current, main textarea, main input {
   padding: 7px;
 }
 
@@ -83,7 +83,7 @@ main .inc-dec > i {
   padding: 3.5px;
 }
 
-main section .form.time-text-arrows > .wrapper > i, main section .form.speech-recognition > .wrapper > .sr-wrapper > i, main section .form > .wrapper.on-form-error.on-input-invalid > .sr-wrapper.active, main section .form > .wrapper .select-wrapper > .select-list, main section .form, main section.scenario-summary .questions > .question-wrapper > ul > li, main section.scenario-summary .questions, main .toggle-switch:before, main .toggle-switch, main .inc-dec > i, main .calendar-input, main .timetable-wrapper, main .select-option, main .select-current, main textarea, main input, main button, main table, #page-container > * > *.task-seq {
+main section .form.time-text-arrows > .wrapper > i, main section .form.speech-recognition-on > .wrapper > .sr-wrapper > i, main section .form > .wrapper.on-form-error.on-input-invalid > .sr-wrapper.active, main section .form > .wrapper .select-wrapper > .select-list, main section .form, main section.scenario-summary .questions > .question-wrapper > ul > li, main section.scenario-summary .questions, main .toggle-switch:before, main .toggle-switch, main .inc-dec > i, main .calendar-input, main .timetable-wrapper, main .select-option, main .select-current, main textarea, main input, main button, main table, #page-container > * > *.task-seq {
   border-radius: 4px;
 }
 
@@ -136,8 +136,10 @@ html, body {
   margin-top: 0;
   margin-bottom: 0;
 }
-#page-container > * > *.task-main-container > table {
+#page-container > * > *.task-main-container > table, #page-container > * > *.task-main-container > .form {
   grid-row: 1;
+}
+#page-container > * > *.task-main-container > table {
   grid-column: 1;
   border-color: #efa00b;
 }
@@ -151,12 +153,18 @@ html, body {
   white-space: nowrap;
 }
 #page-container > * > *.task-main-container > .form {
-  grid-row: 1;
   grid-column: 2;
   border-color: #2ccf13;
 }
 #page-container > * > *.task-main-container > .form > h3 {
   color: #2ccf13;
+}
+#page-container > * > *.task-main-container > .alert {
+  grid-row: 1;
+  grid-column: span 2;
+}
+#page-container > * > *.task-main-container > .alert ~ table, #page-container > * > *.task-main-container > .alert ~ .form {
+  grid-row: 2;
 }
 #page-container > * > *.task-seq {
   width: fit-content;
@@ -1119,18 +1127,30 @@ main section .form.labels-float-top > .wrapper > label.on-input-focus, main sect
   margin-top: -16px;
   padding: 0 2px;
 }
-main section .form.speech-recognition {
+main section .form.speech-recognition-off[data-type=speech-recognition-off-sentences] {
+  width: 470px;
+}
+main section .form.speech-recognition-off[data-type=speech-recognition-off-sentences] > .wrapper {
+  grid-template-columns: auto 300px;
+}
+main section .form.speech-recognition-off[data-type=speech-recognition-off-sentences] > .wrapper > textarea {
+  height: 124px;
+}
+main section .form.speech-recognition-on {
   width: 520px;
 }
-main section .form.speech-recognition > .wrapper {
+main section .form.speech-recognition-on[data-type=speech-recognition-on-sentences] {
+  width: 470px;
+}
+main section .form.speech-recognition-on > .wrapper {
   grid-template-columns: auto 270px;
   position: relative;
 }
-main section .form.speech-recognition > .wrapper > .sr-wrapper {
+main section .form.speech-recognition-on > .wrapper > .sr-wrapper {
   display: grid;
   grid-template-columns: 39px 1fr 39px;
 }
-main section .form.speech-recognition > .wrapper > .sr-wrapper > i {
+main section .form.speech-recognition-on > .wrapper > .sr-wrapper > i {
   display: grid;
   place-content: center;
   width: 39px;
@@ -1140,50 +1160,50 @@ main section .form.speech-recognition > .wrapper > .sr-wrapper > i {
   transition: background 0.1s ease-in-out;
   cursor: pointer;
 }
-main section .form.speech-recognition > .wrapper > .sr-wrapper > i:first-child {
+main section .form.speech-recognition-on > .wrapper > .sr-wrapper > i:first-child {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
-main section .form.speech-recognition > .wrapper > .sr-wrapper > i:last-child {
+main section .form.speech-recognition-on > .wrapper > .sr-wrapper > i:last-child {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
 }
-main section .form.speech-recognition > .wrapper > .sr-wrapper > i:hover {
+main section .form.speech-recognition-on > .wrapper > .sr-wrapper > i:hover {
   background: #30de15;
 }
-main section .form.speech-recognition > .wrapper > .sr-wrapper > span {
+main section .form.speech-recognition-on > .wrapper > .sr-wrapper > span {
   font-size: inherit;
   border: 2px solid #ddd;
   min-height: 39px;
   color: #212121;
 }
-main section .form.speech-recognition > .wrapper > .sr-wrapper.disabled > i, main section .form.speech-recognition > .wrapper > .sr-wrapper:not(.active) > i:first-child {
+main section .form.speech-recognition-on > .wrapper > .sr-wrapper.disabled > i, main section .form.speech-recognition-on > .wrapper > .sr-wrapper:not(.active) > i:first-child {
   cursor: default;
   background: #e0e0e0;
 }
-main section .form.speech-recognition > .wrapper > .sr-wrapper.active > i {
+main section .form.speech-recognition-on > .wrapper > .sr-wrapper.active > i {
   background: #212121;
 }
-main section .form.speech-recognition > .wrapper > .sr-wrapper.active > i:hover {
+main section .form.speech-recognition-on > .wrapper > .sr-wrapper.active > i:hover {
   background: #434343;
 }
-main section .form.speech-recognition > .wrapper > .sr-wrapper.active > span {
+main section .form.speech-recognition-on > .wrapper > .sr-wrapper.active > span {
   border-color: #212121;
 }
-main section .form.speech-recognition > .wrapper > .sr-wrapper.active > span.sr-placeholder {
+main section .form.speech-recognition-on > .wrapper > .sr-wrapper.active > span.sr-placeholder {
   font-style: italic;
   color: #434343;
   display: grid;
   align-content: center;
 }
-main section .form.speech-recognition > .wrapper > .sr-wrapper.disabled > span {
+main section .form.speech-recognition-on > .wrapper > .sr-wrapper.disabled > span {
   color: #ddd;
   background: #eee;
 }
-main section .form.speech-recognition > .wrapper > .sr-wrapper.sr-textarea {
+main section .form.speech-recognition-on > .wrapper > .sr-wrapper.sr-textarea {
   min-height: 132px;
 }
-main section .form.speech-recognition > .wrapper > .sr-wrapper.sr-textarea > span:not(.sr-placeholder) {
+main section .form.speech-recognition-on > .wrapper > .sr-wrapper.sr-textarea > span:not(.sr-placeholder) {
   font-size: 13px;
 }
 main section .form.logic-values-toggle-switch {

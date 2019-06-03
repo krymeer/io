@@ -411,87 +411,6 @@
             ]
         },
         {
-            "intro"        : "Dwa tygodnie temu zrobiłeś(-aś) duże zakupy w popularnym serwisie aukcyjnym. Niestety, mimo upływu czasu wyczekiwana przesyłka do tej pory do Ciebie nie dotarła. Postanawiasz zgłosić reklamację. Aby to zrobić, musisz wypełnić kilkuetapowy formularz reklamacyjny.",
-            "alert"        : "**Uwaga!** Poprawne wykonanie tego scenariusza jest możliwe wyłącznie z wykorzystaniem funkcjonalności **rozpoznawania mowy.** Jeśli więc Twój komputer nie jest wyposażony w mikrofon (zewnętrzny lub wewnętrzny), pomiń każde z ćwiczeń, naciskając odpowiedni przycisk. Możesz to zrobić także wtedy, gdy podczas rozwiązywania ćwiczeń wystąpią problemy techniczne.",
-            "question"     : "Co sądzisz o wykorzystaniu technologii rozpoznawania mowy do wprowadzania tego typu danych?",
-            "openQuestion" : "Czy, Twoim zdaniem, rozpoznawanie mowy na stronach WWW ma sens? Jeśli tak, to w jakich przypadkach?",
-            "tasks"        : [
-                {
-                    "title"        : "Formularz reklamacyjny",
-                    "classes"      : "labels-align-left speech-recognition",
-                    "type"         : "speech-recognition-words",
-                    "canBeAborted" : true,
-                    "data"         : [
-                        {
-                            "type"          : "sr-text",
-                            "label"         : "Imię",
-                            "expectedValue" : "Andrzej"
-                        },
-                        {
-                            "type"          : "sr-text",
-                            "label"         : "Nazwisko",
-                            "expectedValue" : "Wiśniewski"
-                        },
-                        {
-                            "type"          : "sr-text",
-                            "label"         : "Przyczyna zgłoszenia",
-                            "expectedValue" : "niedostarczony towar"
-                        }
-                    ]
-                },
-                {
-                    "title"        : "Formularz reklamacyjny",
-                    "classes"      : "labels-align-left speech-recognition",
-                    "type"         : "speech-recognition-numbers",
-                    "canBeAborted" : true,
-                    "rules"        : [
-                        { "in" : " ",        "out" : "" },
-                        { "in" : "plus",     "out" : "+" },
-                        { "in" : "jeden",    "out" : "1" },
-                        { "in" : "dwa",      "out" : "2" },
-                        { "in" : "trzy",     "out" : "3" },
-                        { "in" : "cztery",   "out" : "4" },
-                        { "in" : "pięć",     "out" : "5" },
-                        { "in" : "sześć",    "out" : "6" },
-                        { "in" : "siedem",   "out" : "7" },
-                        { "in" : "osiem",    "out" : "8" },
-                        { "in" : "dziewięć", "out" : "9" },
-                        { "in" : "zero",     "out" : "0" }
-                    ],
-                    "data"         : [
-                        {
-                            "type"          : "sr-text",
-                            "label"         : "Numer zamówienia",
-                            "expectedValue" : "9024"
-                        },
-                        {
-                            "type"          : "sr-text",
-                            "label"         : "Numer telefonu",
-                            "expectedValue" : "+48572409882"
-                        }
-                    ]
-                },
-                {
-                    "title"              : "Formularz reklamacyjny",
-                    "classes"            : "labels-align-left speech-recognition",
-                    "type"               : "speech-recognition-sentences",
-                    "canBeAborted"       : true,
-                    "ignoreCaseAndLines" : true,
-                    "alert"              : {
-                        "type" : "info",
-                        "msg"  : "Wielkości liter i znaki nowej linii nie są brane pod uwagę w tym ćwiczeniu; postaraj się za to zachować zgodność treści wiadomości z powyższym wzorcem."
-                    },
-                    "data"               : [
-                        {
-                            "type"          : "sr-text sr-textarea",
-                            "label"         : "Treść wiadomości",
-                            "expectedValue" : "dzień dobry\ndwa tygodnie temu kupiłem kilka produktów na Pańskich aukcjach\nczy mogę prosić o podanie numeru przesyłki\npozdrawiam"
-                        }
-                    ]
-                }
-            ]
-        },
-        {
             "intro" : "Znajomy poprosił Cię o wysłanie ważnej dla niego rzeczy, którą przez pomyłkę u Ciebie zostawił. Zdecydowałeś(-aś) się skorzystać z usług jednej z firm kurierskich. Przed nadaniem paczki musisz podać kilka istotnych informacji, dzięki którym możliwe będzie zrealizowanie całego procesu.",
             "alert"  : "**Uwaga!** W jednym z ćwiczeń w tym scenariuszu wykorzystywany jest moduł do pobierania danych na temat lokalizacji komputera, z którego korzystasz. Informacje te nie zostaną udostępnione osobom trzecim; jeżeli mimo to nie wyrażasz zgody na przetwarzanie lokalizacji, wypełnij pola dowolnymi danymi, które będa adekwatne do nazw pól wejściowych.",
             "openQuestion" : "W jakich sytuacjach automatyczne (zautomatyzowane) wprowadzanie danych jest najbardziej przydatne?",
@@ -640,6 +559,64 @@
                                 "Żywiec 34-300, Objazdowa 2"
                             ],
                             "expectedValue" : "Ostrowiec Świętokrzyski 27-400, Jana Pawła II 20"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "intro"        : "Dwa tygodnie temu zrobiłeś(-aś) duże zakupy w popularnym serwisie aukcyjnym. Niestety, mimo upływu czasu wyczekiwana przesyłka do tej pory do Ciebie nie dotarła. Postanawiasz zgłosić reklamację. Aby to zrobić, musisz wypełnić kilkuetapowy formularz reklamacyjny.",
+            "question"     : "W jaki sposób można byłoby usprawnić wprowadzanie danych z powyższego ćwiczenia?",
+            "openQuestion" : "Czy w Twojej opinii istnieje lepszy, bardziej efektywny sposób na wprowadzanie danych z powyższego scenariusza?",
+            "tasks"        : [
+                {
+                    "title"              : "Formularz reklamacyjny",
+                    "classes"            : "labels-align-left speech-recognition-off",
+                    "type"               : "speech-recognition-off-sentences",
+                    "data"               : [
+                        {
+                            "type"          : "textarea",
+                            "label"         : "Treść wiadomości",
+                            "expectedValue" : "Witam! Dwa tygodnie temu kupiłem kilka produktów na Pana aukcjach.\nCzy mógłbym uprzejmie prosić o podanie numeru przesyłki?\nPozdrawiam"
+                        }
+                    ]
+                },
+                {
+                    "title"        : "Formularz reklamacyjny",
+                    "classes"      : "labels-align-left speech-recognition-off",
+                    "type"         : "speech-recognition-off-numbers",
+                    "data"         : [
+                        {
+                            "type"          : "text",
+                            "label"         : "Numer zamówienia",
+                            "expectedValue" : "1605"
+                        },
+                        {
+                            "type"          : "text",
+                            "label"         : "Numer telefonu",
+                            "expectedValue" : "+48661203492"
+                        }
+                    ]
+                },
+                {
+                    "title"        : "Formularz reklamacyjny",
+                    "classes"      : "labels-align-left speech-recognition-off",
+                    "type"         : "speech-recognition-off-words",
+                    "data"         : [
+                        {
+                            "type"          : "text",
+                            "label"         : "Imię",
+                            "expectedValue" : "Marian"
+                        },
+                        {
+                            "type"          : "text",
+                            "label"         : "Nazwisko",
+                            "expectedValue" : "Szpakowski"
+                        },
+                        {
+                            "type"          : "text",
+                            "label"         : "Przyczyna zgłoszenia",
+                            "expectedValue" : "niedostarczony towar"
                         }
                     ]
                 }
