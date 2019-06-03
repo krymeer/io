@@ -220,7 +220,7 @@ var Scenario = function (_React$Component) {
                                     return null;
                                 }
                             }),
-                            this.state.summary.currentQuestion >= this.state.summary.questions.length && React.createElement(InputWrapper, { wrapperClass: 'comment-wrapper', label: this.props.scenario.seqQuestion ? this.props.scenario.seqQuestion : "Jaki jest, Twoim zdaniem, najlepszy sposób na wprowadzanie tego typu danych?", optional: true, type: 'textarea', disabled: this.state.nextScenario, onChange: this.handleSummaryComment })
+                            this.state.summary.currentQuestion >= this.state.summary.questions.length && React.createElement(InputWrapper, { wrapperClass: 'comment-wrapper', label: this.props.scenario.openQuestion ? this.props.scenario.openQuestion : "Jaki jest najlepszy sposób na wprowadzanie tego typu danych?", optional: true, type: 'textarea', disabled: this.state.nextScenario, onChange: this.handleSummaryComment })
                         )
                     ),
                     this.state.scenarioFinished && this.state.summary.currentQuestion >= this.state.summary.questions.length && React.createElement(

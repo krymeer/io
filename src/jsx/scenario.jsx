@@ -194,7 +194,7 @@ class Scenario extends React.Component {
                                     }
                                 } ) }
                                 { this.state.summary.currentQuestion >= this.state.summary.questions.length &&
-                                    <InputWrapper wrapperClass="comment-wrapper" label={ this.props.scenario.seqQuestion ? this.props.scenario.seqQuestion : "Jaki jest, Twoim zdaniem, najlepszy sposób na wprowadzanie tego typu danych?" } optional={ true } type="textarea" disabled={ this.state.nextScenario } onChange={ this.handleSummaryComment } />
+                                    <InputWrapper wrapperClass="comment-wrapper" label={ this.props.scenario.openQuestion ? this.props.scenario.openQuestion : "Jaki jest najlepszy sposób na wprowadzanie tego typu danych?" } optional={ true } type="textarea" disabled={ this.state.nextScenario } onChange={ this.handleSummaryComment } />
                                 }
                             </section>
                         </section>

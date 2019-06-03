@@ -228,6 +228,10 @@ var Task = function (_React$Component) {
             if ('geolocation' in navigator) {
                 navigator.geolocation.getCurrentPosition(function (position) {
                     _this4.handlePosition(position.coords.latitude, position.coords.longitude);
+                }, function (error) {
+                    _this4.setState({
+                        geolocationError: error.code === error.PERMISSION_DENIED ? 'permissionDenied' : 'other'
+                    });
                 });
             } else {
                 this.setState({
@@ -285,7 +289,7 @@ var Task = function (_React$Component) {
                     };
                 });
 
-                if (this.props.task.type === 'geolocation') {
+                if (this.props.task.type === 'geolocation-on') {
                     this.handleGeolocation();
                 }
             }
@@ -361,10 +365,16 @@ var Task = function (_React$Component) {
                         missingSummaryData: false
                     });
 
+                    var stats = this.state.stats;
+
+                    if (this.state.geolocationError) {
+                        stats['geolocationError'] = this.state.geolocationError;
+                    }
+
                     this.props.onFinish({
                         index: this.props.index,
                         type: this.props.task.type,
-                        stats: this.state.stats
+                        stats: stats
                     });
                 }
             }
@@ -537,7 +547,7 @@ var Task = function (_React$Component) {
                                     React.createElement(
                                         'td',
                                         { className: 'note', colSpan: '2' },
-                                        '*) Ka\u017Cda niepusta warto\u015B\u0107, kt\xF3ra jest zgodna z tre\u015Bci\u0105 scenariusza.'
+                                        '*) Ka\u017Cda niepusta warto\u015B\u0107, kt\xF3ra jest adekwatna do nazwy danego pola.'
                                     )
                                 )
                             )

@@ -411,55 +411,10 @@
             ]
         },
         {
-            "intro"    : "Niedawno rozpocząłeś(-aś) poszukiwania nowej pracy. Zadecydowałeś(-aś) na umieszczenie swojego CV w popularnym serwisie rekrutacyjnym. Portal wymaga określenia Twojej lokalizacji, która może ułatwić znalezienie Twojego ogłoszenia przez pracodawców.",
-            "warning"  : "**Uwaga!** Podstawowym sposobem na rozwiązanie tego ćwiczenia jest skorzystanie z usługi pobierania lokalizacji przez przeglądarkę internetową. Dane dotyczące Twojej lokalizacji nie zostaną udostępnione osobom trzecim. Jeśli nie wyrażasz zgody na pobranie lokalizacji, wprowadź inne dane adekwatne do etykiet pól wejściowych.",
-            "question" : "Co sądzisz o zaprezentowanej funkcjonalności automatycznego wypełniania formularza?",
-            "seqQuestion" : "Kiedy, Twoim zdaniem, funkcjonalność automatycznego wprowadzania danych jest najbardziej przydatna?",
-            "tasks"    : [
-                {
-                    "title"   : "Curriculum vitae",
-                    "classes" : "labels-align-left geolocation",
-                    "type"    : "geolocation",
-                    "data"    : [
-                        {
-                            "type"          : "text",
-                            "label"         : "Kraj",
-                            "anyValue"      : true,
-                            "regexp"        : [ "^[A-ZĄĆĘŁŃÓŚŹŻ\\s\\-]+$", "i" ]
-                        },
-                        {
-                            "type"          : "text",
-                            "label"         : "Województwo",
-                            "anyValue"      : true,
-                            "regexp"        : [ "^[A-ZĄĆĘŁŃÓŚŹŻ\\s\\-]+$", "i" ]
-                        },
-                        {
-                            "type"          : "text",
-                            "label"         : "Powiat",
-                            "anyValue"      : true,
-                            "regexp"        : [ "^[A-ZĄĆĘŁŃÓŚŹŻ\\s\\-]+$", "i" ]
-                        },
-                        {
-                            "type"          : "text",
-                            "label"         : "Miejscowość",
-                            "anyValue"      : true,
-                            "regexp"        : [ "^[A-ZĄĆĘŁŃÓŚŹŻ\\s\\-]+$", "i" ]
-                        },
-                        {
-                            "type"          : "text",
-                            "label"         : "Kod pocztowy",
-                            "anyValue"      : true,
-                            "regexp"        : [ "^\\d{2}-\\d{3}$" ]
-                        }
-                    ]
-                }
-            ]
-        },
-        {
             "intro"        : "Dwa tygodnie temu zrobiłeś(-aś) duże zakupy w popularnym serwisie aukcyjnym. Niestety, mimo upływu czasu wyczekiwana przesyłka do tej pory do Ciebie nie dotarła. Postanawiasz zgłosić reklamację. Aby to zrobić, musisz wypełnić kilkuetapowy formularz reklamacyjny.",
             "alert"        : "**Uwaga!** Poprawne wykonanie tego scenariusza jest możliwe wyłącznie z wykorzystaniem funkcjonalności **rozpoznawania mowy.** Jeśli więc Twój komputer nie jest wyposażony w mikrofon (zewnętrzny lub wewnętrzny), pomiń każde z ćwiczeń, naciskając odpowiedni przycisk. Możesz to zrobić także wtedy, gdy podczas rozwiązywania ćwiczeń wystąpią problemy techniczne.",
             "question"     : "Co sądzisz o wykorzystaniu technologii rozpoznawania mowy do wprowadzania tego typu danych?",
-            "seqQuestion"  : "Czy, Twoim zdaniem, rozpoznawanie mowy na stronach WWW ma sens? Jeśli tak, to w jakich przypadkach?",
+            "openQuestion" : "Czy, Twoim zdaniem, rozpoznawanie mowy na stronach WWW ma sens? Jeśli tak, to w jakich przypadkach?",
             "tasks"        : [
                 {
                     "title"        : "Formularz reklamacyjny",
@@ -538,7 +493,47 @@
         },
         {
             "intro" : "Znajomy poprosił Cię o wysłanie ważnej dla niego rzeczy, którą przez pomyłkę u Ciebie zostawił. Zdecydowałeś(-aś) się skorzystać z usług jednej z firm kurierskich. Przed nadaniem paczki musisz podać kilka istotnych informacji, dzięki którym możliwe będzie zrealizowanie całego procesu.",
+            "alert"  : "**Uwaga!** W jednym z ćwiczeń w tym scenariuszu wykorzystywany jest moduł do pobierania danych na temat lokalizacji komputera, z którego korzystasz. Informacje te nie zostaną udostępnione osobom trzecim; jeżeli mimo to nie wyrażasz zgody na przetwarzanie lokalizacji, wypełnij pola dowolnymi danymi, które będa adekwatne do nazw pól wejściowych.",
+            "openQuestion" : "W jakich sytuacjach automatyczne (zautomatyzowane) wprowadzanie danych jest najbardziej przydatne?",
             "tasks" : [
+                {
+                    "question" : "Co sądzisz o zaprezentowanej metodzie wprowadzania danych ze wspomaganiem w postaci pobierania informacji o lokalizacji użytkownika?",
+                    "title"   : "Nadanie przesyłki",
+                    "classes" : "labels-align-left geolocation-on",
+                    "type"    : "geolocation-on",
+                    "data"    : [
+                        {
+                            "type"          : "text",
+                            "label"         : "Kraj",
+                            "anyValue"      : true,
+                            "regexp"        : [ "^[A-ZĄĆĘŁŃÓŚŹŻ\\s\\-]+$", "i" ]
+                        },
+                        {
+                            "type"          : "text",
+                            "label"         : "Województwo",
+                            "anyValue"      : true,
+                            "regexp"        : [ "^[A-ZĄĆĘŁŃÓŚŹŻ\\s\\-]+$", "i" ]
+                        },
+                        {
+                            "type"          : "text",
+                            "label"         : "Powiat",
+                            "anyValue"      : true,
+                            "regexp"        : [ "^[A-ZĄĆĘŁŃÓŚŹŻ\\s\\-]+$", "i" ]
+                        },
+                        {
+                            "type"          : "text",
+                            "label"         : "Miejscowość",
+                            "anyValue"      : true,
+                            "regexp"        : [ "^[A-ZĄĆĘŁŃÓŚŹŻ\\s\\-]+$", "i" ]
+                        },
+                        {
+                            "type"          : "text",
+                            "label"         : "Kod pocztowy",
+                            "anyValue"      : true,
+                            "regexp"        : [ "^\\d{2}-\\d{3}$" ]
+                        }
+                    ]
+                },
                 {
                     "question" : "Co sądzisz o zaprezentowanej metodzie wprowadzania danych ze wspomaganiem w postaci autouzupełniania?",
                     "title"    : "Nadanie przesyłki",

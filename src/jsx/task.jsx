@@ -215,6 +215,10 @@ class Task extends React.Component {
         {
             navigator.geolocation.getCurrentPosition( position => {
                 this.handlePosition( position.coords.latitude, position.coords.longitude );
+            }, error => {
+                this.setState( {
+                    geolocationError : ( error.code === error.PERMISSION_DENIED ) ? 'permissionDenied' : 'other'
+                } );
             } );
         }
         else
@@ -283,7 +287,7 @@ class Task extends React.Component {
                 };
             } );
 
-            if( this.props.task.type === 'geolocation' )
+            if( this.props.task.type === 'geolocation-on' )
             {
                 this.handleGeolocation();
             }
@@ -370,10 +374,17 @@ class Task extends React.Component {
                     missingSummaryData : false
                 } );
 
+                const stats = this.state.stats;
+
+                if( this.state.geolocationError )
+                {
+                    stats[ 'geolocationError' ] = this.state.geolocationError;
+                }
+
                 this.props.onFinish( {
                     index : this.props.index,
                     type  : this.props.task.type,
-                    stats : this.state.stats
+                    stats
                 } );
             }
         }
@@ -522,7 +533,7 @@ class Task extends React.Component {
                                 <tfoot>
                                     <tr>
                                         <td className="note" colSpan="2">
-                                            *) Każda niepusta wartość, która jest zgodna z treścią scenariusza.
+                                            *) Każda niepusta wartość, która jest adekwatna do nazwy danego pola.
                                         </td>
                                     </tr>
                                 </tfoot>
