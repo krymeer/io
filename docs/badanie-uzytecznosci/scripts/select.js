@@ -42,6 +42,7 @@ var Select = function (_React$Component) {
             _this.handleOption = _this.handleOption.bind(_this);
             _this.handleFocus = _this.handleFocus.bind(_this);
             _this.handleBlur = _this.handleBlur.bind(_this);
+            _this.handleMouseDown = _this.handleMouseDown.bind(_this);
         }
         return _this;
     }
@@ -94,6 +95,13 @@ var Select = function (_React$Component) {
                 }, function () {
                     _this2.handleOverflow(eventTarget, bodyScrollHeight);
                 });
+            }
+        }
+    }, {
+        key: 'handleMouseDown',
+        value: function handleMouseDown(event) {
+            if (!this.props.disabled && event.target.closest('.select-current:focus') !== null) {
+                this.handleSelect(event);
             }
         }
     }, {
@@ -295,7 +303,7 @@ var Select = function (_React$Component) {
                     'div',
                     { tabIndex: '0', ref: function ref(currentNode) {
                             return _this6.currentNode = currentNode;
-                        }, className: ("select-current " + (this.props.disabled ? "disabled" : "") + " " + (this.state.list.open ? "focus" : "")).trim().replace(/\s+/g, " "), onFocus: this.handleFocus, onBlur: this.handleBlur, onKeyDown: this.handleKey },
+                        }, className: ("select-current " + (this.props.disabled ? "disabled" : "") + " " + (this.state.list.open ? "focus" : "")).trim().replace(/\s+/g, " "), onMouseDown: this.handleMouseDown, onFocus: this.handleFocus, onBlur: this.handleBlur, onKeyDown: this.handleKey },
                     React.createElement(
                         'span',
                         null,

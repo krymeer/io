@@ -33,9 +33,10 @@ class Select extends React.Component {
         }
         else
         {
-            this.handleOption = this.handleOption.bind( this );
-            this.handleFocus  = this.handleFocus.bind( this );
-            this.handleBlur   = this.handleBlur.bind( this );
+            this.handleOption    = this.handleOption.bind( this );
+            this.handleFocus     = this.handleFocus.bind( this );
+            this.handleBlur      = this.handleBlur.bind( this );
+            this.handleMouseDown = this.handleMouseDown.bind( this );
         }
     }
 
@@ -82,6 +83,14 @@ class Select extends React.Component {
             }, () => {
                 this.handleOverflow( eventTarget, bodyScrollHeight );
             } );
+        }
+    }
+
+    handleMouseDown( event )
+    {
+        if( !this.props.disabled && event.target.closest( '.select-current:focus' ) !== null )
+        {
+            this.handleSelect( event );
         }
     }
 
@@ -318,7 +327,7 @@ class Select extends React.Component {
                     <input onKeyDown={ this.handleKey } className="select-filter" ref={ this.props.inputNodeRef } maxLength={ this.props.inputMaxLength } type="text" spellCheck="false" autoComplete="off" disabled={ this.props.disabled } onFocus={ this.handleFilterFocus } onChange={ this.handleFilterChange } onBlur={ this.handleFilterBlur } value={ this.props.inputValue } />
                 }
                 { !this.props.selectFiltered &&
-                    <div tabIndex="0" ref={ currentNode => this.currentNode = currentNode } className={ ( "select-current " + ( this.props.disabled ? "disabled" : "" ) + " " + ( this.state.list.open ? "focus" : "" ) ).trim().replace( /\s+/g, " " ) } onFocus={ this.handleFocus } onBlur={ this.handleBlur } onKeyDown={ this.handleKey } >
+                    <div tabIndex="0" ref={ currentNode => this.currentNode = currentNode } className={ ( "select-current " + ( this.props.disabled ? "disabled" : "" ) + " " + ( this.state.list.open ? "focus" : "" ) ).trim().replace( /\s+/g, " " ) } onMouseDown={ this.handleMouseDown } onFocus={ this.handleFocus } onBlur={ this.handleBlur } onKeyDown={ this.handleKey } >
                         <span>{ this.props.chosenIndex >= 0 ? this.props.options[ this.props.chosenIndex ] : "" }</span>
                         <i className="material-icons">
                             { ( this.state.list.open ) ? "keyboard_arrow_up" : "keyboard_arrow_down" }
