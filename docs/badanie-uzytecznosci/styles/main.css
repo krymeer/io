@@ -1362,13 +1362,13 @@ main section .form.autocomplete-on > .wrapper > div > span:not(:last-child) {
   color: #fff;
 }
 main section .form.autocomplete-on > .wrapper > div > span:last-child {
-  color: #4392f1;
+  color: #2ccf13;
 }
 main section .form.autocomplete-on > .wrapper.on-form-error.on-input-invalid > div > span:last-child {
   color: #ff445d;
 }
 main section .form.autosuggestion-on, main section .form.autosuggestion-off {
-  width: 600px;
+  width: 560px;
 }
 main section .form.autosuggestion-on > .wrapper, main section .form.autosuggestion-off > .wrapper {
   grid-template-columns: auto 350px;

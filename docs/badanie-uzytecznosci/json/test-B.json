@@ -537,14 +537,41 @@
             ]
         },
         {
-            "intro" : "Znajomy poprosił Cię o wysłanie ważnej dla niego rzeczy, którą przez pomyłkę u Ciebie zostawił. Zdecydowałeś(-aś) się skorzystać z usług jednej z firm kurierskich. Przed nadaniem paczki musisz wskazać dwa punkty adresowe: pierwszy, z którego przesyłka zostanie wysłana, oraz drugi -- ten, z którego zostanie odebrana.",
-            "question" : "Co sądzisz o zaprezentowanej metodzie wybierania pozycji z listy?",
+            "intro" : "Znajomy poprosił Cię o wysłanie ważnej dla niego rzeczy, którą przez pomyłkę u Ciebie zostawił. Zdecydowałeś(-aś) się skorzystać z usług jednej z firm kurierskich. Przed nadaniem paczki musisz podać kilka istotnych informacji, dzięki którym możliwe będzie zrealizowanie całego procesu.",
             "tasks" : [
                 {
-                    "title"   : "Nadanie przesyłki",
-                    "classes" : "labels-align-left autosuggestion-on",
-                    "type"    : "autosuggestion-on",
-                    "data"    : [
+                    "question" : "Co sądzisz o zaprezentowanej metodzie wprowadzania danych ze wspomaganiem w postaci autouzupełniania?",
+                    "title"    : "Nadanie przesyłki",
+                    "classes"  : "labels-align-left autocomplete-on",
+                    "type"     : "autocomplete-on",
+                    "data"     : [
+                        {
+                            "type"          : "autocomplete",
+                            "label"         : "Twój e-mail",
+                            "expectedValue" : "jan.kowalski@gmail.com",
+                            "isRegex"       : true,
+                            "suggestions"   : [ "@gazeta.pl", "@gmail.com", "@interia.pl", "@onet.eu", "@o2.pl", "@mail.com", "@pwr.edu.pl", "@yahoo.com", "@wp.pl" ]
+                        },
+                        {
+                            "type"          : "autocomplete",
+                            "label"         : "Typ przesyłki",
+                            "expectedValue" : "Priorytetowa",
+                            "suggestions"   : [ "Ekonomiczna", "Ekspresowa", "Priorytetowa",  "Pobraniowa" ]
+                        },
+                        {
+                            "type"          : "autocomplete",
+                            "label"         : "Firma kurierska",
+                            "expectedValue" : "InPost",
+                            "suggestions"   : [ "FedEx", "DHL", "DPD", "InPost", "TNT", "UPS", "Poczta Polska" ]
+                        }
+                    ]
+                },
+                {
+                    "question" : "Co sądzisz o zaprezentowanej metodzie wprowadzania danych ze wspomaganiem w postaci autosugestii (podpowiadania)?",
+                    "title"    : "Nadanie przesyłki",
+                    "classes"  : "labels-align-left autosuggestion-on",
+                    "type"     : "autosuggestion-on",
+                    "data"     : [
                         {
                             "type"          : "select-filtered",
                             "label"         : "Punkt początkowy",

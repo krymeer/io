@@ -322,7 +322,7 @@ var Select = function (_React$Component) {
                             }
 
                             attrs = {
-                                onMouseDown: _this6.handleFilterBlur
+                                onClick: _this6.handleFilterBlur
                             };
                         } else {
                             attrs = {

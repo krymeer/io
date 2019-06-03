@@ -527,13 +527,13 @@
             ]
         },
         {
-            "intro" : "Znajomy poprosił Cię o wysłanie ważnej dla niego rzeczy, którą przez pomyłkę u Ciebie zostawił. Zdecydowałeś(-aś) się skorzystać z usług jednej z firm kurierskich. Przed nadaniem paczki musisz wskazać dwa punkty adresowe: pierwszy, z którego przesyłka zostanie wysłana, oraz drugi -- ten, z którego zostanie odebrana.",
-            "question" : "Co sądzisz o zaprezentowanej metodzie wybierania pozycji z listy?",
+            "intro"    : "Znajomy poprosił Cię o wysłanie ważnej dla niego rzeczy, którą przez pomyłkę u Ciebie zostawił. Zdecydowałeś(-aś) się skorzystać z usług jednej z firm kurierskich. Przed nadaniem paczki musisz podać kilka istotnych informacji, dzięki którym możliwe będzie zrealizowanie całego procesu.",
+            "question" : "W jaki sposób można byłoby usprawnić wprowadzanie danych w powyższym ćwiczeniu?",
             "tasks" : [
                 {
-                    "title"   : "Nadanie przesyłki",
-                    "classes" : "labels-align-left autosuggestion-off",
-                    "type"    : "autosuggestion-off",
+                    "title"    : "Nadanie przesyłki",
+                    "classes"  : "labels-align-left autosuggestion-off",
+                    "type"     : "autosuggestion-off",
                     "data"    : [
                         {
                             "type"          : "select",
@@ -541,36 +541,21 @@
                             "options"       : [
                                 "Bydgoszcz 85-323, Stawowa 21",
                                 "Chojna 74-500, Skwer Jagielloński 2",
-                                "Chojnów 59-225, Rynek 10",
-                                "Chorzów 41-500, Hajducka 5",
                                 "Chełmno 86-200, Polna 30",
                                 "Elbląg 82-300, Węgrowska 16",
-                                "Gdańsk 80-745, Sadowa 33",
                                 "Gdynia 81-363, Starowiejska 21",
-                                "Jawor 59-400, plac Wolności 14",
-                                "Kamieniec Ząbkowicki 57-240, Kolejowa 4",
-                                "Kielce 25-663, Olszewskiego 20",
-                                "Kraków 31-157, Josepha Conrada 21",
-                                "Krobia 63-840, Słowackiego 3",
                                 "Łódź 91-839, Łagiewnicka 2A",
-                                "Małogoszcz 28-366, 11 Listopada 2",
                                 "Nowe Miasteczko 67-124, Długa 16",
                                 "Nowy Staw 82-230, Kościuszki 1",
                                 "Olsztyn 42-256, Mstowska 8",
-                                "Pilchowice 44-145, Spółdzielcza 21",
-                                "Poznań 61-019, Główna 65",
                                 "Rzeszów 35-222, Okulickiego 11",
                                 "Ryjewo 82-420, Grunwaldzka 19",
                                 "Spytkowice 34-745, Spytkowice 100",
                                 "Świdnica 58-105, Zamenhofa 53",
-                                "Tuchola 89-500, Warszawska 21",
-                                "Tychy 43-100, Bielska 10",
                                 "Warszawa 04-186, Jubilerska 1",
-                                "Zgierz 95-100, Gałczyńskiego 9",
-                                "Żabno 33-240, Kilińskiego 12",
-                                "Żnin 88-400, Pieniężnej 23"
+                                "Zgierz 95-100, Gałczyńskiego 9"
                             ],
-                            "expectedValue" : "Nowy Staw 82-230, Kościuszki 1"
+                            "expectedValue" : "Gdynia 81-363, Starowiejska 21"
                         },
                         {
                             "type"          : "select",
@@ -578,36 +563,43 @@
                             "options"       : [
                                 "Bydgoszcz 85-323, Stawowa 21",
                                 "Chojna 74-500, Skwer Jagielloński 2",
-                                "Chojnów 59-225, Rynek 10",
-                                "Chorzów 41-500, Hajducka 5",
                                 "Chełmno 86-200, Polna 30",
                                 "Elbląg 82-300, Węgrowska 16",
-                                "Gdańsk 80-745, Sadowa 33",
                                 "Gdynia 81-363, Starowiejska 21",
-                                "Jawor 59-400, plac Wolności 14",
-                                "Kamieniec Ząbkowicki 57-240, Kolejowa 4",
-                                "Kielce 25-663, Olszewskiego 20",
-                                "Kraków 31-157, Josepha Conrada 21",
-                                "Krobia 63-840, Słowackiego 3",
                                 "Łódź 91-839, Łagiewnicka 2A",
-                                "Małogoszcz 28-366, 11 Listopada 2",
                                 "Nowe Miasteczko 67-124, Długa 16",
                                 "Nowy Staw 82-230, Kościuszki 1",
                                 "Olsztyn 42-256, Mstowska 8",
-                                "Pilchowice 44-145, Spółdzielcza 21",
-                                "Poznań 61-019, Główna 65",
                                 "Rzeszów 35-222, Okulickiego 11",
                                 "Ryjewo 82-420, Grunwaldzka 19",
                                 "Spytkowice 34-745, Spytkowice 100",
                                 "Świdnica 58-105, Zamenhofa 53",
-                                "Tuchola 89-500, Warszawska 21",
-                                "Tychy 43-100, Bielska 10",
                                 "Warszawa 04-186, Jubilerska 1",
-                                "Zgierz 95-100, Gałczyńskiego 9",
-                                "Żabno 33-240, Kilińskiego 12",
-                                "Żnin 88-400, Pieniężnej 23"
+                                "Zgierz 95-100, Gałczyńskiego 9"
                             ],
-                            "expectedValue" : "Kamieniec Ząbkowicki 57-240, Kolejowa 4"
+                            "expectedValue" : "Olsztyn 42-256, Mstowska 8"
+                        }
+                    ]
+                },
+                {
+                    "title"    : "Nadanie przesyłki",
+                    "classes"  : "labels-align-left autocomplete-off",
+                    "type"     : "autocomplete-off",
+                    "data"     : [
+                        {
+                            "type"          : "text",
+                            "label"         : "Twój e-mail",
+                            "expectedValue" : "marcin.staszewski@o2.pl"
+                        },
+                        {
+                            "type"          : "text",
+                            "label"         : "Typ przesyłki",
+                            "expectedValue" : "Ekonomiczna"
+                        },
+                        {
+                            "type"          : "text",
+                            "label"         : "Firma kurierska",
+                            "expectedValue" : "FedEx"
                         }
                     ]
                 }

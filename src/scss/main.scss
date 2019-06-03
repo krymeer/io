@@ -1882,7 +1882,7 @@ main {
                             }
 
                             &:last-child {
-                                color: #4392f1;
+                                color: $okay-color;
                             }
                         }
                     }
@@ -1901,7 +1901,7 @@ main {
 
             &.autosuggestion-on,
             &.autosuggestion-off {
-                width: 600px;
+                width: 560px;
 
                 > .wrapper {
                     grid-template-columns: auto 350px;

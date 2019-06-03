@@ -339,7 +339,7 @@ class Select extends React.Component {
                                 }
 
                                 attrs = {
-                                    onMouseDown : this.handleFilterBlur
+                                    onClick : this.handleFilterBlur
                                 };
                             }
                             else

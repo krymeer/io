@@ -590,9 +590,9 @@ class Task extends React.Component {
                             { this.state.taskAborted &&
                                 <InputWrapper wrapperClass="comment-wrapper" ignoreValidity={ true } error={ this.state.missingSummaryData && !( this.state.stats.comments.taskAborted && this.state.stats.comments.taskAborted.length >= 10 ) } context="taskAborted" label="Dlaczego nie wykonałeś(-aś) tego ćwiczenia do końca?" type="textarea" disabled={ this.state.nextTask } onChange={ this.handleCommentChange } />
                             }
-                            <InputWrapper wrapperClass="comment-wrapper" context="taskFinished" label={ ( typeof this.props.question !== "undefined" ) ? insertNbsp( this.props.question ) : "Co sądzisz o wprowadzaniu danych przy użyciu zaprezentowanej metody?" } optional={ true } type="textarea" disabled={ this.state.nextTask } onChange={ this.handleCommentChange } />
+                            <InputWrapper wrapperClass="comment-wrapper" context="taskFinished" label={ this.props.task.question ? insertNbsp( this.props.task.question ) : ( this.props.question ? insertNbsp( this.props.question ) : "Co sądzisz o wprowadzaniu danych przy użyciu zaprezentowanej metody?" ) } optional={ true } type="textarea" disabled={ this.state.nextTask } onChange={ this.handleCommentChange } />
                             { this.state.missingSummaryData &&
-                                <Paragraph class="note error" content={ "Aby przejść dalej, **oceń poziom trudności powyższego ćwiczenia" + ( ( this.state.missingSummaryData && !( this.state.stats.comments.taskAborted && this.state.stats.comments.taskAborted.length >= 10 ) ) ? ",** a także **wyjaśnij, dlaczego zdecydowałeś(-aś) się je przerwać.**" :  ".**" ) } />
+                                <Paragraph class="note error" content={ "Aby przejść dalej, **oceń poziom trudności powyższego ćwiczenia" + ( ( this.state.missingSummaryData && this.state.taskAborted && !( this.state.stats.comments.taskAborted && this.state.stats.comments.taskAborted.length >= 10 ) ) ? ",** a także **wyjaśnij, dlaczego zdecydowałeś(-aś) się je przerwać.**" :  ".**" ) } />
                             }
                         </section>
                     }
