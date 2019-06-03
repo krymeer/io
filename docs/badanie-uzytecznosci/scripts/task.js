@@ -71,13 +71,6 @@ var Task = function (_React$Component) {
         return _this;
     }
 
-    // ONLY FOR DEVELOPMENT
-
-    // componentDidMount()
-    // {
-    //     this.handleStart();
-    // }
-
     _createClass(Task, [{
         key: 'handleSpeechRecognitionInterface',
         value: function handleSpeechRecognitionInterface() {
@@ -585,7 +578,9 @@ var Task = function (_React$Component) {
 
                                 return React.createElement(InputWrapper, Object.assign({ key: index, index: index, error: _this7.state.taskError && _this7.state.taskStarted, disabled: _this7.state.taskFinished || !_this7.state.taskStarted, onChange: _this7.handleInputChange }, input, _this7.props.task.data[index], { insideTask: true }, speechRecognitionProps, { ignoreCaseAndLines: _this7.props.task.ignoreCaseAndLines === true }));
                             }),
-                            this.state.taskError && React.createElement(Paragraph, { 'class': 'on-form-error', content: 'Aby przej\u015B\u0107 dalej, popraw pola wyr\xF3\u017Cnione **tym\xA0kolorem.**' })
+                            this.state.taskError && React.createElement(Paragraph, { 'class': 'on-form-error', content: "Aby przejść dalej, popraw pol" + (this.state.inputs.filter(function (input) {
+                                    return !input.valid;
+                                }).length === 1 ? "e" : "a") + ' wyr\xF3\u017Cnione **tym\xA0kolorem.**' })
                         ),
                         this.state.taskStarted && React.createElement(
                             'section',
@@ -636,7 +631,7 @@ var Task = function (_React$Component) {
                                 );
                             })
                         ),
-                        this.state.taskAborted && React.createElement(InputWrapper, { wrapperClass: 'comment-wrapper', ignoreValidity: true, error: this.state.missingSummaryData && !(this.state.stats.comments.taskAborted && this.state.stats.comments.taskAborted.length >= 10), context: 'taskAborted', label: 'Dlaczego nie wykona\u0142e\u015B(-a\u015B) tego \u0107wiczenia do ko\u0144ca?', type: 'textarea', disabled: this.state.nextTask, onChange: this.handleCommentChange }),
+                        this.state.taskAborted && React.createElement(InputWrapper, { wrapperClass: 'comment-wrapper', ignoreValidity: true, error: this.state.missingSummaryData && !(this.state.stats.comments.taskAborted && this.state.stats.comments.taskAborted.length >= 10), context: 'taskAborted', label: 'Dlaczego przerwa\u0142e\u015B(-a\u015B) powy\u017Csze \u0107wiczenie?', type: 'textarea', disabled: this.state.nextTask, onChange: this.handleCommentChange }),
                         React.createElement(InputWrapper, { wrapperClass: 'comment-wrapper', context: 'taskFinished', label: this.props.task.question ? insertNbsp(this.props.task.question) : this.props.question ? insertNbsp(this.props.question) : "Co sądzisz o wprowadzaniu danych przy użyciu zaprezentowanej metody?", optional: true, type: 'textarea', disabled: this.state.nextTask, onChange: this.handleCommentChange }),
                         this.state.missingSummaryData && React.createElement(Paragraph, { 'class': 'note error', content: "Aby przejść dalej, **oceń poziom trudności powyższego ćwiczenia" + (this.state.missingSummaryData && this.state.taskAborted && !(this.state.stats.comments.taskAborted && this.state.stats.comments.taskAborted.length >= 10) ? ",** a także **wyjaśnij, dlaczego zdecydowałeś(-aś) się je przerwać.**" : ".**") })
                     ),
