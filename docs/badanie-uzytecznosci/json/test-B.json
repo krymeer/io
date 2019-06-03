@@ -412,15 +412,15 @@
         },
         {
             "intro" : "Znajomy poprosił Cię o wysłanie ważnej dla niego rzeczy, którą przez pomyłkę u Ciebie zostawił. Zdecydowałeś(-aś) się skorzystać z usług jednej z firm kurierskich. Przed nadaniem paczki musisz podać kilka istotnych informacji, dzięki którym możliwe będzie zrealizowanie całego procesu.",
-            "alert"  : "**Uwaga!** W jednym z ćwiczeń w tym scenariuszu wykorzystywany jest moduł do pobierania danych na temat lokalizacji komputera, z którego korzystasz. Informacje te nie zostaną udostępnione osobom trzecim; jeżeli mimo to nie wyrażasz zgody na przetwarzanie lokalizacji, wypełnij pola dowolnymi danymi, które będa adekwatne do nazw pól wejściowych.",
+            "alert"  : "**Uwaga!** W jednym z ćwiczeń w tym scenariuszu wykorzystywany jest moduł do pobierania danych na temat lokalizacji komputera, z którego korzystasz. Informacje te nie zostaną udostępnione osobom trzecim; jeżeli mimo to nie wyrażasz zgody na przetwarzanie lokalizacji, wypełnij pola dowolnymi danymi, które będą adekwatne do nazw pól wejściowych.",
             "openQuestion" : "W jakich sytuacjach automatyczne (zautomatyzowane) wprowadzanie danych jest najbardziej przydatne?",
             "tasks" : [
                 {
                     "question" : "Co sądzisz o zaprezentowanej metodzie wprowadzania danych ze wspomaganiem w postaci pobierania informacji o lokalizacji użytkownika?",
-                    "title"   : "Nadanie przesyłki",
-                    "classes" : "labels-align-left geolocation-on",
-                    "type"    : "geolocation-on",
-                    "data"    : [
+                    "title"    : "Nadanie przesyłki",
+                    "classes"  : "labels-align-left geolocation-on",
+                    "type"     : "geolocation-on",
+                    "data"     : [
                         {
                             "type"          : "text",
                             "label"         : "Kraj",
@@ -570,22 +570,22 @@
             "openQuestion" : "Czy w Twojej opinii istnieje lepszy, bardziej efektywny sposób na wprowadzanie danych z powyższego scenariusza?",
             "tasks"        : [
                 {
-                    "title"              : "Formularz reklamacyjny",
-                    "classes"            : "labels-align-left speech-recognition-off",
-                    "type"               : "speech-recognition-off-sentences",
-                    "data"               : [
+                    "title"   : "Formularz reklamacyjny",
+                    "classes" : "labels-align-left speech-recognition-off",
+                    "type"    : "speech-recognition-off-sentences",
+                    "data"    : [
                         {
                             "type"          : "textarea",
                             "label"         : "Treść wiadomości",
-                            "expectedValue" : "Witam! Dwa tygodnie temu kupiłem kilka produktów na Pana aukcjach.\nCzy mógłbym uprzejmie prosić o podanie numeru przesyłki?\nPozdrawiam"
+                            "expectedValue" : "Witam! Dwa tygodnie temu kupiłem kilka produktów na Pańskich aukcjach.\nCzy mógłbym uprzejmie prosić o podanie numeru przesyłki?\nPozdrawiam"
                         }
                     ]
                 },
                 {
-                    "title"        : "Formularz reklamacyjny",
-                    "classes"      : "labels-align-left speech-recognition-off",
-                    "type"         : "speech-recognition-off-numbers",
-                    "data"         : [
+                    "title"   : "Formularz reklamacyjny",
+                    "classes" : "labels-align-left speech-recognition-off",
+                    "type"    : "speech-recognition-off-numbers",
+                    "data"    : [
                         {
                             "type"          : "text",
                             "label"         : "Numer zamówienia",
@@ -599,10 +599,10 @@
                     ]
                 },
                 {
-                    "title"        : "Formularz reklamacyjny",
-                    "classes"      : "labels-align-left speech-recognition-off",
-                    "type"         : "speech-recognition-off-words",
-                    "data"         : [
+                    "title"   : "Formularz reklamacyjny",
+                    "classes" : "labels-align-left speech-recognition-off",
+                    "type"    : "speech-recognition-off-words",
+                    "data"    : [
                         {
                             "type"          : "text",
                             "label"         : "Imię",
@@ -623,8 +623,8 @@
             ]
         },
         {
-            "intro"    : "Spierasz się ze znajomym o to, jakie jest pochodzenie kota domowego. Znalazłeś(-aś) definicję, którą chcesz przytoczyć w wiadomości. Niestety, nie możesz skopiować tekstu, dlatego pozostaje Ci jego ręczne przepisanie.",
-            "tasks"    : [
+            "intro" : "Spierasz się ze znajomym o to, jakie jest pochodzenie kota domowego. Znalazłeś(-aś) definicję, którą chcesz przytoczyć w wiadomości. Niestety, nie możesz skopiować tekstu, dlatego pozostaje Ci jego ręczne przepisanie.",
+            "tasks" : [
                 {
                     "title"    : "Kot domowy",
                     "classes"  : "labels-align-top long-text",

@@ -55,13 +55,6 @@ class Task extends React.Component {
         }
     }
 
-    // ONLY FOR DEVELOPMENT
-
-    // componentDidMount()
-    // {
-    //     this.handleStart();
-    // }
-
     handleSpeechRecognitionInterface()
     {
         const rules                  = this.props.task.rules;
@@ -572,7 +565,7 @@ class Task extends React.Component {
                                 } )
                             }
                             { this.state.taskError &&
-                                <Paragraph class="on-form-error" content={ "Aby przejść dalej, popraw pola wyróżnione **tym\u00a0kolorem.**" } />
+                                <Paragraph class="on-form-error" content={ "Aby przejść dalej, popraw pol" + ( this.state.inputs.filter( input => !input.valid ).length === 1 ? "e" : "a" ) + " wyróżnione **tym\u00a0kolorem.**" } />
                             }
                         </section>
                         { this.state.taskStarted &&
@@ -606,7 +599,7 @@ class Task extends React.Component {
                                 ) }
                             </ul>
                             { this.state.taskAborted &&
-                                <InputWrapper wrapperClass="comment-wrapper" ignoreValidity={ true } error={ this.state.missingSummaryData && !( this.state.stats.comments.taskAborted && this.state.stats.comments.taskAborted.length >= 10 ) } context="taskAborted" label="Dlaczego nie wykonałeś(-aś) tego ćwiczenia do końca?" type="textarea" disabled={ this.state.nextTask } onChange={ this.handleCommentChange } />
+                                <InputWrapper wrapperClass="comment-wrapper" ignoreValidity={ true } error={ this.state.missingSummaryData && !( this.state.stats.comments.taskAborted && this.state.stats.comments.taskAborted.length >= 10 ) } context="taskAborted" label="Dlaczego przerwałeś(-aś) powyższe ćwiczenie?" type="textarea" disabled={ this.state.nextTask } onChange={ this.handleCommentChange } />
                             }
                             <InputWrapper wrapperClass="comment-wrapper" context="taskFinished" label={ this.props.task.question ? insertNbsp( this.props.task.question ) : ( this.props.question ? insertNbsp( this.props.question ) : "Co sądzisz o wprowadzaniu danych przy użyciu zaprezentowanej metody?" ) } optional={ true } type="textarea" disabled={ this.state.nextTask } onChange={ this.handleCommentChange } />
                             { this.state.missingSummaryData &&

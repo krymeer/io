@@ -31,13 +31,6 @@ class Scenario extends React.Component {
         };
     }
 
-    // ONLY FOR DEVELOPMENT
-
-    // componentDidMount()
-    // {
-    //     this.handleStart();
-    // }
-
     handleStart()
     {
         if( !this.state.scenarioStarted )

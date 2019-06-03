@@ -1,9 +1,9 @@
 {
     "scenarios" : [
         {
-            "intro" : "Zamówiłeś(-aś) kilka produktów z popularnego sklepu internetowego. W ostatnim czasie zmieniłeś(-aś) miejsce zamieszkania, jednak jak dotąd nie otrzymałeś(-aś) żadnej przesyłki na ten adres. Czas to zmienić!",
+            "intro"    : "Zamówiłeś(-aś) kilka produktów z popularnego sklepu internetowego. W ostatnim czasie zmieniłeś(-aś) miejsce zamieszkania, jednak jak dotąd nie otrzymałeś(-aś) żadnej przesyłki na ten adres. Czas to zmienić!",
             "question" : "Co sądzisz o zaprezentowanym sposobie na ułożenie pól i etykiet w formularzu?",
-            "tasks" : [
+            "tasks"    : [
                 {
                     "title"   : "Adres do wysyłki",
                     "classes" : "labels-align-right",
@@ -81,9 +81,9 @@
             ]
         },
         {
-            "intro" : "Posiadasz konto na jednym z popularnych portali społecznościowych. Od jakiegoś czasu otrzymujesz dużą liczbę nieistotnych dla Ciebie powiadomień. Aby temu zapobiec, musisz zmienić ustawienia swojego konta.",
+            "intro"    : "Posiadasz konto na jednym z popularnych portali społecznościowych. Od jakiegoś czasu otrzymujesz dużą liczbę nieistotnych dla Ciebie powiadomień. Aby temu zapobiec, musisz zmienić ustawienia swojego konta.",
             "question" : "Co sądzisz o zaprezentowanej metodzie wybierania 1 z 2 wartości logicznych?",
-            "tasks" : [
+            "tasks"    : [
                 {
                     "title"   : "Powiadomienia",
                     "classes" : "labels-align-left logic-values-radio",
@@ -166,9 +166,9 @@
             ]
         },
         {
-            "intro" : "Planujesz udać się na zasłużony urlop -- jesteś na etapie przegłądania ofert. Wyszukiwarka ofert biur podróży, z której korzystasz, wymaga wprowadzenia kilku parametrów, które umożliwią zawężenie wyników wyszukiwania.",
+            "intro"    : "Planujesz udać się na zasłużony urlop -- jesteś na etapie przegłądania ofert. Wyszukiwarka ofert biur podróży, z której korzystasz, wymaga wprowadzenia kilku parametrów, które umożliwią zawężenie wyników wyszukiwania.",
             "question" : "Co sądzisz o zaprezentowanej metodzie wprowadzania niewielkiej liczby?",
-            "tasks" : [
+            "tasks"    : [
                 {
                     "title"   : "Szczegóły wycieczki",
                     "classes" : "labels-align-left small-numbers-select",
@@ -241,9 +241,9 @@
             ]
         },
         {
-            "intro" : "Znalazłeś(-aś) niedawno zatrudnienie w dużej międzynarodowej korporacji. Pracownik działu kadr poprosił Cię o przesłanie kilku brakujących danych, bez których wypłata wynagrodzenia na koniec miesiąca nie będzie możliwa.",
+            "intro"    : "Znalazłeś(-aś) niedawno zatrudnienie w dużej międzynarodowej korporacji. Pracownik działu kadr poprosił Cię o przesłanie kilku brakujących danych, bez których wypłata wynagrodzenia na koniec miesiąca nie będzie możliwa.",
             "question" : "Co sądzisz o wprowadzaniu długich ciągów liczb, które wymagają ręcznego formatowania (np. wstawiania spacji)?",
-            "tasks" : [
+            "tasks"    : [
                 {
                     "title"   : "Dane do przelewu",
                     "classes" : "labels-align-left input-masks-off",
@@ -404,7 +404,7 @@
             "intro"        : "Znajomy poprosił Cię o wysłanie ważnej dla niego rzeczy, którą przez pomyłkę u Ciebie zostawił. Zdecydowałeś(-aś) się skorzystać z usług jednej z firm kurierskich. Przed nadaniem paczki musisz podać kilka istotnych informacji, dzięki którym możliwe będzie zrealizowanie całego procesu.",
             "alert"        : "**Uwaga!** W jednym z ćwiczeń w tym scenariuszu zostaniesz poproszony o podanie danych dotyczących lokalizacji komputera, z którego korzystasz. Informacje te nie zostaną udostępnione osobom trzecim; jeżeli mimo to nie wyrażasz zgody na ich przetwarzanie, wypełnij pola dowolnymi danymi, które będą adekwatne do nazw pól wejściowych.",
             "question"     : "W jaki sposób można byłoby usprawnić wprowadzanie danych z powyższego ćwiczenia?",
-            "openQuestion" : "W jakich sytuacjach ręczne wprowadzanie danych jest dla Ciebie najbardziej uciążliwe?",
+            "openQuestion" : "W jakich sytuacjach ręczne wprowadzanie danych jest dla Ciebie wyjątkowo uciążliwe?",
             "tasks" : [
                 {
                     "title"   : "Nadanie przesyłki",
@@ -520,8 +520,8 @@
         },
         {
             "intro"        : "Dwa tygodnie temu zrobiłeś(-aś) duże zakupy w popularnym serwisie aukcyjnym. Niestety, mimo upływu czasu wyczekiwana przesyłka do tej pory do Ciebie nie dotarła. Postanawiasz zgłosić reklamację. Aby to zrobić, musisz wypełnić kilkuetapowy formularz reklamacyjny.",
-            "alert"        : "**Uwaga!** Poprawne wykonanie tego scenariusza jest możliwe wyłącznie z wykorzystaniem funkcjonalności **rozpoznawania mowy.** Jeśli więc Twój komputer nie jest wyposażony w mikrofon (zewnętrzny lub wewnętrzny), pomiń każde z ćwiczeń, naciskając odpowiedni przycisk. Możesz to zrobić także wtedy, gdy podczas rozwiązywania ćwiczeń wystąpią problemy techniczne.",
-            "openQuestion" : "Czy, Twoim zdaniem, rozpoznawanie mowy na stronach WWW ma sens? Jeśli tak, to w jakich przypadkach?",
+            "alert"        : "**Uwaga!** Poprawne wykonanie tego scenariusza jest możliwe wyłącznie z wykorzystaniem funkcjonalności **rozpoznawania mowy.** Jeśli więc Twój komputer nie jest wyposażony w mikrofon (zewnętrzny lub wewnętrzny), przerwij wykonywanie każdego z ćwiczeń, naciskając odpowiedni przycisk. Możesz to zrobić także wtedy, gdy podczas rozwiązywania ćwiczeń wystąpią problemy techniczne.",
+            "openQuestion" : "Czy w Twojej opinii rozpoznawanie mowy na stronach WWW ma sens? Jeśli tak, to w jakich przypadkach?",
             "tasks"        : [
                 {
                     "title"        : "Formularz reklamacyjny",
@@ -603,8 +603,8 @@
             ]
         },
         {
-            "intro"    : "Spierasz się ze znajomym o to, jakie jest pochodzenie kota domowego. Znalazłeś(-aś) definicję, którą chcesz przytoczyć w wiadomości. Niestety, nie możesz skopiować tekstu, dlatego pozostaje Ci jego ręczne przepisanie.",
-            "tasks"    : [
+            "intro" : "Spierasz się ze znajomym o to, jakie jest pochodzenie kota domowego. Znalazłeś(-aś) definicję, którą chcesz przytoczyć w wiadomości. Niestety, nie możesz skopiować tekstu, dlatego pozostaje Ci jego ręczne przepisanie.",
+            "tasks" : [
                 {
                     "title"    : "Kot domowy",
                     "classes"  : "labels-align-top long-text",
