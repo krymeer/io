@@ -1,6 +1,6 @@
-// window.onbeforeunload = function() {
-//     return '';
-// }
+window.onbeforeunload = function() {
+    return '';
+}
 
 getRealOffsetTop = ( offsetTop ) => {
     if( offsetTop > globals.headerHeight.static )
