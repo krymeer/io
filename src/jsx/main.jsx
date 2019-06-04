@@ -1,7 +1,3 @@
-window.onbeforeunload = function() {
-    return '';
-}
-
 getRealOffsetTop = ( offsetTop ) => {
     if( offsetTop > globals.headerHeight.static )
     {
@@ -586,6 +582,14 @@ window.onload = function() {
 
         componentDidMount()
         {
+            window.onbeforeunload = ( event ) => {
+                if( !( this.state.testStarted && this.state.testFinished && this.state.dataSent ) )
+                {
+                    event.preventDefault();
+                    event.returnValue = '';
+                }
+            }
+
             this.getIPAddress().then( ip => {
                 if( ip )
                 {

@@ -8,10 +8,6 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-window.onbeforeunload = function () {
-    return '';
-};
-
 getRealOffsetTop = function getRealOffsetTop(offsetTop) {
     if (offsetTop > globals.headerHeight.static) {
         return offsetTop - globals.headerHeight.fixed;
@@ -567,6 +563,13 @@ window.onload = function () {
             key: 'componentDidMount',
             value: function componentDidMount() {
                 var _this3 = this;
+
+                window.onbeforeunload = function (event) {
+                    if (!(_this3.state.testStarted && _this3.state.testFinished && _this3.state.dataSent)) {
+                        event.preventDefault();
+                        event.returnValue = '';
+                    }
+                };
 
                 this.getIPAddress().then(function (ip) {
                     if (ip) {
