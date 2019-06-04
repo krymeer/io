@@ -547,6 +547,20 @@ window.onload = function() {
                         const noSpeechRecogniton = !( isChrome && window.hasOwnProperty( 'webkitSpeechRecognition' ) );
                         const noGeolocation      = !( 'geolocation' in navigator );
 
+                        if( geolocationScenario )
+                        {
+                            this.setState( {
+                                showGeolocationNote : true
+                            } );
+                        }
+
+                        if( speechRecognitionScenario )
+                        {
+                            this.setState( {
+                                showSpeechRecognitionNote : true
+                            } );
+                        }
+
                         if( noSpeechRecogniton )
                         {
                             newState.scenarios = removeScenario( newState.scenarios, 'speech-recognition' );
@@ -613,7 +627,6 @@ window.onload = function() {
                 this.getTestVersion().then( version => {
                     if( version !== false )
                     {
-                        console.log( 'Chosen version of the test: ' + version );
                         this.loadTest( version );
                     }
                 } );
@@ -867,7 +880,7 @@ window.onload = function() {
                                     <br />
                                     <span className="text-important">Ile to potrwa?</span> Jeśli korzystanie z&nbsp;klawiatury i&nbsp;myszy nie jest dla Ciebie wielkim wyzwaniem, to przejście przez wszystkie etapy badania powinno zająć nie więcej niż <span className="text-important">około 20 min</span> Twojego cennego czasu.
                                     <br />
-                                    <span className="text-important">Czy będę musiał(-a) podawać jakieś dane?</span> Większość ćwiczeń polega na wprowadzeniu całkowicie fikcyjnych danych*. Potraktuj więc całe badanie jako pewnego rodzaju zabawę, w&nbsp;której wypróbowujesz różne rozwiązania! W&nbsp;każdym ćwiczeniu zobaczysz dwie kolumny: pierwsza zawiera dane, które masz za zadanie wprowadzić, i&nbsp;jest wyróżniona <span className="text-important text-alert">tym kolorem,</span> natomiast druga to formularz, wyróżniający się <span className="text-important text-okay">tym kolorem,</span> do którego te dane wprowadzisz. Spójrz na poniższy przykład:
+                                    <span className="text-important">Czy będę musiał(-a) podawać jakieś dane?</span> Większość ćwiczeń polega na wprowadzeniu całkowicie fikcyjnych danych{ this.state.showGeolocationNote ? "*" : "" }. Potraktuj więc całe badanie jako pewnego rodzaju zabawę, w&nbsp;której wypróbowujesz różne rozwiązania! W&nbsp;każdym ćwiczeniu zobaczysz dwie kolumny: pierwsza zawiera dane, które masz za zadanie wprowadzić, i&nbsp;jest wyróżniona <span className="text-important text-alert">tym kolorem,</span> natomiast druga to formularz, wyróżniający się <span className="text-important text-okay">tym kolorem,</span> do którego te dane wprowadzisz. Spójrz na poniższy przykład:
                                 </p>
                             </section>
                             <section className="task-main-container test-intro">
@@ -901,7 +914,7 @@ window.onload = function() {
                                 <p>
                                     Nic trudnego, prawda? Wystarczy, że przeniesiesz wartości z tabeli do formularza w stosunku 1:1.
                                     <br />
-                                    <span className="text-important">Na co mam zwrócić uwagę?</span> Odstępy, znaki pisarskie, interpunkcyjne są niezwykle istotne w&nbsp;tym badaniu. Ćwiczenie jest uznane za poprawnie rozwiązane wtedy i&nbsp;tylko wtedy, gdy wprowadzone dane odpowiadają danym wzorcowym**. Jeśli zatem wpisane przez Ciebie wartości będą zawierać błędy, to dane pole wraz z&nbsp;odpowiadającą mu etykietą zostaną wyróżnione <span className="text-important text-error">tym kolorem.</span>
+                                    <span className="text-important">Na co mam zwrócić uwagę?</span> Odstępy, znaki pisarskie, interpunkcyjne są niezwykle istotne w&nbsp;tym badaniu. Ćwiczenie jest uznane za poprawnie rozwiązane wtedy i&nbsp;tylko wtedy, gdy wprowadzone dane odpowiadają danym wzorcowym{ this.state.showSpeechRecognitionNote ? ( this.state.showGeolocationNote ? "**" : "*" ) : "" }. Jeśli zatem wpisane przez Ciebie wartości będą zawierać błędy, to dane pole wraz z&nbsp;odpowiadającą mu etykietą zostaną wyróżnione <span className="text-important text-error">tym kolorem.</span>
                                     <br />
                                     <span className="text-important">Czy nie mogę po prostu kopiować i&nbsp;wklejać?</span> Zaznaczanie (a co za tym idzie &ndash; kopiowanie) danych w&nbsp;tej aplikacji jest z&nbsp;zasady zablokowane. Jasne jest, że przy odrobinie sprytu i&nbsp;wiedzy z&nbsp;dziedziny informatyki był(a)byś w&nbsp;stanie to zrobić, jednak nie rób tego, proszę. Celem tego badania jest zebranie relewantnych i&nbsp;wiarygodnych danych, które będę mógł przedstawić w&nbsp;swojej pracy, a&nbsp;będzie to możliwe tylko wtedy, gdy wszystkie pola wypełnisz ręcznie.
                                     <br />
@@ -910,7 +923,21 @@ window.onload = function() {
                                 <p>
                                     <span className="text-important">Co dalej?</span> Naciśnij przycisk <button className="smaller inline dummy">OK, zaczynajmy</button> i&nbsp;zmierz się ze stojącym przed Tobą wyzwaniem!
                                 </p>
-                                <Paragraph class="text-smaller" content="*) Jedno z ćwiczeń zakłada ręczne lub zautomatyzowane wprowadzenie podstawowych informacji na temat Twojej lokalizacji (kraj, województwo, powiat, miasto, kod pocztowy). Jeśli nie wyrazisz na to zgody, będziesz mógł podać inne, mające podobną formę dane.\n**) Jedno z ćwiczeń jest skonstruowane w taki sposób, że nie będziesz musiał przejmować się ani odstępami, ani wielkością znaków. Dlaczego? Przekonasz się sam!\n**Uwaga!** Badanie kończy się ankietą użytkownika, w której podasz dane związane z Twoją osobą, m.in. rok urodzenia, wykształcenie, zawód itd. Informacje te umożliwią przypisanie Twojej osoby pod względem uzyskanych wyników do poszczególnych grup całej populacji uczestników badania. Jeżeli masz jakieś uwagi, pytania lub sugestie związane z gromadzeniem tych danych, napisz do mnie na adres [mailto:krzysztof.radoslaw.osada@gmail.com](krzysztof.radoslaw.osada@gmail.com)."/>
+                                <p className="text-smaller">
+                                    { this.state.showGeolocationNote &&
+                                        <React.Fragment>
+                                            *) Jedno z&nbsp;ćwiczeń zakłada ręczne lub zautomatyzowane wprowadzenie podstawowych informacji na temat Twojej lokalizacji (kraj, województwo, powiat, miasto, kod pocztowy). Jeśli nie wyrazisz na to zgody, będziesz mógł podać inne, mające podobną formę dane.
+                                            <br />
+                                        </React.Fragment>
+                                    }
+                                    { this.state.showSpeechRecognitionNote &&
+                                        <React.Fragment>
+                                            *{ this.state.showGeolocationNote ? "*" : "" }) Jedno z&nbsp;ćwiczeń jest skonstruowane w&nbsp;taki sposób, że nie będziesz musiał przejmować się ani odstępami, ani wielkością znaków. Dlaczego? Przekonasz się sam!
+                                            <br />
+                                        </React.Fragment>
+                                    }
+                                    <span className="text-important">Uwaga!</span> Badanie kończy się ankietą użytkownika, w&nbsp;której podasz dane związane z&nbsp;Twoją osobą, m.in. rok urodzenia, wykształcenie, zawód itd. Informacje te umożliwią przypisanie Twojej osoby pod względem uzyskanych wyników do poszczególnych grup całej populacji uczestników badania. Jeżeli masz jakieś uwagi, pytania lub sugestie związane z&nbsp;gromadzeniem tych danych, napisz do mnie na adres <a href="mailto:krzysztof.radoslaw.osada@gmail.com">krzysztof.radoslaw.osada@gmail.com</a>.
+                                </p>
                                 { this.state.alert &&
                                     <Paragraph content={ this.state.alert.msg } class={ "alert " + this.state.alert.type } />
                                 }

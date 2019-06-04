@@ -530,6 +530,18 @@ window.onload = function () {
                             var noSpeechRecogniton = !(isChrome && window.hasOwnProperty('webkitSpeechRecognition'));
                             var noGeolocation = !('geolocation' in navigator);
 
+                            if (geolocationScenario) {
+                                _this2.setState({
+                                    showGeolocationNote: true
+                                });
+                            }
+
+                            if (speechRecognitionScenario) {
+                                _this2.setState({
+                                    showSpeechRecognitionNote: true
+                                });
+                            }
+
                             if (noSpeechRecogniton) {
                                 newState.scenarios = removeScenario(newState.scenarios, 'speech-recognition');
                             }
@@ -588,7 +600,6 @@ window.onload = function () {
                 if (!globals.dev) {
                     this.getTestVersion().then(function (version) {
                         if (version !== false) {
-                            console.log('Chosen version of the test: ' + version);
                             _this3.loadTest(version);
                         }
                     });
@@ -873,7 +884,9 @@ window.onload = function () {
                                         { className: 'text-important' },
                                         'Czy b\u0119d\u0119 musia\u0142(-a) podawa\u0107 jakie\u015B dane?'
                                     ),
-                                    ' Wi\u0119kszo\u015B\u0107 \u0107wicze\u0144 polega na wprowadzeniu ca\u0142kowicie fikcyjnych danych*. Potraktuj wi\u0119c ca\u0142e badanie jako pewnego rodzaju zabaw\u0119, w\xA0kt\xF3rej wypr\xF3bowujesz r\xF3\u017Cne rozwi\u0105zania! W\xA0ka\u017Cdym \u0107wiczeniu zobaczysz dwie kolumny: pierwsza zawiera dane, kt\xF3re masz za zadanie wprowadzi\u0107, i\xA0jest wyr\xF3\u017Cniona ',
+                                    ' Wi\u0119kszo\u015B\u0107 \u0107wicze\u0144 polega na wprowadzeniu ca\u0142kowicie fikcyjnych danych',
+                                    this.state.showGeolocationNote ? "*" : "",
+                                    '. Potraktuj wi\u0119c ca\u0142e badanie jako pewnego rodzaju zabaw\u0119, w\xA0kt\xF3rej wypr\xF3bowujesz r\xF3\u017Cne rozwi\u0105zania! W\xA0ka\u017Cdym \u0107wiczeniu zobaczysz dwie kolumny: pierwsza zawiera dane, kt\xF3re masz za zadanie wprowadzi\u0107, i\xA0jest wyr\xF3\u017Cniona ',
                                     React.createElement(
                                         'span',
                                         { className: 'text-important text-alert' },
@@ -980,7 +993,9 @@ window.onload = function () {
                                         { className: 'text-important' },
                                         'Na co mam zwr\xF3ci\u0107 uwag\u0119?'
                                     ),
-                                    ' Odst\u0119py, znaki pisarskie, interpunkcyjne s\u0105 niezwykle istotne w\xA0tym badaniu. \u0106wiczenie jest uznane za poprawnie rozwi\u0105zane wtedy i\xA0tylko wtedy, gdy wprowadzone dane odpowiadaj\u0105 danym wzorcowym**. Je\u015Bli zatem wpisane przez Ciebie warto\u015Bci b\u0119d\u0105 zawiera\u0107 b\u0142\u0119dy, to dane pole wraz z\xA0odpowiadaj\u0105c\u0105 mu etykiet\u0105 zostan\u0105 wyr\xF3\u017Cnione ',
+                                    ' Odst\u0119py, znaki pisarskie, interpunkcyjne s\u0105 niezwykle istotne w\xA0tym badaniu. \u0106wiczenie jest uznane za poprawnie rozwi\u0105zane wtedy i\xA0tylko wtedy, gdy wprowadzone dane odpowiadaj\u0105 danym wzorcowym',
+                                    this.state.showSpeechRecognitionNote ? this.state.showGeolocationNote ? "**" : "*" : "",
+                                    '. Je\u015Bli zatem wpisane przez Ciebie warto\u015Bci b\u0119d\u0105 zawiera\u0107 b\u0142\u0119dy, to dane pole wraz z\xA0odpowiadaj\u0105c\u0105 mu etykiet\u0105 zostan\u0105 wyr\xF3\u017Cnione ',
                                     React.createElement(
                                         'span',
                                         { className: 'text-important text-error' },
@@ -1017,7 +1032,36 @@ window.onload = function () {
                                     ),
                                     ' i\xA0zmierz si\u0119 ze stoj\u0105cym przed Tob\u0105 wyzwaniem!'
                                 ),
-                                React.createElement(Paragraph, { 'class': 'text-smaller', content: '*) Jedno z \u0107wicze\u0144 zak\u0142ada r\u0119czne lub zautomatyzowane wprowadzenie podstawowych informacji na temat Twojej lokalizacji (kraj, wojew\xF3dztwo, powiat, miasto, kod pocztowy). Je\u015Bli nie wyrazisz na to zgody, b\u0119dziesz m\xF3g\u0142 poda\u0107 inne, maj\u0105ce podobn\u0105 form\u0119 dane.\\n**) Jedno z \u0107wicze\u0144 jest skonstruowane w taki spos\xF3b, \u017Ce nie b\u0119dziesz musia\u0142 przejmowa\u0107 si\u0119 ani odst\u0119pami, ani wielko\u015Bci\u0105 znak\xF3w. Dlaczego? Przekonasz si\u0119 sam!\\n**Uwaga!** Badanie ko\u0144czy si\u0119 ankiet\u0105 u\u017Cytkownika, w kt\xF3rej podasz dane zwi\u0105zane z Twoj\u0105 osob\u0105, m.in. rok urodzenia, wykszta\u0142cenie, zaw\xF3d itd. Informacje te umo\u017Cliwi\u0105 przypisanie Twojej osoby pod wzgl\u0119dem uzyskanych wynik\xF3w do poszczeg\xF3lnych grup ca\u0142ej populacji uczestnik\xF3w badania. Je\u017Celi masz jakie\u015B uwagi, pytania lub sugestie zwi\u0105zane z gromadzeniem tych danych, napisz do mnie na adres [mailto:krzysztof.radoslaw.osada@gmail.com](krzysztof.radoslaw.osada@gmail.com).' }),
+                                React.createElement(
+                                    'p',
+                                    { className: 'text-smaller' },
+                                    this.state.showGeolocationNote && React.createElement(
+                                        React.Fragment,
+                                        null,
+                                        '*) Jedno z\xA0\u0107wicze\u0144 zak\u0142ada r\u0119czne lub zautomatyzowane wprowadzenie podstawowych informacji na temat Twojej lokalizacji (kraj, wojew\xF3dztwo, powiat, miasto, kod pocztowy). Je\u015Bli nie wyrazisz na to zgody, b\u0119dziesz m\xF3g\u0142 poda\u0107 inne, maj\u0105ce podobn\u0105 form\u0119 dane.',
+                                        React.createElement('br', null)
+                                    ),
+                                    this.state.showSpeechRecognitionNote && React.createElement(
+                                        React.Fragment,
+                                        null,
+                                        '*',
+                                        this.state.showGeolocationNote ? "*" : "",
+                                        ') Jedno z\xA0\u0107wicze\u0144 jest skonstruowane w\xA0taki spos\xF3b, \u017Ce nie b\u0119dziesz musia\u0142 przejmowa\u0107 si\u0119 ani odst\u0119pami, ani wielko\u015Bci\u0105 znak\xF3w. Dlaczego? Przekonasz si\u0119 sam!',
+                                        React.createElement('br', null)
+                                    ),
+                                    React.createElement(
+                                        'span',
+                                        { className: 'text-important' },
+                                        'Uwaga!'
+                                    ),
+                                    ' Badanie ko\u0144czy si\u0119 ankiet\u0105 u\u017Cytkownika, w\xA0kt\xF3rej podasz dane zwi\u0105zane z\xA0Twoj\u0105 osob\u0105, m.in. rok urodzenia, wykszta\u0142cenie, zaw\xF3d itd. Informacje te umo\u017Cliwi\u0105 przypisanie Twojej osoby pod wzgl\u0119dem uzyskanych wynik\xF3w do poszczeg\xF3lnych grup ca\u0142ej populacji uczestnik\xF3w badania. Je\u017Celi masz jakie\u015B uwagi, pytania lub sugestie zwi\u0105zane z\xA0gromadzeniem tych danych, napisz do mnie na adres ',
+                                    React.createElement(
+                                        'a',
+                                        { href: 'mailto:krzysztof.radoslaw.osada@gmail.com' },
+                                        'krzysztof.radoslaw.osada@gmail.com'
+                                    ),
+                                    '.'
+                                ),
                                 this.state.alert && React.createElement(Paragraph, { content: this.state.alert.msg, 'class': "alert " + this.state.alert.type }),
                                 React.createElement(
                                     'button',
