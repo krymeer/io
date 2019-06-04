@@ -249,7 +249,6 @@ html, body {
                     grid-row: 2;
                 }
             }
-
         }
 
         &.task-seq {
@@ -345,6 +344,16 @@ html, body {
                 > .text-important {
                     color: $error-color;
                 }
+            }
+        }
+
+        &.test-intro {
+            &.task-main-container {
+                align-items: end;
+            }
+
+            .labels-align-left {
+                width: 320px;
             }
         }
     }
@@ -459,6 +468,18 @@ main {
 
     .text-important {
         color: $primary-color;
+
+        &.text-alert {
+            color: $alert-color;
+        }
+
+        &.text-okay {
+            color: $okay-color;
+        }
+
+        &.text-error {
+            color: $error-color;
+        }
     }
 
     a {
@@ -547,7 +568,6 @@ main {
         @extend %radius;
         outline: none;
         position: relative;
-        cursor: pointer;
         border: 0;
         background: $primary-color;
         color: #fff;
@@ -560,7 +580,23 @@ main {
         text-transform: uppercase;
         transition: background $transition, color $transition;
 
-        &:hover {
+        &.smaller {
+            font-size: 0.7 * 14px;
+            padding: 0 0.7 * 14px;
+            height: 0.7 * 36px;
+            letter-spacing: 0.7 * 1.25px;
+        }
+
+        &.inline {
+            display: inline-block;
+            vertical-align: top;
+        }
+
+        &:not(.dummy) {
+            cursor: pointer;
+        }
+
+        &:hover:not(.dummy) {
             background: $primary-color-hover;
         }
 

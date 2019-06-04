@@ -352,9 +352,10 @@ window.onload = function() {
     document.onkeydown = event => {
         event = event || window.event;
 
+        // TO CHANGE: if there is any select list open
         if( event.key === 'ArrowUp' || event.key === 'ArrowDown' )
         {
-            return false;
+            // return false;
         }
     };
 
@@ -431,7 +432,7 @@ window.onload = function() {
                         },
                         {
                             type        : 'radio',
-                            label       : 'Czy przechodzisz od jednego do drugiego pola w formularzu przy użyciu klawisza Tab (o ile jest to możliwe)?',
+                            label       : 'Czy przełączasz się między kolejnymi polami w formularzu przy użyciu klawisza Tab (o ile jest to możliwe)?',
                             id          : 'usingTab',
                             options     : [ 'Tak', 'Nie' ]
                         },
@@ -852,11 +853,57 @@ window.onload = function() {
                             </p>
                         </header>
                         <main>
-                            <section>
-                                <Paragraph content="Witaj! Niniejsze badanie jest częścią mojej pracy dyplomowej i ma na celu zbadanie użyteczności wybranych wzorców pól, które możesz na co dzień znaleźć w wielu aplikacjach webowych i na stronach internetowych." />
-                                <Paragraph content="**Co będziesz robił?** Zostaniesz poproszony(-a) o wykonanie kilkunastu ćwiczeń polegających na uzupełnieniu różnego typu formularzy.\n**Ile to potrwa?** Jeśli korzystanie z klawiatury nie jest dla Ciebie wyzwaniem, to przejście przez wszystkie etapy badania powinno zająć nie więcej niż 15 min Twojego cennego czasu.\n**Czy będę musiał(-a) podawać jakieś dane?** Absolutnie nie!* Potraktuj to badanie jako pewnego rodzaju zabawę. Każde ćwiczenie poprzedzone jest tabelą zawierającą nazwy pól w formularzu i dane, którymi te pola powinny zostać uzupełnione -- Ty zaś będziesz mógł/mogła się na tym, aby wstawić te informacje we właściwe miejsca!\n**Na co mam zwrócić uwagę?** Odstępy, znaki pisarskie, interpunkcyjne są niezwykle istotne w tym badaniu. Ćwiczenie jest uznane za poprawnie rozwiązane wtedy i tylko wtedy, gdy wprowadzone dane odpowiadają danym wzorcowym.\n**Ctrl+C, Ctrl+V? Nie tutaj!** Kopiowanie danych z tabeli poprzedzającej ćwiczenie jest zablokowane. Jasne jest, że przy odrobinie sprytu i wiedzy z dziedziny informatyki był(a)byś w stanie to zrobić, jednak nie rób tego, proszę. Celem tego badania jest zebranie relewantnych i wiarygodnych danych, które będę mógł przedstawić w swojej pracy, a będzie to możliwe tylko wtedy, gdy wszystkie pola wypełnisz ręcznie.\n**Twoja opinia ma znaczenie.** Po każdym ćwiczeniu będziesz miał(a) możliwość pozostawienia komentarza odnoszącego się do właśnie wypróbowanej metody wprowadzania danych. Komentarz nie jest obowiązkowy, jednak dzięki niemu będę mógł poznać Twój punkt widzenia." />
-                                <Paragraph content="**Wszystko jasne?** Naciśnij przycisk ,,Rozpocznij badanie'', aby zmierzyć się ze stojącym przed Tobą wyzwaniem!" />
-                                <Paragraph class="text-smaller" content="*) Badanie kończy się ankietą użytkownika, w której podasz dane związane z Twoją osobą, m.in. rok urodzenia, wykształcenie, zawód itd. Informacje te umożliwią przypisanie Twojej osoby pod względem uzyskanych wyników do poszczególnych grup całej populacji uczestników badania. Jeżeli masz jakieś uwagi, pytania lub sugestie związane z gromadzeniem tych danych, napisz do mnie na adres [mailto:krzysztof.radoslaw.osada@gmail.com](krzysztof.radoslaw.osada@gmail.com)."/>
+                            <section className="test-intro">
+                                <p>Witaj! Niniejsze badanie jest częścią mojej pracy dyplomowej i&nbsp;ma na celu zbadanie <span className="text-important">użyteczności</span> wybranych wzorców pól i&nbsp;metod wprowadzania danych, z&nbsp;którymi masz na co dzień styczność w&nbsp;wielu aplikacjach webowych i&nbsp;na stronach internetowych.</p>
+                                <p>
+                                    <span className="text-important">Co będę robił?</span> Zostaniesz poproszony(-a) o&nbsp;wykonanie <span className="text-important">18 ćwiczeń</span> zawartych w&nbsp;<span className="text-important">9 scenariuszach</span> i&nbsp;polegających na uzupełnieniu różnego typu formularzy.
+                                    <br />
+                                    <span className="text-important">Ile to potrwa?</span> Jeśli korzystanie z&nbsp;klawiatury i&nbsp;myszy nie jest dla Ciebie wielkim wyzwaniem, to przejście przez wszystkie etapy badania powinno zająć nie więcej niż <span className="text-important">około 20 min</span> Twojego cennego czasu.
+                                    <br />
+                                    <span className="text-important">Czy będę musiał(-a) podawać jakieś dane?</span> Większość ćwiczeń polega na wprowadzeniu całkowicie fikcyjnych danych*. Potraktuj więc całe badanie jako pewnego rodzaju zabawę, w&nbsp;której wypróbowujesz różne rozwiązania! W&nbsp;każdym ćwiczeniu zobaczysz dwie kolumny: pierwsza zawiera dane, które masz za zadanie wprowadzić, i&nbsp;jest wyróżniona <span className="text-important text-alert">tym kolorem,</span> natomiast druga to formularz, wyróżniający się <span className="text-important text-okay">tym kolorem,</span> do którego te dane wprowadzisz. Spójrz na poniższy przykład:
+                                </p>
+                            </section>
+                            <section className="task-main-container test-intro">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Nazwa pola</th>
+                                            <th>Prawidłowa wartość</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Pole I</td>
+                                            <td>Wartość I</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Pole II</td>
+                                            <td>Wartość II</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <p className="note">Przykładowa tabela z danymi.</p>
+                                <section className="form labels-align-left">
+                                    <h3>Wzór formularza</h3>
+                                    <InputWrapper disabled={ true } type="text" insideTask={ true } label="Pole I"/>
+                                    <InputWrapper disabled={ true } type="text" insideTask={ true } label="Pole II"/>
+                                </section>
+                                <p className="note">Przykładowy formularz.</p>
+                            </section>
+                            <section className="test-intro">
+                                <p>
+                                    Nic trudnego, prawda? Wystarczy, że przeniesiesz wartości z tabeli do formularza w stosunku 1:1.
+                                    <br />
+                                    <span className="text-important">Na co mam zwrócić uwagę?</span> Odstępy, znaki pisarskie, interpunkcyjne są niezwykle istotne w&nbsp;tym badaniu. Ćwiczenie jest uznane za poprawnie rozwiązane wtedy i&nbsp;tylko wtedy, gdy wprowadzone dane odpowiadają danym wzorcowym**. Jeśli zatem wpisane przez Ciebie wartości będą zawierać błędy, to dane pole wraz z&nbsp;odpowiadającą mu etykietą zostaną wyróżnione <span className="text-important text-error">tym kolorem.</span>
+                                    <br />
+                                    <span className="text-important">Czy nie mogę po prostu kopiować i&nbsp;wklejać?</span> Zaznaczanie (a co za tym idzie &ndash; kopiowanie) danych w&nbsp;tej aplikacji jest z&nbsp;zasady zablokowane. Jasne jest, że przy odrobinie sprytu i&nbsp;wiedzy z&nbsp;dziedziny informatyki był(a)byś w&nbsp;stanie to zrobić, jednak nie rób tego, proszę. Celem tego badania jest zebranie relewantnych i&nbsp;wiarygodnych danych, które będę mógł przedstawić w&nbsp;swojej pracy, a&nbsp;będzie to możliwe tylko wtedy, gdy wszystkie pola wypełnisz ręcznie.
+                                    <br />
+                                    <span className="text-important">A mógłbym napisać, co o tym wszystkim myślę?</span> Po każdym ćwiczeniu będziesz miał(a) możliwość pozostawienia komentarza odnoszącego się do właśnie wypróbowanej metody wprowadzania danych. Komentarz nie jest obowiązkowy, jednak dzięki niemu będę mógł poznać Twój punkt widzenia.
+                                </p>
+                                <p>
+                                    <span className="text-important">Co dalej?</span> Naciśnij przycisk <button className="smaller inline dummy">OK, zaczynajmy</button> i&nbsp;zmierz się ze stojącym przed Tobą wyzwaniem!
+                                </p>
+                                <Paragraph class="text-smaller" content="*) Jedno z ćwiczeń zakłada ręczne lub zautomatyzowane wprowadzenie podstawowych informacji na temat Twojej lokalizacji (kraj, województwo, powiat, miasto, kod pocztowy). Jeśli nie wyrazisz na to zgody, będziesz mógł podać inne, mające podobną formę dane.\n**) Jedno z ćwiczeń jest skonstruowane w taki sposób, że nie będziesz musiał przejmować się ani odstępami, ani wielkością znaków. Dlaczego? Przekonasz się sam!\n**Uwaga!** Badanie kończy się ankietą użytkownika, w której podasz dane związane z Twoją osobą, m.in. rok urodzenia, wykształcenie, zawód itd. Informacje te umożliwią przypisanie Twojej osoby pod względem uzyskanych wyników do poszczególnych grup całej populacji uczestników badania. Jeżeli masz jakieś uwagi, pytania lub sugestie związane z gromadzeniem tych danych, napisz do mnie na adres [mailto:krzysztof.radoslaw.osada@gmail.com](krzysztof.radoslaw.osada@gmail.com)."/>
                                 { this.state.alert &&
                                     <Paragraph content={ this.state.alert.msg } class={ "alert " + this.state.alert.type } />
                                 }
@@ -865,11 +912,11 @@ window.onload = function() {
                             { scenarios.map( ( scenario, index ) =>
                                 <Scenario key={ index } index={ index + 1 } testStarted={ this.state.testStarted } currentIndex={ this.state.currentScenarioIndex } lastIndex={ this.state.scenarios.length } scenario={ scenario } onFinish={ this.handleScenarioFinish } nodeRef={ this.childNodeRef } />
                             ) }
-                            { this.state.allScenariosFinished &&
+                            { !this.state.allScenariosFinished &&
                                 <section ref={ this.childNodeRef }>
                                     <h1>Zakończenie</h1>
-                                    <Paragraph content="Świetnie! **Właśnie zakończyłeś badanie użyteczności.** Zanim jednak zamkniesz tę kartę i wrócisz do swoich zajęć, wypełnij, proszę, poniższą ankietę -- podaj podstawowe informacje na swój temat* oraz podziel się odczuciami związanymi z formularzami na stronach internetowych." />
-                                    <Paragraph class="text-smaller" content="*) **W badaniu nie są rejestrowane żadne informacje umożliwiające jednoznaczne zidentyfikowane danej osoby.** Celem niniejszej ankiety jest kategoryzacja uczestników badania według cech mogących mieć wpływ na szybkość, poprawność i dokładność wprowadzania danych w formularzach internetowych. Poniższe informacje pozwolą więc na dostrzeżenie zależności między wynikami uzyskanymi przez Ciebie w badaniu a parametrami dotyczącymi Twojego wykształcenia, wieku, Twoich doświadczeń ze stronami internetowymi itp. Jeżeli masz jakieś pytania lub uwagi związane z poniższą ankietą, wyślij do mnie wiadomość na adres [mailto:krzysztof.radoslaw.osada@gmail.com](krzysztof.radoslaw.osada@gmail.com)." />
+                                    <Paragraph content="Świetnie! **Właśnie zakończyłeś(-aś) badanie użyteczności.** Zanim jednak zamkniesz tę kartę i wrócisz do swoich zajęć, wypełnij, proszę, poniższą ankietę -- podaj podstawowe informacje na swój temat* oraz podziel się odczuciami związanymi z formularzami na stronach internetowych." />
+                                    <Paragraph class="text-smaller" content="*) **Informacje gromadzone w badaniu użyteczności nie pozwalają na jednoznaczne zidentyfikowanie danej osoby.** Celem niniejszej ankiety jest z kolei kategoryzacja uczestników badania według cech mogących mieć wpływ na szybkość, poprawność i dokładność wprowadzania danych w formularzach internetowych. Poniższe informacje pozwolą więc na dostrzeżenie zależności między wynikami uzyskanymi przez Ciebie w badaniu a parametrami dotyczącymi Twojego wykształcenia, wieku, Twoich doświadczeń ze stronami internetowymi itp. Jeżeli masz jakieś pytania lub uwagi związane z poniższą ankietą, wyślij do mnie wiadomość na adres [mailto:krzysztof.radoslaw.osada@gmail.com](krzysztof.radoslaw.osada@gmail.com)." />
                                     <section className="form labels-align-top" id="user-form">
                                         <h3>Ankieta uczestnika</h3>
                                         {
@@ -889,7 +936,7 @@ window.onload = function() {
                             }
                             { this.state.testFinished && this.state.dataSent &&
                                 <section ref={ this.childNodeRef }>
-                                    <Paragraph content="**To już jest koniec!** Serdecznie dziękuję za udział w badaniu -- Twoja pomoc jest dla mnie naprawdę nieoceniona. Uzyskane przez Ciebie wyniki zostaną uwzględnione w części badawczej mojej pracy dyplomowej ,,Badanie użyteczności metod wprowadzania danych w aplikacjach webowych'', którą piszę pod kierunkiem dr. hab. inż. Bogdana Trawińskiego, prof. PWr." />
+                                    <Paragraph content="**I tak doszliśmy do końca!** Serdecznie dziękuję za udział w badaniu -- Twoja pomoc jest dla mnie naprawdę nieoceniona. Uzyskane przez Ciebie wyniki zostaną uwzględnione w części badawczej mojej pracy dyplomowej ,,Badanie użyteczności metod wprowadzania danych w aplikacjach webowych'', którą piszę pod kierunkiem dr. hab. inż. Bogdana Trawińskiego, prof. PWr." />
                                 </section>
                             }
                         </main>

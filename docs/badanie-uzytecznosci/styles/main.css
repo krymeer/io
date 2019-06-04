@@ -226,6 +226,12 @@ html, body {
 #page-container > * > *.task-seq > .note.error > .text-important {
   color: #ff0022;
 }
+#page-container > * > *.test-intro.task-main-container {
+  align-items: end;
+}
+#page-container > * > *.test-intro .labels-align-left {
+  width: 320px;
+}
 #page-container > header {
   background: #2892d7;
   height: 256px;
@@ -320,6 +326,15 @@ main {
 main .text-important {
   color: #2892d7;
 }
+main .text-important.text-alert {
+  color: #efa00b;
+}
+main .text-important.text-okay {
+  color: #2ccf13;
+}
+main .text-important.text-error {
+  color: #ff0022;
+}
 main a {
   color: #2892d7;
   text-decoration: none;
@@ -379,7 +394,6 @@ main > *:last-child {
 main button {
   outline: none;
   position: relative;
-  cursor: pointer;
   border: 0;
   background: #2892d7;
   color: #fff;
@@ -392,7 +406,20 @@ main button {
   text-transform: uppercase;
   transition: background 0.1s ease-in-out, color 0.1s ease-in-out;
 }
-main button:hover {
+main button.smaller {
+  font-size: 9.8px;
+  padding: 0 9.8px;
+  height: 25.2px;
+  letter-spacing: 0.875px;
+}
+main button.inline {
+  display: inline-block;
+  vertical-align: top;
+}
+main button:not(.dummy) {
+  cursor: pointer;
+}
+main button:hover:not(.dummy) {
   background: #45a1dc;
 }
 main button[disabled] {
