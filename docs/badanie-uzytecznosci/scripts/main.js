@@ -518,33 +518,43 @@ window.onload = function () {
                             })
                         });
 
-                        var isChrome = navigator.userAgent.toLowerCase().indexOf('opr') === -1 && !!window.chrome && (!!window.chrome.webstore || !!window.chrome.runtime);
-                        var noSpeechRecogniton = !(isChrome && window.hasOwnProperty('webkitSpeechRecognition'));
-                        var noGeolocation = !('geolocation' in navigator);
+                        var speechRecognitionScenario = result.scenarios.filter(function (scenario) {
+                            return scenario.tasks.filter(function (task) {
+                                return task.type.indexOf('speech-recognition-on') !== -1;
+                            }).length > 0;
+                        }).length > 0;
+                        var geolocationScenario = result.scenarios.filter(function (scenario) {
+                            return scenario.tasks.filter(function (task) {
+                                return task.type.indexOf('geolocation-on') !== -1;
+                            }).length > 0;
+                        }).length > 0;
 
-                        if (noSpeechRecogniton) {
-                            newState.scenarios = removeScenario(newState.scenarios, 'speech-recognition');
-                        }
+                        if (geolocationScenario || speechRecognitionScenario) {
+                            var isChrome = navigator.userAgent.toLowerCase().indexOf('opr') === -1 && !!window.chrome && (!!window.chrome.webstore || !!window.chrome.runtime);
+                            var noSpeechRecogniton = !(isChrome && window.hasOwnProperty('webkitSpeechRecognition'));
+                            var noGeolocation = !('geolocation' in navigator);
 
-                        if (noGeolocation) {
-                            newState.scenarios = removeScenario(newState.scenarios, 'geolocation');
-                        }
+                            if (noSpeechRecogniton) {
+                                newState.scenarios = removeScenario(newState.scenarios, 'speech-recognition');
+                            }
 
-                        if (noSpeechRecogniton || noGeolocation) {
-                            var alertMsg = 'Przeglądarka internetowa, której właśnie używasz, nie posiada funkcjonalności' + (noSpeechRecogniton || noGeolocation ? ' ' : '') + (noSpeechRecogniton ? 'rozpoznawania mowy' : '') + (noSpeechRecogniton && noGeolocation ? ' i ' : '') + (noGeolocation ? 'pobierania lokalizacji użytkownika' : '') + (!noSpeechRecogniton || !noGeolocation ? ' wykorzystywanej ' : ' wykorzystywanych ') + 'w części ćwiczeń. Jeśli istnieje taka możliwość, uruchom, proszę, tę stronę w przeglądarce Google Chrome -- możesz ją pobrać [https://www.google.com/intl/pl/chrome/](tutaj).';
+                            if (noGeolocation) {
+                                newState.scenarios = removeScenario(newState.scenarios, 'geolocation');
+                            }
 
-                            newState.alert = {
-                                type: 'warning',
-                                msg: alertMsg
-                            };
+                            if (noSpeechRecogniton || noGeolocation) {
+                                var alertMsg = 'Przeglądarka internetowa, której właśnie używasz, nie posiada funkcjonalności' + (noSpeechRecogniton || noGeolocation ? ' ' : '') + (noSpeechRecogniton ? 'rozpoznawania mowy' : '') + (noSpeechRecogniton && noGeolocation ? ' i ' : '') + (noGeolocation ? 'pobierania lokalizacji użytkownika' : '') + (!noSpeechRecogniton || !noGeolocation ? ' wykorzystywanej ' : ' wykorzystywanych ') + 'w części ćwiczeń. Jeśli istnieje taka możliwość, uruchom, proszę, tę stronę w przeglądarce Google Chrome -- możesz ją pobrać [https://www.google.com/intl/pl/chrome/](tutaj).';
+
+                                newState.alert = {
+                                    type: 'warning',
+                                    msg: alertMsg
+                                };
+                            }
                         }
 
                         return newState;
                     }, function () {
                         window.addEventListener('scroll', _this2.handleScroll);
-
-                        // ONLY FOR DEVELOPMENT
-                        // this.handleStart();
                     });
                 }, function (error) {
                     _this2.setState({
@@ -1015,7 +1025,7 @@ window.onload = function () {
                             scenarios.map(function (scenario, index) {
                                 return React.createElement(Scenario, { key: index, index: index + 1, testStarted: _this6.state.testStarted, currentIndex: _this6.state.currentScenarioIndex, lastIndex: _this6.state.scenarios.length, scenario: scenario, onFinish: _this6.handleScenarioFinish, nodeRef: _this6.childNodeRef });
                             }),
-                            !this.state.allScenariosFinished && React.createElement(
+                            this.state.allScenariosFinished && React.createElement(
                                 'section',
                                 { ref: this.childNodeRef },
                                 React.createElement(

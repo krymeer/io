@@ -542,36 +542,39 @@ window.onload = function() {
                         }
                     }
 
-                    const isChrome           = ( navigator.userAgent.toLowerCase().indexOf( 'opr' ) === -1 ) && !!window.chrome && ( !!window.chrome.webstore || !!window.chrome.runtime );
-                    const noSpeechRecogniton = !( isChrome && window.hasOwnProperty( 'webkitSpeechRecognition' ) );
-                    const noGeolocation      = !( 'geolocation' in navigator );
+                    const speechRecognitionScenario = result.scenarios.filter( scenario => scenario.tasks.filter( task => task.type.indexOf( 'speech-recognition-on' ) !== -1 ).length > 0 ).length > 0;
+                    const geolocationScenario       = result.scenarios.filter( scenario => scenario.tasks.filter( task => task.type.indexOf( 'geolocation-on' ) !== -1 ).length > 0 ).length > 0;
 
-                    if( noSpeechRecogniton )
+                    if( geolocationScenario || speechRecognitionScenario )
                     {
-                        newState.scenarios = removeScenario( newState.scenarios, 'speech-recognition' );
-                    }
+                        const isChrome           = ( navigator.userAgent.toLowerCase().indexOf( 'opr' ) === -1 ) && !!window.chrome && ( !!window.chrome.webstore || !!window.chrome.runtime );
+                        const noSpeechRecogniton = !( isChrome && window.hasOwnProperty( 'webkitSpeechRecognition' ) );
+                        const noGeolocation      = !( 'geolocation' in navigator );
 
-                    if( noGeolocation )
-                    {
-                        newState.scenarios = removeScenario( newState.scenarios, 'geolocation' );
-                    }
+                        if( noSpeechRecogniton )
+                        {
+                            newState.scenarios = removeScenario( newState.scenarios, 'speech-recognition' );
+                        }
 
-                    if( noSpeechRecogniton || noGeolocation )
-                    {
-                        const alertMsg = 'Przeglądarka internetowa, której właśnie używasz, nie posiada funkcjonalności' + ( noSpeechRecogniton || noGeolocation ? ' ' : '' ) + ( noSpeechRecogniton ? 'rozpoznawania mowy' : '' ) + ( noSpeechRecogniton && noGeolocation ? ' i ' : '' ) + ( noGeolocation ? 'pobierania lokalizacji użytkownika' : '' ) + ( !noSpeechRecogniton || !noGeolocation ? ' wykorzystywanej ' : ' wykorzystywanych ' )  + 'w części ćwiczeń. Jeśli istnieje taka możliwość, uruchom, proszę, tę stronę w przeglądarce Google Chrome -- możesz ją pobrać [https://www.google.com/intl/pl/chrome/](tutaj).';
+                        if( noGeolocation )
+                        {
+                            newState.scenarios = removeScenario( newState.scenarios, 'geolocation' );
+                        }
 
-                        newState.alert = {
-                            type : 'warning',
-                            msg  : alertMsg
+                        if( noSpeechRecogniton || noGeolocation )
+                        {
+                            const alertMsg = 'Przeglądarka internetowa, której właśnie używasz, nie posiada funkcjonalności' + ( noSpeechRecogniton || noGeolocation ? ' ' : '' ) + ( noSpeechRecogniton ? 'rozpoznawania mowy' : '' ) + ( noSpeechRecogniton && noGeolocation ? ' i ' : '' ) + ( noGeolocation ? 'pobierania lokalizacji użytkownika' : '' ) + ( !noSpeechRecogniton || !noGeolocation ? ' wykorzystywanej ' : ' wykorzystywanych ' )  + 'w części ćwiczeń. Jeśli istnieje taka możliwość, uruchom, proszę, tę stronę w przeglądarce Google Chrome -- możesz ją pobrać [https://www.google.com/intl/pl/chrome/](tutaj).';
+
+                            newState.alert = {
+                                type : 'warning',
+                                msg  : alertMsg
+                            };
                         }
                     }
 
                     return newState;
                 }, () => {
                     window.addEventListener( 'scroll', this.handleScroll );
-
-                    // ONLY FOR DEVELOPMENT
-                    // this.handleStart();
                 } );
             }, error => {
                 this.setState( {
@@ -912,7 +915,7 @@ window.onload = function() {
                             { scenarios.map( ( scenario, index ) =>
                                 <Scenario key={ index } index={ index + 1 } testStarted={ this.state.testStarted } currentIndex={ this.state.currentScenarioIndex } lastIndex={ this.state.scenarios.length } scenario={ scenario } onFinish={ this.handleScenarioFinish } nodeRef={ this.childNodeRef } />
                             ) }
-                            { !this.state.allScenariosFinished &&
+                            { this.state.allScenariosFinished &&
                                 <section ref={ this.childNodeRef }>
                                     <h1>Zakończenie</h1>
                                     <Paragraph content="Świetnie! **Właśnie zakończyłeś(-aś) badanie użyteczności.** Zanim jednak zamkniesz tę kartę i wrócisz do swoich zajęć, wypełnij, proszę, poniższą ankietę -- podaj podstawowe informacje na swój temat* oraz podziel się odczuciami związanymi z formularzami na stronach internetowych." />
