@@ -195,7 +195,7 @@ var Task = function (_React$Component) {
                         }),
                         stats: Object.assign({}, state.stats, {
                             speechRecognition: Object.assign({}, state.stats.speechRecognition, {
-                                timesClicks: state.stats.speechRecognition.micClicks + 1
+                                timesClicks: state.stats.speechRecognition.timesClicks + 1
                             })
                         })
                     });

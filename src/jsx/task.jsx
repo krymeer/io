@@ -182,7 +182,7 @@ class Task extends React.Component {
                         ...state.stats,
                         speechRecognition : {
                             ...state.stats.speechRecognition,
-                            timesClicks : state.stats.speechRecognition.micClicks + 1
+                            timesClicks : state.stats.speechRecognition.timesClicks + 1
                         }
                     }
                 }

@@ -526,7 +526,7 @@ window.onload = function () {
                         }).length > 0;
 
                         if (geolocationScenario || speechRecognitionScenario) {
-                            var isChrome = navigator.userAgent.toLowerCase().indexOf('opr') === -1 && !!window.chrome && (!!window.chrome.webstore || !!window.chrome.runtime);
+                            var isChrome = navigator.userAgent.toLowerCase().indexOf('opr') === -1 && navigator.userAgent.toLowerCase().indexOf('vivaldi') === -1 && !!window.chrome && (!!window.chrome.webstore || !!window.chrome.runtime);
                             var noSpeechRecogniton = !(isChrome && window.hasOwnProperty('webkitSpeechRecognition'));
                             var noGeolocation = !('geolocation' in navigator);
 

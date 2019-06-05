@@ -543,7 +543,7 @@ window.onload = function() {
 
                     if( geolocationScenario || speechRecognitionScenario )
                     {
-                        const isChrome           = ( navigator.userAgent.toLowerCase().indexOf( 'opr' ) === -1 ) && !!window.chrome && ( !!window.chrome.webstore || !!window.chrome.runtime );
+                        const isChrome           = ( navigator.userAgent.toLowerCase().indexOf( 'opr' ) === -1 ) && ( navigator.userAgent.toLowerCase().indexOf( 'vivaldi' ) === -1 ) && !!window.chrome && ( !!window.chrome.webstore || !!window.chrome.runtime );
                         const noSpeechRecogniton = !( isChrome && window.hasOwnProperty( 'webkitSpeechRecognition' ) );
                         const noGeolocation      = !( 'geolocation' in navigator );
 
