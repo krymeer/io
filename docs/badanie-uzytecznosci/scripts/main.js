@@ -316,7 +316,7 @@ getParameterByName = function getParameterByName(name, url) {
 removeScenario = function removeScenario(scenarios, type) {
     return scenarios.filter(function (scenario) {
         return scenario.tasks.filter(function (task) {
-            return task.type === type;
+            return task.type.indexOf(type) !== -1;
         }).length === 0;
     });
 };
@@ -543,11 +543,11 @@ window.onload = function () {
                             }
 
                             if (noSpeechRecogniton) {
-                                newState.scenarios = removeScenario(newState.scenarios, 'speech-recognition');
+                                newState.scenarios = removeScenario(newState.scenarios, 'speech-recognition-on');
                             }
 
                             if (noGeolocation) {
-                                newState.scenarios = removeScenario(newState.scenarios, 'geolocation');
+                                newState.scenarios = removeScenario(newState.scenarios, 'geolocation-on');
                             }
 
                             if (noSpeechRecogniton || noGeolocation) {

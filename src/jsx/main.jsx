@@ -326,7 +326,7 @@ getParameterByName = ( name, url ) => {
 
 removeScenario = ( scenarios, type ) => {
     return scenarios.filter( scenario => {
-        return scenario.tasks.filter( task => task.type === type ).length === 0;
+        return scenario.tasks.filter( task => task.type.indexOf( type ) !== -1 ).length === 0;
     } );
 }
 
@@ -563,12 +563,12 @@ window.onload = function() {
 
                         if( noSpeechRecogniton )
                         {
-                            newState.scenarios = removeScenario( newState.scenarios, 'speech-recognition' );
+                            newState.scenarios = removeScenario( newState.scenarios, 'speech-recognition-on' );
                         }
 
                         if( noGeolocation )
                         {
-                            newState.scenarios = removeScenario( newState.scenarios, 'geolocation' );
+                            newState.scenarios = removeScenario( newState.scenarios, 'geolocation-on' );
                         }
 
                         if( noSpeechRecogniton || noGeolocation )
