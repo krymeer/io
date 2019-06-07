@@ -625,6 +625,7 @@
         {
             "intro" : "Spierasz się ze znajomym o to, jakie jest pochodzenie kota domowego. Znalazłeś(-aś) definicję, którą chcesz przytoczyć w wiadomości. Niestety, nie możesz jej przepisać, i, co gorsza, nie masz dostępu do klawiatury; jedyne, co jesteś w stanie zrobić, to... podyktować tekst!",
             "alert"        : "**Uwaga!** Poprawne wykonanie tego scenariusza jest możliwe wyłącznie z wykorzystaniem funkcjonalności **rozpoznawania mowy.** Jeśli więc Twój komputer nie jest wyposażony w mikrofon (zewnętrzny lub wewnętrzny), przerwij wykonywanie ćwiczenia, naciskając odpowiedni przycisk. Możesz to zrobić także wtedy, gdy podczas rozwiązywania wystąpią problemy techniczne.",
+            "openQuestion" : "Czy w Twojej opinii rozpoznawanie mowy na stronach WWW ma sens? Jeśli tak, to w jakich przypadkach?",
             "tasks" : [
                 {
                     "title"               : "Kot domowy",

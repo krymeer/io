@@ -43,8 +43,7 @@ class Task extends React.Component {
                 stats            : {
                     ...this.state.stats,
                     speechRecognition : {
-                        micClicks   : 0,
-                        timesClicks : 0
+                        clicks : [ ...Array( this.props.task.data.length ) ].map( item => ( { mic : 0, times : 0 } ) )
                     }
                 }
             };
@@ -152,7 +151,17 @@ class Task extends React.Component {
                         ...state.stats,
                         speechRecognition : {
                             ...state.stats.speechRecognition,
-                            micClicks : state.stats.speechRecognition.micClicks + 1
+                            clicks : state.stats.speechRecognition.clicks.map( ( item, index ) => {
+                                if( index !== inputIndex )
+                                {
+                                    return item;
+                                }
+
+                                return {
+                                    ...item,
+                                    mic : item.mic + 1
+                                };
+                            } )
                         }
                     }
                 }
@@ -162,7 +171,9 @@ class Task extends React.Component {
 
     handleSpeechRecognitionTimesClick( event )
     {
-        if( this.state.speechRecognition.currentIndex !== -1 && this.state.speechRecognition.currentIndex === parseInt( event.target.dataset.inputIndex ) && this.state.taskStarted && !this.state.taskFinished )
+        const inputIndex = parseInt( event.target.dataset.inputIndex );
+
+        if( this.state.speechRecognition.currentIndex !== -1 && this.state.speechRecognition.currentIndex === inputIndex && this.state.taskStarted && !this.state.taskFinished )
         {
             this.webkitSpeechRecognition.abort();
 
@@ -182,7 +193,17 @@ class Task extends React.Component {
                         ...state.stats,
                         speechRecognition : {
                             ...state.stats.speechRecognition,
-                            timesClicks : state.stats.speechRecognition.timesClicks + 1
+                            clicks : state.stats.speechRecognition.clicks.map( ( item, index ) => {
+                                if( index !== inputIndex )
+                                {
+                                    return item;
+                                }
+
+                                return {
+                                    ...item,
+                                    times : item.times + 1
+                                };
+                            } )
                         }
                     }
                 }

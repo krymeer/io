@@ -58,8 +58,9 @@ var Task = function (_React$Component) {
                 },
                 stats: Object.assign({}, _this.state.stats, {
                     speechRecognition: {
-                        micClicks: 0,
-                        timesClicks: 0
+                        clicks: [].concat(_toConsumableArray(Array(_this.props.task.data.length))).map(function (item) {
+                            return { mic: 0, times: 0 };
+                        })
                     }
                 })
             });
@@ -172,7 +173,15 @@ var Task = function (_React$Component) {
                         }),
                         stats: Object.assign({}, state.stats, {
                             speechRecognition: Object.assign({}, state.stats.speechRecognition, {
-                                micClicks: state.stats.speechRecognition.micClicks + 1
+                                clicks: state.stats.speechRecognition.clicks.map(function (item, index) {
+                                    if (index !== inputIndex) {
+                                        return item;
+                                    }
+
+                                    return Object.assign({}, item, {
+                                        mic: item.mic + 1
+                                    });
+                                })
                             })
                         })
                     });
@@ -182,7 +191,9 @@ var Task = function (_React$Component) {
     }, {
         key: 'handleSpeechRecognitionTimesClick',
         value: function handleSpeechRecognitionTimesClick(event) {
-            if (this.state.speechRecognition.currentIndex !== -1 && this.state.speechRecognition.currentIndex === parseInt(event.target.dataset.inputIndex) && this.state.taskStarted && !this.state.taskFinished) {
+            var inputIndex = parseInt(event.target.dataset.inputIndex);
+
+            if (this.state.speechRecognition.currentIndex !== -1 && this.state.speechRecognition.currentIndex === inputIndex && this.state.taskStarted && !this.state.taskFinished) {
                 this.webkitSpeechRecognition.abort();
 
                 this.setState(function (state) {
@@ -195,7 +206,15 @@ var Task = function (_React$Component) {
                         }),
                         stats: Object.assign({}, state.stats, {
                             speechRecognition: Object.assign({}, state.stats.speechRecognition, {
-                                timesClicks: state.stats.speechRecognition.timesClicks + 1
+                                clicks: state.stats.speechRecognition.clicks.map(function (item, index) {
+                                    if (index !== inputIndex) {
+                                        return item;
+                                    }
+
+                                    return Object.assign({}, item, {
+                                        times: item.times + 1
+                                    });
+                                })
                             })
                         })
                     });
