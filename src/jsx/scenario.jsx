@@ -29,6 +29,14 @@ class Scenario extends React.Component {
         this.childNodeRef     = child => {
             window.scrollTo( 0, getRealOffsetTop( child.offsetTop ) );
         };
+
+        if( this.props.scenario.extraQuestions )
+        {
+            this.state.summary.questions = [
+                ...this.state.summary.questions,
+                ...this.props.scenario.extraQuestions
+            ]
+        }
     }
 
     handleStart()

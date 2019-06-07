@@ -3,6 +3,9 @@
         {
             "intro"    : "Zamówiłeś(-aś) kilka produktów z popularnego sklepu internetowego. W ostatnim czasie zmieniłeś(-aś) miejsce zamieszkania, jednak jak dotąd nie otrzymałeś(-aś) żadnej przesyłki na ten adres. Czas to zmienić!",
             "question" : "Co sądzisz o zaprezentowanym sposobie na ułożenie pól i etykiet w formularzu?",
+            "extraQuestions" : [
+                { "text" : "Czy potrafisz poprawnie pisać na klawiaturze bez konieczności zerkania na klawisze?", "chosenAnswer" : -1, "answers" : [ "Tak", "Nie" ] }
+            ],
             "tasks"    : [
                 {
                     "title"   : "Adres do wysyłki",
@@ -243,6 +246,9 @@
         {
             "intro"    : "Znalazłeś(-aś) niedawno zatrudnienie w dużej międzynarodowej korporacji. Pracownik działu kadr poprosił Cię o przesłanie kilku brakujących danych, bez których wypłata wynagrodzenia na koniec miesiąca nie będzie możliwa.",
             "question" : "Co sądzisz o wprowadzaniu długich ciągów liczb, które wymagają ręcznego formatowania (np. wstawiania spacji)?",
+            "extraQuestions" : [
+                { "text" : "Jak ocenił(a)byś swoją sprawność w szybkim pisaniu na klawiaturze?", "chosenAnswer" : -1, "answers" : [ "Niska", "Przeciętna", "Wysoka" ] }
+            ],
             "tasks"    : [
                 {
                     "title"   : "Dane do przelewu",
