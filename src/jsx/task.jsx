@@ -560,7 +560,7 @@ class Task extends React.Component {
                                     } : undefined;
 
                                     return (
-                                        <InputWrapper key={ index } index={ index } error={ this.state.taskError && this.state.taskStarted } disabled={ this.state.taskFinished || !this.state.taskStarted } onChange={ this.handleInputChange } { ...input } {...this.props.task.data[ index ] } insideTask={ true } { ...speechRecognitionProps } ignoreCaseAndLines={ this.props.task.ignoreCaseAndLines === true } />
+                                        <InputWrapper key={ index } index={ index } error={ this.state.taskError && this.state.taskStarted } disabled={ this.state.taskFinished || !this.state.taskStarted } onChange={ this.handleInputChange } { ...input } {...this.props.task.data[ index ] } insideTask={ true } { ...speechRecognitionProps } ignoreCaseAndLines={ this.props.task.ignoreCaseAndLines === true } ignoreAllButLetters={ this.props.task.ignoreAllButLetters === true } />
                                     );
                                 } )
                             }

@@ -576,7 +576,7 @@ var Task = function (_React$Component) {
                                     }
                                 } : undefined;
 
-                                return React.createElement(InputWrapper, Object.assign({ key: index, index: index, error: _this7.state.taskError && _this7.state.taskStarted, disabled: _this7.state.taskFinished || !_this7.state.taskStarted, onChange: _this7.handleInputChange }, input, _this7.props.task.data[index], { insideTask: true }, speechRecognitionProps, { ignoreCaseAndLines: _this7.props.task.ignoreCaseAndLines === true }));
+                                return React.createElement(InputWrapper, Object.assign({ key: index, index: index, error: _this7.state.taskError && _this7.state.taskStarted, disabled: _this7.state.taskFinished || !_this7.state.taskStarted, onChange: _this7.handleInputChange }, input, _this7.props.task.data[index], { insideTask: true }, speechRecognitionProps, { ignoreCaseAndLines: _this7.props.task.ignoreCaseAndLines === true, ignoreAllButLetters: _this7.props.task.ignoreAllButLetters === true }));
                             }),
                             this.state.taskError && React.createElement(Paragraph, { 'class': 'on-form-error', content: "Aby przejść dalej, popraw pol" + (this.state.inputs.filter(function (input) {
                                     return !input.valid;

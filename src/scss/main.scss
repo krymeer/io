@@ -214,6 +214,7 @@ html, body {
 
                 th {
                     color: $alert-color;
+                    vertical-align: top;
                 }
 
                 td {
@@ -1736,6 +1737,18 @@ main {
 
                             > span:not(.sr-placeholder) {
                                 font-size: 13px;
+                            }
+                        }
+                    }
+                }
+
+                &.sr-long-text {
+                    > .wrapper {
+                        grid-template-columns: auto 390px;
+
+                        > .sr-wrapper {
+                            > span {
+                                min-height: 265px;
                             }
                         }
                     }

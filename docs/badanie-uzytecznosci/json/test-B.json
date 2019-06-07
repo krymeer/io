@@ -623,20 +623,26 @@
             ]
         },
         {
-            "intro" : "Spierasz się ze znajomym o to, jakie jest pochodzenie kota domowego. Znalazłeś(-aś) definicję, którą chcesz przytoczyć w wiadomości. Niestety, nie możesz skopiować tekstu, dlatego pozostaje Ci jego ręczne przepisanie.",
+            "intro" : "Spierasz się ze znajomym o to, jakie jest pochodzenie kota domowego. Znalazłeś(-aś) definicję, którą chcesz przytoczyć w wiadomości. Niestety, nie możesz jej przepisać, i, co gorsza, nie masz dostępu do klawiatury; jedyne, co jesteś w stanie zrobić, to... podyktować tekst!",
+            "alert"        : "**Uwaga!** Poprawne wykonanie tego scenariusza jest możliwe wyłącznie z wykorzystaniem funkcjonalności **rozpoznawania mowy.** Jeśli więc Twój komputer nie jest wyposażony w mikrofon (zewnętrzny lub wewnętrzny), przerwij wykonywanie ćwiczenia, naciskając odpowiedni przycisk. Możesz to zrobić także wtedy, gdy podczas rozwiązywania wystąpią problemy techniczne.",
             "tasks" : [
                 {
-                    "title"    : "Kot domowy",
-                    "classes"  : "labels-align-top long-text",
-                    "type"     : "long-text",
-                    "copy"     : "Źródło: encyklopedia.pwn.pl",
-                    "question" : "Czy często zdarza Ci się wypełniać pola w formularzach tekstem o długości porównywalnej do definicji z powyższego ćwiczenia?",
+                    "title"               : "Kot domowy",
+                    "classes"             : "labels-align-top speech-recognition-on sr-long-text",
+                    "type"                : "speech-recognition-on-long-text",
+                    "copy"                : "Źródło: encyklopedia.pwn.pl",
+                    "question"            : "Czy chciałbyś korzystać na co dzień z takiego dyktowania, gdyby działało na 100% poprawnie?",
+                    "canBeAborted"        : true,
+                    "ignoreAllButLetters" : true,
+                    "alert"              : {
+                        "type" : "info",
+                        "msg"  : "Funkcjonalność, z której skorzystasz w tym ćwiczeniu, jest **w fazie testowej**, dlatego jeśli nie uda Ci się ,,przenieść'' tekstu z tabeli do formularza, to się tym nie przejmuj -- przerwij ćwiczenie i idź dalej. Wielkość znaków i interpunkcja nie mają tutaj żadnego znaczenia."
+                    },
                     "data"    : [
                         {
-                            "maxLength"     : 600,
-                            "type"          : "textarea",
+                            "type"          : "sr-text sr-textarea",
                             "label"         : "Definicja",
-                            "expectedValue" : "Kot domowy, Felis catus, zwierzę domowe z rodziny kotowatych.\n\nPochodzi bezpośrednio najprawdopodobniej od żbika; na świecie żyje obecnie ponad 500 mln kotów domowych; prawdopodobnie pierwszym udomowionym przez człowieka kotem był kot nubijski (ok. 4000 p.n.e.), utrzymywany w Egipcie w celu ochrony spichlerzy i bibliotek przed gryzoniami; w starożytnym Egipcie kotom oddawano boską cześć; w Europie pierwsze koty domowe pojawiły się ok. 900 p.n.e., były przywożone przez kupców fenickich do krajów basenu Morza Śródziemnego, skąd rozprzestrzeniły się po całej Europie."
+                            "expectedValue" : "Kot domowy jest zwierzęciem domowym z rodziny kotowatych.\n\nPochodzi bezpośrednio najprawdopodobniej od żbika; na świecie żyje obecnie ponad pół miliarda kotów domowych. Pierwszym udomowionym przez człowieka kotem był prawdopodobnie kot nubijski, utrzymywany w Egipcie w celu ochrony spichlerzy i bibliotek przed gryzoniami. W starożytnym Egipcie koty były uważane za bóstwa."
                         }
                     ]
                 }

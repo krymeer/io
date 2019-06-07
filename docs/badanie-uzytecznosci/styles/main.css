@@ -148,6 +148,7 @@ html, body {
 }
 #page-container > * > *.task-main-container > table th {
   color: #efa00b;
+  vertical-align: top;
 }
 #page-container > * > *.task-main-container > table td:first-child {
   vertical-align: top;
@@ -1241,6 +1242,12 @@ main section .form.speech-recognition-on > .wrapper > .sr-wrapper.sr-textarea {
 }
 main section .form.speech-recognition-on > .wrapper > .sr-wrapper.sr-textarea > span:not(.sr-placeholder) {
   font-size: 13px;
+}
+main section .form.speech-recognition-on.sr-long-text > .wrapper {
+  grid-template-columns: auto 390px;
+}
+main section .form.speech-recognition-on.sr-long-text > .wrapper > .sr-wrapper > span {
+  min-height: 265px;
 }
 main section .form.logic-values-toggle-switch {
   width: 560px;
