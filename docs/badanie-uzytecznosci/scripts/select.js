@@ -288,6 +288,7 @@ var Select = function (_React$Component) {
                         })
                     };
                 }, function () {
+                    globals.keyDownDisabled = _this5.state.list.open;
                     _this5.handleOverflow(eventTarget, bodyScrollHeight);
                 });
             }

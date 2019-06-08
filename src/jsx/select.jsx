@@ -316,6 +316,7 @@ class Select extends React.Component {
                     }
                 };
             }, () => {
+                globals.keyDownDisabled = this.state.list.open;
                 this.handleOverflow( eventTarget, bodyScrollHeight );
             } );
         }

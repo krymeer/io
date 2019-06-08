@@ -169,7 +169,7 @@
             ]
         },
         {
-            "intro"    : "Planujesz udać się na zasłużony urlop -- jesteś na etapie przegłądania ofert. Wyszukiwarka ofert biur podróży, z której korzystasz, wymaga wprowadzenia kilku parametrów, które umożliwią zawężenie wyników wyszukiwania.",
+            "intro"    : "Planujesz udać się na zasłużony urlop -- jesteś na etapie przeglądania ofert. Wyszukiwarka ofert biur podróży, z której korzystasz, wymaga wprowadzenia kilku parametrów, które umożliwią zawężenie wyników wyszukiwania.",
             "question" : "Co sądzisz o zaprezentowanej metodzie wprowadzania niewielkiej liczby?",
             "tasks"    : [
                 {

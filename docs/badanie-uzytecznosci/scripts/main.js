@@ -327,6 +327,7 @@ var globals = {
         static: 256,
         fixed: 35
     },
+    keyDownDisabled: false,
     maxLength: {
         input: 64,
         textarea: 255
@@ -339,9 +340,8 @@ window.onload = function () {
     document.onkeydown = function (event) {
         event = event || window.event;
 
-        // TO CHANGE: if there is any select list open
-        if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
-            // return false;
+        if (globals.keyDownDisabled && (event.key === 'ArrowUp' || event.key === 'ArrowDown')) {
+            return false;
         }
     };
 
