@@ -145,12 +145,10 @@ html, body {
 }
 #page-container > * > *.task-main-container > table th, #page-container > * > *.task-main-container > table td {
   border-bottom: none;
+  vertical-align: top;
 }
 #page-container > * > *.task-main-container > table th {
   color: #efa00b;
-  vertical-align: top;
-}
-#page-container > * > *.task-main-container > table td:first-child {
   vertical-align: top;
 }
 #page-container > * > *.task-main-container > table[data-for=input-masks-on] td:last-child, #page-container > * > *.task-main-container > table[data-for=input-masks-off] td:last-child {

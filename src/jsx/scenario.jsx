@@ -57,13 +57,38 @@ class Scenario extends React.Component {
                 nextScenario : true
             } );
 
-            this.props.onFinish( {
-                index          : this.props.index,
-                tasks          : this.state.tasks.results,
+            const summaryData = {
                 comment        : this.state.summary.comment,
                 summaryAnswers : this.state.summary.questions.map( ( question ) => {
                         return question.answers[ question.chosenAnswer ];
                 } )
+            };
+
+            this.props.onFinish( {
+                index : this.props.index,
+                tasks : this.state.tasks.results,
+                ...summaryData
+            } );
+
+            summaryData.ip    = globals.ip;
+            summaryData.event = 'endOfScenario';
+
+            fetch( globals.backURI + '?do=send&what=partial-results', {
+                method  : 'POST',
+                body    : JSON.stringify( summaryData ),
+                headers : {
+                    'Content-Type' : 'application/json'
+                }
+            } ).then( res => res.json() ).then( response => {
+                if( globals.dev )
+                {
+                    console.log( response );
+                }
+            } ).catch( error => {
+                if( globals.dev )
+                {
+                    console.error( error );
+                }
             } );
         }
     }

@@ -594,6 +594,10 @@ window.onload = function () {
                                 })
                             });
                         });
+
+                        globals.ip = ip;
+                    } else {
+                        globals.ip = 'N/A_' + new Date.getTime();
                     }
                 });
 

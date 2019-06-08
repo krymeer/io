@@ -269,7 +269,7 @@ var Task = function (_React$Component) {
                 var results = response.results ? response.results[0].components : undefined;
 
                 if (typeof results !== 'undefined') {
-                    var location = [results.country, results.state.replace(/^województwo\s+/i, ''), results.county, results.city, results.postcode];
+                    var location = [results.country, results.state.replace(/^województwo\s+/i, ''), results.county, results.city ? results.city : results.town, results.postcode];
 
                     var inputs = _this5.formWrapperNode.querySelectorAll('input');
 
@@ -387,10 +387,34 @@ var Task = function (_React$Component) {
                         stats['geolocationError'] = this.state.geolocationError;
                     }
 
-                    this.props.onFinish({
-                        index: this.props.index,
+                    var taskData = {
                         type: this.props.task.type,
                         stats: stats
+                    };
+
+                    this.props.onFinish(Object.assign({}, taskData, {
+                        index: this.props.index
+                    }));
+
+                    taskData.ip = globals.ip;
+                    taskData.event = 'endOfTask';
+
+                    fetch(globals.backURI + '?do=send&what=partial-results', {
+                        method: 'POST',
+                        body: JSON.stringify(taskData),
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    }).then(function (res) {
+                        return res.json();
+                    }).then(function (response) {
+                        if (globals.dev) {
+                            console.log(response);
+                        }
+                    }).catch(function (error) {
+                        if (globals.dev) {
+                            console.error(error);
+                        }
                     });
                 }
             }

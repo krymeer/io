@@ -64,13 +64,37 @@ var Scenario = function (_React$Component) {
                     nextScenario: true
                 });
 
-                this.props.onFinish({
-                    index: this.props.index,
-                    tasks: this.state.tasks.results,
+                var summaryData = {
                     comment: this.state.summary.comment,
                     summaryAnswers: this.state.summary.questions.map(function (question) {
                         return question.answers[question.chosenAnswer];
                     })
+                };
+
+                this.props.onFinish(Object.assign({
+                    index: this.props.index,
+                    tasks: this.state.tasks.results
+                }, summaryData));
+
+                summaryData.ip = globals.ip;
+                summaryData.event = 'endOfScenario';
+
+                fetch(globals.backURI + '?do=send&what=partial-results', {
+                    method: 'POST',
+                    body: JSON.stringify(summaryData),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }).then(function (res) {
+                    return res.json();
+                }).then(function (response) {
+                    if (globals.dev) {
+                        console.log(response);
+                    }
+                }).catch(function (error) {
+                    if (globals.dev) {
+                        console.error(error);
+                    }
                 });
             }
         }

@@ -210,17 +210,12 @@ html, body {
 
                 th, td {
                     border-bottom: none;
+                    vertical-align: top;
                 }
 
                 th {
                     color: $alert-color;
                     vertical-align: top;
-                }
-
-                td {
-                    &:first-child {
-                        vertical-align: top;
-                    }
                 }
 
                 &[data-for='input-masks-on'],

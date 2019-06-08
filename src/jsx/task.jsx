@@ -264,7 +264,7 @@ class Task extends React.Component {
                     results.country,
                     results.state.replace( /^województwo\s+/i, '' ),
                     results.county,
-                    results.city,
+                    results.city ? results.city : results.town,
                     results.postcode
                 ]
 
@@ -400,10 +400,35 @@ class Task extends React.Component {
                     stats[ 'geolocationError' ] = this.state.geolocationError;
                 }
 
-                this.props.onFinish( {
-                    index : this.props.index,
+                const taskData = {
                     type  : this.props.task.type,
                     stats
+                }
+
+                this.props.onFinish( {
+                    ...taskData,
+                    index : this.props.index,
+                } );
+
+                taskData.ip    = globals.ip;
+                taskData.event = 'endOfTask';
+
+                fetch( globals.backURI + '?do=send&what=partial-results', {
+                    method  : 'POST',
+                    body    : JSON.stringify( taskData ),
+                    headers : {
+                        'Content-Type' : 'application/json'
+                    }
+                } ).then( res => res.json() ).then( response => {
+                    if( globals.dev )
+                    {
+                        console.log( response );
+                    }
+                } ).catch( error => {
+                    if( globals.dev )
+                    {
+                        console.error( error );
+                    }
                 } );
             }
         }

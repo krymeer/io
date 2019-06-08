@@ -643,7 +643,7 @@
                     "ignoreAllButLetters" : true,
                     "alert"              : {
                         "type" : "info",
-                        "msg"  : "Funkcjonalność, z której skorzystasz w tym ćwiczeniu, jest **w fazie testowej**, dlatego jeśli nie uda Ci się ,,przenieść'' tekstu z tabeli do formularza, to się tym nie przejmuj -- przerwij ćwiczenie i idź dalej. Wielkość znaków i interpunkcja nie mają tutaj żadnego znaczenia."
+                        "msg"  : "Funkcjonalność, z której skorzystasz w tym ćwiczeniu, jest **w fazie testowej**, dlatego jeśli nie uda Ci się ,,przenieść'' tekstu z tabeli do formularza, to się tym nie przejmuj -- przerwij ćwiczenie i idź dalej. Wielkość znaków, interpunkcja i znaki nowej linii nie mają tutaj **żadnego znaczenia.**"
                     },
                     "data"    : [
                         {
