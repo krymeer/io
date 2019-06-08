@@ -533,6 +533,10 @@ class Task extends React.Component {
     {
         if( this.props.scenarioStarted && this.props.currentIndex >= this.props.index )
         {
+            const missingRatingText           = 'Aby przejść dalej, **oceń poziom trudności powyższego ćwiczenia.**';
+            const missingCommentText          = 'Aby przejść dalej, **wyjaśnij, dlaczego przerwałeś(-aś) powyższe ćwiczenie.**';
+            const missingCommentAndRatingText = 'Aby przejść dalej, **oceń poziom trudności powyższego ćwiczenia,** a także **wyjaśnij, dlaczego je przerwałeś(-aś).**';
+
             return (
                 <React.Fragment>
                     <section className="task-intro" ref={ this.props.nodeRef }>
@@ -649,7 +653,11 @@ class Task extends React.Component {
                             }
                             <InputWrapper wrapperClass="comment-wrapper" context="taskFinished" label={ this.props.task.question ? insertNbsp( this.props.task.question ) : ( this.props.question ? insertNbsp( this.props.question ) : "Co sądzisz o wprowadzaniu danych przy użyciu zaprezentowanej metody?" ) } optional={ true } type="textarea" disabled={ this.state.nextTask } onChange={ this.handleCommentChange } />
                             { this.state.missingSummaryData &&
-                                <Paragraph class="note error" content={ "Aby przejść dalej, **oceń poziom trudności powyższego ćwiczenia" + ( ( this.state.missingSummaryData && this.state.taskAborted && !( this.state.stats.comments.taskAborted && this.state.stats.comments.taskAborted.length >= 10 ) ) ? ",** a także **wyjaśnij, dlaczego zdecydowałeś(-aś) się je przerwać.**" :  ".**" ) } />
+                                <Paragraph class="note error" content={
+                                    ( this.state.taskAborted && !( this.state.stats.comments.taskAborted && this.state.stats.comments.taskAborted.length >= 10 )
+                                        ? ( ( this.state.stats.rating <= 0 ) ? missingCommentAndRatingText : missingCommentText )
+                                        : ( missingRatingText ) )
+                                } />
                             }
                         </section>
                     }

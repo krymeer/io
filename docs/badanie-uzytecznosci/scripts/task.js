@@ -507,6 +507,10 @@ var Task = function (_React$Component) {
             var _this7 = this;
 
             if (this.props.scenarioStarted && this.props.currentIndex >= this.props.index) {
+                var missingRatingText = 'Aby przejść dalej, **oceń poziom trudności powyższego ćwiczenia.**';
+                var missingCommentText = 'Aby przejść dalej, **wyjaśnij, dlaczego przerwałeś(-aś) powyższe ćwiczenie.**';
+                var missingCommentAndRatingText = 'Aby przejść dalej, **oceń poziom trudności powyższego ćwiczenia,** a także **wyjaśnij, dlaczego je przerwałeś(-aś).**';
+
                 return React.createElement(
                     React.Fragment,
                     null,
@@ -676,7 +680,7 @@ var Task = function (_React$Component) {
                         ),
                         this.state.taskAborted && React.createElement(InputWrapper, { wrapperClass: 'comment-wrapper', ignoreValidity: true, error: this.state.missingSummaryData && !(this.state.stats.comments.taskAborted && this.state.stats.comments.taskAborted.length >= 10), context: 'taskAborted', label: 'Dlaczego przerwa\u0142e\u015B(-a\u015B) powy\u017Csze \u0107wiczenie?', type: 'textarea', disabled: this.state.nextTask, onChange: this.handleCommentChange }),
                         React.createElement(InputWrapper, { wrapperClass: 'comment-wrapper', context: 'taskFinished', label: this.props.task.question ? insertNbsp(this.props.task.question) : this.props.question ? insertNbsp(this.props.question) : "Co sądzisz o wprowadzaniu danych przy użyciu zaprezentowanej metody?", optional: true, type: 'textarea', disabled: this.state.nextTask, onChange: this.handleCommentChange }),
-                        this.state.missingSummaryData && React.createElement(Paragraph, { 'class': 'note error', content: "Aby przejść dalej, **oceń poziom trudności powyższego ćwiczenia" + (this.state.missingSummaryData && this.state.taskAborted && !(this.state.stats.comments.taskAborted && this.state.stats.comments.taskAborted.length >= 10) ? ",** a także **wyjaśnij, dlaczego zdecydowałeś(-aś) się je przerwać.**" : ".**") })
+                        this.state.missingSummaryData && React.createElement(Paragraph, { 'class': 'note error', content: this.state.taskAborted && !(this.state.stats.comments.taskAborted && this.state.stats.comments.taskAborted.length >= 10) ? this.state.stats.rating <= 0 ? missingCommentAndRatingText : missingCommentText : missingRatingText })
                     ),
                     this.state.taskFinished && React.createElement(
                         'section',
