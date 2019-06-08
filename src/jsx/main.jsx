@@ -875,8 +875,12 @@ window.onload = function() {
                         } ).catch( error => {
                             console.error( error );
                         } ).then( () => {
-                            this.setState( {
-                                dataSent : true
+                            fetch( globals.backURI + '/?do=delete&what=token&value=' + getParameterByName( 'auth' ) ).catch( error => {
+                                console.error( error );
+                            } ).then( () => {
+                                this.setState( {
+                                    dataSent : true
+                                } );
                             } );
                         } );
                     } );
