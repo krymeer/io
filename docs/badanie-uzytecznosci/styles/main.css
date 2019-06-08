@@ -128,6 +128,7 @@ html, body {
   display: grid;
   grid-template-columns: auto auto;
   align-items: start;
+  width: 100%;
   width: fit-content;
   max-width: 960px;
   grid-gap: 21px;
@@ -169,6 +170,7 @@ html, body {
   grid-row: 2;
 }
 #page-container > * > *.task-seq {
+  width: 100%;
   width: fit-content;
   max-width: 600px;
 }
@@ -881,6 +883,7 @@ main section.scenario-summary .questions > .comment-wrapper > textarea {
 }
 main section .form {
   position: relative;
+  width: 100%;
   width: fit-content;
 }
 main section .form > .alert {
