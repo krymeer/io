@@ -677,7 +677,7 @@ window.onload = function() {
 
                     for ( let styleSheet of document.styleSheets )
                     {
-                        stylesheet.disabled = true;
+                        styleSheet.disabled = true;
                     }
 
                     this.setState( {

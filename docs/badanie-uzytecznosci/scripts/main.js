@@ -649,7 +649,7 @@ window.onload = function () {
                             for (var _iterator = document.styleSheets[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
                                 var styleSheet = _step.value;
 
-                                stylesheet.disabled = true;
+                                styleSheet.disabled = true;
                             }
                         } catch (err) {
                             _didIteratorError = true;
