@@ -399,7 +399,7 @@ var Task = function (_React$Component) {
                     taskData.ip = globals.ip;
                     taskData.event = 'endOfTask';
 
-                    fetch(globals.backURI + '?do=send&what=partial-results', {
+                    fetch(globals.backURI + '?do=send&what=partial_results', {
                         method: 'POST',
                         body: JSON.stringify(taskData),
                         headers: {

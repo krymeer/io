@@ -79,7 +79,7 @@ var Scenario = function (_React$Component) {
                 summaryData.ip = globals.ip;
                 summaryData.event = 'endOfScenario';
 
-                fetch(globals.backURI + '?do=send&what=partial-results', {
+                fetch(globals.backURI + '?do=send&what=partial_results', {
                     method: 'POST',
                     body: JSON.stringify(summaryData),
                     headers: {
