@@ -360,6 +360,7 @@ window.onload = function() {
         {
             super( props );
 
+            this.handleToken          = this.handleToken.bind( this );
             this.handleFormChange     = this.handleFormChange.bind( this );
             this.handleScroll         = this.handleScroll.bind( this );
             this.handleStart          = this.handleStart.bind( this );
@@ -594,16 +595,29 @@ window.onload = function() {
             } );
         }
 
+        handleToken()
+        {
+            return fetch( globals.backURI + '?do=check&what=token&value=' + getParameterByName( 'auth' ) ).then( res => res.json() ).then( response => {
+                response = ( response.length > 0 ) ? response[ 0 ] : false;
+
+                if( response.type === 'success' )
+                {
+                    return {
+                        expired : response.valid === false,
+                        valid   : response.valid
+                    };
+                }
+
+                return false;
+
+            } ).catch( error => {
+                console.error( error );
+                return false;
+            } );
+        }
+
         componentDidMount()
         {
-            window.onbeforeunload = ( event ) => {
-                if( !( this.state.testStarted && this.state.testFinished && this.state.dataSent ) )
-                {
-                    event.preventDefault();
-                    event.returnValue = '';
-                }
-            }
-
             this.getIPAddress().then( ip => {
                 if( ip )
                 {
@@ -628,22 +642,46 @@ window.onload = function() {
                 }
             } );
 
-            if( !globals.dev )
-            {
-                this.getTestVersion().then( version => {
-                    if( version !== false )
+            this.handleToken().then( token => {
+                if( token.valid )
+                {
+                    window.onbeforeunload = ( event ) => {
+                        if( !( this.state.testStarted && this.state.testFinished && this.state.dataSent ) )
+                        {
+                            event.preventDefault();
+                            event.returnValue = '';
+                        }
+                    }
+
+                    if( !globals.dev )
                     {
+                        this.getTestVersion().then( version => {
+                            if( version !== false )
+                            {
+                                this.loadTest( version );
+                            }
+                        } );
+                    }
+                    else
+                    {
+                        const searchValue = getParameterByName( 'ver' );
+                        const version     = ( ( searchValue === 'A' || searchValue === 'B' || searchValue === 'dev' ) ? searchValue : 'A' )
+
                         this.loadTest( version );
                     }
-                } );
-            }
-            else
-            {
-                const searchValue = getParameterByName( 'ver' );
-                const version     = ( ( searchValue === 'A' || searchValue === 'B' || searchValue === 'dev' ) ? searchValue : 'A' )
+                }
+                else
+                {
+                    document.title   = token.expired ? '666 Authorization Expired' : '403 Forbidden';
+                    document.body.id = 'simple-page';
 
-                this.loadTest( version );
-            }
+                    this.setState( {
+                        isLoaded        : true,
+                        tokenExpired    : token.expired,
+                        otherTokenError : !token.expired
+                    } );
+                }
+            } );
         }
 
         backToTop()
@@ -843,9 +881,23 @@ window.onload = function() {
 
         render()
         {
-            const { error, isLoaded, scenarios } = this.state;
+            const { error, isLoaded, scenarios, tokenExpired, otherTokenError } = this.state;
 
-            if( error )
+            if( otherTokenError || tokenExpired )
+            {
+                return(
+                    <React.Fragment>
+                        <h1>{ otherTokenError ? "Forbidden" : "Authorization Expired" }</h1>
+                        <p>
+                            { otherTokenError ? "Aby wziąć udział w badaniu użyteczności, musisz otrzymać ode mnie specjalny kod autoryzacyjny." : "Twój kod autoryzacyjny stracił ważność." }
+                            <br/>
+                            Wyślij do mnie <a href="mailto:krzysztof.radoslaw.osada@gmail.com">maila</a> lub napisz na <a href="https://fb.me/osada.krzysztof" target="_blank">Facebooku</a> w celu rozwiązania tego problemu.</p>
+                        <hr/>
+                        <address>Copyright &copy; 2019 Krzysztof Osada</address>
+                    </React.Fragment>
+                );
+            }
+            else if( error )
             {
                 return <div>Error: { error.message }</div>;
             }

@@ -1,93 +1,85 @@
-* {
-  box-sizing: border-box;
-  margin: 0;
-  font-family: "Roboto", sans-serif;
-  font-weight: 400;
-  line-height: 1.5;
-}
-
-main section .form.time-table > .wrapper > .timetable-list, main section .form, main section.scenario-summary .questions, main table, #page-container > * > *.task-seq, main p {
+body:not(#simple-page) main section .form.time-table > .wrapper > .timetable-list, body:not(#simple-page) main section .form, body:not(#simple-page) main section.scenario-summary .questions, body:not(#simple-page) main table, body:not(#simple-page) #page-container > * > *.task-seq, body:not(#simple-page) main p {
   letter-spacing: 0.1px;
 }
 
-main p {
+body:not(#simple-page) main p {
   color: rgba(0, 0, 0, 0.7);
   font-size: 16px;
 }
 
-main section .form.time-table > .wrapper > .timetable-list, main section .form, main section.scenario-summary .questions, main table, #page-container > * > *.task-seq {
+body:not(#simple-page) main section .form.time-table > .wrapper > .timetable-list, body:not(#simple-page) main section .form, body:not(#simple-page) main section.scenario-summary .questions, body:not(#simple-page) main table, body:not(#simple-page) #page-container > * > *.task-seq {
   background: #fff;
   border: 2px solid #eee;
   color: #212121;
   font-size: 14px;
 }
-main section .form.time-table > .wrapper > .timetable-list p, main section .form p, main section.scenario-summary .questions p, main table p, #page-container > * > *.task-seq p {
+body:not(#simple-page) main section .form.time-table > .wrapper > .timetable-list p, body:not(#simple-page) main section .form p, body:not(#simple-page) main section.scenario-summary .questions p, body:not(#simple-page) main table p, body:not(#simple-page) #page-container > * > *.task-seq p {
   color: inherit;
   line-height: inherit;
 }
 
-main table th, main table td {
+body:not(#simple-page) main table th, body:not(#simple-page) main table td {
   border: 0;
   border-bottom: 1px solid #eee;
 }
 
-main section .form, main section > *, #page-container > * > * {
+body:not(#simple-page) main section .form, body:not(#simple-page) main section > *, body:not(#simple-page) #page-container > * > * {
   display: block;
   margin-left: auto;
   margin-right: auto;
 }
 
-main section.scenario-summary .questions > .question-wrapper > h4 {
+body:not(#simple-page) main section.scenario-summary .questions > .question-wrapper > h4 {
   margin-top: 3.5px;
   margin-bottom: 3.5px;
 }
 
-main section > * {
+body:not(#simple-page) main section > * {
   margin-top: 14px;
   margin-bottom: 14px;
 }
 
-main > section > section, main section .form > .wrapper, main section.scenario-summary .questions > .question-wrapper, #page-container > * > *.task-seq > .comment-wrapper {
+body:not(#simple-page) main > section > section, body:not(#simple-page) main section .form > .wrapper, body:not(#simple-page) main section.scenario-summary .questions > .question-wrapper, body:not(#simple-page) #page-container > * > *.task-seq > .comment-wrapper {
   margin-top: 21px;
   margin-bottom: 21px;
 }
 
-main > section, main section .form, main section.scenario-summary .questions, main table, #page-container > * > *.task-seq {
+body:not(#simple-page) main > section, body:not(#simple-page) main section .form, body:not(#simple-page) main section.scenario-summary .questions, body:not(#simple-page) main table, body:not(#simple-page) #page-container > * > *.task-seq {
   margin-top: 28px;
   margin-bottom: 28px;
 }
 
-#page-container.header-fixed > header {
+body:not(#simple-page) #page-container.header-fixed > header {
   padding-top: 7px;
   padding-bottom: 7px;
 }
 
-main {
+body:not(#simple-page) main {
   padding-top: 56px;
   padding-bottom: 56px;
 }
 
-main section .form.time-table > .wrapper > .timetable-list, main section .form, main section.scenario-summary .questions, #page-container > * > *.task-seq {
+body:not(#simple-page) main section .form.time-table > .wrapper > .timetable-list, body:not(#simple-page) main section .form, body:not(#simple-page) main section.scenario-summary .questions, body:not(#simple-page) #page-container > * > *.task-seq {
   padding: 21px;
 }
 
-main table th, main table td {
+body:not(#simple-page) main table th, body:not(#simple-page) main table td {
   padding: 14px;
 }
 
-main section .form.speech-recognition-on > .wrapper > .sr-wrapper > span, main .alert, main .calendar-input, main .timetable-wrapper, main .select-option, main .select-current, main textarea, main input {
+body:not(#simple-page) main section .form.speech-recognition-on > .wrapper > .sr-wrapper > span, body:not(#simple-page) main .alert, body:not(#simple-page) main .calendar-input, body:not(#simple-page) main .timetable-wrapper, body:not(#simple-page) main .select-option, body:not(#simple-page) main .select-current, body:not(#simple-page) main textarea, body:not(#simple-page) main input {
   padding: 7px;
 }
 
-main .inc-dec > i {
+body:not(#simple-page) main .inc-dec > i {
   padding: 3.5px;
 }
 
-main section .form.time-text-arrows > .wrapper > i, main section .form.speech-recognition-on > .wrapper > .sr-wrapper > i, main section .form > .wrapper.on-form-error.on-input-invalid > .sr-wrapper.active, main section .form > .wrapper .select-wrapper > .select-list, main section .form, main section.scenario-summary .questions > .question-wrapper > ul > li, main section.scenario-summary .questions, main .toggle-switch:before, main .toggle-switch, main .inc-dec > i, main .calendar-input, main .timetable-wrapper, main .select-option, main .select-current, main textarea, main input, main button, main table, #page-container > * > *.task-seq {
+body:not(#simple-page) main section .form.time-text-arrows > .wrapper > i, body:not(#simple-page) main section .form.speech-recognition-on > .wrapper > .sr-wrapper > i, body:not(#simple-page) main section .form > .wrapper.on-form-error.on-input-invalid > .sr-wrapper.active, body:not(#simple-page) main section .form > .wrapper .select-wrapper > .select-list, body:not(#simple-page) main section .form, body:not(#simple-page) main section.scenario-summary .questions > .question-wrapper > ul > li, body:not(#simple-page) main section.scenario-summary .questions, body:not(#simple-page) main .toggle-switch:before, body:not(#simple-page) main .toggle-switch, body:not(#simple-page) main .inc-dec > i, body:not(#simple-page) main .calendar-input, body:not(#simple-page) main .timetable-wrapper, body:not(#simple-page) main .select-option, body:not(#simple-page) main .select-current, body:not(#simple-page) main textarea, body:not(#simple-page) main input, body:not(#simple-page) main button, body:not(#simple-page) main table, body:not(#simple-page) #page-container > * > *.task-seq {
   border-radius: 4px;
 }
 
-main .calendar-input:disabled, main .calendar-input.disabled, main .timetable-wrapper:disabled, main .timetable-wrapper.disabled, main .select-option:disabled, main .select-option.disabled, main .select-current:disabled, main .select-current.disabled, main textarea:disabled, main textarea.disabled, main input:disabled, main input.disabled, #page-container > * > *.task-seq, .wrapper, button, p, h1, h2, h3, h4, a, label, span, td, th, i.material-icons {
+body:not(#simple-page) main .calendar-input:disabled, body:not(#simple-page) main .calendar-input.disabled, body:not(#simple-page) main .timetable-wrapper:disabled, body:not(#simple-page) main .timetable-wrapper.disabled, body:not(#simple-page) main .select-option:disabled, body:not(#simple-page) main .select-option.disabled, body:not(#simple-page) main .select-current:disabled, body:not(#simple-page) main .select-current.disabled, body:not(#simple-page) main textarea:disabled, body:not(#simple-page) main textarea.disabled, body:not(#simple-page) main input:disabled, body:not(#simple-page) main input.disabled, body:not(#simple-page) #page-container > * > *.task-seq, body:not(#simple-page) .wrapper, body:not(#simple-page) button, body:not(#simple-page) p, body:not(#simple-page) h1, body:not(#simple-page) h2, body:not(#simple-page) h3, body:not(#simple-page) h4, body:not(#simple-page) a, body:not(#simple-page) label, body:not(#simple-page) span, body:not(#simple-page) td, body:not(#simple-page) th, body:not(#simple-page) i.material-icons {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
@@ -96,35 +88,39 @@ main .calendar-input:disabled, main .calendar-input.disabled, main .timetable-wr
   user-select: none;
 }
 
-.hidden {
-  display: none !important;
-}
-
 html {
   scroll-behavior: smooth;
 }
 
-html, body {
+html, body:not(#simple-page) {
   height: 100%;
 }
 
-::selection {
+body:not(#simple-page), body:not(#simple-page) * {
+  box-sizing: border-box;
+  margin: 0;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  line-height: 1.5;
+}
+body:not(#simple-page) .hidden {
+  display: none !important;
+}
+body:not(#simple-page) ::selection {
   background: #2892d7;
   color: #fff;
 }
-
-#root {
+body:not(#simple-page) #root {
   display: grid;
   height: 100%;
 }
-
-#page-container > * > * {
+body:not(#simple-page) #page-container > * > * {
   width: 760px;
 }
-#page-container > * > *.task-intro > .task-description > .text-important {
+body:not(#simple-page) #page-container > * > *.task-intro > .task-description > .text-important {
   color: #efa00b;
 }
-#page-container > * > *.task-main-container {
+body:not(#simple-page) #page-container > * > *.task-main-container {
   display: grid;
   grid-template-columns: auto auto;
   align-items: start;
@@ -133,117 +129,117 @@ html, body {
   max-width: 960px;
   grid-gap: 21px;
 }
-#page-container > * > *.task-main-container > * {
+body:not(#simple-page) #page-container > * > *.task-main-container > * {
   margin-top: 0;
   margin-bottom: 0;
 }
-#page-container > * > *.task-main-container > table, #page-container > * > *.task-main-container > .form {
+body:not(#simple-page) #page-container > * > *.task-main-container > table, body:not(#simple-page) #page-container > * > *.task-main-container > .form {
   grid-row: 1;
 }
-#page-container > * > *.task-main-container > table {
+body:not(#simple-page) #page-container > * > *.task-main-container > table {
   grid-column: 1;
   border-color: #efa00b;
 }
-#page-container > * > *.task-main-container > table th, #page-container > * > *.task-main-container > table td {
+body:not(#simple-page) #page-container > * > *.task-main-container > table th, body:not(#simple-page) #page-container > * > *.task-main-container > table td {
   border-bottom: none;
   vertical-align: top;
 }
-#page-container > * > *.task-main-container > table th {
+body:not(#simple-page) #page-container > * > *.task-main-container > table th {
   color: #efa00b;
   vertical-align: top;
 }
-#page-container > * > *.task-main-container > table[data-for=input-masks-on] td:last-child, #page-container > * > *.task-main-container > table[data-for=input-masks-off] td:last-child {
+body:not(#simple-page) #page-container > * > *.task-main-container > table[data-for=input-masks-on] td:last-child, body:not(#simple-page) #page-container > * > *.task-main-container > table[data-for=input-masks-off] td:last-child {
   white-space: nowrap;
 }
-#page-container > * > *.task-main-container > .form {
+body:not(#simple-page) #page-container > * > *.task-main-container > .form {
   grid-column: 2;
   border-color: #2ccf13;
 }
-#page-container > * > *.task-main-container > .form > h3 {
+body:not(#simple-page) #page-container > * > *.task-main-container > .form > h3 {
   color: #2ccf13;
 }
-#page-container > * > *.task-main-container > .alert {
+body:not(#simple-page) #page-container > * > *.task-main-container > .alert {
   grid-row: 1;
   grid-column: span 2;
 }
-#page-container > * > *.task-main-container > .alert ~ table, #page-container > * > *.task-main-container > .alert ~ .form {
+body:not(#simple-page) #page-container > * > *.task-main-container > .alert ~ table, body:not(#simple-page) #page-container > * > *.task-main-container > .alert ~ .form {
   grid-row: 2;
 }
-#page-container > * > *.task-seq {
+body:not(#simple-page) #page-container > * > *.task-seq {
   width: 100%;
   width: fit-content;
   max-width: 600px;
 }
-#page-container > * > *.task-seq > h3.error {
+body:not(#simple-page) #page-container > * > *.task-seq > h3.error {
   color: #ff0022;
 }
-#page-container > * > *.task-seq > .seq-radios {
+body:not(#simple-page) #page-container > * > *.task-seq > .seq-radios {
   display: grid;
   grid-auto-flow: column;
   justify-content: center;
   padding: 0;
 }
-#page-container > * > *.task-seq > .seq-radios > li {
+body:not(#simple-page) #page-container > * > *.task-seq > .seq-radios > li {
   list-style-type: none;
 }
-#page-container > * > *.task-seq > .seq-radios > li.seq-item {
+body:not(#simple-page) #page-container > * > *.task-seq > .seq-radios > li.seq-item {
   display: block;
   width: 36px;
   align-self: end;
 }
-#page-container > * > *.task-seq > .seq-radios > li.seq-item > div {
+body:not(#simple-page) #page-container > * > *.task-seq > .seq-radios > li.seq-item > div {
   font-size: 11px;
   text-align: center;
   transition: color 0.1s ease-in-out;
 }
-#page-container > * > *.task-seq > .seq-radios > li.seq-item > div.radio {
+body:not(#simple-page) #page-container > * > *.task-seq > .seq-radios > li.seq-item > div.radio {
   margin: 0 auto;
 }
-#page-container > * > *.task-seq > .seq-radios > li.seq-item:first-child > div:first-child, #page-container > * > *.task-seq > .seq-radios > li.seq-item:last-child > div:first-child {
+body:not(#simple-page) #page-container > * > *.task-seq > .seq-radios > li.seq-item:first-child > div:first-child, body:not(#simple-page) #page-container > * > *.task-seq > .seq-radios > li.seq-item:last-child > div:first-child {
   margin-bottom: 3.5px;
 }
-#page-container > * > *.task-seq > .seq-radios > li.seq-item:first-child > div:first-child {
+body:not(#simple-page) #page-container > * > *.task-seq > .seq-radios > li.seq-item:first-child > div:first-child {
   text-align: left;
 }
-#page-container > * > *.task-seq > .seq-radios > li.seq-item:last-child > div:first-child {
+body:not(#simple-page) #page-container > * > *.task-seq > .seq-radios > li.seq-item:last-child > div:first-child {
   text-align: right;
 }
-#page-container > * > *.task-seq > .seq-radios.error > li > div {
+body:not(#simple-page) #page-container > * > *.task-seq > .seq-radios.error > li > div {
   color: #ff0022;
 }
-#page-container > * > *.task-seq > .seq-radios.error > li > div.radio {
+body:not(#simple-page) #page-container > * > *.task-seq > .seq-radios.error > li > div.radio {
   border-color: #ff0022;
 }
-#page-container > * > *.task-seq > .seq-radios.error > li > div.radio:before {
+body:not(#simple-page) #page-container > * > *.task-seq > .seq-radios.error > li > div.radio:before {
   background: #ff0022;
 }
-#page-container > * > *.task-seq > .comment-wrapper > label {
+body:not(#simple-page) #page-container > * > *.task-seq > .comment-wrapper > label {
   line-height: 1.25;
   text-align: justify;
 }
-#page-container > * > *.task-seq > .comment-wrapper.on-form-error > label {
+body:not(#simple-page) #page-container > * > *.task-seq > .comment-wrapper.on-form-error > label {
   color: #ff0022;
 }
-#page-container > * > *.task-seq > .note.error > .text-important {
+body:not(#simple-page) #page-container > * > *.task-seq > .note.error > .text-important {
   color: #ff0022;
 }
-#page-container > * > *.test-intro.task-main-container {
+body:not(#simple-page) #page-container > * > *.test-intro.task-main-container {
   align-items: end;
 }
-#page-container > * > *.test-intro .labels-align-left {
+body:not(#simple-page) #page-container > * > *.test-intro .labels-align-left {
   width: 320px;
 }
-#page-container > header {
+body:not(#simple-page) #page-container > header {
   background: #2892d7;
   height: 256px;
   padding: 115px 0 0 0;
   color: #fff;
   font-size: 56px;
 }
-#page-container.header-fixed {
+body:not(#simple-page) #page-container.header-fixed {
   margin-top: 256px;
 }
-#page-container.header-fixed > header {
+body:not(#simple-page) #page-container.header-fixed > header {
   height: 35px;
   position: fixed;
   top: 0;
@@ -251,23 +247,23 @@ html, body {
   width: 100%;
   z-index: 666;
 }
-#page-container.header-fixed > header > p {
+body:not(#simple-page) #page-container.header-fixed > header > p {
   display: grid;
   grid-template-columns: auto 1fr auto;
   grid-column-gap: 7px;
 }
-#page-container.header-fixed > header > p > span {
+body:not(#simple-page) #page-container.header-fixed > header > p > span {
   line-height: 1;
 }
-#page-container.header-fixed > header > p > span:first-child {
+body:not(#simple-page) #page-container.header-fixed > header > p > span:first-child {
   font-size: 21px;
 }
-#page-container.header-fixed > header > p > span:nth-child(2) {
+body:not(#simple-page) #page-container.header-fixed > header > p > span:nth-child(2) {
   font-size: 12px;
   align-self: end;
   padding-bottom: 1px;
 }
-#page-container.header-fixed > header > p > i {
+body:not(#simple-page) #page-container.header-fixed > header > p > i {
   cursor: pointer;
   font-size: 21px;
   color: #2892d7;
@@ -275,16 +271,15 @@ html, body {
   border-radius: 50%;
   transition: background 0.1s ease-in-out;
 }
-#page-container.header-fixed > header > p > i:hover {
+body:not(#simple-page) #page-container.header-fixed > header > p > i:hover {
   background: rgba(255, 255, 255, 0.85);
 }
-
-.loader {
+body:not(#simple-page) .loader {
   display: block;
   width: 24px;
   height: 24px;
 }
-.loader:after {
+body:not(#simple-page) .loader:after {
   content: " ";
   display: block;
   width: 23px;
@@ -296,22 +291,21 @@ html, body {
   border-color: #2892d7 transparent #2892d7 transparent;
   animation: loader 1.2s linear infinite;
 }
-.loader.big-loader {
+body:not(#simple-page) .loader.big-loader {
   width: 72px;
   height: 72px;
 }
-.loader.big-loader:after {
+body:not(#simple-page) .loader.big-loader:after {
   width: 69px;
   height: 69px;
   border-width: 7.5px;
 }
-.loader.align-center {
+body:not(#simple-page) .loader.align-center {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
-
 @keyframes loader {
   0% {
     transform: rotate(0deg);
@@ -320,79 +314,79 @@ html, body {
     transform: rotate(360deg);
   }
 }
-main {
+body:not(#simple-page) main {
   background: #f9f9f9;
   min-height: calc(100% - 256px);
 }
-main .text-important {
+body:not(#simple-page) main .text-important {
   color: #2892d7;
 }
-main .text-important.text-alert {
+body:not(#simple-page) main .text-important.text-alert {
   color: #efa00b;
 }
-main .text-important.text-okay {
+body:not(#simple-page) main .text-important.text-okay {
   color: #2ccf13;
 }
-main .text-important.text-error {
+body:not(#simple-page) main .text-important.text-error {
   color: #ff0022;
 }
-main a {
+body:not(#simple-page) main a {
   color: #2892d7;
   text-decoration: none;
 }
-main p {
+body:not(#simple-page) main p {
   text-align: justify;
   line-height: 1.75;
 }
-main p.note {
+body:not(#simple-page) main p.note {
   font-size: 11px;
   text-align: left;
 }
-main p.text-smaller {
+body:not(#simple-page) main p.text-smaller {
   font-size: 12px;
 }
-main h1, main h2, main h3, main h4 {
+body:not(#simple-page) main h1, body:not(#simple-page) main h2, body:not(#simple-page) main h3, body:not(#simple-page) main h4 {
   color: #2892d7;
 }
-main h1 {
+body:not(#simple-page) main h1 {
   font-size: 30px;
 }
-main h2 {
+body:not(#simple-page) main h2 {
   font-size: 24px;
 }
-main h3 {
+body:not(#simple-page) main h3 {
   font-size: 18px;
 }
-main h4 {
+body:not(#simple-page) main h4 {
   font-size: 16px;
 }
-main img {
+body:not(#simple-page) main img {
   max-width: 100%;
   max-height: 100%;
 }
-main table {
+body:not(#simple-page) main table {
   display: table !important;
   table-layout: fixed;
   border-spacing: 0;
   border-collapse: collapse;
 }
-main table th, main table td {
+body:not(#simple-page) main table th, body:not(#simple-page) main table td {
   line-height: 1.25;
 }
-main table th {
+body:not(#simple-page) main table th {
   font-weight: 700;
   text-align: left;
 }
-main table tfoot .note {
+body:not(#simple-page) main table tfoot .note {
   font-size: 10px;
 }
-main > *:first-child {
+body:not(#simple-page) main > *:first-child {
   margin-top: 0 !important;
 }
-main > *:last-child {
+body:not(#simple-page) main > *:last-child {
   margin-bottom: 0 !important;
 }
-main button {
+body:not(#simple-page) main button {
   outline: none;
   position: relative;
   border: 0;
@@ -407,107 +401,107 @@ main button {
   text-transform: uppercase;
   transition: background 0.1s ease-in-out, color 0.1s ease-in-out;
 }
-main button.smaller {
+body:not(#simple-page) main button.smaller {
   font-size: 9.8px;
   padding: 0 9.8px;
   height: 25.2px;
   letter-spacing: 0.875px;
 }
-main button.inline {
+body:not(#simple-page) main button.inline {
   display: inline-block;
   vertical-align: top;
 }
-main button:not(.dummy) {
+body:not(#simple-page) main button:not(.dummy) {
   cursor: pointer;
 }
-main button:hover:not(.dummy) {
+body:not(#simple-page) main button:hover:not(.dummy) {
   background: #45a1dc;
 }
-main button[disabled] {
+body:not(#simple-page) main button[disabled] {
   cursor: default;
   background: #e0e0e0 !important;
   color: #bebebe !important;
 }
-main button.abort {
+body:not(#simple-page) main button.abort {
   background: #ff0022;
   color: #fff;
 }
-main button.abort:hover {
+body:not(#simple-page) main button.abort:hover {
   background: #dd001d;
 }
-main button.start {
+body:not(#simple-page) main button.start {
   background: #ffa400;
 }
-main button.start:hover {
+body:not(#simple-page) main button.start:hover {
   background: #ffbc44;
 }
-main button.okay {
+body:not(#simple-page) main button.okay {
   background: #2ccf13;
 }
-main button.okay:hover {
+body:not(#simple-page) main button.okay:hover {
   background: #30de15;
 }
-main button.toggle {
+body:not(#simple-page) main button.toggle {
   text-transform: none;
   letter-spacing: 0;
   font-weight: 700;
 }
-main button.toggle.off {
+body:not(#simple-page) main button.toggle.off {
   background: #ddd;
   color: #212121;
 }
-main button.toggle.off:hover {
+body:not(#simple-page) main button.toggle.off:hover {
   background: #eee;
 }
-main button.toggle.on {
+body:not(#simple-page) main button.toggle.on {
   background: #2ccf13;
   color: #fff;
 }
-main button.toggle.on:hover {
+body:not(#simple-page) main button.toggle.on:hover {
   background: #30de15;
 }
-main .comment > div {
+body:not(#simple-page) main .comment > div {
   display: grid;
   grid-auto-flow: column;
 }
-main .comment > div > .note:last-child {
+body:not(#simple-page) main .comment > div > .note:last-child {
   text-align: right;
 }
-main .notes-wrapper {
+body:not(#simple-page) main .notes-wrapper {
   display: grid;
   grid-auto-flow: column;
   justify-content: space-between;
 }
-main .comment-wrapper > label {
+body:not(#simple-page) main .comment-wrapper > label {
   color: #2892d7;
   font-size: 16px;
   line-height: 1.5;
 }
-main .comment-wrapper > textarea {
+body:not(#simple-page) main .comment-wrapper > textarea {
   margin: 3.5px 0 14px 0;
 }
-main .comment-wrapper.on-form-error > textarea {
+body:not(#simple-page) main .comment-wrapper.on-form-error > textarea {
   border-color: #ff0022;
   color: #ff0022;
 }
-main .timetable-list li {
+body:not(#simple-page) main .timetable-list li {
   list-style-type: none;
 }
-main .timetable-list > li:nth-child(n+2) {
+body:not(#simple-page) main .timetable-list > li:nth-child(n+2) {
   margin-top: 14px;
 }
-main .timetable-list > li > h4 {
+body:not(#simple-page) main .timetable-list > li > h4 {
   font-size: 14px;
   color: #2ccf13;
 }
-main .timetable-list > li > ul {
+body:not(#simple-page) main .timetable-list > li > ul {
   padding: 0;
   margin-top: 3.5px;
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   grid-row-gap: 7px;
 }
-main .timetable-list > li > ul > li > p {
+body:not(#simple-page) main .timetable-list > li > ul > li > p {
   cursor: pointer;
   margin: 0 auto;
   font-size: 11px;
@@ -518,57 +512,57 @@ main .timetable-list > li > ul > li > p {
   line-height: 20px !important;
   text-align: center;
 }
-main .timetable-list > li > ul > li > p:hover {
+body:not(#simple-page) main .timetable-list > li > ul > li > p:hover {
   background: #bef8b6;
 }
-main .timetable-list > li > ul > li > p.chosen {
+body:not(#simple-page) main .timetable-list > li > ul > li > p.chosen {
   background: #2ccf13;
   color: #fff !important;
 }
-main .timetable-list > li > ul > li > p.chosen:hover {
+body:not(#simple-page) main .timetable-list > li > ul > li > p.chosen:hover {
   background: #30de15;
 }
-main .timetable-wrapper {
+body:not(#simple-page) main .timetable-wrapper {
   text-align: center;
   cursor: pointer;
 }
-main .timetable-wrapper.disabled {
+body:not(#simple-page) main .timetable-wrapper.disabled {
   cursor: default;
   background: #eee;
 }
-main .timetable-wrapper.disabled > span {
+body:not(#simple-page) main .timetable-wrapper.disabled > span {
   color: #ddd;
 }
-main .mini-label {
+body:not(#simple-page) main .mini-label {
   font-size: 12px;
   color: #212121;
 }
-main .mini-label.disabled {
+body:not(#simple-page) main .mini-label.disabled {
   color: #ddd;
 }
-main .calendar-input, main .timetable-wrapper, main .select-option, main .select-current, main textarea, main input {
+body:not(#simple-page) main .calendar-input, body:not(#simple-page) main .timetable-wrapper, body:not(#simple-page) main .select-option, body:not(#simple-page) main .select-current, body:not(#simple-page) main textarea, body:not(#simple-page) main input {
   font-size: inherit;
   color: #212121;
   border: 2px solid #ddd;
   transition: color 0.1s ease-in-out, background 0.1s ease-in-out, border-color 0.1s ease-in-out;
 }
-main .calendar-input:disabled, main .calendar-input.disabled, main .timetable-wrapper:disabled, main .timetable-wrapper.disabled, main .select-option:disabled, main .select-option.disabled, main .select-current:disabled, main .select-current.disabled, main textarea:disabled, main textarea.disabled, main input:disabled, main input.disabled {
+body:not(#simple-page) main .calendar-input:disabled, body:not(#simple-page) main .calendar-input.disabled, body:not(#simple-page) main .timetable-wrapper:disabled, body:not(#simple-page) main .timetable-wrapper.disabled, body:not(#simple-page) main .select-option:disabled, body:not(#simple-page) main .select-option.disabled, body:not(#simple-page) main .select-current:disabled, body:not(#simple-page) main .select-current.disabled, body:not(#simple-page) main textarea:disabled, body:not(#simple-page) main textarea.disabled, body:not(#simple-page) main input:disabled, body:not(#simple-page) main input.disabled {
   background: #eee;
   color: #ddd;
   cursor: default;
 }
-main .calendar-input:disabled::selection, main .calendar-input.disabled::selection, main .timetable-wrapper:disabled::selection, main .timetable-wrapper.disabled::selection, main .select-option:disabled::selection, main .select-option.disabled::selection, main .select-current:disabled::selection, main .select-current.disabled::selection, main textarea:disabled::selection, main textarea.disabled::selection, main input:disabled::selection, main input.disabled::selection {
+body:not(#simple-page) main .calendar-input:disabled::selection, body:not(#simple-page) main .calendar-input.disabled::selection, body:not(#simple-page) main .timetable-wrapper:disabled::selection, body:not(#simple-page) main .timetable-wrapper.disabled::selection, body:not(#simple-page) main .select-option:disabled::selection, body:not(#simple-page) main .select-option.disabled::selection, body:not(#simple-page) main .select-current:disabled::selection, body:not(#simple-page) main .select-current.disabled::selection, body:not(#simple-page) main textarea:disabled::selection, body:not(#simple-page) main textarea.disabled::selection, body:not(#simple-page) main input:disabled::selection, body:not(#simple-page) main input.disabled::selection {
   background: transparent;
   color: #ddd;
 }
-main .calendar-input:focus, main .timetable-wrapper:focus, main .select-option:focus, main .select-current:focus, main textarea:focus, main input:focus {
+body:not(#simple-page) main .calendar-input:focus, body:not(#simple-page) main .timetable-wrapper:focus, body:not(#simple-page) main .select-option:focus, body:not(#simple-page) main .select-current:focus, body:not(#simple-page) main textarea:focus, body:not(#simple-page) main input:focus {
   outline: none;
   border-color: #7e7e7e;
 }
-main .calendar-wrapper {
+body:not(#simple-page) main .calendar-wrapper {
   position: relative;
 }
-main .calendar-wrapper > .calendar-jsCalendar {
+body:not(#simple-page) main .calendar-wrapper > .calendar-jsCalendar {
   position: absolute;
   bottom: calc(100% + 10px);
   right: 0;
@@ -576,65 +570,65 @@ main .calendar-wrapper > .calendar-jsCalendar {
   z-index: 2;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
 }
-main .calendar-wrapper > .calendar-jsCalendar table {
+body:not(#simple-page) main .calendar-wrapper > .calendar-jsCalendar table {
   margin: 0;
 }
-main .calendar-wrapper > .calendar-jsCalendar tbody td {
+body:not(#simple-page) main .calendar-wrapper > .calendar-jsCalendar tbody td {
   cursor: pointer;
 }
-main .calendar-wrapper > .calendar-jsCalendar tbody td.jsCalendar-current {
+body:not(#simple-page) main .calendar-wrapper > .calendar-jsCalendar tbody td.jsCalendar-current {
   background-color: #2ccf13;
 }
-main .calendar-wrapper > .calendar-jsCalendar *::selection {
+body:not(#simple-page) main .calendar-wrapper > .calendar-jsCalendar *::selection {
+  backgrounbd: #2ccf13;
+}
+body:not(#simple-page) main .calendar-wrapper > .calendar-jsCalendar *::-moz-selection {
   background: #2ccf13;
 }
-main .calendar-wrapper > .calendar-jsCalendar *::-moz-selection {
-  background: #2ccf13;
-}
-main .calendar-wrapper > .calendar-jsCalendar thead {
+body:not(#simple-page) main .calendar-wrapper > .calendar-jsCalendar thead {
   background-color: #2ccf13;
 }
-main .calendar-wrapper > .calendar-jsCalendar thead .jsCalendar-nav-left:hover,
-main .calendar-wrapper > .calendar-jsCalendar thead .jsCalendar-nav-right:hover {
+body:not(#simple-page) main .calendar-wrapper > .calendar-jsCalendar thead .jsCalendar-nav-left:hover,
+body:not(#simple-page) main .calendar-wrapper > .calendar-jsCalendar thead .jsCalendar-nav-right:hover {
   background-color: #30de15;
 }
-main .calendar-wrapper > .calendar-jsCalendar thead .jsCalendar-title-name {
+body:not(#simple-page) main .calendar-wrapper > .calendar-jsCalendar thead .jsCalendar-title-name {
   border-bottom: 0;
   height: 40px;
   line-height: 40px;
 }
-main textarea.error, main input.error {
+body:not(#simple-page) main textarea.error, body:not(#simple-page) main input.error {
   color: #ff0022;
   border-color: #ff0022;
 }
-main textarea {
+body:not(#simple-page) main textarea {
   display: block;
   resize: none;
   width: 100%;
   height: 102px;
 }
-main textarea:disabled {
+body:not(#simple-page) main textarea:disabled {
   overflow: hidden;
 }
-main label, main input {
+body:not(#simple-page) main label, body:not(#simple-page) main input {
   display: block;
 }
-main label {
+body:not(#simple-page) main label {
   line-height: 1.25;
 }
-main input {
+body:not(#simple-page) main input {
   line-height: 1;
 }
-main .calendar-wrapper {
+body:not(#simple-page) main .calendar-wrapper {
   cursor: pointer;
 }
-main .range-wrapper {
+body:not(#simple-page) main .range-wrapper {
   display: grid;
   grid-template-columns: 1fr 20px;
   align-items: center;
   grid-column-gap: 14px;
 }
-main .range-wrapper > input {
+body:not(#simple-page) main .range-wrapper > input {
   -webkit-appearance: none;
   appearance: none;
   width: 100%;
@@ -646,7 +640,7 @@ main .range-wrapper > input {
   background: #7e7e7e;
   transition: background 0.1s ease-in-out;
 }
-main .range-wrapper > input::-webkit-slider-thumb {
+body:not(#simple-page) main .range-wrapper > input::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
   width: 10px;
@@ -655,7 +649,7 @@ main .range-wrapper > input::-webkit-slider-thumb {
   border-radius: 50%;
   cursor: pointer;
 }
-main .range-wrapper > input::-moz-range-thumb {
+body:not(#simple-page) main .range-wrapper > input::-moz-range-thumb {
   width: 25px;
   height: 25px;
   width: 10px;
@@ -665,53 +659,53 @@ main .range-wrapper > input::-moz-range-thumb {
   border: 0;
   cursor: pointer;
 }
-main .range-wrapper > input[disabled] {
+body:not(#simple-page) main .range-wrapper > input[disabled] {
   background: #e0e0e0 !important;
 }
-main .range-wrapper > input[disabled]::-webkit-slider-thumb {
+body:not(#simple-page) main .range-wrapper > input[disabled]::-webkit-slider-thumb {
   cursor: default;
   background: #bebebe !important;
 }
-main .range-wrapper > input[disabled]::-moz-range-thumb {
+body:not(#simple-page) main .range-wrapper > input[disabled]::-moz-range-thumb {
   cursor: default;
   background: #bebebe !important;
 }
-main .range-wrapper > input[disabled] + span {
+body:not(#simple-page) main .range-wrapper > input[disabled] + span {
   color: #bebebe;
 }
-main .range-wrapper > span {
+body:not(#simple-page) main .range-wrapper > span {
   font-weight: 700;
 }
-main .inc-dec {
+body:not(#simple-page) main .inc-dec {
   display: grid;
   grid-auto-flow: column;
   align-items: center;
   justify-content: space-between;
   grid-column-gap: 7px;
 }
-main .inc-dec > i {
+body:not(#simple-page) main .inc-dec > i {
   background: #2ccf13;
   color: #fff;
   cursor: pointer;
   font-size: 16px;
   transition: background 0.1s ease-in-out;
 }
-main .inc-dec > i:hover {
+body:not(#simple-page) main .inc-dec > i:hover {
   background: #30de15;
 }
-main .inc-dec > i.disabled {
+body:not(#simple-page) main .inc-dec > i.disabled {
   cursor: default;
   background: #e0e0e0 !important;
   color: #bebebe !important;
 }
-main .inc-dec > span {
+body:not(#simple-page) main .inc-dec > span {
   font-weight: 700;
   font-size: 20px;
 }
-main .inc-dec > span.disabled {
+body:not(#simple-page) main .inc-dec > span.disabled {
   color: #ddd;
 }
-main .toggle-switch {
+body:not(#simple-page) main .toggle-switch {
   display: grid;
   cursor: pointer;
   align-content: center;
@@ -721,7 +715,7 @@ main .toggle-switch {
   background: #bef8b6;
   transition: background 0.1s ease-in-out;
 }
-main .toggle-switch:before {
+body:not(#simple-page) main .toggle-switch:before {
   display: block;
   background: #fff;
   color: #bef8b6;
@@ -733,62 +727,62 @@ main .toggle-switch:before {
   text-align: center;
   transition: color 0.1s ease-in-out, justify-self 0.1s ease-in-out;
 }
-main .toggle-switch:hover {
+body:not(#simple-page) main .toggle-switch:hover {
   background: #a3f596;
 }
-main .toggle-switch:hover:before {
+body:not(#simple-page) main .toggle-switch:hover:before {
   color: #a3f596;
 }
-main .toggle-switch.disabled.on, main .toggle-switch.disabled.off, main .toggle-switch.disabled {
+body:not(#simple-page) main .toggle-switch.disabled.on, body:not(#simple-page) main .toggle-switch.disabled.off, body:not(#simple-page) main .toggle-switch.disabled {
   background: #e0e0e0;
   cursor: default;
 }
-main .toggle-switch.disabled.on:before, main .toggle-switch.disabled.off:before, main .toggle-switch.disabled:before {
+body:not(#simple-page) main .toggle-switch.disabled.on:before, body:not(#simple-page) main .toggle-switch.disabled.off:before, body:not(#simple-page) main .toggle-switch.disabled:before {
   color: #e0e0e0;
 }
-main .toggle-switch.on {
+body:not(#simple-page) main .toggle-switch.on {
   background: #2ccf13;
 }
-main .toggle-switch.on:before {
+body:not(#simple-page) main .toggle-switch.on:before {
   color: #2ccf13;
   justify-self: end;
 }
-main .toggle-switch.on:hover {
+body:not(#simple-page) main .toggle-switch.on:hover {
   background: #30de15;
 }
-main .toggle-switch.on:hover:before {
+body:not(#simple-page) main .toggle-switch.on:hover:before {
   color: #30de15;
 }
-main .alert {
+body:not(#simple-page) main .alert {
   font-size: 12px;
   color: #ff0022;
   border: 3px dashed #ff0022;
   background: #f9f9f9;
   font-style: italic;
 }
-main .alert > a, main .alert > .text-important {
+body:not(#simple-page) main .alert > a, body:not(#simple-page) main .alert > .text-important {
   font-weight: 700;
   color: #ff0022;
 }
-main .alert.warning {
+body:not(#simple-page) main .alert.warning {
   border-color: #efa00b;
   color: #efa00b;
 }
-main .alert.warning > a, main .alert.warning > .text-important {
+body:not(#simple-page) main .alert.warning > a, body:not(#simple-page) main .alert.warning > .text-important {
   color: #efa00b;
 }
-main .alert.info {
+body:not(#simple-page) main .alert.info {
   border-color: #2892d7;
   color: #2892d7;
 }
-main .alert.info > a, main .alert.info > .text-important {
+body:not(#simple-page) main .alert.info > a, body:not(#simple-page) main .alert.info > .text-important {
   color: #2892d7;
 }
-main .radio-item {
+body:not(#simple-page) main .radio-item {
   display: grid;
   grid-auto-flow: column;
 }
-main .radio-item > .radio {
+body:not(#simple-page) main .radio-item > .radio {
   cursor: pointer;
   background: transparent;
   width: 18px;
@@ -799,7 +793,7 @@ main .radio-item > .radio {
   margin-right: 5px;
   transition: border-color 0.1s ease-in-out;
 }
-main .radio-item > .radio:before {
+body:not(#simple-page) main .radio-item > .radio:before {
   display: block;
   content: "";
   width: 50%;
@@ -813,54 +807,54 @@ main .radio-item > .radio:before {
   opacity: 0;
   transition: opacity 0.1s ease-in-out;
 }
-main .radio-item > .radio:hover:before {
+body:not(#simple-page) main .radio-item > .radio:hover:before {
   opacity: 1;
 }
-main .radio-item.disabled > .radio {
+body:not(#simple-page) main .radio-item.disabled > .radio {
   border-color: #ddd;
   background: #eee;
   cursor: default;
 }
-main .radio-item.disabled > .radio:before {
+body:not(#simple-page) main .radio-item.disabled > .radio:before {
   background: #ddd;
   opacity: 0;
 }
-main .radio-item.chosen > .radio:before {
+body:not(#simple-page) main .radio-item.chosen > .radio:before {
   opacity: 1;
 }
-main .radio-item > span {
+body:not(#simple-page) main .radio-item > span {
   font-size: 12px;
 }
-main section > *:first-child {
+body:not(#simple-page) main section > *:first-child {
   margin-top: 0 !important;
 }
-main section > *:last-child {
+body:not(#simple-page) main section > *:last-child {
   margin-bottom: 0 !important;
 }
-main section.button-wrapper {
+body:not(#simple-page) main section.button-wrapper {
   display: grid !important;
   grid-auto-flow: column;
   grid-column-gap: 14px;
   justify-content: center;
 }
-main section.button-wrapper > button {
+body:not(#simple-page) main section.button-wrapper > button {
   margin: 0 !important;
 }
-main section.scenario-summary .questions {
+body:not(#simple-page) main section.scenario-summary .questions {
   width: 600px;
 }
-main section.scenario-summary .questions > .question-wrapper > h4 {
+body:not(#simple-page) main section.scenario-summary .questions > .question-wrapper > h4 {
   margin-top: 0;
   line-height: 1.25;
   text-align: justify;
 }
-main section.scenario-summary .questions > .question-wrapper > ul {
+body:not(#simple-page) main section.scenario-summary .questions > .question-wrapper > ul {
   padding: 0;
   display: grid;
   grid-auto-flow: column;
   place-items: center;
 }
-main section.scenario-summary .questions > .question-wrapper > ul > li {
+body:not(#simple-page) main section.scenario-summary .questions > .question-wrapper > ul > li {
   list-style-type: none;
   display: grid;
   justify-content: center;
@@ -868,35 +862,35 @@ main section.scenario-summary .questions > .question-wrapper > ul > li {
   grid-auto-flow: column;
   grid-column-gap: 7px;
 }
-main section.scenario-summary .questions > .question-wrapper > ul > li > * {
+body:not(#simple-page) main section.scenario-summary .questions > .question-wrapper > ul > li > * {
   line-height: 1;
 }
-main section.scenario-summary .questions > .question-wrapper > ul > li > span {
+body:not(#simple-page) main section.scenario-summary .questions > .question-wrapper > ul > li > span {
   font-size: 14px;
 }
-main section.scenario-summary .questions > .comment-wrapper > label {
+body:not(#simple-page) main section.scenario-summary .questions > .comment-wrapper > label {
   line-height: 1.25;
   text-align: justify;
 }
-main section.scenario-summary .questions > .comment-wrapper > textarea {
+body:not(#simple-page) main section.scenario-summary .questions > .comment-wrapper > textarea {
   margin-top: 3.5px;
 }
-main section .form {
+body:not(#simple-page) main section .form {
   position: relative;
   width: 100%;
   width: fit-content;
 }
-main section .form > .alert {
+body:not(#simple-page) main section .form > .alert {
   margin-bottom: 21px;
 }
-main section .form > .wrapper {
+body:not(#simple-page) main section .form > .wrapper {
   display: grid;
   align-items: center;
 }
-main section .form > .wrapper .select-wrapper {
+body:not(#simple-page) main section .form > .wrapper .select-wrapper {
   position: relative;
 }
-main section .form > .wrapper .select-wrapper > .select-current {
+body:not(#simple-page) main section .form > .wrapper .select-wrapper > .select-current {
   cursor: pointer;
   display: grid;
   grid-template-columns: 1fr 24px;
@@ -904,23 +898,23 @@ main section .form > .wrapper .select-wrapper > .select-current {
   align-content: center;
   background: #fff;
 }
-main section .form > .wrapper .select-wrapper > .select-current > span {
+body:not(#simple-page) main section .form > .wrapper .select-wrapper > .select-current > span {
   align-self: center;
 }
-main section .form > .wrapper .select-wrapper > .select-current > i {
+body:not(#simple-page) main section .form > .wrapper .select-wrapper > .select-current > i {
   justify-self: end;
 }
-main section .form > .wrapper .select-wrapper > .select-current.disabled {
+body:not(#simple-page) main section .form > .wrapper .select-wrapper > .select-current.disabled {
   cursor: default;
   background: #eee;
   color: #ddd;
 }
-main section .form > .wrapper .select-wrapper > .select-current.focus {
+body:not(#simple-page) main section .form > .wrapper .select-wrapper > .select-current.focus {
   border-color: #7e7e7e;
   position: relative;
   z-index: 2;
 }
-main section .form > .wrapper .select-wrapper > .select-list {
+body:not(#simple-page) main section .form > .wrapper .select-wrapper > .select-list {
   position: absolute;
   width: calc(100% - 14px);
   display: grid;
@@ -933,207 +927,207 @@ main section .form > .wrapper .select-wrapper > .select-list {
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
   z-index: 1;
 }
-main section .form > .wrapper .select-wrapper > .select-list.top {
+body:not(#simple-page) main section .form > .wrapper .select-wrapper > .select-list.top {
   bottom: 35px;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
   border-bottom: none;
 }
-main section .form > .wrapper .select-wrapper > .select-list.top:not(:last-child) {
+body:not(#simple-page) main section .form > .wrapper .select-wrapper > .select-list.top:not(:last-child) {
   bottom: 75px;
 }
-main section .form > .wrapper .select-wrapper > .select-list:not(.top) {
+body:not(#simple-page) main section .form > .wrapper .select-wrapper > .select-list:not(.top) {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
   border-top: none;
 }
-main section .form > .wrapper .select-wrapper > .select-list.empty {
+body:not(#simple-page) main section .form > .wrapper .select-wrapper > .select-list.empty {
   display: none;
 }
-main section .form > .wrapper .select-wrapper > .select-list > .select-option {
+body:not(#simple-page) main section .form > .wrapper .select-wrapper > .select-list > .select-option {
   border: 0;
   border-radius: 0;
   cursor: pointer;
   background: #fff;
   transition: none;
 }
-main section .form > .wrapper .select-wrapper > .select-list > .select-option.hover {
+body:not(#simple-page) main section .form > .wrapper .select-wrapper > .select-list > .select-option.hover {
   background: #eee;
 }
-main section .form > .wrapper .select-wrapper > .select-other {
+body:not(#simple-page) main section .form > .wrapper .select-wrapper > .select-other {
   margin-top: 5px;
   width: 100%;
 }
-main section .form > .wrapper > ul.input-list {
+body:not(#simple-page) main section .form > .wrapper > ul.input-list {
   padding: 0;
   display: grid;
   grid-auto-flow: column;
   justify-content: start;
 }
-main section .form > .wrapper > ul.input-list > li {
+body:not(#simple-page) main section .form > .wrapper > ul.input-list > li {
   list-style-type: none;
 }
-main section .form > .wrapper > ul.input-list > li:nth-child(n+2) {
+body:not(#simple-page) main section .form > .wrapper > ul.input-list > li:nth-child(n+2) {
   margin-left: 14px;
 }
-main section .form > .wrapper.on-form-error.on-input-invalid > .sr-wrapper.active {
+body:not(#simple-page) main section .form > .wrapper.on-form-error.on-input-invalid > .sr-wrapper.active {
   border: 2px solid #ff0022;
 }
-main section .form > .wrapper.on-form-error.on-input-invalid > .sr-wrapper:not(.active) > i {
+body:not(#simple-page) main section .form > .wrapper.on-form-error.on-input-invalid > .sr-wrapper:not(.active) > i {
   background: #ff0022;
 }
-main section .form > .wrapper.on-form-error.on-input-invalid > .sr-wrapper:not(.active) > i:hover {
+body:not(#simple-page) main section .form > .wrapper.on-form-error.on-input-invalid > .sr-wrapper:not(.active) > i:hover {
   background: #dd001d;
 }
-main section .form > .wrapper.on-form-error.on-input-invalid > .sr-wrapper:not(.active) > i:first-child {
+body:not(#simple-page) main section .form > .wrapper.on-form-error.on-input-invalid > .sr-wrapper:not(.active) > i:first-child {
   background: #eabcc3;
 }
-main section .form > .wrapper.on-form-error.on-input-invalid > .sr-wrapper:not(.active) > span {
+body:not(#simple-page) main section .form > .wrapper.on-form-error.on-input-invalid > .sr-wrapper:not(.active) > span {
   color: #ff0022;
   border-color: #ff0022;
 }
-main section .form > .wrapper.on-form-error.on-input-invalid > .mic-btn, main section .form > .wrapper.on-form-error.on-input-invalid > input, main section .form > .wrapper.on-form-error.on-input-invalid > label, main section .form > .wrapper.on-form-error.on-input-invalid > textarea {
+body:not(#simple-page) main section .form > .wrapper.on-form-error.on-input-invalid > .mic-btn, body:not(#simple-page) main section .form > .wrapper.on-form-error.on-input-invalid > input, body:not(#simple-page) main section .form > .wrapper.on-form-error.on-input-invalid > label, body:not(#simple-page) main section .form > .wrapper.on-form-error.on-input-invalid > textarea {
   color: #ff0022 !important;
 }
-main section .form > .wrapper.on-form-error.on-input-invalid > .mic-btn.active {
+body:not(#simple-page) main section .form > .wrapper.on-form-error.on-input-invalid > .mic-btn.active {
   background: #eabcc3 !important;
 }
-main section .form > .wrapper.on-form-error.on-input-invalid > textarea, main section .form > .wrapper.on-form-error.on-input-invalid > input {
+body:not(#simple-page) main section .form > .wrapper.on-form-error.on-input-invalid > textarea, body:not(#simple-page) main section .form > .wrapper.on-form-error.on-input-invalid > input {
   border-color: #ff0022 !important;
 }
-main section .form > .wrapper.on-form-error.on-input-invalid > i.arrow-left, main section .form > .wrapper.on-form-error.on-input-invalid > i.arrow-right {
+body:not(#simple-page) main section .form > .wrapper.on-form-error.on-input-invalid > i.arrow-left, body:not(#simple-page) main section .form > .wrapper.on-form-error.on-input-invalid > i.arrow-right {
   background: #ff0022 !important;
 }
-main section .form > .wrapper.on-form-error.on-input-invalid > i.arrow-left:hover, main section .form > .wrapper.on-form-error.on-input-invalid > i.arrow-right:hover {
+body:not(#simple-page) main section .form > .wrapper.on-form-error.on-input-invalid > i.arrow-left:hover, body:not(#simple-page) main section .form > .wrapper.on-form-error.on-input-invalid > i.arrow-right:hover {
   background: #dd001d !important;
 }
-main section .form > .wrapper.on-form-error.on-input-invalid .select-wrapper:not(.on-input-part-valid) > .select-filter, main section .form > .wrapper.on-form-error.on-input-invalid .select-wrapper:not(.on-input-part-valid) > .select-current, main section .form > .wrapper.on-form-error.on-input-invalid .select-wrapper:not(.on-input-part-valid) > .select-list, main section .form > .wrapper.on-form-error.on-input-invalid .select-wrapper:not(.on-input-part-valid) > .select-other {
+body:not(#simple-page) main section .form > .wrapper.on-form-error.on-input-invalid .select-wrapper:not(.on-input-part-valid) > .select-filter, body:not(#simple-page) main section .form > .wrapper.on-form-error.on-input-invalid .select-wrapper:not(.on-input-part-valid) > .select-current, body:not(#simple-page) main section .form > .wrapper.on-form-error.on-input-invalid .select-wrapper:not(.on-input-part-valid) > .select-list, body:not(#simple-page) main section .form > .wrapper.on-form-error.on-input-invalid .select-wrapper:not(.on-input-part-valid) > .select-other {
   border-color: #ff0022 !important;
 }
-main section .form > .wrapper.on-form-error.on-input-invalid .select-wrapper:not(.on-input-part-valid) > .select-filter, main section .form > .wrapper.on-form-error.on-input-invalid .select-wrapper:not(.on-input-part-valid) > .select-current, main section .form > .wrapper.on-form-error.on-input-invalid .select-wrapper:not(.on-input-part-valid) > .select-list > .select-option, main section .form > .wrapper.on-form-error.on-input-invalid .select-wrapper:not(.on-input-part-valid) > .select-other {
+body:not(#simple-page) main section .form > .wrapper.on-form-error.on-input-invalid .select-wrapper:not(.on-input-part-valid) > .select-filter, body:not(#simple-page) main section .form > .wrapper.on-form-error.on-input-invalid .select-wrapper:not(.on-input-part-valid) > .select-current, body:not(#simple-page) main section .form > .wrapper.on-form-error.on-input-invalid .select-wrapper:not(.on-input-part-valid) > .select-list > .select-option, body:not(#simple-page) main section .form > .wrapper.on-form-error.on-input-invalid .select-wrapper:not(.on-input-part-valid) > .select-other {
   color: #ff0022 !important;
 }
-main section .form > .wrapper.on-form-error.on-input-invalid > .calendar-wrapper > .calendar-input {
+body:not(#simple-page) main section .form > .wrapper.on-form-error.on-input-invalid > .calendar-wrapper > .calendar-input {
   color: #ff0022 !important;
   border-color: #ff0022 !important;
 }
-main section .form > .wrapper.on-form-error.on-input-invalid > .calendar-wrapper > .calendar-jsCalendar tbody td.jsCalendar-current {
+body:not(#simple-page) main section .form > .wrapper.on-form-error.on-input-invalid > .calendar-wrapper > .calendar-jsCalendar tbody td.jsCalendar-current {
   background-color: #ff0022;
 }
-main section .form > .wrapper.on-form-error.on-input-invalid > .calendar-wrapper > .calendar-jsCalendar *::selection {
+body:not(#simple-page) main section .form > .wrapper.on-form-error.on-input-invalid > .calendar-wrapper > .calendar-jsCalendar *::selection {
   background: #ff0022;
 }
-main section .form > .wrapper.on-form-error.on-input-invalid > .calendar-wrapper > .calendar-jsCalendar *::-moz-selection {
+body:not(#simple-page) main section .form > .wrapper.on-form-error.on-input-invalid > .calendar-wrapper > .calendar-jsCalendar *::-moz-selection {
   background: #ff0022;
 }
-main section .form > .wrapper.on-form-error.on-input-invalid > .calendar-wrapper > .calendar-jsCalendar thead {
+body:not(#simple-page) main section .form > .wrapper.on-form-error.on-input-invalid > .calendar-wrapper > .calendar-jsCalendar thead {
   background-color: #ff0022;
 }
-main section .form > .wrapper.on-form-error.on-input-invalid > .calendar-wrapper > .calendar-jsCalendar thead .jsCalendar-nav-left:hover,
-main section .form > .wrapper.on-form-error.on-input-invalid > .calendar-wrapper > .calendar-jsCalendar thead .jsCalendar-nav-right:hover {
+body:not(#simple-page) main section .form > .wrapper.on-form-error.on-input-invalid > .calendar-wrapper > .calendar-jsCalendar thead .jsCalendar-nav-left:hover,
+body:not(#simple-page) main section .form > .wrapper.on-form-error.on-input-invalid > .calendar-wrapper > .calendar-jsCalendar thead .jsCalendar-nav-right:hover {
   background-color: #dd001d;
 }
-main section .form > .wrapper.on-form-error.on-input-invalid > .text-select-text-wrapper > span:not(.on-input-part-valid),
-main section .form > .wrapper.on-form-error.on-input-invalid > .text-select-text-wrapper > input:not(.on-input-part-valid),
-main section .form > .wrapper.on-form-error.on-input-invalid > .multi-text-wrapper > span:not(.on-input-part-valid),
-main section .form > .wrapper.on-form-error.on-input-invalid > .multi-text-wrapper > input:not(.on-input-part-valid) {
+body:not(#simple-page) main section .form > .wrapper.on-form-error.on-input-invalid > .text-select-text-wrapper > span:not(.on-input-part-valid),
+body:not(#simple-page) main section .form > .wrapper.on-form-error.on-input-invalid > .text-select-text-wrapper > input:not(.on-input-part-valid),
+body:not(#simple-page) main section .form > .wrapper.on-form-error.on-input-invalid > .multi-text-wrapper > span:not(.on-input-part-valid),
+body:not(#simple-page) main section .form > .wrapper.on-form-error.on-input-invalid > .multi-text-wrapper > input:not(.on-input-part-valid) {
   color: #ff0022 !important;
 }
-main section .form > .wrapper.on-form-error.on-input-invalid > .text-select-text-wrapper > input:not(.on-input-part-valid),
-main section .form > .wrapper.on-form-error.on-input-invalid > .multi-text-wrapper > input:not(.on-input-part-valid) {
+body:not(#simple-page) main section .form > .wrapper.on-form-error.on-input-invalid > .text-select-text-wrapper > input:not(.on-input-part-valid),
+body:not(#simple-page) main section .form > .wrapper.on-form-error.on-input-invalid > .multi-text-wrapper > input:not(.on-input-part-valid) {
   border-color: #ff0022 !important;
 }
-main section .form > .wrapper.on-form-error.on-input-invalid > .timetable-wrapper {
+body:not(#simple-page) main section .form > .wrapper.on-form-error.on-input-invalid > .timetable-wrapper {
   color: #ff0022 !important;
   border-color: #ff0022 !important;
 }
-main section .form > .wrapper.on-form-error.on-input-invalid > .timetable-list > li > ul:not(.on-input-part-valid) > li > p.chosen {
+body:not(#simple-page) main section .form > .wrapper.on-form-error.on-input-invalid > .timetable-list > li > ul:not(.on-input-part-valid) > li > p.chosen {
   background: #ff0022 !important;
 }
-main section .form > .wrapper.on-form-error.on-input-invalid > .timetable-list > li > ul:not(.on-input-part-valid) > li > p.chosen:hover {
+body:not(#simple-page) main section .form > .wrapper.on-form-error.on-input-invalid > .timetable-list > li > ul:not(.on-input-part-valid) > li > p.chosen:hover {
   background: #dd001d !important;
 }
-main section .form > .wrapper.on-form-error.on-input-invalid > .range-wrapper > input {
+body:not(#simple-page) main section .form > .wrapper.on-form-error.on-input-invalid > .range-wrapper > input {
   background: #ff0022 !important;
 }
-main section .form > .wrapper.on-form-error.on-input-invalid > .range-wrapper > input::-webkit-slider-thumb {
+body:not(#simple-page) main section .form > .wrapper.on-form-error.on-input-invalid > .range-wrapper > input::-webkit-slider-thumb {
   background: #ff0022 !important;
 }
-main section .form > .wrapper.on-form-error.on-input-invalid > .range-wrapper > input::-moz-range-thumb {
+body:not(#simple-page) main section .form > .wrapper.on-form-error.on-input-invalid > .range-wrapper > input::-moz-range-thumb {
   background: #ff0022 !important;
 }
-main section .form > .wrapper.on-form-error.on-input-invalid > .range-wrapper > span {
+body:not(#simple-page) main section .form > .wrapper.on-form-error.on-input-invalid > .range-wrapper > span {
   color: #ff0022 !important;
 }
-main section .form > .wrapper.on-form-error.on-input-invalid > .inc-dec > i:not(.disabled) {
+body:not(#simple-page) main section .form > .wrapper.on-form-error.on-input-invalid > .inc-dec > i:not(.disabled) {
   background: #ff0022 !important;
 }
-main section .form > .wrapper.on-form-error.on-input-invalid > .inc-dec > i:not(.disabled):hover {
+body:not(#simple-page) main section .form > .wrapper.on-form-error.on-input-invalid > .inc-dec > i:not(.disabled):hover {
   background: #dd001d !important;
 }
-main section .form > .wrapper.on-form-error.on-input-invalid > .inc-dec > span {
+body:not(#simple-page) main section .form > .wrapper.on-form-error.on-input-invalid > .inc-dec > span {
   color: #ff0022 !important;
 }
-main section .form > .wrapper.on-form-error.on-input-invalid > .toggle.off {
+body:not(#simple-page) main section .form > .wrapper.on-form-error.on-input-invalid > .toggle.off {
   color: #ff0022 !important;
 }
-main section .form > .wrapper.on-form-error.on-input-invalid > .toggle.on {
+body:not(#simple-page) main section .form > .wrapper.on-form-error.on-input-invalid > .toggle.on {
   background: #ff0022 !important;
 }
-main section .form > .wrapper.on-form-error.on-input-invalid > .toggle.on:hover {
+body:not(#simple-page) main section .form > .wrapper.on-form-error.on-input-invalid > .toggle.on:hover {
   background: #dd001d !important;
 }
-main section .form > .wrapper.on-form-error.on-input-invalid > .toggle-switch {
+body:not(#simple-page) main section .form > .wrapper.on-form-error.on-input-invalid > .toggle-switch {
   background: #ff0022 !important;
 }
-main section .form > .wrapper.on-form-error.on-input-invalid > .toggle-switch:before {
+body:not(#simple-page) main section .form > .wrapper.on-form-error.on-input-invalid > .toggle-switch:before {
   color: #ff0022 !important;
 }
-main section .form > .wrapper.on-form-error.on-input-invalid > ul.input-list > li.radio-item > div {
+body:not(#simple-page) main section .form > .wrapper.on-form-error.on-input-invalid > ul.input-list > li.radio-item > div {
   border-color: #ff0022 !important;
 }
-main section .form > .wrapper.on-form-error.on-input-invalid > ul.input-list > li.radio-item > div:before {
+body:not(#simple-page) main section .form > .wrapper.on-form-error.on-input-invalid > ul.input-list > li.radio-item > div:before {
   background: #ff0022;
 }
-main section .form > .wrapper.on-form-error.on-input-invalid > ul.input-list > li.radio-item > span {
+body:not(#simple-page) main section .form > .wrapper.on-form-error.on-input-invalid > ul.input-list > li.radio-item > span {
   color: #ff0022 !important;
 }
-main section .form > p.on-form-error {
+body:not(#simple-page) main section .form > p.on-form-error {
   font-size: 14px;
   text-align: center;
 }
-main section .form > p.on-form-error > .text-important {
+body:not(#simple-page) main section .form > p.on-form-error > .text-important {
   color: #ff0022;
 }
-main section .form.labels-align-left > .wrapper, main section .form.labels-align-right > .wrapper {
+body:not(#simple-page) main section .form.labels-align-left > .wrapper, body:not(#simple-page) main section .form.labels-align-right > .wrapper {
   grid-template-columns: auto 200px;
   grid-column-gap: 21px;
 }
-main section .form.labels-align-left > .wrapper > .input-wrapper, main section .form.labels-align-right > .wrapper > .input-wrapper {
+body:not(#simple-page) main section .form.labels-align-left > .wrapper > .input-wrapper, body:not(#simple-page) main section .form.labels-align-right > .wrapper > .input-wrapper {
   grid-column: 2;
 }
-main section .form.labels-align-left {
+body:not(#simple-page) main section .form.labels-align-left {
   width: 430px;
 }
-main section .form.labels-align-right {
+body:not(#simple-page) main section .form.labels-align-right {
   width: 380px;
 }
-main section .form.labels-align-right > .wrapper > label {
+body:not(#simple-page) main section .form.labels-align-right > .wrapper > label {
   text-align: right;
 }
-main section .form.labels-align-top {
+body:not(#simple-page) main section .form.labels-align-top {
   width: 223px;
 }
-main section .form.labels-align-top > .wrapper {
+body:not(#simple-page) main section .form.labels-align-top > .wrapper {
   grid-row-gap: 3.5px;
 }
-main section .form.labels-placeholders, main section .form.labels-float-top {
+body:not(#simple-page) main section .form.labels-placeholders, body:not(#simple-page) main section .form.labels-float-top {
   width: 240px;
 }
-main section .form.labels-placeholders > .wrapper, main section .form.labels-float-top > .wrapper {
+body:not(#simple-page) main section .form.labels-placeholders > .wrapper, body:not(#simple-page) main section .form.labels-float-top > .wrapper {
   position: relative;
 }
-main section .form.labels-placeholders > .wrapper > label, main section .form.labels-float-top > .wrapper > label {
+body:not(#simple-page) main section .form.labels-placeholders > .wrapper > label, body:not(#simple-page) main section .form.labels-float-top > .wrapper > label {
   cursor: text;
   position: absolute;
   left: 7px;
@@ -1144,51 +1138,51 @@ main section .form.labels-placeholders > .wrapper > label, main section .form.la
   color: #b1b1b1;
   background: transparent;
 }
-main section .form.labels-placeholders > .wrapper > label.on-input-disabled, main section .form.labels-float-top > .wrapper > label.on-input-disabled {
+body:not(#simple-page) main section .form.labels-placeholders > .wrapper > label.on-input-disabled, body:not(#simple-page) main section .form.labels-float-top > .wrapper > label.on-input-disabled {
   background: #eee;
 }
-main section .form.labels-placeholders > .wrapper > label.on-input-focus, main section .form.labels-placeholders > .wrapper > label.on-input-non-empty:not(.on-input-disabled), main section .form.labels-float-top > .wrapper > label.on-input-focus, main section .form.labels-float-top > .wrapper > label.on-input-non-empty:not(.on-input-disabled) {
+body:not(#simple-page) main section .form.labels-placeholders > .wrapper > label.on-input-focus, body:not(#simple-page) main section .form.labels-placeholders > .wrapper > label.on-input-non-empty:not(.on-input-disabled), body:not(#simple-page) main section .form.labels-float-top > .wrapper > label.on-input-focus, body:not(#simple-page) main section .form.labels-float-top > .wrapper > label.on-input-non-empty:not(.on-input-disabled) {
   color: #7e7e7e;
 }
-main section .form.labels-placeholders > .wrapper > label.on-input-disabled, main section .form.labels-placeholders > .wrapper > label.on-input-focus, main section .form.labels-placeholders > .wrapper > label.on-input-non-empty:not(.on-input-disabled) {
+body:not(#simple-page) main section .form.labels-placeholders > .wrapper > label.on-input-disabled, body:not(#simple-page) main section .form.labels-placeholders > .wrapper > label.on-input-focus, body:not(#simple-page) main section .form.labels-placeholders > .wrapper > label.on-input-non-empty:not(.on-input-disabled) {
   display: none;
 }
-main section .form.labels-float-top > .wrapper > label.on-input-focus, main section .form.labels-float-top > .wrapper > label.on-input-non-empty:not(.on-input-disabled) {
+body:not(#simple-page) main section .form.labels-float-top > .wrapper > label.on-input-focus, body:not(#simple-page) main section .form.labels-float-top > .wrapper > label.on-input-non-empty:not(.on-input-disabled) {
   background: #fff;
   font-size: 12px;
   margin-top: -16px;
   padding: 0 2px;
 }
-main section .form.long-text {
+body:not(#simple-page) main section .form.long-text {
   width: 470px;
 }
-main section .form.long-text > .wrapper > textarea {
+body:not(#simple-page) main section .form.long-text > .wrapper > textarea {
   height: 256px;
 }
-main section .form.speech-recognition-off[data-type=speech-recognition-off-sentences] {
+body:not(#simple-page) main section .form.speech-recognition-off[data-type=speech-recognition-off-sentences] {
   width: 470px;
 }
-main section .form.speech-recognition-off[data-type=speech-recognition-off-sentences] > .wrapper {
+body:not(#simple-page) main section .form.speech-recognition-off[data-type=speech-recognition-off-sentences] > .wrapper {
   grid-template-columns: auto 300px;
 }
-main section .form.speech-recognition-off[data-type=speech-recognition-off-sentences] > .wrapper > textarea {
+body:not(#simple-page) main section .form.speech-recognition-off[data-type=speech-recognition-off-sentences] > .wrapper > textarea {
   height: 124px;
 }
-main section .form.speech-recognition-on {
+body:not(#simple-page) main section .form.speech-recognition-on {
   width: 520px;
 }
-main section .form.speech-recognition-on[data-type=speech-recognition-on-sentences] {
+body:not(#simple-page) main section .form.speech-recognition-on[data-type=speech-recognition-on-sentences] {
   width: 470px;
 }
-main section .form.speech-recognition-on > .wrapper {
+body:not(#simple-page) main section .form.speech-recognition-on > .wrapper {
   grid-template-columns: auto 270px;
   position: relative;
 }
-main section .form.speech-recognition-on > .wrapper > .sr-wrapper {
+body:not(#simple-page) main section .form.speech-recognition-on > .wrapper > .sr-wrapper {
   display: grid;
   grid-template-columns: 39px 1fr 39px;
 }
-main section .form.speech-recognition-on > .wrapper > .sr-wrapper > i {
+body:not(#simple-page) main section .form.speech-recognition-on > .wrapper > .sr-wrapper > i {
   display: grid;
   place-content: center;
   width: 39px;
@@ -1198,142 +1192,142 @@ main section .form.speech-recognition-on > .wrapper > .sr-wrapper > i {
   transition: background 0.1s ease-in-out;
   cursor: pointer;
 }
-main section .form.speech-recognition-on > .wrapper > .sr-wrapper > i:first-child {
+body:not(#simple-page) main section .form.speech-recognition-on > .wrapper > .sr-wrapper > i:first-child {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
-main section .form.speech-recognition-on > .wrapper > .sr-wrapper > i:last-child {
+body:not(#simple-page) main section .form.speech-recognition-on > .wrapper > .sr-wrapper > i:last-child {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
 }
-main section .form.speech-recognition-on > .wrapper > .sr-wrapper > i:hover {
+body:not(#simple-page) main section .form.speech-recognition-on > .wrapper > .sr-wrapper > i:hover {
   background: #30de15;
 }
-main section .form.speech-recognition-on > .wrapper > .sr-wrapper > span {
+body:not(#simple-page) main section .form.speech-recognition-on > .wrapper > .sr-wrapper > span {
   font-size: inherit;
   border: 2px solid #ddd;
   min-height: 39px;
   color: #212121;
 }
-main section .form.speech-recognition-on > .wrapper > .sr-wrapper.disabled > i, main section .form.speech-recognition-on > .wrapper > .sr-wrapper:not(.active) > i:first-child {
+body:not(#simple-page) main section .form.speech-recognition-on > .wrapper > .sr-wrapper.disabled > i, body:not(#simple-page) main section .form.speech-recognition-on > .wrapper > .sr-wrapper:not(.active) > i:first-child {
   cursor: default;
   background: #e0e0e0;
 }
-main section .form.speech-recognition-on > .wrapper > .sr-wrapper.active > i {
+body:not(#simple-page) main section .form.speech-recognition-on > .wrapper > .sr-wrapper.active > i {
   background: #212121;
 }
-main section .form.speech-recognition-on > .wrapper > .sr-wrapper.active > i:hover {
+body:not(#simple-page) main section .form.speech-recognition-on > .wrapper > .sr-wrapper.active > i:hover {
   background: #434343;
 }
-main section .form.speech-recognition-on > .wrapper > .sr-wrapper.active > span {
+body:not(#simple-page) main section .form.speech-recognition-on > .wrapper > .sr-wrapper.active > span {
   border-color: #212121;
 }
-main section .form.speech-recognition-on > .wrapper > .sr-wrapper.active > span.sr-placeholder {
+body:not(#simple-page) main section .form.speech-recognition-on > .wrapper > .sr-wrapper.active > span.sr-placeholder {
   font-style: italic;
   color: #434343;
   display: grid;
   align-content: center;
 }
-main section .form.speech-recognition-on > .wrapper > .sr-wrapper.disabled > span {
+body:not(#simple-page) main section .form.speech-recognition-on > .wrapper > .sr-wrapper.disabled > span {
   color: #ddd;
   background: #eee;
 }
-main section .form.speech-recognition-on > .wrapper > .sr-wrapper.sr-textarea {
+body:not(#simple-page) main section .form.speech-recognition-on > .wrapper > .sr-wrapper.sr-textarea {
   min-height: 132px;
 }
-main section .form.speech-recognition-on > .wrapper > .sr-wrapper.sr-textarea > span:not(.sr-placeholder) {
+body:not(#simple-page) main section .form.speech-recognition-on > .wrapper > .sr-wrapper.sr-textarea > span:not(.sr-placeholder) {
   font-size: 13px;
 }
-main section .form.speech-recognition-on.sr-long-text > .wrapper {
+body:not(#simple-page) main section .form.speech-recognition-on.sr-long-text > .wrapper {
   grid-template-columns: auto 390px;
 }
-main section .form.speech-recognition-on.sr-long-text > .wrapper > .sr-wrapper > span {
+body:not(#simple-page) main section .form.speech-recognition-on.sr-long-text > .wrapper > .sr-wrapper > span {
   min-height: 265px;
 }
-main section .form.logic-values-toggle-switch {
+body:not(#simple-page) main section .form.logic-values-toggle-switch {
   width: 560px;
 }
-main section .form.logic-values-toggle-switch > .wrapper {
+body:not(#simple-page) main section .form.logic-values-toggle-switch > .wrapper {
   grid-template-columns: auto 52px;
 }
-main section .form.logic-values-toggle-btn {
+body:not(#simple-page) main section .form.logic-values-toggle-btn {
   width: 620px;
 }
-main section .form.logic-values-toggle-btn > .wrapper {
+body:not(#simple-page) main section .form.logic-values-toggle-btn > .wrapper {
   grid-template-columns: auto 90px;
 }
-main section .form.logic-values-radio {
+body:not(#simple-page) main section .form.logic-values-radio {
   width: 560px;
 }
-main section .form.logic-values-radio > .wrapper {
+body:not(#simple-page) main section .form.logic-values-radio > .wrapper {
   grid-template-columns: auto 120px;
 }
-main section .form.logic-values-radio > .wrapper > ul.input-list {
+body:not(#simple-page) main section .form.logic-values-radio > .wrapper > ul.input-list {
   justify-content: end;
 }
-main section .form.logic-values-select {
+body:not(#simple-page) main section .form.logic-values-select {
   width: 600px;
 }
-main section .form.logic-values-select > .wrapper {
+body:not(#simple-page) main section .form.logic-values-select > .wrapper {
   grid-template-columns: auto 75px;
 }
-main section .form.date-calendar {
+body:not(#simple-page) main section .form.date-calendar {
   width: 500px;
 }
-main section .form.date-calendar > .wrapper {
+body:not(#simple-page) main section .form.date-calendar > .wrapper {
   grid-template-columns: auto 90px;
 }
-main section .form.date-calendar > .wrapper > .calendar-wrapper {
+body:not(#simple-page) main section .form.date-calendar > .wrapper > .calendar-wrapper {
   text-align: center;
 }
-main section .form.date-text-select-text {
+body:not(#simple-page) main section .form.date-text-select-text {
   width: 500px;
 }
-main section .form.date-text-select-text > .wrapper {
+body:not(#simple-page) main section .form.date-text-select-text > .wrapper {
   grid-template-columns: auto 215px;
 }
-main section .form.date-text-select-text > .wrapper > .text-select-text-wrapper {
+body:not(#simple-page) main section .form.date-text-select-text > .wrapper > .text-select-text-wrapper {
   display: grid;
   grid-template-columns: 35px 120px 50px;
   justify-content: space-between;
   align-content: center;
 }
-main section .form.date-multi-text {
+body:not(#simple-page) main section .form.date-multi-text {
   width: 600px;
 }
-main section .form.date-multi-text > .wrapper {
+body:not(#simple-page) main section .form.date-multi-text > .wrapper {
   grid-template-columns: auto 150px;
 }
-main section .form.date-multi-text > .wrapper > .multi-text-wrapper {
+body:not(#simple-page) main section .form.date-multi-text > .wrapper > .multi-text-wrapper {
   display: grid;
   grid-template-columns: 50px 15px 35px 15px 35px;
   justify-content: start;
   align-content: center;
 }
-main section .form.date-multi-text > .wrapper > .multi-text-wrapper > * {
+body:not(#simple-page) main section .form.date-multi-text > .wrapper > .multi-text-wrapper > * {
   text-align: center;
 }
-main section .form.date-multi-text > .wrapper > .multi-text-wrapper > input {
+body:not(#simple-page) main section .form.date-multi-text > .wrapper > .multi-text-wrapper > input {
   width: 100%;
 }
-main section .form.date-multi-text > .wrapper > .multi-text-wrapper > .separator {
+body:not(#simple-page) main section .form.date-multi-text > .wrapper > .multi-text-wrapper > .separator {
   align-self: center;
   font-size: 20px;
 }
-main section .form.date-masks {
+body:not(#simple-page) main section .form.date-masks {
   width: 500px;
 }
-main section .form.date-masks > .wrapper {
+body:not(#simple-page) main section .form.date-masks > .wrapper {
   grid-template-columns: auto 100px;
 }
-main section .form.time-table {
+body:not(#simple-page) main section .form.time-table {
   width: 250px;
 }
-main section .form.time-table > .wrapper {
+body:not(#simple-page) main section .form.time-table > .wrapper {
   grid-template-columns: auto 60px;
   position: relative;
 }
-main section .form.time-table > .wrapper > .timetable-list {
+body:not(#simple-page) main section .form.time-table > .wrapper > .timetable-list {
   position: absolute;
   bottom: calc(100% + 7px);
   left: 50%;
@@ -1342,14 +1336,14 @@ main section .form.time-table > .wrapper > .timetable-list {
   min-width: 450px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
 }
-main section .form.time-text-arrows {
+body:not(#simple-page) main section .form.time-text-arrows {
   width: 348px;
 }
-main section .form.time-text-arrows > .wrapper {
+body:not(#simple-page) main section .form.time-text-arrows > .wrapper {
   grid-template-columns: auto 24px 60px 24px;
   grid-column-gap: 0;
 }
-main section .form.time-text-arrows > .wrapper > i {
+body:not(#simple-page) main section .form.time-text-arrows > .wrapper > i {
   height: 100%;
   display: grid;
   align-content: center;
@@ -1358,60 +1352,60 @@ main section .form.time-text-arrows > .wrapper > i {
   transition: background 0.1s ease-in-out;
   cursor: pointer;
 }
-main section .form.time-text-arrows > .wrapper > i.arrow-left {
+body:not(#simple-page) main section .form.time-text-arrows > .wrapper > i.arrow-left {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
-main section .form.time-text-arrows > .wrapper > i.arrow-right {
+body:not(#simple-page) main section .form.time-text-arrows > .wrapper > i.arrow-right {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
 }
-main section .form.time-text-arrows > .wrapper > i:hover {
+body:not(#simple-page) main section .form.time-text-arrows > .wrapper > i:hover {
   background: #30de15;
 }
-main section .form.time-text-arrows > .wrapper > i.disabled {
+body:not(#simple-page) main section .form.time-text-arrows > .wrapper > i.disabled {
   cursor: default;
   background: #eee;
   color: #ddd;
 }
-main section .form.time-text-arrows > .wrapper > input {
+body:not(#simple-page) main section .form.time-text-arrows > .wrapper > input {
   border-radius: 0;
   border-color: #2ccf13;
   text-align: center;
   font-size: 16px;
 }
-main section .form.time-text-arrows > .wrapper > input:focus {
+body:not(#simple-page) main section .form.time-text-arrows > .wrapper > input:focus {
   border-color: #7e7e7e;
 }
-main section .form.time-text-arrows > .wrapper > input:disabled {
+body:not(#simple-page) main section .form.time-text-arrows > .wrapper > input:disabled {
   border-color: #eee;
 }
-main section .form.time-text {
+body:not(#simple-page) main section .form.time-text {
   width: 300px;
 }
-main section .form.time-text > .wrapper {
+body:not(#simple-page) main section .form.time-text > .wrapper {
   grid-template-columns: auto 60px;
 }
-main section .form.time-text > .wrapper > input {
+body:not(#simple-page) main section .form.time-text > .wrapper > input {
   text-align: center;
 }
-main section .form.time-multi-select {
+body:not(#simple-page) main section .form.time-multi-select {
   width: 370px;
 }
-main section .form.time-multi-select > .wrapper {
+body:not(#simple-page) main section .form.time-multi-select > .wrapper {
   grid-template-columns: auto 60px 60px;
 }
-main section .form.autocomplete-on > .wrapper {
+body:not(#simple-page) main section .form.autocomplete-on > .wrapper {
   position: relative;
 }
-main section .form.autocomplete-on > .wrapper > input {
+body:not(#simple-page) main section .form.autocomplete-on > .wrapper > input {
   position: relative;
   z-index: 1;
 }
-main section .form.autocomplete-on > .wrapper > input:not([disabled]) {
+body:not(#simple-page) main section .form.autocomplete-on > .wrapper > input:not([disabled]) {
   background: rgba(255, 255, 255, 0.25);
 }
-main section .form.autocomplete-on > .wrapper > div {
+body:not(#simple-page) main section .form.autocomplete-on > .wrapper > div {
   padding: 6px 7px 7px 9px;
   width: 200px;
   position: absolute;
@@ -1419,63 +1413,63 @@ main section .form.autocomplete-on > .wrapper > div {
   right: 0;
   transform: translateY(-50%);
 }
-main section .form.autocomplete-on > .wrapper > div > span {
+body:not(#simple-page) main section .form.autocomplete-on > .wrapper > div > span {
   letter-spacing: normal;
 }
-main section .form.autocomplete-on > .wrapper > div > span:not(:last-child) {
+body:not(#simple-page) main section .form.autocomplete-on > .wrapper > div > span:not(:last-child) {
   color: #fff;
 }
-main section .form.autocomplete-on > .wrapper > div > span:last-child {
+body:not(#simple-page) main section .form.autocomplete-on > .wrapper > div > span:last-child {
   color: #2ccf13;
 }
-main section .form.autocomplete-on > .wrapper.on-form-error.on-input-invalid > div > span:last-child {
+body:not(#simple-page) main section .form.autocomplete-on > .wrapper.on-form-error.on-input-invalid > div > span:last-child {
   color: #ff445d;
 }
-main section .form.autosuggestion-on, main section .form.autosuggestion-off {
+body:not(#simple-page) main section .form.autosuggestion-on, body:not(#simple-page) main section .form.autosuggestion-off {
   width: 560px;
 }
-main section .form.autosuggestion-on > .wrapper, main section .form.autosuggestion-off > .wrapper {
+body:not(#simple-page) main section .form.autosuggestion-on > .wrapper, body:not(#simple-page) main section .form.autosuggestion-off > .wrapper {
   grid-template-columns: auto 350px;
 }
-main section .form.autosuggestion-on > .wrapper > .select-wrapper > input {
+body:not(#simple-page) main section .form.autosuggestion-on > .wrapper > .select-wrapper > input {
   width: 100%;
 }
-main section .form.input-masks-on, main section .form.input-masks-off {
+body:not(#simple-page) main section .form.input-masks-on, body:not(#simple-page) main section .form.input-masks-off {
   width: 500px;
 }
-main section .form.input-masks-on > .wrapper, main section .form.input-masks-off > .wrapper {
+body:not(#simple-page) main section .form.input-masks-on > .wrapper, body:not(#simple-page) main section .form.input-masks-off > .wrapper {
   grid-template-columns: auto 250px;
 }
-main section .form.small-numbers-range {
+body:not(#simple-page) main section .form.small-numbers-range {
   width: 350px;
 }
-main section .form.small-numbers-range > .wrapper {
+body:not(#simple-page) main section .form.small-numbers-range > .wrapper {
   grid-template-columns: auto 120px;
 }
-main section .form.small-numbers-inc-dec {
+body:not(#simple-page) main section .form.small-numbers-inc-dec {
   width: 348px;
 }
-main section .form.small-numbers-inc-dec > .wrapper {
+body:not(#simple-page) main section .form.small-numbers-inc-dec > .wrapper {
   grid-template-columns: auto 83px;
 }
-main section .form.small-numbers-select {
+body:not(#simple-page) main section .form.small-numbers-select {
   width: 330px;
 }
-main section .form.small-numbers-select > .wrapper {
+body:not(#simple-page) main section .form.small-numbers-select > .wrapper {
   grid-template-columns: auto 65px;
 }
-main section .form.small-numbers-text {
+body:not(#simple-page) main section .form.small-numbers-text {
   width: 300px;
 }
-main section .form.small-numbers-text > .wrapper {
+body:not(#simple-page) main section .form.small-numbers-text > .wrapper {
   grid-template-columns: auto 35px;
 }
-main section .form.small-numbers-text > .wrapper > input {
+body:not(#simple-page) main section .form.small-numbers-text > .wrapper > input {
   text-align: center;
 }
-main section #user-form {
+body:not(#simple-page) main section #user-form {
   width: 400px;
 }
-main section #user-form ~ .loader {
+body:not(#simple-page) main section #user-form ~ .loader {
   margin-top: 28px;
 }

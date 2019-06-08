@@ -353,6 +353,7 @@ window.onload = function () {
 
             var _this = _possibleConstructorReturn(this, (Main.__proto__ || Object.getPrototypeOf(Main)).call(this, props));
 
+            _this.handleToken = _this.handleToken.bind(_this);
             _this.handleFormChange = _this.handleFormChange.bind(_this);
             _this.handleScroll = _this.handleScroll.bind(_this);
             _this.handleStart = _this.handleStart.bind(_this);
@@ -572,16 +573,30 @@ window.onload = function () {
                 });
             }
         }, {
+            key: 'handleToken',
+            value: function handleToken() {
+                return fetch(globals.backURI + '?do=check&what=token&value=' + getParameterByName('auth')).then(function (res) {
+                    return res.json();
+                }).then(function (response) {
+                    response = response.length > 0 ? response[0] : false;
+
+                    if (response.type === 'success') {
+                        return {
+                            expired: response.valid === false,
+                            valid: response.valid
+                        };
+                    }
+
+                    return false;
+                }).catch(function (error) {
+                    console.error(error);
+                    return false;
+                });
+            }
+        }, {
             key: 'componentDidMount',
             value: function componentDidMount() {
                 var _this3 = this;
-
-                window.onbeforeunload = function (event) {
-                    if (!(_this3.state.testStarted && _this3.state.testFinished && _this3.state.dataSent)) {
-                        event.preventDefault();
-                        event.returnValue = '';
-                    }
-                };
 
                 this.getIPAddress().then(function (ip) {
                     if (ip) {
@@ -601,18 +616,38 @@ window.onload = function () {
                     }
                 });
 
-                if (!globals.dev) {
-                    this.getTestVersion().then(function (version) {
-                        if (version !== false) {
+                this.handleToken().then(function (token) {
+                    if (token.valid) {
+                        window.onbeforeunload = function (event) {
+                            if (!(_this3.state.testStarted && _this3.state.testFinished && _this3.state.dataSent)) {
+                                event.preventDefault();
+                                event.returnValue = '';
+                            }
+                        };
+
+                        if (!globals.dev) {
+                            _this3.getTestVersion().then(function (version) {
+                                if (version !== false) {
+                                    _this3.loadTest(version);
+                                }
+                            });
+                        } else {
+                            var searchValue = getParameterByName('ver');
+                            var version = searchValue === 'A' || searchValue === 'B' || searchValue === 'dev' ? searchValue : 'A';
+
                             _this3.loadTest(version);
                         }
-                    });
-                } else {
-                    var searchValue = getParameterByName('ver');
-                    var version = searchValue === 'A' || searchValue === 'B' || searchValue === 'dev' ? searchValue : 'A';
+                    } else {
+                        document.title = token.expired ? '666 Authorization Expired' : '403 Forbidden';
+                        document.body.id = 'simple-page';
 
-                    this.loadTest(version);
-                }
+                        _this3.setState({
+                            isLoaded: true,
+                            tokenExpired: token.expired,
+                            otherTokenError: !token.expired
+                        });
+                    }
+                });
             }
         }, {
             key: 'backToTop',
@@ -791,10 +826,47 @@ window.onload = function () {
                 var _state = this.state,
                     error = _state.error,
                     isLoaded = _state.isLoaded,
-                    scenarios = _state.scenarios;
+                    scenarios = _state.scenarios,
+                    tokenExpired = _state.tokenExpired,
+                    otherTokenError = _state.otherTokenError;
 
 
-                if (error) {
+                if (otherTokenError || tokenExpired) {
+                    return React.createElement(
+                        React.Fragment,
+                        null,
+                        React.createElement(
+                            'h1',
+                            null,
+                            otherTokenError ? "Forbidden" : "Authorization Expired"
+                        ),
+                        React.createElement(
+                            'p',
+                            null,
+                            otherTokenError ? "Aby wziąć udział w badaniu użyteczności, musisz otrzymać ode mnie specjalny kod autoryzacyjny." : "Twój kod autoryzacyjny stracił ważność.",
+                            React.createElement('br', null),
+                            'Wy\u015Blij do mnie ',
+                            React.createElement(
+                                'a',
+                                { href: 'mailto:krzysztof.radoslaw.osada@gmail.com' },
+                                'maila'
+                            ),
+                            ' lub napisz na ',
+                            React.createElement(
+                                'a',
+                                { href: 'https://fb.me/osada.krzysztof', target: '_blank' },
+                                'Facebooku'
+                            ),
+                            ' w celu rozwi\u0105zania tego problemu.'
+                        ),
+                        React.createElement('hr', null),
+                        React.createElement(
+                            'address',
+                            null,
+                            'Copyright \xA9 2019 Krzysztof Osada'
+                        )
+                    );
+                } else if (error) {
                     return React.createElement(
                         'div',
                         null,
