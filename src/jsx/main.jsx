@@ -675,6 +675,11 @@ window.onload = function() {
                     document.title   = token.expired ? '666 Authorization Expired' : '403 Forbidden';
                     document.body.id = 'simple-page';
 
+                    for ( let styleSheet of document.styleSheets )
+                    {
+                        stylesheet.disabled = true;
+                    }
+
                     this.setState( {
                         isLoaded        : true,
                         tokenExpired    : token.expired,
