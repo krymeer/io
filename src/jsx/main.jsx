@@ -465,7 +465,10 @@ window.onload = function() {
             }
 
             this.childNodeRef = child => {
-                window.scrollTo( 0, getRealOffsetTop( child.offsetTop ) );
+                if( child !== null )
+                {
+                    window.scrollTo( 0, getRealOffsetTop( child.offsetTop ) );
+                }
             }
         }
 

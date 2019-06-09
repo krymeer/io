@@ -11,7 +11,10 @@ class Task extends React.Component {
         this.handleRatingChange  = this.handleRatingChange.bind( this );
         this.handleCommentChange = this.handleCommentChange.bind( this );
         this.childNodeRef        = child => {
-            window.scrollTo( 0, getRealOffsetTop( child.offsetTop ) );
+            if( child !== null )
+            {
+                window.scrollTo( 0, getRealOffsetTop( child.offsetTop ) );
+            }
         }
         this.state               = {
             taskStarted  : false,

@@ -27,7 +27,9 @@ var Task = function (_React$Component) {
         _this.handleRatingChange = _this.handleRatingChange.bind(_this);
         _this.handleCommentChange = _this.handleCommentChange.bind(_this);
         _this.childNodeRef = function (child) {
-            window.scrollTo(0, getRealOffsetTop(child.offsetTop));
+            if (child !== null) {
+                window.scrollTo(0, getRealOffsetTop(child.offsetTop));
+            }
         };
         _this.state = {
             taskStarted: false,

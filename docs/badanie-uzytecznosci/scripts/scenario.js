@@ -38,7 +38,9 @@ var Scenario = function (_React$Component) {
             }
         };
         _this.childNodeRef = function (child) {
-            window.scrollTo(0, getRealOffsetTop(child.offsetTop));
+            if (child !== null) {
+                window.scrollTo(0, getRealOffsetTop(child.offsetTop));
+            }
         };
 
         if (_this.props.scenario.extraQuestions) {

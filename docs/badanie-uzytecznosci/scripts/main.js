@@ -446,7 +446,9 @@ window.onload = function () {
             };
 
             _this.childNodeRef = function (child) {
-                window.scrollTo(0, getRealOffsetTop(child.offsetTop));
+                if (child !== null) {
+                    window.scrollTo(0, getRealOffsetTop(child.offsetTop));
+                }
             };
             return _this;
         }
