@@ -9,7 +9,7 @@
     "@babel/preset-react": "^7.10.4"
   },
   "scripts": {
-    "babel": "npx babel --watch src/jsx --out-file-extension .min.js --out-dir docs/js --presets @babel/preset-react --minified"
+    "babel": "npx babel --watch src/jsx --out-file-extension .min.js --out-dir public/js --presets @babel/preset-react --minified"
   },
   "keywords": [],
   "author": "",
